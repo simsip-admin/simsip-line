@@ -1,0 +1,1 @@
+INDEX VERSION 1.126+C:\mali-workspace\.metadata\.plugins\org.eclipse.jdt.core

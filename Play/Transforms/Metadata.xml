@@ -1,0 +1,82 @@
+<metadata>
+  
+  <remove-node path="/api/package[@name='com.google.android.gms.drive']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.analytics']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.games']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.games.internal']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.wallet']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.maps.model']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.games.achievement']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.games.internal.game']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.games.internal.multiplayer']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.games.internal.notification']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.games.internal.player']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.games.internal.request']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.games.leaderboard']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.games.multiplayer']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.games.multiplayer.realtime']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.games.multiplayer.turnbased']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.games.request']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.location']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.maps']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.plus']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.plus.model.moments']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.plus.model.people']" />
+  <remove-node path="/api/package[@name='com.google.android.gms.common.api']" />
+
+
+
+  <attr path="/api/package[@name='com.google.android.gms.appstate']/class[@name='AppStateBuffer']/method[@name='get']" name="managedReturn">Java.Lang.Object</attr>
+  <attr path="/api/package[@name='com.google.android.gms.common.api']/class[@name='StatusCreator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
+  <attr path="/api/package[@name='com.google.android.gms.common.api']/class[@name='StatusCreator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
+  <attr path="/api/package[@name='com.google.android.gms.common.data']/class[@name='DataHolderCreator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
+  <attr path="/api/package[@name='com.google.android.gms.common.data']/class[@name='DataHolderCreator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
+  <!--
+  <attr path="/api/package[@name='com.google.android.gms.common.api']/class[@name='Status']/method[@name='Status' and count(parameter)=0]" name="managedReturn">Java.Lang.Object</attr>
+  -->
+
+  
+
+
+  <attr path="/api/package[@name='com.google.android.gms.ads.mediation']/interface[@name='MediationBannerListener']/method[@name='onAdClosed']" name="argsType">BannerAdClosedEventArgs</attr>
+  <attr path="/api/package[@name='com.google.android.gms.ads.mediation']/interface[@name='MediationBannerListener']/method[@name='onAdFailedToLoad']" name="argsType">BannerAdFailedEventArgs</attr>
+  <attr path="/api/package[@name='com.google.android.gms.ads.mediation']/interface[@name='MediationBannerListener']/method[@name='onAdLeftApplication']" name="argsType">BannerAdLeftApplicationEventArgs</attr>
+  <attr path="/api/package[@name='com.google.android.gms.ads.mediation']/interface[@name='MediationBannerListener']/method[@name='onAdLoaded']" name="argsType">BannerAdLoadedEventArgs</attr>
+  <attr path="/api/package[@name='com.google.android.gms.ads.mediation']/interface[@name='MediationBannerListener']/method[@name='onAdOpened']" name="argsType">BannerAdOpenedArgs</attr>
+
+  <attr path="/api/package[@name='com.google.gms.android.ads.mediation']/interface[@name='MediationInterstitialListener']/method[@name='onAdClosed']" name="argsType">InterstitialAdClosedEventArgs</attr>
+  <attr path="/api/package[@name='com.google.gms.android.ads.mediation']/interface[@name='MediationInterstitialListener']/method[@name='onAdFailedToLoad']" name="argsType">InterstitialAdFailedToLoadEventArgs</attr>
+  <attr path="/api/package[@name='com.google.gms.android.ads.mediation']/interface[@name='MediationInterstitialListener']/method[@name='onAdLeftApplication']" name="argsType">InterstitialAdLeftApplicationEventArgs</attr>
+  <attr path="/api/package[@name='com.google.gms.android.ads.mediation']/interface[@name='MediationInterstitialListener']/method[@name='onAdLoaded']" name="argsType">InterstitialAdLoadedEventArgs</attr>
+  <attr path="/api/package[@name='com.google.gms.android.ads.mediation']/interface[@name='MediationInterstitialListener']/method[@name='onAdOpened']" name="argsType">InterstitialAdOpenedEventArgs</attr>
+  
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationBannerListener']/method[@name='onDismissScreen']" name="argsType">BannerDismissScreenEventArgs</attr>
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationBannerListener']/method[@name='onFailedToReceiveAd']" name="argsType">BannerFailedToReceiveAdEventArgs</attr>
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationBannerListener']/method[@name='onLeaveApplication']" name="argsType">BannerLeaveApplicationEventArgs</attr>
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationBannerListener']/method[@name='onPresentScreen']" name="argsType">BannerPresentScreenEventArgs</attr>
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationBannerListener']/method[@name='onReceivedAd']" name="argsType">BannerReceiveAdEventArgs</attr>
+
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationInterstitialListener']/method[@name='onDismissScreen']" name="argsType">IntersitionalDismissScreenEventArgs</attr>
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationInterstitialListener']/method[@name='onFailedToReceiveAd']" name="argsType">IntersitionalFailedToReceiveAdEventArgs</attr>
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationInterstitialListener']/method[@name='onLeaveApplication']" name="argsType">InterstitialLeaveApplicationEventArgs</attr>
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationInterstitialListener']/method[@name='onPresentScreen']" name="argsType">InterstitialPresentScreenEventArgs</attr>
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationInterstitialListener']/method[@name='onReceivedAd']" name="argsType">InterstitialReceiveAdEventArgs</attr>
+
+  <!--
+  <remove-node path="/api/package[@name='com.google.ads.internal']" />
+  <remove-node path="/api/package[@name='com.google.ads.util']" />
+
+  <attr path="/api/package[@name='com.google.ads.mediation.customevent']" name="managedName">Com.Google.Ads.Mediation.CustomEvents</attr>
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationBannerListener']/method[@name='onDismissScreen']" name="argsType">BannerDismissScreenEventArgs</attr>
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationBannerListener']/method[@name='onFailedToReceiveAd']" name="argsType">BannerFailedToReceiveAdEventArgs</attr>
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationBannerListener']/method[@name='onLeaveApplication']" name="argsType">BannerLeaveApplicationEventArgs</attr>
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationBannerListener']/method[@name='onPresentScreen']" name="argsType">BannerPresentScreenEventArgs</attr>
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationBannerListener']/method[@name='onReceivedAd']" name="argsType">BannerReceiveAdEventArgs</attr>
+
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationInterstitialListener']/method[@name='onDismissScreen']" name="argsType">IntersitionalDismissScreenEventArgs</attr>
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationInterstitialListener']/method[@name='onFailedToReceiveAd']" name="argsType">IntersitionalFailedToReceiveAdEventArgs</attr>
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationInterstitialListener']/method[@name='onLeaveApplication']" name="argsType">InterstitialLeaveApplicationEventArgs</attr>
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationInterstitialListener']/method[@name='onPresentScreen']" name="argsType">InterstitialPresentScreenEventArgs</attr>
+  <attr path="/api/package[@name='com.google.ads.mediation']/interface[@name='MediationInterstitialListener']/method[@name='onReceivedAd']" name="argsType">InterstitialReceiveAdEventArgs</attr>
+  -->
+</metadata>

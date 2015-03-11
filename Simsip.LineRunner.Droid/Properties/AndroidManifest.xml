@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="com.simsip.line" android:versionCode="1" android:versionName="0.0.1">
+	<uses-sdk android:minSdkVersion="17" android:targetSdkVersion="21" />
+	<application android:label="com.simsip.line" android:icon="@drawable/icon">
+		<!--
+    http://stackoverflow.com/questions/19843784/google-play-services-library-update-and-missing-symbol-integer-google-play-serv
+    -->
+		<meta-data android:name="com.google.android.gms.version" android:value="4452000" />
+		<activity android:name="com.google.android.gms.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+	</application>
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+</manifest>

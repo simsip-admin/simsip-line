@@ -1,0 +1,188 @@
+
+{
+  "collisionbitplanes" : 
+  {
+    "names" : 
+    [
+      "bitplane1",
+      "bitplane2",
+      "bitplane3",
+      "bitplane4",
+      "bitplane5",
+      "bitplane6",
+      "bitplane7",
+      "bitplane8",
+      "bitplane9",
+      "bitplane10",
+      "bitplane11",
+      "bitplane12",
+      "bitplane13",
+      "bitplane14",
+      "bitplane15",
+      "bitplane16",
+      "bitplane17",
+      "bitplane18",
+      "bitplane19",
+      "bitplane20",
+      "bitplane21",
+      "bitplane22",
+      "bitplane23",
+      "bitplane24",
+      "bitplane25",
+      "bitplane26",
+      "bitplane27",
+      "bitplane28",
+      "bitplane29",
+      "bitplane30",
+      "bitplane31",
+      "bitplane32"
+    ]
+  },
+  "metaworld" : 
+  {
+    "allowSleep" : true,
+    "autoClearForces" : true,
+    "continuousPhysics" : true,
+    "exportOptions" : 
+    {
+      "compactCommonFloats" : true,
+      "compactZeroVecs" : true,
+      "saveFullPathForImages" : false,
+      "saveImagePathsRelativeToRUBEFile" : false,
+      "useHumanReadableFloats" : true,
+      "usePrettyPrint" : true
+    },
+    "gravity" : 
+    {
+      "x" : 0,
+      "y" : -10
+    },
+    "metabody" : 
+    [
+      
+      {
+        "angle" : 0,
+        "angularVelocity" : 0,
+        "awake" : true,
+        "fixture" : 
+        [
+          
+          {
+            "density" : 1,
+            "friction" : 0.2,
+            "id" : 2,
+            "name" : "fixture0",
+            "shapes" : 
+            [
+              
+              {
+                "type" : "polygon"
+              }
+            ],
+            "vertices" : 
+            {
+              "x" : 
+              [
+                0.7945876121520996,
+                1.023259401321411,
+                1.258111596107483,
+                1.434250712394714,
+                1.502234220504761,
+                1.526955485343933,
+                1.496053934097290,
+                1.496053814888001,
+                2.197520256042481,
+                2.197520256042481,
+                2.154257774353027,
+                2.138807296752930,
+                2.043012142181397,
+                1.897774696350098,
+                1.718545436859131,
+                1.465152263641357,
+                1.202488660812378,
+                1.011740922927856,
+                0.5271918177604675,
+                0.1116623282432556,
+                0.1023918688297272,
+                -0.0009235739707946777,
+                0.002167582511901856,
+                0.006596922874450684,
+                0.1085721850395203,
+                0.1209328174591065,
+                0.3310636878013611,
+                0.5766353607177734
+              ],
+              "y" : 
+              [
+                1.317794203758240,
+                1.178736925125122,
+                0.9284340143203735,
+                0.6008771657943726,
+                0.3629348278045654,
+                0.08173024654388428,
+                0.08482038974761963,
+                -0.02024495601654053,
+                -0.007884383201599121,
+                0.08173024654388428,
+                0.08791053295135498,
+                0.4680002927780151,
+                0.8419095873832703,
+                1.141655087471008,
+                1.407408833503723,
+                1.657711744308472,
+                1.849301695823669,
+                1.965841174125671,
+                2.119992733001709,
+                2.127416133880615,
+                2.155227661132813,
+                2.160848855972290,
+                1.545251607894898,
+                1.475392341613770,
+                1.469211935997009,
+                1.500113606452942,
+                1.484662771224976,
+                1.422329545021057
+              ]
+            }
+          }
+        ],
+        "id" : 2,
+        "linearVelocity" : 0,
+        "massData-I" : 6.896581172943115,
+        "massData-center" : 
+        {
+          "x" : 1.207371592521668,
+          "y" : 1.191664934158325
+        },
+        "massData-mass" : 1.927701234817505,
+        "name" : "Pipe3",
+        "position" : 0,
+        "type" : "dynamic"
+      }
+    ],
+    "metaimage" : 
+    [
+      
+      {
+        "aspectScale" : 1,
+        "center" : 
+        {
+          "x" : 0.9695887565612793,
+          "y" : 1.100197315216065
+        },
+        "file" : "../../../../Content/Models/Obstacles/Pipe3-thumbnail.png",
+        "filter" : 1,
+        "flip" : false,
+        "id" : 1,
+        "name" : "image0",
+        "opacity" : 0.5,
+        "scale" : 5.4
+      }
+    ],
+    "positionIterations" : 3,
+    "stepsPerSecond" : 60.0,
+    "subStepping" : false,
+    "velocityIterations" : 8,
+    "warmStarting" : true
+  }
+}

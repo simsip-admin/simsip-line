@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="190.96655"
+   height="8.5655422"
+   id="svg3496"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="Progress.svg">
+  <defs
+     id="defs3498" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.6"
+     inkscape:cx="97.410595"
+     inkscape:cy="-0.90048842"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1680"
+     inkscape:window-height="1027"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata3501">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-278.80244,-265.84727)">
+    <path
+       id="path5126"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       d="m 465.43869,266.1984 c 1.2725,5.42492 4.86125,-3.79849 4.26375,3.56875 -3.04125,10.93338 -7.24625,-0.99466 -12.785,0 -31.3025,2.17206 -60.44375,5.04377 -90.33,1.77002 -22.12625,-3.01791 -58.17875,0.295 -87.785,-3.54265 6.975,-3.10667 14.2425,-1.98409 21.3075,-1.79612 16.2125,0.46469 39.905,1.8144 52.8425,0 1.475,-0.18797 3.5475,-0.0418 5.10375,0 35.84125,1.2035 72.35,1.74913 107.3825,0"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\dev3\simsip-line\Simsip.LineRunner.Content\Content\Images\ProgressHighlight.png"
+       inkscape:export-xdpi="189.12988"
+       inkscape:export-ydpi="189.12988" />
+  </g>
+</svg>

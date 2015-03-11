@@ -1,0 +1,162 @@
+// Make sure to match precision in fragment shader
+precision mediump float;
+
+/*
+uniform mat4 World; // world matrix.
+uniform mat4 View; // the camera-view matrix.
+uniform mat4 Projection; // the camera-projection.
+*/
+
+/*
+uniform vec3 CameraPosition; // the camera-position.
+
+uniform float TimeOfDay; // Time of day.
+
+uniform vec4 HorizonColor; // Horizon color used for fogging.
+uniform vec4 SunColor;        
+uniform vec4 NightColor;
+
+uniform vec4 MorningTint;     
+uniform vec4 EveningTint; 
+
+uniform float FogNear; // Near fog plane.
+uniform float FogFar; // Far fog plane.
+
+// uniform sampler2D BlockTextureAtlasSampler;
+
+attribute vec4 PositionIn;             // : POSITION0;    
+attribute vec2 BlockTextureCoordIn;    // : TEXCOORD0;    // block texture uv-mapping coordinates.
+attribute float SunLightIn;            // : COLOR0;       // crack texture uv-mapping coordinates.
+
+// Commented out in original souce: float3 LocalLight         : COLOR1;       // ambient occlusion weight.
+
+varying vec4 PositionOut;           // : POSITION0;
+varying vec2 BlockTextureCoordOut;  // : TEXCOORD0;
+/*
+varying vec3 CameraViewOut;         // : TEXCOORD1;
+varying float DistanceOut;          // : TEXCOORD2;
+varying vec4 ColorOut;              // : COLOR0;
+*/
+
+attribute vec4 vPosition;
+
+void main()
+{
+    gl_Position = vPosition;
+    
+    /*
+    vec4 worldPosition = PositionIn * World;
+    vec4 viewPosition = worldPosition * View;
+
+    PositionOut = viewPosition * Projection;
+    
+    gl_Position = PositionOut;
+    
+    
+    vec3 worldPositionVec3 = worldPosition.xyz;
+    CameraViewOut = normalize(CameraPosition - worldPositionVec3);
+    DistanceOut = length(CameraPosition - worldPositionVec3);
+
+    BlockTextureCoordOut = BlockTextureCoordIn;
+
+    float sunColor = SunColor.r;
+
+    if(TimeOfDay <= 12.0)
+    {
+        sunColor *= TimeOfDay / 12.0;
+    } 
+    else
+    {
+        sunColor *= (TimeOfDay - 24.0) / -12.0;
+    } 
+
+    ColorOut.r = (sunColor * SunLightIn); // + (input.LocalLight.rgb);
+    ColorOut.g = (sunColor * SunLightIn); // + (input.LocalLight.rgb);
+    ColorOut.b = (sunColor * SunLightIn); // + (input.LocalLight.rgb);
+    ColorOut.a = 1.0;
+    */
+    
+	/* Keep out: below 
+	Assign the vertex's co-ordinates to the varyings */
+	/*
+	v.x = coord.x;
+	v.y = coord.y;
+	v.z = coord.z;
+    */
+	/* Apply the MVP matrix */
+	// gl_Position = camera * coord;
+}
+
+/*
+float4x4 World; // world matrix.
+float4x4 View; // the camera-view matrix.
+float4x4 Projection; // the camera-projection.
+float3 CameraPosition; // the camera-position.
+
+
+float TimeOfDay; // Time of day.
+
+float4 HorizonColor; // Horizon color used for fogging.
+float4 SunColor;		
+float4 NightColor;
+
+float4 MorningTint;		
+float4 EveningTint;	
+
+float FogNear; // Near fog plane.
+float FogFar; // Far fog plane.
+
+Texture BlockTextureAtlas;
+sampler BlockTextureAtlasSampler = sampler_state
+{
+	texture = <BlockTextureAtlas>;
+	magfilter = point; // filter for objects smaller than actual.
+	minfilter = point; // filter for objects larger than actual.
+	mipfilter = point; // filter for resizing the image up close and far away.
+	AddressU = WRAP;
+	AddressV = WRAP;
+};
+
+struct VertexShaderInput
+{
+    float4 Position				: POSITION0;	
+	float2 blockTextureCoord	: TEXCOORD0;	// block texture uv-mapping coordinates.
+	float SunLight				: COLOR0;		// crack texture uv-mapping coordinates.
+    //float3 LocalLight			: COLOR1;		// ambient occlusion weight.
+};
+
+struct VertexShaderOutput
+{
+    float4 Position				: POSITION0;
+    float2 blockTextureCoord	: TEXCOORD0;
+    float3 CameraView			: TEXCOORD1;
+    float Distance				: TEXCOORD2;
+	float4 Color				: COLOR0;
+};
+
+VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
+{
+    VertexShaderOutput output;
+
+    float4 worldPosition = mul(input.Position, World);
+    float4 viewPosition = mul(worldPosition, View);
+
+    output.Position = mul(viewPosition, Projection);
+    output.CameraView = normalize(CameraPosition - worldPosition);
+    output.Distance = length(CameraPosition - worldPosition);
+
+    output.blockTextureCoord = input.blockTextureCoord;
+
+	float sunColor = SunColor;
+
+	if(TimeOfDay <= 12)
+		sunColor *= TimeOfDay / 12;	
+	else
+		sunColor *= (TimeOfDay - 24) / -12;	
+
+	output.Color.rgb = (sunColor * input.SunLight); // + (input.LocalLight.rgb);
+	output.Color.a = 1;
+
+    return output;
+}
+*/

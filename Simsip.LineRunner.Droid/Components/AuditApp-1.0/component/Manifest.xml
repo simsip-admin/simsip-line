@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<component format="1" id="AuditApp">
+  <name>AuditApp</name>
+  <publisher>Kevin Skrei</publisher>
+  <publisher-url>http://kevinskrei.com</publisher-url>
+  <version>1.0</version>
+  <summary>Prompts users to review your app. Many options and two different customizable prompts.</summary>
+  <samples>
+    <sample id="AuditAppSamples">
+      <name>Different Android Audit Type Samples.</name>
+      <summary>3 different samples.</summary>
+    </sample>
+  </samples>
+</component>

@@ -1,0 +1,28 @@
+Copyright Information Concerning "Upscaled" by WeeHeeHee
+
+Thank you for downloading this pack!
+The copyright info is below: CC0 (AKA Public Domain) means you can do literally anything you want. You can:
+-share it
+-edit it
+-even claim it as your own
+-NO attribution is required!
+
+CC0
+To the extent possible under law, WeeHeeHee has waived all copyright and related or neighboring rights to Upscaled. This work is published from: New Zealand.
+But since you're here, there's a couple things I would like you to do. These are not legally required, only morally recommended.
+-Give a link to me on related websites in your download
+-Attribute it in some way so people can find the original pack
+-Be nice to me for putting in so much time
+-Don't bully others
+-Please don't redistribute in packs containing copyright-infringing textures because that's disrespectful
+
+
+Thanks!
+~WeeHeeHee
+
+Changelog:
+
+1.0 All blocks except: portals, fire, water, lava (as of 1.7) including chests, enchanting table book, and sign
+	title half-done, icons half-done, background, resource pack arrows
+1.01 Pickaxes and swords
+1.02 Bow, axes, shovels, ender pearl, wheat, shears, began diamond armor new pack.png

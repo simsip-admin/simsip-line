@@ -1,0 +1,21 @@
+# Blender MTL File: 'cola_can.blend'
+# Material Count: 2
+
+newmtl Body_1
+Ns 194.117647
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.300000 0.300000 0.300000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\QQL\Desktop\Products\Cola Can\Model\cola_can_blend\cola_can_tex.jpg
+
+newmtl White
+Ns 47.058824
+Ka 0.000000 0.000000 0.000000
+Kd 0.114106 0.110489 0.111567
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 2

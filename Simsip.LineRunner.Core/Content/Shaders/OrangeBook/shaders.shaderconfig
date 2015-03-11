@@ -1,0 +1,3413 @@
+---
+ShaderStockpile:
+  localTimeStamp: 1404487810720
+  shaderEffects:
+    ShaderEffect:
+      name: CH14 - Reflection and Refraction
+      vertexSources:
+        ShaderSource:
+          fileName: src/Refraction/CH14-refraction.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: src/Refraction/CH14-refraction.frag
+      CompilerSettings:
+        useCompiler: false
+        revisionTarget: r0p3
+        compilerPath: C:\Program Files (x86)\ARM\Mali Developer Tools\Mali Offline Compiler v4.2.0\malisc.exe
+        basePath: C:\dev3\simsip-line\Simsip.Line.Droid\Assets\Content\Shaders\OrangeBook
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [0.0, -180.0, 0.0, 40.0, 0.0, 180.0, 0.0, 40.0]
+      uniforms:
+        Uniform:
+          type: GL_FLOAT_MAT3
+          initialData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+          location: 2
+          name: NormalMatrix
+          pushed: true
+          mapping: NORMAL_MATRIX
+          finalData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+        Uniform:
+          type: GL_SAMPLER_CUBE
+          initialData:
+            SamplerCube:
+              numberOfImages: 6
+              name:
+                [grandcanyon_positive_x.png, grandcanyon_negative_x.png, grandcanyon_negative_y.png, grandcanyon_positive_y.png, grandcanyon_positive_z.png, grandcanyon_negative_z.png]
+              path:
+                [images/grandcanyon_positive_x.png, images/grandcanyon_negative_x.png, images/grandcanyon_negative_y.png, images/grandcanyon_positive_y.png, images/grandcanyon_positive_z.png, images/grandcanyon_negative_z.png]
+              usingBuiltinTexture:
+                [false, false, false, false, false, false]
+              builtinTexture:
+                [FLOORTILE, FLOORTILE, FLOORTILE, FLOORTILE, FLOORTILE, FLOORTILE]
+              parameterMag: LINEAR
+              parameterMin: LINEAR
+              parameterWrapS: CLAMP_TO_EDGE
+              parameterWrapT: CLAMP_TO_EDGE
+          location: 0
+          name: Cubemap
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            SamplerCube:
+              numberOfImages: 6
+              name:
+                [carpet.png, carpet.png, carpet.png, carpet.png, carpet.png, carpet.png]
+              path:
+                [null, null, null, null, null, null]
+              usingBuiltinTexture:
+                [true, true, true, true, true, true]
+              builtinTexture:
+                [FLOORTILE, FLOORTILE, FLOORTILE, FLOORTILE, FLOORTILE, FLOORTILE]
+              parameterMag: NEAREST
+              parameterMin: NEAREST
+              parameterWrapS: CLAMP_TO_EDGE
+              parameterWrapT: CLAMP_TO_EDGE
+        Uniform:
+          type: GL_FLOAT_MAT4
+          initialData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+          location: 1
+          name: ModelViewMatrix
+          pushed: true
+          mapping: CAMERA_MATRIX
+          finalData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+        Uniform:
+          type: GL_FLOAT_MAT4
+          initialData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+          location: 3
+          name: TextureMatrix
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+      attributes:
+        Attribute:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]-
+          location: 0
+          name: Vertex
+          pushed: true
+          mapping: VERTICES
+        Attribute:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]-
+          location: 1
+          name: Normal
+          pushed: true
+          mapping: NORMALS
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 30
+      geometry: PLANE
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO
+    ShaderEffect:
+      name: CH14 - WardBRDF
+      vertexSources:
+        ShaderSource:
+          fileName: src/WardBRDF/CH14-WardBRDF.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: src/WardBRDF/CH14-WardBRDF.frag
+      CompilerSettings:
+        useCompiler: false
+        revisionTarget: r0p3
+        compilerPath: C:\Program Files (x86)\ARM\Mali Developer Tools\Mali Offline Compiler v4.2.0\malisc.exe
+        basePath: C:\dev3\simsip-line\Simsip.Line.Droid\Assets\Content\Shaders\OrangeBook
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [0.0, -180.0, 0.0, 40.0, 0.0, 180.0, 0.0, 40.0]
+      uniforms:
+        Uniform:
+          type: GL_FLOAT_VEC2
+          initialData:
+            data:
+              -[0.08, 0.096]-
+          location: 0
+          name: A
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.08, 0.096]-
+        Uniform:
+          type: GL_FLOAT_MAT3
+          initialData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+          location: 3
+          name: NormalMatrix
+          pushed: true
+          mapping: NORMAL_MATRIX
+          finalData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[5.0, 5.0, 5.0]-
+          location: 1
+          name: LightDir
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[5.0, 5.0, 5.0]-
+        Uniform:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0, 1.0]-
+          location: 7
+          name: ViewPosition
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.0, 0.0, 0.0, 0.0]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[6.0, 6.0, 6.0]-
+          location: 5
+          name: Scale
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[6.0, 6.0, 6.0]-
+        Uniform:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[1.0, 0.82, 0.76, 1.0]-
+          location: 6
+          name: SurfaceColor
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[1.0, 0.82, 0.76, 1.0]-
+        Uniform:
+          type: GL_FLOAT_MAT4
+          initialData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+          location: 2
+          name: ModelViewMatrix
+          pushed: true
+          mapping: CAMERA_MATRIX
+          finalData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+        Uniform:
+          type: GL_FLOAT_VEC2
+          initialData:
+            data:
+              -[0.25, 0.047]-
+          location: 4
+          name: P
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.25, 0.047]-
+      attributes:
+        Attribute:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]-
+          location: 2
+          name: Tangent
+          pushed: true
+          mapping: TANGENTS
+        Attribute:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]-
+          location: 0
+          name: Vertex
+          pushed: true
+          mapping: VERTICES
+        Attribute:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]-
+          location: 1
+          name: Normal
+          pushed: true
+          mapping: NORMALS
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 30
+      geometry: ROCK
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO
+    ShaderEffect:
+      name: CH14 - Chromatic Aberration
+      vertexSources:
+        ShaderSource:
+          fileName: src/ChromaticAberration/CH14-chromaticAb.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: src/ChromaticAberration/CH14-chromaticAb.frag
+      CompilerSettings:
+        useCompiler: false
+        revisionTarget: r0p3
+        compilerPath: C:\Program Files (x86)\ARM\Mali Developer Tools\Mali Offline Compiler v4.2.0\malisc.exe
+        basePath: C:\dev3\simsip-line\Simsip.Line.Droid\Assets\Content\Shaders\OrangeBook
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [0.0, -180.0, 0.0, 40.0, 0.0, 180.0, 0.0, 40.0]
+      uniforms:
+        Uniform:
+          type: GL_FLOAT_MAT3
+          initialData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+          location: 2
+          name: NormalMatrix
+          pushed: true
+          mapping: NORMAL_MATRIX
+          finalData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+        Uniform:
+          type: GL_SAMPLER_CUBE
+          initialData:
+            SamplerCube:
+              numberOfImages: 6
+              name:
+                [grandcanyon_positive_x.png, grandcanyon_negative_x.png, grandcanyon_negative_y.png, grandcanyon_positive_y.png, grandcanyon_positive_z.png, grandcanyon_negative_z.png]
+              path:
+                [images/grandcanyon_positive_x.png, images/grandcanyon_negative_x.png, images/grandcanyon_negative_y.png, images/grandcanyon_positive_y.png, images/grandcanyon_positive_z.png, images/grandcanyon_negative_z.png]
+              usingBuiltinTexture:
+                [false, false, false, false, false, false]
+              builtinTexture:
+                [FLOORTILE, FLOORTILE, FLOORTILE, FLOORTILE, FLOORTILE, FLOORTILE]
+              parameterMag: LINEAR
+              parameterMin: LINEAR
+              parameterWrapS: CLAMP_TO_EDGE
+              parameterWrapT: CLAMP_TO_EDGE
+          location: 0
+          name: Cubemap
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            SamplerCube:
+              numberOfImages: 6
+              name:
+                [carpet.png, carpet.png, carpet.png, carpet.png, carpet.png, carpet.png]
+              path:
+                [null, null, null, null, null, null]
+              usingBuiltinTexture:
+                [true, true, true, true, true, true]
+              builtinTexture:
+                [FLOORTILE, FLOORTILE, FLOORTILE, FLOORTILE, FLOORTILE, FLOORTILE]
+              parameterMag: NEAREST
+              parameterMin: NEAREST
+              parameterWrapS: CLAMP_TO_EDGE
+              parameterWrapT: CLAMP_TO_EDGE
+        Uniform:
+          type: GL_FLOAT_MAT4
+          initialData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+          location: 1
+          name: ModelViewMatrix
+          pushed: true
+          mapping: CAMERA_MATRIX
+          finalData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+        Uniform:
+          type: GL_FLOAT_MAT4
+          initialData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+          location: 3
+          name: TextureMatrix
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+      attributes:
+        Attribute:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]-
+          location: 0
+          name: Vertex
+          pushed: true
+          mapping: VERTICES
+        Attribute:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]-
+          location: 1
+          name: Normal
+          pushed: true
+          mapping: NORMALS
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 30
+      geometry: PLANE
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO
+    ShaderEffect:
+      name: CH06 - Brick Effect
+      vertexSources:
+        ShaderSource:
+          fileName: src/BrickShader/brick.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: src/BrickShader/brick.frag
+      CompilerSettings:
+        useCompiler: true
+        revisionTarget: r0p3
+        compilerPath: C:\Program Files (x86)\ARM\Mali Developer Tools\Mali Offline Shader Compiler v4.0.0\bin\malisc.exe
+        basePath: C:\dev3\simsip-line\Simsip.Line.Droid\Assets\Content\Shaders\OrangeBook
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [45.0, 45.0, 0.0, 50.0, 45.0, -45.0, 0.0, 50.0]
+      uniforms:
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.45, 0.45, 0.45]-
+          location: 5
+          name: MortarColor
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.45, 0.45, 0.45]-
+        Uniform:
+          type: GL_FLOAT_MAT3
+          initialData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+          location: 6
+          name: NormalMatrix
+          pushed: true
+          mapping: NORMAL_MATRIX
+          finalData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 5.0]-
+          location: 3
+          name: LightPosition
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.0, 0.0, 5.0]-
+        Uniform:
+          type: GL_FLOAT_VEC2
+          initialData:
+            data:
+              -[0.3, 0.3]-
+          location: 2
+          name: BrickSize
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.3, 0.3]-
+        Uniform:
+          type: GL_FLOAT_MAT4
+          initialData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+          location: 4
+          name: ModelViewMatrix
+          pushed: true
+          mapping: CAMERA_MATRIX
+          finalData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[1.0, 0.0, 0.0]-
+          location: 0
+          name: BrickColor
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[1.0, 0.0, 0.0]-
+        Uniform:
+          type: GL_FLOAT_VEC2
+          initialData:
+            data:
+              -[0.85, 0.85]-
+          location: 1
+          name: BrickPct
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.85, 0.85]-
+      attributes:
+        Attribute:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]-
+          location: 1
+          name: normal
+          pushed: true
+          mapping: NORMALS
+        Attribute:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]-
+          location: 0
+          name: coord
+          pushed: true
+          mapping: VERTICES
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 30
+      geometry: PLANE
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO
+    ShaderEffect:
+      name: CH12 - UberLight
+      vertexSources:
+        ShaderSource:
+          fileName: src/UberLight/CH12-uberlight.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: src/UberLight/CH12-uberlight.frag
+      CompilerSettings:
+        useCompiler: false
+        revisionTarget: r0p3
+        compilerPath: C:\Program Files (x86)\ARM\Mali Developer Tools\Mali Offline Compiler v4.2.0\malisc.exe
+        basePath: C:\dev3\simsip-line\Simsip.Line.Droid\Assets\Content\Shaders\OrangeBook
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      uniforms:
+        Uniform:
+          type: GL_FLOAT_MAT4
+          initialData:
+            data:
+              -[[2.222222, 0.0, 0.0, 0.0], 
+              [0.0, 3.3333333, 0.0, 0.0], 
+              [0.0, 0.0, -0.33333334, -0.3333333], 
+              [0.0, 0.0, -1.3333334, 3.6666667]]-
+          location: 19
+          name: WCtoLC
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[[2.222222, 0.0, 0.0, 0.0], 
+              [0.0, 3.3333333, 0.0, 0.0], 
+              [0.0, 0.0, -0.33333334, -0.3333333], 
+              [0.0, 0.0, -1.3333334, 3.6666667]]-
+        Uniform:
+          type: GL_FLOAT_MAT4
+          initialData:
+            data:
+              -[[0.75, 0.0, 0.0, 0.0], 
+              [0.0, 0.5, 0.0, 0.0], 
+              [0.0, 0.0, -2.2, -0.8], 
+              [0.0, 0.0, -0.2, 0.2]]-
+          location: 20
+          name: WCtoLCit
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[[0.75, 0.0, 0.0, 0.0], 
+              [0.0, 0.5, 0.0, 0.0], 
+              [0.0, 0.0, -2.2, -0.8], 
+              [0.0, 0.0, -0.2, 0.2]]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[1.0, 1.0, 1.0]-
+          location: 6
+          name: LightColor
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[1.0, 1.0, 1.0]-
+        Uniform:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[5.0, 0.0, -5.0, 1.0]-
+          location: 18
+          name: ViewPosition
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[5.0, 0.0, -5.0, 1.0]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[1.6]-
+          location: 14
+          name: SeWidthEdge
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[1.6]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.5, 0.0, 0.0]-
+          location: 17
+          name: SurfaceWeights
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.5, 0.0, 0.0]-
+        Uniform:
+          type: GL_BOOL
+          initialData:
+            data:
+              -[true]-
+          location: 1
+          name: BarnShaping
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[true]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[2.5]-
+          location: 3
+          name: DsFarEdge
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[2.5]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.4, 1.0, 0.4]-
+          location: 15
+          name: SurfaceColor
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.4, 1.0, 0.4]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[0.9]-
+          location: 2
+          name: DsFar
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.9]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[1.8]-
+          location: 12
+          name: SeRoundness
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[1.8]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[0.6]-
+          location: 10
+          name: SeHeight
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.6]-
+        Uniform:
+          type: GL_FLOAT_MAT4
+          initialData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+          location: 8
+          name: MCtoWC
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[0.4]-
+          location: 16
+          name: SurfaceRoughness
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.4]-
+        Uniform:
+          type: GL_FLOAT_MAT4
+          initialData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+          location: 9
+          name: MCtoWCit
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[0.4]-
+          location: 4
+          name: DsNear
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.4]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[0.2]-
+          location: 5
+          name: DsNearEdge
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.2]-
+        Uniform:
+          type: GL_BOOL
+          initialData:
+            data:
+              -[false]-
+          location: 0
+          name: AmbientClamping
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[false]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.5, 0.9, 0.4]-
+          location: 7
+          name: LightWeights
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.5, 0.9, 0.4]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[0.6]-
+          location: 13
+          name: SeWidth
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.6]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[1.6]-
+          location: 11
+          name: SeHeightEdge
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[1.6]-
+      attributes:
+        Attribute:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]-
+          location: 0
+          name: Vertex
+          pushed: true
+          mapping: VERTICES
+        Attribute:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]-
+          location: 1
+          name: Normal
+          pushed: true
+          mapping: NORMALS
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 1
+      geometry: CYLINDER
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO
+    ShaderEffect:
+      name: CH12 - Hemi Light
+      vertexSources:
+        ShaderSource:
+          fileName: src/HemiSphereLighting/CH12-hemiLight.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: src/HemiSphereLighting/CH12-hemiLight.frag
+      CompilerSettings:
+        useCompiler: false
+        revisionTarget: r0p3
+        compilerPath: C:\Program Files (x86)\ARM\Mali Developer Tools\Mali Offline Compiler v4.2.0\malisc.exe
+        basePath: C:\dev3\simsip-line\Simsip.Line.Droid\Assets\Content\Shaders\OrangeBook
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [0.0, 0.0, 0.0, 40.0, 0.0, 0.0, 0.0, 0.0]
+      uniforms:
+        Uniform:
+          type: GL_FLOAT_MAT3
+          initialData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+          location: 3
+          name: NormalMatrix
+          pushed: true
+          mapping: NORMAL_MATRIX
+          finalData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.2, 0.2, 0.2]-
+          location: 0
+          name: GroundColor
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.0, 0.0, 0.0]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[2.0, 8.0, -2.0]-
+          location: 1
+          name: LightPosition
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.0, 0.0, 0.0]-
+        Uniform:
+          type: GL_FLOAT_MAT4
+          initialData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+          location: 2
+          name: ModelViewMatrix
+          pushed: true
+          mapping: CAMERA_MATRIX
+          finalData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[1.0, 0.0, 1.0]-
+          location: 4
+          name: SkyColor
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.0, 0.0, 0.0]-
+      attributes:
+        Attribute:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]-
+          location: 0
+          name: Vertex
+          pushed: true
+          mapping: VERTICES
+        Attribute:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]-
+          location: 1
+          name: Normal
+          pushed: true
+          mapping: NORMALS
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 1
+      geometry: SPHERE
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO
+    ShaderEffect:
+      name: CH11 - Lattice
+      vertexSources:
+        ShaderSource:
+          fileName: src/Lattice/CH11-lattice.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: src/Lattice/CH11-lattice.frag
+      CompilerSettings:
+        useCompiler: false
+        revisionTarget: r0p3
+        compilerPath: C:\Program Files (x86)\ARM\Mali Developer Tools\Mali Offline Compiler v4.2.0\malisc.exe
+        basePath: C:\dev3\simsip-line\Simsip.Line.Droid\Assets\Content\Shaders\OrangeBook
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [45.0, 45.0, 0.0, 40.0, 45.0, -45.0, 0.0, 40.0]
+      uniforms:
+        Uniform:
+          type: GL_FLOAT_VEC2
+          initialData:
+            data:
+              -[10.0, 10.0]-
+          location: 6
+          name: Scale
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[10.0, 10.0]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[1.0, 0.5, 0.25]-
+          location: 8
+          name: SurfaceColor
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[1.0, 0.5, 0.25]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[1.0, 1.0, 1.0]-
+          location: 3
+          name: LightColor
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[1.0, 1.0, 1.0]-
+        Uniform:
+          type: GL_FLOAT_MAT3
+          initialData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+          location: 5
+          name: NormalMatrix
+          pushed: true
+          mapping: NORMAL_MATRIX
+          finalData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[1.0, 1.0, 1.0]-
+          location: 0
+          name: Ambient
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[1.0, 1.0, 1.0]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0]-
+          location: 1
+          name: EyePosition
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.0, 0.0, 0.0]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[0.7]-
+          location: 2
+          name: Kd
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.7]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[1.0, 1.0, 1.0]-
+          location: 7
+          name: Specular
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[1.0, 1.0, 1.0]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 5.0]-
+          location: 4
+          name: LightPosition
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.0, 0.0, 5.0]-
+        Uniform:
+          type: GL_FLOAT_MAT4
+          initialData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+          location: 10
+          name: camera
+          pushed: true
+          mapping: CAMERA_MATRIX
+          finalData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+        Uniform:
+          type: GL_FLOAT_VEC2
+          initialData:
+            data:
+              -[0.13, 0.13]-
+          location: 9
+          name: Threshold
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.13, 0.13]-
+      attributes:
+        Attribute:
+          type: GL_FLOAT_VEC2
+          initialData:
+            data:
+              -[0.0, 0.0]
+              -[0.0, 0.0]
+              -[0.0, 0.0]
+              -[0.0, 0.0]
+              -[0.0, 0.0]
+              -[0.0, 0.0]-
+          location: 0
+          name: TextureCoords
+          pushed: true
+          mapping: TEXCOORDS
+        Attribute:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]-
+          location: 1
+          name: Vertex
+          pushed: true
+          mapping: VERTICES
+        Attribute:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]-
+          location: 2
+          name: Normal
+          pushed: true
+          mapping: NORMALS
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 30
+      geometry: TORUS
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO
+    ShaderEffect:
+      name: CH12 - Spherical Harmonics Lighting
+      vertexSources:
+        ShaderSource:
+          fileName: src/SphericalHarmonicsLighting/CH12-shLight.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: src/SphericalHarmonicsLighting/CH12-shLight.frag
+      CompilerSettings:
+        useCompiler: false
+        revisionTarget: r0p3
+        compilerPath: C:\Program Files (x86)\ARM\Mali Developer Tools\Mali Offline Compiler v4.2.0\malisc.exe
+        basePath: C:\dev3\simsip-line\Simsip.Line.Droid\Assets\Content\Shaders\OrangeBook
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [45.0, 45.0, 0.0, 40.0, 45.0, -45.0, 0.0, 40.0]
+      uniforms:
+        Uniform:
+          type: GL_FLOAT_MAT3
+          initialData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+          location: 1
+          name: NormalMatrix
+          pushed: true
+          mapping: NORMAL_MATRIX
+          finalData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+        Uniform:
+          type: GL_FLOAT_MAT4
+          initialData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+          location: 0
+          name: Camera
+          pushed: true
+          mapping: CAMERA_MATRIX
+          finalData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[0.9]-
+          location: 2
+          name: ScaleFactor
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.9]-
+      attributes:
+        Attribute:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]-
+          location: 1
+          name: Vertex
+          pushed: true
+          mapping: VERTICES
+        Attribute:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]-
+          location: 0
+          name: Normal
+          pushed: true
+          mapping: NORMALS
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 30
+      geometry: SPHERE
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO
+    ShaderEffect:
+      name: CH 14 - DiffractionPerFragment
+      vertexSources:
+        ShaderSource:
+          fileName: src/DiffractionPerFragment/diffraction2.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: src/DiffractionPerFragment/diffraction2.frag
+      CompilerSettings:
+        useCompiler: false
+        revisionTarget: r0p3
+        compilerPath: C:\Program Files (x86)\ARM\Mali Developer Tools\Mali Offline Compiler v4.2.0\malisc.exe
+        basePath: C:\dev3\simsip-line\Simsip.Line.Droid\Assets\Content\Shaders\OrangeBook
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [0.0, -180.0, 0.0, 40.0, 0.0, 180.0, 0.0, 40.0]
+      uniforms:
+        Uniform:
+          type: GL_FLOAT_MAT3
+          initialData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+          location: 1
+          name: NormalMatrix
+          pushed: true
+          mapping: NORMAL_MATRIX
+          finalData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[5.0, 2.0, 0.0]-
+          location: 2
+          name: lightPosition
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[5.0, 2.0, 0.0]-
+        Uniform:
+          type: GL_FLOAT_MAT4
+          initialData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+          location: 0
+          name: ModelViewMatrix
+          pushed: true
+          mapping: CAMERA_MATRIX
+          finalData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+      attributes:
+        Attribute:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]-
+          location: 1
+          name: Tangent
+          pushed: true
+          mapping: TANGENTS
+        Attribute:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]-
+          location: 0
+          name: Vertex
+          pushed: true
+          mapping: VERTICES
+        Attribute:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]-
+          location: 2
+          name: Normal
+          pushed: true
+          mapping: NORMALS
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 30
+      geometry: PLANE
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO
+    ShaderEffect:
+      name: CH10 - Earth
+      vertexSources:
+        ShaderSource:
+          fileName: src/MultiTexturing/CH10-earth-3tex.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: src/MultiTexturing/CH10-earth-3tex.frag
+      CompilerSettings:
+        useCompiler: false
+        revisionTarget: r0p3
+        compilerPath: C:\Program Files (x86)\ARM\Mali Developer Tools\Mali Offline Compiler v4.2.0\malisc.exe
+        basePath: C:\dev3\simsip-line\Simsip.Line.Droid\Assets\Content\Shaders\OrangeBook
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [0.0, 180.0, 0.0, 40.0, 0.0, -180.0, 0.0, 40.0]
+      uniforms:
+        Uniform:
+          type: GL_FLOAT_MAT3
+          initialData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+          location: 5
+          name: NormalMatrix
+          pushed: true
+          mapping: NORMAL_MATRIX
+          finalData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+        Uniform:
+          type: GL_SAMPLER_2D
+          initialData:
+            Sampler2D:
+              numberOfImages: 1
+              name:
+                [Earth-Color.png]
+              path:
+                [images/Earth-Color.png]
+              usingBuiltinTexture:
+                [false]
+              builtinTexture:
+                [FLOORTILE]
+              parameterMag: LINEAR
+              parameterMin: LINEAR
+              parameterWrapS: CLAMP_TO_EDGE
+              parameterWrapT: CLAMP_TO_EDGE
+          location: 1
+          name: EarthDay
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            Sampler2D:
+              numberOfImages: 1
+              name:
+                [carpet.png]
+              path:
+                [null]
+              usingBuiltinTexture:
+                [true]
+              builtinTexture:
+                [FLOORTILE]
+              parameterMag: NEAREST
+              parameterMin: NEAREST
+              parameterWrapS: CLAMP_TO_EDGE
+              parameterWrapT: CLAMP_TO_EDGE
+        Uniform:
+          type: GL_SAMPLER_2D
+          initialData:
+            Sampler2D:
+              numberOfImages: 1
+              name:
+                [Earth-Night.png]
+              path:
+                [images/Earth-Night.png]
+              usingBuiltinTexture:
+                [false]
+              builtinTexture:
+                [FLOORTILE]
+              parameterMag: LINEAR
+              parameterMin: LINEAR
+              parameterWrapS: CLAMP_TO_EDGE
+              parameterWrapT: CLAMP_TO_EDGE
+          location: 2
+          name: EarthNight
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            Sampler2D:
+              numberOfImages: 1
+              name:
+                [carpet.png]
+              path:
+                [null]
+              usingBuiltinTexture:
+                [true]
+              builtinTexture:
+                [FLOORTILE]
+              parameterMag: NEAREST
+              parameterMin: NEAREST
+              parameterWrapS: CLAMP_TO_EDGE
+              parameterWrapT: CLAMP_TO_EDGE
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[5.0, 0.0, 4.0]-
+          location: 3
+          name: LightPosition
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[5.0, 0.0, 4.0]-
+        Uniform:
+          type: GL_FLOAT_MAT4
+          initialData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+          location: 4
+          name: ModelViewMatrix
+          pushed: true
+          mapping: CAMERA_MATRIX
+          finalData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+        Uniform:
+          type: GL_SAMPLER_2D
+          initialData:
+            Sampler2D:
+              numberOfImages: 1
+              name:
+                [cloudandgloss.png]
+              path:
+                [images/cloudandgloss.png]
+              usingBuiltinTexture:
+                [false]
+              builtinTexture:
+                [FLOORTILE]
+              parameterMag: LINEAR
+              parameterMin: LINEAR
+              parameterWrapS: CLAMP_TO_EDGE
+              parameterWrapT: CLAMP_TO_EDGE
+          location: 0
+          name: EarthCloudGloss
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            Sampler2D:
+              numberOfImages: 1
+              name:
+                [carpet.png]
+              path:
+                [null]
+              usingBuiltinTexture:
+                [true]
+              builtinTexture:
+                [FLOORTILE]
+              parameterMag: NEAREST
+              parameterMin: NEAREST
+              parameterWrapS: CLAMP_TO_EDGE
+              parameterWrapT: CLAMP_TO_EDGE
+      attributes:
+        Attribute:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]-
+          location: 0
+          name: Vertex
+          pushed: true
+          mapping: VERTICES
+        Attribute:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]-
+          location: 1
+          name: Normal
+          pushed: true
+          mapping: NORMALS
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 80
+      geometry: SPHERE
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO
+    ShaderEffect:
+      name: CH11 - Stripe
+      vertexSources:
+        ShaderSource:
+          fileName: src/Stripe/CH11-stripe.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: src/Stripe/CH11-stripe.frag
+      CompilerSettings:
+        useCompiler: false
+        revisionTarget: r0p3
+        compilerPath: C:\Program Files (x86)\ARM\Mali Developer Tools\Mali Offline Compiler v4.2.0\malisc.exe
+        basePath: C:\dev3\simsip-line\Simsip.Line.Droid\Assets\Content\Shaders\OrangeBook
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [45.0, 45.0, 0.0, 40.0, -45.0, -45.0, 0.0, 40.0]
+      uniforms:
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[10.0]-
+          location: 8
+          name: Scale
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[10.0]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 1.0]-
+          location: 10
+          name: StripeColor
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.0, 0.0, 1.0]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[1.0, 1.0, 1.0]-
+          location: 5
+          name: LightColor
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[1.0, 1.0, 1.0]-
+        Uniform:
+          type: GL_FLOAT_MAT3
+          initialData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+          location: 7
+          name: NormalMatrix
+          pushed: true
+          mapping: NORMAL_MATRIX
+          finalData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[0.1]-
+          location: 3
+          name: Fuzz
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.1]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[1.0, 1.0, 1.0]-
+          location: 0
+          name: Ambient
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[1.0, 1.0, 1.0]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0]-
+          location: 2
+          name: EyePosition
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.0, 0.0, 0.0]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[0.7]-
+          location: 4
+          name: Kd
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.7]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 5.0]-
+          location: 6
+          name: LightPosition
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.0, 0.0, 5.0]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[1.0, 1.0, 1.0]-
+          location: 9
+          name: Specular
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[1.0, 1.0, 1.0]-
+        Uniform:
+          type: GL_FLOAT_MAT4
+          initialData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+          location: 12
+          name: camera
+          pushed: true
+          mapping: CAMERA_MATRIX
+          finalData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[1.0, 0.5, 0.25]-
+          location: 1
+          name: BackColor
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[1.0, 0.5, 0.25]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[0.5]-
+          location: 11
+          name: Width
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.5]-
+      attributes:
+        Attribute:
+          type: GL_FLOAT_VEC2
+          initialData:
+            data:
+              -[0.0, 0.0]
+              -[0.0, 0.0]
+              -[0.0, 0.0]
+              -[0.0, 0.0]
+              -[0.0, 0.0]
+              -[0.0, 0.0]-
+          location: 0
+          name: TextureCoords
+          pushed: true
+          mapping: TEXCOORDS
+        Attribute:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]-
+          location: 1
+          name: Vertex
+          pushed: true
+          mapping: VERTICES
+        Attribute:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]-
+          location: 2
+          name: Normal
+          pushed: true
+          mapping: NORMALS
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 30
+      geometry: CYLINDER
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO
+    ShaderEffect:
+      name: CH11 - Toy Ball
+      vertexSources:
+        ShaderSource:
+          fileName: src/ToyBall/CH11-toyball.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: src/ToyBall/CH11-toyball.frag
+      CompilerSettings:
+        useCompiler: false
+        revisionTarget: r0p3
+        compilerPath: C:\Program Files (x86)\ARM\Mali Developer Tools\Mali Offline Compiler v4.2.0\malisc.exe
+        basePath: C:\dev3\simsip-line\Simsip.Line.Droid\Assets\Content\Shaders\OrangeBook
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [44.0, 45.0, 0.0, 40.0, 45.0, -45.0, 0.0, 40.0]
+      uniforms:
+        Uniform:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[-0.809017, 0.587785, 0.0, 0.2]-
+          location: 6
+          name: HalfSpace2
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[-0.809017, 0.587785, 0.0, 0.2]-
+        Uniform:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.4, 0.4, 0.4, 60.0]-
+          location: 13
+          name: SpecularColor
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.4, 0.4, 0.4, 60.0]-
+        Uniform:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.309017, 0.951056, 0.0, 0.2]-
+          location: 5
+          name: HalfSpace1
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.309017, 0.951056, 0.0, 0.2]-
+        Uniform:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.6, 0.5, 0.0, 1.0]-
+          location: 15
+          name: Yellow
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.6, 0.5, 0.0, 1.0]-
+        Uniform:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[1.0, 0.0, 0.0, 0.2]-
+          location: 4
+          name: HalfSpace0
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[1.0, 0.0, 0.0, 0.2]-
+        Uniform:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.0, 0.3, 0.6, 1.0]-
+          location: 1
+          name: Blue
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.0, 0.3, 0.6, 1.0]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[0.0050]-
+          location: 2
+          name: FWidth
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.0050]-
+        Uniform:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0, 0.0]-
+          location: 3
+          name: HVector
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.0, 0.0, 0.0, 0.0]-
+        Uniform:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.6, 0.0, 0.0, 1.0]-
+          location: 12
+          name: Red
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.6, 0.0, 0.0, 1.0]-
+        Uniform:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0, 0.0]-
+          location: 0
+          name: BallCenter
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.0, 0.0, 0.0, 0.0]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[-3.0]-
+          location: 9
+          name: InOrOutInit
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[-3.0]-
+        Uniform:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.0, 0.0, -1.0, 0.0]-
+          location: 10
+          name: LightDir
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.0, 0.0, -1.0, 0.0]-
+        Uniform:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.309017, -0.951056, 0.0, 0.2]-
+          location: 8
+          name: HalfSpace4
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.309017, -0.951056, 0.0, 0.2]-
+        Uniform:
+          type: GL_FLOAT_MAT4
+          initialData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+          location: 11
+          name: ModelViewMatrix
+          pushed: true
+          mapping: CAMERA_MATRIX
+          finalData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[0.3]-
+          location: 14
+          name: StripeWidth
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.3]-
+        Uniform:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[-0.8090169, -0.587785, 0.0, 0.2]-
+          location: 7
+          name: HalfSpace3
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[-0.8090169, -0.587785, 0.0, 0.2]-
+      attributes:
+        Attribute:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]-
+          location: 0
+          name: Vertex
+          pushed: true
+          mapping: VERTICES
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 30
+      geometry: SPHERE
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO
+    ShaderEffect:
+      name: CH10 - Glyph Bomb
+      vertexSources:
+        ShaderSource:
+          fileName: src/GlyphBomb/glyphbomb.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: src/GlyphBomb/glyphbomb.frag
+      CompilerSettings:
+        useCompiler: false
+        revisionTarget: r0p3
+        compilerPath: C:\Program Files (x86)\ARM\Mali Developer Tools\Mali Offline Compiler v4.2.0\malisc.exe
+        basePath: C:\dev3\simsip-line\Simsip.Line.Droid\Assets\Content\Shaders\OrangeBook
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [0.0, 40.0, 0.0, 50.0, 45.0, -45.0, 0.0, 50.0]
+      uniforms:
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[10.0]-
+          location: 11
+          name: ScaleFactor
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[10.0]-
+        Uniform:
+          type: GL_SAMPLER_2D
+          initialData:
+            Sampler2D:
+              numberOfImages: 1
+              name:
+                [carpet.png]
+              path:
+                [null]
+              usingBuiltinTexture:
+                [true]
+              builtinTexture:
+                [NOISE]
+              parameterMag: NEAREST
+              parameterMin: NEAREST
+              parameterWrapS: CLAMP_TO_EDGE
+              parameterWrapT: CLAMP_TO_EDGE
+          location: 9
+          name: RandomTex
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            Sampler2D:
+              numberOfImages: 1
+              name:
+                [carpet.png]
+              path:
+                [null]
+              usingBuiltinTexture:
+                [true]
+              builtinTexture:
+                [FLOORTILE]
+              parameterMag: NEAREST
+              parameterMin: NEAREST
+              parameterWrapS: CLAMP_TO_EDGE
+              parameterWrapT: CLAMP_TO_EDGE
+        Uniform:
+          type: GL_FLOAT_MAT3
+          initialData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+          location: 4
+          name: NormalMatrix
+          pushed: true
+          mapping: NORMAL_MATRIX
+          finalData:
+            data:
+              -[[0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0], 
+              [0.0, 0.0, 0.0]]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[0.29]-
+          location: 6
+          name: RO1
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.29]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[0.2]-
+          location: 12
+          name: SpecularContribution
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.2]-
+        Uniform:
+          type: GL_BOOL
+          initialData:
+            data:
+              -[true]-
+          location: 7
+          name: RandomRotate
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[true]-
+        Uniform:
+          type: GL_FLOAT_MAT4
+          initialData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+          location: 13
+          name: camera
+          pushed: true
+          mapping: CAMERA_MATRIX
+          finalData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+        Uniform:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 6.0]-
+          location: 2
+          name: LightPosition
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.0, 0.0, 6.0]-
+        Uniform:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[1.0, 1.0, 1.0, 1.0]-
+          location: 3
+          name: ModelColor
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[1.0, 1.0, 1.0, 1.0]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[0.75]-
+          location: 0
+          name: ColAdjust
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[0.75]-
+        Uniform:
+          type: GL_BOOL
+          initialData:
+            data:
+              -[false]-
+          location: 8
+          name: RandomScale
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[false]-
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[1.0]-
+          location: 5
+          name: Percentage
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[1.0]-
+        Uniform:
+          type: GL_SAMPLER_2D
+          initialData:
+            Sampler2D:
+              numberOfImages: 1
+              name:
+                [Glyph-Bombing.png]
+              path:
+                [images/Glyph-Bombing.png]
+              usingBuiltinTexture:
+                [false]
+              builtinTexture:
+                [FLOORTILE]
+              parameterMag: NEAREST
+              parameterMin: NEAREST
+              parameterWrapS: CLAMP_TO_EDGE
+              parameterWrapT: CLAMP_TO_EDGE
+          location: 1
+          name: GlyphTex
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            Sampler2D:
+              numberOfImages: 1
+              name:
+                [carpet.png]
+              path:
+                [null]
+              usingBuiltinTexture:
+                [true]
+              builtinTexture:
+                [FLOORTILE]
+              parameterMag: NEAREST
+              parameterMin: NEAREST
+              parameterWrapS: CLAMP_TO_EDGE
+              parameterWrapT: CLAMP_TO_EDGE
+        Uniform:
+          type: GL_FLOAT
+          initialData:
+            data:
+              -[1.0]-
+          location: 10
+          name: SamplesPerCell
+          pushed: true
+          mapping: USER_DEFINED
+          finalData:
+            data:
+              -[1.0]-
+      attributes:
+        Attribute:
+          type: GL_FLOAT_VEC2
+          initialData:
+            data:
+              -[0.0, 0.0]
+              -[0.0, 0.0]
+              -[0.0, 0.0]
+              -[0.0, 0.0]
+              -[0.0, 0.0]
+              -[0.0, 0.0]-
+          location: 0
+          name: TextureCoord
+          pushed: true
+          mapping: TEXCOORDS
+        Attribute:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]-
+          location: 1
+          name: Vertex
+          pushed: true
+          mapping: VERTICES
+        Attribute:
+          type: GL_FLOAT_VEC3
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0]-
+          location: 2
+          name: Normal
+          pushed: true
+          mapping: NORMALS
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 30
+      geometry: CUBE
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO

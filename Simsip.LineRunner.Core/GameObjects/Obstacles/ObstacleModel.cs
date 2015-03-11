@@ -1,0 +1,173 @@
+using Cocos2D;
+using Engine.Assets;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Simsip.LineRunner.Data.LineRunner;
+using Simsip.LineRunner.Entities.LineRunner;
+using Simsip.LineRunner.GameObjects.Lines;
+using Simsip.LineRunner.Physics;
+using Simsip.LineRunner.Utils;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using BEPUphysics.CollisionTests;
+using Simsip.LineRunner.GameFramework;
+using Simsip.LineRunner.Effects.Deferred;
+using Simsip.LineRunner.GameObjects.ParticleEffects;
+using ConversionHelper;
+using Simsip.LineRunner.GameObjects.Pages;
+
+
+namespace Simsip.LineRunner.GameObjects.Obstacles
+{
+    public class ObstacleModel : GameModel
+    {
+        // Services we'll need
+        private IPageCache _pageCache;
+
+        public ObstacleModel(ObstacleEntity obstacleEntity, PageObstaclesEntity pageObstaclesEntity)
+        {
+            TheObstacleEntity = obstacleEntity;
+            ThePageObstaclesEntity = pageObstaclesEntity;
+
+            Initialize();
+        }
+
+        #region Properties
+
+        /// <summary>
+        /// The additional database entries that describe this obstacle.
+        /// </summary>
+        public ObstacleEntity TheObstacleEntity { get; private set; }
+
+        /// <summary>
+        /// The additional database entries that describe the placement of this obstacle on a page.
+        /// </summary>
+        public PageObstaclesEntity ThePageObstaclesEntity { get; private set; }
+
+        /// <summary>
+        /// TODO: Don't we have this via the worlds translation?
+        /// The world-based offset in the X dimension for positioning this obstacle.
+        /// </summary>
+        public float WorldX { get; set; }
+
+        /// <summary>
+        /// The LogicalHeight converted into world coordinates.
+        /// </summary>
+        public float WorldHeightTruncated { get; set; }
+
+        public ObstacleType Type { get; set; }
+
+        public LineModel Line { get; set; }
+
+        public bool RemoveAfterUpdate { get; set; }
+
+        public Matrix RotationMatrix { get; set; }
+
+        /// <summary>
+        /// Physics contact point when hit.
+        /// </summary>
+        public Contact TheContact { get; set; }
+
+        #endregion
+
+        #region Overrides
+
+        public override void Initialize()
+        {
+            // Will pull in default services
+            base.Initialize();
+
+            // Import additional required services.
+            this._pageCache = (IPageCache)TheGame.SharedGame.Services.GetService(typeof(IPageCache));
+
+            // Determine and load appropriate xna model for line
+            var obstacleType = (ObstacleType)Enum.Parse(typeof(ObstacleType), ThePageObstaclesEntity.ObstacleType);
+            var modelRepository = new ModelRepository();
+            switch (obstacleType)
+            {
+                case ObstacleType.SimpleBottom:
+                case ObstacleType.SimpleTop:
+                    {
+                        TheModelEntity = modelRepository.GetModel(TheObstacleEntity.ModelName);
+                        var modelNameToLoad = string.IsNullOrEmpty(TheModelEntity.ModelAlias) ? TheModelEntity.ModelName : TheModelEntity.ModelAlias;
+                        XnaModel = _assetManager.GetModel(modelNameToLoad, ModelType.Obstacle);
+                        break;
+                    }
+                default:
+                    {
+                        throw new Exception("Unknown obstacle type in ObstacleModel.Initialize()");
+                    }
+            }
+
+            // Now that we have our model, we can initialize model transforms
+            _modelTransforms = new Matrix[XnaModel.Bones.Count];
+            XnaModel.CopyAbsoluteBoneTransformsTo(_modelTransforms);
+
+            // Did we do our initial load of the original effects for this model name?
+            if (!GameModel._originalEffectsDictionary.ContainsKey(TheObstacleEntity.ModelName))
+            {
+                // Ok, let's get the original effects stored away for this model name
+                GameModel._originalEffectsDictionary[TheObstacleEntity.ModelName] =
+                    XNAUtils.GetOriginalEffects(this.XnaModel);
+            }
+
+            // Safe to proceed and grab the original effects based on the model name, 
+            // critical for referencing original texture, etc.
+            this._originalEffects =
+                GameModel._originalEffectsDictionary[TheObstacleEntity.ModelName];
+
+            // Do we have any texture overrides?
+            this._textureOverrides = new List<Texture2D>();
+            var textureRepository = new TextureRepository();
+            var textureEntities = textureRepository.GetTextures(TheModelEntity.ModelName);
+            foreach(var textureEntity in textureEntities)
+            {
+                var texture = this._assetManager.GetModelTexture(TheModelEntity.ModelName, ModelType.Obstacle, textureEntity.TextureName);
+                this._textureOverrides.Add(texture);
+            }
+
+            // Do we have any particle effects?
+            this.ParticleEffectDescs = ParticleEffectFactory.Create(this);
+        }
+
+        public override void Draw(Matrix view, Matrix projection, Effect effect = null, EffectType type = EffectType.None)
+        {
+            if (effect == null)
+            {
+                XNAUtils.DefaultDrawState();
+            }
+
+            // TODO: Do we have to do this every draw?
+            // Adjust for physics centering at center of mesh
+            if (this.PhysicsEntity != null) // &&
+                // this.PhysicsLocalTransform != null) TODO: This is a struct, do we need some type of check?
+            {
+                var scaleMatrix = Matrix.CreateScale(this._pageCache.CurrentPageModel.ModelToWorldRatio);
+                this.WorldMatrix = scaleMatrix * this.RotationMatrix * MathConverter.Convert(this.PhysicsLocalTransform * this.PhysicsEntity.WorldTransform);
+            }
+
+            if (effect != null)
+            {
+                // Construct an appropriate clipping plane to use
+                var obstacleType = (ObstacleType)Enum.Parse(typeof(ObstacleType), ThePageObstaclesEntity.ObstacleType);
+                if (obstacleType == ObstacleType.SimpleBottom)
+                {
+                    var distance = this.WorldOrigin.Y + (this.WorldHeight - this.WorldHeightTruncated);
+                    effect.Parameters["xClippingPlane"].SetValue(new Vector4(Vector3.Up, -distance));
+                }
+                else if (obstacleType == ObstacleType.SimpleTop)
+                {
+                    var distance = this.WorldOrigin.Y + this.WorldHeightTruncated;
+                    effect.Parameters["xClippingPlane"].SetValue(new Vector4(Vector3.Down, distance));
+                }
+
+            }
+
+            base.Draw(view, projection, effect, type);
+        }
+
+        #endregion
+
+    }
+}

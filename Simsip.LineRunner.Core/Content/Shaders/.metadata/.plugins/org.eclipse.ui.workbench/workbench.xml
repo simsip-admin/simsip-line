@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbench progressCount="14" version="2.0">
+<workbenchAdvisor/>
+<window height="768" maximized="true" minimized="true" width="1024" x="3166" y="-19">
+<fastViewData fastViewLocation="1024"/>
+<perspectiveBar>
+<itemSize x="160"/>
+</perspectiveBar>
+<coolbarLayout locked="0">
+<coolItem id="group.file" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="103" y="22"/>
+<coolItem id="additions" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="57" y="22"/>
+<coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="103" y="22"/>
+<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="57" y="22"/>
+<coolItem id="group.nav" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="206" y="22"/>
+<coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="com.arm.mali.shaderdevelopmentstudio.editors.ShaderConfigEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="group.help" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
+</coolbarLayout>
+<page aggregateWorkingSetId="Aggregate for window 1403102725907" focus="true" label="Workspace - Shader Development Studio">
+<editors>
+<editorArea activeWorkbook="org.eclipse.ui.internal.EditorStack@78836b65">
+<info part="org.eclipse.ui.internal.EditorStack@78836b65">
+<folder appearance="1" expanded="2">
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info part="DefaultEditorWorkbook" ratio="0.4996115" ratioLeft="643" ratioRight="644" relationship="2" relative="org.eclipse.ui.internal.EditorStack@78836b65">
+<folder appearance="1" expanded="2">
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+</editorArea>
+<editor activePart="true" focus="true" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" name="BlockEffect.vert" partName="BlockEffect.vert" path="C:/dev3/simsip-line/Simsip.Line.Droid/Assets/Content/Shaders/Core/BlockEffect.vert" title="BlockEffect.vert" tooltip="Core/BlockEffect.vert" workbook="org.eclipse.ui.internal.EditorStack@78836b65">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Core/BlockEffect.vert"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1326" selectionTopPixel="360"/>
+</editor>
+<editor focus="true" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" name="BlockEffect.frag" partName="BlockEffect.frag" path="C:/dev3/simsip-line/Simsip.Line.Droid/Assets/Content/Shaders/Core/BlockEffect.frag" title="BlockEffect.frag" tooltip="Core/BlockEffect.frag" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Core/BlockEffect.frag"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="795" selectionTopPixel="120"/>
+</editor>
+</editors>
+<views>
+<view id="org.eclipse.jdt.ui.TypeHierarchy" partName="Hierarchy"/>
+<view id="org.eclipse.ui.views.ProblemView" partName="Problems">
+<viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
+<expanded>&#x0A;<category IMemento.internal.id="Warnings (3 items)"/>
+</expanded>
+<columnWidths org.eclipse.ui.ide.locationField="84" org.eclipse.ui.ide.markerType="124" org.eclipse.ui.ide.pathField="164" org.eclipse.ui.ide.resourceField="124" org.eclipse.ui.ide.severityAndDescriptionField="400"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.locationField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
+</viewState>
+</view>
+<view id="com.arm.mali.shaderdevelopmentstudio.ShaderControl" partName="Shader Control">
+<viewState/>
+</view>
+<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
+<viewState/>
+</view>
+<view id="org.eclipse.jdt.ui.PackageExplorer" partName="Package Explorer">
+<viewState group_libraries="1" layout="2" linkWithEditor="0" rootMode="1" workingSetName="Aggregate for window 1403102725907">
+<customFilters userDefinedPatternsEnabled="false">
+<xmlDefinedFilters>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.LibraryFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.LocalTypesFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.StaticsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.pde.ui.ExternalPluginLibrariesFilter1" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ClosedProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonSharedProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonJavaElementFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ContainedLibraryFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.CuAndClassFileFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonJavaProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.EmptyInnerPackageFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.PackageDeclarationFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.EmptyPackageFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ImportDeclarationFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.FieldsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.HideInnerClassFilesFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonPublicFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer_patternFilterId_.*" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.EmptyLibraryContainerFilter" isEnabled="true"/>
+<child filterId="org.eclipse.pde.ui.BinaryProjectFilter1" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.SyntheticMembersFilter" isEnabled="true"/>
+</xmlDefinedFilters>
+</customFilters>
+</viewState>
+</view>
+<view id="com.arm.mali.shaderdevelopmentstudio.ShaderAttributes" partName="Shader Attributes">
+<viewState/>
+</view>
+<view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
+<viewState/>
+</view>
+<view id="org.eclipse.jdt.ui.SourceView" partName="Declaration"/>
+<view id="com.arm.mali.shaderdevelopmentstudio.ShaderUniforms" partName="Shader Uniforms">
+<viewState/>
+</view>
+<view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
+</views>
+<perspectives activePart="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" activePerspective="com.arm.mali.shaderdevelopmentstudio.perspectives.ShaderDevelopmentStudioPerspective">
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.ui.JavaActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.ui.JavaElementCreationActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.debug.ui.JDTDebugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.junit.JUnitActionSet"/>
+<show_view_action id="org.eclipse.jdt.ui.PackageExplorer"/>
+<show_view_action id="org.eclipse.jdt.ui.TypeHierarchy"/>
+<show_view_action id="org.eclipse.jdt.ui.SourceView"/>
+<show_view_action id="org.eclipse.jdt.ui.JavadocView"/>
+<show_view_action id="org.eclipse.search.ui.views.SearchView"/>
+<show_view_action id="org.eclipse.ui.console.ConsoleView"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.ui.views.ProblemView"/>
+<show_view_action id="org.eclipse.ui.views.ResourceNavigator"/>
+<show_view_action id="org.eclipse.ui.views.TaskList"/>
+<show_view_action id="org.eclipse.ui.views.ProgressView"/>
+<show_view_action id="org.eclipse.ui.navigator.ProjectExplorer"/>
+<show_view_action id="org.eclipse.ui.texteditor.TemplatesView"/>
+<show_view_action id="org.eclipse.ant.ui.views.AntView"/>
+<show_view_action id="org.eclipse.pde.runtime.LogView"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.JavaProjectWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewPackageCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewClassCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewInterfaceCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewEnumCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewAnnotationCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewSourceFolderCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewSnippetFileCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewJavaWorkingSetWizard"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.folder"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.file"/>
+<new_wizard_action id="org.eclipse.ui.editors.wizards.UntitledTextFileWizard"/>
+<new_wizard_action id="org.eclipse.jdt.junit.wizards.NewTestCaseCreationWizard"/>
+<perspective_action id="org.eclipse.debug.ui.DebugPerspective"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaBrowsingPerspective"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="org.eclipse.jdt.ui.PackageExplorer"/>
+<view id="org.eclipse.jdt.ui.TypeHierarchy"/>
+<view id="org.eclipse.ui.views.ProblemView"/>
+<view id="org.eclipse.jdt.ui.JavadocView"/>
+<view id="org.eclipse.jdt.ui.SourceView"/>
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<fastViewBars/>
+<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="left">&#x0A;<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.jdt.ui.PackageExplorer" label="Package Explorer"/>
+<page content="org.eclipse.jdt.ui.TypeHierarchy" label="Hierarchy"/>
+<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
+<page content="org.eclipse.ui.navigator.ProjectExplorer" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.junit.ResultView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@99846fd" ratio="0.749499" ratioLeft="748" ratioRight="250" relationship="2" relative="left">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.249499" ratioLeft="249" ratioRight="749" relationship="2" relative="left"/>
+<info folder="true" part="bottom" ratio="0.7488152" ratioLeft="474" ratioRight="159" relationship="4" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.views.ProblemView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
+<page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
+<page content="org.eclipse.jdt.ui.SourceView" label="Declaration"/>
+<page content="org.eclipse.search.ui.views.SearchView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.console.ConsoleView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.ProgressView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="right" ratio="0.74899864" ratioLeft="561" ratioRight="188" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<page content="org.eclipse.ui.texteditor.TemplatesView" label="LabelNotFound"/>
+<page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+</presentation>
+</folder>
+</info>
+</mainWindow>
+</layout>
+</perspective>
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="com.arm.mali.shaderdevelopmentstudio.perspectives.ShaderDevelopmentStudioPerspective" id="com.arm.mali.shaderdevelopmentstudio.perspectives.ShaderDevelopmentStudioPerspective" label="Shader Development Studio"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<show_view_action id="com.arm.mali.shaderdevelopmentstudio.ShaderPreview"/>
+<show_view_action id="com.arm.mali.shaderdevelopmentstudio.ShaderControl"/>
+<show_view_action id="com.arm.mali.shaderdevelopmentstudio.ShaderAttributes"/>
+<show_view_action id="com.arm.mali.shaderdevelopmentstudio.ShaderUniforms"/>
+<show_view_action id="org.eclipse.ant.ui.views.AntView"/>
+<show_view_action id="org.eclipse.ui.console.ConsoleView"/>
+<show_view_action id="org.eclipse.ui.views.ProblemView"/>
+<show_view_action id="org.eclipse.jdt.ui.TypeHierarchy"/>
+<show_view_action id="org.eclipse.jdt.ui.JavadocView"/>
+<show_view_action id="org.eclipse.ui.navigator.ProjectExplorer"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.jdt.ui.PackageExplorer"/>
+<show_view_action id="org.eclipse.ui.views.TaskList"/>
+<show_view_action id="org.eclipse.ui.views.ProgressView"/>
+<show_view_action id="org.eclipse.search.ui.views.SearchView"/>
+<show_view_action id="org.eclipse.jdt.ui.SourceView"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.file"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.folder"/>
+<new_wizard_action id="com.arm.mali.shaderdevelopmentstudio.wizards.NewShaderConfigWizard"/>
+<new_wizard_action id="com.arm.mali.shaderdevelopmentstudio.wizards.NewVertexShaderWizard"/>
+<new_wizard_action id="com.arm.mali.shaderdevelopmentstudio.wizards.NewFragmentShaderWizard"/>
+<new_wizard_action id="com.arm.mali.shaderdevelopmentstudio.wizards.NewESSLFileWizard"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="org.eclipse.ui.views.ProblemView"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
+<view id="com.arm.mali.shaderdevelopmentstudio.ShaderControl"/>
+<view id="com.arm.mali.shaderdevelopmentstudio.ShaderAttributes"/>
+<view id="com.arm.mali.shaderdevelopmentstudio.ShaderUniforms"/>
+<view id="org.eclipse.jdt.ui.PackageExplorer"/>
+<fastViewBars/>
+<layout>
+<mainWindow>
+<info folder="true" part="topLeft">
+<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" appearance="2" expanded="2">
+<page content="org.eclipse.jdt.ui.PackageExplorer" label="Package Explorer"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="1569" ratioRight="523" relationship="2" relative="topLeft">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+</folder>
+</info>
+<info folder="true" part="bottom" ratio="0.7291842" ratioLeft="867" ratioRight="322" relationship="4" relative="topLeft">
+<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="1"/>
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="bottomRight" ratio="0.6496176" ratioLeft="1359" ratioRight="733" relationship="2" relative="bottom">
+<folder activePageID="com.arm.mali.shaderdevelopmentstudio.ShaderControl" appearance="2" expanded="2">
+<page content="com.arm.mali.shaderdevelopmentstudio.ShaderControl" label="Shader Control"/>
+<page content="com.arm.mali.shaderdevelopmentstudio.ShaderAttributes" label="Shader Attributes"/>
+<page content="com.arm.mali.shaderdevelopmentstudio.ShaderUniforms" label="Shader Uniforms"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="right" ratio="0.8185735" ratioLeft="1710" ratioRight="379" relationship="2" relative="topLeft">
+<folder appearance="2" expanded="2">
+<page content="com.arm.mali.shaderdevelopmentstudio.ShaderPreview" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.24944812" ratioLeft="339" ratioRight="1020" relationship="2" relative="topLeft"/>
+</mainWindow>
+</layout>
+</perspective>
+</perspectives>
+<workingSets/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" path="/Core/BlockEffect.frag"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" path="/Core/BlockEffect.vert"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" path="/Core/BasicEffectWorkspace.vert"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" path="/Core/BlockEffect.vert"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" path="/Core/BlockEffect.vert"/>
+</editors>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="1469" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="1">
+<position info="not_deleted" x="1741" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="48" y="24"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="1">
+<position/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="0" y="33"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="1">
+<position info="not_deleted" x="33" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="63" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="1">
+<position info="not_deleted" x="304" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="1407" y="0"/>
+</item>
+<item historyLabel="BasicEffectWorkspace.vert" index="2">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="1407" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="3">
+<position info="not_deleted" x="67" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="65" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="3">
+<position info="not_deleted" x="435" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="297" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="3">
+<position info="not_deleted" x="1100" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="433" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="3">
+<position info="not_deleted" x="2240" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="2110" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="3">
+<position info="not_deleted" x="1524" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="1065" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="3">
+<position info="not_deleted" x="1269" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="889" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="3">
+<position info="not_deleted" x="536" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="314" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="3">
+<position info="not_deleted" x="584" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="215" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="3">
+<position info="not_deleted" x="218" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="570" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="3">
+<position info="not_deleted" x="354" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="578" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="3">
+<position info="not_deleted" x="686" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="433" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="3">
+<position info="not_deleted" x="218" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="215" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="3">
+<position info="not_deleted" x="1471" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="1867" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="3">
+<position info="not_deleted" x="163" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="214" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="3">
+<position info="not_deleted" x="536" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="626" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="4">
+<position info="not_deleted" x="1335" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="1070" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="4">
+<position info="not_deleted" x="1093" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="213" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="4">
+<position info="not_deleted" x="1037" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="1013" y="0"/>
+</item>
+<item historyLabel="BlockEffect.vert" index="4">
+<position info="not_deleted" x="463" y="0"/>
+</item>
+<item historyLabel="BlockEffect.frag" index="0">
+<position info="not_deleted" x="795" y="0"/>
+</item>
+<item active="true" historyLabel="BlockEffect.vert" index="4">
+<position info="not_deleted" x="880" y="0"/>
+</item>
+</navigationHistory>
+<input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
+</page>
+<workbenchWindowAdvisor/>
+<actionBarAdvisor/>
+<trimLayout>
+<trimArea IMemento.internal.id="128">
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
+</trimArea>
+<trimArea IMemento.internal.id="1024">
+<trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
+<trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
+</trimArea>
+</trimLayout>
+</window>
+<mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" name="BasicEffectWorkspace.vert" tooltip="Core/BasicEffectWorkspace.vert">
+<persistable path="/Core/BasicEffectWorkspace.vert"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ShaderConfigEditor" name="shaders.shaderconfig" tooltip="Core/shaders.shaderconfig">
+<persistable path="/Core/shaders.shaderconfig"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" name="BlockEffect.vert" tooltip="Core/BlockEffect.vert">
+<persistable path="/Core/BlockEffect.vert"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" name="BlockEffect.frag" tooltip="Core/BlockEffect.frag">
+<persistable path="/Core/BlockEffect.frag"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" name="BasicEffect.frag" tooltip="Core/BasicEffect.frag">
+<persistable path="/Core/BasicEffect.frag"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" name="BasicEffect.vert" tooltip="Core/BasicEffect.vert">
+<persistable path="/Core/BasicEffect.vert"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" name="bumpmap.vert" tooltip="ShaderExamples/src/bumpmapping/bumpmap.vert">
+<persistable path="/ShaderExamples/src/bumpmapping/bumpmap.vert"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" name="brick.vert" tooltip="ShaderExamples/src/BrickEffect/brick.vert">
+<persistable path="/ShaderExamples/src/BrickEffect/brick.vert"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" name="brick.frag" tooltip="OrangeBook/src/BrickShader/brick.frag">
+<persistable path="/OrangeBook/src/BrickShader/brick.frag"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" name="brick.vert" tooltip="OrangeBook/src/BrickShader/brick.vert">
+<persistable path="/OrangeBook/src/BrickShader/brick.vert"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" name="Block.frag" tooltip="Core/Block.frag">
+<persistable path="/Core/Block.frag"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" name="glyphbomb.frag" tooltip="OrangeBook/src/GlyphBomb/glyphbomb.frag">
+<persistable path="/OrangeBook/src/GlyphBomb/glyphbomb.frag"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" name="glyphbomb.vert" tooltip="OrangeBook/src/GlyphBomb/glyphbomb.vert">
+<persistable path="/OrangeBook/src/GlyphBomb/glyphbomb.vert"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" name="CH11-toyball.vert" tooltip="OrangeBook/src/ToyBall/CH11-toyball.vert">
+<persistable path="/OrangeBook/src/ToyBall/CH11-toyball.vert"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.arm.mali.shaderdevelopmentstudio.editors.ESSLEditor" name="CH11-stripe.frag" tooltip="OrangeBook/src/Stripe/CH11-stripe.frag">
+<persistable path="/OrangeBook/src/Stripe/CH11-stripe.frag"/>
+</file>
+</mruList>
+</workbench>

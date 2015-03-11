@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A35DC14F-22CE-46AC-9B0E-BAB2047E4AED}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Simsip.LineRunner</RootNamespace>
+    <AssemblyName>Simsip.LineRunner.I18N</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .NET Framework is automatically included -->
+    <EmbeddedResource Include="Resources\AppResources.de.resx" />
+    <EmbeddedResource Include="Resources\AppResources.es.resx" />
+    <EmbeddedResource Include="Resources\AppResources.fr.resx" />
+    <EmbeddedResource Include="Resources\AppResources.id-ID.resx" />
+    <EmbeddedResource Include="Resources\AppResources.it.resx" />
+    <EmbeddedResource Include="Resources\AppResources.ja-JP.resx" />
+    <EmbeddedResource Include="Resources\AppResources.ko-KR.resx" />
+    <EmbeddedResource Include="Resources\AppResources.nl.resx" />
+    <EmbeddedResource Include="Resources\AppResources.pl-PL.resx" />
+    <EmbeddedResource Include="Resources\AppResources.pt-BR.resx" />
+    <EmbeddedResource Include="Resources\AppResources.pt.resx" />
+    <EmbeddedResource Include="Resources\AppResources.qps-ploc.resx" />
+    <EmbeddedResource Include="Resources\AppResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>Simsip.LineRunner.Resources</CustomToolNamespace>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\AppResources.ru-RU.resx" />
+    <EmbeddedResource Include="Resources\AppResources.zh-Hans.resx" />
+    <EmbeddedResource Include="Resources\AppResources.zh-Hant.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\AppResources.Designer.cs">
+      <DependentUpon>AppResources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Resx2OthersTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resx2OthersTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Strings.cs">
+      <DependentUpon>Resx2Others.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ResourceService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <XliffResource Include="Resources\AppResources.de.xlf" />
+    <XliffResource Include="Resources\AppResources.es.xlf" />
+    <XliffResource Include="Resources\AppResources.fr.xlf" />
+    <XliffResource Include="Resources\AppResources.id-ID.xlf" />
+    <XliffResource Include="Resources\AppResources.it.xlf" />
+    <XliffResource Include="Resources\AppResources.ja-JP.xlf" />
+    <XliffResource Include="Resources\AppResources.ko-KR.xlf" />
+    <XliffResource Include="Resources\AppResources.nl.xlf" />
+    <XliffResource Include="Resources\AppResources.pl-PL.xlf" />
+    <XliffResource Include="Resources\AppResources.pt-BR.xlf" />
+    <XliffResource Include="Resources\AppResources.pt.xlf" />
+    <XliffResource Include="Resources\AppResources.qps-ploc.xlf" />
+    <XliffResource Include="Resources\AppResources.ru-RU.xlf" />
+    <XliffResource Include="Resources\AppResources.zh-Hans.xlf" />
+    <XliffResource Include="Resources\AppResources.zh-Hant.xlf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Resx2Others.log">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resx2Others.tt</DependentUpon>
+    </None>
+    <None Include="Resources\Resx2Others.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Resx2Others.log</LastGenOutput>
+      <LastOutputs>
+..\..\..\cocos2d-xna\box2d\de.lproj\Localizable.strings
+..\..\..\cocos2d-xna\box2d\en.lproj\Localizable.strings
+..\..\..\cocos2d-xna\box2d\es.lproj\Localizable.strings
+..\..\..\cocos2d-xna\box2d\fr.lproj\Localizable.strings
+..\..\..\cocos2d-xna\box2d\it.lproj\Localizable.strings
+..\..\..\cocos2d-xna\box2d\nl.lproj\Localizable.strings
+..\..\..\cocos2d-xna\box2d\pt.lproj\Localizable.strings
+.\Resx2Others.log
+.\Strings.cs
+</LastOutputs>
+    </None>
+    <None Include="Resources\Resx2OthersTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Resx2OthersTemplate.cs</LastGenOutput>
+      <LastOutputs>.\Resx2OthersTemplate.cs</LastOutputs>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

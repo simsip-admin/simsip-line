@@ -1,0 +1,98 @@
+// Have had issues using mediump
+precision mediump float;
+
+uniform mat4 World; // world matrix.
+uniform mat4 View; // the camera-view matrix.
+uniform mat4 Projection; // the camera-projection.
+uniform vec3 CameraPosition; // the camera-position.
+
+uniform float TimeOfDay; // Time of day.
+
+uniform vec4 HorizonColor; // Horizon color used for fogging.
+uniform vec4 SunColor;        
+uniform vec4 NightColor;
+
+uniform vec4 MorningTint;     
+uniform vec4 EveningTint; 
+
+uniform float FogNear; // Near fog plane.
+uniform float FogFar; // Far fog plane.
+
+uniform sampler2D BlockTextureAtlasSampler;
+
+varying vec4 PositionOut;           // : POSITION0;
+varying vec2 BlockTextureCoordOut;  // : TEXCOORD0;
+varying vec3 CameraViewOut;         // : TEXCOORD1;
+varying float DistanceOut;          // : TEXCOORD2;
+varying vec4 ColorOut;              // : COLOR0;
+
+
+void main()
+{
+    vec4 BlockTextureColor = texture2D(BlockTextureAtlasSampler, BlockTextureCoordOut);
+    
+    // http://www.ozone3d.net/blogs/lab/20080709/saturate-function-in-glsl/
+    // float fog = saturate((DistanceOut - FogNear) / (FogNear-FogFar));    
+    float fog = clamp((DistanceOut - FogNear) / (FogNear-FogFar), 0.0, 1.0);
+    
+    vec4 color;
+    color.rgb  = BlockTextureColor.rgb * ColorOut.rgb;
+    color.a = BlockTextureColor.a;
+    if(color.a == 0.0)
+    { 
+        discard; 
+    }
+
+    vec4 sunColor = SunColor;  
+    vec4 fogColor = HorizonColor;
+    vec4 nightColor = NightColor;
+
+    nightColor *= (4.0 - BlockTextureCoordOut.y) * 0.125;
+
+    if(TimeOfDay <= 12.0)
+    {
+        fogColor *= TimeOfDay / 12.0;
+    }
+    else
+    {
+        fogColor *= (TimeOfDay - 24.0) / -12.0;
+    } 
+    
+    fogColor += (MorningTint * .05) * ((24.0 - TimeOfDay)/24.0);
+    fogColor += (EveningTint * .05) * (TimeOfDay / 24.0); 
+    sunColor += nightColor;
+    fogColor += nightColor;
+    
+    gl_FragColor = mix(fogColor, color, fog);
+}
+
+/*
+float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
+{
+    float4 blockTextureColor = tex2D(BlockTextureAtlasSampler, input.blockTextureCoord);
+    float fog = saturate((input.Distance - FogNear) / (FogNear-FogFar));    
+
+    float4 color;
+	color.rgb  = blockTextureColor.rgb * input.Color.rgb;
+	color.a = blockTextureColor.a;
+    if(color.a == 0) { clip(-1); }
+
+	float4 sunColor = SunColor;	 
+	float4 fogColor = HorizonColor;
+    float4 nightColor = NightColor;
+
+	nightColor *= (4 - input.blockTextureCoord.y) * .125f;
+
+	if(TimeOfDay <= 12)
+		fogColor *= TimeOfDay / 12;
+	else
+		fogColor *= (TimeOfDay - 24) / -12;	
+
+	fogColor += (MorningTint * .05) * ((24 - TimeOfDay)/24);
+	fogColor += (EveningTint * .05) * (TimeOfDay / 24);	
+	sunColor += nightColor;
+	fogColor += nightColor;
+
+    return lerp(fogColor, color ,fog);
+}
+*/

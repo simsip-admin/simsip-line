@@ -1,0 +1,250 @@
+---
+ShaderStockpile:
+  localTimeStamp: 1404382435669
+  shaderEffects:
+    ShaderEffect:
+      name: PerlinNoise
+      vertexSources:
+        ShaderSource:
+          fileName: PerlinNoise.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: PerlinNoise.frag
+      CompilerSettings:
+        useCompiler: true
+        revisionTarget: 
+        compilerPath: malisc
+        basePath: 
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      uniforms:
+      attributes:
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 1
+      geometry: PLANE
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO
+    ShaderEffect:
+      name: SkyDome
+      vertexSources:
+        ShaderSource:
+          fileName: SkyDome.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: SkyDome.frag
+      CompilerSettings:
+        useCompiler: true
+        revisionTarget: 
+        compilerPath: malisc
+        basePath: 
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      uniforms:
+      attributes:
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 1
+      geometry: PLANE
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO
+    ShaderEffect:
+      name: BasicEffectTemplate
+      vertexSources:
+        ShaderSource:
+          fileName: BasicEffectTemplate.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: BasicEffectTemplate.frag
+      CompilerSettings:
+        useCompiler: true
+        revisionTarget: r0p3
+        compilerPath: C:\Program Files (x86)\ARM\Mali Developer Tools\Mali Offline Shader Compiler v4.0.0\bin\malisc.exe
+        basePath: C:\dev3\simsip-line\Simsip.Line.Droid\Assets\Content\Shaders\Core
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      uniforms:
+      attributes:
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 1
+      geometry: PLANE
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO
+    ShaderEffect:
+      name: BlockEffect
+      vertexSources:
+        ShaderSource:
+          fileName: BlockEffect.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: BlockEffect.frag
+      CompilerSettings:
+        useCompiler: true
+        revisionTarget: r0p3
+        compilerPath: C:\Program Files (x86)\ARM\Mali Developer Tools\Mali Offline Shader Compiler v4.0.0\bin\malisc.exe
+        basePath: C:\dev3\simsip-line\Simsip.Line.Droid\Assets\Content\Shaders\Core
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      uniforms:
+      attributes:
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 1
+      geometry: PLANE
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO
+    ShaderEffect:
+      name: DualTextured
+      vertexSources:
+        ShaderSource:
+          fileName: DualTextured.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: DualTextured.frag
+      CompilerSettings:
+        useCompiler: true
+        revisionTarget: 
+        compilerPath: malisc
+        basePath: 
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      uniforms:
+      attributes:
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 1
+      geometry: PLANE
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO
+    ShaderEffect:
+      name: BasicEffectWorkspace
+      vertexSources:
+        ShaderSource:
+          fileName: BasicEffectWorkspace.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: BasicEffectWorkspace.frag
+      CompilerSettings:
+        useCompiler: true
+        revisionTarget: r0p3
+        compilerPath: C:\Program Files (x86)\ARM\Mali Developer Tools\Mali Offline Shader Compiler v4.0.0\bin\malisc.exe
+        basePath: C:\dev3\simsip-line\Simsip.Line.Droid\Assets\Content\Shaders\Core
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      uniforms:
+      attributes:
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 1
+      geometry: PLANE
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO

@@ -1,0 +1,407 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ResourceFlowDirection" xml:space="preserve">
+    <value>LeftToRight</value>
+    <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
+  </data>
+  <data name="ResourceLanguage" xml:space="preserve">
+    <value>en-US</value>
+    <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
+  </data>
+  <data name="ApplicationTitle" xml:space="preserve">
+    <value>MY APPLICATION</value>
+  </data>
+  <data name="AppBarButtonText" xml:space="preserve">
+    <value>add</value>
+  </data>
+  <data name="AppBarMenuItemText" xml:space="preserve">
+    <value>Menu Item</value>
+  </data>
+  <data name="CommonPage1Of4" xml:space="preserve">
+    <value>page 1 of 4</value>
+  </data>
+  <data name="CommonPage2Of4" xml:space="preserve">
+    <value>page 2 of 4</value>
+  </data>
+  <data name="CommonPage3Of4" xml:space="preserve">
+    <value>page 3 of 4</value>
+  </data>
+  <data name="CommonPage4Of4" xml:space="preserve">
+    <value>page 4 of 4</value>
+  </data>
+  <data name="CommonPage1Of3" xml:space="preserve">
+    <value>page 1 of 3</value>
+  </data>
+  <data name="CommonPage2Of3" xml:space="preserve">
+    <value>page 2 of 3</value>
+  </data>
+  <data name="CommonVersion" xml:space="preserve">
+    <value>version</value>
+  </data>
+  <data name="HelpFreeFlight" xml:space="preserve">
+    <value>free flight</value>
+  </data>
+  <data name="HelpfreeFlightDescription1" xml:space="preserve">
+    <value>tap free flight to explore your world</value>
+  </data>
+  <data name="HelpfreeFlightDescription2" xml:space="preserve">
+    <value>use joystick to navigate your world</value>
+  </data>
+  <data name="HelpHelpDescription" xml:space="preserve">
+    <value>help screen</value>
+  </data>
+  <data name="HelpHowToPlay" xml:space="preserve">
+    <value>how to play</value>
+  </data>
+  <data name="HelpHowToPlayDescription1" xml:space="preserve">
+    <value>tap to avoid lines and obstacles</value>
+  </data>
+  <data name="HelpHowToPlayDescription2" xml:space="preserve">
+    <value>use joystick to adjust your view</value>
+  </data>
+  <data name="HelpLines" xml:space="preserve">
+    <value>change the line for the pad</value>
+  </data>
+  <data name="HelpOptions" xml:space="preserve">
+    <value>options</value>
+  </data>
+  <data name="HelpOptionsDescription" xml:space="preserve">
+    <value>game options</value>
+  </data>
+  <data name="HelpPads" xml:space="preserve">
+    <value>change the pad you play on</value>
+  </data>
+  <data name="HelpRatingsDescription" xml:space="preserve">
+    <value>rate us</value>
+  </data>
+  <data name="HelpResourcePacks" xml:space="preserve">
+    <value>set resource pack for world</value>
+  </data>
+  <data name="HelpStartDescription" xml:space="preserve">
+    <value>play game</value>
+  </data>
+  <data name="HelpTitle" xml:space="preserve">
+    <value>help</value>
+  </data>
+  <data name="HelpWorlds" xml:space="preserve">
+    <value>create and manage your worlds</value>
+  </data>
+  <data name="OptionsCredits" xml:space="preserve">
+    <value>credits</value>
+  </data>
+  <data name="OptionsLeaderboards" xml:space="preserve">
+    <value>leaderboards</value>
+  </data>
+  <data name="OptionsLines" xml:space="preserve">
+    <value>lines</value>
+  </data>
+  <data name="OptionsPads" xml:space="preserve">
+    <value>pads</value>
+  </data>
+  <data name="OptionsResourcePacks" xml:space="preserve">
+    <value>resource packs</value>
+  </data>
+  <data name="OptionsSoundOff" xml:space="preserve">
+    <value>sound off</value>
+  </data>
+  <data name="OptionsSoundOn" xml:space="preserve">
+    <value>sound on</value>
+  </data>
+  <data name="OptionsTime" xml:space="preserve">
+    <value>time</value>
+  </data>
+  <data name="OptionsTitle" xml:space="preserve">
+    <value>options</value>
+  </data>
+  <data name="OptionsWorlds" xml:space="preserve">
+    <value>worlds</value>
+  </data>
+  <data name="AchievementsAverageGlobalScore" xml:space="preserve">
+    <value>average global score</value>
+  </data>
+  <data name="AchievementsLeaderboards" xml:space="preserve">
+    <value>leaderboards</value>
+  </data>
+  <data name="AchievementsTopGlobalScores" xml:space="preserve">
+    <value>top global scores</value>
+  </data>
+  <data name="AchievementsTopScoresFor" xml:space="preserve">
+    <value>top scores for</value>
+  </data>
+  <data name="AdminKillOff" xml:space="preserve">
+    <value>kill off</value>
+  </data>
+  <data name="AdminKillOn" xml:space="preserve">
+    <value>kill on</value>
+  </data>
+  <data name="AdminParticlesOff" xml:space="preserve">
+    <value>particles off</value>
+  </data>
+  <data name="AdminParticlesOn" xml:space="preserve">
+    <value>particles on</value>
+  </data>
+  <data name="AdminStartPage" xml:space="preserve">
+    <value>start page</value>
+  </data>
+  <data name="AdminStartPageDescription" xml:space="preserve">
+    <value>enter page to start on</value>
+  </data>
+  <data name="CommonCancel" xml:space="preserve">
+    <value>cancel</value>
+  </data>
+  <data name="CommonDelete" xml:space="preserve">
+    <value>delete</value>
+  </data>
+  <data name="CommonError" xml:space="preserve">
+    <value>error</value>
+  </data>
+  <data name="CommonNo" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="CommonOK" xml:space="preserve">
+    <value>ok</value>
+  </data>
+  <data name="CommonYes" xml:space="preserve">
+    <value>yes</value>
+  </data>
+  <data name="CreditsCreatedBy" xml:space="preserve">
+    <value>created by</value>
+  </data>
+  <data name="CreditsCreatedBySimsip" xml:space="preserve">
+    <value>simsip, llc</value>
+  </data>
+  <data name="CreditsIconsdBy" xml:space="preserve">
+    <value>icons by</value>
+  </data>
+  <data name="CreditsIconsdByFreepik" xml:space="preserve">
+    <value>freepik (freepik.com)</value>
+  </data>
+  <data name="FinishNewHighScore" xml:space="preserve">
+    <value>new high score</value>
+  </data>
+  <data name="FinishPost" xml:space="preserve">
+    <value>post</value>
+  </data>
+  <data name="FinishScore" xml:space="preserve">
+    <value>score</value>
+  </data>
+  <data name="FinishTopScoresFor" xml:space="preserve">
+    <value>top scores for</value>
+  </data>
+  <data name="HudFreeFlight" xml:space="preserve">
+    <value>free flight</value>
+  </data>
+  <data name="HudLine" xml:space="preserve">
+    <value>line</value>
+  </data>
+  <data name="HudPage" xml:space="preserve">
+    <value>page</value>
+  </data>
+  <data name="HudResume" xml:space="preserve">
+    <value>resume</value>
+  </data>
+  <data name="IntroGeneratingTerrain" xml:space="preserve">
+    <value>generating terrain</value>
+  </data>
+  <data name="IntroLoadingModels" xml:space="preserve">
+    <value>loading models</value>
+  </data>
+  <data name="LinesSwitchingLines" xml:space="preserve">
+    <value>switching lines</value>
+  </data>
+  <data name="LoginPassword" xml:space="preserve">
+    <value>password</value>
+  </data>
+  <data name="LoginPasswordDescription" xml:space="preserve">
+    <value>enter password</value>
+  </data>
+  <data name="LoginUserName" xml:space="preserve">
+    <value>user name</value>
+  </data>
+  <data name="LoginUserNameDescription" xml:space="preserve">
+    <value>enter a unique user name</value>
+  </data>
+  <data name="OptionsTimeDescription" xml:space="preserve">
+    <value>enter time (1 = 1 AM, 14 = 2 PM, etc.)</value>
+  </data>
+  <data name="PadsSwitchingPads" xml:space="preserve">
+    <value>switching pads</value>
+  </data>
+  <data name="ResourcePacksSwitchingResourcePacks" xml:space="preserve">
+    <value>switching resource packs</value>
+  </data>
+  <data name="StartAdmin" xml:space="preserve">
+    <value>admin</value>
+  </data>
+  <data name="WorldsDefault" xml:space="preserve">
+    <value>default</value>
+  </data>
+  <data name="WorldsErrorCannotUseName" xml:space="preserve">
+    <value>you cannot use this name for your world</value>
+  </data>
+  <data name="WorldsErrorWorldActive" xml:space="preserve">
+    <value>you cannot delete a world that is active</value>
+  </data>
+  <data name="WorldsErrorWorldAlreadyExists" xml:space="preserve">
+    <value>a world with this name already exists</value>
+  </data>
+  <data name="WorldsGenerateNew" xml:space="preserve">
+    <value>generate new</value>
+  </data>
+  <data name="WorldsSaveWorldAs" xml:space="preserve">
+    <value>save world as...</value>
+  </data>
+  <data name="WorldsSaveWorldAsDescription" xml:space="preserve">
+    <value>enter name of world</value>
+  </data>
+  <data name="WorldsSelectNewWorld" xml:space="preserve">
+    <value>select new world to use</value>
+  </data>
+  <data name="WorldsSwitchingWorlds" xml:space="preserve">
+    <value>switching worlds</value>
+  </data>
+  <data name="WorldsUseThisWorld" xml:space="preserve">
+    <value>use this world when starting</value>
+  </data>
+  <data name="WorldsWorlds" xml:space="preserve">
+    <value>worlds</value>
+  </data>
+  <data name="CommonPage3Of3" xml:space="preserve">
+    <value>page 3 of 3</value>
+  </data>
+  <data name="OptionsPracticeModeOff" xml:space="preserve">
+    <value>practice mode off</value>
+  </data>
+  <data name="OptionsPracticeModeOn" xml:space="preserve">
+    <value>practice mode on</value>
+  </data>
+  <data name="CommonLater" xml:space="preserve">
+    <value>later</value>
+  </data>
+  <data name="RatingsDescription" xml:space="preserve">
+    <value>It seems that you love LineRunner as much as we do. Care to give us a few stars?</value>
+  </data>
+  <data name="RatingsRateUs" xml:space="preserve">
+    <value>rate us!</value>
+  </data>
+  <data name="StartTap" xml:space="preserve">
+    <value>tap</value>
+  </data>
+</root>

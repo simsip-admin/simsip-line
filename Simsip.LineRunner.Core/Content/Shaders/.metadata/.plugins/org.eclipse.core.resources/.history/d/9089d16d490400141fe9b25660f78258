@@ -1,0 +1,77 @@
+---
+ShaderStockpile:
+  localTimeStamp: 1404382435789
+  shaderEffects:
+    ShaderEffect:
+      name: New Effect
+      vertexSources:
+        ShaderSource:
+          fileName: src\simple.vert
+      fragmentSources:
+        ShaderSource:
+          fileName: src\simple.frag
+      CompilerSettings:
+        useCompiler: true
+        revisionTarget: r0p3
+        compilerPath: C:\Program Files (x86)\ARM\Mali Developer Tools\Mali Offline Shader Compiler v4.0.0\bin\malisc.exe
+        basePath: C:\dev3\simsip-line\Simsip.Line.Droid\Assets\Content\Shaders\SimpleTest
+      vertexInstructionWords: 0
+      vertexShortestCodePath: 0
+      vertexLongestCodePath: 0
+      fragmentInstructionWords: 0
+      fragmentShortestCodePath: 0
+      fragmentLongestCodePath: 0
+      data: null
+      axis:
+        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      uniforms:
+        Uniform:
+          type: GL_FLOAT_MAT4
+          initialData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+          location: 0
+          name: camera
+          pushed: true
+          mapping: CAMERA_MATRIX
+          finalData:
+            data:
+              -[[1.0, 0.0, 0.0, 0.0], 
+              [0.0, 1.0, 0.0, 0.0], 
+              [0.0, 0.0, 1.0, 0.0], 
+              [0.0, 0.0, 0.0, 1.0]]-
+      attributes:
+        Attribute:
+          type: GL_FLOAT_VEC4
+          initialData:
+            data:
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]
+              -[0.0, 0.0, 0.0, 0.0]-
+          location: 0
+          name: coord
+          pushed: true
+          mapping: VERTICES
+      backgroundColour:
+        [0.0, 0.0, 0.5]
+      orthographic: false
+      maxFrames: 1
+      geometry: PLANE
+      blendEnabled: false
+      BlendMode:
+        blendColour:
+          [0.0, 0.0, 0.5]
+        useEquationSeperateMode: false
+        useFunctionSeperateMode: false
+        equationMode: GL_FUNC_ADD
+        equationAlphaMode: GL_FUNC_ADD
+        blendFuncSource: GL_ONE
+        blendFuncDest: GL_ZERO
+        blendFuncSourceAlpha: GL_ONE
+        blendFuncDestAlpha: GL_ZERO

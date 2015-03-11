@@ -1,0 +1,244 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AuditApp.Android</name>
+    </assembly>
+    <members>
+        <member name="M:AuditApp.Android.AndroidInterceptAudit.Run(Android.App.Activity)">
+            <summary>
+            Runs the checks (UsesUntilPrompt and TimeUntilPrompt or remind me later) to determine
+            whether to show the prompt or not. Call this from any activity you want to prompt the user.
+            This does NOT update the count of uses. The Init function increments the app count.
+            </summary>
+            <param name="activity">Activity.</param>
+        </member>
+        <member name="M:AuditApp.Android.AndroidInterceptAudit.ShowPrompt(Android.App.Activity)">
+            <summary>
+            Manually show the rating prompt. You can use this if you want to manually show the prompt
+            without constraints.
+            </summary>
+            <param name="activity">Activity.</param>
+        </member>
+        <member name="P:AuditApp.Common.AuditBase.TimeUntilPrompt">
+            <summary>
+            The amount of time from when the user installs the app (or version) until the prompt will be shown.
+            DEFAULT: 10 days
+            NOTE: This is used in conjunction with 'UsesUntilPrompt' to determine whether prompt should be shown. If you want
+            the number of days to be ignored, set it to 0 seconds.
+            </summary>
+            <value>The time until prompt.</value>
+        </member>
+        <member name="P:AuditApp.Common.AuditBase.UsesUntilPrompt">
+            <summary>
+            The number of uses of the application before the prompt will be shown.
+            DEFAULT: 15 uses (15 Application OnCreate() calls)
+            NOTE: This is used in conjunction with 'TimeUntilPrompt' to determine whether the prompt should be shown. If you want
+            the number of uses to be ignored, set it to '0'
+            </summary>
+            <value>The uses until prompt.</value>
+        </member>
+        <member name="P:AuditApp.Common.AuditBase.IgnoreAppVersions">
+            <summary>
+            DEFAULT: TRUE
+            Set this to 'True' if you want to show the user a "Rating" prompt for this version and each future version. If this value is
+            true, it will show a prompt after NumberOfUses and TimeUntilPrompt conditions are met for each version of your application.
+            Set this to 'False' if you want to only show one prompt for the lifetime of your application. With a new version, you can always set
+            this back to 'True' and it will then show a prompt for all subsequent versions.
+            </summary>
+            <value>
+                <c>true</c> if ignore app versions; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:AuditApp.Common.AuditBase.RemindLaterTimeToWait">
+            <summary>
+            The amount of time to wait after the user says 'Remind me Later'.
+            DEFAULT: 10 days
+            </summary>
+            <value>The remind later time to wait.</value>
+        </member>
+        <member name="P:AuditApp.Common.AuditBase.PromptTitle">
+            <summary>
+            Initial prompt title after days and uses have expired.
+            DEFAULT (PlaystoreAudit): "Could you take a minute to review this app?"
+            DEFAULT (InterceptAudit): How is your experience with this app?"
+            </summary>
+            <value>The prompt title.</value>
+        </member>
+        <member name="P:AuditApp.Common.AuditBase.RemindLaterButtonText">
+            <summary>
+            Text for Remind me later button on initial prompt
+            DEFAULT: "Remind me later"
+            </summary>
+            <value>The remind later button text.</value>
+        </member>
+        <member name="P:AuditApp.Common.AuditBase.DontRemindButtonText">
+            <summary>
+            Text for the Dont remind button on initial prompt
+            DEFAULT: "Don't remind me"
+            </summary>
+            <value>The dont remind button text.</value>
+        </member>
+        <member name="E:AuditApp.Common.AuditBase.AppStoreNotFound">
+            <summary>
+            Occurs when app store is not found
+            </summary>
+        </member>
+        <member name="M:AuditApp.Android.AndroidPlaystoreAudit.Run(Android.App.Activity)">
+            <summary>
+            Runs the checks (UsesUntilPrompt and TimeUntilPrompt or remind me later) to determine
+            whether to show the prompt or not. Call this from any activity you want to prompt the user.
+            This does NOT update the count of uses. The Init function increments the app count.
+            </summary>
+            <param name="activity">Activity.</param>
+        </member>
+        <member name="M:AuditApp.Android.AndroidPlaystoreAudit.ShowPrompt(Android.App.Activity)">
+            <summary>
+            Manually show the rating prompt. You can use this if you want to manually show the prompt
+            without constraints.
+            </summary>
+            <param name="activity">Activity.</param>
+        </member>
+        <member name="T:AuditApp.Common.INegativeResponseInterceptCallback">
+            <summary>
+            Interface that can be implemented if you want to intercept the 'Negative Experience' button press.
+            You can show your own form or simply log this call.
+            </summary>
+        </member>
+        <member name="M:AuditApp.Common.INegativeResponseInterceptCallback.OnNegativeUserResponse">
+            <summary>
+            Return 'True' if you want to proceed to the suggestion prompt without interuption.
+            Return 'False' if you want to stop the process and show the user a prompt before proceeding
+            NOTE: You can manually call the method ShowSuggestionPrompt(...) after performing your own logic.
+            <returns><c>true</c> to avoid interuption with flow; otherwise, <c>false</c>.</returns></summary>
+        </member>
+        <member name="P:AuditApp.Common.InterceptAuditBase.SuggestionHeaderText">
+            <summary>
+            Text for second prompt after user has clicked the 'Negative' experience button on the initial prompt.
+            DEFAULT: "How is your experience with this app?"
+            </summary>
+            <value>The suggestion header text.</value>
+        </member>
+        <member name="P:AuditApp.Common.InterceptAuditBase.PositiveButtonText">
+            <summary>
+            Text for inital prompt indicating user has had a positive experience with the app and will take them to the app store
+            DEFAULT: "I like this app"
+            </summary>
+            <value>The positive button text.</value>
+        </member>
+        <member name="P:AuditApp.Common.InterceptAuditBase.NegativeButtonText">
+            <summary>
+            Text for inital prompt indicating user has had a negative experience with the app and will prompt them for their comments/suggestions
+            DEFAULT: "Not up to my expectations"
+            </summary>
+            <value>The negative button text.</value>
+        </member>
+        <member name="P:AuditApp.Common.InterceptAuditBase.ShowUserIdentifierTextfield">
+            <summary>
+            Used in the second prompt whether or not to show the user identifier text field. Use this if you want to contact your users further
+            and follow up with their negative experience.
+            NOTE: If you already know which user is using the app, set this to false as to not make your user enter information you already have.
+            </summary>
+            <value>
+                <c>true</c> if show user identifier textfield; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:AuditApp.Common.InterceptAuditBase.UserIdentifierHint">
+            <summary>
+            Used in the second prompt as a hint (placeholder) for the user identifier field. If 'ShowUserIdentifierTextfield' is false, this string won't be shown.
+            DEFAULT: "Enter your email address"
+            </summary>
+            <value>The user identifier hint.</value>
+        </member>
+        <member name="P:AuditApp.Common.InterceptAuditBase.UserCommentsHint">
+            <summary>
+            Used in the second prompt as the multi-line edit text hint (placeholder) to allow user to enter comments about negative experience.
+            DEFAULT: "Place your comments here"
+            </summary>
+            <value>The user comments hint.</value>
+        </member>
+        <member name="P:AuditApp.Common.InterceptAuditBase.UserCommentValidationText">
+            <summary>
+            Used in the second prompt. Supply a string here if you want to validate the user identifier or/and the suggestion text field. For example, if you need the user id
+            to be an email, you can provide a different message here.
+            DEFAULT: "Please provide a valid value for all fields"
+            </summary>
+            <value>The user comment validation text.</value>
+        </member>
+        <member name="P:AuditApp.Common.InterceptAuditBase.SubmitButtonText">
+            <summary>
+            Used in second prompt. Submit button text after user has entered comments about negative experience.
+            DEFAULT: "Submit"
+            </summary>
+            <value>The submit button text.</value>
+        </member>
+        <member name="P:AuditApp.Common.InterceptAuditBase.OnPositiveResponseCallback">
+            <summary>
+            Implement this interface and set it here if you want to intercept and show the user another prompt before
+            continuing to the app store. Or prevent them from going to the appstore. See 'IPostiveResponseInterceptCallback' interface.
+            </summary>
+        </member>
+        <member name="P:AuditApp.Common.InterceptAuditBase.OnNegativeResponseCallback">
+            <summary>
+            Implement this interface and set it here if you want to intercept and show the user another prompt before
+            showing the suggestion prompt (or perform your own logic). See 'INegativeResponseInterceptCallback' interface.
+            </summary>
+        </member>
+        <member name="P:AuditApp.Common.InterceptAuditBase.OnValidateUserId">
+            <summary>
+            Implement this interface and set it here if you want to validate the User Identifier text field before submission.
+            If you need to make sure the user id is an email address (or some other requirement), you must implement this interface
+            </summary>
+        </member>
+        <member name="E:AuditApp.Common.InterceptAuditBase.UserResponded">
+            <summary>
+            Event fires when user hits submit button after entering comments/ user id (if applicable) on the second (suggestions) prompt.
+            </summary>
+        </member>
+        <member name="T:AuditApp.Common.IPositiveResponseInterceptCallback">
+            <summary>
+            Interface that can be implemented if you want to intercept the 'Positive Experience' button press.
+            You can show your user a message saying something like 'You will now be taken to the app store, please review our app'
+            </summary>
+        </member>
+        <member name="M:AuditApp.Common.IPositiveResponseInterceptCallback.OnPositiveUserResponse">
+            <summary>
+            Return 'True' if you want to proceed to the app store without interuption such as you showing another prompt.
+            Return 'False' if you want to stop the process and show the user a prompt before proceeding
+            NOTE: You can manually call the static method OpenAppStore(...) after showing user your own prompt.
+            <returns><c>true</c> to avoid interuption with flow; otherwise, <c>false</c>.</returns></summary>
+        </member>
+        <member name="T:AuditApp.Common.IReviewAppPlaystoreCallback">
+            <summary>
+            Interface that can be implemented if you want to intercept the 'Review App' button press.
+            You can show your user a message saying something like 'You will now be taken to the app store, please review our app'
+            </summary>
+            <value>The on review app playstore.</value>
+        </member>
+        <member name="M:AuditApp.Common.IReviewAppPlaystoreCallback.OnReviewAppPlaystoreResponse">
+            <summary>
+            Return 'True' if you want to proceed to the app store without interuption such as you showing another prompt.
+            Return 'False' if you want to stop the process and show the user a prompt before proceeding
+            NOTE: You can manually call the static method OpenAppStore(...) after showing user your own prompt.
+            <returns><c>true</c> to avoid interuption with flow; otherwise, <c>false</c>.</returns></summary>
+        </member>
+        <member name="P:AuditApp.Common.PlaystoreAuditBase.ReviewAppStoreButtonText">
+            <summary>
+            Text for button that will send the user to the app store.
+            DEFAULT: "Review app"
+            </summary>
+            <value>The review app store button text.</value>
+        </member>
+        <member name="P:AuditApp.Common.PlaystoreAuditBase.OnReviewAppPlaystore">
+            <summary>
+            Implement this interface and set it here if you want to intercept and show the user another prompt before
+            continuing to the app store. Or prevent them from going to the appstore. See 'IReviewAppPlaystoreCallback' interface.
+            </summary>
+        </member>
+        <member name="M:AuditApp.Common.IValidateUserIdentifier.IsUserIdValid(System.String)">
+            <summary>
+            Determines whether user id provided is valid.
+            </summary>
+            <returns>
+                <c>true</c> if the user identifier is valid; otherwise, <c>false</c>.</returns>
+            <param name="userId">User identifier.</param>
+        </member>
+    </members>
+</doc>

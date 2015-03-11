@@ -1,0 +1,31 @@
+BK_PipeA_Sampler Contents:
+PipeA_Connect_T.dxf
+PipeA_Straight.dxf
+PipeA_bend_90.dxf
+PipeA_Sampler.txt
+
+These DXF models are copyright 2003 by George Gregory (BountifulKnight). Please feel free to these models in your artwork (commercial or personal), however the models may not be sold for profit without the express consent of George Gregory.  Moreover, these models may not be redistributed without the presence of this text file in the original zipped format in which it was found, pipesa_s.zip.
+
+George Gregory	
+October 23, 2003
+
+gjunk@alltel.net
+
+http://home.alltel.net/gbrhi723/
+
+
+
+
+Notes:
+
+These were created in RayDream Studio 5 on a Mac and exported as DXF files. If they do not work in your DXF capable application, please let me know (be sure to let me know what app and operating system you are using.
+
+ The "T connector" is a combination of 2 objects and is not completely hollow (it isn't meant to have water flowing through it, it is only meant to look good from the outside).
+
+
+
+Assuming feedback is positive from this sampler set, I hope to offer 2 other sets at very affordable prices:
+
+BK_PipeA_BasicSet - with 12 pieces including 45, 90, and 180 degree pipes and connectors, T and X connectors, end plug (for connectors) and end cap (for pipes)
+
+BK_PipeA_Extras01 - with 3 valves and 1 gauge all with multiple parts for animation or posing.
