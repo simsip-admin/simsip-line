@@ -14,6 +14,8 @@ using Android.Gms.Ads;
 // TODO: Kamcord
 // using Com.Kamcord.Android;
 using Simsip.LineRunner.Views;
+using Android.Runtime;
+using System.Threading.Tasks;
 
 namespace Simsip.LineRunner
 {
@@ -34,6 +36,8 @@ namespace Simsip.LineRunner
         public AdView Ad { get; private set; }
 
         private bool _allowRating;
+
+        public const string HOCKEYAPP_APPID = "ddf54d39d923783f48d51918bf6b615d";
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -80,6 +84,31 @@ namespace Simsip.LineRunner
 
                 // Start loading the ad in the background.
                 Ad.LoadAd(adRequest);
+
+                // Register the crash manager before Initializing the trace writer
+                HockeyApp.CrashManager.Register(this, HOCKEYAPP_APPID);
+
+                //Register to with the Update Manager
+                HockeyApp.UpdateManager.Register(this, HOCKEYAPP_APPID);
+
+                // Initialize the Trace Writer
+                HockeyApp.TraceWriter.Initialize();
+
+                // Wire up Unhandled Expcetion handler from Android
+                AndroidEnvironment.UnhandledExceptionRaiser += (sender, args) =>
+                {
+                    // Use the trace writer to log exceptions so HockeyApp finds them
+                    HockeyApp.TraceWriter.WriteTrace(args.Exception);
+                    args.Handled = true;
+                };
+
+                // Wire up the .NET Unhandled Exception handler
+                AppDomain.CurrentDomain.UnhandledException +=
+                    (sender, args) => HockeyApp.TraceWriter.WriteTrace(args.ExceptionObject);
+
+                // Wire up the unobserved task exception handler
+                TaskScheduler.UnobservedTaskException +=
+                    (sender, args) => HockeyApp.TraceWriter.WriteTrace(args.Exception);
 
                 Program.SharedProgram = this;
 
