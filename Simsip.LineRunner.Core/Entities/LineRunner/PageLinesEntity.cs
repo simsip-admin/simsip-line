@@ -12,6 +12,7 @@ namespace Simsip.LineRunner.Entities.LineRunner
         /// <summary>
         /// The page number we are describing.
         /// </summary>
+        [Indexed]
         public int PageNumber { get; set; }
 
         /// <summary>

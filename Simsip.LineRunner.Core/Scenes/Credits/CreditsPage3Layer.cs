@@ -46,60 +46,53 @@ namespace Simsip.LineRunner.Scenes.Credits
                 0.9f * this.ContentSize.Height);
             this.AddChild(pageNumberHeader);
 
-            var createdByText = string.Empty;
-#if ANDROID
-            createdByText = Program.SharedProgram.Resources.GetString(Resource.String.CreditsCreatedBy);
-#elif IOS
-            createdByText = NSBundle.MainBundle.LocalizedString(Strings.CreditsCreatedBy, Strings.CreditsCreatedBy);
-#else
-            createdByText = AppResources.CreditsCreatedBy;
-#endif
-            var createdTitle = new CCLabelTTF(createdByText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            createdTitle.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.8f * this.ContentSize.Height);
-            this.AddChild(createdTitle);
-            var createdBySimsipText = string.Empty;
-#if ANDROID
-            createdBySimsipText = Program.SharedProgram.Resources.GetString(Resource.String.CreditsCreatedBySimsip);
-#elif IOS
-            createdBySimsipText = NSBundle.MainBundle.LocalizedString(Strings.CreditsCreatedBySimsip, Strings.CreditsCreatedBySimsip);
-#else
-            createdBySimsipText = AppResources.CreditsCreatedBySimsip;
-#endif
-            var createdDescription = new CCLabelTTF(createdBySimsipText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            createdDescription.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.7f * this.ContentSize.Height);
-            this.AddChild(createdDescription);
-
-            var iconsByText = string.Empty;
-#if ANDROID
-            iconsByText = Program.SharedProgram.Resources.GetString(Resource.String.CreditsIconsdBy);
-#elif IOS
-            iconsByText = NSBundle.MainBundle.LocalizedString(Strings.CreditsIconsdBy, Strings.CreditsIconsdBy);
-#else
-            iconsByText = AppResources.CreditsIconsdBy;
-#endif
-            var iconsTitle = new CCLabelTTF(iconsByText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var iconsTitle = new CCLabelTTF("Icons by freepik (freepik.com)", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             iconsTitle.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
-                0.6f * this.ContentSize.Height);
+                0.8f * this.ContentSize.Height);
             this.AddChild(iconsTitle);
 
-            var iconsByFreepikText = string.Empty;
-#if ANDROID
-            iconsByFreepikText = Program.SharedProgram.Resources.GetString(Resource.String.CreditsIconsdByFreepik);
-#elif IOS
-            iconsByFreepikText = NSBundle.MainBundle.LocalizedString(Strings.CreditsIconsdByFreepik, Strings.CreditsIconsdByFreepik);
-#else
-            iconsByFreepikText = AppResources.CreditsIconsdByFreepik;
-#endif
-            var iconsDescription = new CCLabelTTF(iconsByFreepikText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            iconsDescription.Position = new CCPoint(
+            var resourceTitle = new CCLabelTTF("Resource Packs", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            resourceTitle.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.7f * this.ContentSize.Height);
+            this.AddChild(resourceTitle);
+
+            var defaultResourceTitle = new CCLabelTTF("Default", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            defaultResourceTitle.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.6f * this.ContentSize.Height);
+            this.AddChild(defaultResourceTitle);
+
+            var defaultResourceLink = new CCLabelTTF("Voxeliq (https://github.com/raistlinthewiz/voxeliq)", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            defaultResourceLink.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.5f * this.ContentSize.Height);
-            this.AddChild(iconsDescription);
+            this.AddChild(defaultResourceLink);
+
+            var goodResourceTitle = new CCLabelTTF("Good Morning Pack", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            goodResourceTitle.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.4f * this.ContentSize.Height);
+            this.AddChild(goodResourceTitle);
+
+            var goodResourceLink = new CCLabelTTF("Voxeliq (https://github.com/raistlinthewiz/voxeliq)", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            defaultResourceLink.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.3f * this.ContentSize.Height);
+            this.AddChild(defaultResourceLink);
+
+            var upscaledResourceTitle = new CCLabelTTF("Upscaled", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            upscaledResourceTitle.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.2f * this.ContentSize.Height);
+            this.AddChild(upscaledResourceTitle);
+
+            var upscaledResourceLink = new CCLabelTTF("Upscaled (http://www.curse.com/texture-packs/minecraft/upscaled)", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            upscaledResourceLink.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.1f * this.ContentSize.Height);
+            this.AddChild(upscaledResourceLink);
         }
     }
 }

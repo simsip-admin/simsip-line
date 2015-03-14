@@ -17,6 +17,7 @@ namespace Simsip.LineRunner.Entities.LineRunner
         /// <summary>
         /// The name of the model we are designating this texture for.
         /// </summary>
+        [Indexed]
         public string ModelName { get; set; }
 
         /// <summary>

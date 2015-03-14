@@ -3216,74 +3216,6 @@
       <Link>Database\linerunner.db</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX11\Deferred\Deferred1Scene.mgfxo">
-      <Link>Content\Effects\Deferred\Deferred1Scene.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX11\Deferred\Deferred2Lights.mgfxo">
-      <Link>Content\Effects\Deferred\Deferred2Lights.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX11\Deferred\Deferred3Final.mgfxo">
-      <Link>Content\Effects\Deferred\Deferred3Final.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX11\Shadow\ShadowMap.mgfxo">
-      <Link>Content\Effects\Shadow\ShadowMap.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX11\Sky\PerlinNoise.mgfxo">
-      <Link>Content\Effects\Sky\PerlinNoise.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX11\Sky\SkyDome.mgfxo">
-      <Link>Content\Effects\Sky\SkyDome.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX11\Voxeliq\BlockEffect.mgfxo">
-      <Link>Content\Effects\Voxeliq\BlockEffect.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX11\Voxeliq\DualTextured.mgfxo">
-      <Link>Content\Effects\Voxeliq\DualTextured.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX11\Voxeliq\PostProcessing\Bloom\BloomCombine.mgfxo">
-      <Link>Content\Effects\Voxeliq\Postprocessing\Bloom\BloomCombine.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX11\Voxeliq\PostProcessing\Bloom\BloomExtract.mgfxo">
-      <Link>Content\Effects\Voxeliq\Postprocessing\Bloom\BloomExtract.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX11\Voxeliq\PostProcessing\Bloom\GaussianBlur.mgfxo">
-      <Link>Content\Effects\Voxeliq\Postprocessing\Bloom\GaussianBlur.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX11\Water\Water.mgfxo">
-      <Link>Content\Effects\Water\Water.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Skins\Blue.skin">
-      <Link>Content\Skins\Blue.skin</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Skins\Default.skin">
-      <Link>Content\Skins\Default.skin</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Skins\Green.skin">
-      <Link>Content\Skins\Green.skin</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Skins\Magenta.skin">
-      <Link>Content\Skins\Magenta.skin</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Skins\Purple.skin">
-      <Link>Content\Skins\Purple.skin</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Fonts\arial-12.xnb">
       <Link>Content\Fonts\arial-12.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -3866,9 +3798,77 @@
       <Link>Content\Sounds\sfx_wing.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Content\skins\Blue.skin">
+      <Link>Content\Skins\Blue.skin</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\skins\Default.skin">
+      <Link>Content\Skins\Default.skin</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\skins\Green.skin">
+      <Link>Content\Skins\Green.skin</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\skins\Magenta.skin">
+      <Link>Content\Skins\Magenta.skin</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\skins\Purple.skin">
+      <Link>Content\Skins\Purple.skin</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="..\Simsip.LineRunner.Core\Effects\build-effects.bat">
       <Link>Effects\build-effects.bat</Link>
     </None>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX11\Deferred\Deferred1Scene.mgfxo">
+      <Link>Content\Effects\Deferred\Deferred1Scene.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX11\Deferred\Deferred2Lights.mgfxo">
+      <Link>Content\Effects\Deferred\Deferred2Lights.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX11\Deferred\Deferred3Final.mgfxo">
+      <Link>Content\Effects\Deferred\Deferred3Final.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX11\Shadow\ShadowMap.mgfxo">
+      <Link>Content\Effects\Shadow\ShadowMap.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX11\Sky\PerlinNoise.mgfxo">
+      <Link>Content\Effects\Sky\PerlinNoise.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX11\Sky\SkyDome.mgfxo">
+      <Link>Content\Effects\Sky\SkyDome.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX11\Voxeliq\PostProcessing\Bloom\BloomCombine.mgfxo">
+      <Link>Content\Effects\Voxeliq\Postprocessing\Bloom\BloomCombine.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX11\Voxeliq\PostProcessing\Bloom\BloomExtract.mgfxo">
+      <Link>Content\Effects\Voxeliq\Postprocessing\Bloom\BloomExtract.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX11\Voxeliq\PostProcessing\Bloom\GaussianBlur.mgfxo">
+      <Link>Content\Effects\Voxeliq\Postprocessing\Bloom\GaussianBlur.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX11\Voxeliq\BlockEffect.mgfxo">
+      <Link>Content\Effects\Voxeliq\BlockEffect.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX11\Voxeliq\DualTextured.mgfxo">
+      <Link>Content\Effects\Voxeliq\DualTextured.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX11\Water\Water.mgfxo">
+      <Link>Content\Effects\Water\Water.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Simsip.LineRunner.Store_TemporaryKey.pfx" />
   </ItemGroup>
@@ -4039,21 +4039,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Bepu\BEPUphysicsDrawer\Models\Display types\Entity types\" />
-    <Folder Include="Craft.Net\Craft.Net.Anvil\" />
-    <Folder Include="Craft.Net\Craft.Net.Client\Events\" />
-    <Folder Include="Craft.Net\Craft.Net.Client\Handlers\" />
-    <Folder Include="Craft.Net\Craft.Net.Common\" />
-    <Folder Include="Craft.Net\Craft.Net.Logic\Blocks\" />
-    <Folder Include="Craft.Net\Craft.Net.Logic\Items\" />
-    <Folder Include="Craft.Net\Craft.Net.Logic\Windows\" />
-    <Folder Include="Craft.Net\Craft.Net.Networking\" />
-    <Folder Include="Craft.Net\Craft.Net.Physics\" />
-    <Folder Include="Craft.Net\Craft.Net.Server\Channels\" />
-    <Folder Include="Craft.Net\Craft.Net.Server\Events\" />
-    <Folder Include="Craft.Net\Craft.Net.Server\Handlers\" />
-    <Folder Include="Craft.Net\Craft.Net.TerrainGeneration\" />
-    <Folder Include="Craft.Net\fNbt\Serialization\" />
-    <Folder Include="Craft.Net\fNbt\Tags\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Autofac">
@@ -4062,46 +4047,8 @@
     <Reference Include="BouncyCastle.Crypto">
       <HintPath>..\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>packages\Cocos2D-XNA.Windows8.1.3.0.2\lib\Windows8\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Ionic.Zip.Reduced">
-      <HintPath>..\lib\Ionic.Zip.Reduced.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>packages\Newtonsoft.Json.6.0.3\lib\netcore45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\temp\Cocos2DGame1\packages\Cocos2D-XNA.Windows8.1.3.0.2\lib\Windows8\SharpDX.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.D3DCompiler, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\temp\Cocos2DGame1\packages\Cocos2D-XNA.Windows8.1.3.0.2\lib\Windows8\SharpDX.D3DCompiler.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.Direct2D1, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\temp\Cocos2DGame1\packages\Cocos2D-XNA.Windows8.1.3.0.2\lib\Windows8\SharpDX.Direct2D1.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.Direct3D11, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\temp\Cocos2DGame1\packages\Cocos2D-XNA.Windows8.1.3.0.2\lib\Windows8\SharpDX.Direct3D11.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.DXGI, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\temp\Cocos2DGame1\packages\Cocos2D-XNA.Windows8.1.3.0.2\lib\Windows8\SharpDX.DXGI.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.MediaFoundation, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\temp\Cocos2DGame1\packages\Cocos2D-XNA.Windows8.1.3.0.2\lib\Windows8\SharpDX.MediaFoundation.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.XAudio2, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\temp\Cocos2DGame1\packages\Cocos2D-XNA.Windows8.1.3.0.2\lib\Windows8\SharpDX.XAudio2.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.XInput, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\temp\Cocos2DGame1\packages\Cocos2D-XNA.Windows8.1.3.0.2\lib\Windows8\SharpDX.XInput.dll</HintPath>
+      <HintPath>packages\Newtonsoft.Json.6.0.8\lib\netcore45\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

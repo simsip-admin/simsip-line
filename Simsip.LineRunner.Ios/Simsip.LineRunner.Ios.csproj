@@ -69,6 +69,7 @@
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
     <DefineConstants>__UNIFIED__;__MOBILE__;__IOS__;__MOBILE__;__IOS__;IOS</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
@@ -163,74 +164,6 @@
       <Link>Voxeliq\Input\IInputManager.cs</Link>
     </Compile>
     <Compile Include="Views\OAuthViewController.cs" />
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Deferred\Deferred1Scene.mgfxo">
-      <Link>Content\Effects\Deferred\Deferred1Scene.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Deferred\Deferred2Lights.mgfxo">
-      <Link>Content\Effects\Deferred\Deferred2Lights.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Deferred\Deferred3Final.mgfxo">
-      <Link>Content\Effects\Deferred\Deferred3Final.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Shadow\ShadowMap.mgfxo">
-      <Link>Content\Effects\Shadow\ShadowMap.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Sky\PerlinNoise.mgfxo">
-      <Link>Content\Effects\Sky\PerlinNoise.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Sky\SkyDome.mgfxo">
-      <Link>Content\Effects\Sky\SkyDome.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Voxeliq\BlockEffect.mgfxo">
-      <Link>Content\Effects\Voxeliq\BlockEffect.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Voxeliq\DualTextured.mgfxo">
-      <Link>Content\Effects\Voxeliq\DualTextured.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Voxeliq\PostProcessing\Bloom\BloomCombine.mgfxo">
-      <Link>Content\Effects\Voxeliq\Postprocessing\Bloom\BloomCombine.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Voxeliq\PostProcessing\Bloom\BloomExtract.mgfxo">
-      <Link>Content\Effects\Voxeliq\Postprocessing\Bloom\BloomExtract.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Voxeliq\PostProcessing\Bloom\GaussianBlur.mgfxo">
-      <Link>Content\Effects\Voxeliq\Postprocessing\Bloom\GaussianBlur.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Water\Water.mgfxo">
-      <Link>Content\Effects\Water\Water.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Skins\Blue.skin">
-      <Link>Content\Skins\Blue.skin</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Skins\Default.skin">
-      <Link>Content\Skins\Default.skin</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Skins\Green.skin">
-      <Link>Content\Skins\Green.skin</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Skins\Magenta.skin">
-      <Link>Content\Skins\Magenta.skin</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Core\Content\Skins\Purple.skin">
-      <Link>Content\Skins\Purple.skin</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\Simsip.LineRunner.Core\Database\linerunner.db">
       <Link>Database\linerunner.db</Link>
     </Content>
@@ -818,9 +751,26 @@
       <Link>Content\Sounds\sfx_wing.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="..\Simsip.LineRunner.Core\Effects\build-effects.bat">
-      <Link>Effects\build-effects.bat</Link>
-    </None>
+    <Content Include="..\Simsip.LineRunner.Content\skins\Blue.skin">
+      <Link>Content\Skins\Blue.skin</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\skins\Default.skin">
+      <Link>Content\Skins\Default.skin</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\skins\Green.skin">
+      <Link>Content\Skins\Green.skin</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\skins\Magenta.skin">
+      <Link>Content\Skins\Magenta.skin</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\skins\Purple.skin">
+      <Link>Content\Skins\Purple.skin</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
       <Link>Mercury\EffectLibrary\BasicExplosion.xml</Link>
     </None>
@@ -858,6 +808,54 @@
     <Content Include="es.lproj\Localizable.strings" />
     <Content Include="fr.lproj\Localizable.strings" />
     <Content Include="en.lproj\Localizable.strings" />
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Deferred\Deferred1Scene.mgfxo">
+      <Link>Content\Effects\Deferred\Deferred1Scene.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Deferred\Deferred2Lights.mgfxo">
+      <Link>Content\Effects\Deferred\Deferred2Lights.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Deferred\Deferred3Final.mgfxo">
+      <Link>Content\Effects\Deferred\Deferred3Final.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Shadow\ShadowMap.mgfxo">
+      <Link>Content\Effects\Shadow\ShadowMap.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Sky\PerlinNoise.mgfxo">
+      <Link>Content\Effects\Sky\PerlinNoise.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Sky\SkyDome.mgfxo">
+      <Link>Content\Effects\Sky\SkyDome.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Voxeliq\PostProcessing\Bloom\BloomCombine.mgfxo">
+      <Link>Content\Effects\Voxeliq\Postprocessing\Bloom\BloomCombine.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Voxeliq\PostProcessing\Bloom\BloomExtract.mgfxo">
+      <Link>Content\Effects\Voxeliq\Postprocessing\Bloom\BloomExtract.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Voxeliq\PostProcessing\Bloom\GaussianBlur.mgfxo">
+      <Link>Content\Effects\Voxeliq\Postprocessing\Bloom\GaussianBlur.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Voxeliq\BlockEffect.mgfxo">
+      <Link>Content\Effects\Voxeliq\BlockEffect.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Voxeliq\DualTextured.mgfxo">
+      <Link>Content\Effects\Voxeliq\DualTextured.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Water\Water.mgfxo">
+      <Link>Content\Effects\Water\Water.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Info.plist" />
     <Compile Include="..\Simsip.LineRunner.Core\Actions\ActionEase\ActionEase.cs">
       <Link>Actions\ActionEase\ActionEase.cs</Link>
@@ -3923,114 +3921,6 @@
     <Content Include="pt.lproj\Localizable.strings" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred1Scene-core.fx">
-      <Link>Effects\Deferred\Deferred1Scene-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred1Scene-dx11.fx">
-      <Link>Effects\Deferred\Deferred1Scene-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred1Scene-dx9.fx">
-      <Link>Effects\Deferred\Deferred1Scene-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred2Lights-core.fx">
-      <Link>Effects\Deferred\Deferred2Lights-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred2Lights-dx11.fx">
-      <Link>Effects\Deferred\Deferred2Lights-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred2Lights-dx9.fx">
-      <Link>Effects\Deferred\Deferred2Lights-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred3Final-core.fx">
-      <Link>Effects\Deferred\Deferred3Final-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred3Final-dx11.fx">
-      <Link>Effects\Deferred\Deferred3Final-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred3Final-dx9.fx">
-      <Link>Effects\Deferred\Deferred3Final-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Shadow\ShadowMap-core.fx">
-      <Link>Effects\Shadow\ShadowMap-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Shadow\ShadowMap-dx11.fx">
-      <Link>Effects\Shadow\ShadowMap-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Shadow\ShadowMap-dx9.fx">
-      <Link>Effects\Shadow\ShadowMap-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\PerlinNoise-core.fx">
-      <Link>Effects\Sky\PerlinNoise-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\PerlinNoise-dx11.fx">
-      <Link>Effects\Sky\PerlinNoise-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\PerlinNoise-dx9.fx">
-      <Link>Effects\Sky\PerlinNoise-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\SkyDome-core.fx">
-      <Link>Effects\Sky\SkyDome-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\SkyDome-dx11.fx">
-      <Link>Effects\Sky\SkyDome-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\SkyDome-dx9.fx">
-      <Link>Effects\Sky\SkyDome-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\BlockEffect-core.fx">
-      <Link>Effects\Voxeliq\BlockEffect-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\BlockEffect-dx11.fx">
-      <Link>Effects\Voxeliq\BlockEffect-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\BlockEffect-dx9.fx">
-      <Link>Effects\Voxeliq\BlockEffect-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\DualTextured-core.fx">
-      <Link>Effects\Voxeliq\DualTextured-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\DualTextured-dx11.fx">
-      <Link>Effects\Voxeliq\DualTextured-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\DualTextured-dx9.fx">
-      <Link>Effects\Voxeliq\DualTextured-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-core.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-dx11.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-dx9.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-core.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-dx11.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-dx9.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-core.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-dx11.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-dx9.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Water\Water-core.fx">
-      <Link>Effects\Water\Water-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Water\Water-dx11.fx">
-      <Link>Effects\Water\Water-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Water\Water-dx9.fx">
-      <Link>Effects\Water\Water-dx9.fx</Link>
-    </None>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
@@ -4048,32 +3938,20 @@
     <Reference Include="GoogleAdMobAds">
       <HintPath>Components\googleadmob-7.0.0\lib\ios-unified\GoogleAdMobAds.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>packages\Cocos2D-XNA.iOS.1.3.0.2\lib\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
     <Reference Include="MTiRate">
       <HintPath>Components\irate-1.8.2\lib\ios-unified\MTiRate.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>Components\json.net-4.5.11.1\lib\ios-unified\Newtonsoft.Json.dll</HintPath>
+      <HintPath>packages\Newtonsoft.Json.6.0.8\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SQLite">
       <HintPath>Components\sqlite-net-1.0.8.3\lib\ios-unified\SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Extensions">
-      <HintPath>packages\Microsoft.Net.Http.2.2.22\lib\monotouch\System.Net.Http.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.Primitives">
-      <HintPath>packages\Microsoft.Net.Http.2.2.22\lib\monotouch\System.Net.Http.Primitives.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="zlib.net">
-      <HintPath>packages\Cocos2D-XNA.iOS.1.3.0.2\lib\zlib.net.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\cocos2d-xna\cocos2d\cocos2d.iOS.csproj">
@@ -4118,9 +3996,4 @@
     </XamarinComponentReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
-  <Import Project="packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
-  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
-    <Error Condition="!Exists('packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
-    <Error Condition="Exists('packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
-  </Target>
 </Project>

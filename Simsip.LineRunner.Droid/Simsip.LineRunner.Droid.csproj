@@ -54,37 +54,31 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AuditApp.Android">
+    <Reference Include="AuditApp.Android, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>Components\AuditApp-1.0\lib\android\AuditApp.Android.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac">
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Autofac.3.5.2\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="BouncyCastle.Crypto">
       <HintPath>..\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
-    <Reference Include="GooglePlayServicesLib">
+    <Reference Include="GooglePlayServicesLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Xamarin.GooglePlayServices.22.0.0.0\lib\MonoAndroid41\GooglePlayServicesLib.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\packages\Cocos2D-XNA.Android.1.3.0.2\lib\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Ionic.Zip.Reduced">
-      <HintPath>..\lib\Ionic.Zip.Reduced.dll</HintPath>
-    </Reference>
-    <Reference Include="Lidgren.Network">
-      <HintPath>..\packages\Cocos2D-XNA.Android.1.3.0.2\lib\Lidgren.Network.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
-    <Reference Include="Newtonsoft.Json">
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Newtonsoft.Json.6.0.8\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="OpenTK-1.0" />
-    <Reference Include="SQLite">
-      <HintPath>..\..\cocos2d-xna\Components\sqlite-net-1.0.8\lib\android\SQLite.dll</HintPath>
+    <Reference Include="SQLite, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Components\sqlite-net-1.0.8.3\lib\android\SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -92,17 +86,17 @@
     <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
-    <Reference Include="Xamarin.Android.Support.v4">
+    <Reference Include="Xamarin.Android.Support.v4, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Xamarin.Android.Support.v4.21.0.3.0\lib\MonoAndroid10\Xamarin.Android.Support.v4.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.AppCompat">
+    <Reference Include="Xamarin.Android.Support.v7.AppCompat, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Xamarin.Android.Support.v7.AppCompat.21.0.3.0\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.MediaRouter">
+    <Reference Include="Xamarin.Android.Support.v7.MediaRouter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Xamarin.Android.Support.v7.MediaRouter.21.0.3.0\lib\MonoAndroid403\Xamarin.Android.Support.v7.MediaRouter.dll</HintPath>
-    </Reference>
-    <Reference Include="zlib.net">
-      <HintPath>..\packages\Cocos2D-XNA.Android.1.3.0.2\lib\zlib.net.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -1635,486 +1629,6 @@
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\ContentPipeline\PhysicsModelVertices.cs">
       <Link>ContentPipeline\PhysicsModelVertices.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Anvil\BlockChangeEventArgs.cs">
-      <Link>Craft.Net\Craft.Net.Anvil\BlockChangeEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Anvil\Chunk.cs">
-      <Link>Craft.Net\Craft.Net.Anvil\Chunk.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Anvil\IDiskEntity.cs">
-      <Link>Craft.Net\Craft.Net.Anvil\IDiskEntity.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Anvil\IWorldGenerator.cs">
-      <Link>Craft.Net\Craft.Net.Anvil\IWorldGenerator.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Anvil\Level.cs">
-      <Link>Craft.Net\Craft.Net.Anvil\Level.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Anvil\NibbleArray.cs">
-      <Link>Craft.Net\Craft.Net.Anvil\NibbleArray.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Anvil\Region.cs">
-      <Link>Craft.Net\Craft.Net.Anvil\Region.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Anvil\RuntimeInfo.cs">
-      <Link>Craft.Net\Craft.Net.Anvil\RuntimeInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Anvil\Section.cs">
-      <Link>Craft.Net\Craft.Net.Anvil\Section.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Anvil\SpawnEntityEventArgs.cs">
-      <Link>Craft.Net\Craft.Net.Anvil\SpawnEntityEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Anvil\TileEntity.cs">
-      <Link>Craft.Net\Craft.Net.Anvil\TileEntity.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Anvil\UnrecognizedEntity.cs">
-      <Link>Craft.Net\Craft.Net.Anvil\UnrecognizedEntity.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Anvil\World.cs">
-      <Link>Craft.Net\Craft.Net.Anvil\World.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\DotMinecraft.cs">
-      <Link>Craft.Net\Craft.Net.Client\DotMinecraft.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\Events\ChatMessageEventArgs.cs">
-      <Link>Craft.Net\Craft.Net.Client\Events\ChatMessageEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\Events\DisconnectEventArgs.cs">
-      <Link>Craft.Net\Craft.Net.Client\Events\DisconnectEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\Events\EntitySpawnEventArgs.cs">
-      <Link>Craft.Net\Craft.Net.Client\Events\EntitySpawnEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\Events\HealthAndFoodEventArgs.cs">
-      <Link>Craft.Net\Craft.Net.Client\Events\HealthAndFoodEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\Handlers\ChatHandler.cs">
-      <Link>Craft.Net\Craft.Net.Client\Handlers\ChatHandler.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\Handlers\EntityHandlers.cs">
-      <Link>Craft.Net\Craft.Net.Client\Handlers\EntityHandlers.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\Handlers\LoginHandlers.cs">
-      <Link>Craft.Net\Craft.Net.Client\Handlers\LoginHandlers.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\Handlers\PacketHandlers.cs">
-      <Link>Craft.Net\Craft.Net.Client\Handlers\PacketHandlers.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\Handlers\StateHandlers.cs">
-      <Link>Craft.Net\Craft.Net.Client\Handlers\StateHandlers.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\Handlers\WorldHandlers.cs">
-      <Link>Craft.Net\Craft.Net.Client\Handlers\WorldHandlers.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\LastLogin.cs">
-      <Link>Craft.Net\Craft.Net.Client\LastLogin.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\MinecraftClient.Actions.cs">
-      <Link>Craft.Net\Craft.Net.Client\MinecraftClient.Actions.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\MinecraftClient.cs">
-      <Link>Craft.Net\Craft.Net.Client\MinecraftClient.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\MinecraftClient.Physics.cs">
-      <Link>Craft.Net\Craft.Net.Client\MinecraftClient.Physics.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\MinecraftClient.Properties.cs">
-      <Link>Craft.Net\Craft.Net.Client\MinecraftClient.Properties.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\PKCSKeyGenerator.cs">
-      <Link>Craft.Net\Craft.Net.Client\PKCSKeyGenerator.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\ReadOnlyWorld.cs">
-      <Link>Craft.Net\Craft.Net.Client\ReadOnlyWorld.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\ServerList.cs">
-      <Link>Craft.Net\Craft.Net.Client\ServerList.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\ServerPing.cs">
-      <Link>Craft.Net\Craft.Net.Client\ServerPing.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Client\Session.cs">
-      <Link>Craft.Net\Craft.Net.Client\Session.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\Biome.cs">
-      <Link>Craft.Net\Craft.Net.Common\Biome.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\BlockFace.cs">
-      <Link>Craft.Net\Craft.Net.Common\BlockFace.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\BoundingBox.cs">
-      <Link>Craft.Net\Craft.Net.Common\BoundingBox.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\Coordinates.cs">
-      <Link>Craft.Net\Craft.Net.Common\Coordinates.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\Cryptography.cs">
-      <Link>Craft.Net\Craft.Net.Common\Cryptography.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\Difficulty.cs">
-      <Link>Craft.Net\Craft.Net.Common\Difficulty.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\Dimension.cs">
-      <Link>Craft.Net\Craft.Net.Common\Dimension.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\GameMode.cs">
-      <Link>Craft.Net\Craft.Net.Common\GameMode.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\GameRules.cs">
-      <Link>Craft.Net\Craft.Net.Common\GameRules.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\ItemStack.cs">
-      <Link>Craft.Net\Craft.Net.Common\ItemStack.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\MathHelper.cs">
-      <Link>Craft.Net\Craft.Net.Common\MathHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\MetadataByte.cs">
-      <Link>Craft.Net\Craft.Net.Common\MetadataByte.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\MetadataDictionary.cs">
-      <Link>Craft.Net\Craft.Net.Common\MetadataDictionary.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\MetadataEntry.cs">
-      <Link>Craft.Net\Craft.Net.Common\MetadataEntry.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\MetadataFloat.cs">
-      <Link>Craft.Net\Craft.Net.Common\MetadataFloat.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\MetadataInt.cs">
-      <Link>Craft.Net\Craft.Net.Common\MetadataInt.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\MetadataShort.cs">
-      <Link>Craft.Net\Craft.Net.Common\MetadataShort.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\MetadataSlot.cs">
-      <Link>Craft.Net\Craft.Net.Common\MetadataSlot.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\MetadataString.cs">
-      <Link>Craft.Net\Craft.Net.Common\MetadataString.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\MinecraftStream.cs">
-      <Link>Craft.Net\Craft.Net.Common\MinecraftStream.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\MinecraftStream.Stream.cs">
-      <Link>Craft.Net\Craft.Net.Common\MinecraftStream.Stream.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\ParticleEffect.cs">
-      <Link>Craft.Net\Craft.Net.Common\ParticleEffect.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\Ray.cs">
-      <Link>Craft.Net\Craft.Net.Common\Ray.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\RuntimeInfo.cs">
-      <Link>Craft.Net\Craft.Net.Common\RuntimeInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\Size.cs">
-      <Link>Craft.Net\Craft.Net.Common\Size.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\SoundEffect.cs">
-      <Link>Craft.Net\Craft.Net.Common\SoundEffect.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Common\Vector3.cs">
-      <Link>Craft.Net\Craft.Net.Common\Vector3.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\Block.cs">
-      <Link>Craft.Net\Craft.Net.Logic\Block.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\BlockAttribute.cs">
-      <Link>Craft.Net\Craft.Net.Logic\BlockAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\BlockInfo.cs">
-      <Link>Craft.Net\Craft.Net.Logic\BlockInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\Blocks\AirBlock.cs">
-      <Link>Craft.Net\Craft.Net.Logic\Blocks\AirBlock.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\Blocks\DecorativeGrassBlock.cs">
-      <Link>Craft.Net\Craft.Net.Logic\Blocks\DecorativeGrassBlock.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\Blocks\DirtBlock.cs">
-      <Link>Craft.Net\Craft.Net.Logic\Blocks\DirtBlock.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\Blocks\FlowerBlock.cs">
-      <Link>Craft.Net\Craft.Net.Logic\Blocks\FlowerBlock.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\Blocks\GlassBlock.cs">
-      <Link>Craft.Net\Craft.Net.Logic\Blocks\GlassBlock.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\Blocks\GrassBlock.cs">
-      <Link>Craft.Net\Craft.Net.Logic\Blocks\GrassBlock.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\Blocks\LadderBlock.cs">
-      <Link>Craft.Net\Craft.Net.Logic\Blocks\LadderBlock.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\Blocks\WheatBlock.cs">
-      <Link>Craft.Net\Craft.Net.Logic\Blocks\WheatBlock.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\Entity.cs">
-      <Link>Craft.Net\Craft.Net.Logic\Entity.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\EntityEventArgs.cs">
-      <Link>Craft.Net\Craft.Net.Logic\EntityEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\Item.cs">
-      <Link>Craft.Net\Craft.Net.Logic\Item.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\ItemAttribute.cs">
-      <Link>Craft.Net\Craft.Net.Logic\ItemAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\ItemEntity.cs">
-      <Link>Craft.Net\Craft.Net.Logic\ItemEntity.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\ItemInfo.cs">
-      <Link>Craft.Net\Craft.Net.Logic\ItemInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\ItemMaterial.cs">
-      <Link>Craft.Net\Craft.Net.Logic\ItemMaterial.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\Items\FlintAndSteelItem.cs">
-      <Link>Craft.Net\Craft.Net.Logic\Items\FlintAndSteelItem.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\Items\PickaxeItem.cs">
-      <Link>Craft.Net\Craft.Net.Logic\Items\PickaxeItem.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\LivingEntity.cs">
-      <Link>Craft.Net\Craft.Net.Logic\LivingEntity.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\ObjectEntity.cs">
-      <Link>Craft.Net\Craft.Net.Logic\ObjectEntity.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\PlayerAbilities.cs">
-      <Link>Craft.Net\Craft.Net.Logic\PlayerAbilities.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\PlayerEntity.cs">
-      <Link>Craft.Net\Craft.Net.Logic\PlayerEntity.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\ToolType.cs">
-      <Link>Craft.Net\Craft.Net.Logic\ToolType.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\Windows\ArmorWindowArea.cs">
-      <Link>Craft.Net\Craft.Net.Logic\Windows\ArmorWindowArea.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\Windows\CraftingWindowArea.cs">
-      <Link>Craft.Net\Craft.Net.Logic\Windows\CraftingWindowArea.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\Windows\InventoryWindow.cs">
-      <Link>Craft.Net\Craft.Net.Logic\Windows\InventoryWindow.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\Windows\Window.cs">
-      <Link>Craft.Net\Craft.Net.Logic\Windows\Window.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\Windows\WindowArea.cs">
-      <Link>Craft.Net\Craft.Net.Logic\Windows\WindowArea.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\Windows\WindowChangeEventArgs.cs">
-      <Link>Craft.Net\Craft.Net.Logic\Windows\WindowChangeEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Logic\WorldExtensions.cs">
-      <Link>Craft.Net\Craft.Net.Logic\WorldExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Networking\AesStream.cs">
-      <Link>Craft.Net\Craft.Net.Networking\AesStream.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Networking\BufferedStream.cs">
-      <Link>Craft.Net\Craft.Net.Networking\BufferedStream.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Networking\ChatTransciever.cs">
-      <Link>Craft.Net\Craft.Net.Networking\ChatTransciever.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Networking\Extensions.cs">
-      <Link>Craft.Net\Craft.Net.Networking\Extensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Networking\NetworkManager.cs">
-      <Link>Craft.Net\Craft.Net.Networking\NetworkManager.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Networking\NetworkMode.cs">
-      <Link>Craft.Net\Craft.Net.Networking\NetworkMode.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Networking\PacketDirection.cs">
-      <Link>Craft.Net\Craft.Net.Networking\PacketDirection.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Networking\PacketLogger.cs">
-      <Link>Craft.Net\Craft.Net.Networking\PacketLogger.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Networking\Packets.cs">
-      <Link>Craft.Net\Craft.Net.Networking\Packets.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Networking\ServerStatus.cs">
-      <Link>Craft.Net\Craft.Net.Networking\ServerStatus.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Physics\IAABBEntity.cs">
-      <Link>Craft.Net\Craft.Net.Physics\IAABBEntity.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Physics\IBlockPhysicsProvider.cs">
-      <Link>Craft.Net\Craft.Net.Physics\IBlockPhysicsProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Physics\IPhysicsEntity.cs">
-      <Link>Craft.Net\Craft.Net.Physics\IPhysicsEntity.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Physics\PhysicsEngine.cs">
-      <Link>Craft.Net\Craft.Net.Physics\PhysicsEngine.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\Channels\PluginChannel.cs">
-      <Link>Craft.Net\Craft.Net.Server\Channels\PluginChannel.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\Channels\ServerPingChannel.cs">
-      <Link>Craft.Net\Craft.Net.Server\Channels\ServerPingChannel.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\Channels\TexturePackChannel.cs">
-      <Link>Craft.Net\Craft.Net.Server\Channels\TexturePackChannel.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\ChunkHelper.cs">
-      <Link>Craft.Net\Craft.Net.Server\ChunkHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\ClientSettings.cs">
-      <Link>Craft.Net\Craft.Net.Server\ClientSettings.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\EntityManager.cs">
-      <Link>Craft.Net\Craft.Net.Server\EntityManager.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\Events\ChatMessageEventArgs.cs">
-      <Link>Craft.Net\Craft.Net.Server\Events\ChatMessageEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\Events\ConnectionEstablishedEventArgs.cs">
-      <Link>Craft.Net\Craft.Net.Server\Events\ConnectionEstablishedEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\Events\PlayerLogInEventArgs.cs">
-      <Link>Craft.Net\Craft.Net.Server\Events\PlayerLogInEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\Events\TabCompleteEventArgs.cs">
-      <Link>Craft.Net\Craft.Net.Server\Events\TabCompleteEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\ExtensionMethods.cs">
-      <Link>Craft.Net\Craft.Net.Server\ExtensionMethods.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\Handlers\InteractionHandlers.cs">
-      <Link>Craft.Net\Craft.Net.Server\Handlers\InteractionHandlers.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\Handlers\InventoryHandler.cs">
-      <Link>Craft.Net\Craft.Net.Server\Handlers\InventoryHandler.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\Handlers\LoginHandlers.cs">
-      <Link>Craft.Net\Craft.Net.Server\Handlers\LoginHandlers.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\Handlers\PacketHandlers.cs">
-      <Link>Craft.Net\Craft.Net.Server\Handlers\PacketHandlers.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\Handlers\PlayerMovementHandlers.cs">
-      <Link>Craft.Net\Craft.Net.Server\Handlers\PlayerMovementHandlers.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\MinecraftServer.cs">
-      <Link>Craft.Net\Craft.Net.Server\MinecraftServer.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\PlayerManager.cs">
-      <Link>Craft.Net\Craft.Net.Server\PlayerManager.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\RemoteClient.cs">
-      <Link>Craft.Net\Craft.Net.Server\RemoteClient.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.Server\ServerSettings.cs">
-      <Link>Craft.Net\Craft.Net.Server\ServerSettings.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.TerrainGeneration\FlatlandGenerator.cs">
-      <Link>Craft.Net\Craft.Net.TerrainGeneration\FlatlandGenerator.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.TerrainGeneration\Noise.cs">
-      <Link>Craft.Net\Craft.Net.TerrainGeneration\Noise.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\Craft.Net.TerrainGeneration\StandardGenerator.cs">
-      <Link>Craft.Net\Craft.Net.TerrainGeneration\StandardGenerator.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\InvalidReaderStateException.cs">
-      <Link>Craft.Net\fNbt\InvalidReaderStateException.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\JetBrains.Annotations.cs">
-      <Link>Craft.Net\fNbt\JetBrains.Annotations.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\NbtBinaryReader.cs">
-      <Link>Craft.Net\fNbt\NbtBinaryReader.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\NbtBinaryWriter.cs">
-      <Link>Craft.Net\fNbt\NbtBinaryWriter.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\NbtCompression.cs">
-      <Link>Craft.Net\fNbt\NbtCompression.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\NbtFile.cs">
-      <Link>Craft.Net\fNbt\NbtFile.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\NbtFormatException.cs">
-      <Link>Craft.Net\fNbt\NbtFormatException.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\NbtParseState.cs">
-      <Link>Craft.Net\fNbt\NbtParseState.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\NbtReader.cs">
-      <Link>Craft.Net\fNbt\NbtReader.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\NbtReaderNode.cs">
-      <Link>Craft.Net\fNbt\NbtReaderNode.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\NbtTagType.cs">
-      <Link>Craft.Net\fNbt\NbtTagType.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\Serialization\IgnoreOnNullAttribute.cs">
-      <Link>Craft.Net\fNbt\Serialization\IgnoreOnNullAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\Serialization\INbtSerializable.cs">
-      <Link>Craft.Net\fNbt\Serialization\INbtSerializable.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\Serialization\NbtIgnoreAttribute.cs">
-      <Link>Craft.Net\fNbt\Serialization\NbtIgnoreAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\Serialization\NbtSerializer.cs">
-      <Link>Craft.Net\fNbt\Serialization\NbtSerializer.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\Serialization\TagNameAttribute.cs">
-      <Link>Craft.Net\fNbt\Serialization\TagNameAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\TagSelector.cs">
-      <Link>Craft.Net\fNbt\TagSelector.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\Tags\NbtByte.cs">
-      <Link>Craft.Net\fNbt\Tags\NbtByte.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\Tags\NbtByteArray.cs">
-      <Link>Craft.Net\fNbt\Tags\NbtByteArray.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\Tags\NbtCompound.cs">
-      <Link>Craft.Net\fNbt\Tags\NbtCompound.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\Tags\NbtDouble.cs">
-      <Link>Craft.Net\fNbt\Tags\NbtDouble.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\Tags\NbtFloat.cs">
-      <Link>Craft.Net\fNbt\Tags\NbtFloat.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\Tags\NbtInt.cs">
-      <Link>Craft.Net\fNbt\Tags\NbtInt.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\Tags\NbtIntArray.cs">
-      <Link>Craft.Net\fNbt\Tags\NbtIntArray.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\Tags\NbtList.cs">
-      <Link>Craft.Net\fNbt\Tags\NbtList.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\Tags\NbtLong.cs">
-      <Link>Craft.Net\fNbt\Tags\NbtLong.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\Tags\NbtShort.cs">
-      <Link>Craft.Net\fNbt\Tags\NbtShort.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\Tags\NbtString.cs">
-      <Link>Craft.Net\fNbt\Tags\NbtString.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\Tags\NbtTag.cs">
-      <Link>Craft.Net\fNbt\Tags\NbtTag.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Craft.Net\fNbt\ZLibStream.cs">
-      <Link>Craft.Net\fNbt\ZLibStream.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Data\Database.cs">
       <Link>Data\Database.cs</Link>
@@ -3729,74 +3243,6 @@
       <Link>Assets\Database\linerunner.db</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Deferred\Deferred1Scene.mgfxo">
-      <Link>Assets\Content\Effects\Deferred\Deferred1Scene.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Deferred\Deferred2Lights.mgfxo">
-      <Link>Assets\Content\Effects\Deferred\Deferred2Lights.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Deferred\Deferred3Final.mgfxo">
-      <Link>Assets\Content\Effects\Deferred\Deferred3Final.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Shadow\ShadowMap.mgfxo">
-      <Link>Assets\Content\Effects\Shadow\ShadowMap.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Sky\PerlinNoise.mgfxo">
-      <Link>Assets\Content\Effects\Sky\PerlinNoise.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Sky\SkyDome.mgfxo">
-      <Link>Assets\Content\Effects\Sky\SkyDome.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Voxeliq\BlockEffect.mgfxo">
-      <Link>Assets\Content\Effects\Voxeliq\BlockEffect.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Voxeliq\DualTextured.mgfxo">
-      <Link>Assets\Content\Effects\Voxeliq\DualTextured.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Voxeliq\PostProcessing\Bloom\BloomCombine.mgfxo">
-      <Link>Assets\Content\Effects\Voxeliq\Postprocessing\Bloom\BloomCombine.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Voxeliq\PostProcessing\Bloom\BloomExtract.mgfxo">
-      <Link>Assets\Content\Effects\Voxeliq\Postprocessing\Bloom\BloomExtract.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Voxeliq\PostProcessing\Bloom\GaussianBlur.mgfxo">
-      <Link>Assets\Content\Effects\Voxeliq\Postprocessing\Bloom\GaussianBlur.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Core\Content\Effects\DX9\Water\Water.mgfxo">
-      <Link>Assets\Content\Effects\Water\Water.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Core\Content\Skins\Blue.skin">
-      <Link>Assets\Content\Skins\Blue.skin</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Core\Content\Skins\Default.skin">
-      <Link>Assets\Content\Skins\Default.skin</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Core\Content\Skins\Green.skin">
-      <Link>Assets\Content\Skins\Green.skin</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Core\Content\Skins\Magenta.skin">
-      <Link>Assets\Content\Skins\Magenta.skin</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Core\Content\Skins\Purple.skin">
-      <Link>Assets\Content\Skins\Purple.skin</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
     <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Fonts\arial-12.xnb">
       <Link>Assets\Content\Fonts\arial-12.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -4381,9 +3827,74 @@
       <Link>Assets\Content\Models\Obstacles\Pipe3-thumbnail.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
-    <None Include="..\Simsip.LineRunner.Core\Effects\build-effects.bat">
-      <Link>Effects\build-effects.bat</Link>
-    </None>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\skins\Blue.skin">
+      <Link>Assets\Content\Skins\Blue.skin</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\skins\Default.skin">
+      <Link>Assets\Content\Skins\Default.skin</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\skins\Green.skin">
+      <Link>Assets\Content\Skins\Green.skin</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\skins\Magenta.skin">
+      <Link>Assets\Content\Skins\Magenta.skin</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\skins\Purple.skin">
+      <Link>Assets\Content\Skins\Purple.skin</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Deferred\Deferred1Scene.mgfxo">
+      <Link>Assets\Content\Effects\Deferred\Deferred1Scene.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Deferred\Deferred2Lights.mgfxo">
+      <Link>Assets\Content\Effects\Deferred\Deferred2Lights.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Deferred\Deferred3Final.mgfxo">
+      <Link>Assets\Content\Effects\Deferred\Deferred3Final.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Shadow\ShadowMap.mgfxo">
+      <Link>Assets\Content\Effects\Shadow\ShadowMap.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Sky\PerlinNoise.mgfxo">
+      <Link>Assets\Content\Effects\Sky\PerlinNoise.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Sky\SkyDome.mgfxo">
+      <Link>Assets\Content\Effects\Sky\SkyDome.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Voxeliq\BlockEffect.mgfxo">
+      <Link>Assets\Content\Effects\Voxeliq\BlockEffect.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Voxeliq\DualTextured.mgfxo">
+      <Link>Assets\Content\Effects\Voxeliq\DualTextured.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Voxeliq\PostProcessing\Bloom\BloomCombine.mgfxo">
+      <Link>Assets\Content\Effects\Voxeliq\Postprocessing\Bloom\BloomCombine.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Voxeliq\PostProcessing\Bloom\BloomExtract.mgfxo">
+      <Link>Assets\Content\Effects\Voxeliq\Postprocessing\Bloom\BloomExtract.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Voxeliq\PostProcessing\Bloom\GaussianBlur.mgfxo">
+      <Link>Assets\Content\Effects\Voxeliq\Postprocessing\Bloom\GaussianBlur.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Effects\mgfxo\DX11\Water\Water.mgfxo">
+      <Link>Assets\Content\Effects\Water\Water.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <AndroidResource Include="Resources\layout\View_OAuth.axml" />
@@ -4417,114 +3928,6 @@
     <AndroidResource Include="Resources\values-pt\AppResources.xml" />
     <AndroidResource Include="Resources\values\AppResources.xml" />
     <AndroidResource Include="Resources\Values-ru-rRU\AppResources.xml" />
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred1Scene-core.fx">
-      <Link>Effects\Deferred\Deferred1Scene-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred1Scene-dx11.fx">
-      <Link>Effects\Deferred\Deferred1Scene-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred1Scene-dx9.fx">
-      <Link>Effects\Deferred\Deferred1Scene-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred2Lights-core.fx">
-      <Link>Effects\Deferred\Deferred2Lights-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred2Lights-dx11.fx">
-      <Link>Effects\Deferred\Deferred2Lights-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred2Lights-dx9.fx">
-      <Link>Effects\Deferred\Deferred2Lights-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred3Final-core.fx">
-      <Link>Effects\Deferred\Deferred3Final-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred3Final-dx11.fx">
-      <Link>Effects\Deferred\Deferred3Final-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred3Final-dx9.fx">
-      <Link>Effects\Deferred\Deferred3Final-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Shadow\ShadowMap-core.fx">
-      <Link>Effects\Shadow\ShadowMap-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Shadow\ShadowMap-dx11.fx">
-      <Link>Effects\Shadow\ShadowMap-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Shadow\ShadowMap-dx9.fx">
-      <Link>Effects\Shadow\ShadowMap-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\PerlinNoise-core.fx">
-      <Link>Effects\Sky\PerlinNoise-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\PerlinNoise-dx11.fx">
-      <Link>Effects\Sky\PerlinNoise-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\PerlinNoise-dx9.fx">
-      <Link>Effects\Sky\PerlinNoise-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\SkyDome-core.fx">
-      <Link>Effects\Sky\SkyDome-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\SkyDome-dx11.fx">
-      <Link>Effects\Sky\SkyDome-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\SkyDome-dx9.fx">
-      <Link>Effects\Sky\SkyDome-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\BlockEffect-core.fx">
-      <Link>Effects\Voxeliq\BlockEffect-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\BlockEffect-dx11.fx">
-      <Link>Effects\Voxeliq\BlockEffect-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\BlockEffect-dx9.fx">
-      <Link>Effects\Voxeliq\BlockEffect-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\DualTextured-core.fx">
-      <Link>Effects\Voxeliq\DualTextured-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\DualTextured-dx11.fx">
-      <Link>Effects\Voxeliq\DualTextured-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\DualTextured-dx9.fx">
-      <Link>Effects\Voxeliq\DualTextured-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-core.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-dx11.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-dx9.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-core.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-dx11.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-dx9.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-core.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-dx11.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-dx9.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Water\Water-core.fx">
-      <Link>Effects\Water\Water-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Water\Water-dx11.fx">
-      <Link>Effects\Water\Water-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Water\Water-dx9.fx">
-      <Link>Effects\Water\Water-dx9.fx</Link>
-    </None>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
       <Link>Mercury\EffectLibrary\BasicExplosion.xml</Link>
     </None>
@@ -4564,24 +3967,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <XamarinComponentReference Include="AuditApp">
-      <Visible>False</Visible>
-      <Version>1.0</Version>
-    </XamarinComponentReference>
-    <XamarinComponentReference Include="googleplayservices">
-      <Visible>False</Visible>
-      <Version>22.0.0.0</Version>
-    </XamarinComponentReference>
-    <XamarinComponentReference Include="json.net">
-      <Visible>False</Visible>
-      <Version>6.0.8.1</Version>
-    </XamarinComponentReference>
-    <XamarinComponentReference Include="sqlite-net">
-      <Visible>False</Visible>
-      <Version>1.0.8.3</Version>
-    </XamarinComponentReference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\cocos2d-xna\cocos2d\cocos2d.Android.csproj">
       <Project>{64725c5b-a1bc-4974-8538-a1158babf572}</Project>
       <Name>cocos2d.Android</Name>
@@ -4598,6 +3983,24 @@
       <Project>{a35dc14f-22ce-46ac-9b0e-bab2047e4aed}</Project>
       <Name>Simsip.LineRunner.I18N</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="AuditApp">
+      <Visible>False</Visible>
+      <Version>1.0</Version>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="googleplayservices">
+      <Visible>False</Visible>
+      <Version>22.0.0.0</Version>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="json.net">
+      <Visible>False</Visible>
+      <Version>6.0.8.1</Version>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="sqlite-net">
+      <Visible>False</Visible>
+      <Version>1.0.8.3</Version>
+    </XamarinComponentReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

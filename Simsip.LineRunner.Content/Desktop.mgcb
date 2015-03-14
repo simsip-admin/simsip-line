@@ -10,8 +10,8 @@
 
 #-------------------------------- References --------------------------------#
 
-/reference:lib\ModelImporters.dll
-/reference:lib\NeoforceImporters.dll
+/reference:..\ModelImporters\bin\Debug\ModelImporters.dll
+/reference:..\NeoforceImporters\bin\Debug\NeoforceImporters.dll
 
 #---------------------------------- Content ---------------------------------#
 

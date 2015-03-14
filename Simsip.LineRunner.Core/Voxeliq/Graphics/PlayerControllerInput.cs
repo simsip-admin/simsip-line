@@ -261,7 +261,7 @@ namespace Engine.Graphics
             }
         }
 
-        // Clear out blocks in front and to sides of pad
+        // Clear out blocks around pad
         private void ClearOutBlocks()
         {
             var pageWidth = (int)this._pageCache.CurrentPageModel.WorldWidth;
@@ -277,7 +277,7 @@ namespace Engine.Graphics
             var clearYStart = pageOriginY;
             var clearYStop = clearYStart + 
                              pageHeight;
-            var clearZStart = pageOriginZ;
+            var clearZStart = pageOriginZ - 4;
             var clearZStop = clearZStart + 
                              10;
             for (var x = clearXStart; x <= clearXStop; x++)

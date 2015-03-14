@@ -22,7 +22,7 @@ namespace Simsip.LineRunner.Scenes.Credits
     {
         private CoreScene _parent;
         private CreditsMasterLayer _masterLayer;
-        
+
         public CreditsPage1Layer(CoreScene parent, CreditsMasterLayer masterLayer)
         {
             this._parent = parent;
@@ -73,34 +73,6 @@ namespace Simsip.LineRunner.Scenes.Credits
                 0.5f * this.ContentSize.Width,
                 0.7f * this.ContentSize.Height);
             this.AddChild(createdDescription);
-
-            var iconsByText = string.Empty;
-#if ANDROID
-            iconsByText = Program.SharedProgram.Resources.GetString(Resource.String.CreditsIconsdBy);
-#elif IOS
-            iconsByText = NSBundle.MainBundle.LocalizedString(Strings.CreditsIconsdBy, Strings.CreditsIconsdBy);
-#else
-            iconsByText = AppResources.CreditsIconsdBy;
-#endif
-            var iconsTitle = new CCLabelTTF(iconsByText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            iconsTitle.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.6f * this.ContentSize.Height);
-            this.AddChild(iconsTitle);
-
-            var iconsByFreepikText = string.Empty;
-#if ANDROID
-            iconsByFreepikText = Program.SharedProgram.Resources.GetString(Resource.String.CreditsIconsdByFreepik);
-#elif IOS
-            iconsByFreepikText = NSBundle.MainBundle.LocalizedString(Strings.CreditsIconsdByFreepik, Strings.CreditsIconsdByFreepik);
-#else
-            iconsByFreepikText = AppResources.CreditsIconsdByFreepik;
-#endif
-            var iconsDescription = new CCLabelTTF(iconsByFreepikText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            iconsDescription.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.5f * this.ContentSize.Height);
-            this.AddChild(iconsDescription);        
         }
     }
 }
