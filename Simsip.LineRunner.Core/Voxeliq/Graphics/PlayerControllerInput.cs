@@ -274,9 +274,10 @@ namespace Engine.Graphics
             var clearXStop = clearXStart + 
                              pageWidth + 
                              10;
+            
+            // IMPORTANT: We currently only have one layer high of chunks, hence we limit our height to chunk height
             var clearYStart = pageOriginY;
-            var clearYStop = clearYStart + 
-                             pageHeight;
+            var clearYStop = Chunk.HeightInBlocks - 1;
             var clearZStart = pageOriginZ - 4;
             var clearZStop = clearZStart + 
                              10;

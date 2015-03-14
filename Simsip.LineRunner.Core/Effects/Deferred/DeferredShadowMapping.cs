@@ -336,7 +336,7 @@ namespace Simsip.LineRunner.Effects.Deferred
                 { 
                     this._colorTarget, 
                     this._normalTarget, 
-                    this._depthTarget 
+                    this._depthTarget
                 });
 
             // Clear all render targets
@@ -354,7 +354,7 @@ namespace Simsip.LineRunner.Effects.Deferred
 
             this.RenderScene(this._effect1Scene, EffectType.Deferred1SceneEffect);
 
-            this._device.SetRenderTargets(null);
+            // this._device.SetRenderTargets(null);
         }
 
         private void GenerateShadingMap()
@@ -401,7 +401,7 @@ namespace Simsip.LineRunner.Effects.Deferred
             // not the cameras.
             RenderScene(this._effectShadowMap, EffectType.ShadowMapEffect, false);
 
-            this._device.SetRenderTarget(null);
+            // this._device.SetRenderTarget(null);
         }
 
         private void RenderLight(Light light)
@@ -466,11 +466,13 @@ namespace Simsip.LineRunner.Effects.Deferred
                 this._device.DrawUserPrimitives<VertexPositionTexture>(PrimitiveType.TriangleStrip, this._fsVertices, 0, 2);
             }
 
-            this._device.SetRenderTarget(null);
+            // this._device.SetRenderTarget(null);
         }
 
         private void CombineColorAndShading()
         {
+            this._device.SetRenderTarget(null);
+
             this._effect3Final.CurrentTechnique = _effect3Final.Techniques["CombineColorAndShading"];
             this._effect3Final.Parameters["xColorMap"].SetValue((Texture2D)this._colorTarget);
             this._effect3Final.Parameters["xShadingMap"].SetValue((Texture2D)this._shadingTarget);
