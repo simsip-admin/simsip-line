@@ -31,12 +31,8 @@ namespace Simsip.LineRunner.Scenes.Admin
         private CCAction _layerActionIn;
         private CCAction _layerActionOut;
 
-        // Start page
-        private KeyboardNotificationLayer _startPageNotificationLayer;
+        // Start page/line
         private CCTextFieldTTF _startPageTextField;
-
-        // Start line
-        private KeyboardNotificationLayer _startLineNotificationLayer;
         private CCTextFieldTTF _startLineTextField;
 
         public AdminLayer(CoreScene parent)
@@ -126,8 +122,7 @@ namespace Simsip.LineRunner.Scenes.Admin
             this._startPageTextField.ContentSize = new CCSize(      // Makes it easier to touch
                 4f * this._startPageTextField.ContentSize.Width,
                 1f * this._startPageTextField.ContentSize.Height);
-            this._startPageNotificationLayer = new KeyboardNotificationLayer(this._startPageTextField);
-            AddChild(this._startPageNotificationLayer);
+            AddChild(this._startPageTextField);
 
             // Start line
             var startLineText = "Starting line:";
@@ -147,8 +142,7 @@ namespace Simsip.LineRunner.Scenes.Admin
             this._startLineTextField.ContentSize = new CCSize(      // Makes it easier to touch
                 4f * this._startLineTextField.ContentSize.Width,
                 1f * this._startLineTextField.ContentSize.Height);
-            this._startLineNotificationLayer = new KeyboardNotificationLayer(this._startLineTextField);
-            AddChild(this._startLineNotificationLayer);
+            AddChild(this._startLineTextField);
 
             // Are kills on?
             var killOnText = string.Empty;
@@ -209,7 +203,7 @@ namespace Simsip.LineRunner.Scenes.Admin
 #endif
 
             var particlesOffLabel = new CCLabelTTF(particlesOffText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            var particlesOffItem = new CCMenuItemLabel(killsOffLabel);
+            var particlesOffItem = new CCMenuItemLabel(particlesOffLabel);
             CCMenuItemToggle particlesToggle =
                 new CCMenuItemToggle((obj) => ParticlesTogglePressed(),
                 new CCMenuItem[] { particlesOnItem, particlesOffItem });
@@ -225,7 +219,7 @@ namespace Simsip.LineRunner.Scenes.Admin
             particlesMenu.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.4f * this.ContentSize.Height);
-            this.AddChild(killMenu);
+            this.AddChild(particlesMenu);
 
             // Back
             CCMenuItemImage backButton =

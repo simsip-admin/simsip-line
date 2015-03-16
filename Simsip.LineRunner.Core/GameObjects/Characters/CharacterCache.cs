@@ -664,20 +664,24 @@ namespace Simsip.LineRunner.GameObjects.Characters
         private void InitHeroPosition()
         {
             // Our standard starting position
-            var physicsPosition = this._pageCache.CurrentPageModel.HeroStartOrigin -
-                          ConversionHelper.MathConverter.Convert(this.TheHeroModel.PhysicsLocalTransform.Translation);
+            var heroStartOrigin = this._pageCache.CurrentPageModel.HeroStartOrigin;
 
             // Do we need to adjust for admin setting of line number?
             if (this._currentLineNumber > 1)
             {
-                physicsPosition.Y -= _currentLineNumber * 
-                                     (this._pageCache.CurrentPageModel.WorldLineSpacing - 1);
+                heroStartOrigin -= new Vector3(
+                    0,
+                    (_currentLineNumber - 1) * this._pageCache.CurrentPageModel.WorldLineSpacing,
+                    0);
 
                 // Do we need to adjust for starting on an even line number?
                 if (this._currentLineNumber % 2 == 0)
                 {
                     // Move to other side
-                    physicsPosition.X += this._pageCache.CurrentPageModel.WorldWidth - 1;
+                    heroStartOrigin += new Vector3(
+                        this._pageCache.CurrentPageModel.WorldWidth - 1,
+                        0,
+                        0);
 
                     // Flip hero
                     var physicsRotation = Quaternion.CreateFromYawPitchRoll(
@@ -688,8 +692,11 @@ namespace Simsip.LineRunner.GameObjects.Characters
                 }
             }
 
-            // Now apply position with any adjustments accounted for.
-            this.TheHeroModel.PhysicsEntity.Position = ConversionHelper.MathConverter.Convert(physicsPosition);
+            // Adjust to physics center of object position
+            heroStartOrigin -= ConversionHelper.MathConverter.Convert(this.TheHeroModel.PhysicsLocalTransform.Translation);
+
+            // Now apply position with any adjustments accounted for
+            this.TheHeroModel.PhysicsEntity.Position = ConversionHelper.MathConverter.Convert(heroStartOrigin);
         }
 
         // IMPORTANT: Assumes hero is positioned at desired start position.
@@ -736,25 +743,38 @@ namespace Simsip.LineRunner.GameObjects.Characters
             }
 
             // Our standard starting position
-            var startPhysicsPosition = this._pageCache.CurrentPageModel.HeroStartOrigin -
-                          ConversionHelper.MathConverter.Convert(this.TheHeroModel.PhysicsLocalTransform.Translation);
+            var heroStartOrigin = this._pageCache.CurrentPageModel.HeroStartOrigin;
 
             // Do we need to adjust for admin setting of line number?
             if (this._currentLineNumber > 1)
             {
-                startPhysicsPosition.Y -= _currentLineNumber *
-                                     (this._pageCache.CurrentPageModel.WorldLineSpacing - 1);
+                heroStartOrigin -= new Vector3(
+                    0,
+                    (_currentLineNumber - 1) * this._pageCache.CurrentPageModel.WorldLineSpacing,
+                    0);
 
                 // Do we need to adjust for starting on an even line number?
                 if (this._currentLineNumber % 2 == 0)
                 {
                     // Move to other side
-                    startPhysicsPosition.X += this._pageCache.CurrentPageModel.WorldWidth - 1;
+                    heroStartOrigin += new Vector3(
+                        this._pageCache.CurrentPageModel.WorldWidth - 1,
+                        0,
+                        0);
                 }
             }
 
-            var holderPosition = ConversionHelper.MathConverter.Convert(startPhysicsPosition)  +
-                new BEPUutilities.Vector3(0, -this.TheHeroModel.WorldHeight, 0);
+            // Adjust to physics center of object position
+            heroStartOrigin -= ConversionHelper.MathConverter.Convert(this.TheHeroModel.PhysicsLocalTransform.Translation);
+
+            // Adjust holder position to be below hero
+            var holderPosition = ConversionHelper.MathConverter.Convert(heroStartOrigin)  +
+                new BEPUutilities.Vector3(
+                    0, 
+                    -this.TheHeroModel.WorldHeight, 
+                    0);
+
+            // Now apply position with any adjustments accounted for
             this._holderForHero.Position = holderPosition;
         }
 

@@ -767,8 +767,9 @@ namespace Simsip.LineRunner.Scenes.Action
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
                         GameManager.SharedGameManager.CurrentScore = GameManager.SharedGameManager.AdminStartScore;
 
-                        // Note, we don't update page/line number in hud as other states coming before
-                        // this one have already done this for us
+                        // Update page/line number in hud
+                        this._hudLayer.DisplayPageNumber(this._currentPageNumber);
+                        this._hudLayer.DisplayLineNumber(this._currentLineNumber);
 
                         break;
                     }
