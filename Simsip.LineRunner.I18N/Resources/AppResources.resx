@@ -285,13 +285,7 @@
     <value>created by</value>
   </data>
   <data name="CreditsCreatedBySimsip" xml:space="preserve">
-    <value>simsip, llc</value>
-  </data>
-  <data name="CreditsIconsdBy" xml:space="preserve">
-    <value>icons by</value>
-  </data>
-  <data name="CreditsIconsdByFreepik" xml:space="preserve">
-    <value>freepik (freepik.com)</value>
+    <value>simsip</value>
   </data>
   <data name="FinishNewHighScore" xml:space="preserve">
     <value>new high score</value>
@@ -403,5 +397,14 @@
   </data>
   <data name="StartTap" xml:space="preserve">
     <value>tap</value>
+  </data>
+  <data name="CreditsFrameworks" xml:space="preserve">
+    <value>frameworks</value>
+  </data>
+  <data name="CreditsResourcePacks" xml:space="preserve">
+    <value>resource packs</value>
+  </data>
+  <data name="CreditsTitle" xml:space="preserve">
+    <value>credits</value>
   </data>
 </root>

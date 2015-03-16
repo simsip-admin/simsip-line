@@ -55,9 +55,7 @@
   <string name="CommonOK">ok</string>
   <string name="CommonYes">yes</string>
   <string name="CreditsCreatedBy">created by</string>
-  <string name="CreditsCreatedBySimsip">simsip, llc</string>
-  <string name="CreditsIconsdBy">icons by</string>
-  <string name="CreditsIconsdByFreepik">freepik (freepik.com)</string>
+  <string name="CreditsCreatedBySimsip">simsip</string>
   <string name="FinishNewHighScore">new high score</string>
   <string name="FinishPost">post</string>
   <string name="FinishScore">score</string>
@@ -95,4 +93,7 @@
   <string name="RatingsDescription">It seems that you love LineRunner as much as we do. Care to give us a few stars?</string>
   <string name="RatingsRateUs">rate us!</string>
   <string name="StartTap">tap</string>
+  <string name="CreditsFrameworks">frameworks</string>
+  <string name="CreditsResourcePacks">resource packs</string>
+  <string name="CreditsTitle">credits</string>
 </resources>

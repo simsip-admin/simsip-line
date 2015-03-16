@@ -52,11 +52,19 @@ namespace Simsip.LineRunner.Scenes.Credits
                 0.8f * this.ContentSize.Height);
             this.AddChild(iconsTitle);
 
-            var resourceTitle = new CCLabelTTF("Resource Packs", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            resourceTitle.Position = new CCPoint(
+            var resourcePacksText = string.Empty;
+#if ANDROID
+            resourcePacksText = Program.SharedProgram.Resources.GetString(Resource.String.CreditsResourcePacks);
+#elif IOS
+            resourcePacksText = NSBundle.MainBundle.LocalizedString(Strings.CreditsResourcePacks, Strings.CreditsResourcePacks);
+#else
+            resourcePacksText = AppResources.CreditsResourcePacks;
+#endif
+            var resourcePacksTitle = new CCLabelTTF(resourcePacksText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            resourcePacksTitle.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.7f * this.ContentSize.Height);
-            this.AddChild(resourceTitle);
+            this.AddChild(resourcePacksTitle);
 
             var defaultResourceTitle = new CCLabelTTF("Default", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             defaultResourceTitle.Position = new CCPoint(

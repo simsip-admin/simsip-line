@@ -58,8 +58,6 @@
         public static string CommonYes = "CommonYes";
         public static string CreditsCreatedBy = "CreditsCreatedBy";
         public static string CreditsCreatedBySimsip = "CreditsCreatedBySimsip";
-        public static string CreditsIconsdBy = "CreditsIconsdBy";
-        public static string CreditsIconsdByFreepik = "CreditsIconsdByFreepik";
         public static string FinishNewHighScore = "FinishNewHighScore";
         public static string FinishPost = "FinishPost";
         public static string FinishScore = "FinishScore";
@@ -97,5 +95,8 @@
         public static string RatingsDescription = "RatingsDescription";
         public static string RatingsRateUs = "RatingsRateUs";
         public static string StartTap = "StartTap";
+        public static string CreditsFrameworks = "CreditsFrameworks";
+        public static string CreditsResourcePacks = "CreditsResourcePacks";
+        public static string CreditsTitle = "CreditsTitle";
     }
 }

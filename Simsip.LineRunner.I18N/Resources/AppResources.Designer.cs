@@ -323,7 +323,7 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to simsip, llc.
+        ///   Looks up a localized string similar to simsip.
         /// </summary>
         public static string CreditsCreatedBySimsip {
             get {
@@ -332,20 +332,29 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to icons by.
+        ///   Looks up a localized string similar to frameworks.
         /// </summary>
-        public static string CreditsIconsdBy {
+        public static string CreditsFrameworks {
             get {
-                return ResourceManager.GetString("CreditsIconsdBy", resourceCulture);
+                return ResourceManager.GetString("CreditsFrameworks", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to freepik (freepik.com).
+        ///   Looks up a localized string similar to resource packs.
         /// </summary>
-        public static string CreditsIconsdByFreepik {
+        public static string CreditsResourcePacks {
             get {
-                return ResourceManager.GetString("CreditsIconsdByFreepik", resourceCulture);
+                return ResourceManager.GetString("CreditsResourcePacks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to credits.
+        /// </summary>
+        public static string CreditsTitle {
+            get {
+                return ResourceManager.GetString("CreditsTitle", resourceCulture);
             }
         }
         

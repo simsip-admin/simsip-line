@@ -1959,8 +1959,8 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f06006e
 			public const int CommonError = 2131099758;
 			
-			// aapt resource value: 0x7f060097
-			public const int CommonLater = 2131099799;
+			// aapt resource value: 0x7f060095
+			public const int CommonLater = 2131099797;
 			
 			// aapt resource value: 0x7f06006f
 			public const int CommonNo = 2131099759;
@@ -1980,8 +1980,8 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060042
 			public const int CommonPage2Of4 = 2131099714;
 			
-			// aapt resource value: 0x7f060094
-			public const int CommonPage3Of3 = 2131099796;
+			// aapt resource value: 0x7f060092
+			public const int CommonPage3Of3 = 2131099794;
 			
 			// aapt resource value: 0x7f060043
 			public const int CommonPage3Of4 = 2131099715;
@@ -2001,23 +2001,26 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060073
 			public const int CreditsCreatedBySimsip = 2131099763;
 			
+			// aapt resource value: 0x7f060099
+			public const int CreditsFrameworks = 2131099801;
+			
+			// aapt resource value: 0x7f06009a
+			public const int CreditsResourcePacks = 2131099802;
+			
+			// aapt resource value: 0x7f06009b
+			public const int CreditsTitle = 2131099803;
+			
 			// aapt resource value: 0x7f060074
-			public const int CreditsIconsdBy = 2131099764;
+			public const int FinishNewHighScore = 2131099764;
 			
 			// aapt resource value: 0x7f060075
-			public const int CreditsIconsdByFreepik = 2131099765;
+			public const int FinishPost = 2131099765;
 			
 			// aapt resource value: 0x7f060076
-			public const int FinishNewHighScore = 2131099766;
+			public const int FinishScore = 2131099766;
 			
 			// aapt resource value: 0x7f060077
-			public const int FinishPost = 2131099767;
-			
-			// aapt resource value: 0x7f060078
-			public const int FinishScore = 2131099768;
-			
-			// aapt resource value: 0x7f060079
-			public const int FinishTopScoresFor = 2131099769;
+			public const int FinishTopScoresFor = 2131099767;
 			
 			// aapt resource value: 0x7f060039
 			public const int Hello = 2131099705;
@@ -2070,38 +2073,38 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f06004a
 			public const int HelpfreeFlightDescription2 = 2131099722;
 			
+			// aapt resource value: 0x7f060078
+			public const int HudFreeFlight = 2131099768;
+			
+			// aapt resource value: 0x7f060079
+			public const int HudLine = 2131099769;
+			
 			// aapt resource value: 0x7f06007a
-			public const int HudFreeFlight = 2131099770;
+			public const int HudPage = 2131099770;
 			
 			// aapt resource value: 0x7f06007b
-			public const int HudLine = 2131099771;
+			public const int HudResume = 2131099771;
 			
 			// aapt resource value: 0x7f06007c
-			public const int HudPage = 2131099772;
+			public const int IntroGeneratingTerrain = 2131099772;
 			
 			// aapt resource value: 0x7f06007d
-			public const int HudResume = 2131099773;
+			public const int IntroLoadingModels = 2131099773;
 			
 			// aapt resource value: 0x7f06007e
-			public const int IntroGeneratingTerrain = 2131099774;
+			public const int LinesSwitchingLines = 2131099774;
 			
 			// aapt resource value: 0x7f06007f
-			public const int IntroLoadingModels = 2131099775;
+			public const int LoginPassword = 2131099775;
 			
 			// aapt resource value: 0x7f060080
-			public const int LinesSwitchingLines = 2131099776;
+			public const int LoginPasswordDescription = 2131099776;
 			
 			// aapt resource value: 0x7f060081
-			public const int LoginPassword = 2131099777;
+			public const int LoginUserName = 2131099777;
 			
 			// aapt resource value: 0x7f060082
-			public const int LoginPasswordDescription = 2131099778;
-			
-			// aapt resource value: 0x7f060083
-			public const int LoginUserName = 2131099779;
-			
-			// aapt resource value: 0x7f060084
-			public const int LoginUserNameDescription = 2131099780;
+			public const int LoginUserNameDescription = 2131099778;
 			
 			// aapt resource value: 0x7f060058
 			public const int OptionsCredits = 2131099736;
@@ -2115,11 +2118,11 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f06005b
 			public const int OptionsPads = 2131099739;
 			
-			// aapt resource value: 0x7f060095
-			public const int OptionsPracticeModeOff = 2131099797;
+			// aapt resource value: 0x7f060093
+			public const int OptionsPracticeModeOff = 2131099795;
 			
-			// aapt resource value: 0x7f060096
-			public const int OptionsPracticeModeOn = 2131099798;
+			// aapt resource value: 0x7f060094
+			public const int OptionsPracticeModeOn = 2131099796;
 			
 			// aapt resource value: 0x7f06005c
 			public const int OptionsResourcePacks = 2131099740;
@@ -2133,8 +2136,8 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f06005f
 			public const int OptionsTime = 2131099743;
 			
-			// aapt resource value: 0x7f060085
-			public const int OptionsTimeDescription = 2131099781;
+			// aapt resource value: 0x7f060083
+			public const int OptionsTimeDescription = 2131099779;
 			
 			// aapt resource value: 0x7f060060
 			public const int OptionsTitle = 2131099744;
@@ -2142,14 +2145,14 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060061
 			public const int OptionsWorlds = 2131099745;
 			
-			// aapt resource value: 0x7f060086
-			public const int PadsSwitchingPads = 2131099782;
+			// aapt resource value: 0x7f060084
+			public const int PadsSwitchingPads = 2131099780;
 			
-			// aapt resource value: 0x7f060098
-			public const int RatingsDescription = 2131099800;
+			// aapt resource value: 0x7f060096
+			public const int RatingsDescription = 2131099798;
 			
-			// aapt resource value: 0x7f060099
-			public const int RatingsRateUs = 2131099801;
+			// aapt resource value: 0x7f060097
+			public const int RatingsRateUs = 2131099799;
 			
 			// aapt resource value: 0x7f06003c
 			public const int ResourceFlowDirection = 2131099708;
@@ -2157,47 +2160,47 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f06003d
 			public const int ResourceLanguage = 2131099709;
 			
+			// aapt resource value: 0x7f060085
+			public const int ResourcePacksSwitchingResourcePacks = 2131099781;
+			
+			// aapt resource value: 0x7f060086
+			public const int StartAdmin = 2131099782;
+			
+			// aapt resource value: 0x7f060098
+			public const int StartTap = 2131099800;
+			
 			// aapt resource value: 0x7f060087
-			public const int ResourcePacksSwitchingResourcePacks = 2131099783;
+			public const int WorldsDefault = 2131099783;
 			
 			// aapt resource value: 0x7f060088
-			public const int StartAdmin = 2131099784;
-			
-			// aapt resource value: 0x7f06009a
-			public const int StartTap = 2131099802;
+			public const int WorldsErrorCannotUseName = 2131099784;
 			
 			// aapt resource value: 0x7f060089
-			public const int WorldsDefault = 2131099785;
+			public const int WorldsErrorWorldActive = 2131099785;
 			
 			// aapt resource value: 0x7f06008a
-			public const int WorldsErrorCannotUseName = 2131099786;
+			public const int WorldsErrorWorldAlreadyExists = 2131099786;
 			
 			// aapt resource value: 0x7f06008b
-			public const int WorldsErrorWorldActive = 2131099787;
+			public const int WorldsGenerateNew = 2131099787;
 			
 			// aapt resource value: 0x7f06008c
-			public const int WorldsErrorWorldAlreadyExists = 2131099788;
+			public const int WorldsSaveWorldAs = 2131099788;
 			
 			// aapt resource value: 0x7f06008d
-			public const int WorldsGenerateNew = 2131099789;
+			public const int WorldsSaveWorldAsDescription = 2131099789;
 			
 			// aapt resource value: 0x7f06008e
-			public const int WorldsSaveWorldAs = 2131099790;
+			public const int WorldsSelectNewWorld = 2131099790;
 			
 			// aapt resource value: 0x7f06008f
-			public const int WorldsSaveWorldAsDescription = 2131099791;
+			public const int WorldsSwitchingWorlds = 2131099791;
 			
 			// aapt resource value: 0x7f060090
-			public const int WorldsSelectNewWorld = 2131099792;
+			public const int WorldsUseThisWorld = 2131099792;
 			
 			// aapt resource value: 0x7f060091
-			public const int WorldsSwitchingWorlds = 2131099793;
-			
-			// aapt resource value: 0x7f060092
-			public const int WorldsUseThisWorld = 2131099794;
-			
-			// aapt resource value: 0x7f060093
-			public const int WorldsWorlds = 2131099795;
+			public const int WorldsWorlds = 2131099793;
 			
 			// aapt resource value: 0x7f060006
 			public const int abc_action_bar_home_description = 2131099654;

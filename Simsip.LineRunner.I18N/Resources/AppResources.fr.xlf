@@ -68,10 +68,6 @@
           <source>cancel</source>
           <target state="new">cancel</target>
         </trans-unit>
-        <trans-unit id="Resx/CreditsIconsdByFreepik" translate="yes" xml:space="preserve">
-          <source>freepik (freepik.com)</source>
-          <target state="new">freepik (freepik.com)</target>
-        </trans-unit>
         <trans-unit id="Resx/FinishTopScoresFor" translate="yes" xml:space="preserve">
           <source>top scores for</source>
           <target state="new">top scores for</target>
@@ -95,6 +91,18 @@
         <trans-unit id="Resx/StartTap" translate="yes" xml:space="preserve">
           <source>tap</source>
           <target state="new">tap</target>
+        </trans-unit>
+        <trans-unit id="Resx/CreditsTitle" translate="yes" xml:space="preserve">
+          <source>credits</source>
+          <target state="new">credits</target>
+        </trans-unit>
+        <trans-unit id="Resx/CreditsResourcePacks" translate="yes" xml:space="preserve">
+          <source>resource packs</source>
+          <target state="new">resource packs</target>
+        </trans-unit>
+        <trans-unit id="Resx/CreditsFrameworks" translate="yes" xml:space="preserve">
+          <source>frameworks</source>
+          <target state="new">frameworks</target>
         </trans-unit>
         <trans-unit id="Resx/RatingsDescription" translate="yes" xml:space="preserve">
           <source>It seems that you love LineRunner as much as we do. Care to give us a few stars?</source>
@@ -220,13 +228,9 @@
           <source>new high score</source>
           <target state="new">new high score</target>
         </trans-unit>
-        <trans-unit id="Resx/CreditsIconsdBy" translate="yes" xml:space="preserve">
-          <source>icons by</source>
-          <target state="new">icons by</target>
-        </trans-unit>
         <trans-unit id="Resx/CreditsCreatedBySimsip" translate="yes" xml:space="preserve">
-          <source>simsip, llc</source>
-          <target state="new">simsip, llc</target>
+          <source>simsip</source>
+          <target state="new">simsip</target>
         </trans-unit>
         <trans-unit id="Resx/CreditsCreatedBy" translate="yes" xml:space="preserve">
           <source>created by</source>

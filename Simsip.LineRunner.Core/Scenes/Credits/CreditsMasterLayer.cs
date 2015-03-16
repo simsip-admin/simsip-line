@@ -151,21 +151,21 @@ namespace Simsip.LineRunner.Scenes.Credits
                 outToRightHide
             });
 
-            // Options title
-            var optionsText = string.Empty;
+            // Credits title
+            var creditsText = string.Empty;
 #if ANDROID
-            optionsText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsTitle);
+            creditsText = Program.SharedProgram.Resources.GetString(Resource.String.CreditsTitle);
 #elif IOS
-            optionsText = NSBundle.MainBundle.LocalizedString(Strings.CommonVersion, Strings.OptionsTitle);
+            creditsText = NSBundle.MainBundle.LocalizedString(Strings.CreditsTitle, Strings.CreditsTitle);
 #else
-            optionsText = AppResources.OptionsTitle;
+            creditsText = AppResources.CreditsTitle;
 #endif
-            var optionsTitle = new CCLabelTTF(optionsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            optionsTitle.AnchorPoint = CCPoint.AnchorMiddleLeft;
-            optionsTitle.Position = new CCPoint(
+            var creditsTitle = new CCLabelTTF(creditsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            creditsTitle.AnchorPoint = CCPoint.AnchorMiddleLeft;
+            creditsTitle.Position = new CCPoint(
                 0.05f * this.ContentSize.Width,
                 0.9f * this.ContentSize.Height);
-            this.AddChild(optionsTitle);
+            this.AddChild(creditsTitle);
 
             // Header line
             var headerLineImage = new CCSprite("Images/Misc/HeaderLine");

@@ -46,11 +46,19 @@ namespace Simsip.LineRunner.Scenes.Credits
                 0.9f * this.ContentSize.Height);
             this.AddChild(pageNumberHeader);
 
-            var frameworks = new CCLabelTTF("Frameworks", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-            frameworks.Position = new CCPoint(
+            var frameworksText = string.Empty;
+#if ANDROID
+            frameworksText = Program.SharedProgram.Resources.GetString(Resource.String.CreditsFrameworks);
+#elif IOS
+            frameworksText = NSBundle.MainBundle.LocalizedString(Strings.CreditsFrameworks, Strings.CreditsFrameworks);
+#else
+            frameworksText = AppResources.CreditsFrameworks;
+#endif
+            var frameworksTitle = new CCLabelTTF(frameworksText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            frameworksTitle.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.9f * this.ContentSize.Height);
-            this.AddChild(frameworks);
+            this.AddChild(frameworksTitle);
 
             // Bepu
             var bepuTitle = new CCLabelTTF("BEPUphysics", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);

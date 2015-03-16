@@ -60,6 +60,7 @@ namespace Simsip.LineRunner.Scenes.Credits
                 0.5f * this.ContentSize.Width,
                 0.8f * this.ContentSize.Height);
             this.AddChild(createdTitle);
+
             var createdBySimsipText = string.Empty;
 #if ANDROID
             createdBySimsipText = Program.SharedProgram.Resources.GetString(Resource.String.CreditsCreatedBySimsip);
