@@ -10,6 +10,7 @@ using Simsip.LineRunner.Resources;
 using Simsip.LineRunner.Utils;
 using System.Collections.Generic;
 using Simsip.LineRunner.Scenes.MessageBox;
+using System.Threading;
 #if IOS
 using Foundation;
 #endif
@@ -227,16 +228,42 @@ namespace Simsip.LineRunner.Scenes.Pads
 #else
             switchingPadsText = AppResources.PadsSwitchingPads;
 #endif
+
+            this._parent.TheMessageBoxLayer.Show(
+                switchingPadsText,
+                string.Empty,
+                MessageBoxType.MB_PROGRESS);
+
             // Record what was selected
             UserDefaults.SharedUserDefault.SetStringForKey(
                 GameConstants.USER_DEFAULT_KEY_CURRENT_PAD,
                 pad.ModelName);
 
+#if NETFX_CORE
+            IAsyncAction asyncAction = 
+                Windows.System.Threading.ThreadPool.RunAsync(
+                    (workItem) =>
+                    {
+                        RefreshThread();
+                    });
+#else
+
+            var refreshThread = new Thread(RefreshThread) { IsBackground = true };
+            refreshThread.Start();
+#endif
+        }
+
+        private void RefreshThread()
+        {
             // Go for a refresh to get the new resource pack displayed
             this._parent.Refresh();
 
+            // Remove ui
+            this._parent.TheMessageBoxLayer.Hide();
+
             // Ok, we're done here
             this._parent.GoBack();
+
         }
 
         #endregion
