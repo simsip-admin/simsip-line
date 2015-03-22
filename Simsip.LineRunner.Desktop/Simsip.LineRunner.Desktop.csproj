@@ -3950,6 +3950,10 @@
       <Link>Content\Models\Obstacles\Stove01-texture_0.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Content\Database\linerunner.db">
+      <Link>Content\Database\linerunner.db</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
       <Link>Mercury\EffectLibrary\BasicExplosion.xml</Link>
     </None>
@@ -3986,10 +3990,6 @@
     <Content Include="Game.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Simsip.LineRunner.Core\Database\linerunner.db">
-      <Link>Database\linerunner.db</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX11\Deferred\Deferred1Scene.mgfxo">
       <Link>Content\Effects\Deferred\Deferred1Scene.mgfxo</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

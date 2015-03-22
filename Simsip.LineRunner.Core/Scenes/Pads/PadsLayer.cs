@@ -11,6 +11,9 @@ using Simsip.LineRunner.Utils;
 using System.Collections.Generic;
 using Simsip.LineRunner.Scenes.MessageBox;
 using System.Threading;
+#if NETFX_CORE
+using Windows.Foundation;
+#endif
 #if IOS
 using Foundation;
 #endif

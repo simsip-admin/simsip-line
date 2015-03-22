@@ -94,7 +94,7 @@ namespace Simsip.LineRunner.Data
         public static void CopyFromAssets()
         {
             // Construct where we copy from/to
-            var sourcePath = Path.Combine("Database", "linerunner.db");
+            var sourcePath = Path.Combine("Content", "Database", "linerunner.db");
             var dbPath = DatabasePath();
             
             File.Copy(sourcePath, dbPath);
@@ -112,7 +112,7 @@ namespace Simsip.LineRunner.Data
         /// </summary>
         public static async Task CopyFromAssetsAsync()
         {
-            var installPath = Path.Combine("Database", Database.DATABASE_NAME);
+            var installPath = Path.Combine("Content", "Database", Database.DATABASE_NAME);
             var installFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
             var installFile = await installFolder.GetFileAsync(installPath);
 

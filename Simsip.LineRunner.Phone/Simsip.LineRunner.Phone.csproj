@@ -3259,10 +3259,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Simsip.LineRunner.Core\Database\linerunner.db">
-      <Link>Database\linerunner.db</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Fonts\arial-12.xnb">
       <Link>Content\Fonts\arial-12.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -3969,6 +3965,10 @@
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Stove01-texture_0.xnb">
       <Link>Content\Models\Obstacles\Stove01-texture_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\Database\linerunner.db">
+      <Link>Content\Database\linerunner.db</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="..\Simsip.LineRunner.Core\Effects\build-effects.bat">

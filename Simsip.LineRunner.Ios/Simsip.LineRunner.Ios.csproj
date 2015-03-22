@@ -164,9 +164,6 @@
       <Link>Voxeliq\Input\IInputManager.cs</Link>
     </Compile>
     <Compile Include="Views\OAuthViewController.cs" />
-    <Content Include="..\Simsip.LineRunner.Core\Database\linerunner.db">
-      <Link>Database\linerunner.db</Link>
-    </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Fonts\arial-12.xnb">
       <Link>Content\Fonts\arial-12.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -873,6 +870,10 @@
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Obstacles\Stove01-texture_0.xnb">
       <Link>Content\Models\Obstacles\Stove01-texture_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\Database\linerunner.db">
+      <Link>Content\Database\linerunner.db</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
