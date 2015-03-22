@@ -348,6 +348,11 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                                                 (lineModel.WorldWidth / 100);                   // 2. Scale it by the world width of the line
                 var heightScaledToLineSpacing = pageObstaclesEntity.LogicalHeightScaledTo100 *  // 1. Start with the height in the [0,100] range
                                 (this._pageCache.CurrentPageModel.WorldLineSpacing / 100);      // 2. Scale it by the world line spacing
+
+                if (obstacleModel.TheObstacleEntity.LogicalHeightScaledOverride != 0)
+                {
+                    heightScaledToLineSpacing *= obstacleModel.TheObstacleEntity.LogicalHeightScaledOverride / 100;
+                }
                 var translatedY = (lineModel.WorldOrigin.Y + lineModel.WorldHeight) -
                                   (obstacleModel.WorldHeight - heightScaledToLineSpacing);
                 if (obstacleType == ObstacleType.SimpleTop)

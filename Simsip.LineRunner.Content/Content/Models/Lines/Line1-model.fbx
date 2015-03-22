@@ -390,8 +390,8 @@ Objects:  {
 			P: "PlaySpeed", "double", "Number", "",1
 		}
 		UseMipMap: 0
-		Filename: "C:\dev3\simsip-line\Simsip.LineRunner.Content\Content\Models\Lines\Line1-texture.jpg"
-		RelativeFilename: "Line1-texture.png"
+		Filename: "Line1-texture.jpg"
+		RelativeFilename: "Line1-texture.jpg"
 	}
 	Texture: 3690880, "Texture::Line1-texture_jpg", "" {
 		Type: "TextureVideoClip"
@@ -403,8 +403,8 @@ Objects:  {
 			P: "VideoProperty", "object", "", ""
 		}
 		Media: "Video::Line1-texture_jpg"
-		FileName: "C:\dev3\simsip-line\Simsip.LineRunner.Content\Content\Models\Lines\Line1-texture.jpg"
-		RelativeFilename: "Line1-texture.png"
+		FileName: "Line1-texture.jpg"
+		RelativeFilename: "Line1-texture.jpg"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"

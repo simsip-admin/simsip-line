@@ -14,5 +14,10 @@ namespace Simsip.LineRunner.Entities.LineRunner
         /// </summary>
         [PrimaryKey]
         public string ModelName { get; set; }
+
+        /// <summary>
+        /// When not 0, this is the setting to scale to for the height of the obstacle instead of 100%.
+        /// </summary>
+        public float LogicalHeightScaledOverride { get; set; }
     }
 }

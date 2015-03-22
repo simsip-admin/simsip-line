@@ -18,7 +18,7 @@ namespace Engine.Assets
         // to load the effect from.
         // IMPORTANT: Note how effect path is the location of the effect including the
         // "Content" directory prefix.
-        // ALSO: The suffxi ".mgfxo" will be added programatically when loading.
+        // ALSO: The suffix ".mgfxo" will be added programatically when loading.
         // TODO: When comfortable with effect, categorize as models are done
 #if NETFX_CORE
         public const string Deferred1SceneEffect = @"Content\Effects\Deferred\Deferred1Scene";

@@ -55,6 +55,7 @@ namespace Simsip.LineRunner.Data
         }
 #endif
 
+        
 #if ANDROID
         /// <summary>
         /// Copies an embedded database in the Assets folder over to an appropriate device
@@ -69,7 +70,7 @@ namespace Simsip.LineRunner.Data
             var dbPath = DatabasePath();
             
             // Construct where we copy from
-            var assetsPath = Path.Combine("Database", Database.DATABASE_NAME);
+            var assetsPath = Path.Combine("Content", "Database", Database.DATABASE_NAME);
             
             // Copy the file from assets to device specific location
             using (var assetStream = Program.SharedProgram.Assets.Open(assetsPath))

@@ -143,6 +143,7 @@ namespace Simsip.LineRunner.Effects.Deferred
         private RenderTarget2D _depthTarget;
         private RenderTarget2D _shadingTarget;
         private RenderTarget2D _shadowTarget;
+        private RenderTargetBinding[] _renderTo3TargetsBinding;
 
         private Texture2D _blackImage;
         private Color[] _blackImageData;
@@ -231,6 +232,13 @@ namespace Simsip.LineRunner.Effects.Deferred
             this._shadingTarget = new RenderTarget2D(_device, width, height, false, SurfaceFormat.Color, DepthFormat.Depth24);
             this._shadowTarget = new RenderTarget2D(_device, width, height, false, SurfaceFormat.Color, DepthFormat.Depth24); // *Changed from book code*
 
+            this._renderTo3TargetsBinding = new RenderTargetBinding[] 
+                { 
+                    this._colorTarget, 
+                    this._normalTarget, 
+                    this._depthTarget
+                };
+
 #if DESKTOP
             this._colorTarget.SimsipSetPrivateData("ColorTarget");
             this._normalTarget.SimsipSetPrivateData("NormalTarget");
@@ -262,7 +270,13 @@ namespace Simsip.LineRunner.Effects.Deferred
 #if DESKTOP
             this.GraphicsDevice.BeginEvent("RenderSceneTo3RenderTargets");
 #endif
+
+#if IOS
+            this.RenderSceneTo3RenderTargetsIos(gameTime);
+#else
             this.RenderSceneTo3RenderTargets(gameTime);
+#endif
+
 #if DESKTOP
             this.GraphicsDevice.EndEvent();
 #endif
@@ -332,29 +346,79 @@ namespace Simsip.LineRunner.Effects.Deferred
 
         private void RenderSceneTo3RenderTargets(GameTime gameTime)
         {
-            this._device.SetRenderTargets(new RenderTargetBinding[] 
-                { 
-                    this._colorTarget, 
-                    this._normalTarget, 
-                    this._depthTarget
-                });
+            this._device.SetRenderTargets(this._renderTo3TargetsBinding);
 
             // Clear all render targets
             this._device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1, 0);
 
             // Render the scene using custom effect that writes to all render targets simultaneously
+            // TODO: Can this be set once?
             this._effect1Scene.CurrentTechnique = this._effect1Scene.Techniques["MultipleTargets"];
+
             this._effect1Scene.Parameters["xView"].SetValue(this._view);
+
+            // TODO: Can this be set once?
             this._effect1Scene.Parameters["xProjection"].SetValue(this._projection);
 
+            // TODO: Can this be set once?
             this._effect1Scene.Parameters["xUnitConverter"].SetValue(15000f);
+
+            // TODO: Can this be set once?
+            this._effect1Scene.Parameters["xIsClip"].SetValue(0f);
+            this._effect1Scene.Parameters["xClippingPlane"].SetValue(Vector4.Zero);
+
+            this.RenderScene(this._effect1Scene, EffectType.Deferred1SceneEffect);
+        }
+
+        private void RenderSceneTo3RenderTargetsIos(GameTime gameTime)
+        {
+            //
+            // Color
+            //
+            this._device.SetRenderTarget(this._colorTarget);
+
+            this._device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1, 0);
+
+            this._effect1Scene.CurrentTechnique = this._effect1Scene.Techniques["SingleTargetColor"];
+            this._effect1Scene.Parameters["xView"].SetValue(this._view);
+            this._effect1Scene.Parameters["xProjection"].SetValue(this._projection);
 
             this._effect1Scene.Parameters["xIsClip"].SetValue(0f);
             this._effect1Scene.Parameters["xClippingPlane"].SetValue(Vector4.Zero);
 
             this.RenderScene(this._effect1Scene, EffectType.Deferred1SceneEffect);
 
-            // this._device.SetRenderTargets(null);
+            //
+            // Normal
+            //
+            this._device.SetRenderTarget(this._normalTarget);
+
+            this._device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1, 0);
+
+            this._effect1Scene.CurrentTechnique = this._effect1Scene.Techniques["SingleTargetNormal"];
+            this._effect1Scene.Parameters["xView"].SetValue(this._view);
+            this._effect1Scene.Parameters["xProjection"].SetValue(this._projection);
+
+            this._effect1Scene.Parameters["xIsClip"].SetValue(0f);
+            this._effect1Scene.Parameters["xClippingPlane"].SetValue(Vector4.Zero);
+
+            this.RenderScene(this._effect1Scene, EffectType.Deferred1SceneEffect);
+
+            //
+            // Depth
+            //
+            this._device.SetRenderTarget(this._normalTarget);
+
+            this._device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1, 0);
+
+            this._effect1Scene.CurrentTechnique = this._effect1Scene.Techniques["SingleTargetDepth"];
+            this._effect1Scene.Parameters["xView"].SetValue(this._view);
+            this._effect1Scene.Parameters["xProjection"].SetValue(this._projection);
+
+            this._effect1Scene.Parameters["xIsClip"].SetValue(0f);
+            this._effect1Scene.Parameters["xClippingPlane"].SetValue(Vector4.Zero);
+
+            this.RenderScene(this._effect1Scene, EffectType.Deferred1SceneEffect);
         }
 
         private void GenerateShadingMap()

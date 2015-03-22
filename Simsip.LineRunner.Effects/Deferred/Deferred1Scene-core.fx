@@ -48,6 +48,20 @@ struct PixelToFrame
 		float4 Depth 			: COLOR2;
 	};
 	
+// Our final output to screen - single pass implementation
+struct PixelToFrameSingleColor
+{
+	float4 Color			: COLOR0;
+};
+struct PixelToFrameSingleNormal
+{
+	float4 Normal			: COLOR0;
+};
+struct PixelToFrameSingleDepth
+{
+	float4 Depth			: COLOR0;
+};
+
 // http://skytiger.wordpress.com/2010/12/01/packing-depth-into-color/
 float4 UnitToColor32(in float unit) 
 {
@@ -152,6 +166,81 @@ PixelToFrame MultipleTargetsPixelShader(VertexToPixel PSIn)
 	// Output.Depth.r = 	depth;
 	
 	// Render multiple targets Color0, Color1 and Color2
+	return Output;
+}
+
+PixelToFrameSingleColor SingleTargetColorPixelShader(VertexToPixel PSIn) : COLOR0
+{
+	PixelToFrameSingleColor Output = (PixelToFrameSingleColor)0;
+
+	// Do we have a clipping plane to consider?
+	if (xIsClip != 0)
+	{
+		clip(PSIn.Clipping.x);
+	}
+
+	// Record color to render target Color0
+	Output.Color.rgb = tex2D(TextureSampler, PSIn.TexCoords);
+
+	// Render single target Color0
+	return Output;
+}
+
+PixelToFrameSingleNormal SingleTargetNormalPixelShader(VertexToPixel PSIn)
+{
+
+	PixelToFrameSingleNormal Output = (PixelToFrameSingleNormal)0;
+
+	// Do we have a clipping plane to consider?
+	if (xIsClip != 0)
+	{
+		clip(PSIn.Clipping.x);
+	}
+
+	// Modify normal to [0,1] range and record to render target Color1
+	Output.Normal.xyz = PSIn.Normal / 2.0f + 0.5f;
+
+	// Render single target Color0
+	return Output;
+}
+
+PixelToFrameSingleDepth SingleTargetDepthPixelShader(VertexToPixel PSIn)
+{
+	PixelToFrameSingleDepth Output = (PixelToFrameSingleDepth)0;
+
+	// Do we have a clipping plane to consider?
+	if (xIsClip != 0)
+	{
+		clip(PSIn.Clipping.x);
+	}
+
+	// Convert our Z position back from homogeneous coordinates
+	float depth = PSIn.ScreenPos.z; // PSIn.ScreenPos.z/PSIn.ScreenPos.w;
+
+	// Convert depth to unit [0,1]
+	float depthUnit = (depth / xUnitConverter) + 0.5f;
+
+	// Encode modified Z position into a Color and record to render target Color2
+	Output.Depth = UnitToColor32(depthUnit);
+
+	// Bring depth value into the [0,1] range
+	// projection_limit can be passed in from c# code
+	// depth needs to be first clamped to [-projection_limit, projection_limit]
+	// Output.Depth.r = (depth/2 + projection_limit/2)/projection_limit
+	// 
+	// Bring from the [0,1] range back to its original value
+	// float3 normal = tex2D(NormalMapSampler, PSIn.TexCoord).rgb;
+	// normal = normal*2.0f-1.0f;
+	//
+	// float depth = tex2D(DepthMapSampler, PSIn.TexCoord2).r
+	// depth = (depth*projection_limit*2f) - projection_limit
+	// 
+	// Try same for shadow mapping, otherwise use id-based shadow mapping
+	// How to setup id's?
+	// Category base id's for stamping Box2DModel.Id?
+	// Output.Depth.r = 	depth;
+
+	// Render single target Color0
 	return Output;
 }
 

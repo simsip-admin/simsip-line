@@ -3735,42 +3735,6 @@
       <Link>Content\Models\Lines\PaperDecorativeRed2.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe1-model.xnb">
-      <Link>Content\Models\Obstacles\Pipe1-model.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe1-texture_0.xnb">
-      <Link>Content\Models\Obstacles\Pipe1-texture_0.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe1-thumbnail.xnb">
-      <Link>Content\Models\Obstacles\Pipe1-thumbnail.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe2-model.xnb">
-      <Link>Content\Models\Obstacles\Pipe2-model.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe2-texture_0.xnb">
-      <Link>Content\Models\Obstacles\Pipe2-texture_0.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe2-thumbnail.xnb">
-      <Link>Content\Models\Obstacles\Pipe2-thumbnail.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe3-model.xnb">
-      <Link>Content\Models\Obstacles\Pipe3-model.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe3-texture_0.xnb">
-      <Link>Content\Models\Obstacles\Pipe3-texture_0.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe3-thumbnail.xnb">
-      <Link>Content\Models\Obstacles\Pipe3-thumbnail.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Pads\Pad1-model.xnb">
       <Link>Content\Models\Pads\Pad1-model.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -3865,6 +3829,146 @@
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\skins\Purple.skin">
       <Link>Content\Skins\Purple.skin</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Can01-model.xnb">
+      <Link>Content\Models\Obstacles\Can01-model.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Can01-texture_0.xnb">
+      <Link>Content\Models\Obstacles\Can01-texture_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Gamophone01-texture_0.xnb">
+      <Link>Content\Models\Obstacles\Gamophone01-texture_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Gramophone01-model.xnb">
+      <Link>Content\Models\Obstacles\Gramophone01-model.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe01-model.xnb">
+      <Link>Content\Models\Obstacles\Pipe01-model.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe01-texture_0.xnb">
+      <Link>Content\Models\Obstacles\Pipe01-texture_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe02-model.xnb">
+      <Link>Content\Models\Obstacles\Pipe02-model.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe02-texture_0.xnb">
+      <Link>Content\Models\Obstacles\Pipe02-texture_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe03-model.xnb">
+      <Link>Content\Models\Obstacles\Pipe03-model.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe03-texture_0.xnb">
+      <Link>Content\Models\Obstacles\Pipe03-texture_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe04-model.xnb">
+      <Link>Content\Models\Obstacles\Pipe04-model.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe04-texture_0.xnb">
+      <Link>Content\Models\Obstacles\Pipe04-texture_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe05-model.xnb">
+      <Link>Content\Models\Obstacles\Pipe05-model.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe05-texture_0.xnb">
+      <Link>Content\Models\Obstacles\Pipe05-texture_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe06-model.xnb">
+      <Link>Content\Models\Obstacles\Pipe06-model.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe06-texture_0.xnb">
+      <Link>Content\Models\Obstacles\Pipe06-texture_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe07-model.xnb">
+      <Link>Content\Models\Obstacles\Pipe07-model.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe07-texture_0.xnb">
+      <Link>Content\Models\Obstacles\Pipe07-texture_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe08-model.xnb">
+      <Link>Content\Models\Obstacles\Pipe08-model.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe08-texture_0.xnb">
+      <Link>Content\Models\Obstacles\Pipe08-texture_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe08-texture_1.xnb">
+      <Link>Content\Models\Obstacles\Pipe08-texture_1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe09-model.xnb">
+      <Link>Content\Models\Obstacles\Pipe09-model.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe09-texture_0.xnb">
+      <Link>Content\Models\Obstacles\Pipe09-texture_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe1-model.xnb">
+      <Link>Content\Models\Obstacles\Pipe1-model.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe1-texture_0.xnb">
+      <Link>Content\Models\Obstacles\Pipe1-texture_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe1-thumbnail.xnb">
+      <Link>Content\Models\Obstacles\Pipe1-thumbnail.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe10-model.xnb">
+      <Link>Content\Models\Obstacles\Pipe10-model.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe2-model.xnb">
+      <Link>Content\Models\Obstacles\Pipe2-model.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe2-texture_0.xnb">
+      <Link>Content\Models\Obstacles\Pipe2-texture_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe2-thumbnail.xnb">
+      <Link>Content\Models\Obstacles\Pipe2-thumbnail.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe3-model.xnb">
+      <Link>Content\Models\Obstacles\Pipe3-model.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe3-texture_0.xnb">
+      <Link>Content\Models\Obstacles\Pipe3-texture_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Pipe3-thumbnail.xnb">
+      <Link>Content\Models\Obstacles\Pipe3-thumbnail.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Stove01-model.xnb">
+      <Link>Content\Models\Obstacles\Stove01-model.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Models\Obstacles\Stove01-texture_0.xnb">
+      <Link>Content\Models\Obstacles\Stove01-texture_0.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="..\Simsip.LineRunner.Core\Effects\build-effects.bat">

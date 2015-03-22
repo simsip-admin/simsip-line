@@ -55,58 +55,62 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Bepu\InstancedEffect.fx" />
     <None Include="build-all-effects.bat" />
     <None Include="build-effect.bat" />
     <None Include="Deferred\Deferred1Scene-core.fx" />
     <None Include="Deferred\Deferred1Scene-dx11.fx" />
-    <None Include="Deferred\Deferred1Scene-dx9.fx" />
     <None Include="Deferred\Deferred2Lights-core.fx" />
     <None Include="Deferred\Deferred2Lights-dx11.fx" />
-    <None Include="Deferred\Deferred2Lights-dx9.fx" />
     <None Include="Deferred\Deferred3Final-core.fx" />
     <None Include="Deferred\Deferred3Final-dx11.fx" />
-    <None Include="Deferred\Deferred3Final-dx9.fx" />
     <None Include="Shadow\ShadowMap-core.fx" />
     <None Include="Shadow\ShadowMap-dx11.fx" />
-    <None Include="Shadow\ShadowMap-dx9.fx" />
     <None Include="Sky\PerlinNoise-core.fx" />
     <None Include="Sky\PerlinNoise-dx11.fx" />
-    <None Include="Sky\PerlinNoise-dx9.fx" />
     <None Include="Sky\PerlinNoise.dx11.fx" />
     <None Include="Sky\SkyDome-core.fx" />
     <None Include="Sky\SkyDome-dx11.fx" />
-    <None Include="Sky\SkyDome-dx9.fx" />
     <None Include="Sky\SkyDome.dx11.fx" />
     <None Include="Voxeliq\BlockEffect-core.fx" />
     <None Include="Voxeliq\BlockEffect-dx11.fx" />
-    <None Include="Voxeliq\BlockEffect-dx9.fx" />
     <None Include="Voxeliq\BlockEffect.dx11.fx" />
     <None Include="Voxeliq\DualTextured-core.fx" />
     <None Include="Voxeliq\DualTextured-dx11.fx" />
-    <None Include="Voxeliq\DualTextured-dx9.fx" />
     <None Include="Voxeliq\DualTextured.dx11.fx" />
     <None Include="Voxeliq\PostProcessing\Bloom\BloomCombine-core.fx" />
     <None Include="Voxeliq\PostProcessing\Bloom\BloomCombine-dx11.fx" />
-    <None Include="Voxeliq\PostProcessing\Bloom\BloomCombine-dx9.fx" />
     <None Include="Voxeliq\PostProcessing\Bloom\BloomCombine.dx11.fx" />
     <None Include="Voxeliq\PostProcessing\Bloom\BloomExtract-core.fx" />
     <None Include="Voxeliq\PostProcessing\Bloom\BloomExtract-dx11.fx" />
-    <None Include="Voxeliq\PostProcessing\Bloom\BloomExtract-dx9.fx" />
     <None Include="Voxeliq\PostProcessing\Bloom\BloomExtract.dx11.fx" />
     <None Include="Voxeliq\PostProcessing\Bloom\GaussianBlur-core.fx" />
     <None Include="Voxeliq\PostProcessing\Bloom\GaussianBlur-dx11.fx" />
-    <None Include="Voxeliq\PostProcessing\Bloom\GaussianBlur-dx9.fx" />
     <None Include="Voxeliq\PostProcessing\Bloom\GaussianBlur.dx11.fx" />
     <None Include="Water\Series4.fx" />
     <None Include="Water\Water-core.fx" />
     <None Include="Water\Water-dx11.fx" />
-    <None Include="Water\Water-dx9.fx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Voxeliq\build-effects-dx11.bat" />
     <None Include="Voxeliq\build-effects-dx9-new.bat" />
     <None Include="Voxeliq\build-effects-dx9.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Bepu\InstancedEffect-core.fx" />
+    <Content Include="Bepu\InstancedEffect-dx09.fx" />
+    <Content Include="Bepu\InstancedEffect-dx11.fx" />
+    <Content Include="Deferred\Deferred1Scene-dx09.fx" />
+    <Content Include="Deferred\Deferred2Lights-dx09.fx" />
+    <Content Include="Deferred\Deferred3Final-dx09.fx" />
+    <Content Include="Shadow\ShadowMap-dx09.fx" />
+    <Content Include="Sky\PerlinNoise-dx09.fx" />
+    <Content Include="Sky\SkyDome-dx09.fx" />
+    <Content Include="Voxeliq\BlockEffect-dx09.fx" />
+    <Content Include="Voxeliq\DualTextured-dx09.fx" />
+    <Content Include="Voxeliq\PostProcessing\Bloom\BloomCombine-dx09.fx" />
+    <Content Include="Voxeliq\PostProcessing\Bloom\BloomExtract-dx09.fx" />
+    <Content Include="Voxeliq\PostProcessing\Bloom\GaussianBlur-dx09.fx" />
+    <Content Include="Water\Water-dx09.fx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

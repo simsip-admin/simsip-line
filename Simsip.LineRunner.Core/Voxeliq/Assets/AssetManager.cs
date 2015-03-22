@@ -448,7 +448,6 @@ namespace Engine.Assets
             // Models
             var pad1Model = this.GetModel("Pad1", ModelType.Pad);
             var ledge1Model = this.GetModel("Line1", ModelType.Line);
-            var pipe1Model = this.GetModel("Pipe1", ModelType.Obstacle);
             var heroModel = this.GetModel("Hero", ModelType.Character);
             var paneModel = this.GetModel("Pane1", ModelType.Pane);
 
@@ -489,7 +488,6 @@ namespace Engine.Assets
             // Models
             var pad1Model = this.GetModel("Pad1", ModelType.Pad);
             var ledge1Model = this.GetModel("Line1", ModelType.Line);
-            var pipe1Model = this.GetModel("Pipe1", ModelType.Obstacle);
             var heroModel = this.GetModel("Hero", ModelType.Character);
             var paneModel = this.GetModel("Pane1", ModelType.Pane);
 
