@@ -23,6 +23,7 @@ using Simsip.LineRunner.ContentPipeline;
 using BEPUphysics.CollisionRuleManagement;
 using Engine.Input;
 using Simsip.LineRunner.GameObjects.Characters;
+using System.Diagnostics;
 
 
 namespace Simsip.LineRunner.GameObjects.Obstacles
@@ -330,8 +331,14 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                     obstacleModel.WorldMatrix *= flipMatrix;
                 }
 
-                // Construct our scale matrix based on how we scaled page
+                // Construct our scale matrix based on how we scaled page.
+                // IMPORTANT: Note how we take into account an additional optional scaling that
+                // can be applied to the model to make it bigger or smaller than its default size.
                 var scale = this._pageCache.CurrentPageModel.ModelToWorldRatio;
+                if (pageObstaclesEntity.LogicalScaleScaledTo100 != 0)
+                {
+                    scale *= pageObstaclesEntity.LogicalScaleScaledTo100 / 100;
+                }
                 var scaleMatrix = Matrix.CreateScale(scale);
 
                 // Now get our new world dimensions
@@ -348,11 +355,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                                                 (lineModel.WorldWidth / 100);                   // 2. Scale it by the world width of the line
                 var heightScaledToLineSpacing = pageObstaclesEntity.LogicalHeightScaledTo100 *  // 1. Start with the height in the [0,100] range
                                 (this._pageCache.CurrentPageModel.WorldLineSpacing / 100);      // 2. Scale it by the world line spacing
-
-                if (obstacleModel.TheObstacleEntity.LogicalHeightScaledOverride != 0)
-                {
-                    heightScaledToLineSpacing *= obstacleModel.TheObstacleEntity.LogicalHeightScaledOverride / 100;
-                }
                 var translatedY = (lineModel.WorldOrigin.Y + lineModel.WorldHeight) -
                                   (obstacleModel.WorldHeight - heightScaledToLineSpacing);
                 if (obstacleType == ObstacleType.SimpleTop)
@@ -459,6 +461,14 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 Matrix = ConversionHelper.MathConverter.Convert(obstacleModel.WorldMatrix)
             };
             var physicsVertices = obstacleModel.XnaModel.Tag as PhysicsModelVertices;
+            if (obstacleModel.ThePageObstaclesEntity.LogicalScaleScaledTo100 != 0)
+            {
+                var verticeCount = physicsVertices.PhysicsVertices.Count();
+                for(var i = 0; i < verticeCount; i++)
+                {
+                    physicsVertices.PhysicsVertices[i] = physicsVertices.PhysicsVertices[i] * (obstacleModel.ThePageObstaclesEntity.LogicalScaleScaledTo100 / 100);
+                }
+            }
             var physicsMesh = new MobileMesh(physicsVertices.PhysicsVertices, physicsVertices.Indices, physicsTransform, MobileMeshSolidity.Counterclockwise);
             obstacleModel.PhysicsEntity = physicsMesh;
             physicsMesh.Tag = obstacleModel;

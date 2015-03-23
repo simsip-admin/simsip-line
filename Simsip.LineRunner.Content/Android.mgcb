@@ -152,17 +152,6 @@
 /processorParam:TextureFormat=Color
 /build:Content/ResourcePacks/Default/Terrain.png
 
-#begin Content/Models/Obstacles/Pipe1-thumbnail.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:Content/Models/Obstacles/Pipe1-thumbnail.png
-
 #begin Content/Models/Characters/Hero-model.fbx
 /importer:FbxImporter
 /processor:ModelVerticesProcessor
@@ -241,17 +230,6 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
 /build:Content/Models/Pads/Pad1-thumbnail.png
-
-#begin Content/Models/Obstacles/Pipe2-thumbnail.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:Content/Models/Obstacles/Pipe2-thumbnail.png
 
 #begin Content/Models/Panes/Pane1-model.fbx
 /importer:FbxImporter
@@ -1409,17 +1387,6 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
 /build:Content/Models/Voxeliq/SkyDomeTexture.jpg
-
-#begin Content/Models/Obstacles/Pipe3-thumbnail.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:Content/Models/Obstacles/Pipe3-thumbnail.png
 
 #begin Content/Skins/Blue/Cursors/Busy.cur
 /importer:CursorImporter

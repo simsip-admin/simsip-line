@@ -143,7 +143,13 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             if (this.PhysicsEntity != null) // &&
                 // this.PhysicsLocalTransform != null) TODO: This is a struct, do we need some type of check?
             {
-                var scaleMatrix = Matrix.CreateScale(this._pageCache.CurrentPageModel.ModelToWorldRatio);
+                var scale = this._pageCache.CurrentPageModel.ModelToWorldRatio;
+                if (this.ThePageObstaclesEntity.LogicalScaleScaledTo100 != 0)
+                {
+                    scale *= this.ThePageObstaclesEntity.LogicalScaleScaledTo100 / 100;
+                }
+
+                var scaleMatrix = Matrix.CreateScale(scale);
                 this.WorldMatrix = scaleMatrix * this.RotationMatrix * MathConverter.Convert(this.PhysicsLocalTransform * this.PhysicsEntity.WorldTransform);
             }
 

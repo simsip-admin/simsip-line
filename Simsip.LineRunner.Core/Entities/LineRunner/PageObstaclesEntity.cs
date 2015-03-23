@@ -47,6 +47,11 @@ namespace Simsip.LineRunner.Entities.LineRunner
         public float LogicalHeightScaledTo100 { get; set; }
 
         /// <summary>
+        /// If non-zero, an additional percentage scaling we will apply to the obstacle.
+        /// </summary>
+        public float LogicalScaleScaledTo100 { get; set; }
+
+        /// <summary>
         /// The logical angle we will rotate this obstacle to.
         /// </summary>
         public float LogicalAngle { get; set; }
