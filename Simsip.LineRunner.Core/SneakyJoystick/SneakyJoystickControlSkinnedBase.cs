@@ -10,6 +10,7 @@ namespace Simsip.LineRunner.SneakyJoystick
 			BackgroundSprite = new ColoredCircleSprite( 
                 CCColor4B.Red, 
                 0.5f * rect.Size.Width);
+
 			ThumbSprite = new ColoredCircleSprite(
                 CCColor4B.Blue,
                 0.25f * rect.Size.Width);

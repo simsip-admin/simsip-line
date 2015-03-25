@@ -22,20 +22,16 @@ namespace Simsip.LineRunner.SneakyJoystick
 
         #region Private properties
 
-        private bool isDPad;
-        private float joystickRadius;
-        private float thumbRadius;
-        private float deadRadius; //Size of deadzone in joystick (how far you must move before input starts). Automatically set if isDpad == YES
-
-
-
-        private bool isMoving;
-
-        private CCRect ControlSize { get; set; }
+        private bool _isDPad;
+        private float _joystickRadius;
+        private float _thumbRadius;
+        private float _deadRadius; //Size of deadzone in joystick (how far you must move before input starts). Automatically set if isDpad == YES
+        private bool _isMoving;
+        private CCRect _controlSize;
 
         #endregion
 
-        #region Public properties
+        #region Properties
 
         public CCPoint StickPosition { get; set; }
 
@@ -55,12 +51,12 @@ namespace Simsip.LineRunner.SneakyJoystick
         {
             get
             {
-                return joystickRadius;
+                return _joystickRadius;
             }
             set
             {
                 JoystickRadiusSq = value * value;
-                joystickRadius = value;
+                _joystickRadius = value;
 
             }
         }
@@ -69,31 +65,32 @@ namespace Simsip.LineRunner.SneakyJoystick
         {
             get
             {
-                return thumbRadius;
+                return _thumbRadius;
             }
             set
             {
                 ThumbRadiusSq = value * value;
-                thumbRadius = value;
+                _thumbRadius = value;
             }
         }
+
         public float ThumbRadiusSq { get; set; }
 
         public float DeadRadius
         {
             get
             {
-                return deadRadius;
+                return _deadRadius;
             }
             set
             {
                 DeadRadiusSq = value * value;
-                deadRadius = value;
+                _deadRadius = value;
             }
         }
+
         public float DeadRadiusSq { get; set; }
-
-
+        
         public bool IsDebug;
 
         //DPAD =====================================================
@@ -102,22 +99,23 @@ namespace Simsip.LineRunner.SneakyJoystick
         {
             get
             {
-                return isDPad;
+                return _isDPad;
             }
             set
             {
 
-                isDPad = value;
-                if (isDPad)
+                _isDPad = value;
+                if (_isDPad)
                 {
                     HasDeadzone = true;
-                    deadRadius = 10.0f;
+                    _deadRadius = 10.0f;
                 }
             }
         }
 
         public bool HasDeadzone { get; set; } //Turns Deadzone on/off for joystick, always YES if ifDpad == YES
-        public int NumberOfDirections { get; set; } //Used only when isDpad == YES
+
+        public int NumberOfDirections { get; set; } // Used only when isDpad == YES
 
         //DIRECTIONS ===============================================
 
@@ -191,7 +189,6 @@ namespace Simsip.LineRunner.SneakyJoystick
 
         public SneakyJoystickControl(CCRect rect) : base()
         {
-
             Degrees = 0.0f;
             Velocity = CCPoint.Zero;
             AutoCenter = true;
@@ -199,22 +196,22 @@ namespace Simsip.LineRunner.SneakyJoystick
             HasDeadzone = false;
             NumberOfDirections = 4;
 
-            isDPad = false;
-            joystickRadius = rect.Size.Width / 2;
+            _isDPad = false;
+            _joystickRadius = rect.Size.Width / 2;
 
             ThumbRadius = 32.0f;
             DeadRadius = 0.0f;
 
             AnchorPoint = CCPoint.AnchorMiddle;
 
-			this.ControlSize = rect;
+			this._controlSize = rect;
         }
 
         public override void OnEnter()
         {
             base.OnEnter();
 
-			var rect = ControlSize;
+			var rect = _controlSize;
 
 			this.ContentSize = rect.Size;
 			this.Position = rect.Center;
@@ -248,7 +245,7 @@ namespace Simsip.LineRunner.SneakyJoystick
             float cosAngle;
             float sinAngle;
 
-            if (isDPad)
+            if (_isDPad)
             {
                 float anglePerSector = 360.0f / CCMathHelper.ToRadians(NumberOfDirections); //  NumberOfDirections * ((float)Math.PI / 180.0f);
                 angle = (float)Math.Round(angle / anglePerSector) * anglePerSector;
@@ -258,20 +255,19 @@ namespace Simsip.LineRunner.SneakyJoystick
             sinAngle = CCMathHelper.Sin(angle);
 
             // NOTE: Velocity goes from -1.0 to 1.0.
-            if (dSq > JoystickRadiusSq || isDPad)
+            if (dSq > JoystickRadiusSq || _isDPad)
             {
-                dx = cosAngle * joystickRadius;
-                dy = sinAngle * joystickRadius;
+                dx = cosAngle * _joystickRadius;
+                dy = sinAngle * _joystickRadius;
             }
 
-            Velocity = new CCPoint(dx / joystickRadius, dy / joystickRadius);
+            Velocity = new CCPoint(dx / _joystickRadius, dy / _joystickRadius);
             Degrees = CCMathHelper.ToDegrees(angle);
 
             // Update the thumb's position
 			var newLoc = new CCPoint(dx + ContentSize.Width / 2, dy + ContentSize.Height / 2);
 			StickPosition = newLoc;
         }
-
 
         public virtual void OnTouchesBegan(List<CCTouch> touches /* TODO , CCEvent touchEvent */)
         {
@@ -282,16 +278,16 @@ namespace Simsip.LineRunner.SneakyJoystick
             CCPoint location = this.ConvertTouchToNodeSpace(touch);
 
             //Do a fast rect check before doing a circle hit check:
-            if (location.X - joystickRadius < -joystickRadius || location.X - joystickRadius > joystickRadius || location.Y - joystickRadius < -joystickRadius || location.Y - joystickRadius > joystickRadius)
+            if (location.X - _joystickRadius < -_joystickRadius || location.X - _joystickRadius > _joystickRadius || location.Y - _joystickRadius < -_joystickRadius || location.Y - _joystickRadius > _joystickRadius)
             {
                 return;
             }
             else
             {
-                float dSq = (location.X - joystickRadius) * (location.X - joystickRadius) + (location.Y - joystickRadius) * (location.Y - joystickRadius);
+                float dSq = (location.X - _joystickRadius) * (location.X - _joystickRadius) + (location.Y - _joystickRadius) * (location.Y - _joystickRadius);
 				if (JoystickRadiusSq > dSq)
                 {
-                    isMoving = true;
+                    _isMoving = true;
 
                     UpdateVelocity(location);
 
@@ -311,7 +307,7 @@ namespace Simsip.LineRunner.SneakyJoystick
         public virtual void OnTouchesMoved(List<CCTouch> touches /* TODO , CCEvent object touchEvent*/)
         {
             //base.TouchesMoved(touches, touchEvent);
-            if (!isMoving)
+            if (!_isMoving)
             {
                 return;
             }
@@ -346,12 +342,12 @@ namespace Simsip.LineRunner.SneakyJoystick
 
         public virtual void OnTouchesEnded(List<CCTouch> touches /* TODO , CCEvent touchEvent*/)
         {
-            if (!isMoving)
+            if (!_isMoving)
                 return;
 
             ResetDirections();
 
-            isMoving = false;
+            _isMoving = false;
 
             CCTouch touch = touches.First();
 
@@ -395,7 +391,6 @@ namespace Simsip.LineRunner.SneakyJoystick
                 node.Position = GetPositionFromVelocity(Velocity, node, dt, wSize);
         }
 
-
         #region Static methods
 
         public static CCPoint GetPositionFromVelocity(CCPoint velocity, CCNode node, float dt, CCSize winSize)
@@ -435,7 +430,6 @@ namespace Simsip.LineRunner.SneakyJoystick
             return newPosition;
 
         }
-
 
         public override void Draw()
         {

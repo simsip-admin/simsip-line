@@ -263,6 +263,8 @@ namespace Simsip.LineRunner.Scenes.Hud
                 footerContentSize.Width,
                 footerContentSize.Height), 
                 4);
+
+            // TODO: Is this the right position for this? Try setting to middle of parent panel just to get to display
             this._joystickPanel.Position = new CCPoint(
                 0f,
                 0f);

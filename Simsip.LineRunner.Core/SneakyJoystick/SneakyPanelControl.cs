@@ -63,7 +63,6 @@ namespace Simsip.LineRunner.SneakyJoystick
         {
             this.ContentSize = contentSize;
 
-
             this.InitializeJoyStick();
 
             this.Buttons = new List<SneakyButtonControlSkinnedBase>(buttons);
@@ -287,15 +286,21 @@ namespace Simsip.LineRunner.SneakyJoystick
 
         /*
         http://www.cocos2d-iphone.org/forums/topic/tutorials-dont-mention-cctouchdispatcherremovedelegate/
-        Setting self.isTouchEnabled to YES in a CCLayer causes
-        RegisterWithTouchDispatcher to be called in onEnter, 
-        and CCDirector.SharedDirector.TouchDispatcher.RemoveDelegate(this)
+         
+        Setting self.isTouchEnabled to YES in a CCLayer causes RegisterWithTouchDispatcher 
+        to be called in onEnter, and CCDirector.SharedDirector.TouchDispatcher.RemoveDelegate(this)
         to be called in onExit.
 
         RegisterWithTouchDispatcher in CCLayer registers as a Standard touch delegate. 
-        So you only needs to override it if you want the Targeted touch messages.
+        So you only need to override it if you want the Targeted touch messages.
             
-        But in Cocos2d-XNA we have CCTouchMode
+        Note if you don't set CCTouchMode it will default to CCTouchMode.AllAtOnce, which means
+        override TouchesBegan. Otherwise set CCTouchMode to CCTouchMode.OneByOne and override
+        TouchBegan.
+         
+        In TouchBegan, If you return true then ccTouchEnded will called. 
+        If you return false then ccTouchEnded will not be called, and the event 
+        will go the parent layer
         */
 
         public override void RegisterWithTouchDispatcher()
@@ -356,9 +361,13 @@ namespace Simsip.LineRunner.SneakyJoystick
                 0f,
                 0.5f * this.ContentSize.Width,
                 0.5f * this.ContentSize.Height));
+
+            // TODO: Is this the right position for this panel?
+            // Or should this be setting the JoyControl position here?
             this.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.5f * this.ContentSize.Height);
+
             this.AddChild(this.JoyControl);
         }
 

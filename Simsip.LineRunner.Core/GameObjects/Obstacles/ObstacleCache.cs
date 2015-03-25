@@ -319,18 +319,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 var obstacleEntity = this._obstacleRepository.GetObstacle(pageObstaclesEntity.ModelName);
                 var obstacleModel = new ObstacleModel(obstacleEntity, pageObstaclesEntity);
 
-                // If we are a "TOP" type obstacle, flip the model
-                // IMPORTANT: Need to do this here before other transformations as currently trying
-                // to apply with other transformations has the result of us losing our angle for top obstacles
-                if (obstacleType == ObstacleType.SimpleTop)
-                {
-                    var flipMatrix = Matrix.CreateScale(
-                        1f,
-                       -1f,       // Flip
-                        1f);
-                    obstacleModel.WorldMatrix *= flipMatrix;
-                }
-
                 // Construct our scale matrix based on how we scaled page.
                 // IMPORTANT: Note how we take into account an additional optional scaling that
                 // can be applied to the model to make it bigger or smaller than its default size.
@@ -388,11 +376,39 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 // Construct rotation matrix (angle will be specified as 0 degrees if not rotated)
                 obstacleModel.RotationMatrix = Matrix.CreateRotationZ(angleInRadians);
 
-                // Store this away to help in ObstacleModel.Draw() call for creating scissor rectangle
+                // Store this away to help in ObstacleModel.Draw() call for setting up clip plane
                 obstacleModel.WorldHeightTruncated = heightScaledToLineSpacing;
 
-                // Translate and scale our model
-                obstacleModel.WorldMatrix = scaleMatrix * obstacleModel.RotationMatrix * translateMatrix;
+                // Scale, rotate and translate our model
+                if (obstacleType == ObstacleType.SimpleBottom)
+                {
+                    obstacleModel.WorldMatrix = 
+                        scaleMatrix *                   // 1. Scale
+                        obstacleModel.RotationMatrix *  // 2. Rotate
+                        translateMatrix;                // 3. Translate
+                }
+                else if (obstacleType == ObstacleType.SimpleTop)
+                {
+                    // IMPORTANT: We need to flip our model. To do this we
+                    //            1. Translate model to the origin
+                    //            2. Scale as normal
+                    //            3. Peform flip (TODO: Account for rotation)
+                    //            4. Translate model back to position before translating to origin
+                    //            5. Translate as normal
+                    obstacleModel.RotationMatrix = Matrix.CreateRotationX(Microsoft.Xna.Framework.MathHelper.ToRadians(180));
+                    obstacleModel.WorldMatrix = 
+                        Matrix.CreateTranslation(
+                            0, 
+                            -obstacleModel.TheModelEntity.ModelHeight/2, 
+                            obstacleModel.TheModelEntity.ModelDepth/2) * 
+                        scaleMatrix * 
+                        obstacleModel.RotationMatrix *
+                        Matrix.CreateTranslation(
+                            0, 
+                            obstacleModel.TheModelEntity.ModelHeight / 2, 
+                            -obstacleModel.TheModelEntity.ModelDepth / 2) * 
+                        translateMatrix;
+                }
 
                 // Uniquely identify character for octree
                 obstacleModel.ModelID = pageObstaclesEntity.ObstacleNumber;
@@ -456,19 +472,15 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
         private void ProcesObstaclePhysics(ObstacleModel obstacleModel)
         {
+            // IMPORTANT: We have already accounted for any scaling when we first loaded the vertices
+            // and that is recorded into our WorldMatrix. Hence, even though we pull original unscaled 
+            // vertices from model, the 
             var physicsTransform = new BEPUutilities.AffineTransform()
             {
                 Matrix = ConversionHelper.MathConverter.Convert(obstacleModel.WorldMatrix)
             };
             var physicsVertices = obstacleModel.XnaModel.Tag as PhysicsModelVertices;
-            if (obstacleModel.ThePageObstaclesEntity.LogicalScaleScaledTo100 != 0)
-            {
-                var verticeCount = physicsVertices.PhysicsVertices.Count();
-                for(var i = 0; i < verticeCount; i++)
-                {
-                    physicsVertices.PhysicsVertices[i] = physicsVertices.PhysicsVertices[i] * (obstacleModel.ThePageObstaclesEntity.LogicalScaleScaledTo100 / 100);
-                }
-            }
+
             var physicsMesh = new MobileMesh(physicsVertices.PhysicsVertices, physicsVertices.Indices, physicsTransform, MobileMeshSolidity.Counterclockwise);
             obstacleModel.PhysicsEntity = physicsMesh;
             physicsMesh.Tag = obstacleModel;
