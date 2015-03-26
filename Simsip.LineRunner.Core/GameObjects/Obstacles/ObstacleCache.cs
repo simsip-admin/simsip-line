@@ -24,6 +24,7 @@ using BEPUphysics.CollisionRuleManagement;
 using Engine.Input;
 using Simsip.LineRunner.GameObjects.Characters;
 using System.Diagnostics;
+using Simsip.LineRunner.Entities.LineRunner;
 
 
 namespace Simsip.LineRunner.GameObjects.Obstacles
@@ -71,6 +72,10 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         private int _currentLineNumber;
         private GameState _currentGameState;
         private IList<ObstacleModel> _obstacleHitList;
+        private Dictionary<int, IList<RandomObstaclesEntity>> _randomObstacles01;
+        private Dictionary<int, IList<RandomObstaclesEntity>> _randomObstacles02;
+        private Dictionary<int, IList<RandomObstaclesEntity>> _randomObstacles04;
+        private Dictionary<int, IList<RandomObstaclesEntity>> _randomObstacles08;
 
         // Determines what gets asked to be drawn
         private OcTreeNode _ocTreeRoot;
@@ -102,6 +107,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             this._currentLineNumber = 1;
             this.ObstacleModels = new List<ObstacleModel>();
             this._obstacleHitList = new List<ObstacleModel>();
+            this.InitializeRandomObstacles();
 
             // Import required services.
             this._inputManager = (IInputManager)this.Game.Services.GetService(typeof(IInputManager));
@@ -308,8 +314,9 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             // Now clear out our previous obstacle models collection
             this.ObstacleModels.Clear();
 
-            // Ok, let's grab the collection of obstacles for our current page
-            var pageObstaclesEntities = _pageObstaclesRepository.GetObstacles(this._currentPageNumber);
+            // Ok, let's grab the collection of obstacles for our current page using our helper
+            // function that knows how to inject entries coded for random sets
+            var pageObstaclesEntities = this.HydratePageObstacles();
             foreach (var pageObstaclesEntity in pageObstaclesEntities)
             {
                 // We'll need the obstacle type to determine below how to do various transformations
@@ -423,6 +430,100 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             }
         }
 
+        private List<PageObstaclesEntity> HydratePageObstacles()
+        {
+            var returnEntities = new List<PageObstaclesEntity>();
+            var randomNumberGenerator = new Random();
+
+            // Get the set of page obstacle entries for the page we are processing
+            var pageObstaclesEntities = _pageObstaclesRepository.GetObstacles(this._currentPageNumber);
+
+            // Record these to support injecting random obstacles (see implementation below).
+            var currentPageNumber = pageObstaclesEntities[0].PageNumber;
+            var currentLineNumber = pageObstaclesEntities[0].LineNumber;
+            var currentObstacleNumber = pageObstaclesEntities[0].ObstacleNumber;
+            var currentLogicalXScaledTo100 = pageObstaclesEntities[0].LogicalXScaledTo100;
+
+            // Now loop over all entries
+            foreach (var pageObstaclesEntity in pageObstaclesEntities)
+            {
+                // Are we injecting random obstacles?
+                if (pageObstaclesEntity.ModelName.StartsWith("Random"))
+                {
+                    // Grab the "count" and "version" for this random obstacle entry
+                    var count = int.Parse(pageObstaclesEntity.ModelName.Substring(6, 2));
+                    var version = int.Parse(pageObstaclesEntity.ModelName.Substring(8, 2));
+
+                    // Grab our set of random obstacles
+                    IList<RandomObstaclesEntity> set = null;
+                    switch (count)
+                    {
+                        case 1:
+                            {
+                                set = this._randomObstacles01[version];
+                                break;
+                            }
+                        case 2:
+                            {
+                                set = this._randomObstacles02[version];
+                                break;
+                            }
+                        case 4:
+                            {
+                                set = this._randomObstacles04[version];
+                                break;
+                            }
+                        case 8:
+                            {
+                                set = this._randomObstacles08[version];
+                                break;
+                            }
+                    }
+
+                    // Inject our random obstacles with height variation if specified
+                    foreach (var randomObstacle in set)
+                    {
+                        // Construct a PageObstaclesEntity from our RandomObstaclesEntity
+                        // IMPORTANT: Note the details for obstacle number, proper X placement etc.
+                        var randomPageObstaclesEntity = new PageObstaclesEntity
+                            {
+                                PageNumber = currentPageNumber,
+                                LineNumber = currentLineNumber,
+                                ObstacleNumber = ++currentObstacleNumber,
+                                ModelName = randomObstacle.ModelName,
+                                ObstacleType = randomObstacle.ObstacleType,
+                                LogicalXScaledTo100 = currentLogicalXScaledTo100 + randomObstacle.LogicalXScaledTo100,
+                                LogicalHeightScaledTo100 = randomObstacle.LogicalHeightScaledTo100,
+                                LogicalScaleScaledTo100 = randomObstacle.LogicalScaleScaledTo100,
+                                LogicalAngle = randomObstacle.LogicalAngle,
+                                IsGoal = randomObstacle.IsGoal
+                            };
+
+
+                        if (randomObstacle.HeightRange != 0)
+                        {
+                            var randomHeightAdjustment = randomNumberGenerator.Next(
+                                -randomObstacle.HeightRange,
+                                randomObstacle.HeightRange + 1);
+                        }
+                        returnEntities.Add(randomPageObstaclesEntity);
+                    }
+                }
+                else
+                {
+                    returnEntities.Add(pageObstaclesEntity);
+                }
+
+                // Update these in case we are injecting random obstacles next
+                // which will need to know this state
+                var mostRecentEntity = returnEntities.Last();
+                currentLineNumber = mostRecentEntity.LineNumber;
+                currentObstacleNumber = mostRecentEntity.ObstacleNumber;
+            }
+
+            return returnEntities;
+        }
+
         // 1. Animate next line's obstacles into position
         // 2. Disable previous line physics
         // 3. Enable current line physics
@@ -527,6 +628,87 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             }
         }
 
+        // Create the a set of dictionaries to hold entries for our defined
+        // random obstacle sets.
+        private void InitializeRandomObstacles()
+        {
+            // Initialize our dictionaries to hold our random obstacle sets
+            //                  Count             Version Set
+            this._randomObstacles01 = new Dictionary<int, IList<RandomObstaclesEntity>>();
+            this._randomObstacles02 = new Dictionary<int, IList<RandomObstaclesEntity>>();
+            this._randomObstacles04 = new Dictionary<int, IList<RandomObstaclesEntity>>();
+            this._randomObstacles08 = new Dictionary<int, IList<RandomObstaclesEntity>>();
+
+            // Pull in our defined random obstacle sets
+            var randomRepository = new RandomObstaclesRepository();
+            var randomObstacles = randomRepository.GetAllRandomObstacles();
+
+            // Loop over all defined random obstacles
+            // IMPORTANT:
+            // 1. We depend upon the result set ordered by the column RandomObstaclesSet
+            // 2. We depend upon RandomObstaclesSet to be named as follows:
+            //    "Random"<count of goals><version of this set of count of goals>
+            // Examples: 
+            // Random0101 - Specifies the set representing 1 goal, first version of this category
+            // Random0403 - Specifies the set representing 4 goasls, third version of this category
+            //
+            // Also note that in PageObstaclesRepository, this may be specified as Random<count>x
+            // (e.g., Random04x). In this case, we are specifing choose a random set from the count
+            // 4 category.
+            foreach(var randomObstacle in randomObstacles)
+            {
+                // Grab the "count" and "version" for this random obstacle entry
+                var currentSet = randomObstacle.RandomObstaclesSet;
+                var currentCount = int.Parse(currentSet.Substring(6, 2));
+                var currentVersion = int.Parse(currentSet.Substring(8, 2));
+
+                // Determine which "count" dictionary to update, 
+                // creating the List to hold the "version" if needed
+                switch (currentCount)
+                {
+                    // We have an entry for the a set with a "count" of 1
+                    case 1:
+                        {
+                            // Create dictionary for "count" if needed
+                            if (!this._randomObstacles01.ContainsKey(currentVersion))
+                            {
+                                this._randomObstacles01[currentVersion] = new List<RandomObstaclesEntity>();
+                            }
+
+                            // Update the List for this "version" of "count"
+                            this._randomObstacles01[currentVersion].Add(randomObstacle);
+                            break;
+                        }
+                    case 2:
+                        {
+                            if (!this._randomObstacles02.ContainsKey(currentVersion))
+                            {
+                                this._randomObstacles02[currentVersion] = new List<RandomObstaclesEntity>();
+                            }
+                            this._randomObstacles02[currentVersion].Add(randomObstacle);
+                            break;
+                        }
+                    case 4:
+                        {
+                            if (!this._randomObstacles04.ContainsKey(currentVersion))
+                            {
+                                this._randomObstacles04[currentVersion] = new List<RandomObstaclesEntity>();
+                            }
+                            this._randomObstacles04[currentVersion].Add(randomObstacle);
+                            break;
+                        }
+                    case 8:
+                        {
+                            if (!this._randomObstacles08.ContainsKey(currentVersion))
+                            {
+                                this._randomObstacles08[currentVersion] = new List<RandomObstaclesEntity>();
+                            }
+                            this._randomObstacles08[currentVersion].Add(randomObstacle);
+                            break;
+                        }
+                }
+            }
+        }
 
         #endregion
 

@@ -130,6 +130,15 @@
     <Compile Include="..\Simsip.LineRunner.Core\Bepu\Cameras\FreeCameraControlScheme.cs">
       <Link>Bepu\Cameras\FreeCameraControlScheme.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Data\LineRunner\IRandomObstaclesRepository.cs">
+      <Link>Data\LineRunner\IRandomObstaclesRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Data\LineRunner\RandomObstaclesRepository.cs">
+      <Link>Data\LineRunner\RandomObstaclesRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Entities\LineRunner\RandomObstaclesEntity.cs">
+      <Link>Entities\LineRunner\RandomObstaclesEntity.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\GameFramework\CustomContentManager.cs">
       <Link>GameFramework\CustomContentManager.cs</Link>
     </Compile>
@@ -832,10 +841,6 @@
       <Link>Content\Models\Obstacles\Pipe1-texture_0.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Obstacles\Pipe1-thumbnail.xnb">
-      <Link>Content\Models\Obstacles\Pipe1-thumbnail.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Obstacles\Pipe10-model.xnb">
       <Link>Content\Models\Obstacles\Pipe10-model.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -848,20 +853,12 @@
       <Link>Content\Models\Obstacles\Pipe2-texture_0.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Obstacles\Pipe2-thumbnail.xnb">
-      <Link>Content\Models\Obstacles\Pipe2-thumbnail.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Obstacles\Pipe3-model.xnb">
       <Link>Content\Models\Obstacles\Pipe3-model.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Obstacles\Pipe3-texture_0.xnb">
       <Link>Content\Models\Obstacles\Pipe3-texture_0.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Obstacles\Pipe3-thumbnail.xnb">
-      <Link>Content\Models\Obstacles\Pipe3-thumbnail.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Obstacles\Stove01-model.xnb">
