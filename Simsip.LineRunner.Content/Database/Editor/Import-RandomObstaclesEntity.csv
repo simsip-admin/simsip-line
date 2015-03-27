@@ -1,0 +1,3 @@
+RandomObstaclesSet,ObstacleNumber,ModelName,ObstacleType,LogicalXScaledTo100,LogicalHeightScaledTo100,LogicalScaleScaledTo100,LogicalAngle,IsGoal,HeightAdjustment
+Random0101,1,Pipe01,SimpleBottom,0,20,0,0,1,0
+Random0101,2,Pipe01,SimpleTop,0,20,0,0,0,0
