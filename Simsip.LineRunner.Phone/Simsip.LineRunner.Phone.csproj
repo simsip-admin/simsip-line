@@ -1865,6 +1865,12 @@
     <Compile Include="..\Simsip.LineRunner.Core\Data\Simsip\SimsipUserRepository.cs">
       <Link>Data\Simsip\SimsipUserRepository.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Data\Upgrade\IV2_PageObstaclesRepository.cs">
+      <Link>Data\Upgrade\IV2_PageObstaclesRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Data\Upgrade\V2_PageObstaclesRepository.cs">
+      <Link>Data\Upgrade\V2_PageObstaclesRepository.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Data\Version\IVersionRepository.cs">
       <Link>Data\Version\IVersionRepository.cs</Link>
     </Compile>
@@ -2023,6 +2029,9 @@
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Entities\Simsip\SimsipUserEntity.cs">
       <Link>Entities\Simsip\SimsipUserEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Entities\Upgrade\V2_PageObstaclesEntity.cs">
+      <Link>Entities\Upgrade\V2_PageObstaclesEntity.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Entities\Version\VersionEntity.cs">
       <Link>Entities\Version\VersionEntity.cs</Link>
@@ -3966,6 +3975,10 @@
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\Database\linerunner.db">
       <Link>Content\Database\linerunner.db</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\Database\upgrade.db">
+      <Link>Content\Database\upgrade.db</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="..\Simsip.LineRunner.Core\Effects\build-effects.bat">

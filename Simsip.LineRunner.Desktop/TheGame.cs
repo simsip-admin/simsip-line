@@ -76,6 +76,10 @@ namespace Simsip.LineRunner
                 Database.CopyFromAssets();
             }
 
+            // Take care of any database upgrade needs
+            Database.HandleUpgrade();
+
+
             // Initialize user defaults
             UserDefaults.Initialize();
 

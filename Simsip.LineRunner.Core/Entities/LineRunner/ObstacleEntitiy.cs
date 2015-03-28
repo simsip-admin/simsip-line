@@ -14,5 +14,11 @@ namespace Simsip.LineRunner.Entities.LineRunner
         /// </summary>
         [PrimaryKey]
         public string ModelName { get; set; }
+
+        /// <summary>
+        /// If set, represents a family of textures the obstacle can choose
+        /// from to texture itself with.
+        /// </summary>
+        public string TextureFamily { get; set; }
     }
 }

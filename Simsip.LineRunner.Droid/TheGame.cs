@@ -75,6 +75,9 @@ namespace Simsip.LineRunner
                 Database.CopyFromAssets();
             }
 
+            // Take care of any database upgrade needs
+            Database.HandleUpgrade();
+
             // Initialize user defaults including a one-time recording of installation date
             UserDefaults.Initialize();
             if (!UserDefaults.SharedUserDefault.ContainsKey(GameConstants.USER_DEFAULT_KEY_INSTALL_DATE))

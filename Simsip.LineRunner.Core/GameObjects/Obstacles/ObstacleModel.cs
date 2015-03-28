@@ -118,12 +118,24 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 GameModel._originalEffectsDictionary[TheObstacleEntity.ModelName];
 
             // Do we have any texture overrides?
+            /* Trying something different for obstacles
             this._textureOverrides = new List<Texture2D>();
             var textureRepository = new TextureRepository();
             var textureEntities = textureRepository.GetTextures(TheModelEntity.ModelName);
             foreach(var textureEntity in textureEntities)
             {
                 var texture = this._assetManager.GetModelTexture(TheModelEntity.ModelName, ModelType.Obstacle, textureEntity.TextureName);
+                this._textureOverrides.Add(texture);
+            }
+            */
+
+            this._textureOverrides = new List<Texture2D>();
+            if (this.TheObstacleEntity.TextureFamily == "SimplePipe")
+            {
+                var randomNumberGenerator = new Random();
+                var pipeTextureNumber = randomNumberGenerator.Next(4, 10);
+                var pipeTextureName = "Pipe0" + pipeTextureNumber + "-texture_0";
+                var texture = this._assetManager.GetModelTexture(TheModelEntity.ModelName, ModelType.Obstacle, pipeTextureName);
                 this._textureOverrides.Add(texture);
             }
 

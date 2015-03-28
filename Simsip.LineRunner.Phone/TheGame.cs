@@ -73,6 +73,9 @@ namespace Simsip.LineRunner
                 await Database.CopyFromAssetsAsync();
             }
 
+            // Take care of any database upgrade needs
+            await Database.HandleUpgradeAsync();
+
             // Initialize user defaults
             await UserDefaults.Initialize();
 

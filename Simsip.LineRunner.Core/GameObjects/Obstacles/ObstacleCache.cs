@@ -77,6 +77,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         private Dictionary<int, IList<RandomObstaclesEntity>> _randomObstacles04;
         private Dictionary<int, IList<RandomObstaclesEntity>> _randomObstacles08;
 
+        private const string RandomPrefix = "Random";
+
         // Determines what gets asked to be drawn
         private OcTreeNode _ocTreeRoot;
 
@@ -448,11 +450,48 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             foreach (var pageObstaclesEntity in pageObstaclesEntities)
             {
                 // Are we injecting random obstacles?
-                if (pageObstaclesEntity.ModelName.StartsWith("Random"))
+                if (pageObstaclesEntity.ModelName.StartsWith(RandomPrefix))
                 {
-                    // Grab the "count" and "version" for this random obstacle entry
+                    // Grab the "count" this random obstacle entry
                     var count = int.Parse(pageObstaclesEntity.ModelName.Substring(6, 2));
-                    var version = int.Parse(pageObstaclesEntity.ModelName.Substring(8, 2));
+
+                    // Careful with version, first see if they have specified "x" to indicate
+                    // they want us to randomly choose a set from a "count" category.
+                    // Example: Random01x
+                    //          Pick a random set from the 1 count category
+                    var version = 1;
+                    if (pageObstaclesEntity.ModelName.Substring(8, 1) == "x")
+                    {
+                        var setCount = 0;
+                        switch(count)
+                        {
+                            case 1:
+                                {
+                                    setCount = this._randomObstacles01.Count;
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    setCount = this._randomObstacles02.Count;
+                                    break;
+                                }
+                            case 4:
+                                {
+                                    setCount = this._randomObstacles04.Count;
+                                    break;
+                                }
+                            case 8:
+                                {
+                                    setCount = this._randomObstacles08.Count;
+                                    break;
+                                }
+                        }
+                        version = randomNumberGenerator.Next(1, setCount+1);
+                    }
+                    else
+                    {
+                        version = int.Parse(pageObstaclesEntity.ModelName.Substring(8, 2));
+                    }
 
                     // Grab our set of random obstacles
                     IList<RandomObstaclesEntity> set = null;
