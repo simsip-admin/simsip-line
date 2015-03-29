@@ -186,7 +186,7 @@ PixelToFrameSingleColor SingleTargetColorPixelShader(VertexToPixel PSIn) : COLOR
 	return Output;
 }
 
-PixelToFrameSingleNormal SingleTargetNormalPixelShader(VertexToPixel PSIn)
+PixelToFrameSingleNormal SingleTargetNormalPixelShader(VertexToPixel PSIn) : COLOR0
 {
 
 	PixelToFrameSingleNormal Output = (PixelToFrameSingleNormal)0;
@@ -204,7 +204,7 @@ PixelToFrameSingleNormal SingleTargetNormalPixelShader(VertexToPixel PSIn)
 	return Output;
 }
 
-PixelToFrameSingleDepth SingleTargetDepthPixelShader(VertexToPixel PSIn)
+PixelToFrameSingleDepth SingleTargetDepthPixelShader(VertexToPixel PSIn) : COLOR0
 {
 	PixelToFrameSingleDepth Output = (PixelToFrameSingleDepth)0;
 

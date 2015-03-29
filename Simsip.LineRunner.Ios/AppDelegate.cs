@@ -18,14 +18,14 @@ namespace Simsip.LineRunner
         {
             s_pSharedApplication = this;
 
-            graphics.PreferredBackBufferWidth = this._preferredWidth;
-            graphics.PreferredBackBufferHeight = this._preferredHeight;
-
             CCDrawManager.InitializeDisplay(game,
                                           graphics,
                                           DisplayOrientation.Portrait);
 
             graphics.PreferMultiSampling = false;
+
+            graphics.PreferredBackBufferWidth = this._preferredWidth;
+            graphics.PreferredBackBufferHeight = this._preferredHeight;
         }
 
         /// <summary>

@@ -654,22 +654,6 @@
       <Link>Content\Models\Lines\PaperDecorativeRed2.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Pads\Pad1-model.xnb">
-      <Link>Content\Models\Pads\Pad1-model.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Pads\Pad1-texture-cardboard_0.xnb">
-      <Link>Content\Models\Pads\Pad1-texture-cardboard_0.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Pads\Pad1-texture-note_0.xnb">
-      <Link>Content\Models\Pads\Pad1-texture-note_0.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Pads\Pad1-texture-page.xnb">
-      <Link>Content\Models\Pads\Pad1-texture-page.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Pads\Pad1-thumbnail.xnb">
       <Link>Content\Models\Pads\Pad1-thumbnail.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -884,6 +868,22 @@
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\Database\upgrade.db">
       <Link>Content\Database\upgrade.db</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Pads\IOS\Pad1-model.xnb">
+      <Link>Content\Models\Pads\Pad1-model.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Pads\IOS\Pad1-texture-cardboard_0.xnb">
+      <Link>Content\Models\Pads\Pad1-texture-cardboard_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Pads\IOS\Pad1-texture-note_0.xnb">
+      <Link>Content\Models\Pads\Pad1-texture-note_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Pads\IOS\Pad1-texture-page.xnb">
+      <Link>Content\Models\Pads\Pad1-texture-page.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
