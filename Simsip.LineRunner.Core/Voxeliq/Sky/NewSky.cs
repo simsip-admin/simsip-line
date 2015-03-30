@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Engine.Input;
 using Simsip.LineRunner.Effects.Deferred;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Engine.Sky
@@ -262,6 +263,17 @@ namespace Engine.Sky
                         case EffectType.ShadowMapEffect:
                             {
                                 effect.Parameters["xWorld"].SetValue(Matrix.Identity);
+                                break;
+                            }
+                        case EffectType.StockBasicEffect:
+                            {
+                                var stockBasicEffect = effect as StockBasicEffect;
+                                stockBasicEffect.World = Matrix.Identity;
+                                stockBasicEffect.Texture = this._blockTextureAtlas;
+                                /*
+                                effect.Parameters["World"].SetValue(Matrix.Identity);
+                                effect.Parameters["Texture"].SetValue(this._blockTextureAtlas);
+                                */
                                 break;
                             }
                     }

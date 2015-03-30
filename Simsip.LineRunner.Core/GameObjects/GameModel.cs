@@ -12,6 +12,7 @@ using System.Diagnostics;
 using Engine.Graphics;
 using Engine.Input;
 using Simsip.LineRunner.GameObjects.Pages;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.GameObjects
@@ -320,6 +321,21 @@ namespace Simsip.LineRunner.GameObjects
                                     effect.Parameters["xWorld"].SetValue(this._modelTransforms[mesh.ParentBone.Index] * this.WorldMatrix);
                                     break;
                                 }
+                            case EffectType.StockBasicEffect:
+                                {
+                                    var stockBasicEffect = effect as StockBasicEffect;
+                                    stockBasicEffect.World = this._modelTransforms[mesh.ParentBone.Index] * this.WorldMatrix;
+                                    if (this._textureOverrides.Count > 0)
+                                    {
+                                        stockBasicEffect.Texture = this._textureOverrides[i];
+                                    }
+                                    else
+                                    {
+                                        stockBasicEffect.Texture = this._originalEffects[i].Texture;
+                                    }
+                                    break;
+                                }
+
                         }
                         i++;
 

@@ -14,6 +14,10 @@ del /Q mgfxo\DX09\Sky\*.*
 IF ERRORLEVEL 1 GOTO Fail
 del /Q mgfxo\DX11\Sky\*.*
 IF ERRORLEVEL 1 GOTO Fail
+del /Q mgfxo\DX09\Stock\*.*
+IF ERRORLEVEL 1 GOTO Fail
+del /Q mgfxo\DX11\Stock\*.*
+IF ERRORLEVEL 1 GOTO Fail
 del /Q mgfxo\DX09\Voxeliq\*.*
 IF ERRORLEVEL 1 GOTO Fail
 del /Q mgfxo\DX11\Voxeliq\*.*
@@ -96,6 +100,20 @@ ECHO -----------
 IF ERRORLEVEL 1 GOTO Fail
 ECHO.
 ..\Tools\2MGFX-Monogame\2MGFX.exe Sky\SkyDome-dx11.fx mgfxo\DX11\Sky\SkyDome.mgfxo /Debug /Profile:DirectX_11
+IF ERRORLEVEL 1 GOTO Fail
+ECHO.
+
+ECHO.
+ECHO Stock
+ECHO =====
+
+ECHO.
+ECHO Stock\StockBasicEffect
+ECHO ----------------------
+..\Tools\2MGFX-Monogame\2MGFX.exe Stock\StockBasicEffect.fx mgfxo\DX09\Stock\StockBasicEffect.mgfxo /DEBUG 
+IF ERRORLEVEL 1 GOTO Fail
+ECHO.
+..\Tools\2MGFX-Monogame\2MGFX.exe Stock\StockBasicEffect.fx mgfxo\DX11\Stock\StockBasicEffect.mgfxo /Profile:DirectX_11
 IF ERRORLEVEL 1 GOTO Fail
 ECHO.
 

@@ -41,7 +41,6 @@ namespace Engine.Assets
         public const string Deferred1SceneEffect = @"Content/Effects/Deferred/Deferred1Scene";
         public const string Deferred2LightsEffect = @"Content/Effects/Deferred/Deferred2Lights";
         public const string Deferred3FinalEffect = @"Content/Effects/Deferred/Deferred3Final";
-        
         public const string PerlinNoiseEffect = @"Content/Effects/Sky/PerlinNoise";
         public const string SkyDomeEffect = @"Content/Effects/Sky/SkyDome";
         

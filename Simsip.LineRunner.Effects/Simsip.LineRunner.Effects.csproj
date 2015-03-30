@@ -55,8 +55,13 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Stock\Common.fxh" />
+    <None Include="Stock\Lighting.fxh" />
+    <None Include="Stock\Macros.fxh" />
+    <None Include="Stock\Structures.fxh" />
     <None Include="build-all-effects.bat" />
-    <None Include="build-effect.bat" />
+    <None Include="build-stock-effect.bat" />
+    <None Include="build-custom-effect.bat" />
     <None Include="Deferred\Deferred1Scene-core.fx" />
     <None Include="Deferred\Deferred1Scene-dx11.fx" />
     <None Include="Deferred\Deferred2Lights-core.fx" />
@@ -96,6 +101,7 @@
     <None Include="Voxeliq\build-effects-dx9.bat" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Stock\StockBasicEffect.fx" />
     <Content Include="Bepu\InstancedEffect-core.fx" />
     <Content Include="Bepu\InstancedEffect-dx09.fx" />
     <Content Include="Bepu\InstancedEffect-dx11.fx" />
