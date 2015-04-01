@@ -1901,11 +1901,20 @@
     <Compile Include="..\Simsip.LineRunner.Core\Detour\DetourStatNavMesh.cs">
       <Link>Detour\DetourStatNavMesh.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\Deferred\DeferredEffect.cs">
+      <Link>Effects\Deferred\DeferredEffect.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Effects\Deferred\DeferredShadowMapping.cs">
       <Link>Effects\Deferred\DeferredShadowMapping.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\Deferred\IDeferredEffect.cs">
+      <Link>Effects\Deferred\IDeferredEffect.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Effects\Deferred\IDeferredShadowMapping.cs">
       <Link>Effects\Deferred\IDeferredShadowMapping.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\IEffectClipping.cs">
+      <Link>Effects\IEffectClipping.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Entities\Facebook\FacebookActionEntity.cs">
       <Link>Entities\Facebook\FacebookActionEntity.cs</Link>
@@ -3981,9 +3990,6 @@
       <Link>Content\Database\upgrade.db</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="..\Simsip.LineRunner.Core\Effects\build-effects.bat">
-      <Link>Effects\build-effects.bat</Link>
-    </None>
     <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX11\Deferred\Deferred1Scene.mgfxo">
       <Link>Content\Effects\Deferred\Deferred1Scene.mgfxo</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -4039,114 +4045,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred1Scene-core.fx">
-      <Link>Effects\Deferred\Deferred1Scene-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred1Scene-dx11.fx">
-      <Link>Effects\Deferred\Deferred1Scene-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred1Scene-dx9.fx">
-      <Link>Effects\Deferred\Deferred1Scene-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred2Lights-core.fx">
-      <Link>Effects\Deferred\Deferred2Lights-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred2Lights-dx11.fx">
-      <Link>Effects\Deferred\Deferred2Lights-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred2Lights-dx9.fx">
-      <Link>Effects\Deferred\Deferred2Lights-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred3Final-core.fx">
-      <Link>Effects\Deferred\Deferred3Final-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred3Final-dx11.fx">
-      <Link>Effects\Deferred\Deferred3Final-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred3Final-dx9.fx">
-      <Link>Effects\Deferred\Deferred3Final-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Shadow\ShadowMap-core.fx">
-      <Link>Effects\Shadow\ShadowMap-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Shadow\ShadowMap-dx11.fx">
-      <Link>Effects\Shadow\ShadowMap-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Shadow\ShadowMap-dx9.fx">
-      <Link>Effects\Shadow\ShadowMap-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\PerlinNoise-core.fx">
-      <Link>Effects\Sky\PerlinNoise-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\PerlinNoise-dx11.fx">
-      <Link>Effects\Sky\PerlinNoise-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\PerlinNoise-dx9.fx">
-      <Link>Effects\Sky\PerlinNoise-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\SkyDome-core.fx">
-      <Link>Effects\Sky\SkyDome-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\SkyDome-dx11.fx">
-      <Link>Effects\Sky\SkyDome-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\SkyDome-dx9.fx">
-      <Link>Effects\Sky\SkyDome-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\BlockEffect-core.fx">
-      <Link>Effects\Voxeliq\BlockEffect-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\BlockEffect-dx11.fx">
-      <Link>Effects\Voxeliq\BlockEffect-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\BlockEffect-dx9.fx">
-      <Link>Effects\Voxeliq\BlockEffect-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\DualTextured-core.fx">
-      <Link>Effects\Voxeliq\DualTextured-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\DualTextured-dx11.fx">
-      <Link>Effects\Voxeliq\DualTextured-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\DualTextured-dx9.fx">
-      <Link>Effects\Voxeliq\DualTextured-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-core.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-dx11.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-dx9.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-core.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-dx11.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-dx9.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-core.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-dx11.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-dx9.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Water\Water-core.fx">
-      <Link>Effects\Water\Water-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Water\Water-dx11.fx">
-      <Link>Effects\Water\Water-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Water\Water-dx9.fx">
-      <Link>Effects\Water\Water-dx9.fx</Link>
-    </None>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
       <Link>Mercury\EffectLibrary\BasicExplosion.xml</Link>
     </None>

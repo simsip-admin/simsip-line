@@ -43,8 +43,8 @@ BEGIN_CONSTANTS
 	// Note: Had to use float instead of bool due to error on DX9 builds
 	// "IF src0 must have replicate swizzle"
 	// https://monogame.codeplex.com/discussions/391687
-	float xIsClip                   _vs(c27) _ps(c15);
-	float4 xClippingPlane           _vs(c28) _ps(c16);
+	float xIsClip                   _vs(c26) _ps(c15) _cb(c22);
+	float4 xClippingPlane           _vs(c27) _ps(c16) _cb(c23);
 
 MATRIX_CONSTANTS
 

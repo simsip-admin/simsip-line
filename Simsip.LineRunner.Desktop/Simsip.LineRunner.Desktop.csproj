@@ -1870,11 +1870,20 @@
     <Compile Include="..\Simsip.LineRunner.Core\Detour\DetourStatNavMesh.cs">
       <Link>Detour\DetourStatNavMesh.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\Deferred\DeferredEffect.cs">
+      <Link>Effects\Deferred\DeferredEffect.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Effects\Deferred\DeferredShadowMapping.cs">
       <Link>Effects\Deferred\DeferredShadowMapping.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\Deferred\IDeferredEffect.cs">
+      <Link>Effects\Deferred\IDeferredEffect.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Effects\Deferred\IDeferredShadowMapping.cs">
       <Link>Effects\Deferred\IDeferredShadowMapping.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\IEffectClipping.cs">
+      <Link>Effects\IEffectClipping.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Entities\Facebook\FacebookActionEntity.cs">
       <Link>Entities\Facebook\FacebookActionEntity.cs</Link>
