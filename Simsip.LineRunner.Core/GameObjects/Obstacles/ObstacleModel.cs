@@ -172,12 +172,12 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 if (obstacleType == ObstacleType.SimpleBottom)
                 {
                     var distance = this.WorldOrigin.Y + (this.WorldHeight - this.WorldHeightTruncated);
-                    effect.Parameters["xClippingPlane"].SetValue(new Vector4(Vector3.Up, -distance));
+                    effect.Parameters["ClippingPlane"].SetValue(new Vector4(Vector3.Up, -distance));
                 }
                 else if (obstacleType == ObstacleType.SimpleTop)
                 {
                     var distance = this.WorldOrigin.Y + this.WorldHeightTruncated;
-                    effect.Parameters["xClippingPlane"].SetValue(new Vector4(Vector3.Down, distance));
+                    effect.Parameters["ClippingPlane"].SetValue(new Vector4(Vector3.Down, distance));
                 }
 
             }

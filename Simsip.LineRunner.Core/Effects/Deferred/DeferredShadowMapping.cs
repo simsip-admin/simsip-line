@@ -134,9 +134,7 @@ namespace Simsip.LineRunner.Effects.Deferred
         private Effect _effect2Lights;
         private Effect _effect3Final;
         private Effect _effectShadowMap;
-#if IOS
         private StockBasicEffect _stockBasicEffect;
-#endif
 
         // Full screen rendering support
         private VertexPositionTexture[] _fsVertices;
@@ -225,7 +223,7 @@ namespace Simsip.LineRunner.Effects.Deferred
 #if IOS
             // In IOS we haven't stabilized RenderTarget2D yet, so we go with our single-pass
             // extension of BasicEffect (e.g., adds in clipping support)
-            this._stockBasicEffect = new StockBasicEffect(this._device);
+            this._stockBasicEffect = new StockBasicEffect(this._device, Asset.StockBasicEffect);
             this._stockBasicEffect.LightingEnabled = true;
             this._stockBasicEffect.PreferPerPixelLighting = true;
             this._stockBasicEffect.TextureEnabled = true;
@@ -388,17 +386,17 @@ namespace Simsip.LineRunner.Effects.Deferred
             // TODO: Can this be set once?
             this._effect1Scene.CurrentTechnique = this._effect1Scene.Techniques["MultipleTargets"];
 
-            this._effect1Scene.Parameters["xView"].SetValue(this._view);
+            this._effect1Scene.Parameters["View"].SetValue(this._view);
 
             // TODO: Can this be set once?
-            this._effect1Scene.Parameters["xProjection"].SetValue(this._projection);
+            this._effect1Scene.Parameters["Projection"].SetValue(this._projection);
 
             // TODO: Can this be set once?
-            this._effect1Scene.Parameters["xUnitConverter"].SetValue(15000f);
+            this._effect1Scene.Parameters["UnitConverter"].SetValue(15000f);
 
             // TODO: Can this be set once?
-            this._effect1Scene.Parameters["xIsClip"].SetValue(0f);
-            this._effect1Scene.Parameters["xClippingPlane"].SetValue(Vector4.Zero);
+            this._effect1Scene.Parameters["IsClip"].SetValue(0f);
+            this._effect1Scene.Parameters["ClippingPlane"].SetValue(Vector4.Zero);
 
             this.RenderScene(this._effect1Scene, EffectType.Deferred1SceneEffect);
         }
@@ -437,18 +435,18 @@ namespace Simsip.LineRunner.Effects.Deferred
 
             if (light.TheLightType == LightType.Directed)
             {
-                this._effectShadowMap.Parameters["xView"].SetValue(light.ViewMatrix);
+                this._effectShadowMap.Parameters["View"].SetValue(light.ViewMatrix);
             }
             else
             {
-                this._effectShadowMap.Parameters["xView"].SetValue(light.ViewMatrix);
+                this._effectShadowMap.Parameters["View"].SetValue(light.ViewMatrix);
             }
-            this._effectShadowMap.Parameters["xProjection"].SetValue(light.ProjectionMatrix);
+            this._effectShadowMap.Parameters["Projection"].SetValue(light.ProjectionMatrix);
 
-            this._effectShadowMap.Parameters["xUnitConverter"].SetValue(15000f);
+            this._effectShadowMap.Parameters["UnitConverter"].SetValue(15000f);
 
-            this._effectShadowMap.Parameters["xIsClip"].SetValue(0f);
-            this._effectShadowMap.Parameters["xClippingPlane"].SetValue(Vector4.Zero);
+            this._effectShadowMap.Parameters["IsClip"].SetValue(0f);
+            this._effectShadowMap.Parameters["ClippingPlane"].SetValue(Vector4.Zero);
 
             // IMPORTANT: Note how we specify false as second parameter here
             // to signal we want to use our own view/projection matrices and 
@@ -462,18 +460,18 @@ namespace Simsip.LineRunner.Effects.Deferred
         {
             this._device.SetRenderTarget(this._shadingTarget);
 
-            this._effect2Lights.Parameters["xPreviousShadingContents"].SetValue((Texture2D)this._shadingTarget);
-            this._effect2Lights.Parameters["xNormalMap"].SetValue((Texture2D)this._normalTarget);
-            this._effect2Lights.Parameters["xDepthMap"].SetValue((Texture2D)this._depthTarget);
-            this._effect2Lights.Parameters["xShadowMap"].SetValue((Texture2D)this._shadowTarget);
+            this._effect2Lights.Parameters["PreviousShaderContents"].SetValue((Texture2D)this._shadingTarget);
+            this._effect2Lights.Parameters["NormalMap"].SetValue((Texture2D)this._normalTarget);
+            this._effect2Lights.Parameters["DepthMap"].SetValue((Texture2D)this._depthTarget);
+            this._effect2Lights.Parameters["ShadowMap"].SetValue((Texture2D)this._shadowTarget);
             
-            _effect2Lights.Parameters["xLightPosition"].SetValue(light.Position);
+            _effect2Lights.Parameters["LightPosition"].SetValue(light.Position);
 
             var viewProjInv = Matrix.Invert(this._view * this._projection);
-            this._effect2Lights.Parameters["xViewProjectionInv"].SetValue(viewProjInv);
-            this._effect2Lights.Parameters["xLightViewProjection"].SetValue(light.ViewMatrix * light.ProjectionMatrix);
+            this._effect2Lights.Parameters["ViewProjectionInv"].SetValue(viewProjInv);
+            this._effect2Lights.Parameters["LightViewProjection"].SetValue(light.ViewMatrix * light.ProjectionMatrix);
 
-            this._effect2Lights.Parameters["xUnitConverter"].SetValue(15000f);
+            this._effect2Lights.Parameters["UnitConverter"].SetValue(15000f);
 
             switch (light.TheLightType)
             {
@@ -482,7 +480,7 @@ namespace Simsip.LineRunner.Effects.Deferred
                         this._effect2Lights.CurrentTechnique = this._effect2Lights.Techniques["DeferredDirectedLight"];
                         
                         var directedLight = light as DirectedLight;
-                        this._effect2Lights.Parameters["xLightDirection"].SetValue(directedLight.Direction);
+                        this._effect2Lights.Parameters["LightDirection"].SetValue(directedLight.Direction);
 
                         break;
                     }
@@ -500,10 +498,10 @@ namespace Simsip.LineRunner.Effects.Deferred
                         this._effect2Lights.CurrentTechnique = this._effect2Lights.Techniques["DeferredSpotLight"];
 
                         var spotLight = light as SpotLight;
-                        _effect2Lights.Parameters["xLightStrength"].SetValue(spotLight.Strength);
-                        _effect2Lights.Parameters["xConeDirection"].SetValue(spotLight.Direction);
-                        _effect2Lights.Parameters["xConeAngle"].SetValue(spotLight.ConeAngle);
-                        _effect2Lights.Parameters["xConeDecay"].SetValue(spotLight.ConeDecay);
+                        _effect2Lights.Parameters["LightStrength"].SetValue(spotLight.Strength);
+                        _effect2Lights.Parameters["ConeDirection"].SetValue(spotLight.Direction);
+                        _effect2Lights.Parameters["ConeAngle"].SetValue(spotLight.ConeAngle);
+                        _effect2Lights.Parameters["ConeDecay"].SetValue(spotLight.ConeDecay);
 
                         break;
                     }
@@ -528,9 +526,9 @@ namespace Simsip.LineRunner.Effects.Deferred
             this._device.SetRenderTarget(null);
 
             this._effect3Final.CurrentTechnique = _effect3Final.Techniques["CombineColorAndShading"];
-            this._effect3Final.Parameters["xColorMap"].SetValue((Texture2D)this._colorTarget);
-            this._effect3Final.Parameters["xShadingMap"].SetValue((Texture2D)this._shadingTarget);
-            this._effect3Final.Parameters["xAmbient"].SetValue(this.TheAmbientLight.Value);
+            this._effect3Final.Parameters["ColorMap"].SetValue((Texture2D)this._colorTarget);
+            this._effect3Final.Parameters["ShadingMap"].SetValue((Texture2D)this._shadingTarget);
+            this._effect3Final.Parameters["Ambient"].SetValue(this.TheAmbientLight.Value);
 
             foreach (EffectPass pass in _effect3Final.CurrentTechnique.Passes)
             {
@@ -557,9 +555,9 @@ namespace Simsip.LineRunner.Effects.Deferred
             this._pageCache.Draw(effect, type);
             this._lineCache.Draw(effect, type);
 
-            effect.Parameters["xIsClip"].SetValue(1f);
+            effect.Parameters["IsClip"].SetValue(1f);
             this._obstacleCache.Draw(effect, type);
-            effect.Parameters["xIsClip"].SetValue(0f);
+            effect.Parameters["IsClip"].SetValue(0f);
             
             this._characterCache.Draw(effect, type);
 

@@ -12,6 +12,229 @@
             <returns>A bounding box that encapsulates the given point cloud.</returns>
             <exception cref="T:System.ArgumentException">Thrown if the given list has no points.</exception>
         </member>
+        <member name="T:Microsoft.Xna.Framework.BoundingFrustum">
+            <summary>
+            Defines a viewing frustum for intersection operations.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.BoundingFrustum.PlaneCount">
+            <summary>
+            The number of planes in the frustum.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.BoundingFrustum.CornerCount">
+            <summary>
+            The number of corner points in the frustum.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.#ctor(Microsoft.Xna.Framework.Matrix)">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> class.
+            </summary>
+            <param name="value">Combined matrix which usually is (View * Projection).</param>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.op_Equality(Microsoft.Xna.Framework.BoundingFrustum,Microsoft.Xna.Framework.BoundingFrustum)">
+            <summary>
+            Compares whether two <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> instances are equal.
+            </summary>
+            <param name="a"><see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> instance on the left of the equal sign.</param>
+            <param name="b"><see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> instance on the right of the equal sign.</param>
+            <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.op_Inequality(Microsoft.Xna.Framework.BoundingFrustum,Microsoft.Xna.Framework.BoundingFrustum)">
+            <summary>
+            Compares whether two <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> instances are not equal.
+            </summary>
+            <param name="a"><see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> instance on the left of the not equal sign.</param>
+            <param name="b"><see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> instance on the right of the not equal sign.</param>
+            <returns><c>true</c> if the instances are not equal; <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.Contains(Microsoft.Xna.Framework.BoundingBox)">
+            <summary>
+            Containment test between this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> and specified <see cref="T:Microsoft.Xna.Framework.BoundingBox"/>.
+            </summary>
+            <param name="box">A <see cref="T:Microsoft.Xna.Framework.BoundingBox"/> for testing.</param>
+            <returns>Result of testing for containment between this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> and specified <see cref="T:Microsoft.Xna.Framework.BoundingBox"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.Contains(Microsoft.Xna.Framework.BoundingBox@,Microsoft.Xna.Framework.ContainmentType@)">
+            <summary>
+            Containment test between this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> and specified <see cref="T:Microsoft.Xna.Framework.BoundingBox"/>.
+            </summary>
+            <param name="box">A <see cref="T:Microsoft.Xna.Framework.BoundingBox"/> for testing.</param>
+            <param name="result">Result of testing for containment between this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> and specified <see cref="T:Microsoft.Xna.Framework.BoundingBox"/> as an output parameter.</param>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.Contains(Microsoft.Xna.Framework.BoundingFrustum)">
+            <summary>
+            Containment test between this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> and specified <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/>.
+            </summary>
+            <param name="frustum">A <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> for testing.</param>
+            <returns>Result of testing for containment between this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> and specified <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.Contains(Microsoft.Xna.Framework.BoundingSphere)">
+            <summary>
+            Containment test between this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> and specified <see cref="T:Microsoft.Xna.Framework.BoundingSphere"/>.
+            </summary>
+            <param name="sphere">A <see cref="T:Microsoft.Xna.Framework.BoundingSphere"/> for testing.</param>
+            <returns>Result of testing for containment between this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> and specified <see cref="T:Microsoft.Xna.Framework.BoundingSphere"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.Contains(Microsoft.Xna.Framework.BoundingSphere@,Microsoft.Xna.Framework.ContainmentType@)">
+            <summary>
+            Containment test between this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> and specified <see cref="T:Microsoft.Xna.Framework.BoundingSphere"/>.
+            </summary>
+            <param name="sphere">A <see cref="T:Microsoft.Xna.Framework.BoundingSphere"/> for testing.</param>
+            <param name="result">Result of testing for containment between this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> and specified <see cref="T:Microsoft.Xna.Framework.BoundingSphere"/> as an output parameter.</param>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.Contains(Microsoft.Xna.Framework.Vector3)">
+            <summary>
+            Containment test between this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> and specified <see cref="T:Microsoft.Xna.Framework.Vector3"/>.
+            </summary>
+            <param name="point">A <see cref="T:Microsoft.Xna.Framework.Vector3"/> for testing.</param>
+            <returns>Result of testing for containment between this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> and specified <see cref="T:Microsoft.Xna.Framework.Vector3"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.Contains(Microsoft.Xna.Framework.Vector3@,Microsoft.Xna.Framework.ContainmentType@)">
+            <summary>
+            Containment test between this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> and specified <see cref="T:Microsoft.Xna.Framework.Vector3"/>.
+            </summary>
+            <param name="point">A <see cref="T:Microsoft.Xna.Framework.Vector3"/> for testing.</param>
+            <param name="result">Result of testing for containment between this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> and specified <see cref="T:Microsoft.Xna.Framework.Vector3"/> as an output parameter.</param>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.Equals(Microsoft.Xna.Framework.BoundingFrustum)">
+            <summary>
+            Compares whether current instance is equal to specified <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/>.
+            </summary>
+            <param name="other">The <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> to compare.</param>
+            <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.Equals(System.Object)">
+            <summary>
+            Compares whether current instance is equal to specified <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/>.
+            </summary>
+            <param name="obj">The <see cref="T:System.Object"/> to compare.</param>
+            <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.GetCorners">
+            <summary>
+            Returns a copy of internal corners array.
+            </summary>
+            <returns>The array of corners.</returns>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.GetCorners(Microsoft.Xna.Framework.Vector3[])">
+            <summary>
+            Returns a copy of internal corners array.
+            </summary>
+            <param name="corners">The array which values will be replaced to corner values of this instance. It must have size of <see cref="F:Microsoft.Xna.Framework.BoundingFrustum.CornerCount"/>.</param>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.GetHashCode">
+            <summary>
+            Gets the hash code of this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/>.
+            </summary>
+            <returns>Hash code of this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.Intersects(Microsoft.Xna.Framework.BoundingBox)">
+            <summary>
+            Gets whether or not a specified <see cref="T:Microsoft.Xna.Framework.BoundingBox"/> intersects with this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/>.
+            </summary>
+            <param name="box">A <see cref="T:Microsoft.Xna.Framework.BoundingBox"/> for intersection test.</param>
+            <returns><c>true</c> if specified <see cref="T:Microsoft.Xna.Framework.BoundingBox"/> intersects with this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/>; <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.Intersects(Microsoft.Xna.Framework.BoundingBox@,System.Boolean@)">
+            <summary>
+            Gets whether or not a specified <see cref="T:Microsoft.Xna.Framework.BoundingBox"/> intersects with this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/>.
+            </summary>
+            <param name="box">A <see cref="T:Microsoft.Xna.Framework.BoundingBox"/> for intersection test.</param>
+            <param name="result"><c>true</c> if specified <see cref="T:Microsoft.Xna.Framework.BoundingBox"/> intersects with this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/>; <c>false</c> otherwise as an output parameter.</param>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.Intersects(Microsoft.Xna.Framework.BoundingFrustum)">
+            <summary>
+            Gets whether or not a specified <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> intersects with this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/>.
+            </summary>
+            <param name="frustum">An other <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> for intersection test.</param>
+            <returns><c>true</c> if other <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> intersects with this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/>; <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.Intersects(Microsoft.Xna.Framework.BoundingSphere)">
+            <summary>
+            Gets whether or not a specified <see cref="T:Microsoft.Xna.Framework.BoundingSphere"/> intersects with this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/>.
+            </summary>
+            <param name="sphere">A <see cref="T:Microsoft.Xna.Framework.BoundingSphere"/> for intersection test.</param>
+            <returns><c>true</c> if specified <see cref="T:Microsoft.Xna.Framework.BoundingSphere"/> intersects with this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/>; <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.Intersects(Microsoft.Xna.Framework.BoundingSphere@,System.Boolean@)">
+            <summary>
+            Gets whether or not a specified <see cref="T:Microsoft.Xna.Framework.BoundingSphere"/> intersects with this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/>.
+            </summary>
+            <param name="sphere">A <see cref="T:Microsoft.Xna.Framework.BoundingSphere"/> for intersection test.</param>
+            <param name="result"><c>true</c> if specified <see cref="T:Microsoft.Xna.Framework.BoundingSphere"/> intersects with this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/>; <c>false</c> otherwise as an output parameter.</param>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.Intersects(Microsoft.Xna.Framework.Plane)">
+            <summary>
+            Gets type of intersection between specified <see cref="T:Microsoft.Xna.Framework.Plane"/> and this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/>.
+            </summary>
+            <param name="plane">A <see cref="T:Microsoft.Xna.Framework.Plane"/> for intersection test.</param>
+            <returns>A plane intersection type.</returns>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.Intersects(Microsoft.Xna.Framework.Plane@,Microsoft.Xna.Framework.PlaneIntersectionType@)">
+            <summary>
+            Gets type of intersection between specified <see cref="T:Microsoft.Xna.Framework.Plane"/> and this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/>.
+            </summary>
+            <param name="plane">A <see cref="T:Microsoft.Xna.Framework.Plane"/> for intersection test.</param>
+            <param name="result">A plane intersection type as an output parameter.</param>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.Intersects(Microsoft.Xna.Framework.Ray)">
+            <summary>
+            Gets the distance of intersection of <see cref="T:Microsoft.Xna.Framework.Ray"/> and this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> or null if no intersection happens.
+            </summary>
+            <param name="ray">A <see cref="T:Microsoft.Xna.Framework.Ray"/> for intersection test.</param>
+            <returns>Distance at which ray intersects with this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> or null if no intersection happens.</returns>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.Intersects(Microsoft.Xna.Framework.Ray@,System.Nullable{System.Single}@)">
+            <summary>
+            Gets the distance of intersection of <see cref="T:Microsoft.Xna.Framework.Ray"/> and this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> or null if no intersection happens.
+            </summary>
+            <param name="ray">A <see cref="T:Microsoft.Xna.Framework.Ray"/> for intersection test.</param>
+            <param name="result">Distance at which ray intersects with this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> or null if no intersection happens as an output parameter.</param>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.BoundingFrustum.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> representation of this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/> in the format:
+            {Near:[nearPlane] Far:[farPlane] Left:[leftPlane] Right:[rightPlane] Top:[topPlane] Bottom:[bottomPlane]}
+            </summary>
+            <returns><see cref="T:System.String"/> representation of this <see cref="T:Microsoft.Xna.Framework.BoundingFrustum"/>.</returns>
+        </member>
+        <member name="P:Microsoft.Xna.Framework.BoundingFrustum.Matrix">
+            <summary>
+            Gets or sets the <see cref="P:Microsoft.Xna.Framework.BoundingFrustum.Matrix"/> of the frustum.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xna.Framework.BoundingFrustum.Near">
+            <summary>
+            Gets the near plane of the frustum.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xna.Framework.BoundingFrustum.Far">
+            <summary>
+            Gets the far plane of the frustum.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xna.Framework.BoundingFrustum.Left">
+            <summary>
+            Gets the left plane of the frustum.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xna.Framework.BoundingFrustum.Right">
+            <summary>
+            Gets the right plane of the frustum.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xna.Framework.BoundingFrustum.Top">
+            <summary>
+            Gets the top plane of the frustum.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xna.Framework.BoundingFrustum.Bottom">
+            <summary>
+            Gets the bottom plane of the frustum.
+            </summary>
+        </member>
         <member name="T:Microsoft.Xna.Framework.Color">
             <summary>
             Describes a 32-bit packed color.
@@ -674,6 +897,11 @@
             Moccasin color (R:255,G:228,B:181,A:255).
             </summary>
         </member>
+        <member name="P:Microsoft.Xna.Framework.Color.MonoGameOrange">
+            <summary>
+            MonoGame orange theme color (R:231,G:60,B:0,A:255).
+            </summary>
+        </member>
         <member name="P:Microsoft.Xna.Framework.Color.NavajoWhite">
             <summary>
             NavajoWhite color (R:255,G:222,B:173,A:255).
@@ -909,6 +1137,126 @@
             Gets or sets packed value of this <see cref="T:Microsoft.Xna.Framework.Color"/>.
             </summary>
         </member>
+        <member name="T:Microsoft.Xna.Framework.Graphics.ColorWriteChannels">
+            <summary>
+            Defines the color channels for render target blending operations.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.ColorWriteChannels.None">
+            <summary>
+            No channels selected.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.ColorWriteChannels.Red">
+            <summary>
+            Red channel selected.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.ColorWriteChannels.Green">
+            <summary>
+            Green channel selected.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.ColorWriteChannels.Blue">
+            <summary>
+            Blue channel selected.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.ColorWriteChannels.Alpha">
+            <summary>
+            Alpha channel selected.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.ColorWriteChannels.All">
+            <summary>
+            All channels selected.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xna.Framework.Graphics.EffectParameterClass">
+            <summary>
+            Defines classes for effect parameters and shader constants.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.EffectParameterClass.Scalar">
+            <summary>
+            Scalar class type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.EffectParameterClass.Vector">
+            <summary>
+            Vector class type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.EffectParameterClass.Matrix">
+            <summary>
+            Matrix class type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.EffectParameterClass.Object">
+            <summary>
+            Class type for textures, shaders or strings. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.EffectParameterClass.Struct">
+            <summary>
+            Structure class type.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xna.Framework.Graphics.EffectParameterType">
+            <summary>
+            Defines types for effect parameters and shader constants.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.EffectParameterType.Void">
+            <summary>
+            Pointer to void type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.EffectParameterType.Bool">
+            <summary>
+            Boolean type. Any non-zero will be <c>true</c>; <c>false</c> otherwise.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.EffectParameterType.Int32">
+            <summary>
+            32-bit integer type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.EffectParameterType.Single">
+            <summary>
+            Float type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.EffectParameterType.String">
+            <summary>
+            String type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.EffectParameterType.Texture">
+            <summary>
+            Any texture type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.EffectParameterType.Texture1D">
+            <summary>
+            1D-texture type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.EffectParameterType.Texture2D">
+            <summary>
+            2D-texture type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.EffectParameterType.Texture3D">
+            <summary>
+            3D-texture type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.EffectParameterType.TextureCube">
+            <summary>
+            Cubic texture type.
+            </summary>
+        </member>
         <member name="M:Microsoft.Xna.Framework.Graphics.GraphicsResource.GraphicsDeviceResetting">
             <summary>
             Called before the device is reset. Allows graphics resources to 
@@ -924,6 +1272,115 @@
             <param name="disposing">True if managed objects should be disposed.</param>
             <remarks>Native resources should always be released regardless of the value of the disposing parameter.</remarks>
         </member>
+        <member name="T:Microsoft.Xna.Framework.Graphics.Blend">
+            <summary>
+            Defines a blend mode.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.Blend.One">
+            <summary>
+            Each component of the color is multiplied by {1, 1, 1, 1}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.Blend.Zero">
+            <summary>
+            Each component of the color is multiplied by {0, 0, 0, 0}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.Blend.SourceColor">
+            <summary>
+            Each component of the color is multiplied by the source color. 
+            {Rs, Gs, Bs, As}, where Rs, Gs, Bs, As are color source values.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.Blend.InverseSourceColor">
+            <summary>
+            Each component of the color is multiplied by the inverse of the source color.
+             {1 − Rs, 1 − Gs, 1 − Bs, 1 − As}, where Rs, Gs, Bs, As are color source values.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.Blend.SourceAlpha">
+            <summary>
+            Each component of the color is multiplied by the alpha value of the source. 
+            {As, As, As, As}, where As is the source alpha value.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.Blend.InverseSourceAlpha">
+            <summary>
+            Each component of the color is multiplied by the inverse of the alpha value of the source. 
+            {1 − As, 1 − As, 1 − As, 1 − As}, where As is the source alpha value.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.Blend.DestinationColor">
+            <summary>
+            Each component color is multiplied by the destination color. 
+            {Rd, Gd, Bd, Ad}, where Rd, Gd, Bd, Ad are color destination values.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.Blend.InverseDestinationColor">
+            <summary>
+            Each component of the color is multiplied by the inversed destination color. 
+            {1 − Rd, 1 − Gd, 1 − Bd, 1 − Ad}, where Rd, Gd, Bd, Ad are color destination values.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.Blend.DestinationAlpha">
+            <summary>
+            Each component of the color is multiplied by the alpha value of the destination.
+            {Ad, Ad, Ad, Ad}, where Ad is the destination alpha value.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.Blend.InverseDestinationAlpha">
+            <summary>
+            Each component of the color is multiplied by the inversed alpha value of the destination. 
+            {1 − Ad, 1 − Ad, 1 − Ad, 1 − Ad}, where Ad is the destination alpha value.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.Blend.BlendFactor">
+            <summary>
+            Each component of the color is multiplied by a constant in the <see cref="!:GraphicsDevice.BlendFactor"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.Blend.InverseBlendFactor">
+            <summary>
+            Each component of the color is multiplied by a inversed constant in the <see cref="!:GraphicsDevice.BlendFactor"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.Blend.SourceAlphaSaturation">
+            <summary>
+            Each component of the color is multiplied by either the alpha of the source color, or the inverse of the alpha of the source color, whichever is greater. 
+            {f, f, f, 1}, where f = min(As, 1 − As), where As is the source alpha value.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xna.Framework.Graphics.BlendFunction">
+            <summary>
+            Defines a function for color blending.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.BlendFunction.Add">
+            <summary>
+            The function will adds destination to the source. (srcColor * srcBlend) + (destColor * destBlend)
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.BlendFunction.Subtract">
+            <summary>
+            The function will subtracts destination from source. (srcColor * srcBlend) − (destColor * destBlend)
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.BlendFunction.ReverseSubtract">
+            <summary>
+            The function will subtracts source from destination. (destColor * destBlend) - (srcColor * srcBlend) 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.BlendFunction.Min">
+            <summary>
+            The function will extracts minimum of the source and destination. min((srcColor * srcBlend),(destColor * destBlend))
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.BlendFunction.Max">
+            <summary>
+            The function will extracts maximum of the source and destination. max((srcColor * srcBlend),(destColor * destBlend))
+            </summary>
+        </member>
         <member name="P:Microsoft.Xna.Framework.Graphics.BlendState.Item(System.Int32)">
             <summary>
             Returns the target specific blend state.
@@ -934,6 +1391,71 @@
         <member name="P:Microsoft.Xna.Framework.Graphics.BlendState.IndependentBlendEnable">
             <summary>
             Enables use of the per-target blend states.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xna.Framework.Graphics.CompareFunction">
+            <summary>
+            The comparison function used for depth, stencil, and alpha tests.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.CompareFunction.Always">
+            <summary>
+            Always passes the test.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.CompareFunction.Never">
+            <summary>
+            Never passes the test.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.CompareFunction.Less">
+            <summary>
+            Passes the test when the new pixel value is less than current pixel value.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.CompareFunction.LessEqual">
+            <summary>
+            Passes the test when the new pixel value is less than or equal to current pixel value.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.CompareFunction.Equal">
+            <summary>
+            Passes the test when the new pixel value is equal to current pixel value.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.CompareFunction.GreaterEqual">
+            <summary>
+            Passes the test when the new pixel value is greater than or equal to current pixel value.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.CompareFunction.Greater">
+            <summary>
+            Passes the test when the new pixel value is greater than current pixel value.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.CompareFunction.NotEqual">
+            <summary>
+            Passes the test when the new pixel value does not equal to current pixel value.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xna.Framework.Graphics.CullMode">
+            <summary>
+            Defines a culling mode for faces in rasterization process.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.CullMode.None">
+            <summary>
+            Do not cull faces.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.CullMode.CullClockwiseFace">
+            <summary>
+            Cull faces with clockwise order.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.CullMode.CullCounterClockwiseFace">
+            <summary>
+            Cull faces with counter clockwise order.
             </summary>
         </member>
         <member name="T:Microsoft.Xna.Framework.Graphics.FillMode">
@@ -1008,12 +1530,17 @@
         </member>
         <member name="F:Microsoft.Xna.Framework.Graphics.TextureAddressMode.Clamp">
             <summary>
-            Texels outside range will be setted to color of 0.0 or 1.0 texel.
+            Texels outside range will be set to color of 0.0 or 1.0 texel.
             </summary>
         </member>
         <member name="F:Microsoft.Xna.Framework.Graphics.TextureAddressMode.Mirror">
             <summary>
             Same as <see cref="F:Microsoft.Xna.Framework.Graphics.TextureAddressMode.Wrap"/> but tiles will also flipped at every integer junction.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xna.Framework.Graphics.TextureAddressMode.Border">
+            <summary>
+            Texels outside range will be set to the border color.
             </summary>
         </member>
         <member name="T:Microsoft.Xna.Framework.Graphics.TextureFilter">
@@ -1418,6 +1945,12 @@
             </summary>
             <param name="x">The x coordinate in 2d-space.</param>
             <param name="y">The y coordinate in 2d-space.</param>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.Point.#ctor(System.Int32)">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.Xna.Framework.Point"/> struct, with the specified position.
+            </summary>
+            <param name="value">The x and y coordinates in 2d-space.</param>
         </member>
         <member name="M:Microsoft.Xna.Framework.Point.op_Addition(Microsoft.Xna.Framework.Point,Microsoft.Xna.Framework.Point)">
             <summary>

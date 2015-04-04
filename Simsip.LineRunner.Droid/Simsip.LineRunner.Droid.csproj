@@ -1909,6 +1909,15 @@
     <Compile Include="..\Simsip.LineRunner.Core\Effects\IEffectClipping.cs">
       <Link>Effects\IEffectClipping.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\IEffectLights2.cs">
+      <Link>Effects\IEffectLights2.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\SimsipEffectHelpers.cs">
+      <Link>Effects\SimsipEffectHelpers.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\Stock\StockBasicEffect.cs">
+      <Link>Effects\Stock\StockBasicEffect.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Entities\Facebook\FacebookActionEntity.cs">
       <Link>Entities\Facebook\FacebookActionEntity.cs</Link>
     </Compile>

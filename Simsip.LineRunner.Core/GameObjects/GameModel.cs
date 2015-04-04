@@ -305,20 +305,20 @@ namespace Simsip.LineRunner.GameObjects
                         {
                             case EffectType.Deferred1SceneEffect:
                                 {
-                                    effect.Parameters["xWorld"].SetValue(this._modelTransforms[mesh.ParentBone.Index] * this.WorldMatrix);
+                                    effect.Parameters["World"].SetValue(this._modelTransforms[mesh.ParentBone.Index] * this.WorldMatrix);
                                     if (this._textureOverrides.Count > 0)
                                     {
-                                        effect.Parameters["xTexture"].SetValue(this._textureOverrides[i]);
+                                        effect.Parameters["Texture"].SetValue(this._textureOverrides[i]);
                                     }
                                     else
                                     {
-                                        effect.Parameters["xTexture"].SetValue(this._originalEffects[i].Texture);
+                                        effect.Parameters["Texture"].SetValue(this._originalEffects[i].Texture);
                                     }
                                     break;
                                 }
                             case EffectType.ShadowMapEffect:
                                 {
-                                    effect.Parameters["xWorld"].SetValue(this._modelTransforms[mesh.ParentBone.Index] * this.WorldMatrix);
+                                    effect.Parameters["World"].SetValue(this._modelTransforms[mesh.ParentBone.Index] * this.WorldMatrix);
                                     break;
                                 }
                             case EffectType.StockBasicEffect:
@@ -382,6 +382,23 @@ namespace Simsip.LineRunner.GameObjects
         }
 
         #endregion
+
+        /*
+        public virtual void Draw(IMainRenderColorPass mainRenderColorPass)
+        {
+
+        }
+
+        public virtual void Draw(IMainRenderShadowPass mainRenderShadowPass)
+        {
+
+        }
+
+        public virtual void Draw(IMainRenderSinglePass mainRenderShadowPass)
+        {
+
+        }
+        */
 
         #region Actions
 

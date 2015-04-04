@@ -256,13 +256,13 @@ namespace Engine.Sky
                     {
                         case EffectType.Deferred1SceneEffect:
                             {
-                                effect.Parameters["xWorld"].SetValue(Matrix.Identity);
-                                effect.Parameters["xTexture"].SetValue(this._blockTextureAtlas);
+                                effect.Parameters["World"].SetValue(Matrix.Identity);
+                                effect.Parameters["Texture"].SetValue(this._blockTextureAtlas);
                                 break;
                             }
                         case EffectType.ShadowMapEffect:
                             {
-                                effect.Parameters["xWorld"].SetValue(Matrix.Identity);
+                                effect.Parameters["World"].SetValue(Matrix.Identity);
                                 break;
                             }
                         case EffectType.StockBasicEffect:
@@ -270,10 +270,6 @@ namespace Engine.Sky
                                 var stockBasicEffect = effect as StockBasicEffect;
                                 stockBasicEffect.World = Matrix.Identity;
                                 stockBasicEffect.Texture = this._blockTextureAtlas;
-                                /*
-                                effect.Parameters["World"].SetValue(Matrix.Identity);
-                                effect.Parameters["Texture"].SetValue(this._blockTextureAtlas);
-                                */
                                 break;
                             }
                     }

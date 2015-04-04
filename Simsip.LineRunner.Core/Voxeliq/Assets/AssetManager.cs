@@ -40,13 +40,6 @@ namespace Engine.Assets
         private Dictionary<string, string> _sounds;
         private Dictionary<string, SpriteFont> _fonts;
 
-        // MonoGame requires specially compiled shaders with mgfxo extension. 
-#if MONOGAME
-        private const string EffectShaderExtension = ".mgfxo"; 
-#else 
-        private const string EffectShaderExtension = ".mgfxo"; 
-#endif
-
         private static readonly Logger Logger = LogManager.CreateLogger(); 
 
         public AssetManager(Game game)
@@ -520,32 +513,22 @@ namespace Engine.Assets
         private Effect LoadEffectShader(string path)
         {
             Effect effect = null;
-            try
-            {
-                path += EffectShaderExtension;
-
-                byte[] bytecode = null;
+             byte[] bytecode = null;
 
 #if ANDROID
-                using (Stream stream = Program.SharedProgram.Assets.Open(path))
+            using (Stream stream = Program.SharedProgram.Assets.Open(path))
 #elif DESKTOP || IOS
-                using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
 #endif
-                {
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        stream.CopyTo(ms);
-                        bytecode = ms.ToArray();
-                    }
-                }
-
-                effect = new Effect(this.Game.GraphicsDevice, bytecode);
-            }
-            catch(Exception ex)
             {
-                // TODO: Throw exception
-                System.Diagnostics.Debug.WriteLine("Remove: " + ex);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    stream.CopyTo(ms);
+                    bytecode = ms.ToArray();
+                }
             }
+
+            effect = new Effect(this.Game.GraphicsDevice, bytecode);
 
             return effect;
         }
@@ -557,9 +540,6 @@ namespace Engine.Assets
             Effect effect = null;
             try
             {
-
-                path += EffectShaderExtension;
-
                 byte[] bytecode = null;
 
 #if WINDOWS_PHONE

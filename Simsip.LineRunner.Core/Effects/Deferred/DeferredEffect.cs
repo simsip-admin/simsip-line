@@ -2,10 +2,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 
 namespace Simsip.LineRunner.Effects.Deferred
 {
-    public class DeferredEffect : Effect, IDeferredEffect 
+    public class DeferredEffect : Effect // , IDeferredEffect
     {
         #region Effect Parameters
 
@@ -53,17 +54,7 @@ namespace Simsip.LineRunner.Effects.Deferred
         float fogStart = 0;
         float fogEnd = 1;
 
-        EffectDirtyFlags dirtyFlags = EffectDirtyFlags.All;
-
-        static readonly byte[] Bytecode = LoadEffectResource(
-#if DIRECTX
-            "Microsoft.Xna.Framework.Graphics.Effect.Resources.BasicEffect.dx11.mgfxo"
-#elif PSM 
-            "Microsoft.Xna.Framework.PSSuite.Graphics.Resources.BasicEffect.cgx" //FIXME: This shader is totally incomplete
-#else
-            "Microsoft.Xna.Framework.Graphics.Effect.Resources.BasicEffect.ogl.mgfxo"
-#endif
-        );
+        SimsipEffectDirtyFlags dirtyFlags = SimsipEffectDirtyFlags.All;
 
         #endregion
         
@@ -80,7 +71,7 @@ namespace Simsip.LineRunner.Effects.Deferred
             set
             {
                 world = value;
-                dirtyFlags |= EffectDirtyFlags.World | EffectDirtyFlags.WorldViewProj | EffectDirtyFlags.Fog;
+                dirtyFlags |= SimsipEffectDirtyFlags.World | SimsipEffectDirtyFlags.WorldViewProj | SimsipEffectDirtyFlags.Fog;
             }
         }
 
@@ -95,7 +86,7 @@ namespace Simsip.LineRunner.Effects.Deferred
             set
             {
                 view = value;
-                dirtyFlags |= EffectDirtyFlags.WorldViewProj | EffectDirtyFlags.EyePosition | EffectDirtyFlags.Fog;
+                dirtyFlags |= SimsipEffectDirtyFlags.WorldViewProj | SimsipEffectDirtyFlags.EyePosition | SimsipEffectDirtyFlags.Fog;
             }
         }
 
@@ -110,7 +101,7 @@ namespace Simsip.LineRunner.Effects.Deferred
             set
             {
                 projection = value;
-                dirtyFlags |= EffectDirtyFlags.WorldViewProj;
+                dirtyFlags |= SimsipEffectDirtyFlags.WorldViewProj;
             }
         }
 
@@ -125,7 +116,7 @@ namespace Simsip.LineRunner.Effects.Deferred
             set
             {
                 diffuseColor = value;
-                dirtyFlags |= EffectDirtyFlags.MaterialColor;
+                dirtyFlags |= SimsipEffectDirtyFlags.MaterialColor;
             }
         }
 
@@ -140,7 +131,7 @@ namespace Simsip.LineRunner.Effects.Deferred
             set
             {
                 emissiveColor = value;
-                dirtyFlags |= EffectDirtyFlags.MaterialColor;
+                dirtyFlags |= SimsipEffectDirtyFlags.MaterialColor;
             }
         }
 
@@ -175,7 +166,7 @@ namespace Simsip.LineRunner.Effects.Deferred
             set
             {
                 alpha = value;
-                dirtyFlags |= EffectDirtyFlags.MaterialColor;
+                dirtyFlags |= SimsipEffectDirtyFlags.MaterialColor;
             }
         }
 
@@ -189,7 +180,7 @@ namespace Simsip.LineRunner.Effects.Deferred
                 if (lightingEnabled != value)
                 {
                     lightingEnabled = value;
-                    dirtyFlags |= EffectDirtyFlags.ShaderIndex | EffectDirtyFlags.MaterialColor;
+                    dirtyFlags |= SimsipEffectDirtyFlags.ShaderIndex | SimsipEffectDirtyFlags.MaterialColor;
                 }
             }
         }
@@ -207,7 +198,7 @@ namespace Simsip.LineRunner.Effects.Deferred
                 if (preferPerPixelLighting != value)
                 {
                     preferPerPixelLighting = value;
-                    dirtyFlags |= EffectDirtyFlags.ShaderIndex;
+                    dirtyFlags |= SimsipEffectDirtyFlags.ShaderIndex;
                 }
             }
         }
@@ -221,7 +212,7 @@ namespace Simsip.LineRunner.Effects.Deferred
             set
             {
                 ambientLightColor = value;
-                dirtyFlags |= EffectDirtyFlags.MaterialColor;
+                dirtyFlags |= SimsipEffectDirtyFlags.MaterialColor;
             }
         }
 
@@ -248,7 +239,7 @@ namespace Simsip.LineRunner.Effects.Deferred
                 if (fogEnabled != value)
                 {
                     fogEnabled = value;
-                    dirtyFlags |= EffectDirtyFlags.ShaderIndex | EffectDirtyFlags.FogEnable;
+                    dirtyFlags |= SimsipEffectDirtyFlags.ShaderIndex | SimsipEffectDirtyFlags.FogEnable;
                 }
             }
         }
@@ -262,7 +253,7 @@ namespace Simsip.LineRunner.Effects.Deferred
             set
             {
                 fogStart = value;
-                dirtyFlags |= EffectDirtyFlags.Fog;
+                dirtyFlags |= SimsipEffectDirtyFlags.Fog;
             }
         }
 
@@ -275,7 +266,7 @@ namespace Simsip.LineRunner.Effects.Deferred
             set
             {
                 fogEnd = value;
-                dirtyFlags |= EffectDirtyFlags.Fog;
+                dirtyFlags |= SimsipEffectDirtyFlags.Fog;
             }
         }
 
@@ -300,7 +291,7 @@ namespace Simsip.LineRunner.Effects.Deferred
                 if (textureEnabled != value)
                 {
                     textureEnabled = value;
-                    dirtyFlags |= EffectDirtyFlags.ShaderIndex;
+                    dirtyFlags |= SimsipEffectDirtyFlags.ShaderIndex;
                 }
             }
         }
@@ -328,7 +319,7 @@ namespace Simsip.LineRunner.Effects.Deferred
                 if (vertexColorEnabled != value)
                 {
                     vertexColorEnabled = value;
-                    dirtyFlags |= EffectDirtyFlags.ShaderIndex;
+                    dirtyFlags |= SimsipEffectDirtyFlags.ShaderIndex;
                 }
             }
         }
@@ -338,8 +329,7 @@ namespace Simsip.LineRunner.Effects.Deferred
 
         #region Methods
 
-#if SIMSIP_IOS
-        public BasicEffect(GraphicsDevice device, byte[] byteCode)
+        public DeferredEffect(GraphicsDevice device, byte[] byteCode)
             : base(device, byteCode)
         {
             CacheEffectParameters(null);
@@ -348,13 +338,12 @@ namespace Simsip.LineRunner.Effects.Deferred
             SpecularColor = Vector3.One;
             SpecularPower = 16;
         }
-#endif
 
         /// <summary>
         /// Creates a new BasicEffect with default parameter settings.
         /// </summary>
         public DeferredEffect(GraphicsDevice device)
-            : base(device, Bytecode)
+            : base(device, null)
         {
             CacheEffectParameters(null);
 
@@ -406,7 +395,7 @@ namespace Simsip.LineRunner.Effects.Deferred
         {
             LightingEnabled = true;
 
-            AmbientLightColor = EffectHelpers.EnableDefaultLighting(light0, light1, light2);
+            AmbientLightColor = SimsipEffectHelpers.EnableDefaultLighting(light0, light1, light2);
         }
 
 
@@ -451,23 +440,23 @@ namespace Simsip.LineRunner.Effects.Deferred
         /// <summary>
         /// Lazily computes derived parameter values immediately before applying the effect.
         /// </summary>
-        protected internal override bool OnApply()
+        public override bool OnApply()
         {
             // Recompute the world+view+projection matrix or fog vector?
-            dirtyFlags = EffectHelpers.SetWorldViewProjAndFog(dirtyFlags, ref world, ref view, ref projection, ref worldView, fogEnabled, fogStart, fogEnd, worldViewProjParam, fogVectorParam);
+            dirtyFlags = SimsipEffectHelpers.SetWorldViewProjAndFog(dirtyFlags, ref world, ref view, ref projection, ref worldView, fogEnabled, fogStart, fogEnd, worldViewProjParam, fogVectorParam);
             
             // Recompute the diffuse/emissive/alpha material color parameters?
-            if ((dirtyFlags & EffectDirtyFlags.MaterialColor) != 0)
+            if ((dirtyFlags & SimsipEffectDirtyFlags.MaterialColor) != 0)
             {
-                EffectHelpers.SetMaterialColor(lightingEnabled, alpha, ref diffuseColor, ref emissiveColor, ref ambientLightColor, diffuseColorParam, emissiveColorParam);
+                SimsipEffectHelpers.SetMaterialColor(lightingEnabled, alpha, ref diffuseColor, ref emissiveColor, ref ambientLightColor, diffuseColorParam, emissiveColorParam);
 
-                dirtyFlags &= ~EffectDirtyFlags.MaterialColor;
+                dirtyFlags &= ~SimsipEffectDirtyFlags.MaterialColor;
             }
 
             if (lightingEnabled)
             {
                 // Recompute the world inverse transpose and eye position?
-                dirtyFlags = EffectHelpers.SetLightingMatrices(dirtyFlags, ref world, ref view, worldParam, worldInverseTransposeParam, eyePositionParam);
+                dirtyFlags = SimsipEffectHelpers.SetLightingMatrices(dirtyFlags, ref world, ref view, worldParam, worldInverseTransposeParam, eyePositionParam);
 
                 
                 // Check if we can use the only-bother-with-the-first-light shader optimization.
@@ -476,12 +465,12 @@ namespace Simsip.LineRunner.Effects.Deferred
                 if (oneLight != newOneLight)
                 {
                     oneLight = newOneLight;
-                    dirtyFlags |= EffectDirtyFlags.ShaderIndex;
+                    dirtyFlags |= SimsipEffectDirtyFlags.ShaderIndex;
                 }
             }
 
             // Recompute the shader index?
-            if ((dirtyFlags & EffectDirtyFlags.ShaderIndex) != 0)
+            if ((dirtyFlags & SimsipEffectDirtyFlags.ShaderIndex) != 0)
             {
                 int shaderIndex = 0;
                 
@@ -504,11 +493,7 @@ namespace Simsip.LineRunner.Effects.Deferred
                         shaderIndex += 8;
                 }
 
-                dirtyFlags &= ~EffectDirtyFlags.ShaderIndex;
-#if PSM
-#warning Major hack as PSM Shaders don't support multiple Techinques (yet)
-                shaderIndex = 0;
-#endif
+                dirtyFlags &= ~SimsipEffectDirtyFlags.ShaderIndex;
 
                 if (_shaderIndex != shaderIndex)
                 {
@@ -523,5 +508,45 @@ namespace Simsip.LineRunner.Effects.Deferred
 
 
         #endregion
+
+#if ANDROID || IOS || DESKTOP
+        internal static byte[] LoadEffectResource2(string path)
+        {
+            byte[] bytecode = null;
+
+#if ANDROID
+            using (Stream stream = Program.SharedProgram.Assets.Open(path))
+#elif DESKTOP || IOS
+            using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+#endif
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    stream.CopyTo(ms);
+                    bytecode = ms.ToArray();
+                }
+            }
+
+            return bytecode;
+        }
+#endif
+        // Couldn't get this one to work yet, copied from Monogame
+        // Tried setting content to Embedded Resource
+        /*
+        internal static byte[] LoadEffectResource(string name)
+        {
+#if WINRT
+            var assembly = typeof(Effect).GetTypeInfo().Assembly;
+#else
+            var assembly = typeof(Effect).Assembly;
+#endif
+            var stream = assembly.GetManifestResourceStream(name);
+            using (var ms = new MemoryStream())
+            {
+                stream.CopyTo(ms);
+                return ms.ToArray();
+            }
+        }
+        */
     }
 }
