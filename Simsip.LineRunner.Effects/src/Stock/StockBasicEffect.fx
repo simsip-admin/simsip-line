@@ -34,8 +34,8 @@ BEGIN_CONSTANTS
 	// Note: Had to use float instead of bool due to error on DX9 builds
 	// "IF src0 must have replicate swizzle"
 	// https://monogame.codeplex.com/discussions/391687
-	float IsClip                   _vs(c26) _ps(c15) _cb(c22);
-	float4 ClippingPlane           _vs(c27) _ps(c16) _cb(c23);
+	bool IsClip                            _ps(c15) _cb(c22);
+	float4 ClippingPlane          _vs(c27) _ps(c16) _cb(c23);
 
 MATRIX_CONSTANTS
 
@@ -310,11 +310,12 @@ VSOutputPixelLightingTx VSBasicPixelLightingTx(VSInputNmTx vin)
     vout.TexCoord = vin.TexCoord;
 
 	// Do we have a clipping plane to consider?
+	// IMPORTANT: Can't do conditionals in vertex shader similar to if(IsClip), must be if (IsClip == true)
 	vout.Clipping = 0;
-	if (IsClip != 0)
+	if (IsClip == true)
 	{
 		float4 clp = mul(vin.Position, World);
-		vout.Clipping.x = dot(clp, ClippingPlane);
+	    vout.Clipping.x = dot(clp, ClippingPlane);
 	}
 
     return vout;
@@ -445,7 +446,7 @@ float4 PSBasicPixelLighting(VSOutputPixelLighting pin) : SV_Target0
 float4 PSBasicPixelLightingTx(VSOutputPixelLightingTx pin) : SV_Target0
 {
 	// Do we have a clipping plane to consider?
-	if (IsClip != 0)
+	if (IsClip == true)
 	{
 		clip(pin.Clipping.x);
 	}

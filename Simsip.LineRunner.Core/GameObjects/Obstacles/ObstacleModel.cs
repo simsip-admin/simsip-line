@@ -56,7 +56,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         /// </summary>
         public float WorldHeightTruncated { get; set; }
 
-        public ObstacleType Type { get; set; }
+        public ObstacleType TheObstacleType { get; set; }
 
         public LineModel Line { get; set; }
 
@@ -82,9 +82,9 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             this._pageCache = (IPageCache)TheGame.SharedGame.Services.GetService(typeof(IPageCache));
 
             // Determine and load appropriate xna model for line
-            var obstacleType = (ObstacleType)Enum.Parse(typeof(ObstacleType), ThePageObstaclesEntity.ObstacleType);
+            this.TheObstacleType = (ObstacleType)Enum.Parse(typeof(ObstacleType), ThePageObstaclesEntity.ObstacleType);
             var modelRepository = new ModelRepository();
-            switch (obstacleType)
+            switch (this.TheObstacleType)
             {
                 case ObstacleType.SimpleBottom:
                 case ObstacleType.SimpleTop:
@@ -176,7 +176,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 }
                 else if (obstacleType == ObstacleType.SimpleTop)
                 {
-                    var distance = this.WorldOrigin.Y + this.WorldHeightTruncated;
+                    var distance = this.WorldOrigin.Y - (this.WorldHeight - this.WorldHeightTruncated);
                     effect.Parameters["ClippingPlane"].SetValue(new Vector4(Vector3.Down, distance));
                 }
 

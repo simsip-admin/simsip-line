@@ -107,9 +107,6 @@ namespace Simsip.LineRunner.Effects.Deferred
         private BasicEffect LineDrawer;
         private IPhysicsManager _physicsManager;
 
-        // For debugging
-        bool _captureSnapshots;
-
         // Required game services
         private IInputManager _inputManager;
         private IChunkCache _chunkCache;
@@ -220,14 +217,16 @@ namespace Simsip.LineRunner.Effects.Deferred
             this._device = TheGame.SharedGame.GraphicsDevice;
             
             var assetManager = (IAssetManager)TheGame.SharedGame.Services.GetService(typeof(IAssetManager));
-#if IOS
             // In IOS we haven't stabilized RenderTarget2D yet, so we go with our single-pass
             // extension of BasicEffect (e.g., adds in clipping support)
             this._stockBasicEffect = new StockBasicEffect(this._device, Asset.StockBasicEffect);
             this._stockBasicEffect.LightingEnabled = true;
             this._stockBasicEffect.PreferPerPixelLighting = true;
             this._stockBasicEffect.TextureEnabled = true;
+            this._stockBasicEffect.EnableDefaultLighting();
+            this._stockBasicEffect.SpecularPower = 128.0f;
 
+            /*
             this._stockBasicEffect.DirectionalLight0.Enabled = true;
             this._stockBasicEffect.DirectionalLight1.Enabled = false;
             this._stockBasicEffect.DirectionalLight2.Enabled = false;
@@ -240,9 +239,9 @@ namespace Simsip.LineRunner.Effects.Deferred
             // this._stockBasicEffect.EmissiveColor = new Vector3(1.0f, 0.0f, 0.0f);
             
             this._stockBasicEffect.DirectionalLight0.SpecularColor = new Vector3(1.0f, 1.0f, 1.0f);
-            this._stockBasicEffect.SpecularPower = 5.0f;
-            
-#else
+            this._stockBasicEffect.SpecularPower = 128.0f;
+            */
+
             this._effect1Scene = assetManager.GetEffect(Asset.Deferred1SceneEffect);
             this._effect2Lights = assetManager.GetEffect(Asset.Deferred2LightsEffect);
             this._effect3Final = assetManager.GetEffect(Asset.Deferred3FinalEffect);
@@ -273,7 +272,6 @@ namespace Simsip.LineRunner.Effects.Deferred
             }
 
             InitFullscreenVertices();
-#endif
 
 #if DESKTOP
             this._colorTarget.SimsipSetPrivateData("ColorTarget");
@@ -294,7 +292,7 @@ namespace Simsip.LineRunner.Effects.Deferred
             this._view = this._inputManager.CurrentCamera.ViewMatrix;
             this._projection = this._inputManager.CurrentCamera.ProjectionMatrix;
 
-#if IOS
+#if IOS || ANDROID || DESKTOP
             // Single pass for IOS and then short-circuit
             this.RenderSceneIos(gameTime);
             base.Draw(gameTime);
@@ -555,9 +553,9 @@ namespace Simsip.LineRunner.Effects.Deferred
             this._pageCache.Draw(effect, type);
             this._lineCache.Draw(effect, type);
 
-            effect.Parameters["IsClip"].SetValue(1f);
+            effect.Parameters["IsClip"].SetValue(true);
             this._obstacleCache.Draw(effect, type);
-            effect.Parameters["IsClip"].SetValue(0f);
+            effect.Parameters["IsClip"].SetValue(false);
             
             this._characterCache.Draw(effect, type);
 

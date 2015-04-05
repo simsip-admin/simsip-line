@@ -321,9 +321,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             var pageObstaclesEntities = this.HydratePageObstacles();
             foreach (var pageObstaclesEntity in pageObstaclesEntities)
             {
-                // We'll need the obstacle type to determine below how to do various transformations
-                var obstacleType = (ObstacleType)Enum.Parse(typeof(ObstacleType), pageObstaclesEntity.ObstacleType);
-
                 // Get an initial model constructed
                 var obstacleEntity = this._obstacleRepository.GetObstacle(pageObstaclesEntity.ModelName);
                 var obstacleModel = new ObstacleModel(obstacleEntity, pageObstaclesEntity);
@@ -350,14 +347,14 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 // Now construct our placement values
                 var xScaledToLineWidth = pageObstaclesEntity.LogicalXScaledTo100 *              // 1. Start with x in the [0,100] range
                                                 (lineModel.WorldWidth / 100);                   // 2. Scale it by the world width of the line
-                var heightScaledToLineSpacing = pageObstaclesEntity.LogicalHeightScaledTo100 *  // 1. Start with the height in the [0,100] range
-                                (this._pageCache.CurrentPageModel.WorldLineSpacing / 100);      // 2. Scale it by the world line spacing
+                var heightScaledToLineSpacing = obstacleModel.WorldHeight *                     // 1. Start with the obstacles height
+                                                (pageObstaclesEntity.LogicalHeightScaledTo100 / 100);  // 2. Scale it to th des
                 var translatedY = (lineModel.WorldOrigin.Y + lineModel.WorldHeight) -
                                   (obstacleModel.WorldHeight - heightScaledToLineSpacing);
-                if (obstacleType == ObstacleType.SimpleTop)
+                if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
                 {
-                    translatedY = (lineModel.WorldOrigin.Y + lineModel.WorldHeight + this._pageCache.CurrentPageModel.WorldLineSpacing)
-                                  - heightScaledToLineSpacing; 
+                    translatedY = (lineModel.WorldOrigin.Y + lineModel.WorldHeight + this._pageCache.CurrentPageModel.WorldLineSpacing) -
+                                  (heightScaledToLineSpacing); 
                 }
 
                 // Add in x adjustment for rotation if nesessary (angle will be specified as 0 degrees if not rotated)
@@ -389,14 +386,14 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 obstacleModel.WorldHeightTruncated = heightScaledToLineSpacing;
 
                 // Scale, rotate and translate our model
-                if (obstacleType == ObstacleType.SimpleBottom)
+                if (obstacleModel.TheObstacleType == ObstacleType.SimpleBottom)
                 {
                     obstacleModel.WorldMatrix = 
                         scaleMatrix *                   // 1. Scale
                         obstacleModel.RotationMatrix *  // 2. Rotate
                         translateMatrix;                // 3. Translate
                 }
-                else if (obstacleType == ObstacleType.SimpleTop)
+                else if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
                 {
                     // IMPORTANT: We need to flip our model. To do this we
                     //            1. Translate model to the origin
@@ -404,19 +401,21 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                     //            3. Peform flip (TODO: Account for rotation)
                     //            4. Translate model back to position before translating to origin
                     //            5. Translate as normal
+                    //
+                    // IMPORTANT: This will change the origin and affect positioning. Orign depth will now be in back instead of in front.
                     obstacleModel.RotationMatrix = Matrix.CreateRotationX(Microsoft.Xna.Framework.MathHelper.ToRadians(180));
                     obstacleModel.WorldMatrix = 
                         Matrix.CreateTranslation(
-                            0, 
+                            -obstacleModel.TheModelEntity.ModelWidth / 2, 
                             -obstacleModel.TheModelEntity.ModelHeight/2, 
-                            obstacleModel.TheModelEntity.ModelDepth/2) * 
-                        scaleMatrix * 
+                            obstacleModel.TheModelEntity.ModelDepth/2) *
+                            scaleMatrix * 
                         obstacleModel.RotationMatrix *
                         Matrix.CreateTranslation(
-                            0, 
-                            obstacleModel.TheModelEntity.ModelHeight / 2, 
-                            -obstacleModel.TheModelEntity.ModelDepth / 2) * 
-                        translateMatrix;
+                            obstacleModel.WorldWidth / 2, 
+                            obstacleModel.WorldHeight / 2, 
+                           obstacleModel.WorldWidth / 2) *
+                       translateMatrix;
                 }
 
                 // Uniquely identify character for octree
@@ -591,9 +590,18 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 // straddling the halfway depth of the line
                 var lineModel = this._lineCache.GetLineModel(_currentLineNumber);
                 var halfwayDepth = -this._pageCache.PageDepthFromCameraStart +      // Start back at page depth
-                                   (0.5f*lineModel.WorldDepth) +                    // Move forward to line depth halfway mark
-                                   (0.5f*obstacleModel.WorldDepth);                 // Add in 1/2 of obstacle depth so obstacle
+                                   (0.5f * lineModel.WorldDepth);                    // Move forward to line depth halfway mark
+                if (obstacleModel.TheObstacleType == ObstacleType.SimpleBottom)
+                {
+                    halfwayDepth += 0.5f*obstacleModel.WorldDepth;                 // Add in 1/2 of obstacle depth so obstacle
+                                                                                   // will be positioned exactly straddling line deph halfway
+                }
+                else if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
+                {
+                    halfwayDepth -= 0.5f * obstacleModel.WorldDepth;                // IMPORTANT: Remove 1/2 of obstacle depth so obstacle
                                                                                     // will be positioned exactly straddling line deph halfway
+                                                                                    // because the model and hence its origin has been flipped
+                }
 
                 // Construct a position to move to that is the same X, Y as the original origin
                 // but we move forward to our defined obstacle depth from the camera

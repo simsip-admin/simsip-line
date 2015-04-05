@@ -46,8 +46,7 @@ namespace Simsip.LineRunner
 
             this._graphicsDeviceManager.IsFullScreen = false;
 
-            // Needed for stencil clipping via CCClippingNode
-            this._graphicsDeviceManager.PreferredDepthStencilFormat = DepthFormat.Depth24Stencil8;
+            this._graphicsDeviceManager.PreferredDepthStencilFormat = DepthFormat.Depth24;
 
             // Frame rate is 30 fps by default for Windows Phone.
             // Divide by 2 to make it 60 fps

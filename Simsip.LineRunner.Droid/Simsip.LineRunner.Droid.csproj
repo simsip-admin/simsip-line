@@ -4018,6 +4018,10 @@
       <Link>Assets\Content\Database\upgrade.db</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Stock\StockBasicEffect.mgfxo">
+      <Link>Assets\Content\Effects\Stock\StockBasicEffect.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <AndroidResource Include="Resources\layout\View_OAuth.axml" />

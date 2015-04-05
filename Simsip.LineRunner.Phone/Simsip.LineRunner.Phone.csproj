@@ -4047,6 +4047,10 @@
       <Link>Content\Effects\Water\Water.mgfxo</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX11\Stock\StockBasicEffect.mgfxo">
+      <Link>Content\Effects\Stock\StockBasicEffect.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
