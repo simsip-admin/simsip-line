@@ -403,7 +403,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                     //            5. Translate as normal
                     //
                     // IMPORTANT: This will change the origin and affect positioning. Orign depth will now be in back instead of in front.
-                    obstacleModel.RotationMatrix = Matrix.CreateRotationX(Microsoft.Xna.Framework.MathHelper.ToRadians(180));
+                    obstacleModel.RotationMatrix = obstacleModel.RotationMatrix * Matrix.CreateRotationX(Microsoft.Xna.Framework.MathHelper.ToRadians(180));
                     obstacleModel.WorldMatrix = 
                         Matrix.CreateTranslation(
                             -obstacleModel.TheModelEntity.ModelWidth / 2, 
@@ -439,15 +439,14 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             // Get the set of page obstacle entries for the page we are processing
             var pageObstaclesEntities = _pageObstaclesRepository.GetObstacles(this._currentPageNumber);
 
-            // Record these to support injecting random obstacles (see implementation below).
-            var currentPageNumber = pageObstaclesEntities[0].PageNumber;
-            var currentLineNumber = pageObstaclesEntities[0].LineNumber;
-            var currentObstacleNumber = pageObstaclesEntities[0].ObstacleNumber;
-            var currentLogicalXScaledTo100 = pageObstaclesEntities[0].LogicalXScaledTo100;
-
             // Now loop over all entries
             foreach (var pageObstaclesEntity in pageObstaclesEntities)
             {
+                // Update these in case we are injecting random obstacles on this pass
+                // which will need to know this state
+                var currentObstacleNumber = pageObstaclesEntity.ObstacleNumber;
+                var currentLogicalXScaledTo100 = pageObstaclesEntity.LogicalXScaledTo100;
+
                 // Are we injecting random obstacles?
                 if (pageObstaclesEntity.ModelName.StartsWith(RandomPrefix))
                 {
@@ -525,9 +524,9 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         // IMPORTANT: Note the details for obstacle number, proper X placement etc.
                         var randomPageObstaclesEntity = new PageObstaclesEntity
                             {
-                                PageNumber = currentPageNumber,
-                                LineNumber = currentLineNumber,
-                                ObstacleNumber = ++currentObstacleNumber,
+                                PageNumber = pageObstaclesEntity.PageNumber,
+                                LineNumber = pageObstaclesEntity.LineNumber,
+                                ObstacleNumber = currentObstacleNumber++,
                                 ModelName = randomObstacle.ModelName,
                                 ObstacleType = randomObstacle.ObstacleType,
                                 LogicalXScaledTo100 = currentLogicalXScaledTo100 + randomObstacle.LogicalXScaledTo100,
@@ -551,12 +550,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 {
                     returnEntities.Add(pageObstaclesEntity);
                 }
-
-                // Update these in case we are injecting random obstacles next
-                // which will need to know this state
-                var mostRecentEntity = returnEntities.Last();
-                currentLineNumber = mostRecentEntity.LineNumber;
-                currentObstacleNumber = mostRecentEntity.ObstacleNumber;
             }
 
             return returnEntities;

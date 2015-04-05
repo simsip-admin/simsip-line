@@ -24,5 +24,9 @@
 	<string>0.0.1</string>
 	<key>NSMainNibFile</key>
 	<string></string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>Icon-60@2x.png</string>
+	</array>
 </dict>
 </plist>
