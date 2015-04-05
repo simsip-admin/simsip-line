@@ -10,6 +10,13 @@ namespace Simsip.LineRunner.GameObjects.Lines
     public interface ILineCache : IUpdateable, IDrawable
     {
         /// <summary>
+        /// We flag this to false while we are building up lines for a page, then true when we are done.
+        /// 
+        /// This is important for Refresh states that happen on background threads.
+        /// </summary>
+        bool Ready { get; }
+
+        /// <summary>
         /// Handle line category specific game state changes.
         /// </summary>
         /// <param name="state">The game state we are switching to.</param>

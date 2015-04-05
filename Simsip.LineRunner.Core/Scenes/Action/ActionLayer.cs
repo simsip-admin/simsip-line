@@ -851,6 +851,14 @@ namespace Simsip.LineRunner.Scenes.Action
                     }
                 case GameState.Start:
                     {
+                        // Careful here, in a Refresh state that immediately switches to Start state for ActionLayer,
+                        // we need to wait for all the line models to be build up again before we can use them
+                        // for our positioning purposes below.
+                        if (!this._lineCache.Ready)
+                        {
+                            return;
+                        }
+
                         // TODO:
                         // Position camera slightly off angle from hero
                         var heroPosition = this._characterCache.TheHeroModel.WorldOrigin;
