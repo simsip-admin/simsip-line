@@ -1,7 +1,7 @@
 PageNumber,LineNumber,ObstacleNumber,ModelName,ObstacleType,LogicalXScaledTo100,LogicalHeightScaledTo100,LogicalScaleScaledTo100,LogicalAngle,IsGoal
-1,1,1,Random01x,SimpleBottom,15,0,0,0,0
-1,1,2,Random01x,SimpleBottom,25,0,0,0,0
-1,1,3,Random01x,SimpleBottom,35,0,0,0,0
+1,1,1,Can01,SimpleBottom,15,100,0,0,0
+1,1,2,Can01,SimpleBottom,25,100,0,0,0
+1,1,3,Stove01,SimpleBottom,35,100,0,0,0
 1,1,4,Random01x,SimpleBottom,45,0,0,0,0
 1,1,5,Pipe03,SimpleBottom,55,60,0,0,1
 1,1,6,Pipe03,SimpleTop,55,60,0,0,0
@@ -10,7 +10,7 @@ PageNumber,LineNumber,ObstacleNumber,ModelName,ObstacleType,LogicalXScaledTo100,
 1,1,9,Pipe06,SimpleBottom,75,80,0,0,1
 1,1,10,Pipe07,SimpleTop,75,40,0,0,0
 1,1,11,Pipe08,SimpleBottom,85,60,0,0,1
-1,1,12,Pipe09,SimpleTop,85,100,0,0,0
+1,1,12,Pipe09,SimpleTop,85,20,0,0,0
 1,1,13,Pipe10,SimpleBottom,95,40,0,0,1
 1,1,14,Pipe10,SimpleTop,95,40,0,0,0
 1,2,15,Pipe01,SimpleBottom,20,20,0,0,1

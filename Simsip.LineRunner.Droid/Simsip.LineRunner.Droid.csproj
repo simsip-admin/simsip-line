@@ -4022,6 +4022,14 @@
       <Link>Assets\Content\Effects\Stock\StockBasicEffect.mgfxo</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Models\Obstacles\Can02-texture.xnb">
+      <Link>Assets\Content\Models\Obstacles\Can02-texture.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Models\Obstacles\Can03-texture.xnb">
+      <Link>Assets\Content\Models\Obstacles\Can03-texture.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <AndroidResource Include="Resources\layout\View_OAuth.axml" />

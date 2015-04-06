@@ -138,6 +138,22 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 var texture = this._assetManager.GetModelTexture(TheModelEntity.ModelName, ModelType.Obstacle, pipeTextureName);
                 this._textureOverrides.Add(texture);
             }
+            else if (this.TheObstacleEntity.TextureFamily == "SimpleCan")
+            {
+                var randomNumberGenerator = new Random();
+                var canTextureNumber = randomNumberGenerator.Next(1, 4);
+                var canTextureName = string.Empty;
+                if (canTextureNumber == 1)
+                {
+                    canTextureName = "Can0" + canTextureNumber + "-texture_0";
+                }
+                else
+                {
+                    canTextureName = "Can0" + canTextureNumber + "-texture";
+                }
+                var texture = this._assetManager.GetModelTexture(TheModelEntity.ModelName, ModelType.Obstacle, canTextureName);
+                this._textureOverrides.Add(texture);
+            }
 
             // Do we have any particle effects?
             this.ParticleEffectDescs = ParticleEffectFactory.Create(this);

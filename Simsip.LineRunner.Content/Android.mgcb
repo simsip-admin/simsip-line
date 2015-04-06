@@ -5410,3 +5410,25 @@
 /processorParam:TextureFormat=DxtCompressed
 /build:Content/Models/Obstacles/Stove01-model.fbx
 
+#begin Content/Models/Obstacles/Can02-texture.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Content/Models/Obstacles/Can02-texture.jpg
+
+#begin Content/Models/Obstacles/Can03-texture.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Content/Models/Obstacles/Can03-texture.jpg
+
