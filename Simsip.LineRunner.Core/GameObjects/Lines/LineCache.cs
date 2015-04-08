@@ -166,7 +166,12 @@ namespace Simsip.LineRunner.GameObjects.Lines
             */
             foreach (var lineModel in this.LineModels.ToList())
             {
-                lineModel.Draw(view, projection, effect, type);
+                // Limit lines drawn up to current line number, others have not been animated
+                // into place
+                if (this._currentLineNumber >= lineModel.ThePageLinesEntity.LineNumber)
+                {
+                    lineModel.Draw(view, projection, effect, type);
+                }
             }
         }
 
