@@ -102,6 +102,12 @@ namespace Simsip.LineRunner.Effects.Deferred
 
     public class DeferredShadowMapping : DrawableGameComponent, IDeferredShadowMapping
     {
+        // Stock effect parameters
+        private Vector3 DEFAULT_SPECULAR_COLOR = new Vector3(1.0f, 1.0f, 1.0f);
+        private const float DEFAULT_SPECULAR_POWER = 128f;
+        private Vector3 PAD_SPECULAR_COLOR = new Vector3(0.2f, 0.2f, 0.2f);
+        private const float PAD_SPECULAR_POWER = 4f;
+        
         private ContactDrawer ContactDrawer;
         private BoundingBoxDrawer BoundingBoxDrawer;
         private BasicEffect LineDrawer;
@@ -224,7 +230,8 @@ namespace Simsip.LineRunner.Effects.Deferred
             this._stockBasicEffect.PreferPerPixelLighting = true;
             this._stockBasicEffect.TextureEnabled = true;
             this._stockBasicEffect.EnableDefaultLighting();
-            this._stockBasicEffect.SpecularPower = 128.0f;
+            this._stockBasicEffect.SpecularColor = DEFAULT_SPECULAR_COLOR;
+            this._stockBasicEffect.SpecularPower = DEFAULT_SPECULAR_POWER;
 
             /*
             this._stockBasicEffect.DirectionalLight0.Enabled = true;
@@ -550,7 +557,12 @@ namespace Simsip.LineRunner.Effects.Deferred
             this._graphManager.Draw(effect, type);
             */
 
+            this._stockBasicEffect.SpecularColor = PAD_SPECULAR_COLOR;
+            this._stockBasicEffect.SpecularPower = PAD_SPECULAR_POWER;
             this._pageCache.Draw(effect, type);
+            this._stockBasicEffect.SpecularColor = DEFAULT_SPECULAR_COLOR;
+            this._stockBasicEffect.SpecularPower = DEFAULT_SPECULAR_POWER;
+
             this._lineCache.Draw(effect, type);
 
             effect.Parameters["IsClip"].SetValue(true);
