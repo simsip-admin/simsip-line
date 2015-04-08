@@ -418,6 +418,18 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                        translateMatrix;
                 }
 
+                // Now that we have the obstacle positioned correctly, construct an appropriate clipping plane to use
+                if (obstacleModel.TheObstacleType == ObstacleType.SimpleBottom)
+                {
+                    var distance = obstacleModel.WorldOrigin.Y + (obstacleModel.WorldHeight - obstacleModel.WorldHeightTruncated);
+                    obstacleModel.ClippingPlane = new Vector4(Vector3.Up, -distance);
+                }
+                else if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
+                {
+                    var distance = obstacleModel.WorldOrigin.Y - (obstacleModel.WorldHeight - obstacleModel.WorldHeightTruncated);
+                    obstacleModel.ClippingPlane = new Vector4(Vector3.Down, distance);
+                }
+
                 // Uniquely identify character for octree
                 obstacleModel.ModelID = pageObstaclesEntity.ObstacleNumber;
 

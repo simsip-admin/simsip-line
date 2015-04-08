@@ -69,6 +69,12 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         /// </summary>
         public Contact TheContact { get; set; }
 
+        /// <summary>
+        /// Once the obstacle model has been positioned, we can determine an appropriate
+        /// clipping plane for it.
+        /// </summary>
+        public Vector4 ClippingPlane { get; set; }
+
         #endregion
 
         #region Overrides
@@ -161,11 +167,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
         public override void Draw(Matrix view, Matrix projection, Effect effect = null, EffectType type = EffectType.None)
         {
-            if (effect == null)
-            {
-                XNAUtils.DefaultDrawState();
-            }
-
             // TODO: Do we have to do this every draw?
             // Adjust for physics centering at center of mesh
             if (this.PhysicsEntity != null) // &&
@@ -181,22 +182,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 this.WorldMatrix = scaleMatrix * this.RotationMatrix * MathConverter.Convert(this.PhysicsLocalTransform * this.PhysicsEntity.WorldTransform);
             }
 
-            if (effect != null)
-            {
-                // Construct an appropriate clipping plane to use
-                var obstacleType = (ObstacleType)Enum.Parse(typeof(ObstacleType), ThePageObstaclesEntity.ObstacleType);
-                if (obstacleType == ObstacleType.SimpleBottom)
-                {
-                    var distance = this.WorldOrigin.Y + (this.WorldHeight - this.WorldHeightTruncated);
-                    effect.Parameters["ClippingPlane"].SetValue(new Vector4(Vector3.Up, -distance));
-                }
-                else if (obstacleType == ObstacleType.SimpleTop)
-                {
-                    var distance = this.WorldOrigin.Y - (this.WorldHeight - this.WorldHeightTruncated);
-                    effect.Parameters["ClippingPlane"].SetValue(new Vector4(Vector3.Down, distance));
-                }
-
-            }
+            // Assign an appropriate clipping plane to use
+            effect.Parameters["ClippingPlane"].SetValue(this.ClippingPlane);
 
             base.Draw(view, projection, effect, type);
         }
