@@ -37,6 +37,7 @@ using System;
 using System.Collections.Generic;
 using BEPUphysics.CollisionTests;
 using Engine.Blocks;
+using Engine.Audio;
 
 
 namespace Simsip.LineRunner.Scenes.Action
@@ -74,6 +75,7 @@ namespace Simsip.LineRunner.Scenes.Action
         private IInGameDebuggerService _inGameDebugger;
         private IStatistics _debugBar;
         private IGraphManager _graphManager;
+        private IAudioManager _audioManager;
         
         // Required game services
         private IPhysicsManager _physicsManager;
@@ -354,6 +356,7 @@ namespace Simsip.LineRunner.Scenes.Action
                 this._inGameDebugger = (IInGameDebuggerService)TheGame.SharedGame.Services.GetService(typeof(IInGameDebuggerService));
                 this._debugBar = (IStatistics)TheGame.SharedGame.Services.GetService(typeof(IStatistics));
                 this._graphManager = (IGraphManager)TheGame.SharedGame.Services.GetService(typeof(IGraphManager));
+                this._audioManager = (IAudioManager)TheGame.SharedGame.Services.GetService(typeof(IAudioManager));
 
                 // Register event handlers
                 this._lineCache.LineHit += OnLineHit;
@@ -796,6 +799,7 @@ namespace Simsip.LineRunner.Scenes.Action
             this._world.SwitchState(gameState);
             this._chunkCache.SwitchState(gameState);
             this._inputManager.SwitchState(gameState);
+            this._audioManager.SwitchState(gameState);
             this._pageCache.SwitchState(gameState);
             this._lineCache.SwitchState(gameState);
             this._obstacleCache.SwitchState(gameState);

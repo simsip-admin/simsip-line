@@ -61,6 +61,7 @@ namespace Engine.Core
         public InGameDebugger InGameDebuggerComponent { get; private set; }
         public DebugBar DebugBarComponent { get; private set; }
         public GraphManager GraphManagerComponent { get; private set; }
+        public AudioManager AudioManagerComponent { get; private set; }
 
         public Engine(Game game, EngineConfig config)
         {
@@ -158,7 +159,10 @@ namespace Engine.Core
             GraphManagerComponent.Enabled = true;
             // this.Game.Components.Add(GraphManagerComponent);
 
+            AudioManagerComponent = new AudioManager(this.Game);
+            AudioManagerComponent.Enabled = false;
             // this.Game.Components.Add(new AudioManager(this.Game));
+            
 
             var  spriteBatch = new SpriteBatch(this.Game.GraphicsDevice);
             /*

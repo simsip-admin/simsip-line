@@ -457,13 +457,27 @@ namespace Engine.Assets
             var cloudTexture = this.GetTexture(Asset.CloudTexture);
 
             // Sounds
-            /*
             SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundHeroDieing));
             SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundHeroHitting));
             SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundHeroPoint));
             SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundHeroSwooshing));
             SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundHeroWinging));
-            */
+
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep1));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep2));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep3));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep4));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep5));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep6));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep7));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundScribble1));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundScribble2));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundScribble3));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound10));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound12));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound35));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound46));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound88));
 
             // Fonts
             // None for now
@@ -502,6 +516,22 @@ namespace Engine.Assets
             SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundHeroPoint));
             SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundHeroSwooshing));
             SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundHeroWinging));
+
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep1));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep2));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep3));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep4));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep5));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep6));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep7));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundScribble1));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundScribble2));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundScribble3));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound10));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound12));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound35));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound46));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound88));
 
             // Fonts
             // None for now

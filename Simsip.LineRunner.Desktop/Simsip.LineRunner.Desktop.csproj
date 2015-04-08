@@ -2902,6 +2902,9 @@
     <Compile Include="..\Simsip.LineRunner.Core\Voxeliq\Audio\AudioManager.cs">
       <Link>Voxeliq\AudioManager\AudioManager.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Voxeliq\Audio\IAudioManager.cs">
+      <Link>Voxeliq\AudioManager\IAudioManager.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Voxeliq\Blocks\Block.cs">
       <Link>Voxeliq\Blocks\Block.cs</Link>
     </Compile>
@@ -3826,6 +3829,22 @@
       <Link>Content\Fonts\Verdana.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Sounds\sound10.wma">
+      <Link>Content\Sounds\sound10.wma</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Sounds\sound12.wma">
+      <Link>Content\Sounds\sound12.wma</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Sounds\sound35.wma">
+      <Link>Content\Sounds\sound35.wma</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Sounds\sound46.wma">
+      <Link>Content\Sounds\sound46.wma</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\Simsip.LineRunner.Content\skins\Blue.skin">
       <Link>Content\Skins\Blue.skin</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -3988,6 +4007,66 @@
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Models\Obstacles\Can03-texture.xnb">
       <Link>Content\Models\Obstacles\Can03-texture.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Sounds\beep-1.xnb">
+      <Link>Content\Sounds\beep-1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Sounds\beep-2.xnb">
+      <Link>Content\Sounds\beep-2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Sounds\beep-3.xnb">
+      <Link>Content\Sounds\beep-3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Sounds\beep-4.xnb">
+      <Link>Content\Sounds\beep-4.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Sounds\beep-5.xnb">
+      <Link>Content\Sounds\beep-5.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Sounds\beep-6.xnb">
+      <Link>Content\Sounds\beep-6.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Sounds\beep-7.xnb">
+      <Link>Content\Sounds\beep-7.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Sounds\Pencil_quick_scribble_1.xnb">
+      <Link>Content\Sounds\Pencil_quick_scribble_1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Sounds\Pencil_quick_scribble_2.xnb">
+      <Link>Content\Sounds\Pencil_quick_scribble_2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Sounds\Pencil_quick_scribble_3.xnb">
+      <Link>Content\Sounds\Pencil_quick_scribble_3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Sounds\sound10.xnb">
+      <Link>Content\Sounds\sound10.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Sounds\sound12.xnb">
+      <Link>Content\Sounds\sound12.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Sounds\sound35.xnb">
+      <Link>Content\Sounds\sound35.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Sounds\sound46.xnb">
+      <Link>Content\Sounds\sound46.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Sounds\sound88.xnb">
+      <Link>Content\Sounds\sound88.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
