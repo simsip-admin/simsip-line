@@ -38,12 +38,19 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
 
         public static IList<ParticleEffectDesc> Create(ObstacleModel obstacleModel)
         {
+            // Short circuit if no particle effects defined for this obstacle
+            if (string.IsNullOrEmpty(obstacleModel.TheObstacleEntity.ParticleEffectType))
+            {
+                return null;
+            }
+
+            var particleEffectType = (ParticleEffectType)Enum.Parse(typeof(ParticleEffectType), obstacleModel.TheObstacleEntity.ParticleEffectType);
             var particleEffectDescs = new List<ParticleEffectDesc>();
             particleEffectDescs.Add
             (
                  new ParticleEffectDesc()
                 {
-                    TheParticleEffectType = ParticleEffectType.WaterJet,
+                    TheParticleEffectType = particleEffectType,
                     ParticleEffectIndex = 0,
                     Trigger = ParticleEffectFactory.BaseObstacleModelTrigger,
                     TheGameModel = obstacleModel

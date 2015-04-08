@@ -20,5 +20,11 @@ namespace Simsip.LineRunner.Entities.LineRunner
         /// from to texture itself with.
         /// </summary>
         public string TextureFamily { get; set; }
+
+        /// <summary>
+        /// If set, maps to an enumeration for a particle effect type for the obstacle to use when hit.
+        /// </summary>
+        public string ParticleEffectType { get; set; }
+
     }
 }
