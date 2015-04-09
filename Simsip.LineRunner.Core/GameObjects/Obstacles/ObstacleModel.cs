@@ -16,6 +16,7 @@ using Simsip.LineRunner.Effects.Deferred;
 using Simsip.LineRunner.GameObjects.ParticleEffects;
 using ConversionHelper;
 using Simsip.LineRunner.GameObjects.Pages;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.GameObjects.Obstacles
@@ -183,7 +184,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             }
 
             // Assign an appropriate clipping plane to use
-            effect.Parameters["ClippingPlane"].SetValue(this.ClippingPlane);
+            var stockBasicEffect = effect as StockBasicEffect;
+            stockBasicEffect.ClippingPlane = this.ClippingPlane;
 
             base.Draw(view, projection, effect, type);
         }

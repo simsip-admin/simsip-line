@@ -348,7 +348,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 var xScaledToLineWidth = pageObstaclesEntity.LogicalXScaledTo100 *              // 1. Start with x in the [0,100] range
                                                 (lineModel.WorldWidth / 100);                   // 2. Scale it by the world width of the line
                 var heightScaledToLineSpacing = obstacleModel.WorldHeight *                     // 1. Start with the obstacles height
-                                                (pageObstaclesEntity.LogicalHeightScaledTo100 / 100);  // 2. Scale it to th des
+                                                (pageObstaclesEntity.LogicalHeightScaledTo100 / 100);  // 2. Scale it to th desired logical height
                 var translatedY = (lineModel.WorldOrigin.Y + lineModel.WorldHeight) -
                                   (obstacleModel.WorldHeight - heightScaledToLineSpacing);
                 if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)

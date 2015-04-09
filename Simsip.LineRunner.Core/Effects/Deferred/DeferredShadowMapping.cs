@@ -565,9 +565,10 @@ namespace Simsip.LineRunner.Effects.Deferred
 
             this._lineCache.Draw(effect, type);
 
-            effect.Parameters["IsClip"].SetValue(true);
+            var stockBasicEffect = effect as StockBasicEffect;
+            stockBasicEffect.IsClip = true;
             this._obstacleCache.Draw(effect, type);
-            effect.Parameters["IsClip"].SetValue(false);
+            stockBasicEffect.IsClip = false;
             
             this._characterCache.Draw(effect, type);
 

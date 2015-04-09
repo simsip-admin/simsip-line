@@ -54,6 +54,9 @@ namespace Simsip.LineRunner.Effects.Stock
 
     public class StockBasicEffect : BasicEffect
     {
+        private EffectParameter _isClipParam;
+        private EffectParameter _clippingPlaneParam;
+
 #if WINDOWS_PHONE || NETFX_CORE
         // TODO: Fixing loading
         public StockBasicEffect(GraphicsDevice device, string path)
@@ -64,8 +67,37 @@ namespace Simsip.LineRunner.Effects.Stock
         public StockBasicEffect(GraphicsDevice device, string path)
             : base(device, LoadEffectResource2(path))
         {
+            CacheEffectParameters2();
         }
 #endif
+
+        /// <summary>
+        /// Gets or sets if a clipping plane is to be used.
+        /// 
+        /// If true, then the clipping plane as defined by ClippingPlane will be used.
+        /// </summary>
+        public bool IsClip
+        {
+            get { return _isClipParam.GetValueBoolean(); }
+            set { _isClipParam.SetValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the clipping plane to use.
+        /// 
+        /// Only used if IsClip is set to true;
+        /// </summary>
+        public Vector4 ClippingPlane
+        {
+            get { return _clippingPlaneParam.GetValueVector4(); }
+            set { _clippingPlaneParam.SetValue(value); }
+        }
+
+        private void CacheEffectParameters2()
+        {
+            this._isClipParam = Parameters["IsClip"];
+            this._clippingPlaneParam = Parameters["ClippingPlane"];
+        }
 
 #if ANDROID || IOS || DESKTOP
         internal static byte[] LoadEffectResource2(string path)
