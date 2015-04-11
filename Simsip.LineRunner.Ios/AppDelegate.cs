@@ -10,8 +10,8 @@ namespace Simsip.LineRunner
     public class AppDelegate : CCApplication
     {
 
-        private int _preferredWidth = 320;
-        private int _preferredHeight = 480;
+        private int _preferredWidth = 640; // 320;
+        private int _preferredHeight = 960; // 480;
 
         public AppDelegate(Game game, GraphicsDeviceManager graphics)
             : base(game, graphics)

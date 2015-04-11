@@ -58,7 +58,7 @@ namespace Simsip.LineRunner.GameFramework
         /// (hitting obstacles, moving in game, moving to next line, etc.).
         /// </summary>
         public const string USER_DEFAULT_KEY_SOUND = "Sound";
-        public const bool USER_DEFAULT_INITIAL_SOUND = false;
+        public const bool USER_DEFAULT_INITIAL_SOUND = true;
 
         /// <summary>
         /// Controls whether user is in practice mode.

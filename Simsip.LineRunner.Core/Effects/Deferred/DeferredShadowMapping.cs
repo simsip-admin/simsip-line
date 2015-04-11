@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using BEPUphysicsDrawer.Lines;
 using Engine.Input;
 using Simsip.LineRunner.Physics;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.Effects.Deferred
@@ -33,7 +34,8 @@ namespace Simsip.LineRunner.Effects.Deferred
         Deferred1SceneEffect,
         Deferred2LightsEffect,
         Deferred3FinalEffect,
-        ShadowMapEffect
+        ShadowMapEffect,
+        StockBasicEffect
     }
 
     public enum LightType
@@ -100,13 +102,16 @@ namespace Simsip.LineRunner.Effects.Deferred
 
     public class DeferredShadowMapping : DrawableGameComponent, IDeferredShadowMapping
     {
+        // Stock effect parameters
+        private Vector3 DEFAULT_SPECULAR_COLOR = new Vector3(1.0f, 1.0f, 1.0f);
+        private const float DEFAULT_SPECULAR_POWER = 128f;
+        private Vector3 PAD_SPECULAR_COLOR = new Vector3(0.2f, 0.2f, 0.2f);
+        private const float PAD_SPECULAR_POWER = 4f;
+        
         private ContactDrawer ContactDrawer;
         private BoundingBoxDrawer BoundingBoxDrawer;
         private BasicEffect LineDrawer;
         private IPhysicsManager _physicsManager;
-
-        // For debugging
-        bool _captureSnapshots;
 
         // Required game services
         private IInputManager _inputManager;
@@ -132,6 +137,7 @@ namespace Simsip.LineRunner.Effects.Deferred
         private Effect _effect2Lights;
         private Effect _effect3Final;
         private Effect _effectShadowMap;
+        private StockBasicEffect _stockBasicEffect;
 
         // Full screen rendering support
         private VertexPositionTexture[] _fsVertices;
@@ -217,6 +223,32 @@ namespace Simsip.LineRunner.Effects.Deferred
             this._device = TheGame.SharedGame.GraphicsDevice;
             
             var assetManager = (IAssetManager)TheGame.SharedGame.Services.GetService(typeof(IAssetManager));
+            // In IOS we haven't stabilized RenderTarget2D yet, so we go with our single-pass
+            // extension of BasicEffect (e.g., adds in clipping support)
+            this._stockBasicEffect = new StockBasicEffect(this._device, Asset.StockBasicEffect);
+            this._stockBasicEffect.LightingEnabled = true;
+            this._stockBasicEffect.PreferPerPixelLighting = true;
+            this._stockBasicEffect.TextureEnabled = true;
+            this._stockBasicEffect.EnableDefaultLighting();
+            this._stockBasicEffect.SpecularColor = DEFAULT_SPECULAR_COLOR;
+            this._stockBasicEffect.SpecularPower = DEFAULT_SPECULAR_POWER;
+
+            /*
+            this._stockBasicEffect.DirectionalLight0.Enabled = true;
+            this._stockBasicEffect.DirectionalLight1.Enabled = false;
+            this._stockBasicEffect.DirectionalLight2.Enabled = false;
+
+            this._stockBasicEffect.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(1, -1, -1));
+            
+            this._stockBasicEffect.DirectionalLight0.DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
+            this._stockBasicEffect.AmbientLightColor = new Vector3(0.2f, 0.2f, 0.2f);
+            // Not sure about this one yet
+            // this._stockBasicEffect.EmissiveColor = new Vector3(1.0f, 0.0f, 0.0f);
+            
+            this._stockBasicEffect.DirectionalLight0.SpecularColor = new Vector3(1.0f, 1.0f, 1.0f);
+            this._stockBasicEffect.SpecularPower = 128.0f;
+            */
+
             this._effect1Scene = assetManager.GetEffect(Asset.Deferred1SceneEffect);
             this._effect2Lights = assetManager.GetEffect(Asset.Deferred2LightsEffect);
             this._effect3Final = assetManager.GetEffect(Asset.Deferred3FinalEffect);
@@ -239,14 +271,6 @@ namespace Simsip.LineRunner.Effects.Deferred
                     this._depthTarget
                 };
 
-#if DESKTOP
-            this._colorTarget.SimsipSetPrivateData("ColorTarget");
-            this._normalTarget.SimsipSetPrivateData("NormalTarget");
-            this._depthTarget.SimsipSetPrivateData("DepthTarget");
-            this._shadingTarget.SimsipSetPrivateData("ShadingTarget");
-            this._shadowTarget.SimsipSetPrivateData("ShadowTarget");
-#endif
-
             this._blackImage = new Texture2D(_device, width, height, false, SurfaceFormat.Color);
             this._blackImageData = new Color[width * height];
             for (int i = 0; i < this._blackImageData.Length; i++)
@@ -255,6 +279,15 @@ namespace Simsip.LineRunner.Effects.Deferred
             }
 
             InitFullscreenVertices();
+
+#if DESKTOP
+            this._colorTarget.SimsipSetPrivateData("ColorTarget");
+            this._normalTarget.SimsipSetPrivateData("NormalTarget");
+            this._depthTarget.SimsipSetPrivateData("DepthTarget");
+            this._shadingTarget.SimsipSetPrivateData("ShadingTarget");
+            this._shadowTarget.SimsipSetPrivateData("ShadowTarget");
+#endif
+
         }
 
         public override void Draw(GameTime gameTime)
@@ -266,16 +299,19 @@ namespace Simsip.LineRunner.Effects.Deferred
             this._view = this._inputManager.CurrentCamera.ViewMatrix;
             this._projection = this._inputManager.CurrentCamera.ProjectionMatrix;
 
+#if IOS || ANDROID || DESKTOP
+            // Single pass for IOS and then short-circuit
+            this.RenderSceneIos(gameTime);
+            base.Draw(gameTime);
+            return;
+#endif
+
             // Render color, normal and depth into 3 render targets
 #if DESKTOP
             this.GraphicsDevice.BeginEvent("RenderSceneTo3RenderTargets");
 #endif
 
-#if IOS
-            this.RenderSceneTo3RenderTargetsIos(gameTime);
-#else
             this.RenderSceneTo3RenderTargets(gameTime);
-#endif
 
 #if DESKTOP
             this.GraphicsDevice.EndEvent();
@@ -355,70 +391,28 @@ namespace Simsip.LineRunner.Effects.Deferred
             // TODO: Can this be set once?
             this._effect1Scene.CurrentTechnique = this._effect1Scene.Techniques["MultipleTargets"];
 
-            this._effect1Scene.Parameters["xView"].SetValue(this._view);
+            this._effect1Scene.Parameters["View"].SetValue(this._view);
 
             // TODO: Can this be set once?
-            this._effect1Scene.Parameters["xProjection"].SetValue(this._projection);
+            this._effect1Scene.Parameters["Projection"].SetValue(this._projection);
 
             // TODO: Can this be set once?
-            this._effect1Scene.Parameters["xUnitConverter"].SetValue(15000f);
+            this._effect1Scene.Parameters["UnitConverter"].SetValue(15000f);
 
             // TODO: Can this be set once?
-            this._effect1Scene.Parameters["xIsClip"].SetValue(0f);
-            this._effect1Scene.Parameters["xClippingPlane"].SetValue(Vector4.Zero);
+            this._effect1Scene.Parameters["IsClip"].SetValue(0f);
+            this._effect1Scene.Parameters["ClippingPlane"].SetValue(Vector4.Zero);
 
-            this.RenderScene(this._effect1Scene, EffectType.Deferred1SceneEffect);
+            // TODO: Uncomment when effects are refactored
+            // this.RenderScene(this._effect1Scene, EffectType.Deferred1SceneEffect);
         }
 
-        private void RenderSceneTo3RenderTargetsIos(GameTime gameTime)
+        private void RenderSceneIos(GameTime gameTime)
         {
-            //
-            // Color
-            //
-            this._device.SetRenderTarget(this._colorTarget);
-
-            this._device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1, 0);
-
-            this._effect1Scene.CurrentTechnique = this._effect1Scene.Techniques["SingleTargetColor"];
-            this._effect1Scene.Parameters["xView"].SetValue(this._view);
-            this._effect1Scene.Parameters["xProjection"].SetValue(this._projection);
-
-            this._effect1Scene.Parameters["xIsClip"].SetValue(0f);
-            this._effect1Scene.Parameters["xClippingPlane"].SetValue(Vector4.Zero);
-
-            this.RenderScene(this._effect1Scene, EffectType.Deferred1SceneEffect);
-
-            //
-            // Normal
-            //
-            this._device.SetRenderTarget(this._normalTarget);
-
-            this._device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1, 0);
-
-            this._effect1Scene.CurrentTechnique = this._effect1Scene.Techniques["SingleTargetNormal"];
-            this._effect1Scene.Parameters["xView"].SetValue(this._view);
-            this._effect1Scene.Parameters["xProjection"].SetValue(this._projection);
-
-            this._effect1Scene.Parameters["xIsClip"].SetValue(0f);
-            this._effect1Scene.Parameters["xClippingPlane"].SetValue(Vector4.Zero);
-
-            this.RenderScene(this._effect1Scene, EffectType.Deferred1SceneEffect);
-
-            //
-            // Depth
-            //
-            this._device.SetRenderTarget(this._normalTarget);
-
-            this._device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1, 0);
-
-            this._effect1Scene.CurrentTechnique = this._effect1Scene.Techniques["SingleTargetDepth"];
-            this._effect1Scene.Parameters["xView"].SetValue(this._view);
-            this._effect1Scene.Parameters["xProjection"].SetValue(this._projection);
-
-            this._effect1Scene.Parameters["xIsClip"].SetValue(0f);
-            this._effect1Scene.Parameters["xClippingPlane"].SetValue(Vector4.Zero);
-
-            this.RenderScene(this._effect1Scene, EffectType.Deferred1SceneEffect);
+            // Render using our single-pass extension of BasicEffect
+            this._stockBasicEffect.View = this._view;
+            this._stockBasicEffect.Projection = this._projection;
+            this.RenderScene(this._stockBasicEffect, EffectType.StockBasicEffect);
         }
 
         private void GenerateShadingMap()
@@ -447,23 +441,24 @@ namespace Simsip.LineRunner.Effects.Deferred
 
             if (light.TheLightType == LightType.Directed)
             {
-                this._effectShadowMap.Parameters["xView"].SetValue(light.ViewMatrix);
+                this._effectShadowMap.Parameters["View"].SetValue(light.ViewMatrix);
             }
             else
             {
-                this._effectShadowMap.Parameters["xView"].SetValue(light.ViewMatrix);
+                this._effectShadowMap.Parameters["View"].SetValue(light.ViewMatrix);
             }
-            this._effectShadowMap.Parameters["xProjection"].SetValue(light.ProjectionMatrix);
+            this._effectShadowMap.Parameters["Projection"].SetValue(light.ProjectionMatrix);
 
-            this._effectShadowMap.Parameters["xUnitConverter"].SetValue(15000f);
+            this._effectShadowMap.Parameters["UnitConverter"].SetValue(15000f);
 
-            this._effectShadowMap.Parameters["xIsClip"].SetValue(0f);
-            this._effectShadowMap.Parameters["xClippingPlane"].SetValue(Vector4.Zero);
+            this._effectShadowMap.Parameters["IsClip"].SetValue(0f);
+            this._effectShadowMap.Parameters["ClippingPlane"].SetValue(Vector4.Zero);
 
             // IMPORTANT: Note how we specify false as second parameter here
             // to signal we want to use our own view/projection matrices and 
             // not the cameras.
-            RenderScene(this._effectShadowMap, EffectType.ShadowMapEffect, false);
+            // TODO: Uncomment when we are ready to refactor effects
+            // RenderScene(this._effectShadowMap, EffectType.ShadowMapEffect, false);
 
             // this._device.SetRenderTarget(null);
         }
@@ -472,18 +467,18 @@ namespace Simsip.LineRunner.Effects.Deferred
         {
             this._device.SetRenderTarget(this._shadingTarget);
 
-            this._effect2Lights.Parameters["xPreviousShadingContents"].SetValue((Texture2D)this._shadingTarget);
-            this._effect2Lights.Parameters["xNormalMap"].SetValue((Texture2D)this._normalTarget);
-            this._effect2Lights.Parameters["xDepthMap"].SetValue((Texture2D)this._depthTarget);
-            this._effect2Lights.Parameters["xShadowMap"].SetValue((Texture2D)this._shadowTarget);
+            this._effect2Lights.Parameters["PreviousShaderContents"].SetValue((Texture2D)this._shadingTarget);
+            this._effect2Lights.Parameters["NormalMap"].SetValue((Texture2D)this._normalTarget);
+            this._effect2Lights.Parameters["DepthMap"].SetValue((Texture2D)this._depthTarget);
+            this._effect2Lights.Parameters["ShadowMap"].SetValue((Texture2D)this._shadowTarget);
             
-            _effect2Lights.Parameters["xLightPosition"].SetValue(light.Position);
+            _effect2Lights.Parameters["LightPosition"].SetValue(light.Position);
 
             var viewProjInv = Matrix.Invert(this._view * this._projection);
-            this._effect2Lights.Parameters["xViewProjectionInv"].SetValue(viewProjInv);
-            this._effect2Lights.Parameters["xLightViewProjection"].SetValue(light.ViewMatrix * light.ProjectionMatrix);
+            this._effect2Lights.Parameters["ViewProjectionInv"].SetValue(viewProjInv);
+            this._effect2Lights.Parameters["LightViewProjection"].SetValue(light.ViewMatrix * light.ProjectionMatrix);
 
-            this._effect2Lights.Parameters["xUnitConverter"].SetValue(15000f);
+            this._effect2Lights.Parameters["UnitConverter"].SetValue(15000f);
 
             switch (light.TheLightType)
             {
@@ -492,7 +487,7 @@ namespace Simsip.LineRunner.Effects.Deferred
                         this._effect2Lights.CurrentTechnique = this._effect2Lights.Techniques["DeferredDirectedLight"];
                         
                         var directedLight = light as DirectedLight;
-                        this._effect2Lights.Parameters["xLightDirection"].SetValue(directedLight.Direction);
+                        this._effect2Lights.Parameters["LightDirection"].SetValue(directedLight.Direction);
 
                         break;
                     }
@@ -510,10 +505,10 @@ namespace Simsip.LineRunner.Effects.Deferred
                         this._effect2Lights.CurrentTechnique = this._effect2Lights.Techniques["DeferredSpotLight"];
 
                         var spotLight = light as SpotLight;
-                        _effect2Lights.Parameters["xLightStrength"].SetValue(spotLight.Strength);
-                        _effect2Lights.Parameters["xConeDirection"].SetValue(spotLight.Direction);
-                        _effect2Lights.Parameters["xConeAngle"].SetValue(spotLight.ConeAngle);
-                        _effect2Lights.Parameters["xConeDecay"].SetValue(spotLight.ConeDecay);
+                        _effect2Lights.Parameters["LightStrength"].SetValue(spotLight.Strength);
+                        _effect2Lights.Parameters["ConeDirection"].SetValue(spotLight.Direction);
+                        _effect2Lights.Parameters["ConeAngle"].SetValue(spotLight.ConeAngle);
+                        _effect2Lights.Parameters["ConeDecay"].SetValue(spotLight.ConeDecay);
 
                         break;
                     }
@@ -538,9 +533,9 @@ namespace Simsip.LineRunner.Effects.Deferred
             this._device.SetRenderTarget(null);
 
             this._effect3Final.CurrentTechnique = _effect3Final.Techniques["CombineColorAndShading"];
-            this._effect3Final.Parameters["xColorMap"].SetValue((Texture2D)this._colorTarget);
-            this._effect3Final.Parameters["xShadingMap"].SetValue((Texture2D)this._shadingTarget);
-            this._effect3Final.Parameters["xAmbient"].SetValue(this.TheAmbientLight.Value);
+            this._effect3Final.Parameters["ColorMap"].SetValue((Texture2D)this._colorTarget);
+            this._effect3Final.Parameters["ShadingMap"].SetValue((Texture2D)this._shadingTarget);
+            this._effect3Final.Parameters["Ambient"].SetValue(this.TheAmbientLight.Value);
 
             foreach (EffectPass pass in _effect3Final.CurrentTechnique.Passes)
             {
@@ -549,7 +544,7 @@ namespace Simsip.LineRunner.Effects.Deferred
             }
         }
 
-        private void RenderScene(Effect effect, EffectType type, bool useCameraMatrices=true)
+        private void RenderScene(StockBasicEffect effect, EffectType type, bool useCameraMatrices=true)
         {
             // TODO: Add back in when ready for skydome
             // this._skyDome.Draw(effect, type);
@@ -564,12 +559,17 @@ namespace Simsip.LineRunner.Effects.Deferred
             this._graphManager.Draw(effect, type);
             */
 
+            this._stockBasicEffect.SpecularColor = PAD_SPECULAR_COLOR;
+            this._stockBasicEffect.SpecularPower = PAD_SPECULAR_POWER;
             this._pageCache.Draw(effect, type);
+            this._stockBasicEffect.SpecularColor = DEFAULT_SPECULAR_COLOR;
+            this._stockBasicEffect.SpecularPower = DEFAULT_SPECULAR_POWER;
+
             this._lineCache.Draw(effect, type);
 
-            effect.Parameters["xIsClip"].SetValue(1f);
+            effect.IsClip = true;
             this._obstacleCache.Draw(effect, type);
-            effect.Parameters["xIsClip"].SetValue(0f);
+            effect.IsClip = false;
             
             this._characterCache.Draw(effect, type);
 
@@ -590,15 +590,26 @@ namespace Simsip.LineRunner.Effects.Deferred
             // this._inGameDebuggerComponent.Draw(_gameTime);
             // this._graphManagerComponent.Draw(_gameTime);
 
+            /* TODO: Holding off on pane cache for now
             // Panes need to be drawn via stationary camera to 
             // remain in place in front of player.
             // UNLESS, we are doing the shadow mapping pass.
+
             if (useCameraMatrices)
             {
-                effect.Parameters["xView"].SetValue(this._inputManager.TheStationaryCamera.ViewMatrix);
-                effect.Parameters["xProjection"].SetValue(this._inputManager.TheStationaryCamera.ProjectionMatrix);
+                if (type == EffectType.StockBasicEffect)
+                {
+                    // effect.Parameters["View"].SetValue(this._inputManager.TheStationaryCamera.ViewMatrix);
+                    // effect.Parameters["Projection"].SetValue(this._inputManager.TheStationaryCamera.ProjectionMatrix);
+                }
+                else
+                {
+                    effect.Parameters["xView"].SetValue(this._inputManager.TheStationaryCamera.ViewMatrix);
+                    effect.Parameters["xProjection"].SetValue(this._inputManager.TheStationaryCamera.ProjectionMatrix);
+                }
             }
             this._paneCache.Draw(effect);
+            */
         }
 
         #endregion

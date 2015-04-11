@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using BEPUphysics.CollisionTests;
 using Microsoft.Xna.Framework.Graphics;
 using Simsip.LineRunner.Effects.Deferred;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.GameObjects.Characters
@@ -22,7 +23,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
         void HandleKill(Contact theContact, Action handleMoveToFinish);
 
-        void Draw(Effect effect = null, EffectType type=EffectType.None);
+        void Draw(StockBasicEffect effect = null, EffectType type=EffectType.None);
     }
 
 }

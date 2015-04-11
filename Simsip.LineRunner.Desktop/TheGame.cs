@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Simsip.LineRunner.Data;
 using Simsip.LineRunner.Utils;
 using Cocos2D;
+using Simsip.LineRunner.GameFramework;
 
 
 namespace Simsip.LineRunner
@@ -79,9 +80,12 @@ namespace Simsip.LineRunner
             // Take care of any database upgrade needs
             Database.HandleUpgrade();
 
-
-            // Initialize user defaults
+            // Initialize user defaults including a one-time recording of installation date
             UserDefaults.Initialize();
+            if (!UserDefaults.SharedUserDefault.ContainsKey(GameConstants.USER_DEFAULT_KEY_INSTALL_DATE))
+            {
+                UserDefaults.SharedUserDefault.SetDateForKey(GameConstants.USER_DEFAULT_KEY_INSTALL_DATE, DateTime.Now);
+            }
 
             // Signal first stage of initialization is complete
             this.Ready = true;

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Simsip.LineRunner.Effects.Deferred;
+using Simsip.LineRunner.Effects.Stock;
 using Simsip.LineRunner.GameObjects;
 using Simsip.LineRunner.Utils;
 using System.Collections.Generic;
@@ -201,7 +202,7 @@ namespace Simsip.LineRunner.GameFramework
         public void Draw(Matrix viewMatrix, 
                          Matrix projectionMatrix, 
                          BoundingFrustum cameraFrustrum,
-                         Effect effect=null,
+                         StockBasicEffect effect=null,
                          EffectType type=EffectType.None)
         {
             // To what extent does the camera frustrum intersect our bounding box?

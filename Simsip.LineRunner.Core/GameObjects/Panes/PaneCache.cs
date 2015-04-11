@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
 using Simsip.LineRunner.Effects.Deferred;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.GameObjects.Panes
@@ -50,7 +51,7 @@ namespace Simsip.LineRunner.GameObjects.Panes
 
         #region IPaneCache Implementation
 
-        public void Draw(Effect effect = null, EffectType type = EffectType.None)
+        public void Draw(StockBasicEffect effect = null, EffectType type = EffectType.None)
         {
             foreach (var paneModel in this.PaneModels.ToList())
             {

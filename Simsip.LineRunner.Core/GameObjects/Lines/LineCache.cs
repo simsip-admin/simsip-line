@@ -22,6 +22,7 @@ using BEPUphysics.BroadPhaseEntries;
 using BEPUphysics.NarrowPhaseSystems.Pairs;
 using Engine.Input;
 using Simsip.LineRunner.GameObjects.Characters;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.GameObjects.Lines
@@ -89,6 +90,8 @@ namespace Simsip.LineRunner.GameObjects.Lines
 
         public IList<LineModel> LineModels { get; private set; }
 
+        public bool Ready { get; private set; }
+
         #endregion
 
         #region DrawableGameComponent Overrides
@@ -153,7 +156,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
 
         #region ILineCache Implementation
                 
-        public void Draw(Effect effect = null, EffectType type = EffectType.None)
+        public void Draw(StockBasicEffect effect = null, EffectType type = EffectType.None)
         {
             var view = this._inputManager.CurrentCamera.ViewMatrix;
             var projection = this._inputManager.CurrentCamera.ViewMatrix;
@@ -164,7 +167,12 @@ namespace Simsip.LineRunner.GameObjects.Lines
             */
             foreach (var lineModel in this.LineModels.ToList())
             {
-                lineModel.Draw(view, projection, effect, type);
+                // Limit lines drawn up to current line number, others have not been animated
+                // into place
+                if (this._currentLineNumber >= lineModel.ThePageLinesEntity.LineNumber)
+                {
+                    lineModel.Draw(view, projection, effect, type);
+                }
             }
         }
 
@@ -283,6 +291,9 @@ namespace Simsip.LineRunner.GameObjects.Lines
 
         private void ProcessNextPage(bool unloadPreviousLineModels=false)
         {
+            // Signal to anyone who needs to know we are rebuilding
+            this.Ready = false;
+
             // Remove all previous models from our drawing filter
             // and physics from our physics simulation
             foreach(var lineModel in this.LineModels.ToList())
@@ -413,6 +424,9 @@ namespace Simsip.LineRunner.GameObjects.Lines
                     this.LineModels.Add(lineModel);
                 }
             }
+
+            // Ok, we are good to go, let anyone interested know
+            this.Ready = true;
         }
 
         private void ProcessNextLine()

@@ -142,6 +142,24 @@
     <Compile Include="..\Simsip.LineRunner.Core\Data\Upgrade\V2_PageObstaclesRepository.cs">
       <Link>Data\Upgrade\V2_PageObstaclesRepository.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\Deferred\DeferredEffect.cs">
+      <Link>Effects\Deferred\DeferredEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\Deferred\IDeferredEffect.cs">
+      <Link>Effects\Deferred\IDeferredEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\IEffectClipping.cs">
+      <Link>Effects\IEffectClipping.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\IEffectLights2.cs">
+      <Link>Effects\IEffectLights2.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\SimsipEffectHelpers.cs">
+      <Link>Effects\SimsipEffectHelpers.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\Stock\StockBasicEffect.cs">
+      <Link>Effects\Stock\StockBasicEffect.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Entities\LineRunner\RandomObstaclesEntity.cs">
       <Link>Entities\LineRunner\RandomObstaclesEntity.cs</Link>
     </Compile>
@@ -171,6 +189,9 @@
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\ViewModels\OAuthViewModel.cs">
       <Link>ViewModels\OAuthViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Voxeliq\Audio\IAudioManager.cs">
+      <Link>Voxeliq\Audio\IAudioManager.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Voxeliq\Graphics\LineRunnerControllerInput.cs">
       <Link>Voxeliq\Graphics\LineRunnerControllerInput.cs</Link>
@@ -654,22 +675,6 @@
       <Link>Content\Models\Lines\PaperDecorativeRed2.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Pads\Pad1-model.xnb">
-      <Link>Content\Models\Pads\Pad1-model.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Pads\Pad1-texture-cardboard_0.xnb">
-      <Link>Content\Models\Pads\Pad1-texture-cardboard_0.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Pads\Pad1-texture-note_0.xnb">
-      <Link>Content\Models\Pads\Pad1-texture-note_0.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Pads\Pad1-texture-page.xnb">
-      <Link>Content\Models\Pads\Pad1-texture-page.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Pads\Pad1-thumbnail.xnb">
       <Link>Content\Models\Pads\Pad1-thumbnail.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -728,6 +733,22 @@
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\sfx_wing.xnb">
       <Link>Content\Sounds\sfx_wing.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\sound10.m4a">
+      <Link>Content\Sounds\sound10.m4a</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\sound12.m4a">
+      <Link>Content\Sounds\sound12.m4a</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\sound35.m4a">
+      <Link>Content\Sounds\sound35.m4a</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\sound46.m4a">
+      <Link>Content\Sounds\sound46.m4a</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\skins\Blue.skin">
@@ -886,6 +907,91 @@
       <Link>Content\Database\upgrade.db</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Pads\IOS\Pad1-model.xnb">
+      <Link>Content\Models\Pads\Pad1-model.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Pads\IOS\Pad1-texture-cardboard_0.xnb">
+      <Link>Content\Models\Pads\Pad1-texture-cardboard_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Pads\IOS\Pad1-texture-note_0.xnb">
+      <Link>Content\Models\Pads\Pad1-texture-note_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Pads\IOS\Pad1-texture-page.xnb">
+      <Link>Content\Models\Pads\Pad1-texture-page.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <BundleResource Include="Resources\Icon-60%402x.png" />
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Obstacles\Can02-texture.xnb">
+      <Link>Content\Models\Obstacles\Can02-texture.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Obstacles\Can03-texture.xnb">
+      <Link>Content\Models\Obstacles\Can03-texture.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\beep-1.xnb">
+      <Link>Content\Sounds\beep-1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\beep-2.xnb">
+      <Link>Content\Sounds\beep-2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\beep-3.xnb">
+      <Link>Content\Sounds\beep-3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\beep-4.xnb">
+      <Link>Content\Sounds\beep-4.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\beep-5.xnb">
+      <Link>Content\Sounds\beep-5.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\beep-6.xnb">
+      <Link>Content\Sounds\beep-6.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\beep-7.xnb">
+      <Link>Content\Sounds\beep-7.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\Pencil_quick_scribble_1.xnb">
+      <Link>Content\Sounds\Pencil_quick_scribble_1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\Pencil_quick_scribble_2.xnb">
+      <Link>Content\Sounds\Pencil_quick_scribble_2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\Pencil_quick_scribble_3.xnb">
+      <Link>Content\Sounds\Pencil_quick_scribble_3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\sound10.xnb">
+      <Link>Content\Sounds\sound10.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\sound12.xnb">
+      <Link>Content\Sounds\sound12.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\sound35.xnb">
+      <Link>Content\Sounds\sound35.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\sound46.xnb">
+      <Link>Content\Sounds\sound46.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\sound88.xnb">
+      <Link>Content\Sounds\sound88.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
       <Link>Mercury\EffectLibrary\BasicExplosion.xml</Link>
     </None>
@@ -919,6 +1025,9 @@
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\WaterJet.xml">
       <Link>Mercury\EffectLibrary\WaterJet.xml</Link>
     </None>
+    <Content Include="Content\Catalog\icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="de.lproj\Localizable.strings" />
     <Content Include="es.lproj\Localizable.strings" />
     <Content Include="fr.lproj\Localizable.strings" />
@@ -969,6 +1078,10 @@
     </Content>
     <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Water\Water.mgfxo">
       <Link>Content\Effects\Water\Water.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Stock\StockBasicEffect.mgfxo">
+      <Link>Content\Effects\Stock\StockBasicEffect.mgfxo</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Info.plist" />

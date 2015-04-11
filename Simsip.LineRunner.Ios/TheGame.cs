@@ -5,6 +5,8 @@ using Simsip.LineRunner.Data;
 using System;
 using System.Diagnostics;
 using Simsip.LineRunner.Utils;
+using Microsoft.Xna.Framework.Graphics;
+using Simsip.LineRunner.GameFramework;
 
 
 namespace Simsip.LineRunner
@@ -43,6 +45,9 @@ namespace Simsip.LineRunner
             
             this._graphicsDeviceManager.IsFullScreen = false;
 
+            // Needed for stencil clipping via CCClippingNode
+            this._graphicsDeviceManager.PreferredDepthStencilFormat = DepthFormat.Depth24Stencil8;
+
             // Frame rate is 30 fps by default for Windows Phone.
             // Divide by 2 to make it 60 fps
             TargetElapsedTime = TimeSpan.FromTicks(333333 / 2);
@@ -77,6 +82,10 @@ namespace Simsip.LineRunner
 
             // Initialize user defaults
             UserDefaults.Initialize();
+            if (!UserDefaults.SharedUserDefault.ContainsKey(GameConstants.USER_DEFAULT_KEY_INSTALL_DATE))
+            {
+                UserDefaults.SharedUserDefault.SetDateForKey(GameConstants.USER_DEFAULT_KEY_INSTALL_DATE, DateTime.Now);
+            }
 
             Debug.WriteLine("After UserDefaults.Initialize()");
 

@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Simsip.LineRunner.Effects.Deferred;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.GameObjects.Panes
@@ -26,6 +27,6 @@ namespace Simsip.LineRunner.GameObjects.Panes
         /// </summary>
         List<PaneModel> PaneModels { get; }
 
-        void Draw(Effect effect = null, EffectType type = EffectType.None);
+        void Draw(StockBasicEffect effect = null, EffectType type = EffectType.None);
     }
 }

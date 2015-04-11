@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Simsip.LineRunner.Data;
+using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.Utils;
 using System;
 
@@ -76,8 +77,12 @@ namespace Simsip.LineRunner
             // Take care of any database upgrade needs
             await Database.HandleUpgradeAsync();
 
-            // Initialize user defaults
+            // Initialize user defaults including a one-time recording of installation date
             await UserDefaults.Initialize();
+            if (!UserDefaults.SharedUserDefault.ContainsKey(GameConstants.USER_DEFAULT_KEY_INSTALL_DATE))
+            {
+                UserDefaults.SharedUserDefault.SetDateForKey(GameConstants.USER_DEFAULT_KEY_INSTALL_DATE, DateTime.Now);
+            }
 
             // Signal first stage of initialization is complete
             this.Ready = true;

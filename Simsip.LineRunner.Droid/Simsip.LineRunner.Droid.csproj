@@ -1894,11 +1894,29 @@
     <Compile Include="..\Simsip.LineRunner.Core\Detour\DetourStatNavMesh.cs">
       <Link>Detour\DetourStatNavMesh.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\Deferred\DeferredEffect.cs">
+      <Link>Effects\Deferred\DeferredEffect.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Effects\Deferred\DeferredShadowMapping.cs">
       <Link>Effects\Deferred\DeferredShadowMapping.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\Deferred\IDeferredEffect.cs">
+      <Link>Effects\Deferred\IDeferredEffect.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Effects\Deferred\IDeferredShadowMapping.cs">
       <Link>Effects\Deferred\IDeferredShadowMapping.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\IEffectClipping.cs">
+      <Link>Effects\IEffectClipping.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\IEffectLights2.cs">
+      <Link>Effects\IEffectLights2.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\SimsipEffectHelpers.cs">
+      <Link>Effects\SimsipEffectHelpers.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\Stock\StockBasicEffect.cs">
+      <Link>Effects\Stock\StockBasicEffect.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Entities\Facebook\FacebookActionEntity.cs">
       <Link>Entities\Facebook\FacebookActionEntity.cs</Link>
@@ -2919,6 +2937,9 @@
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Voxeliq\Audio\AudioManager.cs">
       <Link>Voxeliq\Audio\AudioManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Voxeliq\Audio\IAudioManager.cs">
+      <Link>Voxeliq\Audio\IAudioManager.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Voxeliq\Blocks\Block.cs">
       <Link>Voxeliq\Blocks\Block.cs</Link>
@@ -4000,6 +4021,78 @@
       <Link>Assets\Content\Database\upgrade.db</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Stock\StockBasicEffect.mgfxo">
+      <Link>Assets\Content\Effects\Stock\StockBasicEffect.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Models\Obstacles\Can02-texture.xnb">
+      <Link>Assets\Content\Models\Obstacles\Can02-texture.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Models\Obstacles\Can03-texture.xnb">
+      <Link>Assets\Content\Models\Obstacles\Can03-texture.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\beep-1.xnb">
+      <Link>Assets\Content\Sounds\beep-1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\beep-2.xnb">
+      <Link>Assets\Content\Sounds\beep-2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\beep-3.xnb">
+      <Link>Assets\Content\Sounds\beep-3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\beep-4.xnb">
+      <Link>Assets\Content\Sounds\beep-4.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\beep-5.xnb">
+      <Link>Assets\Content\Sounds\beep-5.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\beep-6.xnb">
+      <Link>Assets\Content\Sounds\beep-6.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\beep-7.xnb">
+      <Link>Assets\Content\Sounds\beep-7.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\Pencil_quick_scribble_1.xnb">
+      <Link>Assets\Content\Sounds\Pencil_quick_scribble_1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\Pencil_quick_scribble_2.xnb">
+      <Link>Assets\Content\Sounds\Pencil_quick_scribble_2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\Pencil_quick_scribble_3.xnb">
+      <Link>Assets\Content\Sounds\Pencil_quick_scribble_3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\sound10.xnb">
+      <Link>Assets\Content\Sounds\sound10.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\sound12.xnb">
+      <Link>Assets\Content\Sounds\sound12.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\sound35.xnb">
+      <Link>Assets\Content\Sounds\sound35.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\sound46.xnb">
+      <Link>Assets\Content\Sounds\sound46.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\sound88.xnb">
+      <Link>Assets\Content\Sounds\sound88.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <AndroidResource Include="Resources\layout\View_OAuth.axml" />
@@ -4067,6 +4160,22 @@
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\WaterJet.xml">
       <Link>Mercury\EffectLibrary\WaterJet.xml</Link>
     </None>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\sound10.m4a">
+      <Link>Assets\Content\Sounds\sound10.m4a</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\sound12.m4a">
+      <Link>Assets\Content\Sounds\sound12.m4a</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\sound35.m4a">
+      <Link>Assets\Content\Sounds\sound35.m4a</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\sound46.m4a">
+      <Link>Assets\Content\Sounds\sound46.m4a</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
     <Content Include="Properties\AndroidManifest.xml">
       <SubType>Designer</SubType>
     </Content>

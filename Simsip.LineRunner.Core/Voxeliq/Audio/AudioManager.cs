@@ -13,6 +13,10 @@ using Engine.Common.Logging;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
+using Simsip.LineRunner.GameFramework;
+using Simsip.LineRunner.Utils;
+using Engine.Assets;
+using Simsip.LineRunner;
 
 namespace Engine.Audio
 {
@@ -23,7 +27,7 @@ namespace Engine.Audio
         // frogsAmbient
     }
 
-    public class AudioManager : GameComponent
+    public class AudioManager : GameComponent, IAudioManager
     {
         private Song _backgroundSong;
         private IEnumerable<AmbientMusic> _ambientMusicsNames;
@@ -32,16 +36,28 @@ namespace Engine.Audio
 
         private readonly Random _random = new Random();
 
+        private GameState _currentGameState;
+        private IAssetManager _assetManager;
+        private int _soundScribbleId;
+
         private static readonly Logger Logger = LogManager.CreateLogger(); // the logger.
 
         public AudioManager(Game game)
             : base(game)
-        { }
+        {
+            // Export service
+            game.Services.AddService(typeof(IAudioManager), this);
+        }
 
         public override void Initialize()
         {
             try
             {
+                this._assetManager = (IAssetManager)TheGame.SharedGame.Services.GetService(typeof(IAssetManager));
+
+                // Hopefully this represents an invalid sound effect id to start with
+                this._soundScribbleId = -1;
+
                 // TODO: Trimning out music
                 // this._backgroundSong = Game.Content.Load<Song>(@"audio\music\funandrun");
 
@@ -53,16 +69,39 @@ namespace Engine.Audio
                     this._ambientMusicSoundEffects.Add(entry,Game.Content.Load<SoundEffect>(@"audio\music\ambient\" + entry.ToString()));
                 }
 
-                this.PlayBackroundSong();
+                // TODO: Add back in when ready
+                // this.PlayBackroundSong();
 #if !NETFX_CORE
+                // TODO: Add back in when ready
+                /*
                 var ambientMusicThread = new Thread(AmbientMusicLoop);
                 ambientMusicThread.Name = "Ambient Music Thread";
                 ambientMusicThread.Start();
+                */
 #endif
             }
             catch (Exception e)
             {
                 Logger.FatalException(e, "AudioManager is offline due to unexpected exception.");
+            }
+        }
+
+        public void SwitchState(GameState gameState)
+        {
+            this._currentGameState = gameState;
+
+            if (this._currentGameState == GameState.Moving)
+            {
+                // Only have one looping scribble sound effect going at a time
+                SoundUtils.StopSoundEffect(this._soundScribbleId);
+
+                // Start looping the scribble sound effect
+                this._soundScribbleId = SoundUtils.PlaySoundEffect(_assetManager.GetSound(Asset.SoundScribble3), loop: true);
+            }
+            else
+            {
+                // The scribbling sound effect is only valid fo the MOVING state
+                SoundUtils.StopSoundEffect(this._soundScribbleId);
             }
         }
 

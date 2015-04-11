@@ -12,6 +12,7 @@ using System.Diagnostics;
 using Engine.Graphics;
 using Engine.Input;
 using Simsip.LineRunner.GameObjects.Pages;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.GameObjects
@@ -250,7 +251,7 @@ namespace Simsip.LineRunner.GameObjects
 
         public virtual void Draw(Matrix viewMatrix, 
                                  Matrix projectionMatrix,
-                                 Effect effect = null, 
+                                 StockBasicEffect effect = null, 
                                  EffectType type = EffectType.None)
         {
             // IMPORTANT: Assumes this has been setup in derived model class
@@ -304,22 +305,37 @@ namespace Simsip.LineRunner.GameObjects
                         {
                             case EffectType.Deferred1SceneEffect:
                                 {
-                                    effect.Parameters["xWorld"].SetValue(this._modelTransforms[mesh.ParentBone.Index] * this.WorldMatrix);
+                                    effect.Parameters["World"].SetValue(this._modelTransforms[mesh.ParentBone.Index] * this.WorldMatrix);
                                     if (this._textureOverrides.Count > 0)
                                     {
-                                        effect.Parameters["xTexture"].SetValue(this._textureOverrides[i]);
+                                        effect.Parameters["Texture"].SetValue(this._textureOverrides[i]);
                                     }
                                     else
                                     {
-                                        effect.Parameters["xTexture"].SetValue(this._originalEffects[i].Texture);
+                                        effect.Parameters["Texture"].SetValue(this._originalEffects[i].Texture);
                                     }
                                     break;
                                 }
                             case EffectType.ShadowMapEffect:
                                 {
-                                    effect.Parameters["xWorld"].SetValue(this._modelTransforms[mesh.ParentBone.Index] * this.WorldMatrix);
+                                    effect.Parameters["World"].SetValue(this._modelTransforms[mesh.ParentBone.Index] * this.WorldMatrix);
                                     break;
                                 }
+                            case EffectType.StockBasicEffect:
+                                {
+                                    var stockBasicEffect = effect as StockBasicEffect;
+                                    stockBasicEffect.World = this._modelTransforms[mesh.ParentBone.Index] * this.WorldMatrix;
+                                    if (this._textureOverrides.Count > 0)
+                                    {
+                                        stockBasicEffect.Texture = this._textureOverrides[i];
+                                    }
+                                    else
+                                    {
+                                        stockBasicEffect.Texture = this._originalEffects[i].Texture;
+                                    }
+                                    break;
+                                }
+
                         }
                         i++;
 
@@ -366,6 +382,23 @@ namespace Simsip.LineRunner.GameObjects
         }
 
         #endregion
+
+        /*
+        public virtual void Draw(IMainRenderColorPass mainRenderColorPass)
+        {
+
+        }
+
+        public virtual void Draw(IMainRenderShadowPass mainRenderShadowPass)
+        {
+
+        }
+
+        public virtual void Draw(IMainRenderSinglePass mainRenderShadowPass)
+        {
+
+        }
+        */
 
         #region Actions
 

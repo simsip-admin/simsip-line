@@ -323,6 +323,7 @@ namespace Simsip.LineRunner.Scenes.Intro
             engine.InGameDebuggerComponent.Initialize();
             engine.DebugBarComponent.Initialize();
             engine.GraphManagerComponent.Initialize();
+            engine.AudioManagerComponent.Initialize();
 
             // Initialize all simsip services
             physicsManager.Initialize();

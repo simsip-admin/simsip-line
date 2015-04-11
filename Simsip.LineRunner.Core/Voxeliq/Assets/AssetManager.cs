@@ -40,13 +40,6 @@ namespace Engine.Assets
         private Dictionary<string, string> _sounds;
         private Dictionary<string, SpriteFont> _fonts;
 
-        // MonoGame requires specially compiled shaders with mgfxo extension. 
-#if MONOGAME
-        private const string EffectShaderExtension = ".mgfxo"; 
-#else 
-        private const string EffectShaderExtension = ".mgfxo"; 
-#endif
-
         private static readonly Logger Logger = LogManager.CreateLogger(); 
 
         public AssetManager(Game game)
@@ -464,13 +457,27 @@ namespace Engine.Assets
             var cloudTexture = this.GetTexture(Asset.CloudTexture);
 
             // Sounds
-            /*
             SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundHeroDieing));
             SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundHeroHitting));
             SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundHeroPoint));
             SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundHeroSwooshing));
             SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundHeroWinging));
-            */
+
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep1));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep2));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep3));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep4));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep5));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep6));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep7));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundScribble1));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundScribble2));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundScribble3));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound10));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound12));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound35));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound46));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound88));
 
             // Fonts
             // None for now
@@ -510,6 +517,22 @@ namespace Engine.Assets
             SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundHeroSwooshing));
             SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundHeroWinging));
 
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep1));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep2));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep3));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep4));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep5));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep6));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundBeep7));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundScribble1));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundScribble2));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundScribble3));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound10));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound12));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound35));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound46));
+            SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundSound88));
+
             // Fonts
             // None for now
         }
@@ -520,32 +543,22 @@ namespace Engine.Assets
         private Effect LoadEffectShader(string path)
         {
             Effect effect = null;
-            try
-            {
-                path += EffectShaderExtension;
-
-                byte[] bytecode = null;
+             byte[] bytecode = null;
 
 #if ANDROID
-                using (Stream stream = Program.SharedProgram.Assets.Open(path))
+            using (Stream stream = Program.SharedProgram.Assets.Open(path))
 #elif DESKTOP || IOS
-                using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
 #endif
-                {
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        stream.CopyTo(ms);
-                        bytecode = ms.ToArray();
-                    }
-                }
-
-                effect = new Effect(this.Game.GraphicsDevice, bytecode);
-            }
-            catch(Exception ex)
             {
-                // TODO: Throw exception
-                System.Diagnostics.Debug.WriteLine("Remove: " + ex);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    stream.CopyTo(ms);
+                    bytecode = ms.ToArray();
+                }
             }
+
+            effect = new Effect(this.Game.GraphicsDevice, bytecode);
 
             return effect;
         }
@@ -557,9 +570,6 @@ namespace Engine.Assets
             Effect effect = null;
             try
             {
-
-                path += EffectShaderExtension;
-
                 byte[] bytecode = null;
 
 #if WINDOWS_PHONE

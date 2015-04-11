@@ -21,39 +21,33 @@ namespace Engine.Assets
         // ALSO: The suffix ".mgfxo" will be added programatically when loading.
         // TODO: When comfortable with effect, categorize as models are done
 #if NETFX_CORE
-        public const string Deferred1SceneEffect = @"Content\Effects\Deferred\Deferred1Scene";
+        public const string Deferred1SceneEffect  = @"Content\Effects\Deferred\Deferred1Scene";
         public const string Deferred2LightsEffect = @"Content\Effects\Deferred\Deferred2Lights";
-        public const string Deferred3FinalEffect = @"Content\Effects\Deferred\Deferred3Final";
-        
-        public const string PerlinNoiseEffect = @"Content\Effects\Sky\PerlinNoise";
-        public const string SkyDomeEffect = @"Content\Effects\Sky\SkyDome";
-        
-        public const string WaterEffect = @"Content\Effects\Water\Water";
-
-        public const string ShadowMapEffect = @"Content\Effects\Shadow\ShadowMap";
-
-        public const string BlockEffect = @"Content\Effects\Voxeliq\BlockEffect";
-        public const string DualTexturedEffect = @"Content\Effects\Voxeliq\DualTextured";
-        public const string BloomExtractEffect = @"Content\Effects\Voxeliq\PostProcessing\Bloom\BloomExtract";
-        public const string BloomCombineEffect = @"Content\Effects\Voxeliq\PostProcessing\Bloom\BloomCombine";
-        public const string GaussianBlurEffect = @"Content\Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur";
+        public const string Deferred3FinalEffect  = @"Content\Effects\Deferred\Deferred3Final";
+        public const string StockBasicEffect      = @"Content\Effects\Stock\StockBasicEffect.mgfxo";
+        public const string PerlinNoiseEffect     = @"Content\Effects\Sky\PerlinNoise";
+        public const string SkyDomeEffect         = @"Content\Effects\Sky\SkyDome";
+        public const string WaterEffect           = @"Content\Effects\Water\Water";
+        public const string ShadowMapEffect       = @"Content\Effects\Shadow\ShadowMap";
+        public const string BlockEffect           = @"Content\Effects\Voxeliq\BlockEffect";
+        public const string DualTexturedEffect    = @"Content\Effects\Voxeliq\DualTextured";
+        public const string BloomExtractEffect    = @"Content\Effects\Voxeliq\PostProcessing\Bloom\BloomExtract";
+        public const string BloomCombineEffect    = @"Content\Effects\Voxeliq\PostProcessing\Bloom\BloomCombine";
+        public const string GaussianBlurEffect    = @"Content\Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur";
 #else
-        public const string Deferred1SceneEffect = @"Content/Effects/Deferred/Deferred1Scene";
-        public const string Deferred2LightsEffect = @"Content/Effects/Deferred/Deferred2Lights";
-        public const string Deferred3FinalEffect = @"Content/Effects/Deferred/Deferred3Final";
-        
-        public const string PerlinNoiseEffect = @"Content/Effects/Sky/PerlinNoise";
-        public const string SkyDomeEffect = @"Content/Effects/Sky/SkyDome";
-        
-        public const string WaterEffect = @"Content/Effects/Water/Water";
-
-        public const string ShadowMapEffect = @"Content/Effects/Shadow/ShadowMap";
-
-        public const string BlockEffect = @"Content/Effects/Voxeliq/BlockEffect";
-        public const string DualTexturedEffect = @"Content/Effects/Voxeliq/DualTextured";
-        public const string BloomExtractEffect = @"Content/Effects/Voxeliq/PostProcessing/Bloom/BloomExtract";
-        public const string BloomCombineEffect = @"Content/Effects/Voxeliq/PostProcessing/Bloom/BloomCombine";
-        public const string GaussianBlurEffect = @"Content/Effects/Voxeliq/PostProcessing/Bloom/GaussianBlur";
+        public const string Deferred1SceneEffect  = @"Content/Effects/Deferred/Deferred1Scene.mgfxo";
+        public const string Deferred2LightsEffect = @"Content/Effects/Deferred/Deferred2Lights.mgfxo";
+        public const string Deferred3FinalEffect  = @"Content/Effects/Deferred/Deferred3Final.mgfxo";
+        public const string StockBasicEffect      = @"Content/Effects/Stock/StockBasicEffect.mgfxo";
+        public const string PerlinNoiseEffect     = @"Content/Effects/Sky/PerlinNoise.mgfxo";
+        public const string SkyDomeEffect         = @"Content/Effects/Sky/SkyDome.mgfxo";
+        public const string WaterEffect           = @"Content/Effects/Water/Water.mgfxo";
+        public const string ShadowMapEffect       = @"Content/Effects/Shadow/ShadowMap.mgfxo";
+        public const string BlockEffect           = @"Content/Effects/Voxeliq/BlockEffect.mgfxo";
+        public const string DualTexturedEffect    = @"Content/Effects/Voxeliq/DualTextured.mgfxo";
+        public const string BloomExtractEffect    = @"Content/Effects/Voxeliq/PostProcessing/Bloom/BloomExtract.mgfxo";
+        public const string BloomCombineEffect    = @"Content/Effects/Voxeliq/PostProcessing/Bloom/BloomCombine.mgfxo";
+        public const string GaussianBlurEffect    = @"Content/Effects/Voxeliq/PostProcessing/Bloom/GaussianBlur.mgfxo";
 #endif
         // Textures are identified by a string that represents the full path (location + texture name)
         // of the texture to load.
@@ -89,5 +83,22 @@ namespace Engine.Assets
         public const string SoundHeroPoint = "sfx_point.mp3";
         public const string SoundHeroSwooshing = "sfx_swooshing.mp3";
         public const string SoundHeroWinging = "sfx_wing.mp3";
+
+        public const string SoundBeep1 = "beep-1.wav";
+        public const string SoundBeep2 = "beep-2.wav";
+        public const string SoundBeep3 = "beep-3.wav";
+        public const string SoundBeep4 = "beep-4.wav";
+        public const string SoundBeep5 = "beep-5.wav";
+        public const string SoundBeep6 = "beep-6.wav";
+        public const string SoundBeep7 = "beep-7.wav";
+        public const string SoundScribble1 = "Pencil_quick_scribble_1.wav";
+        public const string SoundScribble2 = "Pencil_quick_scribble_2.wav";
+        public const string SoundScribble3 = "Pencil_quick_scribble_3.wav";
+        public const string SoundSound10 = "sound10.mp3";
+        public const string SoundSound12 = "sound12.mp3";
+        public const string SoundSound35 = "sound35.mp3";
+        public const string SoundSound46 = "sound46.mp3";
+        public const string SoundSound88 = "sound88.mp3";
+
     }
 }

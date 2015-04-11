@@ -16,6 +16,7 @@ using Simsip.LineRunner.Effects.Deferred;
 using Simsip.LineRunner.GameObjects.ParticleEffects;
 using ConversionHelper;
 using Simsip.LineRunner.GameObjects.Pages;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.GameObjects.Obstacles
@@ -56,7 +57,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         /// </summary>
         public float WorldHeightTruncated { get; set; }
 
-        public ObstacleType Type { get; set; }
+        public ObstacleType TheObstacleType { get; set; }
 
         public LineModel Line { get; set; }
 
@@ -68,6 +69,12 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         /// Physics contact point when hit.
         /// </summary>
         public Contact TheContact { get; set; }
+
+        /// <summary>
+        /// Once the obstacle model has been positioned, we can determine an appropriate
+        /// clipping plane for it.
+        /// </summary>
+        public Vector4 ClippingPlane { get; set; }
 
         #endregion
 
@@ -82,9 +89,9 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             this._pageCache = (IPageCache)TheGame.SharedGame.Services.GetService(typeof(IPageCache));
 
             // Determine and load appropriate xna model for line
-            var obstacleType = (ObstacleType)Enum.Parse(typeof(ObstacleType), ThePageObstaclesEntity.ObstacleType);
+            this.TheObstacleType = (ObstacleType)Enum.Parse(typeof(ObstacleType), ThePageObstaclesEntity.ObstacleType);
             var modelRepository = new ModelRepository();
-            switch (obstacleType)
+            switch (this.TheObstacleType)
             {
                 case ObstacleType.SimpleBottom:
                 case ObstacleType.SimpleTop:
@@ -138,18 +145,29 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 var texture = this._assetManager.GetModelTexture(TheModelEntity.ModelName, ModelType.Obstacle, pipeTextureName);
                 this._textureOverrides.Add(texture);
             }
+            else if (this.TheObstacleEntity.TextureFamily == "SimpleCan")
+            {
+                var randomNumberGenerator = new Random();
+                var canTextureNumber = randomNumberGenerator.Next(1, 4);
+                var canTextureName = string.Empty;
+                if (canTextureNumber == 1)
+                {
+                    canTextureName = "Can0" + canTextureNumber + "-texture_0";
+                }
+                else
+                {
+                    canTextureName = "Can0" + canTextureNumber + "-texture";
+                }
+                var texture = this._assetManager.GetModelTexture(TheModelEntity.ModelName, ModelType.Obstacle, canTextureName);
+                this._textureOverrides.Add(texture);
+            }
 
             // Do we have any particle effects?
             this.ParticleEffectDescs = ParticleEffectFactory.Create(this);
         }
 
-        public override void Draw(Matrix view, Matrix projection, Effect effect = null, EffectType type = EffectType.None)
+        public override void Draw(Matrix view, Matrix projection, StockBasicEffect effect = null, EffectType type = EffectType.None)
         {
-            if (effect == null)
-            {
-                XNAUtils.DefaultDrawState();
-            }
-
             // TODO: Do we have to do this every draw?
             // Adjust for physics centering at center of mesh
             if (this.PhysicsEntity != null) // &&
@@ -165,22 +183,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 this.WorldMatrix = scaleMatrix * this.RotationMatrix * MathConverter.Convert(this.PhysicsLocalTransform * this.PhysicsEntity.WorldTransform);
             }
 
-            if (effect != null)
-            {
-                // Construct an appropriate clipping plane to use
-                var obstacleType = (ObstacleType)Enum.Parse(typeof(ObstacleType), ThePageObstaclesEntity.ObstacleType);
-                if (obstacleType == ObstacleType.SimpleBottom)
-                {
-                    var distance = this.WorldOrigin.Y + (this.WorldHeight - this.WorldHeightTruncated);
-                    effect.Parameters["xClippingPlane"].SetValue(new Vector4(Vector3.Up, -distance));
-                }
-                else if (obstacleType == ObstacleType.SimpleTop)
-                {
-                    var distance = this.WorldOrigin.Y + this.WorldHeightTruncated;
-                    effect.Parameters["xClippingPlane"].SetValue(new Vector4(Vector3.Down, distance));
-                }
-
-            }
+            // Assign an appropriate clipping plane to use
+            effect.ClippingPlane = this.ClippingPlane;
 
             base.Draw(view, projection, effect, type);
         }

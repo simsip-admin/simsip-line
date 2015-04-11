@@ -106,7 +106,7 @@ namespace Engine.Universe
             this.Chunks = chunkStorage;
             this._chunkCache = chunkCache;
 
-            // export services.
+            // Export service
             game.Services.AddService(typeof (IWorld), this);
         }
 

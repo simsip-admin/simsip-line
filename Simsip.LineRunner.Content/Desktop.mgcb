@@ -1635,3 +1635,115 @@
 /processorParam:TextureFormat=DxtCompressed
 /build:Content/Models/Obstacles/Stove01-model.fbx
 
+#begin Content/Models/Obstacles/Can02-texture.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Content/Models/Obstacles/Can02-texture.jpg
+
+#begin Content/Models/Obstacles/Can03-texture.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Content/Models/Obstacles/Can03-texture.jpg
+
+#begin Content/Sounds/sound88.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Content/Sounds/sound88.wav
+
+#begin Content/Sounds/beep-1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Content/Sounds/beep-1.wav
+
+#begin Content/Sounds/beep-2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Content/Sounds/beep-2.wav
+
+#begin Content/Sounds/beep-3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Content/Sounds/beep-3.wav
+
+#begin Content/Sounds/beep-4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Content/Sounds/beep-4.wav
+
+#begin Content/Sounds/beep-5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Content/Sounds/beep-5.wav
+
+#begin Content/Sounds/beep-6.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Content/Sounds/beep-6.wav
+
+#begin Content/Sounds/beep-7.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Content/Sounds/beep-7.wav
+
+#begin Content/Sounds/Pencil_quick_scribble_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Content/Sounds/Pencil_quick_scribble_1.wav
+
+#begin Content/Sounds/Pencil_quick_scribble_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Content/Sounds/Pencil_quick_scribble_2.wav
+
+#begin Content/Sounds/Pencil_quick_scribble_3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Content/Sounds/Pencil_quick_scribble_3.wav
+
+#begin Content/Sounds/sound10.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Content/Sounds/sound10.mp3
+
+#begin Content/Sounds/sound12.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Content/Sounds/sound12.mp3
+
+#begin Content/Sounds/sound35.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Content/Sounds/sound35.mp3
+
+#begin Content/Sounds/sound46.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Content/Sounds/sound46.mp3
+

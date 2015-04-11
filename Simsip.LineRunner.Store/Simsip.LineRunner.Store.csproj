@@ -1881,11 +1881,29 @@
     <Compile Include="..\Simsip.LineRunner.Core\Data\Youtube\YoutubeVideoRepository.cs">
       <Link>Data\Youtube\YoutubeVideoRepository.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\Deferred\DeferredEffect.cs">
+      <Link>Effects\Deferred\DeferredEffect.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Effects\Deferred\DeferredShadowMapping.cs">
       <Link>Effects\Deferred\DeferredShadowMapping.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\Deferred\IDeferredEffect.cs">
+      <Link>Effects\Deferred\IDeferredEffect.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Effects\Deferred\IDeferredShadowMapping.cs">
       <Link>Effects\Deferred\IDeferredShadowMapping.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\IEffectClipping.cs">
+      <Link>Effects\IEffectClipping.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\IEffectLights2.cs">
+      <Link>Effects\IEffectLights2.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\SimsipEffectHelpers.cs">
+      <Link>Effects\SimsipEffectHelpers.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Effects\Stock\StockBasicEffect.cs">
+      <Link>Effects\Stock\StockBasicEffect.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Entities\Facebook\FacebookActionEntity.cs">
       <Link>Entities\Facebook\FacebookActionEntity.cs</Link>
@@ -2901,6 +2919,9 @@
     <Compile Include="..\Simsip.LineRunner.Core\Voxeliq\Audio\AudioManager.cs">
       <Link>Voxeliq\AudioManager\AudioManager.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Voxeliq\Audio\IAudioManager.cs">
+      <Link>Voxeliq\AudioManager\IAudioManager.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Voxeliq\Blocks\Block.cs">
       <Link>Voxeliq\Blocks\Block.cs</Link>
     </Compile>
@@ -3776,6 +3797,22 @@
       <Link>Content\Sounds\sfx_wing.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Sounds\sound10.wma">
+      <Link>Content\Sounds\sound10.wma</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Sounds\sound12.wma">
+      <Link>Content\Sounds\sound12.wma</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Sounds\sound35.wma">
+      <Link>Content\Sounds\sound35.wma</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Sounds\sound46.wma">
+      <Link>Content\Sounds\sound46.wma</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\Simsip.LineRunner.Content\skins\Blue.skin">
       <Link>Content\Skins\Blue.skin</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -3932,9 +3969,6 @@
       <Link>Content\Database\upgrade.db</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="..\Simsip.LineRunner.Core\Effects\build-effects.bat">
-      <Link>Effects\build-effects.bat</Link>
-    </None>
     <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX11\Deferred\Deferred1Scene.mgfxo">
       <Link>Content\Effects\Deferred\Deferred1Scene.mgfxo</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -3983,118 +4017,82 @@
       <Link>Content\Effects\Water\Water.mgfxo</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX11\Stock\StockBasicEffect.mgfxo">
+      <Link>Content\Effects\Stock\StockBasicEffect.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Models\Obstacles\Can02-texture.xnb">
+      <Link>Content\Models\Obstacles\Can02-texture.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Models\Obstacles\Can03-texture.xnb">
+      <Link>Content\Models\Obstacles\Can03-texture.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Sounds\beep-1.xnb">
+      <Link>Content\Sounds\beep-1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Sounds\beep-2.xnb">
+      <Link>Content\Sounds\beep-2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Sounds\beep-3.xnb">
+      <Link>Content\Sounds\beep-3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Sounds\beep-4.xnb">
+      <Link>Content\Sounds\beep-4.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Sounds\beep-5.xnb">
+      <Link>Content\Sounds\beep-5.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Sounds\beep-6.xnb">
+      <Link>Content\Sounds\beep-6.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Sounds\beep-7.xnb">
+      <Link>Content\Sounds\beep-7.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Sounds\Pencil_quick_scribble_1.xnb">
+      <Link>Content\Sounds\Pencil_quick_scribble_1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Sounds\Pencil_quick_scribble_2.xnb">
+      <Link>Content\Sounds\Pencil_quick_scribble_2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Sounds\Pencil_quick_scribble_3.xnb">
+      <Link>Content\Sounds\Pencil_quick_scribble_3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Sounds\sound10.xnb">
+      <Link>Content\Sounds\sound10.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Sounds\sound12.xnb">
+      <Link>Content\Sounds\sound12.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Sounds\sound35.xnb">
+      <Link>Content\Sounds\sound35.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Sounds\sound46.xnb">
+      <Link>Content\Sounds\sound46.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Sounds\sound88.xnb">
+      <Link>Content\Sounds\sound88.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Simsip.LineRunner.Store_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred1Scene-core.fx">
-      <Link>Effects\Deferred\Deferred1Scene-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred1Scene-dx11.fx">
-      <Link>Effects\Deferred\Deferred1Scene-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred1Scene-dx9.fx">
-      <Link>Effects\Deferred\Deferred1Scene-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred2Lights-core.fx">
-      <Link>Effects\Deferred\Deferred2Lights-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred2Lights-dx11.fx">
-      <Link>Effects\Deferred\Deferred2Lights-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred2Lights-dx9.fx">
-      <Link>Effects\Deferred\Deferred2Lights-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred3Final-core.fx">
-      <Link>Effects\Deferred\Deferred3Final-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred3Final-dx11.fx">
-      <Link>Effects\Deferred\Deferred3Final-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Deferred\Deferred3Final-dx9.fx">
-      <Link>Effects\Deferred\Deferred3Final-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Shadow\ShadowMap-core.fx">
-      <Link>Effects\Shadow\ShadowMap-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Shadow\ShadowMap-dx11.fx">
-      <Link>Effects\Shadow\ShadowMap-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Shadow\ShadowMap-dx9.fx">
-      <Link>Effects\Shadow\ShadowMap-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\PerlinNoise-core.fx">
-      <Link>Effects\Sky\PerlinNoise-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\PerlinNoise-dx11.fx">
-      <Link>Effects\Sky\PerlinNoise-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\PerlinNoise-dx9.fx">
-      <Link>Effects\Sky\PerlinNoise-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\SkyDome-core.fx">
-      <Link>Effects\Sky\SkyDome-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\SkyDome-dx11.fx">
-      <Link>Effects\Sky\SkyDome-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Sky\SkyDome-dx9.fx">
-      <Link>Effects\Sky\SkyDome-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\BlockEffect-core.fx">
-      <Link>Effects\Voxeliq\BlockEffect-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\BlockEffect-dx11.fx">
-      <Link>Effects\Voxeliq\BlockEffect-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\BlockEffect-dx9.fx">
-      <Link>Effects\Voxeliq\BlockEffect-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\DualTextured-core.fx">
-      <Link>Effects\Voxeliq\DualTextured-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\DualTextured-dx11.fx">
-      <Link>Effects\Voxeliq\DualTextured-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\DualTextured-dx9.fx">
-      <Link>Effects\Voxeliq\DualTextured-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-core.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-dx11.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-dx9.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomCombine-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-core.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-dx11.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-dx9.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\BloomExtract-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-core.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-dx11.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-dx9.fx">
-      <Link>Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur-dx9.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Water\Water-core.fx">
-      <Link>Effects\Water\Water-core.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Water\Water-dx11.fx">
-      <Link>Effects\Water\Water-dx11.fx</Link>
-    </None>
-    <None Include="..\Simsip.LineRunner.Core\Effects\Water\Water-dx9.fx">
-      <Link>Effects\Water\Water-dx9.fx</Link>
-    </None>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
       <Link>Mercury\EffectLibrary\BasicExplosion.xml</Link>
     </None>

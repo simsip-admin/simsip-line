@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Engine.Input;
 using Simsip.LineRunner.GameFramework;
 using System;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.GameObjects.Pages
@@ -163,7 +164,7 @@ namespace Simsip.LineRunner.GameObjects.Pages
             }
         }
 
-        public override void Draw(Matrix viewMatrix, Matrix projectionMatrix, Effect effect = null, EffectType type = EffectType.None)
+        public override void Draw(Matrix viewMatrix, Matrix projectionMatrix, StockBasicEffect effect = null, EffectType type = EffectType.None)
         {
             if (effect == null)
             {

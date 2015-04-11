@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using Simsip.LineRunner.GameFramework;
 using Microsoft.Xna.Framework.Graphics;
 using Simsip.LineRunner.Effects.Deferred;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.GameObjects.Lines
 {
     public interface ILineCache : IUpdateable, IDrawable
     {
+        /// <summary>
+        /// We flag this to false while we are building up lines for a page, then true when we are done.
+        /// 
+        /// This is important for Refresh states that happen on background threads.
+        /// </summary>
+        bool Ready { get; }
+
         /// <summary>
         /// Handle line category specific game state changes.
         /// </summary>
@@ -53,6 +61,6 @@ namespace Simsip.LineRunner.GameObjects.Lines
         /// <returns></returns>
         LineModel GetLineModel(int lineNumber);
 
-        void Draw(Effect effect = null, EffectType type = EffectType.None);
+        void Draw(StockBasicEffect effect = null, EffectType type = EffectType.None);
     }
 }
