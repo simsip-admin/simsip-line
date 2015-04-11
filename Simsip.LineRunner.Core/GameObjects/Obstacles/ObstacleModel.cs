@@ -166,7 +166,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             this.ParticleEffectDescs = ParticleEffectFactory.Create(this);
         }
 
-        public override void Draw(Matrix view, Matrix projection, Effect effect = null, EffectType type = EffectType.None)
+        public override void Draw(Matrix view, Matrix projection, StockBasicEffect effect = null, EffectType type = EffectType.None)
         {
             // TODO: Do we have to do this every draw?
             // Adjust for physics centering at center of mesh
@@ -184,8 +184,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             }
 
             // Assign an appropriate clipping plane to use
-            var stockBasicEffect = effect as StockBasicEffect;
-            stockBasicEffect.ClippingPlane = this.ClippingPlane;
+            effect.ClippingPlane = this.ClippingPlane;
 
             base.Draw(view, projection, effect, type);
         }

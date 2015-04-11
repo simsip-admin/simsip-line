@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Simsip.LineRunner.Effects.Deferred;
 using Simsip.LineRunner.GameObjects.Pages;
 using Simsip.LineRunner.GameObjects.ParticleEffects;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.GameObjects.Lines
@@ -173,7 +174,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
             this.ParticleEffectDescs = ParticleEffectFactory.Create(this);
         }
 
-        public override void Draw(Matrix view, Matrix projection, Effect effect = null, EffectType type = EffectType.None)
+        public override void Draw(Matrix view, Matrix projection, StockBasicEffect effect = null, EffectType type = EffectType.None)
         {
             if (effect == null)
             {

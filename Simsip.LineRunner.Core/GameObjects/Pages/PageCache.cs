@@ -13,6 +13,7 @@ using ConversionHelper;
 using BEPUphysics.Entities.Prefabs;
 using Engine.Input;
 using Simsip.LineRunner.Physics;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.GameObjects.Pages
@@ -98,7 +99,7 @@ namespace Simsip.LineRunner.GameObjects.Pages
 
         #region IPageCache Implementation
 
-        public void Draw(Effect effect = null, EffectType type = EffectType.None)
+        public void Draw(StockBasicEffect effect = null, EffectType type = EffectType.None)
         {
             var view = this._inputManager.CurrentCamera.ViewMatrix;
             var projection = this._inputManager.CurrentCamera.ProjectionMatrix;

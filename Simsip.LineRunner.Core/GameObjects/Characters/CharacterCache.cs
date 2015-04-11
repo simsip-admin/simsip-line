@@ -27,6 +27,7 @@ using Simsip.LineRunner.ContentPipeline;
 using Simsip.LineRunner.Data.Scoreoid;
 using Simsip.LineRunner.Entities.Scoreoid;
 using Simsip.LineRunner.Scenes;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.GameObjects.Characters
@@ -156,7 +157,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
         #region ICharacterCache Implementation
 
-        public void Draw(Effect effect = null, EffectType type = EffectType.None)
+        public void Draw(StockBasicEffect effect = null, EffectType type = EffectType.None)
         {
             var view = this._inputManager.CurrentCamera.ViewMatrix;
             var projection = this._inputManager.CurrentCamera.ProjectionMatrix;

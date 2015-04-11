@@ -403,7 +403,8 @@ namespace Simsip.LineRunner.Effects.Deferred
             this._effect1Scene.Parameters["IsClip"].SetValue(0f);
             this._effect1Scene.Parameters["ClippingPlane"].SetValue(Vector4.Zero);
 
-            this.RenderScene(this._effect1Scene, EffectType.Deferred1SceneEffect);
+            // TODO: Uncomment when effects are refactored
+            // this.RenderScene(this._effect1Scene, EffectType.Deferred1SceneEffect);
         }
 
         private void RenderSceneIos(GameTime gameTime)
@@ -456,7 +457,8 @@ namespace Simsip.LineRunner.Effects.Deferred
             // IMPORTANT: Note how we specify false as second parameter here
             // to signal we want to use our own view/projection matrices and 
             // not the cameras.
-            RenderScene(this._effectShadowMap, EffectType.ShadowMapEffect, false);
+            // TODO: Uncomment when we are ready to refactor effects
+            // RenderScene(this._effectShadowMap, EffectType.ShadowMapEffect, false);
 
             // this._device.SetRenderTarget(null);
         }
@@ -542,7 +544,7 @@ namespace Simsip.LineRunner.Effects.Deferred
             }
         }
 
-        private void RenderScene(Effect effect, EffectType type, bool useCameraMatrices=true)
+        private void RenderScene(StockBasicEffect effect, EffectType type, bool useCameraMatrices=true)
         {
             // TODO: Add back in when ready for skydome
             // this._skyDome.Draw(effect, type);
@@ -565,10 +567,9 @@ namespace Simsip.LineRunner.Effects.Deferred
 
             this._lineCache.Draw(effect, type);
 
-            var stockBasicEffect = effect as StockBasicEffect;
-            stockBasicEffect.IsClip = true;
+            effect.IsClip = true;
             this._obstacleCache.Draw(effect, type);
-            stockBasicEffect.IsClip = false;
+            effect.IsClip = false;
             
             this._characterCache.Draw(effect, type);
 

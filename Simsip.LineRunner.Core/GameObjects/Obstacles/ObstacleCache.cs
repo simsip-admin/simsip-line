@@ -25,6 +25,7 @@ using Engine.Input;
 using Simsip.LineRunner.GameObjects.Characters;
 using System.Diagnostics;
 using Simsip.LineRunner.Entities.LineRunner;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.GameObjects.Obstacles
@@ -169,7 +170,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
         #region IObstacleCache Implementation
 
-        public void Draw(Effect effect = null, EffectType type = EffectType.None)
+        public void Draw(StockBasicEffect effect = null, EffectType type = EffectType.None)
         {
             var view = this._inputManager.CurrentCamera.ViewMatrix;
             var projection = this._inputManager.CurrentCamera.ProjectionMatrix;

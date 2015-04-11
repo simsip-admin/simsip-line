@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Simsip.LineRunner.GameFramework;
 using System.Collections.Generic;
 using Simsip.LineRunner.Effects.Deferred;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.GameObjects.Obstacles
@@ -34,6 +35,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         /// </summary>
         event ObstacleHitEventHandler ObstacleHit;
 
-        void Draw(Effect effect = null, EffectType type = EffectType.None);
+        void Draw(StockBasicEffect effect = null, EffectType type = EffectType.None);
     }
 }

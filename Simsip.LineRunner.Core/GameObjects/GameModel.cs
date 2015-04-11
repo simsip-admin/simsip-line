@@ -251,7 +251,7 @@ namespace Simsip.LineRunner.GameObjects
 
         public virtual void Draw(Matrix viewMatrix, 
                                  Matrix projectionMatrix,
-                                 Effect effect = null, 
+                                 StockBasicEffect effect = null, 
                                  EffectType type = EffectType.None)
         {
             // IMPORTANT: Assumes this has been setup in derived model class

@@ -22,6 +22,7 @@ using BEPUphysics.BroadPhaseEntries;
 using BEPUphysics.NarrowPhaseSystems.Pairs;
 using Engine.Input;
 using Simsip.LineRunner.GameObjects.Characters;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.GameObjects.Lines
@@ -155,7 +156,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
 
         #region ILineCache Implementation
                 
-        public void Draw(Effect effect = null, EffectType type = EffectType.None)
+        public void Draw(StockBasicEffect effect = null, EffectType type = EffectType.None)
         {
             var view = this._inputManager.CurrentCamera.ViewMatrix;
             var projection = this._inputManager.CurrentCamera.ViewMatrix;

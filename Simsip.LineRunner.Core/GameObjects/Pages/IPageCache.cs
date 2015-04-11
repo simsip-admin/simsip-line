@@ -8,6 +8,7 @@ using Simsip.LineRunner.Entities;
 using Simsip.LineRunner.GameFramework;
 using Microsoft.Xna.Framework.Graphics;
 using Simsip.LineRunner.Effects.Deferred;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.GameObjects.Pages
@@ -91,6 +92,6 @@ namespace Simsip.LineRunner.GameObjects.Pages
         /// <param name="state">The game state we are switching to.</param>
         void SwitchState(GameState state);
 
-        void Draw(Effect effect = null, EffectType type = EffectType.None);
+        void Draw(StockBasicEffect effect = null, EffectType type = EffectType.None);
     }
 }

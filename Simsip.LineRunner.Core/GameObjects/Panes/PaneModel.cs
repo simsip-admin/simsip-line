@@ -10,6 +10,7 @@ using Simsip.LineRunner.Utils;
 using System;
 using System.Collections.Generic;
 using Engine.Input;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.GameObjects.Panes
@@ -43,7 +44,7 @@ namespace Simsip.LineRunner.GameObjects.Panes
             this._inputManager = (IInputManager)TheGame.SharedGame.Services.GetService(typeof(IInputManager));
         }
 
-        public override void Draw(Matrix view, Matrix projection, Effect effect = null, EffectType type = EffectType.None)
+        public override void Draw(Matrix view, Matrix projection, StockBasicEffect effect = null, EffectType type = EffectType.None)
         {
             XNAUtils.DefaultDrawState();
 
@@ -70,7 +71,7 @@ namespace Simsip.LineRunner.GameObjects.Panes
         /// <summary>
         /// Allows drawing via Cocos2D view, projection and draw state.
         /// </summary>
-        public void DrawViaStationaryCamera(Effect effect = null, EffectType type=EffectType.None)
+        public void DrawViaStationaryCamera(StockBasicEffect effect = null, EffectType type=EffectType.None)
         {
             if (effect == null)
             {

@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Simsip.LineRunner.Effects.Deferred;
 using ConversionHelper;
+using Simsip.LineRunner.Effects.Stock;
 
 
 namespace Simsip.LineRunner.GameObjects.Characters
@@ -142,7 +143,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
             this.InitializeConvexHull();
         }
 
-        public override void Draw(Matrix view, Matrix projection, Effect effect = null, EffectType type = EffectType.None)
+        public override void Draw(Matrix view, Matrix projection, StockBasicEffect effect = null, EffectType type = EffectType.None)
         {
             if (effect == null)
             {
