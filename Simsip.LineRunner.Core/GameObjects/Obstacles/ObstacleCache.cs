@@ -354,7 +354,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                                   (obstacleModel.WorldHeight - heightScaledToLineSpacing);
                 if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
                 {
-                    translatedY = (lineModel.WorldOrigin.Y + lineModel.WorldHeight + this._pageCache.CurrentPageModel.WorldLineSpacing) -
+                    translatedY = (lineModel.WorldOrigin.Y + this._pageCache.CurrentPageModel.WorldLineSpacing) -
                                   (heightScaledToLineSpacing); 
                 }
 
@@ -422,12 +422,12 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 // Now that we have the obstacle positioned correctly, construct an appropriate clipping plane to use
                 if (obstacleModel.TheObstacleType == ObstacleType.SimpleBottom)
                 {
-                    var distance = obstacleModel.WorldOrigin.Y + (obstacleModel.WorldHeight - obstacleModel.WorldHeightTruncated);
+                    var distance = lineModel.WorldOrigin.Y + lineModel.WorldHeight;
                     obstacleModel.ClippingPlane = new Vector4(Vector3.Up, -distance);
                 }
                 else if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
                 {
-                    var distance = obstacleModel.WorldOrigin.Y - (obstacleModel.WorldHeight - obstacleModel.WorldHeightTruncated);
+                    var distance = lineModel.WorldOrigin.Y + lineModel.WorldHeight + this._pageCache.CurrentPageModel.WorldLineSpacing;
                     obstacleModel.ClippingPlane = new Vector4(Vector3.Down, distance);
                 }
 
