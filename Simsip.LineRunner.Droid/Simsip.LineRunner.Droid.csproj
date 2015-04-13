@@ -3989,20 +3989,8 @@
       <Link>Assets\Content\Models\Obstacles\Pipe09-texture_0.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Models\Obstacles\Pipe1-thumbnail.xnb">
-      <Link>Assets\Content\Models\Obstacles\Pipe1-thumbnail.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
     <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Models\Obstacles\Pipe10-model.xnb">
       <Link>Assets\Content\Models\Obstacles\Pipe10-model.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Models\Obstacles\Pipe2-thumbnail.xnb">
-      <Link>Assets\Content\Models\Obstacles\Pipe2-thumbnail.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Models\Obstacles\Pipe3-thumbnail.xnb">
-      <Link>Assets\Content\Models\Obstacles\Pipe3-thumbnail.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
     <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Models\Obstacles\Stove01-model.xnb">
