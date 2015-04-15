@@ -617,6 +617,14 @@ namespace Simsip.LineRunner.Utils
 #endif
 
 #if ANDROID
+        public static void SaveBinary(string filepath, byte[] bytes)
+        {
+
+            var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            var fullFilePath = Path.Combine(documentsPath, filepath);
+            System.IO.File.WriteAllBytes(fullFilePath, bytes);
+        }
+        
         public static void SaveText(string filepath, string text)
         {
             var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
@@ -684,6 +692,13 @@ namespace Simsip.LineRunner.Utils
 #endif
 
 #if ANDROID
+        public static byte[] LoadBinary(string filepath)
+        {
+            var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            var fullFilePath = Path.Combine(documentsPath, filepath);
+            return System.IO.File.ReadAllBytes(fullFilePath);
+        }
+        
         public static string LoadText(string filepath)
         {
             var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);

@@ -7,6 +7,7 @@ using Simsip.LineRunner.GameObjects.Pages;
 using Simsip.LineRunner.GameObjects.Panes;
 using Simsip.LineRunner.Resources;
 using Simsip.LineRunner.Utils;
+using Engine.Universe;
 #if IOS
 using Foundation;
 #endif
@@ -239,6 +240,12 @@ namespace Simsip.LineRunner.Scenes.Start
 
         private void NavigateStartPage2()
         {
+            /* Staging for getting first set of binaries for starter worlds
+            var world = (IWorld)TheGame.SharedGame.Services.GetService(typeof(IWorld));
+            world.Save();
+            return;
+            */
+
             if (this._isStartEnabled)
             {
                 this.NavigateBase(LayerTags.StartPage2Layer);

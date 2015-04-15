@@ -23,6 +23,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.IO;
+using Newtonsoft.Json.Bson;
+using Newtonsoft.Json;
 #if WINDOWS_PHONE ||NETFX_CORE
 using Windows.System.Threading;
 using System.Threading.Tasks;
@@ -491,60 +493,74 @@ namespace Engine.Universe
         {
             var errorString = string.Empty;
             
+            /*
             if (worldName == GameConstants.WORLD_DEFAULT)
             {
                 return "Unable to create world with name 'default'.";
             }
+            */
 
-            var jsonWorld = new JObject();
-
-            // TODO: Create world values (world name, etc.)
-            jsonWorld.Add("version", 1);
-
-            var jsonChunks = new JArray();
-            foreach (var chunk in this.Chunks.Values)
+            MemoryStream ms = new MemoryStream();
+            using (BsonWriter writer = new BsonWriter(ms))
             {
-                var jsonChunk = new JObject();
-                var relativePosition = chunk.RelativePosition;
-                jsonChunk.Add("relative_position_x", relativePosition.X);
-                jsonChunk.Add("relative_position_z", relativePosition.Z);
+                JsonSerializer serializer = new JsonSerializer();
 
-                var jsonBlocks = new JArray();
-                for (byte x = 0; x < Chunk.WidthInBlocks; x++)
+                var jsonWorld = new JObject();
+
+                // TODO: Create world values (world name, etc.)
+                jsonWorld.Add("version", 1);
+
+                var jsonChunks = new JArray();
+                foreach (var chunk in this.Chunks.Values)
                 {
-                    var worldPositionX = chunk.WorldPosition.X + x;
+                    var jsonChunk = new JObject();
+                    var relativePosition = chunk.RelativePosition;
+                    jsonChunk.Add("relative_position_x", relativePosition.X);
+                    jsonChunk.Add("relative_position_z", relativePosition.Z);
 
-                    for (byte z = 0; z < Chunk.LengthInBlocks; z++)
+                    var jsonBlocks = new JArray();
+                    for (byte x = 0; x < Chunk.WidthInBlocks; x++)
                     {
-                        int worldPositionZ = chunk.WorldPosition.Z + z;
+                        var worldPositionX = chunk.WorldPosition.X + x;
 
-                        for (byte y = 0; y < Chunk.HeightInBlocks; z++)
+                        for (byte z = 0; z < Chunk.LengthInBlocks; z++)
                         {
-                            // TODO: Confirm this is in right order
-                            var block = this._blockStorage.BlockAt(x, y, z);
+                            int worldPositionZ = chunk.WorldPosition.Z + z;
 
-                            var jsonBlock = new JObject();
-                            jsonBlock.Add("type", (int)block.Type);
-                            jsonBlock.Add("offset", BlockStorage.BlockIndexByWorldPosition(x, y, z));
+                            for (byte y = 0; y < Chunk.HeightInBlocks; z++)
+                            {
+                                // TODO: Confirm this is in right order
+                                var block = this._blockStorage.BlockAt(x, y, z);
 
-                            jsonBlocks.Add(jsonBlock);
+                                /*
+                                var jsonBlock = new JObject();
+                                jsonBlock.Add("type", (int)block.Type);
+                                jsonBlock.Add("offset", BlockStorage.BlockIndexByWorldPosition(x, y, z));
+
+                                jsonBlocks.Add(jsonBlock);
+                                */
+                                jsonBlocks.Add((byte)block.Type);
+                            }
                         }
                     }
+                    jsonChunk.Add("blocks", jsonBlocks);
+
+                    jsonChunks.Add(jsonChunk);
                 }
-                jsonChunk.Add("blocks", jsonBlocks);
+                jsonWorld.Add("chunks", jsonChunks);
 
-                jsonChunks.Add(jsonChunk);
+                var jsonRoot = new JObject();
+                jsonRoot.Add("world", jsonWorld);
+
+                serializer.Serialize(writer, jsonRoot);
+
+                // var stringRoot = jsonRoot.ToString();
+                if (errorString != string.Empty)
+                {
+                    return errorString;
+                }
             }
-            jsonWorld.Add("chunks", jsonChunks);
 
-            var jsonRoot = new JObject();
-            jsonRoot.Add("world", jsonWorld);
-
-            var stringRoot = jsonRoot.ToString();
-            if (errorString != string.Empty)
-            {
-                return errorString;
-            }
 
             var worldFolderPath = Path.Combine(GameConstants.FOLDER_SAVES, worldName);
             var worldFilePath = Path.Combine(worldFolderPath, worldName);
@@ -554,14 +570,15 @@ namespace Engine.Universe
                 FileUtils.DeleteFolder(worldFolderPath);
             }
 
-            FileUtils.SaveText(worldFilePath, stringRoot);
+            FileUtils.SaveBinary(worldFilePath, ms.ToArray());
 #elif WINDOWS_PHONE || NETFX_CORE
             if (await FileUtils.FolderExistsAsync(worldFolderPath))
             {
                 await FileUtils.DeleteFolderAsync(worldFolderPath);
             }
 
-            await FileUtils.SaveTextAsync(worldFilePath, stringRoot);
+            // TODO
+            // await FileUtils.SaveTextAsync(worldFilePath, stringRoot);
 #endif
             return errorString;
         }
