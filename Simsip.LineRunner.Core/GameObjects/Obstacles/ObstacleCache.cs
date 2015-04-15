@@ -354,8 +354,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                                   (obstacleModel.WorldHeight - heightScaledToLineSpacing);
                 if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
                 {
-                    translatedY = (lineModel.WorldOrigin.Y + this._pageCache.CurrentPageModel.WorldLineSpacing) -
-                                  (heightScaledToLineSpacing); 
+                    translatedY = (lineModel.WorldOrigin.Y + this._pageCache.CurrentPageModel.WorldLineSpacing) +
+                                  (obstacleModel.WorldHeight - heightScaledToLineSpacing); 
                 }
 
                 // Add in x adjustment for rotation if nesessary (angle will be specified as 0 degrees if not rotated)
@@ -367,8 +367,57 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                     // we can determine the x adjustment as the opposite side.
                     // Reference:
                     // http://www.mathsisfun.com/sine-cosine-tangent.html
+                    /*
                     var oppositeSide = Math.Tan(angleInRadians) * (obstacleModel.WorldHeight - obstacleModel.WorldHeightTruncated);
                     xScaledToLineWidth += (float)oppositeSide;
+                    */
+                    if (obstacleModel.TheObstacleType == ObstacleType.SimpleBottom)
+                    {
+                        if (pageObstaclesEntity.LogicalAngle > 0)
+                        {
+                            var theta = MathHelper.ToRadians(90 - pageObstaclesEntity.LogicalAngle);
+                            var hypotenuse = obstacleModel.WorldHeight - heightScaledToLineSpacing;
+                            var adjacent = (float)Math.Cos(theta) * hypotenuse;
+                            var opposite = (float)Math.Sin(theta) * hypotenuse;
+                            xScaledToLineWidth += adjacent;
+                            translatedY = (lineModel.WorldOrigin.Y + lineModel.WorldHeight) -
+                                          opposite;
+                        }
+                        else
+                        {
+                            var angleInRadiansAbsolute = MathHelper.ToRadians(Math.Abs(pageObstaclesEntity.LogicalAngle));
+                            var hypotenuse = obstacleModel.WorldHeight - heightScaledToLineSpacing;
+                            var adjacent = (float)Math.Cos(angleInRadiansAbsolute) * hypotenuse;
+                            var opposite = (float)Math.Sin(angleInRadiansAbsolute) * hypotenuse;
+                            xScaledToLineWidth -= opposite;
+                            translatedY = (lineModel.WorldOrigin.Y + lineModel.WorldHeight) -
+                                          adjacent;
+                        }
+                    }
+                    else if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
+                    {
+                        if (pageObstaclesEntity.LogicalAngle > 0)
+                        {
+                            var hypotenuse = obstacleModel.WorldHeight - heightScaledToLineSpacing;
+                            var adjacent = (float)Math.Cos(angleInRadians) * hypotenuse;
+                            var opposite = (float)Math.Sin(angleInRadians) * hypotenuse;
+                            xScaledToLineWidth -= opposite;
+                            translatedY = (lineModel.WorldOrigin.Y + this._pageCache.CurrentPageModel.WorldLineSpacing) +
+                                          adjacent;
+                        }
+                        else
+                        {
+                            var adjustedAngle = -90 - pageObstaclesEntity.LogicalAngle;
+                            angleInRadians = MathHelper.ToRadians(adjustedAngle);
+                            var angleInRadiansAbsolute = MathHelper.ToRadians(Math.Abs(adjustedAngle));
+                            var hypotenuse = obstacleModel.WorldHeight - heightScaledToLineSpacing;
+                            var adjacent = (float)Math.Cos(angleInRadiansAbsolute) * hypotenuse;
+                            var opposite = (float)Math.Sin(angleInRadiansAbsolute) * hypotenuse;
+                            xScaledToLineWidth += adjacent;
+                            translatedY = (lineModel.WorldOrigin.Y + this._pageCache.CurrentPageModel.WorldLineSpacing) +
+                                          opposite;
+                        }
+                    }
                 }
 
                 // Create a depth that will place obstacle out of sight, will be animiated forward in ProcessNextLine
@@ -381,7 +430,14 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                     translatedZ));                                          // 3. Tuck it back out of sight, will be animated foward in ProcessNextLine()
 
                 // Construct rotation matrix (angle will be specified as 0 degrees if not rotated)
-                obstacleModel.RotationMatrix = Matrix.CreateRotationZ(angleInRadians);
+                if (obstacleModel.TheObstacleType == ObstacleType.SimpleBottom)
+                {
+                    obstacleModel.RotationMatrix = Matrix.CreateRotationZ(angleInRadians);
+                }
+                else if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
+                {
+                    obstacleModel.RotationMatrix = Matrix.CreateRotationZ(-angleInRadians);
+                }
 
                 // Store this away to help in ObstacleModel.Draw() call for setting up clip plane
                 obstacleModel.WorldHeightTruncated = heightScaledToLineSpacing;
@@ -406,6 +462,11 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                     // IMPORTANT: This will change the origin and affect positioning. Orign depth will now be in back instead of in front.
                     obstacleModel.RotationMatrix = obstacleModel.RotationMatrix * Matrix.CreateRotationX(Microsoft.Xna.Framework.MathHelper.ToRadians(180));
                     obstacleModel.WorldMatrix = 
+                        scaleMatrix *
+                        obstacleModel.RotationMatrix *
+                        translateMatrix;
+
+                        /*
                         Matrix.CreateTranslation(
                             -obstacleModel.TheModelEntity.ModelWidth / 2, 
                             -obstacleModel.TheModelEntity.ModelHeight/2, 
@@ -417,6 +478,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                             obstacleModel.WorldHeight / 2, 
                            obstacleModel.WorldWidth / 2) *
                        translateMatrix;
+                       */
                 }
 
                 // Now that we have the obstacle positioned correctly, construct an appropriate clipping plane to use
