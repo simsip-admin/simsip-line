@@ -52,11 +52,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         /// </summary>
         public float WorldX { get; set; }
 
-        /// <summary>
-        /// The LogicalHeight converted into world coordinates.
-        /// </summary>
-        public float WorldHeightTruncated { get; set; }
-
         public ObstacleType TheObstacleType { get; set; }
 
         public LineModel Line { get; set; }
