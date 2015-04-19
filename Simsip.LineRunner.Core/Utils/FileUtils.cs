@@ -634,6 +634,12 @@ namespace Simsip.LineRunner.Utils
 #endif
 
 #if DESKTOP
+        public static void SaveBinary(string filepath, byte[] bytes)
+        {
+            // TODO: Folder structure
+            System.IO.File.WriteAllBytes(filepath, bytes);
+        }
+
         public static void SaveText(string filepath, string text)
         {
             // TODO: Folder structure
@@ -645,7 +651,23 @@ namespace Simsip.LineRunner.Utils
 #endif
 
 #if IOS
-        public static void SaveText(string filepath, string text, bool libraryFolder=false)
+        public static void SaveBinary(string filepath, byte[] bytes, bool libraryFolder = false)
+        {
+            string rootPath;
+            if (libraryFolder)
+            {
+                rootPath = NSFileManager.DefaultManager.GetUrls(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomain.User)[0].Path;
+            }
+            else
+            {
+                rootPath = NSFileManager.DefaultManager.GetUrls(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomain.User)[0].Path;
+            }
+
+            var fullFilePath = Path.Combine(rootPath, filepath);
+            System.IO.File.WriteAllBytes(fullFilePath, bytes);
+        }
+
+        public static void SaveText(string filepath, string text, bool libraryFolder = false)
         {
             string rootPath;
             if (libraryFolder)
