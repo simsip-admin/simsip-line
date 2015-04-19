@@ -2,18 +2,15 @@ using System;
 using System.Diagnostics;
 using UIKit;
 
-using GoogleAdMobAds;
-
 using MTiRate;
 using Simsip.LineRunner.Views;
+using CoreGraphics;
 
 namespace Simsip.LineRunner
 {
     [Foundation.Register("AppDelegate")]
     class Program : UIApplicationDelegate
     {
-        UIWindow window;
-        GADBannerView bannerView;
         
         // TODO: New
         // UIViewController vc;
@@ -29,34 +26,21 @@ namespace Simsip.LineRunner
 
         public override void FinishedLaunching(UIApplication app)
         {
-            /*
+            /* TODO: Support for rating see below
             iRate.SharedInstance.ShouldPromptForRating += (sender) =>
             {
                 return _allowRating;
             };
 
-            // TODO: New
-            // vc = new UIViewController();
+            // TODO: Support for OAuth see below
             nav = new UINavigationController();
             vc = new UIViewController();
 
             window = new UIWindow(UIScreen.MainScreen.Bounds);
-
-            // TODO: New
-            // window.RootViewController = vc;
             window.RootViewController = nav;
             nav.PushViewController(vc, false);
 
             window.MakeKeyAndVisible();
-
-            bannerView = new GADBannerView(GADAdSizeCons.Banner, new PointF(0, vc.View.Frame.Height - GADAdSizeCons.Banner.Size.Height));
-            // TODO: Get actual unit id
-            bannerView.AdUnitID = "MY_BANNER_UNIT_ID";
-            bannerView.RootViewController = vc;
-
-            // TODO: See https://components.xamarin.com/view/googleadmob to stabilize this
-            vc.View.AddSubview(bannerView);
-            bannerView.LoadRequest(GADRequest.Request);
             */
 
             try

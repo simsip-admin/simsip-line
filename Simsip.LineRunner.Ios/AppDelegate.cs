@@ -3,12 +3,18 @@ using Cocos2D;
 using CocosDenshion;
 using Microsoft.Xna.Framework;
 using Simsip.LineRunner.Scenes;
+using UIKit;
+using GoogleAdMobAds;
+using CoreGraphics;
 
 
 namespace Simsip.LineRunner
 {
     public class AppDelegate : CCApplication
     {
+        // IOS Admob support
+        const string AdmobID = "ca-app-pub-1449829469918284/9470451252";
+        GADBannerView _adView;
 
         private int _preferredWidth = 640; // 320;
         private int _preferredHeight = 960; // 480;
@@ -46,6 +52,37 @@ namespace Simsip.LineRunner
         public override bool ApplicationDidFinishLaunching()
         {
             Debug.WriteLine("Started AppDelegate.ApplicationDidFinishLaunching");
+
+            // Construct our add banner
+            var iosGameViewController = (UIViewController)TheGame.SharedGame.Services.GetService(typeof(UIViewController));
+            this._adView = new GADBannerView(
+                size: GADAdSizeCons.Banner,
+                origin: new CGPoint(0, 0))
+            {
+                AdUnitID = AdmobID,
+                RootViewController = iosGameViewController
+            };
+
+            /* Add in test devices for add banner
+            // See: https://developers.google.com/mobile-ads-sdk/docs/admob/ios/targeting
+            GADRequest adRequest = new GADRequest();
+            adRequest.TestDevices = 
+            */
+
+            /* TODO: Should we use this, doesn't seem to work on simulator?
+            adView.AdReceived += (sender, args) =>
+            {
+                if (!viewOnScreen)
+                {
+                    iosGameViewController.View.AddSubview(adView);
+                }
+                viewOnScreen = true;
+            };
+            */
+
+            // Inject our add banner
+            iosGameViewController.View.AddSubview(this._adView);
+            this._adView.LoadRequest(GADRequest.Request);
 
             // Initialize director
             CCDirector pDirector = CCDirector.SharedDirector;
