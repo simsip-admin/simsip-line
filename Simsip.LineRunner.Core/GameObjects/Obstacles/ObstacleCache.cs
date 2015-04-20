@@ -583,6 +583,27 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                             }
                     }
 
+                    // Can we add in an additional random height adjustment?
+                    // IMPORTANT: We can only modify by height adjustment using one height
+                    // value across all obstacles in this set. This is because we want the
+                    // Bottom/Top to vary so that the gap between them remains the same.
+                    // To do this we add in a single height adjustment value to the bottom and subtract
+                    // a single height adjustment value from the top.
+                    // We take the first entry in the random obstacle set to define our
+                    // height adjustment we will use for the entire set.
+                    float heightAdjustment = 0f;
+                    var heightRangeEntry = set[0];
+                    if (heightRangeEntry.HeightRange != 0)
+                    {
+                        // Grab a an amount to adjust the height within the range [-HeightRange, HeightRange]
+                        // Example:
+                        // LogicalHeightScaledTo100 = 30, HeightRange = 4
+                        // LogicalHeightScaledTo100 will be assigned a value in the range 26 to 34
+                        heightAdjustment = randomNumberGenerator.Next(
+                            -heightRangeEntry.HeightRange,
+                            heightRangeEntry.HeightRange + 1);
+                    }
+
                     // Inject our random obstacles with height variation if specified
                     foreach (var randomObstacle in set)
                     {
@@ -602,13 +623,17 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                                 IsGoal = randomObstacle.IsGoal
                             };
 
-
-                        if (randomObstacle.HeightRange != 0)
+                        // Now add in our height adjustement - see comment write-up above heightAdjustment for more details
+                        var theObstacleType = (ObstacleType)Enum.Parse(typeof(ObstacleType), randomPageObstaclesEntity.ObstacleType);
+                        if (theObstacleType == ObstacleType.SimpleBottom)
                         {
-                            var randomHeightAdjustment = randomNumberGenerator.Next(
-                                -randomObstacle.HeightRange,
-                                randomObstacle.HeightRange + 1);
+                            randomPageObstaclesEntity.LogicalHeightScaledTo100 += heightAdjustment;
                         }
+                        else if (theObstacleType == ObstacleType.SimpleTop)
+                        {
+                            randomPageObstaclesEntity.LogicalHeightScaledTo100 -= heightAdjustment;
+                        }
+
                         returnEntities.Add(randomPageObstaclesEntity);
                     }
                 }
