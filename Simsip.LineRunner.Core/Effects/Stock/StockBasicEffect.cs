@@ -58,9 +58,17 @@ namespace Simsip.LineRunner.Effects.Stock
         private EffectParameter _clippingPlaneParam;
 
 #if WINDOWS_PHONE || NETFX_CORE
-        // TODO: Fixing loading
-        public StockBasicEffect(GraphicsDevice device, string path)
-            : base(device)
+        public static async Task<StockBasicEffect> Initialize(GraphicsDevice device, string path)
+        {
+            var bytes = await StockBasicEffect.LoadEffectResource2Async(path);
+
+            var effect = new StockBasicEffect(device, bytes);
+
+            return effect;
+        }
+
+        private StockBasicEffect(GraphicsDevice device, byte[] bytes)
+            : base(device, bytes)
         {
         }
 #else

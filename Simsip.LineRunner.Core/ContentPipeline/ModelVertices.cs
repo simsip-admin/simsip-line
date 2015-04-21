@@ -31,6 +31,10 @@ namespace Simsip.LineRunner.ContentPipeline
             {
                 return this._indices;
             }
+            set
+            {
+                this._indices = value;
+            }
         }
     }
 }

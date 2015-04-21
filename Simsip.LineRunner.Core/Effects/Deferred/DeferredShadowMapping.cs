@@ -218,14 +218,22 @@ namespace Simsip.LineRunner.Effects.Deferred
             base.Initialize();
         }
 
+#if WINDOWS_PHONE || NETFX_CORE
+        protected async override void LoadContent()
+#else
         protected override void LoadContent()
+#endif
         {
             this._device = TheGame.SharedGame.GraphicsDevice;
             
             var assetManager = (IAssetManager)TheGame.SharedGame.Services.GetService(typeof(IAssetManager));
             // In IOS we haven't stabilized RenderTarget2D yet, so we go with our single-pass
             // extension of BasicEffect (e.g., adds in clipping support)
+#if WINDOWS_PHONE || NETFX_CORE
+            this._stockBasicEffect = await StockBasicEffect.Initialize(this._device, Asset.StockBasicEffect);
+#else
             this._stockBasicEffect = new StockBasicEffect(this._device, Asset.StockBasicEffect);
+#endif
             this._stockBasicEffect.LightingEnabled = true;
             this._stockBasicEffect.PreferPerPixelLighting = true;
             this._stockBasicEffect.TextureEnabled = true;
