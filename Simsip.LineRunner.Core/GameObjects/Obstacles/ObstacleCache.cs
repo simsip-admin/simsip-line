@@ -713,6 +713,21 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             };
             var physicsVertices = obstacleModel.XnaModel.Tag as PhysicsModelVertices;
 
+            // TODO: Sometimes we come in with a nondivisible by 3 indices count. This will
+            // throw an invalid index exception when attemptint to create a MobileMesh as it
+            // walks the indices in sets of 3. This work-around for now justs truncates
+            // the indices to be divisible by 3.
+            // Example: Gramophone01
+            var indicesModulus = physicsVertices.Indices.Count() % 3;
+            if (indicesModulus != 0)
+            {
+                var sliceCount = physicsVertices.Indices.Count() - indicesModulus;
+                var tempIndices = new int[sliceCount];
+                Array.Copy(physicsVertices.Indices, tempIndices, sliceCount);
+                physicsVertices.Indices = new int[sliceCount];
+                Array.Copy(tempIndices, physicsVertices.Indices, sliceCount);
+            }
+
             var physicsMesh = new MobileMesh(physicsVertices.PhysicsVertices, physicsVertices.Indices, physicsTransform, MobileMeshSolidity.Counterclockwise);
             obstacleModel.PhysicsEntity = physicsMesh;
             physicsMesh.Tag = obstacleModel;
