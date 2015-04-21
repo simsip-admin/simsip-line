@@ -577,8 +577,7 @@ namespace Engine.Universe
                 await FileUtils.DeleteFolderAsync(worldFolderPath);
             }
 
-            // TODO
-            // await FileUtils.SaveTextAsync(worldFilePath, stringRoot);
+            await FileUtils.SaveBinaryAsync(worldFilePath, ms.ToArray());
 #endif
             return errorString;
         }

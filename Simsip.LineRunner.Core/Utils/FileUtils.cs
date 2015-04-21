@@ -685,6 +685,21 @@ namespace Simsip.LineRunner.Utils
 #endif
 
 #if WINDOWS_PHONE
+        public static async Task SaveBinaryAsync(string filepath, byte[] bytes)
+        {
+            // Get the local folder
+            var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+
+            // Create a new file based on the passed in file name
+            var file = await localFolder.CreateFileAsync(filepath, CreationCollisionOption.ReplaceExisting);
+
+            // Write the data from the text
+            using (var s = await file.OpenStreamForWriteAsync())
+            {
+                s.Write(bytes, 0, bytes.Length);
+            }
+        }
+
         public static async Task SaveTextAsync(string filepath, string text)
         {
             // Get the text data from the text 
@@ -705,6 +720,22 @@ namespace Simsip.LineRunner.Utils
 #endif
 
 #if NETFX_CORE
+        public static async Task SaveBinaryAsync(string filepath, byte[] bytes)
+        {
+            // Get the local folder
+            var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+
+            // Create a new file based on the passed in file name
+            var file = await localFolder.CreateFileAsync(filepath, CreationCollisionOption.ReplaceExisting);
+
+            // Write the data from the text
+            using (var s = await file.OpenStreamForWriteAsync())
+            {
+                s.Write(bytes, 0, bytes.Length);
+            }
+        }
+
+        
         public static async Task SaveTextAsync(string filepath, string text)
         {
             var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
@@ -730,6 +761,11 @@ namespace Simsip.LineRunner.Utils
 #endif
 
 #if DESKTOP
+        public static byte[] LoadBinary(string filepath)
+        {
+            return System.IO.File.ReadAllBytes(filepath);
+        }
+
         public static string LoadText(string filepath)
         {
             using (StreamReader sr = new StreamReader(filepath))
@@ -742,7 +778,23 @@ namespace Simsip.LineRunner.Utils
 #endif
 
 #if IOS
-        public static string LoadText(string filepath, bool libraryFolder=false)
+        public static byte[] LoadBinary(string filepath, bool libraryFolder = false)
+        {
+            string rootPath;
+            if (libraryFolder)
+            {
+                rootPath = NSFileManager.DefaultManager.GetUrls(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomain.User)[0].Path;
+            }
+            else
+            {
+                rootPath = NSFileManager.DefaultManager.GetUrls(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomain.User)[0].Path;
+            }
+
+            var fullFilePath = Path.Combine(rootPath, filepath);
+            return System.IO.File.ReadAllBytes(fullFilePath);
+        }
+
+        public static string LoadText(string filepath, bool libraryFolder = false)
         {
             string rootPath;
             if (libraryFolder)
@@ -760,9 +812,26 @@ namespace Simsip.LineRunner.Utils
 #endif
 
 #if WINDOWS_PHONE
-        public static async Task<string> LoadTextAsync(string filepath)
+
+        public static async Task<byte[]> LoadBinaryAsync(string filepath)
         {
             // Get the local folder.
+            var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+
+            // Get the file stream
+            using (var stream = await localFolder.OpenStreamForReadAsync(filepath))
+            {
+                 using (var ms = new MemoryStream())
+                {
+                    stream.CopyTo(ms);
+                    return ms.ToArray();
+                }
+            }
+        }
+
+        public static async Task<string> LoadTextAsync(string filepath)
+        {
+            // Get the local folder
             var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
 
             var text = string.Empty;
@@ -782,6 +851,22 @@ namespace Simsip.LineRunner.Utils
 #endif
 
 #if NETFX_CORE
+        public static async Task<byte[]> LoadBinaryAsync(string filepath)
+        {
+            // Get the local folder
+            var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+
+            // Get the file stream
+            using (var stream = await localFolder.OpenStreamForReadAsync(filepath))
+            {
+                using (var ms = new MemoryStream())
+                {
+                    stream.CopyTo(ms);
+                    return ms.ToArray();
+                }
+            }
+        }
+
         public static async Task<string> LoadTextAsync(string filepath)
         {
             var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
