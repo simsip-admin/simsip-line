@@ -3846,22 +3846,6 @@
       <Link>Content\Sounds\sfx_wing.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Sounds\sound10.wma">
-      <Link>Content\Sounds\sound10.wma</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Sounds\sound12.wma">
-      <Link>Content\Sounds\sound12.wma</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Sounds\sound35.wma">
-      <Link>Content\Sounds\sound35.wma</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Sounds\sound46.wma">
-      <Link>Content\Sounds\sound46.wma</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\Simsip.LineRunner.Content\skins\Blue.skin">
       <Link>Content\Skins\Blue.skin</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

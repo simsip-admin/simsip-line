@@ -1725,25 +1725,25 @@
 
 #begin Content/Sounds/sound10.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Content/Sounds/sound10.mp3
 
 #begin Content/Sounds/sound12.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Content/Sounds/sound12.mp3
 
 #begin Content/Sounds/sound35.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Content/Sounds/sound35.mp3
 
 #begin Content/Sounds/sound46.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Content/Sounds/sound46.mp3
 

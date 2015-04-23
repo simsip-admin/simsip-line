@@ -4148,22 +4148,6 @@
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\WaterJet.xml">
       <Link>Mercury\EffectLibrary\WaterJet.xml</Link>
     </None>
-    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\sound10.m4a">
-      <Link>Assets\Content\Sounds\sound10.m4a</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\sound12.m4a">
-      <Link>Assets\Content\Sounds\sound12.m4a</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\sound35.m4a">
-      <Link>Assets\Content\Sounds\sound35.m4a</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Sounds\sound46.m4a">
-      <Link>Assets\Content\Sounds\sound46.m4a</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
     <Content Include="Properties\AndroidManifest.xml">
       <SubType>Designer</SubType>
     </Content>

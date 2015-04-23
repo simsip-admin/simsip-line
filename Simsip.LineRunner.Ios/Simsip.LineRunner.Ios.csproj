@@ -735,22 +735,6 @@
       <Link>Content\Sounds\sfx_wing.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\sound10.m4a">
-      <Link>Content\Sounds\sound10.m4a</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\sound12.m4a">
-      <Link>Content\Sounds\sound12.m4a</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\sound35.m4a">
-      <Link>Content\Sounds\sound35.m4a</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Sounds\sound46.m4a">
-      <Link>Content\Sounds\sound46.m4a</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\Simsip.LineRunner.Content\skins\Blue.skin">
       <Link>Content\Skins\Blue.skin</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
