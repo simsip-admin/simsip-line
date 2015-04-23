@@ -16,20 +16,17 @@ namespace Simsip.LineRunner
         const string AdmobID = "ca-app-pub-1449829469918284/9470451252";
         GADBannerView _adView;
 
-        private int _preferredWidth = 640; // 320;
-        private int _preferredHeight = 960; // 480;
+        private const int DESIGN_WIDTH = 640;
+        private const int DESIGN_HEIGHT = 960;
 
         public AppDelegate(Game game, GraphicsDeviceManager graphics)
             : base(game, graphics)
         {
             s_pSharedApplication = this;
 
-            graphics.PreferredBackBufferWidth = this._preferredWidth;
-            graphics.PreferredBackBufferHeight = this._preferredHeight;
-
             CCDrawManager.InitializeDisplay(game,
-                                          graphics,
-                                          DisplayOrientation.Portrait);
+                                            graphics,
+                                            DisplayOrientation.Portrait);
 
             graphics.PreferMultiSampling = false;
         }
@@ -51,8 +48,6 @@ namespace Simsip.LineRunner
         /// </returns>
         public override bool ApplicationDidFinishLaunching()
         {
-            Debug.WriteLine("Started AppDelegate.ApplicationDidFinishLaunching");
-
             // Construct our add banner
             var iosGameViewController = (UIViewController)TheGame.SharedGame.Services.GetService(typeof(UIViewController));
             this._adView = new GADBannerView(
@@ -99,24 +94,18 @@ namespace Simsip.LineRunner
             pDirector.AnimationInterval = 1.0 / 60;
 
             // TODO: Which fonts do we want to pre-register?
-            CCSpriteFontCache.FontScale = 0.6f;
             CCSpriteFontCache.FontRoot = "Fonts";
             CCSpriteFontCache.RegisterFont("arial", 12, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 38, 50, 64);
             CCSpriteFontCache.RegisterFont("Schwarzwald Regular", 26);
             
-            var designSize = new CCSize(
-                this._preferredWidth,
-                this._preferredHeight);
-
-            CCDrawManager.SetDesignResolutionSize(designSize.Width,
-                                      designSize.Height,
-                                      CCResolutionPolicy.NoBorder /*CCResolutionPolicy.ShowAll*/);
+            CCDrawManager.SetDesignResolutionSize(DESIGN_WIDTH,
+                                                  DESIGN_HEIGHT,
+                                                  CCResolutionPolicy.NoBorder);
 
             // Get initial loading screen displayed
             var scene = new CoreScene();
             pDirector.RunWithScene(scene);
 
-            Debug.WriteLine("Finished AppDelegate.ApplicationDidFinishLaunching");
             return true;
         }
 

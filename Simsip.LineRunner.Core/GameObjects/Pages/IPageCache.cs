@@ -28,29 +28,9 @@ namespace Simsip.LineRunner.GameObjects.Pages
         float PageDepthFromCameraStart { get; }
 
         /// <summary>
-        /// Absolute depth from page to character.
-        /// </summary>
-        float PageDepthFromCharacter { get; }
-
-        /// <summary>
-        /// Absolute depth from page to obstacles.
-        /// </summary>
-        float PageDepthFromObstacle { get; }
-
-        /// <summary>
-        /// Absolute depth from page to panes.
-        /// </summary>
-        float PageDepthFromPane { get; }
-
-        /// <summary>
         /// Depth from camara that we will place characters.
         /// </summary>
         float CharacterDepthFromCameraStart { get; }
-
-        /// <summary>
-        /// Depth from camara that we will place obstacles.
-        /// </summary>
-        float ObstacleDepthFromCameraStart { get; }
 
         /// <summary>
         /// Depth from camara that we will place panes.

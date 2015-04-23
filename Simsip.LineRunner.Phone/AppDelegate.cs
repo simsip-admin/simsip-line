@@ -8,9 +8,8 @@ namespace Simsip.LineRunner
 {
     public class AppDelegate : CCApplication
     {
-
-        int _preferredWidth = 320;
-        int _preferredHeight = 480;
+        private const int DESIGN_WIDTH = 640;
+        private const int DESIGN_HEIGHT = 960;
 
         public AppDelegate(Game game, GraphicsDeviceManager graphics)
             : base(game, graphics)
@@ -21,16 +20,10 @@ namespace Simsip.LineRunner
             // first starts.
             HandleMediaStateAutomatically = false;
 
-            // Set the render viewport size
-            graphics.PreferredBackBufferWidth = this._preferredWidth;
-            graphics.PreferredBackBufferHeight = this._preferredHeight;
-
-            // Initialize the graphics
             CCDrawManager.InitializeDisplay(game,
                                             graphics,
                                             DisplayOrientation.Portrait);
 
-            // This controls anti-aliasing
             graphics.PreferMultiSampling = false;
         }
 
@@ -66,18 +59,13 @@ namespace Simsip.LineRunner
             pDirector.AnimationInterval = 1.0 / 60;
 
             // TODO: Which fonts do we want to pre-register?
-            CCSpriteFontCache.FontScale = 0.6f;
             CCSpriteFontCache.FontRoot = "Fonts";
             CCSpriteFontCache.RegisterFont("arial", 12, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 38, 50, 64);
             CCSpriteFontCache.RegisterFont("Schwarzwald Regular", 26);
 
-            var designSize = new CCSize(
-                this._preferredWidth,
-                this._preferredHeight);
-
-            CCDrawManager.SetDesignResolutionSize(designSize.Width,
-                                                  designSize.Height,
-                                                  CCResolutionPolicy.NoBorder /*CCResolutionPolicy.ShowAll*/);
+            CCDrawManager.SetDesignResolutionSize(DESIGN_WIDTH,
+                                                  DESIGN_HEIGHT,
+                                                  CCResolutionPolicy.NoBorder);
 
             // Get initial loading screen displayed
             var scene = new CoreScene();

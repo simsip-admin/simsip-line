@@ -91,53 +91,26 @@ namespace Simsip.LineRunner.Scenes.Start
             // Start menu
             this._isStartEnabled = true;
             var startButtonNormal = new CCSprite("Images/Icons/StartButtonNormal.png");
-            Cocos2DUtils.ResizeSprite(startButtonNormal,
-                0.2f * this.ContentSize.Width,
-                0.2f * this.ContentSize.Width);
             var startButtonSelected = new CCSprite("Images/Icons/StartButtonSelected.png");
-            Cocos2DUtils.ResizeSprite(startButtonSelected,
-                0.2f * this.ContentSize.Width,
-                0.2f * this.ContentSize.Width);
             this._startButton = new CCMenuItemImage( (obj) => { this.NavigateStartPage2(); });
             this._startButton.NormalImage = startButtonNormal;
             this._startButton.SelectedImage = startButtonSelected;
 
             var ratingsButtonNormal = new CCSprite("Images/Icons/RatingsButtonNormal.png");
-            Cocos2DUtils.ResizeSprite(ratingsButtonNormal,
-                0.2f * this.ContentSize.Width,
-                0.2f * this.ContentSize.Width);
             var ratingsButtonSelected = new CCSprite("Images/Icons/RatingsButtonSelected.png");
-            Cocos2DUtils.ResizeSprite(ratingsButtonSelected,
-                0.2f * this.ContentSize.Width,
-                0.2f * this.ContentSize.Width);
-            var ratingsButton =
-                new CCMenuItemImage((obj) => { this.Rate(); });
+            var ratingsButton = new CCMenuItemImage((obj) => { this.Rate(); });
             ratingsButton.NormalImage = ratingsButtonNormal;
             ratingsButton.SelectedImage = ratingsButtonSelected;
 
             var optionsButtonNormal = new CCSprite("Images/Icons/OptionsButtonNormal.png");
-            Cocos2DUtils.ResizeSprite(optionsButtonNormal,
-                0.2f * this.ContentSize.Width,
-                0.2f * this.ContentSize.Width);
             var optionsButtonSelected = new CCSprite("Images/Icons/OptionsButtonSelected.png");
-            Cocos2DUtils.ResizeSprite(ratingsButtonSelected,
-                0.2f * this.ContentSize.Width,
-                0.2f * this.ContentSize.Width);
-            var optionsButton =
-                new CCMenuItemImage((obj) => { this.NavigateBase(LayerTags.OptionsMasterLayer); });
+            var optionsButton = new CCMenuItemImage((obj) => { this.NavigateBase(LayerTags.OptionsMasterLayer); });
             optionsButton.NormalImage = optionsButtonNormal;
             optionsButton.SelectedImage = optionsButtonSelected;
 
             var helpButtonNormal = new CCSprite("Images/Icons/HelpButtonNormal.png");
-            Cocos2DUtils.ResizeSprite(helpButtonNormal,
-                0.2f * this.ContentSize.Width,
-                0.2f * this.ContentSize.Width);
             var helpButtonSelected = new CCSprite("Images/Icons/HelpButtonSelected.png");
-            Cocos2DUtils.ResizeSprite(helpButtonSelected,
-                0.2f * this.ContentSize.Width,
-                0.2f * this.ContentSize.Width);
-            var helpButton =
-                new CCMenuItemImage((obj) => { this.NavigateBase(LayerTags.HelpMasterLayer); });
+            var helpButton = new CCMenuItemImage((obj) => { this.NavigateBase(LayerTags.HelpMasterLayer); });
             helpButton.NormalImage = helpButtonNormal;
             helpButton.SelectedImage = helpButtonSelected;
             

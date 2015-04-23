@@ -8,27 +8,19 @@ namespace Simsip.LineRunner
 {
     public class AppDelegate : CCApplication
     {
-
-        int preferredWidth;
-        int preferredHeight;
+        private const int DESIGN_WIDTH = 960;
+        private const int DESIGN_HEIGHT = 640;
 
         public AppDelegate(Game game, GraphicsDeviceManager graphics)
             : base(game, graphics)
         {
             s_pSharedApplication = this;
 
-            preferredWidth = 1024;
-            preferredHeight = 768;
-            graphics.PreferredBackBufferWidth = preferredWidth;
-            graphics.PreferredBackBufferHeight = preferredHeight;
-
             CCDrawManager.InitializeDisplay(game,
                                           graphics,
                                           DisplayOrientation.LandscapeRight | DisplayOrientation.LandscapeLeft);
 
-
             graphics.PreferMultiSampling = false;
-
         }
 
         /// <summary>
@@ -62,15 +54,13 @@ namespace Simsip.LineRunner
             pDirector.AnimationInterval = 1.0 / 60;
 
             // TODO: Which fonts do we want to pre-register?
-            CCSpriteFontCache.FontScale = 0.6f;
             CCSpriteFontCache.FontRoot = "Fonts";
             CCSpriteFontCache.RegisterFont("arial", 12, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 38, 50, 64);
             CCSpriteFontCache.RegisterFont("Schwarzwald Regular", 26);
 
-            var resPolicy = CCResolutionPolicy.ExactFit; // This will stretch out your game
-            CCDrawManager.SetDesignResolutionSize(preferredWidth,
-                                                  preferredHeight,
-                                                  resPolicy);
+            CCDrawManager.SetDesignResolutionSize(DESIGN_WIDTH,
+                                                  DESIGN_HEIGHT,
+                                                  CCResolutionPolicy.NoBorder);
 
             // Get initial loading screen displayed
             var scene = new CoreScene();

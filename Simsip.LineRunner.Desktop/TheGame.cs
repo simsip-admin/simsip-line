@@ -45,6 +45,10 @@ namespace Simsip.LineRunner
 
             Content.RootDirectory = "Content";
 
+            this._graphicsDeviceManager.IsFullScreen = false;
+            this._graphicsDeviceManager.PreferredBackBufferWidth = 960;
+            this._graphicsDeviceManager.PreferredBackBufferHeight = 640;
+
             // Needed for stencil clipping via CCClippingNode
             this._graphicsDeviceManager.PreferredDepthStencilFormat = DepthFormat.Depth24Stencil8;
 

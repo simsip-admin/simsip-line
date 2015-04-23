@@ -52,9 +52,6 @@ namespace Simsip.LineRunner.Scenes.Intro
             // Display logo in center
             // IMPORTANT: Width:Height of logo png is 3:1 so we want to keep that ratio when scaling
             _logo = new CCSprite("Images/Misc/Logo1.png");
-            Cocos2DUtils.ResizeSprite(this._logo,
-                0.9f * this._screenSize.Width,
-                0.3f * this._screenSize.Width);
             _logo.Position = new CCPoint(this._screenSize.Width / 2, this._screenSize.Height / 2);
             this.AddChild(_logo);
 
@@ -62,18 +59,12 @@ namespace Simsip.LineRunner.Scenes.Intro
             // display a darkened progress bar background that will be overlayed by the progress bar highlight
             // IMPORTANT: Width:Height of progress png is 20:1 so we want to keep that ratio when scaling
             var progressBackground = new CCSprite("Images/Misc/ProgressBackground.png");
-            Cocos2DUtils.ResizeSprite(progressBackground,
-                0.8f  * this._screenSize.Width,
-                0.04f * this._screenSize.Width);
             progressBackground.Position = new CCPoint(this._screenSize.Width / 2, this._screenSize.Height / 3);
             this.AddChild(progressBackground);
 
             // Setup our progress bar highlight
             // IMPORTANT: Width:Height of progress png is 20:1 so we want to keep that ratio when scaling
             this._progressHightlightSprite = new CCSprite("Images/Misc/ProgressHighlight.png");
-            Cocos2DUtils.ResizeSprite(this._progressHightlightSprite,
-                0.8f  * this._screenSize.Width,
-                0.04f * this._screenSize.Width);
             var progressHighlight = new CCProgressTimer(_progressHightlightSprite);
             progressHighlight.Type = CCProgressTimerType.Bar;
             progressHighlight.Midpoint = new CCPoint(0.0f, 0.5f);  // Starts from left
@@ -185,12 +176,16 @@ namespace Simsip.LineRunner.Scenes.Intro
         public void LoadPane()
         {
             // Pane model
+            var screenSize = CCDirector.SharedDirector.WinSize;
+            var paneLogicalOrigin = new CCPoint(
+                0.02f * screenSize.Width,
+                0.20f * screenSize.Height);
             var paneModelArgs = new PaneModelArgs()
             {
                 ThePaneType = PaneType.Simple,
-                LogicalOrigin = new CCPoint(10, 100),
-                LogicalWidth = 300,
-                LogicalHeight = 200,
+                LogicalOrigin = paneLogicalOrigin,
+                LogicalWidth = 0.96f * screenSize.Width,
+                LogicalHeight = 0.5f * screenSize.Height,
             };
             this._paneModel = new PaneModel(paneModelArgs);
         }

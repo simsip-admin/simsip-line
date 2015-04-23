@@ -20,6 +20,11 @@ namespace Simsip.LineRunner.GameObjects.Pages
 {
     public class PageCache : DrawableGameComponent, IPageCache
     {
+        // Magic numbers
+        private const float DEFAULT_PAGE_DEPTH_FROM_CAMERA = 4f;
+        private const float DEFAULT_CHARACTER_DEPTH_FROM_PAGE = 0.4f;
+        private const float DEFAULT_PANE_DEPTH_FROM_PAGE = 2f;
+
         // State we maintain
         private int _currentPageNumber;
         private int _currentLineNumber;
@@ -60,10 +65,6 @@ namespace Simsip.LineRunner.GameObjects.Pages
             this._inputManager = (IInputManager)this.Game.Services.GetService(typeof(IInputManager));
             this._physicsManager = (IPhysicsManager)this.Game.Services.GetService(typeof(IPhysicsManager));
             this._padRepository = new PadRepository();
-
-            // Our depth value can be set right away
-            // All other depths (hero, obstacles, etc), will be based off of this
-            this.PageDepthFromCameraStart = 4f;
 
             // Initialize our octree which will handle determination if we should draw or not
             this._ocTreeRoot = new OcTreeNode(new Vector3(0, 0, 0), OcTreeNode.DefaultSize);
@@ -110,19 +111,11 @@ namespace Simsip.LineRunner.GameObjects.Pages
 
         public PageModel CurrentPageModel { get; private set; }
 
-        public float PageDepthFromCameraStart { get; private set; }
+        public float PageDepthFromCameraStart { get { return DEFAULT_PAGE_DEPTH_FROM_CAMERA; } }
 
-        public float PageDepthFromCharacter { get { return PageDepthFromCameraStart - CharacterDepthFromCameraStart; } }
+        public float CharacterDepthFromCameraStart { get { return PageDepthFromCameraStart - DEFAULT_CHARACTER_DEPTH_FROM_PAGE; } }
 
-        public float PageDepthFromObstacle { get { return PageDepthFromCameraStart - ObstacleDepthFromCameraStart; } }
-
-        public float PageDepthFromPane { get { return PageDepthFromCameraStart - PaneDepthFromCameraStart; } }
-
-        public float CharacterDepthFromCameraStart { get { return PageDepthFromCameraStart - 0.4f; } }
-
-        public float ObstacleDepthFromCameraStart { get { return PageDepthFromCameraStart - 1; } }
-
-        public float PaneDepthFromCameraStart { get { return PageDepthFromCameraStart - 2; } }
+        public float PaneDepthFromCameraStart { get { return PageDepthFromCameraStart - DEFAULT_PANE_DEPTH_FROM_PAGE; } }
 
         public Vector3 StationaryCameraOriginalWorldPosition { get; private set; }
         public Vector3 StationaryCameraOriginalWorldTarget { get; private set; }
@@ -140,10 +133,18 @@ namespace Simsip.LineRunner.GameObjects.Pages
             var translateMatrix = Matrix.CreateTranslation(pagePosition);
 
             // Our logical positioning coordinates
-            var cameraOriginScreenPoint = new CCPoint(160, 240);            // The camera in the center of the screen
-            this.CurrentPageModel.LogicalStartOrigin = new CCPoint(160, 240);  // We start our hero 1/4 in from left in middle of screen
-            this.CurrentPageModel.LogicalLineSpacingTop = new CCPoint(160, 340);  // We want the line margin to fill most of the screen with a little border on top/bottom
-            this.CurrentPageModel.LogicalLineSpacingBottom = new CCPoint(160,  140);
+            var cameraOriginScreenPoint = new CCPoint(                      // The camera in the center of the screen
+                0.5f * CCDrawManager.DesignResolutionSize.Width, 
+                0.5f * CCDrawManager.DesignResolutionSize.Height);                    
+            this.CurrentPageModel.LogicalStartOrigin = new CCPoint(         // We start our hero in the center of the screen
+                0.5f * CCDrawManager.DesignResolutionSize.Width, 
+                0.5f * CCDrawManager.DesignResolutionSize.Height);
+            this.CurrentPageModel.LogicalLineSpacingTop = new CCPoint(      // We want the line margin to fill most of the screen with a little border on top/bottom
+                0.5f  * CCDrawManager.DesignResolutionSize.Width,
+                0.75f * CCDrawManager.DesignResolutionSize.Height);    
+            this.CurrentPageModel.LogicalLineSpacingBottom = new CCPoint(
+                0.5f  * CCDrawManager.DesignResolutionSize.Width,
+                0.25f * CCDrawManager.DesignResolutionSize.Height);    
 
             // First, determine the unscaled line margin (distance between each line)
             var modelPageBody = this.CurrentPageModel.TheModelEntity.ModelHeight -

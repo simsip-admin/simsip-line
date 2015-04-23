@@ -9,25 +9,19 @@ namespace Simsip.LineRunner
 {
     public class AppDelegate : CCApplication
     {
-        private int _preferredWidth;
-        private int _preferredHeight;
+        private const int DESIGN_WIDTH = 960;
+        private const int DESIGN_HEIGHT = 640;
 
         public AppDelegate(Game game, GraphicsDeviceManager graphics)
             : base(game, graphics)
         {
             s_pSharedApplication = this;
 
-
             CCDrawManager.InitializeDisplay(game,
                                             graphics,
                                             DisplayOrientation.LandscapeRight | DisplayOrientation.LandscapeLeft);
 
             graphics.PreferMultiSampling = false;
-
-            /*
-            graphics.PreferredBackBufferWidth = this._preferredWidth;
-            graphics.PreferredBackBufferHeight = this._preferredHeight;
-            */
         }
 
         /// <summary>
@@ -53,7 +47,7 @@ namespace Simsip.LineRunner
 
             // TODO: How does taking this out affect us?
             // 2D projection
-            pDirector.Projection = CCDirectorProjection.Projection2D;
+            // pDirector.Projection = CCDirectorProjection.Projection2D;
 
             // Turn on display FPS
             // pDirector.DisplayStats = true;
@@ -62,24 +56,13 @@ namespace Simsip.LineRunner
             pDirector.AnimationInterval = 1.0 / 60;
 
             // TODO: Which fonts do we want to pre-register?
-            CCSpriteFontCache.FontScale = 0.6f;
             CCSpriteFontCache.FontRoot = "Fonts";
             CCSpriteFontCache.RegisterFont("arial", 12, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 38, 50, 64);
             CCSpriteFontCache.RegisterFont("Schwarzwald Regular", 26);
 
-            CCSize designSize = new CCSize(
-                this._preferredWidth, 
-                this._preferredHeight);
-
-            // var resPolicy = CCResolutionPolicy.ExactFit; // This will stretch out your game
-            CCDrawManager.SetDesignResolutionSize(this._preferredWidth,
-                                                  this._preferredHeight,
-                                                  CCResolutionPolicy.ExactFit);
-            /*
-            CCDrawManager.SetDesignResolutionSize(designSize.Width,
-                                                  designSize.Height,
+            CCDrawManager.SetDesignResolutionSize(DESIGN_WIDTH,
+                                                  DESIGN_HEIGHT,
                                                   CCResolutionPolicy.NoBorder);
-            */
 
             // Get initial loading screen displayed
             var scene = new CoreScene();
