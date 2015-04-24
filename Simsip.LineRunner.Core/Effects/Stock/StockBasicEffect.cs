@@ -64,6 +64,8 @@ namespace Simsip.LineRunner.Effects.Stock
 
             var effect = new StockBasicEffect(device, bytes);
 
+            effect.CacheEffectParameters2();
+
             return effect;
         }
 

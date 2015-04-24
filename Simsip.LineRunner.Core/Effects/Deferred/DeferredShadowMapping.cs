@@ -102,6 +102,9 @@ namespace Simsip.LineRunner.Effects.Deferred
 
     public class DeferredShadowMapping : DrawableGameComponent, IDeferredShadowMapping
     {
+#if WINDOWS_PHONE || NETFX_CORE
+        private bool _asyncLoadFinished;
+#endif
         // Stock effect parameters
         private Vector3 DEFAULT_SPECULAR_COLOR = new Vector3(1.0f, 1.0f, 1.0f);
         private const float DEFAULT_SPECULAR_POWER = 128f;
@@ -296,10 +299,20 @@ namespace Simsip.LineRunner.Effects.Deferred
             this._shadowTarget.SimsipSetPrivateData("ShadowTarget");
 #endif
 
+#if WINDOWS_PHONE || NETFX_CORE
+            this._asyncLoadFinished = true;
+#endif
         }
 
         public override void Draw(GameTime gameTime)
         {
+#if WINDOWS_PHONE || NETFX_CORE
+            if (!_asyncLoadFinished)
+            {
+                return;
+            }
+#endif
+
             // Get state correct before doing our drawing pass
             XNAUtils.DefaultDrawState();
 
@@ -307,7 +320,7 @@ namespace Simsip.LineRunner.Effects.Deferred
             this._view = this._inputManager.CurrentCamera.ViewMatrix;
             this._projection = this._inputManager.CurrentCamera.ProjectionMatrix;
 
-#if IOS || ANDROID || DESKTOP
+#if IOS || ANDROID || DESKTOP || WINDOWS_PHONE || NETFX_CORE
             // Single pass for IOS and then short-circuit
             this.RenderSceneIos(gameTime);
             base.Draw(gameTime);
