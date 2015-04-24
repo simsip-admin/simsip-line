@@ -4,13 +4,17 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Linq;
+#if DESKTOP
+using System.Reflection;
+#endif
 #if IOS
 using Foundation;
 #endif
-
 #if WINDOWS_PHONE || NETFX_CORE
 using Windows.Storage;
+using System.Xml;
 #endif
 
 namespace Simsip.LineRunner.Utils
@@ -385,13 +389,13 @@ namespace Simsip.LineRunner.Utils
             var sourceRootFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
             var sourceFolder = await sourceRootFolder.GetFolderAsync(sourceFolderPath);
             var sourceFiles = await sourceFolder.GetFilesAsync();
-            
+
             // Get dest folder
             var destRootFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
             var destFolder = await destRootFolder.GetFolderAsync(destFolderPath);
 
             // Copy source files to dest folder
-            foreach(var sourceFile in sourceFiles)
+            foreach (var sourceFile in sourceFiles)
             {
                 await sourceFile.CopyAsync(destFolder);
             }
@@ -508,7 +512,7 @@ namespace Simsip.LineRunner.Utils
                 var local = Windows.Storage.ApplicationData.Current.LocalFolder;
                 var file = await local.GetItemAsync(filepath);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -821,7 +825,7 @@ namespace Simsip.LineRunner.Utils
             // Get the file stream
             using (var stream = await localFolder.OpenStreamForReadAsync(filepath))
             {
-                 using (var ms = new MemoryStream())
+                using (var ms = new MemoryStream())
                 {
                     stream.CopyTo(ms);
                     return ms.ToArray();
@@ -877,5 +881,113 @@ namespace Simsip.LineRunner.Utils
         }
 #endif
 
+#if DESKTOP
+        public static string GetVersion()
+        {
+            var version = string.Empty;
+
+            try
+            {
+                // For now we will reference AssemblyInformationalVersion in code to display a version
+                // number to the user.
+                // Reference:
+                // http://stackoverflow.com/questions/64602/what-are-differences-between-assemblyversion-assemblyfileversion-and-assemblyin
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+                version = fileVersionInfo.ProductVersion;
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine("Exception in GetVersion: " + ex);
+            }
+
+            return version;
+        }
+#endif
+
+#if ANDROID
+        public static string GetVersion()
+        {
+            var version = string.Empty;
+
+            try
+            {
+                version = Program.SharedProgram.PackageManager.GetPackageInfo(Program.SharedProgram.PackageName, 0).VersionName;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception in GetVersion: " + ex);
+            }
+
+            return version;
+        }
+#endif
+
+#if IOS
+        public static string GetVersion()
+        {
+            var version = string.Empty;
+
+            try
+            {
+                version = NSBundle.MainBundle.InfoDictionary [new NSString ("CFBundleShortVersionString")].ToString();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception in GetVersion: " + ex);
+            }
+
+            return version;
+        }
+#endif
+
+#if WINDOWS_PHONE
+        public static string GetVersion()
+        {
+            string version = string.Empty;
+
+            try
+            {
+                var xmlReaderSettings = new XmlReaderSettings
+                {
+                    XmlResolver = new XmlXapResolver()
+                };
+
+                using (var xmlReader = XmlReader.Create("WMAppManifest.xml", xmlReaderSettings))
+                {
+                    xmlReader.ReadToDescendant("App");
+                    version = xmlReader.GetAttribute("Version");
+                }
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine("Exception in GetVersion: " + ex);
+            }
+
+            return version;
+        }
+#endif
+
+#if NETFX_CORE
+        public static string GetVersion()
+        {
+            var version = string.Empty;
+
+            try
+            {
+                var appVersion = Windows.ApplicationModel.Package.Current.Id.Version;
+                version = string.Format("{0}.{1}.{2}",
+                    appVersion.Major, appVersion.Minor, appVersion.Build);
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine("Exception in GetVersion: " + ex);
+            }
+
+            return version;
+        }
+#endif
+
     }
+
 }

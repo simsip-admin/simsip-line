@@ -187,7 +187,7 @@ namespace Simsip.LineRunner.Scenes.Help
 #else
             versionText = AppResources.CommonVersion;
 #endif
-            var versionHeader = new CCLabelTTF(versionText + " " + this.GetVersion(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            var versionHeader = new CCLabelTTF(versionText + " " + FileUtils.GetVersion(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
             versionHeader.AnchorPoint = CCPoint.AnchorMiddleLeft;
             versionHeader.Position = new CCPoint(
                 0.05f * this.ContentSize.Width, 
@@ -410,35 +410,6 @@ namespace Simsip.LineRunner.Scenes.Help
                 this._previousMenu.Visible = true;
                 this._nextMenu.Visible = true;
             }
-        }
-
-        private string GetVersion()
-        {
-            var versionStr = string.Empty;
-            try
-            {
-#if ANDROID
-                versionStr = Program.SharedProgram.PackageManager.GetPackageInfo(Program.SharedProgram.PackageName, 0).VersionName;
-#elif IOS
-                versionStr = NSBundle.MainBundle.InfoDictionary [new NSString ("CFBundleShortVersionString")].ToString ();
-#elif NETFX_CORE
-                var version = Windows.ApplicationModel.Package.Current.Id.Version;
-                versionStr = string.Format("{0}.{1}.{2}.{3}",
-                    version.Major, version.Minor, version.Build, version.Revision);
-#elif WINDOWS_PHONE
-                const string verLabel = "Version=";
-                var assemblyName = System.Reflection.Assembly.GetExecutingAssembly().FullName;
-                var startIndex = assemblyName.IndexOf(verLabel) + verLabel.Length;
-                var endIndex = assemblyName.IndexOf(',', startIndex + 1);
-                versionStr = assemblyName.Substring(startIndex, endIndex - startIndex);
-#endif
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Exception caught while attempting to get version number: " + ex);
-            }
-
-            return versionStr;
         }
 
         #endregion

@@ -186,7 +186,7 @@ namespace Simsip.LineRunner.Scenes.Options
 #else
             versionText = AppResources.CommonVersion;
 #endif
-            var versionHeader = new CCLabelTTF(versionText + " " + this.GetVersion(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            var versionHeader = new CCLabelTTF(versionText + " " + FileUtils.GetVersion(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
             versionHeader.AnchorPoint = CCPoint.AnchorMiddleLeft;
             versionHeader.Position = new CCPoint(
                 0.05f * this.ContentSize.Width,
