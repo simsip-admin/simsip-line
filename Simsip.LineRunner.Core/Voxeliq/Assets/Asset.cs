@@ -21,19 +21,19 @@ namespace Engine.Assets
         // ALSO: The suffix ".mgfxo" will be added programatically when loading.
         // TODO: When comfortable with effect, categorize as models are done
 #if NETFX_CORE
-        public const string Deferred1SceneEffect  = @"Content\Effects\Deferred\Deferred1Scene";
-        public const string Deferred2LightsEffect = @"Content\Effects\Deferred\Deferred2Lights";
-        public const string Deferred3FinalEffect  = @"Content\Effects\Deferred\Deferred3Final";
+        public const string Deferred1SceneEffect  = @"Content\Effects\Deferred\Deferred1Scene.mgfxo";
+        public const string Deferred2LightsEffect = @"Content\Effects\Deferred\Deferred2Lights.mgfxo";
+        public const string Deferred3FinalEffect  = @"Content\Effects\Deferred\Deferred3Final.mgfxo";
         public const string StockBasicEffect      = @"Content\Effects\Stock\StockBasicEffect.mgfxo";
-        public const string PerlinNoiseEffect     = @"Content\Effects\Sky\PerlinNoise";
-        public const string SkyDomeEffect         = @"Content\Effects\Sky\SkyDome";
-        public const string WaterEffect           = @"Content\Effects\Water\Water";
-        public const string ShadowMapEffect       = @"Content\Effects\Shadow\ShadowMap";
-        public const string BlockEffect           = @"Content\Effects\Voxeliq\BlockEffect";
-        public const string DualTexturedEffect    = @"Content\Effects\Voxeliq\DualTextured";
-        public const string BloomExtractEffect    = @"Content\Effects\Voxeliq\PostProcessing\Bloom\BloomExtract";
-        public const string BloomCombineEffect    = @"Content\Effects\Voxeliq\PostProcessing\Bloom\BloomCombine";
-        public const string GaussianBlurEffect    = @"Content\Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur";
+        public const string PerlinNoiseEffect     = @"Content\Effects\Sky\PerlinNoise.mgfxo";
+        public const string SkyDomeEffect         = @"Content\Effects\Sky\SkyDome.mgfxo";
+        public const string WaterEffect           = @"Content\Effects\Water\Water.mgfxo";
+        public const string ShadowMapEffect       = @"Content\Effects\Shadow\ShadowMap.mgfxo";
+        public const string BlockEffect           = @"Content\Effects\Voxeliq\BlockEffect.mgfxo";
+        public const string DualTexturedEffect    = @"Content\Effects\Voxeliq\DualTextured.mgfxo";
+        public const string BloomExtractEffect    = @"Content\Effects\Voxeliq\PostProcessing\Bloom\BloomExtract.mgfxo";
+        public const string BloomCombineEffect    = @"Content\Effects\Voxeliq\PostProcessing\Bloom\BloomCombine.mgfxo";
+        public const string GaussianBlurEffect    = @"Content\Effects\Voxeliq\PostProcessing\Bloom\GaussianBlur.mgfxo";
 #else
         public const string Deferred1SceneEffect  = @"Content/Effects/Deferred/Deferred1Scene.mgfxo";
         public const string Deferred2LightsEffect = @"Content/Effects/Deferred/Deferred2Lights.mgfxo";
