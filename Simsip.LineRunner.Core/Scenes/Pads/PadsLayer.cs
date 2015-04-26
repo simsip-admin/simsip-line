@@ -11,11 +11,11 @@ using Simsip.LineRunner.Utils;
 using System.Collections.Generic;
 using Simsip.LineRunner.Scenes.MessageBox;
 using System.Threading;
-#if NETFX_CORE
-using Windows.Foundation;
-#endif
 #if IOS
 using Foundation;
+#endif
+#if NETFX_CORE
+using Windows.Foundation;
 #endif
 
 
@@ -258,7 +258,7 @@ namespace Simsip.LineRunner.Scenes.Pads
 
         private void RefreshThread()
         {
-            // Go for a refresh to get the new resource pack displayed
+            // Go for a refresh to get the new pad displayed
             this._parent.Refresh();
 
             // Remove ui

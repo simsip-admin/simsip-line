@@ -11,8 +11,12 @@ using Simsip.LineRunner.Resources;
 using Simsip.LineRunner.Utils;
 using System.Collections.Generic;
 using Simsip.LineRunner.Scenes.MessageBox;
+using System.Threading;
 #if IOS
 using Foundation;
+#endif
+#if NETFX_CORE
+using Windows.Foundation;
 #endif
 
 
@@ -234,13 +238,38 @@ namespace Simsip.LineRunner.Scenes.Lines
             switchingLinesText = AppResources.LinesSwitchingLines;
 #endif
 
+            this._parent.TheMessageBoxLayer.Show(
+                switchingLinesText,
+                string.Empty,
+                MessageBoxType.MB_PROGRESS);
+
             // Record what was selected
             UserDefaults.SharedUserDefault.SetStringForKey(
                 GameConstants.USER_DEFAULT_KEY_CURRENT_LINE,
                 line.ModelName);
 
-            // Go for a refresh to get the new resource pack displayed
+#if NETFX_CORE
+            IAsyncAction asyncAction = 
+                Windows.System.Threading.ThreadPool.RunAsync(
+                    (workItem) =>
+                    {
+                        RefreshThread();
+                    });
+#else
+
+            var refreshThread = new Thread(RefreshThread) { IsBackground = true };
+            refreshThread.Start();
+#endif
+
+        }
+
+        private void RefreshThread()
+        {
+            // Go for a refresh to get the new lines displayed
             this._parent.Refresh();
+
+            // Remove ui
+            this._parent.TheMessageBoxLayer.Hide();
 
             // Ok, we're done here
             this._parent.GoBack();
