@@ -44,9 +44,6 @@ namespace Simsip.LineRunner.Scenes.MessageBox
     {
         private CoreScene _parent;
 
-        // Services we'll need
-        private IPaneCache _paneCache;
-
         // Pane and pane actions
         private PaneModel _paneModel;
         private Simsip.LineRunner.Actions.Action _paneActionIn;
@@ -72,28 +69,26 @@ namespace Simsip.LineRunner.Scenes.MessageBox
         private CCProgressTimer _progressTimer;
 
         // Tags to help in clean-up cycles
-        private int _staticTag;
-        private int _dynamicTag;
+        private int _staticTag = 0;
+        private int _dynamicTag = 1;
 
         // Callback
         private System.Action<MessageBoxResponse> _action;
-
 
         public MessageBoxLayer(CoreScene parent)
         {
             this._parent = parent;
 
-            // Get services we'll need
-            this._paneCache = (IPaneCache)TheGame.SharedGame.Services.GetService(typeof(IPaneCache));
-
             // Get these set up for relative positioning below
             var screenSize = CCDirector.SharedDirector.WinSize;
-            this.ContentSize = new CCSize(0.6f * screenSize.Width,
-                                          0.6f * screenSize.Height);
+            this.ContentSize = new CCSize(
+                0.8f * screenSize.Width,
+                0.8f * screenSize.Height);
+
             // Pane model
             var paneLogicalOrigin = new CCPoint(
-                    0.2f * screenSize.Width, 
-                    0.2f * screenSize.Height);
+                    0.1f * screenSize.Width, 
+                    0.1f * screenSize.Height);
             var paneModelArgs = new PaneModelArgs()
             {
                 ThePaneType = PaneType.Simple,
@@ -132,12 +127,8 @@ namespace Simsip.LineRunner.Scenes.MessageBox
                 new CCSequence(new CCFiniteTimeAction[] { layerStartPlacementAction, layerMoveInAction })
             );
             var layerMoveOutAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, layerStartPosition);
-            var layerNavigateAction = new CCCallFunc(() => {
-                this._paneCache.RemovePaneModel(this._paneModel);
-                this._parent.GoBack();
-            });
             this._layerActionOut = new CCEaseBackIn(
-                new CCSequence(new CCFiniteTimeAction[] { layerMoveOutAction, layerNavigateAction })
+                new CCSequence(new CCFiniteTimeAction[] { layerMoveOutAction })
             );
 
             // Title
@@ -147,7 +138,6 @@ namespace Simsip.LineRunner.Scenes.MessageBox
                 0.9f * this.ContentSize.Height);
             this._title.Tag = this._staticTag;
             this.AddChild(this._title);
-
 
             // Description
             this._description = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
@@ -262,12 +252,17 @@ namespace Simsip.LineRunner.Scenes.MessageBox
         {
             base.OnEnter();
 
-            // Register pane for drawing
-            this._paneCache.AddPaneModel(this._paneModel);
-
             // Animate pane/layer
             this._paneModel.ModelRunAction(this._paneActionIn);
             this.RunAction(this._layerActionIn);
+        }
+
+        public override void Draw()
+        {
+            // Draw pane with Cocos2D view, projection and game state
+            this._paneModel.DrawViaStationaryCamera();
+
+            base.Draw();
         }
 
     #endregion

@@ -266,7 +266,6 @@ namespace Simsip.LineRunner.Scenes.Pads
 
             // Ok, we're done here
             this._parent.GoBack();
-
         }
 
         #endregion

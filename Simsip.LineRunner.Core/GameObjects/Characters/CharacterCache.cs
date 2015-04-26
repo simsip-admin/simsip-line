@@ -159,6 +159,14 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
         public void Draw(StockBasicEffect effect = null, EffectType type = EffectType.None)
         {
+            // We need to short-circuit when we are in Refresh state they are reinitializing this game object's
+            // state on a background thread. Note that the Update() short circuit for Refresh is handled
+            // in the ActionLayer.Update.
+            if (this._currentGameState == GameState.Refresh)
+            {
+                return;
+            }
+
             var view = this._inputManager.CurrentCamera.ViewMatrix;
             var projection = this._inputManager.CurrentCamera.ProjectionMatrix;
 
@@ -313,6 +321,10 @@ namespace Simsip.LineRunner.GameObjects.Characters
                     }
                 case GameState.Refresh:
                     {
+                        // We need to set this up-front as refresh is done on a background thread
+                        // and we need to know this to short-circuit draw while this is done
+                        this._currentGameState = state;
+
                         // Set state
                         this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;

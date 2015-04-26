@@ -94,6 +94,12 @@ namespace Simsip.LineRunner.Scenes.Action
         // Manages periodic adjustments in update cycle
         private double _timeAccumulator = 0;
 
+        // We use this flag to short circuit out of our update cycle
+        // when refreshing. Draw will short circuit at the cache level (e.g., LineCache.Draw).
+        // Game objects are being reinitialized so we need  to hold off till we get 
+        // to stable state again.
+        private bool _refreshing;
+
         public ActionLayer(CoreScene parent)
         {
             this._parent = parent;
@@ -116,7 +122,16 @@ namespace Simsip.LineRunner.Scenes.Action
 
         public void Refresh()
         {
+            // Set our flag so we short-circuit appropriately
+            // in our update cycle so that we don't do
+            // cross-thread access to game objects that are refreshing.
+            // Note, draw will short cicuit at the cache level (e.g., LineCache.Draw).
+            this._refreshing = true;
+
             this.SwitchState(GameState.Refresh);
+
+            // Ok to allow full update cycle again.
+            this._refreshing = false;
         }
 
         public void StartWorld()
@@ -434,6 +449,13 @@ namespace Simsip.LineRunner.Scenes.Action
                 this._firstTimeSetupPage = true;
             }
 
+            // If we are refreshing, short-circuit here so we don't have cross-thread
+            // access to game objects that are reinitializing
+            if (this._refreshing)
+            {
+                return;
+            }
+
             // Let game services update
             this._pageCache.Update(this._gameTime);
             this._lineCache.Update(this._gameTime);
@@ -468,6 +490,12 @@ namespace Simsip.LineRunner.Scenes.Action
             {
                 return;
             }
+
+            //
+            // Note, unlike our short-cicuit for Update above when in refresh state,
+            // we do those checks for drawing at the individual GameObject level
+            // (e.g., see LineCache.Draw)
+            //
 
             this._deferredShadowMapping.Draw(this._gameTime);
 
