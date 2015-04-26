@@ -42,9 +42,21 @@ namespace Simsip.LineRunner.Entities.LineRunner
         public float LogicalXScaledTo100 { get; set; }
 
         /// <summary>
+        /// A +/- delta amount we can apply to the X position of an obstacle 
+        /// to allow it to range over a set of values.
+        /// </summary>
+        public float XRange { get; set; }
+
+        /// <summary>
         /// The logical height we will truncate this obstacle to.
         /// </summary>
         public float LogicalHeightScaledTo100 { get; set; }
+
+        /// <summary>
+        /// A +/- delta amount we can apply to The height of an obstacle
+        /// to allow it to range over a set of values.
+        /// </summary>
+        public float HeightRange { get; set; }
 
         /// <summary>
         /// If non-zero, an additional percentage scaling we will apply to the obstacle.
@@ -55,6 +67,12 @@ namespace Simsip.LineRunner.Entities.LineRunner
         /// The logical angle we will rotate this obstacle to.
         /// </summary>
         public float LogicalAngle { get; set; }
+
+        /// <summary>
+        /// A +/- delta amount we can apply to The angle of an obstacle
+        /// to allow it to range over a set of values.
+        /// </summary>
+        public float AngleRange { get; set; }
 
         /// <summary>
         /// Whether this obstacle should be marked as goal for scoring purposes.

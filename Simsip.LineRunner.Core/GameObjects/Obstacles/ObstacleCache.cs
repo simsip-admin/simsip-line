@@ -697,8 +697,37 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 // Now animate for the defined move to next line duration (will match move to next line flyby, etc.)
                 var obstacleMoveTo = new MoveTo(GameConstants.DURATION_MOVE_TO_NEXT_LINE, obstacleMoveToPosition);
                 var obstacleProcessPhysics = new CallFunc(() => ProcesObstaclePhysics(obstacleModel));
-                var obstacleAction = new Sequence(new FiniteTimeAction[] { obstacleMoveTo, obstacleProcessPhysics });
+
+                Actions.Action obstacleAction = null;
+                
+                /* TODO: Couldn't get this to work yet
+                // Do we need to add in an animation?
+                if (obstacleModel.ThePageObstaclesEntity.HeightRange != 0)
+                {
+                    var interval = GameConstants.DURATION_ANIMATE_OBSTACLE_SLOW / 4f;
+                    // var heightRange = obstacleModel.WorldHeight * (obstacleModel.ThePageObstaclesEntity.HeightRange/100);
+                    // var heightRangeMoveByUp = new MoveBy(interval, new Vector3(0, heightRange, 0));
+                    // var heightRangeMoveToDown = new MoveBy(interval, new Vector3(0, -2f * heightRange, 0));
+                    // var heightRangeSequence = new Sequence(new FiniteTimeAction[] { heightRangeMoveByUp,  heightRangeMoveToDown,  heightRangeMoveByUp});
+                    // var heightRangeAction = new CallFunc(() => obstacleModel.ModelRunAction(new RepeatForever(heightRangeSequence)) );
+                    var heightRangeMoveToUp = new MoveTo(interval, obstacleMoveToPosition  + new Vector3(0, heightRange, 0));
+                    var heightRangeMoveToDown = new MoveTo(interval, obstacleMoveToPosition + new Vector3(0, -2f * heightRange, 0));
+                    var heightRangeMoveToBack = new MoveTo(interval, obstacleMoveToPosition);
+                    var heightRangeSequence = new Sequence(new FiniteTimeAction[] { heightRangeMoveToUp, heightRangeMoveToDown, heightRangeMoveToBack });
+                    var heightRangeAction = new CallFunc(() => obstacleModel.ModelRunAction(new RepeatForever(heightRangeSequence)));
+
+                    obstacleAction = new Sequence(new FiniteTimeAction[] { obstacleMoveTo, obstacleProcessPhysics, heightRangeAction });
+                }
+                else
+                {
+                    obstacleAction = new Sequence(new FiniteTimeAction[] { obstacleMoveTo, obstacleProcessPhysics });
+                }
+                */
+
+                obstacleAction = new Sequence(new FiniteTimeAction[] { obstacleMoveTo, obstacleProcessPhysics });
                 obstacleModel.ModelRunAction(obstacleAction);
+
+
             }
         }
 

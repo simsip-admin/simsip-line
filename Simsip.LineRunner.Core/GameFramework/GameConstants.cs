@@ -135,5 +135,26 @@ namespace Simsip.LineRunner.GameFramework
         /// Duration in seconds to display hero being killed.
         /// </summary>
         public const float DURATION_HERO_KILL = 2.0f;
+
+        /// <summary>
+        /// Duration in seconds for fast animation of an obstacle.
+        /// 
+        /// Used to animate obstacle's X position, height or angle.
+        /// </summary>
+        public const float DURATION_ANIMATE_OBSTACLE_FAST = 2.0f;
+
+        /// <summary>
+        /// Duration in seconds for medium animation of an obstacle.
+        /// 
+        /// Used to animate obstacle's X position, height or angle.
+        /// </summary>
+        public const float DURATION_ANIMATE_OBSTACLE_MEDIUM = 4.0f;
+
+        /// <summary>
+        /// Duration in seconds for slow animation of an obstacle.
+        /// 
+        /// Used to animate obstacle's X position, height or angle.
+        /// </summary>
+        public const float DURATION_ANIMATE_OBSTACLE_SLOW = 8.0f;
     }
 }
