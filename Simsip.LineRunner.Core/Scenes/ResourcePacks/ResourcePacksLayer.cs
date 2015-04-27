@@ -12,6 +12,11 @@ using Simsip.LineRunner.Scenes.MessageBox;
 #if IOS
 using Foundation;
 #endif
+#if NETFX_CORE
+using Windows.Foundation;
+#else
+using System.Threading;
+#endif
 
 
 namespace Simsip.LineRunner.Scenes.ResourcePacks
@@ -210,6 +215,7 @@ namespace Simsip.LineRunner.Scenes.ResourcePacks
         }
 
         #endregion
+
         #region Helper methods
 
         private void ResourcePackSelected(ResourcePackEntity resourcePack)
@@ -223,24 +229,40 @@ namespace Simsip.LineRunner.Scenes.ResourcePacks
 #else
             switchingResourcePacksText = AppResources.ResourcePacksSwitchingResourcePacks;
 #endif
-            /* TODO
             this._parent.TheMessageBoxLayer.Show(
                 switchingResourcePacksText,
                 string.Empty,
                 MessageBoxType.MB_PROGRESS);
-            */
 
             // Record what was selected
             UserDefaults.SharedUserDefault.SetStringForKey(
                 GameConstants.USER_DEFAULT_KEY_CURRENT_RESOURCE_PACK,
                 resourcePack.ResourcePackName);
 
+#if NETFX_CORE
+            IAsyncAction asyncAction = 
+                Windows.System.Threading.ThreadPool.RunAsync(
+                    (workItem) =>
+                    {
+                        RefreshThread();
+                    });
+#else
+
+            var refreshThread = new Thread(RefreshThread) { IsBackground = true };
+            refreshThread.Start();
+#endif
+
+        }
+
+        private void RefreshThread()
+        {
             // Go for a refresh to get the new resource pack displayed
             this._parent.Refresh();
 
+            // Remove ui
+            this._parent.TheMessageBoxLayer.Hide();
+
             // Ok, we're done here
-            // TODO
-            // this._parent.TheMessageBoxLayer.Hide();
             this._parent.GoBack();
         }
 

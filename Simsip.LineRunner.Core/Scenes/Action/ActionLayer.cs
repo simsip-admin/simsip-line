@@ -378,7 +378,6 @@ namespace Simsip.LineRunner.Scenes.Action
                 this._obstacleCache.ObstacleHit += OnObstacleHit;
                 this._sensorCache.SensorHit += OnSensorHit;
 
-
                 // Flip our one-time flag that says we are ready (e.g., for Update/Draw)
                 this.Ready = true;
             }
@@ -391,6 +390,13 @@ namespace Simsip.LineRunner.Scenes.Action
 
             // Take care of any animations in progress
             GameManager.SharedGameManager.TheActionManager.Update(dt);
+
+            // If we are refreshing, short-circuit here so we don't have cross-thread
+            // access to game objects that are reinitializing
+            if (this._refreshing)
+            {
+                return;
+            }
 
             // Construct an XNA time from a Cocos2d time
             this._totalGameTime += dt;
@@ -447,13 +453,6 @@ namespace Simsip.LineRunner.Scenes.Action
                 this.SwitchState(GameState.Intro);
 
                 this._firstTimeSetupPage = true;
-            }
-
-            // If we are refreshing, short-circuit here so we don't have cross-thread
-            // access to game objects that are reinitializing
-            if (this._refreshing)
-            {
-                return;
             }
 
             // Let game services update
