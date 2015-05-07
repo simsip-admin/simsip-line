@@ -25,13 +25,14 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using Engine.Input;
 using Simsip.LineRunner.Effects.Stock;
-
 #if NETFX_CORE
 using System.Threading.Tasks;
 using Windows.Foundation;
+#else
+using System.Threading;
+using Simsip.LineRunner;
 #endif
 
 namespace Engine.Chunks
@@ -298,13 +299,22 @@ namespace Engine.Chunks
                 Windows.System.Threading.ThreadPool.RunAsync(
                     (workItem) =>
                     {
-                        CacheThread();
+                        CacheThread(null);
                     });
 #else
-            Debug.WriteLine("Starting cache thread");
+            /*
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("CacheThread.Start: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
+             */
 
+            ThreadPool.QueueUserWorkItem(CacheThread);
+            /*
             var cacheThread = new Thread(CacheThread) { IsBackground = true };
             cacheThread.Start();
+            */
 #endif
 
             this.CacheThreadStarted = true;
@@ -671,7 +681,7 @@ namespace Engine.Chunks
                 );
         }
 
-        private void CacheThread()
+        private void CacheThread(object state)
         {
             // Debug.WriteLine("Cache thread started");
 
@@ -698,6 +708,13 @@ namespace Engine.Chunks
                         if (chunk.ChunkState == ChunkState.Ready)
                         {
                             this.Ready = true;
+                            /*
+#if STOPWATCH
+                            Program.TheStopwatch.Stop();
+                            Debug.WriteLine("ChunkCache.Ready: " + Program.TheStopwatch.ElapsedMilliseconds);
+                            Program.TheStopwatch.Restart();
+#endif
+*/
 
                             if (chunk.HighestSolidBlockOffset > _highestSolidBlockOffset)
                             {
