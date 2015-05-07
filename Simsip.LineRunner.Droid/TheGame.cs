@@ -8,6 +8,7 @@ using Simsip.LineRunner.Data;
 using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.Utils;
 using System;
+using System.Diagnostics;
 
 
 namespace Simsip.LineRunner
@@ -67,17 +68,41 @@ namespace Simsip.LineRunner
         {
             base.Initialize();
 
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("TheGame.Initialize: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
+
             // Get folder structure in place if not done yet
             FileUtils.InitializeFolders();
+
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("FileUtils.InitializeFolders: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
 
             // Copy over our database if not copied yet
             if (!Database.Exists())
             {
                 Database.CopyFromAssets();
             }
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("Database: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
+
 
             // Take care of any database upgrade needs
             Database.HandleUpgrade();
+
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("Database.HandleUpgrade: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
 
             // Initialize user defaults including a one-time recording of installation date
             UserDefaults.Initialize();
@@ -85,6 +110,12 @@ namespace Simsip.LineRunner
             {
                 UserDefaults.SharedUserDefault.SetDateForKey(GameConstants.USER_DEFAULT_KEY_INSTALL_DATE, DateTime.Now);
             }
+
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("UserDefaults: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
 
             // Signal first stage of initialization is complete
             this.Ready = true;
