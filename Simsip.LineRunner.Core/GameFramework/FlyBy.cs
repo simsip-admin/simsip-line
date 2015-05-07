@@ -42,8 +42,16 @@ namespace Simsip.LineRunner.GameFramework
         private FlyByTargetAttachment _targetAttachmentUse;
 
         public float BezTime { get; private set; }
-        
+
+        /// <summary>
+        /// Allow for chaining flybys together.
+        /// 
+        /// Set to the next flyby you want to play and then start it in the FlyByFinished event handler.
+        /// </summary>
+        public FlyBy NextFlyBy { get; set; }
+
         public event FlyByFinishedEventHandler FlyByFinished;
+
         public FlyBy(FlyByCameraUpdate cameraUpdate=FlyByCameraUpdate.TrackingOnly,
                      GameModel targetAttachment=null, 
                      FlyByTargetAttachment targetAttachmentUse=FlyByTargetAttachment.UsePhysicsBody)
@@ -120,7 +128,11 @@ namespace Simsip.LineRunner.GameFramework
                 this._inputManager.TheLineRunnerControllerInput.IsInFlyBy = false;
 
                 // Let anyone know who is interested
-                FlyByFinished(this, new EventArgs());
+                var flyByFinishedEventArgs = new FlyByFinishedEventArgs
+                    {
+                        NextFlyBy = this.NextFlyBy
+                    };
+                FlyByFinished(this, flyByFinishedEventArgs);
 
                 // Short-circuit
                 return;
@@ -206,5 +218,15 @@ namespace Simsip.LineRunner.GameFramework
         }
     }
 
-    public delegate void FlyByFinishedEventHandler(object sender, EventArgs e);
+    public delegate void FlyByFinishedEventHandler(object sender, FlyByFinishedEventArgs e);
+
+    /// <summary>
+    /// Passed to the FlyByFinished event handler if assigned.
+    /// 
+    /// Has a field to record the next flyby in a chained set of flybys.
+    /// </summary>
+    public class FlyByFinishedEventArgs : EventArgs
+    {
+        public FlyBy NextFlyBy;
+    }
 }
