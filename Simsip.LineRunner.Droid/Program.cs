@@ -16,6 +16,7 @@ using Android.Gms.Ads;
 using Simsip.LineRunner.Views;
 using Android.Runtime;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Simsip.LineRunner
 {
@@ -31,6 +32,11 @@ namespace Simsip.LineRunner
         , ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.Keyboard | ConfigChanges.KeyboardHidden)]
     public class Program : AndroidGameActivity, IReviewAppPlaystoreCallback
     {
+
+#if STOPWATCH
+        public static Stopwatch TheStopwatch = new Stopwatch();
+#endif
+
         public static Program SharedProgram { get; private set; }
 
         public AdView Ad { get; private set; }
@@ -43,6 +49,11 @@ namespace Simsip.LineRunner
         {
             try
             {
+#if STOPWATCH
+                System.Diagnostics.Debug.WriteLine("Program.OnCreate: 0");
+                Program.TheStopwatch.Start();
+#endif
+
                 base.OnCreate(bundle);
 
                 RequestedOrientation = ScreenOrientation.Portrait;

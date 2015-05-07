@@ -2,6 +2,7 @@ using Cocos2D;
 using CocosDenshion;
 using Microsoft.Xna.Framework;
 using Simsip.LineRunner.Scenes;
+using System.Diagnostics;
 
 
 namespace Simsip.LineRunner
@@ -40,6 +41,12 @@ namespace Simsip.LineRunner
         /// </returns>
         public override bool ApplicationDidFinishLaunching()
         {
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("ApplicationDidFinishLaunching: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
+
             // Initialize director
             CCDirector pDirector = CCDirector.SharedDirector;
             pDirector.SetOpenGlView();
@@ -66,6 +73,12 @@ namespace Simsip.LineRunner
             // Get initial loading screen displayed
             var scene = new CoreScene();
             pDirector.RunWithScene(scene);
+
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("ApplicationDidFinishLaunching.End: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
 
             return true;
         }
