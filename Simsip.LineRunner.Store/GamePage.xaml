@@ -5,9 +5,18 @@
     xmlns:local="using:Simsip.LineRunner"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:UI="using:Microsoft.Advertising.WinRT.UI"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <UI:AdControl 
+            ApplicationId="d25517cb-12d4-4699-8bdc-52040c712cab" 
+            AdUnitId="10043105" 
+            HorizontalAlignment="Left" 
+            Height="250" 
+            Margin="0,0,0,0" 
+            VerticalAlignment="Top" 
+            Width="250"/>
     </Grid>
     
 </SwapChainBackgroundPanel>

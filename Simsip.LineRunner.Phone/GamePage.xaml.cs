@@ -26,13 +26,13 @@ namespace Simsip.LineRunner
 
             this._program = new Program();
 
-            // TODO:
-            //  	- For advertisting on WP, we will need to dynamically add in a row into the grid after the call to:
-	        // - this._game = XamlGame<TheGame>.Create("", this); In the GamePage.cs constructor, see source code
-	        // - For XamlGame.cs at c:\dev3\cocos2d-xna\MonoGame\MonoGame.Framework\WindowsPhone
+            this._game = XamlGame<TheGame>.Create("", this);
 
-            // NOTE: Edit "MY_AD_UNIT_ID" with your ad unit id.
-            /*
+            //
+            // For advertisting on WP, we will need to dynamically add in a row into the grid after the call to:
+            // this._game = XamlGame<TheGame>.Create("", this); In the GamePage.cs constructor, see source code
+            // For XamlGame.cs at c:\dev3\cocos2d-xna\MonoGame\MonoGame.Framework\WindowsPhone
+            //
             AdView bannerAd = new AdView
             {
                 Format = AdFormats.Banner,
@@ -45,9 +45,6 @@ namespace Simsip.LineRunner
             AdRequest adRequest = new AdRequest();
             adRequest.ForceTesting = true;
             bannerAd.LoadAd(adRequest);
-            */
-
-            this._game = XamlGame<TheGame>.Create("", this);
         }
 
         private void OnAdReceived(object sender, AdEventArgs e)

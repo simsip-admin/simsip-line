@@ -13,16 +13,15 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     shell:SystemTray.IsVisible="False">
 
-    <!-- See cs file for GamePage for notes on this
+    <!-- See cs file for GamePage for notes on this -->
     <StackPanel x:Name="Container">
-    -->
+    
         <Grid x:Name="LayoutRoot" Background="Transparent">
             <DrawingSurface x:Name="XnaSurface"/>
             <MediaElement></MediaElement>
         </Grid>
-    <!--
+    
     </StackPanel>
-    -->
-
+    
 
 </phone:PhoneApplicationPage>
