@@ -482,31 +482,28 @@ namespace Simsip.LineRunner.Scenes.Action
             this._graphManager.Update(this._gameTime);
             */
 
-            // We depend on camera (positioning) and chunk cache (background)
-            // to be ready before we start updating; otherwise we short-circuit
-            if (!this._inputManager.TheLineRunnerControllerInput.Ready) /* ||
-                !this._chunkCache.Ready)*/
+            // We depend on InputManager.ThePlayerControllerInput.CurrentChunk to be set
+            // AND the resulting PageCache.CalculateWorldCoordinates() to be called before
+            // we allow our second tier of GameObjects to start updating.
+            // See World.SpawnWorld for details.
+            if (!this._inputManager.TheLineRunnerControllerInput.Ready)
             {
                 return;
             }
 
             // Do a one-time prep of our first page
-            if (!_firstTimeSetupPage)
+            if (!this._firstTimeSetupPage)
             {
-                // Let our intro layer display a pane now 
+                // Let our start layer display a pane now 
                 //(3d model depends on services AND stationary camera being in place for display of panes)
-                // this._parent.TheIntroLayer.LoadPane();
                 this._parent.TheStartPage1Layer.LoadPane();
-
-                // TODO: This starts too early, taking out until we can investigate further
-                // And fade in the game scene
-                // this._parent.TheIntroLayer.FadeIn();
 
                 // It is now safe to lazy load our hud layer 
                 // (depends upon stationary camera being in place for display of panes)
                 this._hudLayer = _parent.TheHudLayer;
 
-                // Now that our page components are ready, get our intro mechanics going (e.g., flyby)
+                // Now that our page components are ready to be accessed, get our intro mechanics going (e.g., flyby),
+                // and background loading of models going.
                 this.SwitchState(GameState.Intro);
 
                 this._firstTimeSetupPage = true;
@@ -517,7 +514,6 @@ namespace Simsip.LineRunner.Scenes.Action
                 Program.TheStopwatch.Restart();
 #endif
             }
-
 
             // Let game services update
             this._pageCache.Update(this._gameTime);

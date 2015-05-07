@@ -242,7 +242,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
                 Windows.System.Threading.ThreadPool.RunAsync(
                     (workItem) =>
                     {
-                        LoadContentThread(loadContentThreadArgs);
+                        LoadContentAsyncThread(loadContentThreadArgs);
                     });
 #else
             ThreadPool.QueueUserWorkItem(LoadContentAsyncThread, loadContentThreadArgs);

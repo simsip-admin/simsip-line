@@ -242,20 +242,7 @@ namespace Simsip.LineRunner.Scenes.Start
         /// if tapping on start menu should show the loading indicator.</param>
         public void EnableStart(bool enableStart)
         {
-            // Set state
             this._isStartEnabled = enableStart;
-
-            // Update ui
-            /*
-            if (this._isStartEnabled)
-            {
-                this._startButton.Color = new CCColor3B(Color.White);
-            }
-            else
-            {
-                this._startButton.Color = new CCColor3B(Color.Gray);
-            }
-            */
         }
 
         private void LoadContentAsyncFinishedHandler(object sender, LoadContentAsyncFinishedEventArgs args)

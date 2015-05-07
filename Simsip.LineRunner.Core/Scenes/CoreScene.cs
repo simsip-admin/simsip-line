@@ -48,7 +48,7 @@ namespace Simsip.LineRunner.Scenes
             // Initialize state
             this._navigationStack = new Stack<LayerTags>();
 
-            // Get our intro and action layers displayed as quickly as possible
+            // Get our start and action layers displayed as quickly as possible
             this.AddChild(this.TheStartPage1Layer, SceneZOrder.UILayer);
             this.AddChild(this.TheActionLayer, SceneZOrder.ActionLayer);
 

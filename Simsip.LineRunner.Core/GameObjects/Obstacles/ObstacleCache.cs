@@ -26,6 +26,8 @@ using Simsip.LineRunner.GameObjects.Characters;
 using System.Diagnostics;
 using Simsip.LineRunner.Entities.LineRunner;
 using Simsip.LineRunner.Effects.Stock;
+using Simsip.LineRunner.GameObjects.Sensors;
+using BEPUphysics;
 #if NETFX_CORE
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -36,8 +38,6 @@ using System.Threading;
 using Simsip.LineRunner.Concurrent;
 #else
 using System.Collections.Concurrent;
-using Simsip.LineRunner.GameObjects.Sensors;
-using BEPUphysics;
 #endif
 
 
@@ -227,7 +227,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 Windows.System.Threading.ThreadPool.RunAsync(
                     (workItem) =>
                     {
-                        LoadContentThread(loadContentThreadArgs);
+                        LoadContentAsyncThread(loadContentThreadArgs);
                     });
 #else
             ThreadPool.QueueUserWorkItem(LoadContentAsyncThread, loadContentThreadArgs);
