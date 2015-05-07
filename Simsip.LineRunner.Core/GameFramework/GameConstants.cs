@@ -91,7 +91,7 @@ namespace Simsip.LineRunner.GameFramework
         /// 
         /// Used by flyby, positioning first set of models, etc.
         /// </summary>
-        public const float DURATION_INTRO = 8.0f;
+        public const float DURATION_INTRO = 16.0f;
 
         /// <summary>
         /// Duration in seconds to for our intro to fade in from black.
