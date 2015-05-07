@@ -16,6 +16,8 @@ using Simsip.LineRunner.Settings.Readers;
 using Simsip.LineRunner.Effects.Deferred;
 using Simsip.LineRunner.Utils;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Threading;
 #if IOS
 using AVFoundation;
 using Foundation;
@@ -143,15 +145,9 @@ namespace Simsip.LineRunner.Scenes.Intro
                     {
                         InitializeServicesDoWork();
                     });
-#elif DESKTOP
-                InitializeServicesDoWork(null, null);
-                GameManager.SharedGameManager.ServicesReadyForUpdate = true;
 #else
 
-                var initializeServicesWorker = new BackgroundWorker();
-                initializeServicesWorker.DoWork += InitializeServicesDoWork;
-                initializeServicesWorker.RunWorkerCompleted += InitializeServicesCompleted;
-                initializeServicesWorker.RunWorkerAsync();
+                ThreadPool.QueueUserWorkItem(InitializeServicesDoWork);
 #endif
             }
         }
@@ -202,9 +198,14 @@ namespace Simsip.LineRunner.Scenes.Intro
 #if NETFX_CORE
         private async void InitializeServicesDoWork()
 #else
-        private void InitializeServicesDoWork(object sender, DoWorkEventArgs e)
+        private void InitializeServicesDoWork(object state)
 #endif
         {
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("InitializeServicesDoWork: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             // Update loading status message
             var introLayerService = (IIntroLayer)TheGame.SharedGame.Services.GetService(typeof(IIntroLayer));
             var loadingModelsText = string.Empty;
@@ -267,35 +268,99 @@ namespace Simsip.LineRunner.Scenes.Intro
             var engine = new Engine.Core.Engine(TheGame.SharedGame, config);
             engine.Run();
 
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("Engine.Run: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
+
             // Construct all simsip services
             var physicsManager = new PhysicsManager(TheGame.SharedGame);
             physicsManager.Enabled = false;
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("PhysicsManager: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             var pageCache = new PageCache(TheGame.SharedGame);
             pageCache.Enabled = false;
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("PageCache: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             var lineCache = new LineCache(TheGame.SharedGame);
             lineCache.Enabled = false;
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("LineCache: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             var obstacleCache = new ObstacleCache(TheGame.SharedGame);
             obstacleCache.Enabled = false;
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("ObstacleCache: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             var characterCache = new CharacterCache(TheGame.SharedGame);
             characterCache.Enabled = false;
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("CharacterCache: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             var particleCache = new ParticleEffectCache(TheGame.SharedGame);
             particleCache.Enabled = false;
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("ParticleCache: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             var sensorCache = new SensorCache(TheGame.SharedGame);
             sensorCache.Enabled = false;
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("SensorCache: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             var paneCache = new PaneCache(TheGame.SharedGame);
             paneCache.Enabled = false;
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("PaneCache: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             var deferredShadowMapping = new DeferredShadowMapping(TheGame.SharedGame);
             deferredShadowMapping.Enabled = false;
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("DeferredShadowMapping: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
 
             // Initialize all voxeliq services, with updates to status messages as needed
             // IMPORTANT: InputManager Needs to come first as SpawnPlayer() flow depends on this being in place first.
             //            See World.Initialize() for start of SpawnPlayer() flow
-            engine.InputManagerComponent.Initialize();  
+            engine.InputManagerComponent.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("InputManager: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
+
 #if NETFX_CORE
             await engine.AssetManagerComponent.Initialize();
 #else
             engine.AssetManagerComponent.Initialize();
 #endif
+
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("AssetManager: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
+
             var generatingTerrainText = string.Empty;
 #if ANDROID
             generatingTerrainText = Program.SharedProgram.Resources.GetString(Resource.String.IntroGeneratingTerrain);
@@ -306,43 +371,149 @@ namespace Simsip.LineRunner.Scenes.Intro
 #endif
             introLayerService.Message = generatingTerrainText;
             engine.SkyDomeComponent.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("SkyDome: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             engine.NewSkyComponent.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("NewSky: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             engine.FoggerComponent.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("Fogger: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             engine.ChunkStorageComponent.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("ChunkStorage: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             engine.VertexBuilderComponent.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("VertexBuilder: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             engine.ChunkCacheComponent.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("ChunkCache: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             engine.BlockStorageComponent.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("BlockStorage: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             engine.WorldComponent.Initialize();         // Needs to come before player component?
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("World: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             engine.WaterCacheComponent.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("WaterCache: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             engine.UserInterfaceComponent.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("UserInterface: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             engine.InGameDebuggerComponent.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("InGameDebugger: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             engine.DebugBarComponent.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("DebugBar: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             engine.GraphManagerComponent.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("GraphManager: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             engine.AudioManagerComponent.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("AudioManager: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
 
             // Initialize all simsip services
             physicsManager.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("PhysicsManager.Initialize: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             pageCache.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("PageCache.Initialize: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             lineCache.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("LineCache.Initialize: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             obstacleCache.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("ObstacleCache.Initialize: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             characterCache.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("CharacterCache.Initialize: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             particleCache.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("ParticleCache.Initialize: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             sensorCache.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("SensorCache.Initialize: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             paneCache.Initialize();
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("PaneCache.Initialize: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
             deferredShadowMapping.Initialize();
-
-#if NETFX_CORE
-            GameManager.SharedGameManager.ServicesReadyForUpdate = true;
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("DeferredShadowMapping.Initialize: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
 #endif
-        }
 
-#if !NETFX_CORE
-        private void InitializeServicesCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            // Let all other game objects (e.g., layers) know that they can start to use services
+
             GameManager.SharedGameManager.ServicesReadyForUpdate = true;
         }
-#endif
 
         #endregion
     }
