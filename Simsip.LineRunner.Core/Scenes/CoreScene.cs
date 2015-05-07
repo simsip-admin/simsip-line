@@ -49,12 +49,12 @@ namespace Simsip.LineRunner.Scenes
             this._navigationStack = new Stack<LayerTags>();
 
             // Get our intro and action layers displayed as quickly as possible
-            this.AddChild(this.TheIntroLayer, SceneZOrder.UILayer);
+            this.AddChild(this.TheStartPage1Layer, SceneZOrder.UILayer);
             this.AddChild(this.TheActionLayer, SceneZOrder.ActionLayer);
 
-            // Since we bypassed our navigation service above for the intro layer, we need
+            // Since we bypassed our navigation service above for the start layer, we need
             // to prime the service here
-            _navigationStack.Push(LayerTags.IntroLayer);
+            _navigationStack.Push(LayerTags.StartPage1Layer);
         }
 
         #region Properties
