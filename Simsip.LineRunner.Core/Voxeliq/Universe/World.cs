@@ -230,17 +230,16 @@ namespace Engine.Universe
                 GameConstants.WORLD_GENERATE_NEW);
             if (currentWorld == GameConstants.WORLD_GENERATE_NEW)
             {
+                // Get origin chunk generated as quickly as possible which will set CurrentChunk
+                // which will cascade to us getting the screen displayed as quickly as possible
+                this._inputManager.ThePlayerControllerInput.CurrentChunk = new Chunk(new Vector2Int(relativePosition.X, relativePosition.Z)); ;
+
                 for (int z = -ChunkCache.CacheRange; z <= ChunkCache.CacheRange; z++)
                 {
                     for (int x = -ChunkCache.CacheRange; x <= ChunkCache.CacheRange; x++)
                     {
                         var chunk = new Chunk(new Vector2Int(relativePosition.X + x, relativePosition.Z + z));
                         this.Chunks[chunk.RelativePosition.X, chunk.RelativePosition.Z] = chunk;
-
-                        if (chunk.RelativePosition == relativePosition)
-                        {
-                            this._inputManager.ThePlayerControllerInput.CurrentChunk = chunk;
-                        }
                     }
                 }
             }

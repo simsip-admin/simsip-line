@@ -21,6 +21,7 @@ using BEPUphysics;
 using BEPUphysicsDemos;
 using BEPUphysicsDemos.AlternateMovement;
 using Engine.Input;
+using System.Diagnostics;
 
 
 namespace Engine.Graphics
@@ -160,17 +161,25 @@ namespace Engine.Graphics
             // Only process position up till player touches down on solid block for first time
             if (!_touchDownExists)
             {
-                this.Velocity.Y += Gravity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                var footPosition = TheCamera.Position + new Vector3(0f, -1.5f, 0f);
-                Block standingBlock = _blockStorage.BlockAt(footPosition);
-
-                if (standingBlock.Exists)
+                // When we have our origin chunk in place, loop down to first solid block
+                // and place camera there.
+                if ( (this.CurrentChunk != null) &&
+                     (this.CurrentChunk.ChunkState != ChunkState.AwaitingGenerate ||
+                      this.CurrentChunk.ChunkState != ChunkState.Generating) )
                 {
-                    this._touchDownExists = true;
-                    this.Velocity.Y = 0;
-                }
+                    for (var y = 1; y < Chunk.HeightInBlocks; y++)
+                    {
+                        var footPosition = TheCamera.Position + new Vector3(0f, -1f * y, 0f);
+                        var standingBlock = this._blockStorage.BlockAt(footPosition);
 
-                this.TheCamera.Position += Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        if (standingBlock.Exists)
+                        {
+                            this._touchDownExists = true;
+                            TheCamera.Position = footPosition;
+                            break;
+                        }
+                    }
+                }
             }
 
             // Given this initial touch-down position, can we position our pad at a desired
@@ -196,6 +205,11 @@ namespace Engine.Graphics
 
                     // Signal to everyone else we are ready
                     this.Ready = true;
+#if STOPWATCH
+                    Program.TheStopwatch.Stop();
+                    Debug.WriteLine("PlayerControllerInput.Ready: " + Program.TheStopwatch.ElapsedMilliseconds);
+                    Program.TheStopwatch.Restart();
+#endif
 
                     /* Moving this to RepositionPad so we can call RepositionPad from refreshes
                     // Do a first time adjustment to our position
