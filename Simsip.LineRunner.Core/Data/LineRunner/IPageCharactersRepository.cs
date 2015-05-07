@@ -7,6 +7,7 @@ namespace Simsip.LineRunner.Data.LineRunner
     {
         List<PageCharactersEntity> GetCharacters(int pageNumber);
         List<PageCharactersEntity> GetCharacters(int pageNumber, int lineNumber);
+        List<PageCharactersEntity> GetCharacters(int pageNumber, int[] lineNumbers);
         PageCharactersEntity GetCharacter(int pageNumber, int lineNumber, int characterNumber);
     }
 }

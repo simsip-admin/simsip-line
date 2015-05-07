@@ -40,6 +40,21 @@ namespace Simsip.LineRunner.Data.LineRunner
             }
         }
 
+        public List<PageCharactersEntity> GetCharacters(int pageNumber, int[] lineNumbers)
+        {
+            lock (Database.DATABASE_LOCK)
+            {
+                using (var connection = new SQLiteConnection(Database.DatabasePath()))
+                {
+                    var results = connection.Table<PageCharactersEntity>()
+                                  .Where(x => x.PageNumber == pageNumber &&
+                                              lineNumbers.Contains(x.LineNumber))
+                                  .OrderBy(x => x.CharacterNumber);
+
+                    return results.ToList();
+                }
+            }
+        }
         public PageCharactersEntity GetCharacter(int pageNumber, int lineNumber, int characterNumber)
         {
             lock (Database.DATABASE_LOCK)

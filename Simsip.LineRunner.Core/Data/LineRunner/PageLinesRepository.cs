@@ -22,6 +22,22 @@ namespace Simsip.LineRunner.Data.LineRunner
             }
         }
 
+        public List<PageLinesEntity> GetLines(int pageNumber, int[] lineNumbers)
+        {
+            lock (Database.DATABASE_LOCK)
+            {
+                using (var connection = new SQLiteConnection(Database.DatabasePath()))
+                {
+                    var results = (connection.Table<PageLinesEntity>()
+                                 .Where(x => x.PageNumber == pageNumber &&
+                                             lineNumbers.Contains(x.LineNumber)))
+                                  .OrderBy(x => x.LineNumber);
+
+                    return results.ToList();
+                }
+            }
+        }
+
         public PageLinesEntity GetLine(int pageNumber, int lineNumber)
         {
             lock (Database.DATABASE_LOCK)
