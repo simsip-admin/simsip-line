@@ -11,8 +11,12 @@ using Simsip.LineRunner.Effects.Stock;
 
 namespace Simsip.LineRunner.GameObjects.Characters
 {
-    public interface ICharacterCache : IUpdateable, IDrawable
+    public interface ICharacterCache : IUpdateable
     {
+        void LoadContentAsync(LoadContentAsyncType loadContentType);
+
+        event LoadContentAsyncFinishedEventHandler LoadContentAsyncFinished;
+
         IList<CharacterModel> CharacterModels { get; }
 
          HeroModel TheHeroModel { get; }

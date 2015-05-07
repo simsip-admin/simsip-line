@@ -8,14 +8,11 @@ using Simsip.LineRunner.Effects.Stock;
 
 namespace Simsip.LineRunner.GameObjects.Lines
 {
-    public interface ILineCache : IUpdateable, IDrawable
+    public interface ILineCache : IUpdateable
     {
-        /// <summary>
-        /// We flag this to false while we are building up lines for a page, then true when we are done.
-        /// 
-        /// This is important for Refresh states that happen on background threads.
-        /// </summary>
-        bool Ready { get; }
+        void LoadContentAsync(LoadContentAsyncType loadContentType);
+
+        event LoadContentAsyncFinishedEventHandler LoadContentAsyncFinished;
 
         /// <summary>
         /// Handle line category specific game state changes.

@@ -26,44 +26,31 @@ using Simsip.LineRunner.GameObjects.Characters;
 using System.Diagnostics;
 using Simsip.LineRunner.Entities.LineRunner;
 using Simsip.LineRunner.Effects.Stock;
+#if NETFX_CORE
+using System.Threading.Tasks;
+using Windows.Foundation;
+#else
+using System.Threading;
+#endif
+#if WINDOWS_PHONE
+using Simsip.LineRunner.Concurrent;
+#else
+using System.Collections.Concurrent;
+using Simsip.LineRunner.GameObjects.Sensors;
+using BEPUphysics;
+#endif
 
 
 namespace Simsip.LineRunner.GameObjects.Obstacles
 {
-    /// <summary>
-    /// The function signature to use when you are subscribing to be notified of obstacle hits.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    public delegate void ObstacleHitEventHandler(object sender, ObstacleHitEventArgs e);
-
-    /// <summary>
-    /// The value class that will be passed to subscribers of obstacle hits.
-    /// </summary>
-    public class ObstacleHitEventArgs : EventArgs
-    {
-        private ObstacleModel _obstacleModel;
-
-        public ObstacleHitEventArgs(ObstacleModel obstacleModel)
-        {
-            this._obstacleModel = obstacleModel;
-        }
-
-        /// <summary>
-        /// The obstacle model that was hit.
-        /// </summary>
-        public ObstacleModel TheObstacleModel
-        {
-            get { return this._obstacleModel; }
-        }
-    }
-
-    public class ObstacleCache : DrawableGameComponent, IObstacleCache
+    public class ObstacleCache : GameComponent, IObstacleCache
     {
         // Required services
         private IInputManager _inputManager;
         private IPageCache _pageCache;
         private ILineCache _lineCache;
+        private ICharacterCache _characterCache;
+        private ISensorCache _sensorCache;
         private IPhysicsManager _physicsManager;
         private IPageObstaclesRepository _pageObstaclesRepository;
         private IObstacleRepository _obstacleRepository;
@@ -78,6 +65,18 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         private Dictionary<int, IList<RandomObstaclesEntity>> _randomObstacles04;
         private Dictionary<int, IList<RandomObstaclesEntity>> _randomObstacles08;
 
+        // Support for staging the results of asynchronous loads and then signaling
+        // we need the results processed on the next update cycle
+        private class LoadContentThreadArgs
+        {
+            public LoadContentAsyncType TheLoadContentAsyncType;
+            public int PageNumber;
+            public int[] LineNumbers;
+            public IList<ObstacleModel> ObstacleModelsAsync;
+        }
+        private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadResults;
+
+        // Identifies if we are injecting a random set of obstacles
         private const string RandomPrefix = "Random";
 
         // Determines what gets asked to be drawn
@@ -99,16 +98,15 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
         #endregion
 
-        #region DrawableGameComponent Overrides
+        #region GameComponent Overrides
 
         public override void Initialize()
         {
-            Logger.Trace("init()");
-
             // Iniitialize state
             this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
             this._currentLineNumber = 1;
             this.ObstacleModels = new List<ObstacleModel>();
+            this._loadContentThreadResults = new ConcurrentQueue<LoadContentThreadArgs>(); 
             this._obstacleHitList = new List<ObstacleModel>();
             this.InitializeRandomObstacles();
 
@@ -116,6 +114,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             this._inputManager = (IInputManager)this.Game.Services.GetService(typeof(IInputManager));
             this._pageCache = (IPageCache)this.Game.Services.GetService(typeof(IPageCache));
             this._lineCache = (ILineCache)this.Game.Services.GetService(typeof(ILineCache));
+            this._characterCache = (ICharacterCache)this.Game.Services.GetService(typeof(ICharacterCache));
+            this._sensorCache = (ISensorCache)this.Game.Services.GetService(typeof(ISensorCache));
             this._physicsManager = (IPhysicsManager)TheGame.SharedGame.Services.GetService(typeof(IPhysicsManager));
             this._pageObstaclesRepository = new PageObstaclesRepository();
             this._obstacleRepository = new ObstacleRepository();
@@ -124,11 +124,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             this._ocTreeRoot = new OcTreeNode(new Vector3(0, 0, 0), OcTreeNode.DefaultSize);
 
             base.Initialize();
-        }
-
-        protected override void LoadContent()
-        {
-            // Currently no-op as content is dynamicaly loaded in Process()
         }
 
         public override void Update(GameTime gameTime)
@@ -158,38 +153,102 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
             // Clear obstacle hit list after finishing loop
             this._obstacleHitList.Clear();
-        }
 
+            // Did we signal we need an async content load processed?
+            if (this._loadContentThreadResults.Count > 0)
+            {
+                LoadContentThreadArgs loadContentThreadArgs = null;
+                if (this._loadContentThreadResults.TryDequeue(out loadContentThreadArgs))
+                {
+                    // Load in new content from staged collection in args
+                    ProcessLoadContentAsync(loadContentThreadArgs);
 
-        public override void Draw(GameTime gameTime)
-        {
-            this.Draw();
+                    // Did anyone need to know we finished?
+                    if (LoadContentAsyncFinished != null)
+                    {
+                        var eventArgs = new LoadContentAsyncFinishedEventArgs(loadContentThreadArgs.TheLoadContentAsyncType);
+                        LoadContentAsyncFinished(this, eventArgs);
+                    }
+                }
+            }
         }
 
         #endregion
 
         #region IObstacleCache Implementation
 
-        public void Draw(StockBasicEffect effect = null, EffectType type = EffectType.None)
+        public event LoadContentAsyncFinishedEventHandler LoadContentAsyncFinished;
+
+        public void LoadContentAsync(LoadContentAsyncType loadContentAsyncType)
         {
-            // We need to short-circuit when we are in Refresh state they are reinitializing this game object's
-            // state on a background thread. Note that the Update() short circuit for Refresh is handled
-            // in the ActionLayer.Update.
-            if (this._currentGameState == GameState.Refresh)
+            // Determine which page/line number we are loading
+            var pageNumber = -1;
+            int[] lineNumbers = null;
+            switch (loadContentAsyncType)
             {
-                return;
+                case LoadContentAsyncType.Initialize:
+                    {
+                        pageNumber = 1;
+                        lineNumbers = new int[] {1,2};
+                        break;
+                    }
+                case LoadContentAsyncType.Next:
+                    {
+                        // Are we on the last line of the page
+                        var lineCount = this._pageCache.CurrentPageModel.ThePadEntity.LineCount;
+                        if (this._currentLineNumber == lineCount)
+                        {
+                            // Ok, on last line, move to first line of next page
+                            pageNumber = this._currentPageNumber + 1;
+                            lineNumbers = new int[] { 1 };
+                        }
+                        else
+                        {
+                            // Not on last line, just go for next line
+                            pageNumber = this._currentPageNumber;
+                            lineNumbers = new int[] { this._currentLineNumber + 1 };
+                        }
+                        break;
+                    }
             }
 
+            // Build our state object for this background content load request
+            var loadContentThreadArgs = new LoadContentThreadArgs
+                {
+                    TheLoadContentAsyncType = loadContentAsyncType,
+                    PageNumber = pageNumber,
+                    LineNumbers = lineNumbers,
+                    ObstacleModelsAsync = new List<ObstacleModel>(),
+                };
+
+#if NETFX_CORE
+
+            IAsyncAction asyncAction = 
+                Windows.System.Threading.ThreadPool.RunAsync(
+                    (workItem) =>
+                    {
+                        LoadContentThread(loadContentThreadArgs);
+                    });
+#else
+            ThreadPool.QueueUserWorkItem(LoadContentAsyncThread, loadContentThreadArgs);
+#endif
+        }
+
+        public void Draw(StockBasicEffect effect, EffectType type)
+        {
             var view = this._inputManager.CurrentCamera.ViewMatrix;
             var projection = this._inputManager.CurrentCamera.ProjectionMatrix;
 
             var frustrum = new BoundingFrustum(view * projection);
-            _ocTreeRoot.Draw(view, projection, frustrum, effect, type);
+            this._ocTreeRoot.Draw(view, projection, frustrum, effect, type);
         }
 
         public void SwitchState(GameState state)
         {
-            switch (state)
+            // Update our overall game state
+            this._currentGameState = state;
+
+            switch (this._currentGameState)
             {
                 case GameState.Intro:
                     {
@@ -198,19 +257,23 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
 
                         // Get obstacles constructed for first page
-                        this.ProcessNextPage();
+                        // this.ProcessNextPage();
 
                         // 1. Animate first line's obstacles into position
                         // 2. Disable previous line physics (n/a)
                         // 3. Enable current line physics
-                        this.ProcessNextLine();
+                        // this.ProcessNextLine();
+
+                        this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
+                        this.LoadContentAsync(LoadContentAsyncType.Initialize);
 
                         break;
                     }
 
                 case GameState.Moving:
                     {
-                        // Currently a no-op
+                        this._characterCache.SwitchState(state);
+                        this._sensorCache.SwitchState(state);
                         break;
                     }
                 case GameState.MovingToNextLine:
@@ -223,6 +286,15 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         // 3. Enable current line physics
                         this.ProcessNextLine();
 
+                        // Clear out previous sensors and load new sensors
+                        this._sensorCache.SwitchState(state);
+
+                        this._characterCache.SwitchState(state);
+
+                        // In background load up the line following our current line we are moving to
+                        this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
+                        this.LoadContentAsync(LoadContentAsyncType.Next);
+
                         break;
                     }
                 case GameState.MovingToNextPage:
@@ -232,12 +304,21 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         this._currentLineNumber = 1;
 
                         // Get obstacles constructed for next page
-                        this.ProcessNextPage();
+                        // this.ProcessNextPage();
 
                         // 1. Animate first line's obstacles into position
-                        // 2. TODO: Disable previous line physics
+                        // 2. Disable previous line physics
                         // 3. Enable current line physics
                         this.ProcessNextLine();
+
+                        // Clear out previous sensors and load new sensors
+                        this._sensorCache.SwitchState(state);
+
+                        this._characterCache.SwitchState(state);
+
+                        // In background load up the line following our current line we are moving to
+                        this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
+                        this.LoadContentAsync(LoadContentAsyncType.Next);
 
                         break;
                     }
@@ -248,12 +329,16 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
 
                         // Get obstacles constructed for first page
-                        this.ProcessNextPage();
+                        // this.ProcessNextPage();
 
                         // 1. Animate first line's obstacles into position
-                        // 2. TODO: Disable previous line physics
+                        // 2. Disable previous line physics
                         // 3. Enable current line physics
-                        this.ProcessNextLine();
+                        // this.ProcessNextLine();
+
+                        // In background load up the line following our current line we are moving to
+                        this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
+                        this.LoadContentAsync(LoadContentAsyncType.Initialize);
 
                         break;
                     }
@@ -268,15 +353,16 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
 
                         // Get obstacles constructed for first page
-                        this.ProcessNextPage();
+                        // this.ProcessNextPage();
 
                         // 1. Animate first line's obstacles into position
-                        // 2. TODO: Disable previous line physics
+                        // 2. Disable previous line physics
                         // 3. Enable current line physics
-                        this.ProcessNextLine();
+                        // this.ProcessNextLine();
 
-                        // Migrate to the start game state
-                        state = GameState.Start;
+                        // In background load up the line following our current line we are moving to
+                        this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
+                        this.LoadContentAsync(LoadContentAsyncType.Initialize);
 
                         break;
                     }
@@ -286,12 +372,12 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
 
+                        this._characterCache.SwitchState(state);
+                        this._sensorCache.SwitchState(state);
+
                         break;
                     }
             }
-
-            // Update our state
-            this._currentGameState = state;
         }
 
         public event ObstacleHitEventHandler ObstacleHit;
@@ -306,32 +392,45 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
         #endregion
 
+        #region Event Handlers
+
+        private void LoadContentAsyncFinishedHandler(object sender, LoadContentAsyncFinishedEventArgs args)
+        {
+            this.LoadContentAsyncFinished -= this.LoadContentAsyncFinishedHandler;
+
+
+            if (args.TheLoadContentAsyncType == LoadContentAsyncType.Initialize ||
+                args.TheLoadContentAsyncType == LoadContentAsyncType.Refresh)
+            {
+                this._characterCache.SwitchState(this._currentGameState);
+
+                //
+                // IMPORTANT: This needs to be on Update() thread as we will be
+                // removing/adding physics objects in ProcessNextLine/ProcessObstaclePhysics
+                //
+                this.ProcessNextLine();
+
+                // Clear out previous sensors and load new sensors
+                this._sensorCache.SwitchState(this._currentGameState);
+            }
+        }
+
+        #endregion
+
         #region Helper Methods
 
-        private void ProcessNextPage()
+        // Formerly ProcessNextPage
+        private void LoadContentAsyncThread(object args)
         {
-            // Remove all previous obstacle models from our drawing filter
-            foreach (var obstacleModel in this.ObstacleModels.ToList())
-            {
-                this._ocTreeRoot.RemoveModel(obstacleModel.ModelID);
-            }
-
-            // Remove all previous obstacle physics
-            foreach(var obstacleModel in this.ObstacleModels.ToList())
-            {
-                if (obstacleModel.PhysicsEntity != null &&
-                    obstacleModel.PhysicsEntity.Space != null)
-                {
-                    this._physicsManager.TheSpace.Remove(obstacleModel.PhysicsEntity);
-                }
-            }
-
-            // Now clear out our previous obstacle models collection
-            this.ObstacleModels.Clear();
+            var loadContentThreadArgs = args as LoadContentThreadArgs;
+            var loadContentAsyncType = loadContentThreadArgs.TheLoadContentAsyncType;
+            var pageNumber = loadContentThreadArgs.PageNumber;
+            var lineNumbers = loadContentThreadArgs.LineNumbers;
+            var obstacleModels = loadContentThreadArgs.ObstacleModelsAsync;
 
             // Ok, let's grab the collection of obstacles for our current page using our helper
             // function that knows how to inject entries coded for random sets
-            var pageObstaclesEntities = this.HydratePageObstacles();
+            var pageObstaclesEntities = this.HydrateLineObstacles(pageNumber, lineNumbers);
             foreach (var pageObstaclesEntity in pageObstaclesEntities)
             {
                 // Get an initial model constructed
@@ -362,8 +461,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                                     (pageObstaclesEntity.LogicalXScaledTo100 / 100);            // then scale it by our logical X in the range [0,100]
                 var worldLogicalHeight = obstacleModel.WorldHeight *                            // Start with the world height of the obstacle,
                                          (pageObstaclesEntity.LogicalHeightScaledTo100 / 100);  // then scale it by logical height in the range [0,100] for truncated obstacles
-                                                                                                // or greater than 100 to float in middle of line
-                
+                // or greater than 100 to float in middle of line
+
                 // Based on our world logical height, what should our Y position be to represent this obstacle?
                 float worldLogicalY = 0;
                 if (obstacleModel.TheObstacleType == ObstacleType.SimpleBottom)
@@ -477,7 +576,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 }
 
                 // Scale, rotate and translate our model
-                obstacleModel.WorldMatrix = 
+                obstacleModel.WorldMatrix =
                     scaleMatrix *                   // 1. Scale
                     obstacleModel.RotationMatrix *  // 2. Rotate
                     translateMatrix;                // 3. Translate
@@ -499,23 +598,61 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 // Uniquely identify character for octree
                 obstacleModel.ModelID = pageObstaclesEntity.ObstacleNumber;
 
+                // Record to our staged collection
+                obstacleModels.Add(obstacleModel);
+
+                // IMPORTANT: Only add/remove physics in ProcessNextLine()/ProcessObstaclePhysics
+
+            }
+
+            this._loadContentThreadResults.Enqueue(loadContentThreadArgs);
+        }
+
+        // Migrate staged collection in args to public collection
+        private void ProcessLoadContentAsync(LoadContentThreadArgs loadContentThreadArgs)
+        {
+            // If we are moving to first/next page, clear out previous page
+            if (this._currentLineNumber == 1)
+            {
+                // Remove all previous obstacle models from our drawing filter
+                // and remove all previous obstacle physics
+                foreach (var obstacleModel in this.ObstacleModels.ToList())
+                {
+                    this._ocTreeRoot.RemoveModel(obstacleModel.ModelID);
+
+                    if (obstacleModel.PhysicsEntity != null &&
+                        obstacleModel.PhysicsEntity.Space != null)
+                    {
+                        this._physicsManager.TheSpace.Remove(obstacleModel.PhysicsEntity);
+                    }
+
+                }
+
+                // And clear out the full set of previous models
+                this.ObstacleModels.Clear();
+            }
+
+            // Populate our public model collections from our staged collections
+            foreach (var obstacleModel in loadContentThreadArgs.ObstacleModelsAsync)
+            {
                 // Add to octree for filtered drawing
                 this._ocTreeRoot.AddModel(obstacleModel);
 
-                // Record to our collection
                 this.ObstacleModels.Add(obstacleModel);
-
-                // IMPORTANT: Only add/remove physics in ProcessNextLine()
             }
+
+            //
+            // IMPORTANT: Physics is handled in ProcessNextLine/ProcessObstaclePhysics
+            //
         }
 
-        private List<PageObstaclesEntity> HydratePageObstacles()
+        private List<PageObstaclesEntity> HydrateLineObstacles(int pageNumber, int[] lineNumbers)
         {
             var returnEntities = new List<PageObstaclesEntity>();
             var randomNumberGenerator = new Random();
 
-            // Get the set of page obstacle entries for the page we are processing
-            var pageObstaclesEntities = _pageObstaclesRepository.GetObstacles(this._currentPageNumber);
+            // Get the set of page obstacle entries for the page/line we are processing
+            var pageObstaclesEntities = _pageObstaclesRepository.GetObstacles(pageNumber, lineNumbers);
 
             // Now loop over all entries
             foreach (var pageObstaclesEntity in pageObstaclesEntities)
@@ -539,7 +676,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                     if (pageObstaclesEntity.ModelName.Substring(8, 1) == "x")
                     {
                         var setCount = 0;
-                        switch(count)
+                        switch (count)
                         {
                             case 1:
                                 {
@@ -562,7 +699,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                                     break;
                                 }
                         }
-                        version = randomNumberGenerator.Next(1, setCount+1);
+                        version = randomNumberGenerator.Next(1, setCount + 1);
                     }
                     else
                     {
@@ -622,18 +759,18 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         // Construct a PageObstaclesEntity from our RandomObstaclesEntity
                         // IMPORTANT: Note the details for obstacle number, proper X placement etc.
                         var randomPageObstaclesEntity = new PageObstaclesEntity
-                            {
-                                PageNumber = pageObstaclesEntity.PageNumber,
-                                LineNumber = pageObstaclesEntity.LineNumber,
-                                ObstacleNumber = currentObstacleNumber++,
-                                ModelName = randomObstacle.ModelName,
-                                ObstacleType = randomObstacle.ObstacleType,
-                                LogicalXScaledTo100 = currentLogicalXScaledTo100 + randomObstacle.LogicalXScaledTo100,
-                                LogicalHeightScaledTo100 = randomObstacle.LogicalHeightScaledTo100,
-                                LogicalScaleScaledTo100 = randomObstacle.LogicalScaleScaledTo100,
-                                LogicalAngle = randomObstacle.LogicalAngle,
-                                IsGoal = randomObstacle.IsGoal
-                            };
+                        {
+                            PageNumber = pageObstaclesEntity.PageNumber,
+                            LineNumber = pageObstaclesEntity.LineNumber,
+                            ObstacleNumber = currentObstacleNumber++,
+                            ModelName = randomObstacle.ModelName,
+                            ObstacleType = randomObstacle.ObstacleType,
+                            LogicalXScaledTo100 = currentLogicalXScaledTo100 + randomObstacle.LogicalXScaledTo100,
+                            LogicalHeightScaledTo100 = randomObstacle.LogicalHeightScaledTo100,
+                            LogicalScaleScaledTo100 = randomObstacle.LogicalScaleScaledTo100,
+                            LogicalAngle = randomObstacle.LogicalAngle,
+                            IsGoal = randomObstacle.IsGoal
+                        };
 
                         // Now add in our height adjustement - see comment write-up above heightAdjustment for more details
                         var theObstacleType = (ObstacleType)Enum.Parse(typeof(ObstacleType), randomPageObstaclesEntity.ObstacleType);
@@ -708,7 +845,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
                 // Now animate for the defined move to next line duration (will match move to next line flyby, etc.)
                 var obstacleMoveTo = new MoveTo(GameConstants.DURATION_MOVE_TO_NEXT_LINE, obstacleMoveToPosition);
-                var obstacleProcessPhysics = new CallFunc(() => ProcesObstaclePhysics(obstacleModel));
+                var obstacleProcessPhysics = new CallFunc(() => ProcessObstaclePhysics(obstacleModel));
 
                 Actions.Action obstacleAction = null;
                 
@@ -738,12 +875,10 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
                 obstacleAction = new Sequence(new FiniteTimeAction[] { obstacleMoveTo, obstacleProcessPhysics });
                 obstacleModel.ModelRunAction(obstacleAction);
-
-
             }
         }
 
-        private void ProcesObstaclePhysics(ObstacleModel obstacleModel)
+        private void ProcessObstaclePhysics(ObstacleModel obstacleModel)
         {
             // IMPORTANT: We have already accounted for any scaling when we first loaded the vertices
             // and that is recorded into our WorldMatrix. Hence, even though we pull original unscaled 
@@ -899,5 +1034,359 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
         #endregion
 
+        #region Legacy
+
+        private void ProcessNextPage()
+        {
+            // Remove all previous obstacle models from our drawing filter
+            foreach (var obstacleModel in this.ObstacleModels.ToList())
+            {
+                this._ocTreeRoot.RemoveModel(obstacleModel.ModelID);
+            }
+
+            // Remove all previous obstacle physics
+            foreach (var obstacleModel in this.ObstacleModels.ToList())
+            {
+                if (obstacleModel.PhysicsEntity != null &&
+                    obstacleModel.PhysicsEntity.Space != null)
+                {
+                    this._physicsManager.TheSpace.Remove(obstacleModel.PhysicsEntity);
+                }
+            }
+
+            // Now clear out our previous obstacle models collection
+            this.ObstacleModels.Clear();
+
+            // Ok, let's grab the collection of obstacles for our current page using our helper
+            // function that knows how to inject entries coded for random sets
+            var pageObstaclesEntities = this.HydratePageObstacles();
+            foreach (var pageObstaclesEntity in pageObstaclesEntities)
+            {
+                // Get an initial model constructed
+                var obstacleEntity = this._obstacleRepository.GetObstacle(pageObstaclesEntity.ModelName);
+                var obstacleModel = new ObstacleModel(obstacleEntity, pageObstaclesEntity);
+
+                // Construct our scale matrix based on how we scaled page.
+                // IMPORTANT: Note how we take into account an additional optional scaling that
+                // can be applied to the model to make it bigger or smaller than its default size.
+                var scale = this._pageCache.CurrentPageModel.ModelToWorldRatio;
+                if (pageObstaclesEntity.LogicalScaleScaledTo100 != 0)
+                {
+                    scale *= pageObstaclesEntity.LogicalScaleScaledTo100 / 100;
+                }
+                var scaleMatrix = Matrix.CreateScale(scale);
+
+                // Now get our new world dimensions
+                obstacleModel.ModelToWorldRatio = scale;
+                obstacleModel.WorldWidth = obstacleModel.TheModelEntity.ModelWidth * scale;
+                obstacleModel.WorldHeight = obstacleModel.TheModelEntity.ModelHeight * scale;
+                obstacleModel.WorldDepth = obstacleModel.TheModelEntity.ModelDepth * scale;
+
+                // We'll need the corresponding line model for placement
+                var lineModel = this._lineCache.GetLineModel(pageObstaclesEntity.LineNumber);
+
+                // Now construct our placement values
+                var worldLogicalX = lineModel.WorldWidth *                                      // Start with the world width of the line,
+                                    (pageObstaclesEntity.LogicalXScaledTo100 / 100);            // then scale it by our logical X in the range [0,100]
+                var worldLogicalHeight = obstacleModel.WorldHeight *                            // Start with the world height of the obstacle,
+                                         (pageObstaclesEntity.LogicalHeightScaledTo100 / 100);  // then scale it by logical height in the range [0,100] for truncated obstacles
+                // or greater than 100 to float in middle of line
+
+                // Based on our world logical height, what should our Y position be to represent this obstacle?
+                float worldLogicalY = 0;
+                if (obstacleModel.TheObstacleType == ObstacleType.SimpleBottom)
+                {
+                    // Ok, we are jutting up from the bottom by the amount of worldLogicalHeight
+                    worldLogicalY = (lineModel.WorldOrigin.Y + lineModel.WorldHeight) -           // (see diagram) Start at the top of the bottom line
+                                    (obstacleModel.WorldHeight - worldLogicalHeight);             // then drop down by the remainder of the world height after removing the logical height
+                }
+                else if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
+                {
+                    worldLogicalY = (lineModel.WorldOrigin.Y + this._pageCache.CurrentPageModel.WorldLineSpacing) +   // (see diagram) Start at the bottom of the top line
+                                    (obstacleModel.WorldHeight - worldLogicalHeight);                                 // then move up by the remainder of the world height after removing logical height
+                }
+
+                // Add in x and y adjustments if rotating (angle will be specified as 0 degrees if not rotated)
+                // Reference:
+                // http://www.mathsisfun.com/sine-cosine-tangent.html
+                // and see diagrams
+                var angleInRadians = MathHelper.ToRadians(pageObstaclesEntity.LogicalAngle);
+                if (angleInRadians != 0)
+                {
+                    if (obstacleModel.TheObstacleType == ObstacleType.SimpleBottom)
+                    {
+                        if (pageObstaclesEntity.LogicalAngle > 0)
+                        {
+                            var hypotenuse = obstacleModel.WorldHeight - worldLogicalHeight;
+                            var adjacent = (float)Math.Cos(angleInRadians) * hypotenuse;
+                            var opposite = (float)Math.Sin(angleInRadians) * hypotenuse;
+                            worldLogicalX += opposite;
+                            worldLogicalY = (lineModel.WorldOrigin.Y + lineModel.WorldHeight) -
+                                             adjacent;
+                        }
+                        else
+                        {
+                            var angleInRadiansAbsolute = MathHelper.ToRadians(Math.Abs(pageObstaclesEntity.LogicalAngle));
+                            var hypotenuse = obstacleModel.WorldHeight - worldLogicalHeight;
+                            var adjacent = (float)Math.Cos(angleInRadiansAbsolute) * hypotenuse;
+                            var opposite = (float)Math.Sin(angleInRadiansAbsolute) * hypotenuse;
+                            worldLogicalX -= opposite;
+                            worldLogicalY = (lineModel.WorldOrigin.Y + lineModel.WorldHeight) -
+                                            adjacent;
+                        }
+                    }
+                    else if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
+                    {
+                        if (pageObstaclesEntity.LogicalAngle > 0)
+                        {
+                            var hypotenuse = obstacleModel.WorldHeight - worldLogicalHeight;
+                            var adjacent = (float)Math.Cos(angleInRadians) * hypotenuse;
+                            var opposite = (float)Math.Sin(angleInRadians) * hypotenuse;
+                            worldLogicalX -= opposite;
+                            worldLogicalY = (lineModel.WorldOrigin.Y + this._pageCache.CurrentPageModel.WorldLineSpacing) +
+                                            adjacent;
+                        }
+                        else
+                        {
+                            var angleInRadiansAbsolute = MathHelper.ToRadians(Math.Abs(pageObstaclesEntity.LogicalAngle));
+                            var hypotenuse = obstacleModel.WorldHeight - worldLogicalHeight;
+                            var adjacent = (float)Math.Cos(angleInRadiansAbsolute) * hypotenuse;
+                            var opposite = (float)Math.Sin(angleInRadiansAbsolute) * hypotenuse;
+                            worldLogicalX += opposite;
+                            worldLogicalY = (lineModel.WorldOrigin.Y + this._pageCache.CurrentPageModel.WorldLineSpacing) +
+                                            adjacent;
+                        }
+                    }
+                }
+
+                // Adjust our depth such that the obstacle will be placed out of sight.
+                // Obstacled will be animated forward in ProcessNextLine()
+                var translatedZ = -this._pageCache.PageDepthFromCameraStart - (0.5f * this._pageCache.CurrentPageModel.WorldDepth);
+
+                // Ok, we can now create our translation matrix
+                var translateMatrix = Matrix.CreateTranslation(new Vector3(
+                    worldLogicalX,                                      // 1. World X position with all adjustments as needed
+                    worldLogicalY,                                        // 2. World Y position with all adjustments as needed
+                    translatedZ));                                      // 3. World Z position tucked back out of sight, will be animated foward in ProcessNextLine()
+
+                // Construct rotation matrix (angle will be specified as 0 degrees if not rotated)
+                if (obstacleModel.TheObstacleType == ObstacleType.SimpleBottom)
+                {
+                    obstacleModel.RotationMatrix = Matrix.CreateRotationZ(angleInRadians);
+                }
+                else if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
+                {
+                    // IMPORTANT: See diagrams to understand what is going on here
+                    // IMPORTANT: This will change the origin and affect positioning. Orign depth will now be in back instead of in front.
+                    obstacleModel.RotationMatrix = Matrix.CreateRotationZ(-angleInRadians) * Matrix.CreateRotationX(Microsoft.Xna.Framework.MathHelper.ToRadians(180));
+
+                    /* Leaving this in here in case we need to return to first attempt's implementation where we moved to origin, then did flip, then translated back.:
+                    // IMPORTANT: We need to flip our model. To do this we
+                    //            1. Translate model to the origin
+                    //            2. Scale as normal
+                    //            3. Peform flip (TODO: Account for rotation)
+                    //            4. Translate model back to position before translating to origin
+                    //            5. Translate as normal
+                    // IMPORTANT: This will change the origin and affect positioning. Orign depth will now be in back instead of in front.
+                    //
+                    Matrix.CreateTranslation(
+                        -obstacleModel.TheModelEntity.ModelWidth / 2, 
+                        -obstacleModel.TheModelEntity.ModelHeight/2, 
+                        obstacleModel.TheModelEntity.ModelDepth/2) *
+                        scaleMatrix * 
+                    obstacleModel.RotationMatrix *
+                    Matrix.CreateTranslation(
+                        obstacleModel.WorldWidth / 2, 
+                        obstacleModel.WorldHeight / 2, 
+                       obstacleModel.WorldWidth / 2) *
+                   translateMatrix;
+                   */
+
+                }
+
+                // Scale, rotate and translate our model
+                obstacleModel.WorldMatrix =
+                    scaleMatrix *                   // 1. Scale
+                    obstacleModel.RotationMatrix *  // 2. Rotate
+                    translateMatrix;                // 3. Translate
+
+                // Now that we have the obstacle positioned correctly, construct an appropriate clipping plane to use
+                if (obstacleModel.TheObstacleType == ObstacleType.SimpleBottom)
+                {
+                    // Clip everything below top of bottom line
+                    var distance = lineModel.WorldOrigin.Y + lineModel.WorldHeight;
+                    obstacleModel.ClippingPlane = new Vector4(Vector3.Up, -distance);
+                }
+                else if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
+                {
+                    // Clip everything above bottom of top line
+                    var distance = lineModel.WorldOrigin.Y + this._pageCache.CurrentPageModel.WorldLineSpacing;
+                    obstacleModel.ClippingPlane = new Vector4(Vector3.Down, distance);
+                }
+
+                // Uniquely identify character for octree
+                obstacleModel.ModelID = pageObstaclesEntity.ObstacleNumber;
+
+                // Add to octree for filtered drawing
+                this._ocTreeRoot.AddModel(obstacleModel);
+
+                // Record to our collection
+                this.ObstacleModels.Add(obstacleModel);
+
+                // IMPORTANT: Only add/remove physics in ProcessNextLine()
+            }
+        }
+
+        private List<PageObstaclesEntity> HydratePageObstacles()
+        {
+            var returnEntities = new List<PageObstaclesEntity>();
+            var randomNumberGenerator = new Random();
+
+            // Get the set of page obstacle entries for the page we are processing
+            var pageObstaclesEntities = _pageObstaclesRepository.GetObstacles(this._currentPageNumber);
+
+            // Now loop over all entries
+            foreach (var pageObstaclesEntity in pageObstaclesEntities)
+            {
+                // Update these in case we are injecting random obstacles on this pass
+                // which will need to know this state
+                var currentObstacleNumber = pageObstaclesEntity.ObstacleNumber;
+                var currentLogicalXScaledTo100 = pageObstaclesEntity.LogicalXScaledTo100;
+
+                // Are we injecting random obstacles?
+                if (pageObstaclesEntity.ModelName.StartsWith(RandomPrefix))
+                {
+                    // Grab the "count" this random obstacle entry
+                    var count = int.Parse(pageObstaclesEntity.ModelName.Substring(6, 2));
+
+                    // Careful with version, first see if they have specified "x" to indicate
+                    // they want us to randomly choose a set from a "count" category.
+                    // Example: Random01x
+                    //          Pick a random set from the 1 count category
+                    var version = 1;
+                    if (pageObstaclesEntity.ModelName.Substring(8, 1) == "x")
+                    {
+                        var setCount = 0;
+                        switch (count)
+                        {
+                            case 1:
+                                {
+                                    setCount = this._randomObstacles01.Count;
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    setCount = this._randomObstacles02.Count;
+                                    break;
+                                }
+                            case 4:
+                                {
+                                    setCount = this._randomObstacles04.Count;
+                                    break;
+                                }
+                            case 8:
+                                {
+                                    setCount = this._randomObstacles08.Count;
+                                    break;
+                                }
+                        }
+                        version = randomNumberGenerator.Next(1, setCount + 1);
+                    }
+                    else
+                    {
+                        version = int.Parse(pageObstaclesEntity.ModelName.Substring(8, 2));
+                    }
+
+                    // Grab our set of random obstacles
+                    IList<RandomObstaclesEntity> set = null;
+                    switch (count)
+                    {
+                        case 1:
+                            {
+                                set = this._randomObstacles01[version];
+                                break;
+                            }
+                        case 2:
+                            {
+                                set = this._randomObstacles02[version];
+                                break;
+                            }
+                        case 4:
+                            {
+                                set = this._randomObstacles04[version];
+                                break;
+                            }
+                        case 8:
+                            {
+                                set = this._randomObstacles08[version];
+                                break;
+                            }
+                    }
+
+                    // Can we add in an additional random height adjustment?
+                    // IMPORTANT: We can only modify by height adjustment using one height
+                    // value across all obstacles in this set. This is because we want the
+                    // Bottom/Top to vary so that the gap between them remains the same.
+                    // To do this we add in a single height adjustment value to the bottom and subtract
+                    // a single height adjustment value from the top.
+                    // We take the first entry in the random obstacle set to define our
+                    // height adjustment we will use for the entire set.
+                    float heightAdjustment = 0f;
+                    var heightRangeEntry = set[0];
+                    if (heightRangeEntry.HeightRange != 0)
+                    {
+                        // Grab a an amount to adjust the height within the range [-HeightRange, HeightRange]
+                        // Example:
+                        // LogicalHeightScaledTo100 = 30, HeightRange = 4
+                        // LogicalHeightScaledTo100 will be assigned a value in the range 26 to 34
+                        heightAdjustment = randomNumberGenerator.Next(
+                            -heightRangeEntry.HeightRange,
+                            heightRangeEntry.HeightRange + 1);
+                    }
+
+                    // Inject our random obstacles with height variation if specified
+                    foreach (var randomObstacle in set)
+                    {
+                        // Construct a PageObstaclesEntity from our RandomObstaclesEntity
+                        // IMPORTANT: Note the details for obstacle number, proper X placement etc.
+                        var randomPageObstaclesEntity = new PageObstaclesEntity
+                        {
+                            PageNumber = pageObstaclesEntity.PageNumber,
+                            LineNumber = pageObstaclesEntity.LineNumber,
+                            ObstacleNumber = currentObstacleNumber++,
+                            ModelName = randomObstacle.ModelName,
+                            ObstacleType = randomObstacle.ObstacleType,
+                            LogicalXScaledTo100 = currentLogicalXScaledTo100 + randomObstacle.LogicalXScaledTo100,
+                            LogicalHeightScaledTo100 = randomObstacle.LogicalHeightScaledTo100,
+                            LogicalScaleScaledTo100 = randomObstacle.LogicalScaleScaledTo100,
+                            LogicalAngle = randomObstacle.LogicalAngle,
+                            IsGoal = randomObstacle.IsGoal
+                        };
+
+                        // Now add in our height adjustement - see comment write-up above heightAdjustment for more details
+                        var theObstacleType = (ObstacleType)Enum.Parse(typeof(ObstacleType), randomPageObstaclesEntity.ObstacleType);
+                        if (theObstacleType == ObstacleType.SimpleBottom)
+                        {
+                            randomPageObstaclesEntity.LogicalHeightScaledTo100 += heightAdjustment;
+                        }
+                        else if (theObstacleType == ObstacleType.SimpleTop)
+                        {
+                            randomPageObstaclesEntity.LogicalHeightScaledTo100 -= heightAdjustment;
+                        }
+
+                        returnEntities.Add(randomPageObstaclesEntity);
+                    }
+                }
+                else
+                {
+                    returnEntities.Add(pageObstaclesEntity);
+                }
+            }
+
+            return returnEntities;
+        }
+
+
+        #endregion
     }
 }

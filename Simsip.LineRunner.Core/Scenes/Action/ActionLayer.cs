@@ -38,6 +38,7 @@ using System.Collections.Generic;
 using BEPUphysics.CollisionTests;
 using Engine.Blocks;
 using Engine.Audio;
+using System.Diagnostics;
 
 
 namespace Simsip.LineRunner.Scenes.Action
@@ -94,12 +95,6 @@ namespace Simsip.LineRunner.Scenes.Action
         // Manages periodic adjustments in update cycle
         private double _timeAccumulator = 0;
 
-        // We use this flag to short circuit out of our update cycle
-        // when refreshing. Draw will short circuit at the cache level (e.g., LineCache.Draw).
-        // Game objects are being reinitialized so we need  to hold off till we get 
-        // to stable state again.
-        private bool _refreshing;
-
         public ActionLayer(CoreScene parent)
         {
             this._parent = parent;
@@ -122,16 +117,7 @@ namespace Simsip.LineRunner.Scenes.Action
 
         public void Refresh()
         {
-            // Set our flag so we short-circuit appropriately
-            // in our update cycle so that we don't do
-            // cross-thread access to game objects that are refreshing.
-            // Note, draw will short cicuit at the cache level (e.g., LineCache.Draw).
-            this._refreshing = true;
-
             this.SwitchState(GameState.Refresh);
-
-            // Ok to allow full update cycle again.
-            this._refreshing = false;
         }
 
         public void StartWorld()
@@ -165,6 +151,18 @@ namespace Simsip.LineRunner.Scenes.Action
                         SwitchState(GameState.Start);
                         break;
                     }
+                case LayerTags.StartPage2Layer:
+                    {
+                        // Immediately unhook any fly-bys in progress
+                        this._currentFlyBy.FlyByFinished -= OnCurrentFlyByFinished;
+                        this._currentFlyBy = null;
+
+                        // If so, see HudLayer.Draw for how to keep ui positioned correctly
+                        // SwitchState(GameState.MovingToStart);
+
+                        SwitchState(GameState.Start);
+                        break;
+                    }
                 case LayerTags.FinishLayer:
                     {
                         // TODO: Keeping it simple now, will consider animation later
@@ -178,18 +176,24 @@ namespace Simsip.LineRunner.Scenes.Action
 
         }
 
-        private void OnCurrentFlyByFinished(object sender, EventArgs e)
+        private void OnCurrentFlyByFinished(object sender, FlyByFinishedEventArgs e)
         {
             // Immediately unhook to make this a one-shot event
             this._currentFlyBy.FlyByFinished -= OnCurrentFlyByFinished;
             this._currentFlyBy = null;
+
+            if (e.NextFlyBy != null)
+            {
+                this._currentFlyBy = e.NextFlyBy;
+                return;
+            }
 
             switch(this._currentGameState)
             {
                 case GameState.Intro:
                     {
                         // Intro is finished, display start screen
-                        _parent.Navigate(LayerTags.StartPage1Layer);
+                        // _parent.Navigate(LayerTags.StartPage1Layer);
                         break;
                     }
                 case GameState.MovingToNextLine:
@@ -380,6 +384,13 @@ namespace Simsip.LineRunner.Scenes.Action
 
                 // Flip our one-time flag that says we are ready (e.g., for Update/Draw)
                 this.Ready = true;
+
+#if STOPWATCH
+                Program.TheStopwatch.Stop();
+                Debug.WriteLine("ActionLayer.Ready: " + Program.TheStopwatch.ElapsedMilliseconds);
+                Program.TheStopwatch.Restart();
+#endif
+
             }
 
             // We are not ready to update/draw so just return until we are
@@ -391,13 +402,6 @@ namespace Simsip.LineRunner.Scenes.Action
             // Take care of any animations in progress
             GameManager.SharedGameManager.TheActionManager.Update(dt);
 
-            // If we are refreshing, short-circuit here so we don't have cross-thread
-            // access to game objects that are reinitializing
-            if (this._refreshing)
-            {
-                return;
-            }
-
             // Construct an XNA time from a Cocos2d time
             this._totalGameTime += dt;
             this._gameTime.ElapsedGameTime = TimeSpan.FromSeconds(dt);
@@ -408,18 +412,70 @@ namespace Simsip.LineRunner.Scenes.Action
             //            XxxControllers will depend upon a physics's space update happening
             //            before their XxxController.Update()'s are called.
             this._physicsManager.TheSpace.Update();
+/*
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("PhysicsManager.Update: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
+*/
 
             // Let voxeliq services update
             this._inputManager.Update(this._gameTime);
+/*
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("InputManager.Update: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
+*/
             // TODO: Add back in when ready to tackle skydome again
             // this._skyDome.Update(this._gameTime);
             this._newSky.Update(this._gameTime);
+            /*
+#if STOPWATCH
+
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("NewSky.Update: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
+             */
             this._chunkCache.Update(this._gameTime);
+            /*
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("ChunkCache.Update: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
+            */
             this._world.Update(this._gameTime);
+            /*
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("World.Update: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
+            */
+
             // TODO: Add back in when ready to tackle water again
             // this._waterCache.Update(this._gameTime);
             this._deferredShadowMapping.Update(this._gameTime);
+            /*
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("DeferredShadowMapping.Update: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
+            */
             this._userInterface.Update(this._gameTime);
+            /*
+#if STOPWATCH
+            Program.TheStopwatch.Stop();
+            Debug.WriteLine("UserInterface.Update: " + Program.TheStopwatch.ElapsedMilliseconds);
+            Program.TheStopwatch.Restart();
+#endif
+            */
+
             /* TODO: Add back in when ready to investigate these
             this._inGameDebugger.Update(this._gameTime);
             this._debugBar.Update(this._gameTime);
@@ -428,8 +484,8 @@ namespace Simsip.LineRunner.Scenes.Action
 
             // We depend on camera (positioning) and chunk cache (background)
             // to be ready before we start updating; otherwise we short-circuit
-            if (!this._inputManager.TheLineRunnerControllerInput.Ready ||
-                !this._chunkCache.Ready)
+            if (!this._inputManager.TheLineRunnerControllerInput.Ready) /* ||
+                !this._chunkCache.Ready)*/
             {
                 return;
             }
@@ -439,7 +495,8 @@ namespace Simsip.LineRunner.Scenes.Action
             {
                 // Let our intro layer display a pane now 
                 //(3d model depends on services AND stationary camera being in place for display of panes)
-                this._parent.TheIntroLayer.LoadPane();
+                // this._parent.TheIntroLayer.LoadPane();
+                this._parent.TheStartPage1Layer.LoadPane();
 
                 // TODO: This starts too early, taking out until we can investigate further
                 // And fade in the game scene
@@ -453,7 +510,14 @@ namespace Simsip.LineRunner.Scenes.Action
                 this.SwitchState(GameState.Intro);
 
                 this._firstTimeSetupPage = true;
+
+#if STOPWATCH
+                Program.TheStopwatch.Stop();
+                Debug.WriteLine("ActionLayer.FirstTimeSetupPage: " + Program.TheStopwatch.ElapsedMilliseconds);
+                Program.TheStopwatch.Restart();
+#endif
             }
+
 
             // Let game services update
             this._pageCache.Update(this._gameTime);
@@ -465,7 +529,10 @@ namespace Simsip.LineRunner.Scenes.Action
             this._paneCache.Update(this._gameTime);
 
             // Adjust hero physics so it stays in 2D plane
-            this._characterCache.TheHeroModel.AdjustHeroPhysics();
+            if (this._characterCache.TheHeroModel != null)
+            {
+                this._characterCache.TheHeroModel.AdjustHeroPhysics();
+            }
 
             // Position camera based on whether we are in a fly by or simply
             // tracking the hero position
@@ -473,7 +540,7 @@ namespace Simsip.LineRunner.Scenes.Action
             {
                 this._currentFlyBy.UpdateBezier(dt);
             }
-            else
+            else if (this._characterCache.TheHeroModel != null)
             {
                 this.UpdateTrackingCamera();
             }
@@ -484,8 +551,8 @@ namespace Simsip.LineRunner.Scenes.Action
             // We are dependent on this layer being ready (see Update())
             // AND the camera being ready before we start drawing
             if (!this.Ready ||                    
-                !this._inputManager.TheLineRunnerControllerInput.Ready ||
-                !this._chunkCache.Ready)
+                !this._inputManager.TheLineRunnerControllerInput.Ready) /* ||
+                !this._chunkCache.Ready)*/
             {
                 return;
             }
@@ -561,7 +628,10 @@ namespace Simsip.LineRunner.Scenes.Action
 
         private void SwitchState(GameState gameState)
         {
-            switch (gameState)
+            // Ok, now set our current state
+            this._currentGameState = gameState;
+
+            switch (this._currentGameState)
             {
                 case GameState.World:
                         {
@@ -594,12 +664,50 @@ namespace Simsip.LineRunner.Scenes.Action
                         this._hudLayer.DisplayPageNumber(this._currentPageNumber);
                         this._hudLayer.DisplayLineNumber(this._currentLineNumber);
 
-                        this._currentFlyBy = new FlyBy();
-                        this._currentFlyBy.FlyByFinished += OnCurrentFlyByFinished;
                         var pageWidth = this._pageCache.CurrentPageModel.WorldWidth;
                         var pageHeight = this._pageCache.CurrentPageModel.WorldHeight;
+                        var pageDepthFromCamera = this._pageCache.PageDepthFromCameraStart;
                         var cameraStartingPoint = this._inputManager.LineRunnerCamera.Position;
+                        var controlPoints = new List<Vector3>()
+                        {
+                            cameraStartingPoint, // Start to right and behing pad
+                            cameraStartingPoint + new Vector3(0.25f * pageWidth, 0, 4.0f * pageDepthFromCamera), // By first control point in middle of pad in front
+                            cameraStartingPoint + new Vector3(0.75f * pageWidth, 0, 4.0f * pageDepthFromCamera), // By second control point we are way out to top left of pad
+                            cameraStartingPoint + new Vector3(1.1f * pageWidth, 0, 0)                                                           // Finish at camera position
+                        };
+                        var targetPoints = new List<Vector3>()
+                        {
+                            this._inputManager.LineRunnerCamera.Target,          // Start looking back at terrain
+                            this._inputManager.LineRunnerCamera.Target,          // By first control point we still looking straight back
+                            this._inputManager.LineRunnerCamera.Target,          // Be second control point we are looking down at pad from upper left
+                            this._inputManager.LineRunnerCamera.Target          // Finish by mimicing original camera target
+                        };
+                        var controlPointsReversed = new List<Vector3>()
+                        {
+                            cameraStartingPoint + new Vector3(1.1f * pageWidth, 0, 0),                                                           // Finish at camera position
+                            cameraStartingPoint + new Vector3(0.75f * pageWidth, 0, 4.0f * pageDepthFromCamera), // By second control point we are way out to top left of pad
+                            cameraStartingPoint + new Vector3(0.25f * pageWidth, 0, 4.0f * pageDepthFromCamera), // By first control point in middle of pad in front
+                            cameraStartingPoint, // Start to right and behing pad
+                        };
+                        var targetPointsReversed = new List<Vector3>()
+                        {
+                            this._inputManager.LineRunnerCamera.Target,          // Start looking back at terrain
+                            this._inputManager.LineRunnerCamera.Target,          // By first control point we still looking straight back
+                            this._inputManager.LineRunnerCamera.Target,          // Be second control point we are looking down at pad from upper left
+                            this._inputManager.LineRunnerCamera.Target          // Finish by mimicing original camera target
+                        };
 
+                        this._currentFlyBy = new FlyBy();
+                        this._currentFlyBy.FlyByFinished += OnCurrentFlyByFinished;
+                        this._currentFlyBy.InitBezierControlPoints(GameConstants.DURATION_INTRO, controlPoints, targetPoints);
+
+                        var nextFlyBy = new FlyBy();
+                        nextFlyBy.FlyByFinished += OnCurrentFlyByFinished;
+                        nextFlyBy.InitBezierControlPoints(GameConstants.DURATION_INTRO, controlPointsReversed, targetPointsReversed);
+                        
+                        this._currentFlyBy.NextFlyBy = nextFlyBy;
+                        
+                        /* Legacy: remove when comfortable
                         var controlPoints = new List<Vector3>()
                         {
                             cameraStartingPoint + new Vector3( 1.2f * pageWidth, -0.8f * pageHeight, -40), // Start to right and behing pad
@@ -614,8 +722,7 @@ namespace Simsip.LineRunner.Scenes.Action
                             controlPoints[2] + new Vector3(1, -1, -1),          // Be second control point we are looking down at pad from upper left
                             this._inputManager.LineRunnerCamera.Target          // Finish by mimicing original camera target
                         };
-
-                        this._currentFlyBy.InitBezierControlPoints(GameConstants.DURATION_INTRO, controlPoints, targetPoints);
+                        */
 
                         break;
                     }
@@ -808,15 +915,6 @@ namespace Simsip.LineRunner.Scenes.Action
             this.SwitchServicesState(gameState);
 
             this._hudLayer.SwitchState(gameState);
-
-            // If we refreshed, then migrate us to the start game state
-            if (gameState == GameState.Refresh)
-            {
-                gameState = GameState.Start;
-            }
-
-            // Ok, now set our current state
-            this._currentGameState = gameState;
         }
 
         // Helper function to centralize calling SwitchState on all appropriate game services
@@ -829,10 +927,13 @@ namespace Simsip.LineRunner.Scenes.Action
             this._audioManager.SwitchState(gameState);
             this._pageCache.SwitchState(gameState);
             this._lineCache.SwitchState(gameState);
-            this._obstacleCache.SwitchState(gameState);
-            this._characterCache.SwitchState(gameState);
+            // IMPORTANT: ObstacleCache depends upon LineCache hence SwitchState's are handled
+            //            for ObstacleCache are handled in LineCache's SwitchState and possibly
+            //            subsequent load functions
+            // this._obstacleCache.SwitchState(gameState);
+            // this._characterCache.SwitchState(gameState);
+            // this._sensorCache.SwitchState(gameState);
             this._particleCache.SwitchState(gameState);
-            this._sensorCache.SwitchState(gameState);
             this._deferredShadowMapping.SwitchState(gameState);
         }
 
@@ -882,14 +983,6 @@ namespace Simsip.LineRunner.Scenes.Action
                     }
                 case GameState.Start:
                     {
-                        // Careful here, in a Refresh state that immediately switches to Start state for ActionLayer,
-                        // we need to wait for all the line models to be build up again before we can use them
-                        // for our positioning purposes below.
-                        if (!this._lineCache.Ready)
-                        {
-                            return;
-                        }
-
                         // TODO:
                         // Position camera slightly off angle from hero
                         var heroPosition = this._characterCache.TheHeroModel.WorldOrigin;

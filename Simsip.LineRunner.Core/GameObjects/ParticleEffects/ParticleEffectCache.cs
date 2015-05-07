@@ -197,15 +197,8 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
                     }
                 case GameState.Refresh:
                     {
-                        // We need to set this up-front as refresh is done on a background thread
-                        // and we need to know this to short-circuit draw while this is done
-                        this._currentGameState = state;
 
                         // No-op for now
-
-                        // Migrate to the start game state
-                        state = GameState.Start;
-
                         break;
                     }
                 case GameState.Start:

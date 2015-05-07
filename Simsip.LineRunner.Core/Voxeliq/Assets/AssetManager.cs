@@ -67,9 +67,9 @@ namespace Engine.Assets
 
             // Pre-load content we will need
 #if WINDOWS_PHONE || NETFX_CORE
-            await this.LoadInitialContentAsync();
+            // await this.LoadInitialContentAsync();
 #else
-            this.LoadInitialContent();
+            // this.LoadInitialContent();
 #endif
 
             base.Initialize();

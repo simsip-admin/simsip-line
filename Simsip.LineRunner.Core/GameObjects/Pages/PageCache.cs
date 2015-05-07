@@ -18,7 +18,7 @@ using Simsip.LineRunner.Effects.Stock;
 
 namespace Simsip.LineRunner.GameObjects.Pages
 {
-    public class PageCache : DrawableGameComponent, IPageCache
+    public class PageCache : GameComponent, IPageCache
     {
         // Magic numbers
         private const float DEFAULT_PAGE_DEPTH_FROM_CAMERA = 4f;
@@ -51,12 +51,10 @@ namespace Simsip.LineRunner.GameObjects.Pages
             this.Game.Services.AddService(typeof(IPageCache), this); 
         }
 
-        #region DrawableGameComponent Overrides
+        #region GameComponent Overrides
 
         public override void Initialize()
         {
-            Logger.Trace("init()");
-
             // Initialize state
             this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
             this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
@@ -79,21 +77,6 @@ namespace Simsip.LineRunner.GameObjects.Pages
             this.InitCurrentPageModel();
 
             base.Initialize();
-        }
-
-        protected override void LoadContent()
-        {
-            // Currently a no-op as content is dynamically loaded in Process()
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            // Currently a no-op
-        }
-
-        public override void Draw(GameTime gameTime)
-        {
-            this.Draw();
         }
 
         #endregion
@@ -222,7 +205,10 @@ namespace Simsip.LineRunner.GameObjects.Pages
 
         public void SwitchState(GameState state)
         {
-            switch (state)
+            // Update our overall game state
+            this._currentGameState = state;
+
+            switch (this._currentGameState)
             {
                 case GameState.Intro:
                     {
@@ -286,9 +272,6 @@ namespace Simsip.LineRunner.GameObjects.Pages
                         break;
                     }
             }
-
-            // Update our state
-            this._currentGameState = state;
         }
 
         #endregion

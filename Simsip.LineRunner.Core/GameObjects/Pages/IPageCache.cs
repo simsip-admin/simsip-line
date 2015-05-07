@@ -13,7 +13,7 @@ using Simsip.LineRunner.Effects.Stock;
 
 namespace Simsip.LineRunner.GameObjects.Pages
 {
-    public interface IPageCache : IUpdateable, IDrawable
+    public interface IPageCache : IUpdateable
     {
         /// <summary>
         /// The value class that holds all pertinent info regarding

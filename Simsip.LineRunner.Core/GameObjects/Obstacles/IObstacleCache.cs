@@ -8,8 +8,12 @@ using Simsip.LineRunner.Effects.Stock;
 
 namespace Simsip.LineRunner.GameObjects.Obstacles
 {
-    public interface IObstacleCache : IUpdateable, IDrawable
+    public interface IObstacleCache : IUpdateable
     {
+        void LoadContentAsync(LoadContentAsyncType loadContentType);
+
+        event LoadContentAsyncFinishedEventHandler LoadContentAsyncFinished;
+
         /// <summary>
         /// Handle obstacle category specific game state changes.
         /// </summary>

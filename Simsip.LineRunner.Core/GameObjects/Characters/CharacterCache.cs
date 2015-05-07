@@ -28,11 +28,22 @@ using Simsip.LineRunner.Data.Scoreoid;
 using Simsip.LineRunner.Entities.Scoreoid;
 using Simsip.LineRunner.Scenes;
 using Simsip.LineRunner.Effects.Stock;
+#if NETFX_CORE
+using System.Threading.Tasks;
+using Windows.Foundation;
+#else
+using System.Threading;
+#endif
+#if WINDOWS_PHONE
+using Simsip.LineRunner.Concurrent;
+#else
+using System.Collections.Concurrent;
+#endif
 
 
 namespace Simsip.LineRunner.GameObjects.Characters
 {
-    public class CharacterCache : DrawableGameComponent, ICharacterCache
+    public class CharacterCache : GameComponent, ICharacterCache
     {
         // Required services
         private IInputManager _inputManager;
@@ -59,6 +70,17 @@ namespace Simsip.LineRunner.GameObjects.Characters
         private RevoluteLimit _limitHeroRevoluteZ;
         private EntityRotator _heroRotator;
 
+        // Support for staging the results of asynchronous loads and then signaling
+        // we need the results processed on the next update cycle
+        private class LoadContentThreadArgs
+        {
+            public LoadContentAsyncType TheLoadContentAsyncType;
+            public int PageNumber;
+            public int[] LineNumbers;
+            public IList<CharacterModel> CharacterModelsAsync;
+        }
+        private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadResults;
+
         // Logging-facility
         private static readonly Logger Logger = LogManager.CreateLogger();
 
@@ -75,16 +97,15 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
         #endregion
 
-        #region DrawableGameComponent Overrides
+        #region GameComponent Overrides
 
         public override void Initialize()
         {
-            Logger.Trace("init()");
-
             // Initialize state
             this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
             this._currentLineNumber = 1;
             this.CharacterModels = new List<CharacterModel>();
+            this._loadContentThreadResults = new ConcurrentQueue<LoadContentThreadArgs>(); 
 
             // Import required services.
             this._inputManager = (IInputManager)this.Game.Services.GetService(typeof(IInputManager));
@@ -100,13 +121,13 @@ namespace Simsip.LineRunner.GameObjects.Characters
             base.Initialize();
         }
 
-        protected override void LoadContent()
-        {
-            // Currently a no-op
-        }
-
         public override void Update(GameTime gameTime)
         {
+            if (this.TheHeroModel == null)
+            {
+                return;
+            }
+
             switch (this._currentGameState)
             {
                 case GameState.Intro:
@@ -146,16 +167,87 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         break;
                     }
             }
-        }
 
-        public override void Draw(GameTime gameTime)
-        {
-            this.Draw();
+            // Did we signal we need an async content load processed?
+            if (this._loadContentThreadResults.Count > 0)
+            {
+                LoadContentThreadArgs loadContentThreadArgs = null;
+                if (this._loadContentThreadResults.TryDequeue(out loadContentThreadArgs))
+                {
+                    // Load in new content from staged collection in args
+                    ProcessLoadContentAsync(loadContentThreadArgs);
+
+                    // Did anyone need to know we finished?
+                    if (LoadContentAsyncFinished != null)
+                    {
+                        var eventArgs = new LoadContentAsyncFinishedEventArgs(loadContentThreadArgs.TheLoadContentAsyncType);
+                        LoadContentAsyncFinished(this, eventArgs);
+                    }
+                }
+            }
+
         }
 
         #endregion
 
         #region ICharacterCache Implementation
+
+        public event LoadContentAsyncFinishedEventHandler LoadContentAsyncFinished;
+
+        public void LoadContentAsync(LoadContentAsyncType loadContentAsyncType)
+        {
+            // Determine which page/line number we are loading
+            var pageNumber = -1;
+            int[] lineNumbers = null;
+            switch (loadContentAsyncType)
+            {
+                case LoadContentAsyncType.Initialize:
+                    {
+                        pageNumber = 1;
+                        lineNumbers = new int[] { 1, 2 };
+                        break;
+                    }
+                case LoadContentAsyncType.Next:
+                    {
+                        // Are we on the last line of the page
+                        var lineCount = this._pageCache.CurrentPageModel.ThePadEntity.LineCount;
+                        if (this._currentLineNumber == lineCount)
+                        {
+                            // Ok, on last line, move to first line of next page
+                            pageNumber = this._currentPageNumber + 1;
+                            lineNumbers = new int[] { 1 };
+                        }
+                        else
+                        {
+                            // Not on last line, just go for next line
+                            pageNumber = this._currentPageNumber;
+                            lineNumbers = new int[] { this._currentLineNumber + 1 };
+                        }
+                        break;
+                    }
+            }
+
+            // Build our state object for this background content load request
+            var loadContentThreadArgs = new LoadContentThreadArgs
+            {
+                TheLoadContentAsyncType = loadContentAsyncType,
+                PageNumber = pageNumber,
+                LineNumbers = lineNumbers,
+                CharacterModelsAsync = new List<CharacterModel>()
+            };
+
+#if NETFX_CORE
+
+            IAsyncAction asyncAction = 
+                Windows.System.Threading.ThreadPool.RunAsync(
+                    (workItem) =>
+                    {
+                        LoadContentThread(loadContentThreadArgs);
+                    });
+#else
+            ThreadPool.QueueUserWorkItem(LoadContentAsyncThread, loadContentThreadArgs);
+#endif
+        }
 
         public void Draw(StockBasicEffect effect = null, EffectType type = EffectType.None)
         {
@@ -175,7 +267,10 @@ namespace Simsip.LineRunner.GameObjects.Characters
             BoundingFrustum frustrum = new BoundingFrustum(view * projection);
             _ocTreeRoot.Draw(view, projection, frustrum, effect, type);
             */
-            this.TheHeroModel.Draw(view, projection, effect, type);
+            if (this.TheHeroModel != null)
+            {
+                this.TheHeroModel.Draw(view, projection, effect, type);
+            }
         }
 
         public HeroModel TheHeroModel { get; private set; }
@@ -212,17 +307,20 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
 
                         // Get characters constructed for first page
-                        this.ProcessNextPage();
+                        // this.ProcessNextPage();
 
                         // Attempt to suspend physics as best as possible
-                        this.SuspendHeroPhysics();
+                        // this.SuspendHeroPhysics();
 
                         // Position hero at defined start position
                         // Will include logic to handle admin setting of line number other than 1
-                        this.InitHeroPosition();
+                        // this.InitHeroPosition();
 
                         // Create holder to keep hero in start location
-                        this.CreateHolderForHero();
+                        // this.CreateHolderForHero();
+
+                        this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
+                        this.LoadContentAsync(LoadContentAsyncType.Initialize);
 
                         break;
                     }
@@ -288,6 +386,10 @@ namespace Simsip.LineRunner.GameObjects.Characters
                             });
                         this.TheHeroModel.ModelRunAction(rotateAction);
 
+                        // In background load up the line following our current line we are moving to
+                        this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
+                        this.LoadContentAsync(LoadContentAsyncType.Next);
+
                         break;
                     }
                 case GameState.MovingToNextPage:
@@ -297,11 +399,15 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         this._currentLineNumber = 1;
 
                         // Get characters constructed for next page
-                        this.ProcessNextPage();
+                        // this.ProcessNextPage();
 
                         // Attempt to suspend physics as best as possible
                         this.SuspendHeroPhysics();
                         this.RemoveHeroPhysicsConstraints();
+
+                        // In background load up the line following our current line we are moving to
+                        this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
+                        this.LoadContentAsync(LoadContentAsyncType.Next);
 
                         break;
                     }
@@ -312,10 +418,14 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
 
                         // Get characters constructed for first page
-                        this.ProcessNextPage();
+                        // this.ProcessNextPage();
 
                         // See HandleKill() for additional steps taken for this state
                         // that have to be implemented after we animate the kill.
+
+                        // In background load up the line following our current line we are moving to
+                        this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
+                        this.LoadContentAsync(LoadContentAsyncType.Initialize);
 
                         break;
                     }
@@ -330,25 +440,26 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
 
                         // Get characters constructed for first page
-                        this.ProcessNextPage();
+                        // this.ProcessNextPage();
 
                         // Attempt to suspend physics as best as possible
-                        this.SuspendHeroPhysics();
-                        this.RemoveHeroPhysicsConstraints();
+                        // this.SuspendHeroPhysics();
+                        // this.RemoveHeroPhysicsConstraints();
 
                         // Position hero at defined start position
                         // Will include logic to handle admin setting of line number other than 1
-                        this.InitHeroPosition();
+                        // this.InitHeroPosition();
 
                         // Create holder to keep hero in start location
-                        this.RemoveHolderForHero();
-                        this.CreateHolderForHero();
+                        // this.RemoveHolderForHero();
+                        // this.CreateHolderForHero();
 
                         // Turn this on so hero falls into place
-                        this.TheHeroModel.PhysicsEntity.IsAffectedByGravity = true;
+                        // this.TheHeroModel.PhysicsEntity.IsAffectedByGravity = true;
 
-                        // Migrate to the start game state
-                        state = GameState.Start;
+                        // In background load up the line following our current line we are moving to
+                        this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
+                        this.LoadContentAsync(LoadContentAsyncType.Initialize);
 
                         break;
                     }
@@ -370,7 +481,10 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         this.CreateHolderForHero();
 
                         // Turn this on so hero falls into place
-                        this.TheHeroModel.PhysicsEntity.IsAffectedByGravity = true;
+                        if (this.TheHeroModel != null)
+                        {
+                            this.TheHeroModel.PhysicsEntity.IsAffectedByGravity = true;
+                        }
 
                         break;
                     }
@@ -420,40 +534,48 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
         #endregion
 
+        #region Event Handlers
+
+        private void LoadContentAsyncFinishedHandler(object sender, LoadContentAsyncFinishedEventArgs args)
+        {
+            this.LoadContentAsyncFinished -= this.LoadContentAsyncFinishedHandler;
+
+            if (args.TheLoadContentAsyncType == LoadContentAsyncType.Initialize ||
+                args.TheLoadContentAsyncType == LoadContentAsyncType.Refresh)
+            {
+                // Attempt to suspend physics as best as possible
+                this.SuspendHeroPhysics();
+
+                // Position hero at defined start position
+                // Will include logic to handle admin setting of line number other than 1
+                this.InitHeroPosition();
+
+                // Create holder to keep hero in start location
+                this.CreateHolderForHero();
+
+                // TODO: Once we have more characters besides hero
+                // this.ProcessNextLine();
+            }
+        }
+
+        #endregion
+
         #region Helper methods
 
-        private void ProcessNextPage()
+        // Formerly ProcessNextPage
+        private void LoadContentAsyncThread(object args)
         {
-            // Remove all previous models from our drawing filter and physics world
-            // EXCEPT for hero
-            foreach (var characterModel in this.CharacterModels.ToList())
-            {
-                if (characterModel == this.TheHeroModel)
-                {
-                    continue;
-                }
-                this._ocTreeRoot.RemoveModel(characterModel.ModelID);
-
-                if (characterModel.PhysicsEntity != null &&
-                    characterModel.PhysicsEntity.Space != null)
-                {
-                    this._physicsManager.TheSpace.Remove(characterModel.PhysicsEntity);
-                }
-            }
-
-            // Now recreate our character collection with only the hero in place
-            // if we have a hero
-            this.CharacterModels.Clear();
-            if (this.TheHeroModel != null)
-            {
-                this.CharacterModels.Add(this.TheHeroModel);
-            }
+            var loadContentThreadArgs = args as LoadContentThreadArgs;
+            var loadContentAsyncType = loadContentThreadArgs.TheLoadContentAsyncType;
+            var pageNumber = loadContentThreadArgs.PageNumber;
+            var lineNumbers = loadContentThreadArgs.LineNumbers;
+            var characterModels = loadContentThreadArgs.CharacterModelsAsync;
 
             // Grab our collection of characters for current page
-            var pageCharactersEntities = this._pageCharactersRepository.GetCharacters(this._currentPageNumber);
+            var pageCharactersEntities = this._pageCharactersRepository.GetCharacters(pageNumber, lineNumbers);
             foreach (var pageCharactersEntity in pageCharactersEntities)
             {
-                // Determine what tpe of model to construct
+                // Determine what type of model to construct
                 CharacterModel characterModel = null;
                 CharacterEntity characterEntity = null;
                 var characterType = (CharacterType)Enum.Parse(typeof(CharacterType), pageCharactersEntity.CharacterType);
@@ -466,8 +588,9 @@ namespace Simsip.LineRunner.GameObjects.Characters
                     }
 
                     characterEntity = this._characterRepository.GetCharacter(pageCharactersEntity.ModelName);
-                    this.TheHeroModel = new HeroModel(characterEntity, pageCharactersEntity);
-                    characterModel = this.TheHeroModel;   // Just to scale across multiple character types
+                    // this.TheHeroModel = new HeroModel(characterEntity, pageCharactersEntity);
+                    // characterModel = this.TheHeroModel;   // Just to scale across multiple character types
+                    characterModel = new HeroModel(characterEntity, pageCharactersEntity);
                 }
                 else
                 {
@@ -492,7 +615,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
                 var halfwayDepth = -this._pageCache.PageDepthFromCameraStart +      // Start back at page depth
                                    (0.5f * lineModel.WorldDepth) +                  // Move forward to line depth halfway mark
                                    (0.5f * characterModel.WorldDepth);              // Add in 1/2 of obstacle depth so obstacle
-                                                                                    // will be positioned exactly straddling line deph halfway
+                // will be positioned exactly straddling line deph halfway
                 // Adjust HeroStartOrigin to this new depth
                 this._pageCache.CurrentPageModel.HeroStartOrigin = new Vector3(
                     this._pageCache.CurrentPageModel.HeroStartOrigin.X,
@@ -501,18 +624,15 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
                 // To determine origin of character model
                 var translateMatrix = Matrix.CreateTranslation(this._pageCache.CurrentPageModel.HeroStartOrigin);
-                    
+
                 // Translate and scale our model
                 characterModel.WorldMatrix = scaleMatrix * translateMatrix;
 
                 // Uniquely identity character for octree
                 characterModel.ModelID = pageCharactersEntity.CharacterNumber;
 
-                // And add to octree for filtered drawing
-                this._ocTreeRoot.AddModel(characterModel);
-
-                // Record to our collection
-                this.CharacterModels.Add(characterModel);
+                // Record to our staged collection
+                characterModels.Add(characterModel);
 
                 // Now scale our physics body for this obstacle model
                 // TODO: Once we refactor a CharacterModel in place, take out this cast
@@ -524,7 +644,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
                 // Scale our pre-defined points that represent the outer shape of the hero
                 int pointCounter = 0;
-                foreach(var point in heroModel.ConvexHullPoints.ToList())
+                foreach (var point in heroModel.ConvexHullPoints.ToList())
                 {
                     heroModel.ConvexHullPoints[pointCounter] *= ConversionHelper.MathConverter.Convert(scale);
                     pointCounter++;
@@ -537,19 +657,23 @@ namespace Simsip.LineRunner.GameObjects.Characters
                 // physicsMesh.LocalInertiaTensorInverse = new BEPUutilities.Matrix3x3(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f);
                 physicsMesh.Material.Bounciness = 10f;
 
-                
+
                 // Now determine an appropriate transform to use when positioning the ui representation of the hero
-                var physicsLocalTransform = (physicsMesh.Position +  ConversionHelper.MathConverter.Convert(characterModel.WorldMatrix.Translation)) -
-                                            ConversionHelper.MathConverter.Convert(characterModel.WorldMatrix.Translation);
-                characterModel.PhysicsLocalTransform = BEPUutilities.Matrix.CreateTranslation(-physicsLocalTransform);
+                var physicsLocalTransform = (physicsMesh.Position + ConversionHelper.MathConverter.Convert(characterModel.WorldMatrix.Translation)) -
+                                            ConversionHelper.MathConverter.Convert(heroModel.WorldMatrix.Translation);
+                heroModel.PhysicsLocalTransform = BEPUutilities.Matrix.CreateTranslation(-physicsLocalTransform);
 
                 // And here we can finally set the position of the physics mesh
-                physicsMesh.Position = ConversionHelper.MathConverter.Convert(characterModel.WorldMatrix.Translation);
+                physicsMesh.Position = ConversionHelper.MathConverter.Convert(heroModel.WorldMatrix.Translation);
 
                 // Continue as normal for physics mesh setup
-                characterModel.PhysicsEntity = physicsMesh;
+                heroModel.PhysicsEntity = physicsMesh;
                 physicsMesh.Tag = characterModel;
-                this._physicsManager.TheSpace.Add(physicsMesh);
+                // this._physicsManager.TheSpace.Add(physicsMesh);
+
+                // We can now assign our property for the hero which multiple helper functions
+                // will check for null against to make sure it is complete and ready to go
+                this.TheHeroModel = heroModel;
 
                 // Apply limits on hero to keep in xy plane and limit
                 // rotation in xy plane
@@ -557,11 +681,65 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
                 this.SuspendHeroPhysics();
             }
+
+            this._loadContentThreadResults.Enqueue(loadContentThreadArgs);
+        }
+
+        // Migrate staged collection in args to public collection
+        private void ProcessLoadContentAsync(LoadContentThreadArgs loadContentThreadArgs)
+        {
+            // If we are moving to first/next page, clear out previous page
+            if (this._currentLineNumber == 1)
+            {
+                // Remove all previous models from our drawing filter and physics world
+                // EXCEPT for hero
+                foreach (var characterModel in this.CharacterModels.ToList())
+                {
+                    if (characterModel == this.TheHeroModel)
+                    {
+                        continue;
+                    }
+                    this._ocTreeRoot.RemoveModel(characterModel.ModelID);
+
+                    if (characterModel.PhysicsEntity != null &&
+                        characterModel.PhysicsEntity.Space != null)
+                    {
+                        this._physicsManager.TheSpace.Remove(characterModel.PhysicsEntity);
+                    }
+                }
+
+                // Now recreate our character collection with only the hero in place
+                // if we have a hero
+                this.CharacterModels.Clear();
+                if (this.TheHeroModel != null)
+                {
+                    this.CharacterModels.Add(this.TheHeroModel);
+                }
+            }
+
+            // Populate our public collection from our staged collection
+            foreach (var characterModel in loadContentThreadArgs.CharacterModelsAsync)
+            {
+                // Add to octree for filtered drawing
+                this._ocTreeRoot.AddModel(characterModel);
+
+                this.CharacterModels.Add(characterModel);
+
+                if (characterModel.PhysicsEntity != null)
+                {
+                    this._physicsManager.TheSpace.Add(characterModel.PhysicsEntity);
+                }
+            }
         }
 
         // Attempt to suspend physics as best as possible
         private void SuspendHeroPhysics()
         {
+            if (this.TheHeroModel == null)
+            {
+                return;
+            }
+
             this.TheHeroModel.PhysicsEntity.LinearVelocity = BEPUutilities.Vector3.Zero;
             this.TheHeroModel.PhysicsEntity.AngularVelocity = BEPUutilities.Vector3.Zero;
             this.TheHeroModel.PhysicsEntity.IsAffectedByGravity = false;
@@ -571,6 +749,11 @@ namespace Simsip.LineRunner.GameObjects.Characters
         // rotation in xy plane
         private void ApplyHeroPhysicsConstraints()
         {
+            if (this.TheHeroModel == null)
+            {
+                return;
+            }
+
             // Don't allow hero to rotate around X axis
             if (this._limitHeroRevoluteX == null)
             {
@@ -676,6 +859,11 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
         private void InitHeroPosition()
         {
+            if (this.TheHeroModel == null)
+            {
+                return;
+            }
+
             // Our standard starting position
             var heroStartOrigin = this._pageCache.CurrentPageModel.HeroStartOrigin;
 
@@ -716,6 +904,11 @@ namespace Simsip.LineRunner.GameObjects.Characters
         // (i.e. PageCache.CurrentPageModel.HeroStartOrigin adjusted by Admin setting for line number if necessary)
         private void CreateHolderForHero()
         {
+            if (this.TheHeroModel == null)
+            {
+                return;
+            }
+
             // Have we created holder for hero yet?
             if (this._holderForHero == null)
             {
@@ -801,6 +994,146 @@ namespace Simsip.LineRunner.GameObjects.Characters
             }
         }
 
+        #endregion
+
+        #region Legacy
+
+        private void ProcessNextPage()
+        {
+            // Remove all previous models from our drawing filter and physics world
+            // EXCEPT for hero
+            foreach (var characterModel in this.CharacterModels.ToList())
+            {
+                if (characterModel == this.TheHeroModel)
+                {
+                    continue;
+                }
+                this._ocTreeRoot.RemoveModel(characterModel.ModelID);
+
+                if (characterModel.PhysicsEntity != null &&
+                    characterModel.PhysicsEntity.Space != null)
+                {
+                    this._physicsManager.TheSpace.Remove(characterModel.PhysicsEntity);
+                }
+            }
+
+            // Now recreate our character collection with only the hero in place
+            // if we have a hero
+            this.CharacterModels.Clear();
+            if (this.TheHeroModel != null)
+            {
+                this.CharacterModels.Add(this.TheHeroModel);
+            }
+
+            // Grab our collection of characters for current page
+            var pageCharactersEntities = this._pageCharactersRepository.GetCharacters(this._currentPageNumber);
+            foreach (var pageCharactersEntity in pageCharactersEntities)
+            {
+                // Determine what tpe of model to construct
+                CharacterModel characterModel = null;
+                CharacterEntity characterEntity = null;
+                var characterType = (CharacterType)Enum.Parse(typeof(CharacterType), pageCharactersEntity.CharacterType);
+                if (characterType == CharacterType.Hero)
+                {
+                    // Only create the hero once
+                    if (this.TheHeroModel != null)
+                    {
+                        continue;
+                    }
+
+                    characterEntity = this._characterRepository.GetCharacter(pageCharactersEntity.ModelName);
+                    this.TheHeroModel = new HeroModel(characterEntity, pageCharactersEntity);
+                    characterModel = this.TheHeroModel;   // Just to scale across multiple character types
+                }
+                else
+                {
+                    // TODO: Implement new model types here when we have additional characters
+                    continue;
+                }
+
+                // Now get our new world dimensions
+                var scaleMatrix = Matrix.CreateScale(this._pageCache.CurrentPageModel.ModelToWorldRatio);
+                Vector3 scale = new Vector3();
+                Quaternion rot = new Quaternion();
+                Vector3 trans = new Vector3();
+                scaleMatrix.Decompose(out scale, out rot, out trans);
+                characterModel.ModelToWorldRatio = scale.X;
+                characterModel.WorldWidth = characterModel.TheModelEntity.ModelWidth * scale.X;
+                characterModel.WorldHeight = characterModel.TheModelEntity.ModelHeight * scale.Y;
+                characterModel.WorldDepth = characterModel.TheModelEntity.ModelDepth * scale.Z;
+
+                // Get a depth that will position obstacle exactly
+                // straddling the halfway depth of the line
+                var lineModel = this._lineCache.GetLineModel(_currentLineNumber);
+                var halfwayDepth = -this._pageCache.PageDepthFromCameraStart +      // Start back at page depth
+                                   (0.5f * lineModel.WorldDepth) +                  // Move forward to line depth halfway mark
+                                   (0.5f * characterModel.WorldDepth);              // Add in 1/2 of obstacle depth so obstacle
+                // will be positioned exactly straddling line deph halfway
+                // Adjust HeroStartOrigin to this new depth
+                this._pageCache.CurrentPageModel.HeroStartOrigin = new Vector3(
+                    this._pageCache.CurrentPageModel.HeroStartOrigin.X,
+                    this._pageCache.CurrentPageModel.HeroStartOrigin.Y,
+                    halfwayDepth);
+
+                // To determine origin of character model
+                var translateMatrix = Matrix.CreateTranslation(this._pageCache.CurrentPageModel.HeroStartOrigin);
+
+                // Translate and scale our model
+                characterModel.WorldMatrix = scaleMatrix * translateMatrix;
+
+                // Uniquely identity character for octree
+                characterModel.ModelID = pageCharactersEntity.CharacterNumber;
+
+                // And add to octree for filtered drawing
+                this._ocTreeRoot.AddModel(characterModel);
+
+                // Record to our collection
+                this.CharacterModels.Add(characterModel);
+
+                // Now scale our physics body for this obstacle model
+                // TODO: Once we refactor a CharacterModel in place, take out this cast
+                var heroModel = (HeroModel)characterModel;
+
+                // IMPORTANT: Applying defined depth here as we are in code
+                // that has determined we have the hero model
+                heroModel.DefinedDepthFromCamera = halfwayDepth;
+
+                // Scale our pre-defined points that represent the outer shape of the hero
+                int pointCounter = 0;
+                foreach (var point in heroModel.ConvexHullPoints.ToList())
+                {
+                    heroModel.ConvexHullPoints[pointCounter] *= ConversionHelper.MathConverter.Convert(scale);
+                    pointCounter++;
+                }
+
+                // Simplistically create the physics convex hull 
+                // IMPORTANT: Don't position yet
+                // IMPORTANT: Note how LocalInertiaTensorInverse is set to restrict rotation
+                var physicsMesh = new ConvexHull(heroModel.ConvexHullPoints, 1);
+                // physicsMesh.LocalInertiaTensorInverse = new BEPUutilities.Matrix3x3(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f);
+                physicsMesh.Material.Bounciness = 10f;
+
+
+                // Now determine an appropriate transform to use when positioning the ui representation of the hero
+                var physicsLocalTransform = (physicsMesh.Position + ConversionHelper.MathConverter.Convert(characterModel.WorldMatrix.Translation)) -
+                                            ConversionHelper.MathConverter.Convert(characterModel.WorldMatrix.Translation);
+                characterModel.PhysicsLocalTransform = BEPUutilities.Matrix.CreateTranslation(-physicsLocalTransform);
+
+                // And here we can finally set the position of the physics mesh
+                physicsMesh.Position = ConversionHelper.MathConverter.Convert(characterModel.WorldMatrix.Translation);
+
+                // Continue as normal for physics mesh setup
+                characterModel.PhysicsEntity = physicsMesh;
+                physicsMesh.Tag = characterModel;
+                this._physicsManager.TheSpace.Add(physicsMesh);
+
+                // Apply limits on hero to keep in xy plane and limit
+                // rotation in xy plane
+                this.ApplyHeroPhysicsConstraints();
+
+                this.SuspendHeroPhysics();
+            }
+        }
 
         #endregion
     }

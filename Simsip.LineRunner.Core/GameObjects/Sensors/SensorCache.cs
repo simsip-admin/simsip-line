@@ -125,7 +125,10 @@ namespace Simsip.LineRunner.GameObjects.Sensors
 
         public void SwitchState(GameState state)
         {
-            switch (state)
+            // Update our overall game state
+            this._currentGameState = state;
+
+            switch (this._currentGameState)
             {
                 case GameState.Intro:
                     {
@@ -184,9 +187,6 @@ namespace Simsip.LineRunner.GameObjects.Sensors
                         // Set up first page's first line's sensors
                         this.ProcessNextLine();
 
-                        // Migrate to the start game state
-                        state = GameState.Start;
-
                         break;
                     }
                 case GameState.Start:
@@ -198,9 +198,6 @@ namespace Simsip.LineRunner.GameObjects.Sensors
                         break;
                     }
             }
-
-            // Update our state
-            _currentGameState = state;
         }
 
         // Legacy
