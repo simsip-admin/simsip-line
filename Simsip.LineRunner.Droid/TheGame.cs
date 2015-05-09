@@ -50,7 +50,7 @@ namespace Simsip.LineRunner
             this._graphicsDeviceManager.PreferredBackBufferHeight = Math.Max(Window.ClientBounds.Height, Window.ClientBounds.Width);
 
             this._graphicsDeviceManager.PreferredDepthStencilFormat = DepthFormat.Depth24;
-
+            
             // Frame rate is 30 fps by default for Windows Phone.
             // Divide by 2 to make it 60 fps
             TargetElapsedTime = TimeSpan.FromTicks(333333 / 2);

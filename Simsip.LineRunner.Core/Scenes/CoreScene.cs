@@ -11,8 +11,6 @@ using Simsip.LineRunner.Scenes.Credits;
 using Simsip.LineRunner.Scenes.Finish;
 using Simsip.LineRunner.Scenes.Help;
 using Simsip.LineRunner.Scenes.Hud;
-using Simsip.LineRunner.Scenes.Intro;
-using Simsip.LineRunner.Scenes.Lines;
 using Simsip.LineRunner.Scenes.Login;
 using Simsip.LineRunner.Scenes.MessageBox;
 using Simsip.LineRunner.Scenes.Options;
@@ -24,6 +22,7 @@ using Simsip.LineRunner.Scenes.Worlds;
 using System;
 using System.Collections.Generic;
 using Simsip.LineRunner.Utils;
+using Simsip.LineRunner.Scenes.Lines;
 
 
 namespace Simsip.LineRunner.Scenes
@@ -177,25 +176,6 @@ namespace Simsip.LineRunner.Scenes
                     _theHudLayer.Tag = (int)LayerTags.HudLayer;
                 }
                 return _theHudLayer;
-            }
-        }
-
-        private IntroLayer _theIntroLayer;
-        /// <summary>
-        /// The initial screen that is displayed when game is launched.
-        /// 
-        /// Will be replaced by TheStartLayer.
-        /// </summary>
-        public IntroLayer TheIntroLayer
-        {
-            get
-            {
-                if (_theIntroLayer == null)
-                {
-                    _theIntroLayer = new IntroLayer(this);
-                    _theIntroLayer.Tag = (int)LayerTags.IntroLayer;
-                }
-                return _theIntroLayer;
             }
         }
 
@@ -452,16 +432,8 @@ namespace Simsip.LineRunner.Scenes
                 this._navigationStack.Pop();
             }
 
-            // Ok, now remove the old layer
-            if (oldLayerTag == LayerTags.IntroLayer) 
-            {
-                this.TheIntroLayer.RemoveFromParentAndCleanup(true);
-            }
-            else
-            {
-                var layerToRemove = this.GetChildByTag((int)oldLayerTag);
-                layerToRemove.RemoveFromParent();
-            }
+            var layerToRemove = this.GetChildByTag((int)oldLayerTag);
+            layerToRemove.RemoveFromParent();
 
             // Now get the new layer and add it
             var layerToAdd = GetUILayer(newLayerTag);

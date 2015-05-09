@@ -26,19 +26,13 @@ namespace Simsip.LineRunner.Scenes.Hud
         private IInputManager _inputManager;
         private IDeferredShadowMapping _deferredShadowMapping;
 
-        // Header pane/layer
-        private PaneModel _headerPaneModel;
-        private Simsip.LineRunner.Actions.Action _headerPaneActionIn;
-        private Simsip.LineRunner.Actions.Action _headerPaneActionOut;
-        private GameLayer _headerLayer;
+        // Header layer
+        private UILayer _headerLayer;
         private CCAction _headerLayerActionIn;
         private CCAction _headerLayerActionOut;
 
         // Footer pane/layer
-        private PaneModel _footerPaneModel;
-        private Simsip.LineRunner.Actions.Action _footerPaneActionIn;
-        private Simsip.LineRunner.Actions.Action _footerPaneActionOut;
-        private GameLayer _footerLayer;
+        private UILayer _footerLayer;
         private CCAction _footerLayerActionIn;
         private CCAction _footerLayerActionOut;
 
@@ -92,44 +86,17 @@ namespace Simsip.LineRunner.Scenes.Hud
             var footerContentSize = new CCSize(0.2f * screenSize.Height,    // Note how we make it square here
                                                0.2f * screenSize.Height);
 
-            // Header pane model
-            var headerPaneLogicalOrigin = new CCPoint(
+            // Header pane transition in/out
+            var headerLayerEndPosition = new CCPoint(
                 0.6f * screenSize.Width,
                 0.8f * screenSize.Height);
-            var headerPaneModelArgs = new PaneModelArgs()
-            {
-                ThePaneType = PaneType.Simple,
-                LogicalOrigin = headerPaneLogicalOrigin,
-                LogicalWidth = headerContentSize.Width,
-                LogicalHeight = headerContentSize.Height,
-            };
-            this._headerPaneModel = new PaneModel(headerPaneModelArgs);
-
-            // Header pane transition in/out
-            var pageCache = (IPageCache)TheGame.SharedGame.Services.GetService(typeof(IPageCache));
             var headerLayerStartPosition = new CCPoint(
-                headerPaneLogicalOrigin.X, 
+                headerLayerEndPosition.X, 
                 screenSize.Height);
-            var headerLayerEndPosition = headerPaneLogicalOrigin;
-            var headerPaneStartPosition = XNAUtils.LogicalToWorld(
-                headerLayerStartPosition,
-                pageCache.PaneDepthFromCameraStart,
-                XNAUtils.CameraType.Stationary);
-            var headerPaneEndPosition = XNAUtils.LogicalToWorld(
-                headerLayerEndPosition,
-                pageCache.PaneDepthFromCameraStart,
-                XNAUtils.CameraType.Stationary);
-            this._headerPaneModelOriginalPosition = headerPaneEndPosition;
-            var headerPaneStartPlacementAction = new Place(headerPaneStartPosition);
-            var headerPaneMoveInAction = new MoveTo(GameConstants.DURATION_LAYER_TRANSITION, headerPaneEndPosition);
-            this._headerPaneActionIn = new EaseBackOut(
-                new Sequence(new FiniteTimeAction[] { headerPaneStartPlacementAction, headerPaneMoveInAction })
-            );
-            var headerPaneMoveOutAction = new MoveTo(GameConstants.DURATION_LAYER_TRANSITION, headerPaneStartPosition);
-            this._headerPaneActionOut = new EaseBackIn(headerPaneMoveOutAction);
 
             // Header layer
-            this._headerLayer = new GameLayer();
+            this._headerLayer = new UILayer();
+            this._headerLayer.ContentSize = headerContentSize;
             this._headerLayer.Position = headerLayerEndPosition;
             this._headerLayerOriginalPosition = this._headerLayer.Position;
             this.AddChild(this._headerLayer);
@@ -209,42 +176,16 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._headerLayer.AddChild(this._flightMenu);
 
             // Footer pane model
-            var footerPaneLogicalOrigin = new CCPoint(
+            var footerLayerEndPosition = new CCPoint(
                 0.01f * screenSize.Width,
                 0.01f * screenSize.Height);
-            var footerPaneModelArgs = new PaneModelArgs()
-            {
-                ThePaneType = PaneType.Simple,
-                LogicalOrigin = footerPaneLogicalOrigin,
-                LogicalWidth = footerContentSize.Width,
-                LogicalHeight = footerContentSize.Height,
-            };
-            this._footerPaneModel = new PaneModel(footerPaneModelArgs);
-
-            // Footer pane transition in/out
             var footerLayerStartPosition = new CCPoint(
-                footerPaneLogicalOrigin.X,
+                footerLayerEndPosition.X,
                 -footerContentSize.Height);
-            var footerLayerEndPosition = footerPaneLogicalOrigin;
-            var footerPaneStartPosition = XNAUtils.LogicalToWorld(
-                footerLayerStartPosition,
-                pageCache.PaneDepthFromCameraStart,
-                XNAUtils.CameraType.Stationary);
-            var footerPaneEndPosition = XNAUtils.LogicalToWorld(
-                footerLayerEndPosition,
-                pageCache.PaneDepthFromCameraStart,
-                XNAUtils.CameraType.Stationary);
-            this._footerPaneModelOriginalPosition = footerPaneEndPosition;
-            var footerPaneStartPlacementAction = new Place(footerPaneStartPosition);
-            var footerPaneMoveInAction = new MoveTo(GameConstants.DURATION_LAYER_TRANSITION, footerPaneEndPosition);
-            this._footerPaneActionIn = new EaseBackOut(
-                new Sequence(new FiniteTimeAction[] { footerPaneStartPlacementAction, footerPaneMoveInAction })
-            );
-            var footerPaneMoveOutAction = new MoveTo(GameConstants.DURATION_LAYER_TRANSITION, footerPaneStartPosition);
-            this._footerPaneActionOut = new EaseBackIn(footerPaneMoveOutAction);
 
             // Footer layer
-            this._footerLayer = new GameLayer();
+            this._footerLayer = new UILayer();
+            this._footerLayer.ContentSize = footerContentSize;
             this._footerLayer.Position = footerLayerEndPosition;
             this._footerLayerOriginalPosition = this._footerLayer.Position;
             this.AddChild(this._footerLayer);
@@ -285,9 +226,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             base.OnEnter();
 
             // Animate panes/layers
-            this._headerPaneModel.ModelRunAction(this._headerPaneActionIn);
             this._headerLayer.RunAction(this._headerLayerActionIn);
-            this._footerPaneModel.ModelRunAction(this._footerPaneActionIn);
             this._footerLayer.RunAction(this._footerLayerActionIn);
         }
 
@@ -306,15 +245,6 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._footerLayer.Position = new CCPoint(
                  this._footerLayerOriginalPosition.X + offsetX,
                  this._footerLayerOriginalPosition.Y + offsetY);
-
-            // And our 3D stationary camera is moving as hero moves to new line/page
-            var deltaStationaryCamera = this._inputManager.TheStationaryCamera.Position - this._stationaryCameraOriginalPosition;
-            this._headerPaneModel.WorldOrigin = this._headerPaneModelOriginalPosition + deltaStationaryCamera;
-            this._footerPaneModel.WorldOrigin = this._footerPaneModelOriginalPosition + deltaStationaryCamera;
-
-            // Draw panes so that they stay in place
-            this._headerPaneModel.DrawViaStationaryCamera();
-            this._footerPaneModel.DrawViaStationaryCamera();
 
             base.Draw();
         }

@@ -21,6 +21,7 @@ using Simsip.LineRunner.GameObjects.Sensors;
 using Simsip.LineRunner.Effects.Deferred;
 using Simsip.LineRunner.Scenes.MessageBox;
 using Simsip.LineRunner.GameObjects;
+using Microsoft.Xna.Framework.Graphics;
 #if IOS
 using AVFoundation;
 using Foundation;
@@ -33,21 +34,13 @@ using Windows.Foundation;
 
 namespace Simsip.LineRunner.Scenes.Start
 {
-    public class StartPage1Layer : GameLayer
+    public class StartPage1Layer : UILayer
     {
         private CoreScene _parent;
 
-        // Pane
-        private PaneModel _paneModel;
-        private CCPoint _paneLogicalOrigin;
-        private Simsip.LineRunner.Actions.Action _paneActionIn;
-        private Simsip.LineRunner.Actions.Action _paneActionOut;
-        
         // Layer actions
         private CCAction _layerActionIn;
         private CCFiniteTimeAction _layerActionOut;
-        private CCPoint _layerStartPosition;
-        private CCPoint _layerEndPosition;
 
         // Menu
         private CCMenuItemImage _startButton;
@@ -71,23 +64,18 @@ namespace Simsip.LineRunner.Scenes.Start
                 0.96f * screenSize.Width,
                 0.4f * screenSize.Height);
 
-            // Just determine pane possition, will be loaded via api LoadPane()
-            this._paneLogicalOrigin = new CCPoint(
+            // Layer transition in/out
+             var layerEndPosition = new CCPoint(
                 0.02f * screenSize.Width,
                 0.05f * screenSize.Height);
-
-            // Pane transition in/out
-            this._layerStartPosition = new CCPoint(
-                 this._paneLogicalOrigin.X,
+            var  layerStartPosition = new CCPoint(
+                 layerEndPosition.X,
                 -this.ContentSize.Height);
-            this._layerEndPosition = this._paneLogicalOrigin;
-
-            // Layer transition in/out
-            var layerStartPlacementAction = new CCPlace(this._layerStartPosition);
-            var layerMoveInAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, this._layerEndPosition);
+            var layerStartPlacementAction = new CCPlace(layerStartPosition);
+            var layerMoveInAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, layerEndPosition);
             this._layerActionIn = new CCEaseBackOut(
                 new CCSequence(new CCFiniteTimeAction[] { layerStartPlacementAction, layerMoveInAction }));
-            var layerMoveOutAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, this._layerStartPosition);
+            var layerMoveOutAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, layerStartPosition);
             this._layerActionOut = layerMoveOutAction;
 
             // Logo
@@ -173,11 +161,7 @@ namespace Simsip.LineRunner.Scenes.Start
         {
             base.OnEnter();
 
-            // Animate pane/layer
-            if (this._paneModel != null)
-            {
-                this._paneModel.ModelRunAction(this._paneActionIn);
-            }
+            // Animate layer
             this.RunAction(this._layerActionIn);
 
             // If we meet the ratings prompt criteria, display ratings prompt
@@ -214,17 +198,6 @@ namespace Simsip.LineRunner.Scenes.Start
             this._servicesStarted = true;
         }
 
-        public override void Draw()
-        {
-            // Draw pane with Cocos2D view, projection and game state
-            if (this._paneModel != null)
-            {
-                this._paneModel.DrawViaStationaryCamera();
-            }
-
-            base.Draw();
-        }
-
         #endregion
 
         #region Api
@@ -235,8 +208,8 @@ namespace Simsip.LineRunner.Scenes.Start
         /// A "loading" message box will display if user taps start menu and
         /// we are not ready to start.
         /// Examples:
-        /// Initial start of game
-        /// Hero was killed and is moving to start
+        /// - Initial start of game
+        /// - Hero was killed and is moving to start
         /// </summary>
         /// <param name="enableStart">True if tapping on start menu should start game immediately. False
         /// if tapping on start menu should show the loading indicator.</param>
@@ -261,38 +234,6 @@ namespace Simsip.LineRunner.Scenes.Start
                     this.NavigateStartPage2();
                 }
             }
-        }
-
-
-        // Needed as services to load model will not be available
-        // when constructor called
-        public void LoadPane()
-        {
-            var pageCache = (IPageCache)TheGame.SharedGame.Services.GetService(typeof(IPageCache));
-            var paneStartPosition = XNAUtils.LogicalToWorld(
-                this._layerStartPosition,
-                pageCache.PaneDepthFromCameraStart,
-                XNAUtils.CameraType.Stationary);
-            var paneEndPosition = XNAUtils.LogicalToWorld(
-                this._layerEndPosition,
-                pageCache.PaneDepthFromCameraStart,
-                XNAUtils.CameraType.Stationary);
-            var paneStartPlacementAction = new Place(paneStartPosition);
-            var paneMoveInAction = new MoveTo(GameConstants.DURATION_LAYER_TRANSITION, paneEndPosition);
-            this._paneActionIn = new EaseBackOut(
-                new Sequence(new FiniteTimeAction[] { paneStartPlacementAction, paneMoveInAction }));
-            var paneMoveOutAction = new MoveTo(GameConstants.DURATION_LAYER_TRANSITION, paneStartPosition);
-            this._paneActionOut = new EaseBackIn(paneMoveOutAction);
-
-            // Pane model
-            var paneModelArgs = new PaneModelArgs()
-            {
-                ThePaneType = PaneType.Simple,
-                LogicalOrigin = this._paneLogicalOrigin,
-                LogicalWidth = this.ContentSize.Width,
-                LogicalHeight = this.ContentSize.Height,
-            };
-            this._paneModel = new PaneModel(paneModelArgs);
         }
 
         #endregion
@@ -340,8 +281,6 @@ namespace Simsip.LineRunner.Scenes.Start
                 new CCSequence(new CCFiniteTimeAction[] { this._layerActionOut, navigateAction } )
                 );
 
-            // Ok, now run pane/layer actions out
-            this._paneModel.ModelRunAction(this._paneActionOut);
             this.RunAction(layerMoveOutAction);
         }
 

@@ -17,14 +17,9 @@ using Foundation;
 
 namespace Simsip.LineRunner.Scenes.Credits
 {
-    public class CreditsMasterLayer : GameLayer
+    public class CreditsMasterLayer : UILayer
     {
         private CoreScene _parent;
-
-        // Pane and pane actions
-        private PaneModel _paneModel;
-        private Simsip.LineRunner.Actions.Action _paneActionIn;
-        private Simsip.LineRunner.Actions.Action _paneActionOut;
 
         // Layer actions
         private CCAction _layerActionIn;
@@ -62,42 +57,14 @@ namespace Simsip.LineRunner.Scenes.Credits
                 0.8f * screenSize.Width,
                 0.8f * screenSize.Height);
 
-            // Pane model
-            var paneLogicalOrigin = new CCPoint(
-                0.1f * screenSize.Width,
-                0.1f * screenSize.Height);
-            var paneModelArgs = new PaneModelArgs()
-            {
-                ThePaneType = PaneType.Simple,
-                LogicalOrigin = paneLogicalOrigin,
-                LogicalWidth = this.ContentSize.Width,
-                LogicalHeight = this.ContentSize.Height
-            };
-            this._paneModel = new PaneModel(paneModelArgs);
-
-            // Pane transition in/out
-            var pageCache = (IPageCache)TheGame.SharedGame.Services.GetService(typeof(IPageCache));
-            var layerStartPosition = new CCPoint(
-                paneLogicalOrigin.X, 
-                screenSize.Height);
-            var layerEndPosition = paneLogicalOrigin;
-            var paneStartPosition = XNAUtils.LogicalToWorld(
-                layerStartPosition,
-                pageCache.PaneDepthFromCameraStart,
-                XNAUtils.CameraType.Stationary);
-            var paneEndPosition = XNAUtils.LogicalToWorld(
-                layerEndPosition,
-                pageCache.PaneDepthFromCameraStart,
-                XNAUtils.CameraType.Stationary);
-            var paneStartPlacementAction = new Place(paneStartPosition);
-            var paneMoveInAction = new MoveTo(GameConstants.DURATION_LAYER_TRANSITION, paneEndPosition);
-            this._paneActionIn = new EaseBackOut(
-                new Sequence(new FiniteTimeAction[] { paneStartPlacementAction, paneMoveInAction })
-            );
-            var paneMoveOutAction = new MoveTo(GameConstants.DURATION_LAYER_TRANSITION, paneStartPosition);
-            this._paneActionOut = new EaseBackIn(paneMoveOutAction);
 
             // Layer transition in/out
+            var layerEndPosition = new CCPoint(
+                0.1f * screenSize.Width,
+                0.1f * screenSize.Height);
+            var layerStartPosition = new CCPoint(
+                layerEndPosition.X,
+                screenSize.Height);
             var layerStartPlacementAction = new CCPlace(layerStartPosition);
             var layerMoveInAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, layerEndPosition);
             this._layerActionIn = new CCEaseBackOut(
@@ -275,21 +242,12 @@ namespace Simsip.LineRunner.Scenes.Credits
         {
             base.OnEnter();
 
-            // Animate pane/layer
-            this._paneModel.ModelRunAction(this._paneActionIn);
+            // Animate layer
             this.RunAction(this._layerActionIn);
 
             // Determine which navigation ui to show
             // Note: Page visibility is handled in previous/next event handlers below
             UpdatePageNavigationUI();
-        }
-
-        public override void Draw()
-        {
-            // Draw pane with Cocos2D view, projection and game state
-            this._paneModel.DrawViaStationaryCamera();
-
-            base.Draw();
         }
 
         #endregion

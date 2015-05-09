@@ -154,8 +154,11 @@ namespace Simsip.LineRunner.Scenes.Action
                 case LayerTags.StartPage2Layer:
                     {
                         // Immediately unhook any fly-bys in progress
-                        this._currentFlyBy.FlyByFinished -= OnCurrentFlyByFinished;
-                        this._currentFlyBy = null;
+                        if (this._currentFlyBy != null)
+                        {
+                            this._currentFlyBy.FlyByFinished -= OnCurrentFlyByFinished;
+                            this._currentFlyBy = null;
+                        }
 
                         // If so, see HudLayer.Draw for how to keep ui positioned correctly
                         // SwitchState(GameState.MovingToStart);
@@ -259,8 +262,8 @@ namespace Simsip.LineRunner.Scenes.Action
             this._particleCache.AddParticleEffect(e.TheObstacleModel, e.TheObstacleModel.TheContact);
 
             // Play glow animation
-            var glowUpAction = new TintTo(GameConstants.DURATION_OBSTACLE_GLOW, Color.White, 0.1f);
-            var glowDownAction = new TintTo(GameConstants.DURATION_OBSTACLE_GLOW, Color.White, 0.0f);
+            var glowUpAction = new TintTo(GameConstants.DURATION_OBSTACLE_GLOW, Microsoft.Xna.Framework.Color.White, 0.1f);
+            var glowDownAction = new TintTo(GameConstants.DURATION_OBSTACLE_GLOW, Microsoft.Xna.Framework.Color.White, 0.0f);
             var turnOffTint = new CallFunc(() => { e.TheObstacleModel.IsTinted = false; });
             var glowAction = new Sequence(new FiniteTimeAction[] 
                 { 
@@ -298,8 +301,8 @@ namespace Simsip.LineRunner.Scenes.Action
             this._particleCache.AddParticleEffect(e.TheLineModel, e.TheLineModel.TheContact);
 
             // Play glow animation
-            var glowUpAction = new TintTo(GameConstants.DURATION_OBSTACLE_GLOW, Color.White, 0.1f);
-            var glowDownAction = new TintTo(GameConstants.DURATION_OBSTACLE_GLOW, Color.White, 0.0f);
+            var glowUpAction = new TintTo(GameConstants.DURATION_OBSTACLE_GLOW, Microsoft.Xna.Framework.Color.White, 0.1f);
+            var glowDownAction = new TintTo(GameConstants.DURATION_OBSTACLE_GLOW, Microsoft.Xna.Framework.Color.White, 0.0f);
             var turnOffTint = new CallFunc(() => { e.TheLineModel.IsTinted = false; });
             var glowAction = new Sequence(new FiniteTimeAction[] 
                 { 
@@ -339,9 +342,10 @@ namespace Simsip.LineRunner.Scenes.Action
             // Set state
             this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
             this._currentLineNumber = 1;
+            this._currentGameState = GameState.None;
 
             // Dummy up an XNA gametime for us convert Cocos2d times into
-            _gameTime = new GameTime();
+            this._gameTime = new GameTime();
 
             // Schedule Update/Draw to be called
             this.ScheduleUpdate();
@@ -494,17 +498,18 @@ namespace Simsip.LineRunner.Scenes.Action
             // Do a one-time prep of our first page
             if (!this._firstTimeSetupPage)
             {
-                // Let our start layer display a pane now 
-                //(3d model depends on services AND stationary camera being in place for display of panes)
-                this._parent.TheStartPage1Layer.LoadPane();
-
                 // It is now safe to lazy load our hud layer 
                 // (depends upon stationary camera being in place for display of panes)
                 this._hudLayer = _parent.TheHudLayer;
 
                 // Now that our page components are ready to be accessed, get our intro mechanics going (e.g., flyby),
                 // and background loading of models going.
-                this.SwitchState(GameState.Intro);
+                // UNLESS we user has already indicated they want to skip intro by tapping start
+                // right away.
+                if (this._currentGameState != GameState.Start)
+                {
+                    this.SwitchState(GameState.Intro);
+                }
 
                 this._firstTimeSetupPage = true;
 

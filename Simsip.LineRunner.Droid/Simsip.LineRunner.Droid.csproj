@@ -2653,12 +2653,6 @@
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Hud\HudLayer.cs">
       <Link>Scenes\Hud\HudLayer.cs</Link>
     </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Intro\IIntroLayer.cs">
-      <Link>Scenes\Intro\IIntroLayer.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Intro\IntroLayer.cs">
-      <Link>Scenes\Intro\IntroLayer.cs</Link>
-    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\LayerTags.cs">
       <Link>Scenes\LayerTags.cs</Link>
     </Compile>
@@ -2700,6 +2694,9 @@
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Start\StartPage2Layer.cs">
       <Link>Scenes\Start\StartPage2Layer.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Scenes\UILayer.cs">
+      <Link>Scenes\UILayer.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Worlds\WorldsLayer.cs">
       <Link>Scenes\Worlds\WorldsLayer.cs</Link>

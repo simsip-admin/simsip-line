@@ -314,7 +314,16 @@ namespace Simsip.LineRunner.Effects.Deferred
 #endif
 
             // Get state correct before doing our drawing pass
-            XNAUtils.DefaultDrawState();
+            // XNAUtils.DefaultDrawState();
+            var previousDepthStencilState = TheGame.SharedGame.GraphicsDevice.DepthStencilState;
+            var previousBlendState = TheGame.SharedGame.GraphicsDevice.BlendState;
+            var previousSamplerState = TheGame.SharedGame.GraphicsDevice.SamplerStates[0];
+            var previousRasterizerState = TheGame.SharedGame.GraphicsDevice.RasterizerState;
+
+            TheGame.SharedGame.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+            TheGame.SharedGame.GraphicsDevice.BlendState = BlendState.Opaque;
+            TheGame.SharedGame.GraphicsDevice.SamplerStates[0] = SamplerState.LinearWrap;
+            TheGame.SharedGame.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
 
             // Set appropriate view/projection matrices
             this._view = this._inputManager.CurrentCamera.ViewMatrix;
@@ -323,6 +332,13 @@ namespace Simsip.LineRunner.Effects.Deferred
 #if IOS || ANDROID || DESKTOP || WINDOWS_PHONE || NETFX_CORE
             // Single pass for IOS and then short-circuit
             this.RenderSceneIos(gameTime);
+
+            // XNAUtils.Cocos2dDrawState();
+            TheGame.SharedGame.GraphicsDevice.DepthStencilState = previousDepthStencilState;
+            TheGame.SharedGame.GraphicsDevice.BlendState = previousBlendState;
+            TheGame.SharedGame.GraphicsDevice.SamplerStates[0] = previousSamplerState;
+            TheGame.SharedGame.GraphicsDevice.RasterizerState = previousRasterizerState;
+
             base.Draw(gameTime);
             return;
 #endif

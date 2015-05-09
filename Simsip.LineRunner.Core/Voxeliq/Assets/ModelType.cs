@@ -6,7 +6,6 @@ using Engine.Common.Logging;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Simsip.LineRunner;
-using Simsip.LineRunner.Scenes.Intro;
 
 namespace Engine.Assets
 {

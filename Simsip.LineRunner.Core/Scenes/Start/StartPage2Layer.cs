@@ -59,17 +59,6 @@ namespace Simsip.LineRunner.Scenes.Start
 
         }
 
-        #region Cocos2d overrides
-
-        public override void Draw()
-        {
-            XNAUtils.Cocos2dDrawState();
-
-            base.Draw();
-        }
-
-        #endregion
-
         #region Touch Implementation
 
         /*
