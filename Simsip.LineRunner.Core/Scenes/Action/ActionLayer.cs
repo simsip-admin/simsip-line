@@ -27,7 +27,6 @@ using Simsip.LineRunner.GameObjects.Characters;
 using Simsip.LineRunner.GameObjects.Lines;
 using Simsip.LineRunner.GameObjects.Obstacles;
 using Simsip.LineRunner.GameObjects.Pages;
-using Simsip.LineRunner.GameObjects.Panes;
 using Simsip.LineRunner.GameObjects.ParticleEffects;
 using Simsip.LineRunner.GameObjects.Sensors;
 using Simsip.LineRunner.Physics;
@@ -86,7 +85,6 @@ namespace Simsip.LineRunner.Scenes.Action
         private ICharacterCache _characterCache;
         private IParticleEffectCache _particleCache;
         private ISensorCache _sensorCache;
-        private IPaneCache _paneCache;
         private IDeferredShadowMapping _deferredShadowMapping;
 
         // Support for communicating score to ui layer
@@ -373,7 +371,6 @@ namespace Simsip.LineRunner.Scenes.Action
                 this._characterCache = (ICharacterCache)TheGame.SharedGame.Services.GetService(typeof(ICharacterCache));
                 this._particleCache = (IParticleEffectCache)TheGame.SharedGame.Services.GetService(typeof(IParticleEffectCache));
                 this._sensorCache = (ISensorCache)TheGame.SharedGame.Services.GetService(typeof(ISensorCache));
-                this._paneCache = (IPaneCache)TheGame.SharedGame.Services.GetService(typeof(IPaneCache));
                 this._deferredShadowMapping = (IDeferredShadowMapping)TheGame.SharedGame.Services.GetService(typeof(IDeferredShadowMapping));
                 this._userInterface = (IUserInterface)TheGame.SharedGame.Services.GetService(typeof(IUserInterface));
                 this._inGameDebugger = (IInGameDebuggerService)TheGame.SharedGame.Services.GetService(typeof(IInGameDebuggerService));
@@ -527,7 +524,6 @@ namespace Simsip.LineRunner.Scenes.Action
             this._characterCache.Update(this._gameTime);
             this._particleCache.Update(this._gameTime);
             this._sensorCache.Update(this._gameTime);
-            this._paneCache.Update(this._gameTime);
 
             // Adjust hero physics so it stays in 2D plane
             if (this._characterCache.TheHeroModel != null)

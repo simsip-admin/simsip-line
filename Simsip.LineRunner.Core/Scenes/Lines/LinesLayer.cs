@@ -6,7 +6,6 @@ using Simsip.LineRunner.Entities.LineRunner;
 using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.GameObjects.Pages;
 using Simsip.LineRunner.GameObjects.Lines;
-using Simsip.LineRunner.GameObjects.Panes;
 using Simsip.LineRunner.Resources;
 using Simsip.LineRunner.Utils;
 using System.Collections.Generic;

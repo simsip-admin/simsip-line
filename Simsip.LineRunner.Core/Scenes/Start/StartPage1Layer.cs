@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using Simsip.LineRunner.Actions;
 using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.GameObjects.Pages;
-using Simsip.LineRunner.GameObjects.Panes;
 using Simsip.LineRunner.Resources;
 using Simsip.LineRunner.Utils;
 using Engine.Universe;
@@ -419,13 +418,6 @@ namespace Simsip.LineRunner.Scenes.Start
             Debug.WriteLine("SensorCache: " + Program.TheStopwatch.ElapsedMilliseconds);
             Program.TheStopwatch.Restart();
 #endif
-            var paneCache = new PaneCache(TheGame.SharedGame);
-            paneCache.Enabled = false;
-#if STOPWATCH
-            Program.TheStopwatch.Stop();
-            Debug.WriteLine("PaneCache: " + Program.TheStopwatch.ElapsedMilliseconds);
-            Program.TheStopwatch.Restart();
-#endif
             var deferredShadowMapping = new DeferredShadowMapping(TheGame.SharedGame);
             deferredShadowMapping.Enabled = false;
 #if STOPWATCH
@@ -581,12 +573,6 @@ namespace Simsip.LineRunner.Scenes.Start
 #if STOPWATCH
             Program.TheStopwatch.Stop();
             Debug.WriteLine("SensorCache.Initialize: " + Program.TheStopwatch.ElapsedMilliseconds);
-            Program.TheStopwatch.Restart();
-#endif
-            paneCache.Initialize();
-#if STOPWATCH
-            Program.TheStopwatch.Stop();
-            Debug.WriteLine("PaneCache.Initialize: " + Program.TheStopwatch.ElapsedMilliseconds);
             Program.TheStopwatch.Restart();
 #endif
             deferredShadowMapping.Initialize();

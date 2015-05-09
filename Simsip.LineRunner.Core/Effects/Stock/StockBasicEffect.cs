@@ -15,7 +15,6 @@ using Simsip.LineRunner.GameObjects.Characters;
 using Simsip.LineRunner.GameObjects.Lines;
 using Simsip.LineRunner.GameObjects.Obstacles;
 using Simsip.LineRunner.GameObjects.Pages;
-using Simsip.LineRunner.GameObjects.Panes;
 using Simsip.LineRunner.Utils;
 using System;
 using System.IO;

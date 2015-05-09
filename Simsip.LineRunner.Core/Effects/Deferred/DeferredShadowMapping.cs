@@ -15,7 +15,6 @@ using Simsip.LineRunner.GameObjects.Characters;
 using Simsip.LineRunner.GameObjects.Lines;
 using Simsip.LineRunner.GameObjects.Obstacles;
 using Simsip.LineRunner.GameObjects.Pages;
-using Simsip.LineRunner.GameObjects.Panes;
 using Simsip.LineRunner.Utils;
 using System;
 using System.IO;
@@ -130,7 +129,6 @@ namespace Simsip.LineRunner.Effects.Deferred
         private ILineCache _lineCache;
         private IObstacleCache _obstacleCache;
         private ICharacterCache _characterCache;
-        private IPaneCache _paneCache;
         
         // For ease in referencing
         private GraphicsDevice _device;
@@ -215,7 +213,6 @@ namespace Simsip.LineRunner.Effects.Deferred
             this._lineCache = (ILineCache)TheGame.SharedGame.Services.GetService(typeof(ILineCache));
             this._obstacleCache = (IObstacleCache)TheGame.SharedGame.Services.GetService(typeof(IObstacleCache));
             this._characterCache = (ICharacterCache)TheGame.SharedGame.Services.GetService(typeof(ICharacterCache));
-            this._paneCache = (IPaneCache)TheGame.SharedGame.Services.GetService(typeof(IPaneCache));
             this._physicsManager = (IPhysicsManager)TheGame.SharedGame.Services.GetService(typeof(IPhysicsManager));
 
             base.Initialize();

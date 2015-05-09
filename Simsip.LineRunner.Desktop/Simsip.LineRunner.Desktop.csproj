@@ -2134,21 +2134,6 @@
     <Compile Include="..\Simsip.LineRunner.Core\GameObjects\Pages\PageModel.cs">
       <Link>GameObjects\Pages\PageModel.cs</Link>
     </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\GameObjects\Panes\IPaneCache.cs">
-      <Link>GameObjects\Panes\IPaneCache.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\GameObjects\Panes\PaneCache.cs">
-      <Link>GameObjects\Panes\PaneCache.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\GameObjects\Panes\PaneModel.cs">
-      <Link>GameObjects\Panes\PaneModel.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\GameObjects\Panes\PaneModelArgs.cs">
-      <Link>GameObjects\Panes\PaneModelArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\GameObjects\Panes\PaneType.cs">
-      <Link>GameObjects\Panes\PaneType.cs</Link>
-    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\GameObjects\ParticleEffects\IParticleEffectCache.cs">
       <Link>GameObjects\ParticleEffects\IParticleEffectCache.cs</Link>
     </Compile>

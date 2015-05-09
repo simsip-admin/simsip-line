@@ -7,7 +7,6 @@ using Simsip.LineRunner.Actions;
 using Simsip.LineRunner.Effects.Deferred;
 using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.GameObjects.Pages;
-using Simsip.LineRunner.GameObjects.Panes;
 using Simsip.LineRunner.Resources;
 using Simsip.LineRunner.SneakyJoystick;
 using Simsip.LineRunner.Utils;

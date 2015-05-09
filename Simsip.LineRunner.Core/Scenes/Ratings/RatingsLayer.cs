@@ -3,7 +3,6 @@ using Cocos2D;
 using Simsip.LineRunner.Actions;
 using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.GameObjects.Pages;
-using Simsip.LineRunner.GameObjects.Panes;
 using Simsip.LineRunner.Resources;
 using Simsip.LineRunner.Utils;
 #if IOS

@@ -4,7 +4,6 @@ using Simsip.LineRunner.Data;
 using Simsip.LineRunner.Entities;
 using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.GameObjects.Pages;
-using Simsip.LineRunner.GameObjects.Panes;
 using Simsip.LineRunner.Scenes.MessageBox;
 using Simsip.LineRunner.Resources;
 using Simsip.LineRunner.Utils;

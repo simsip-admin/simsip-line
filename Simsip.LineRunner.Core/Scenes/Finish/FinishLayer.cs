@@ -6,7 +6,6 @@ using Simsip.LineRunner.Entities.Facebook;
 using Simsip.LineRunner.Entities.OAuth;
 using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.GameObjects.Pages;
-using Simsip.LineRunner.GameObjects.Panes;
 using Simsip.LineRunner.Resources;
 using Simsip.LineRunner.Services.Facebook;
 using Simsip.LineRunner.Services.OAuth;
