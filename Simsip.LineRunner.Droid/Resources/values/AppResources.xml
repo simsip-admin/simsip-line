@@ -96,4 +96,8 @@
   <string name="CreditsFrameworks">frameworks</string>
   <string name="CreditsResourcePacks">resource packs</string>
   <string name="CreditsTitle">credits</string>
+  <string name="MainHelp">help</string>
+  <string name="MainOptions">options</string>
+  <string name="MainPlay">play</string>
+  <string name="MainRate">rate</string>
 </resources>

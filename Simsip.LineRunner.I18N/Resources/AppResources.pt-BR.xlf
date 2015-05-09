@@ -96,6 +96,22 @@
           <source>credits</source>
           <target state="new">credits</target>
         </trans-unit>
+        <trans-unit id="Resx/MainRate" translate="yes" xml:space="preserve">
+          <source>rate</source>
+          <target state="new">rate</target>
+        </trans-unit>
+        <trans-unit id="Resx/MainPlay" translate="yes" xml:space="preserve">
+          <source>play</source>
+          <target state="new">play</target>
+        </trans-unit>
+        <trans-unit id="Resx/MainOptions" translate="yes" xml:space="preserve">
+          <source>options</source>
+          <target state="new">options</target>
+        </trans-unit>
+        <trans-unit id="Resx/MainHelp" translate="yes" xml:space="preserve">
+          <source>help</source>
+          <target state="new">help</target>
+        </trans-unit>
         <trans-unit id="Resx/CreditsResourcePacks" translate="yes" xml:space="preserve">
           <source>resource packs</source>
           <target state="new">resource packs</target>

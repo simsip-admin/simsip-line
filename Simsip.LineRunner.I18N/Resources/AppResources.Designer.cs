@@ -638,6 +638,42 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to help.
+        /// </summary>
+        public static string MainHelp {
+            get {
+                return ResourceManager.GetString("MainHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to options.
+        /// </summary>
+        public static string MainOptions {
+            get {
+                return ResourceManager.GetString("MainOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to play.
+        /// </summary>
+        public static string MainPlay {
+            get {
+                return ResourceManager.GetString("MainPlay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to rate.
+        /// </summary>
+        public static string MainRate {
+            get {
+                return ResourceManager.GetString("MainRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to credits.
         /// </summary>
         public static string OptionsCredits {

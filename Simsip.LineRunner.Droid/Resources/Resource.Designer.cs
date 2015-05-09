@@ -2106,6 +2106,18 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060082
 			public const int LoginUserNameDescription = 2131099778;
 			
+			// aapt resource value: 0x7f06009c
+			public const int MainHelp = 2131099804;
+			
+			// aapt resource value: 0x7f06009d
+			public const int MainOptions = 2131099805;
+			
+			// aapt resource value: 0x7f06009e
+			public const int MainPlay = 2131099806;
+			
+			// aapt resource value: 0x7f06009f
+			public const int MainRate = 2131099807;
+			
 			// aapt resource value: 0x7f060058
 			public const int OptionsCredits = 2131099736;
 			

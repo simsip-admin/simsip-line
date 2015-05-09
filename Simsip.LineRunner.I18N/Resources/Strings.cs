@@ -98,5 +98,9 @@
         public static string CreditsFrameworks = "CreditsFrameworks";
         public static string CreditsResourcePacks = "CreditsResourcePacks";
         public static string CreditsTitle = "CreditsTitle";
+        public static string MainHelp = "MainHelp";
+        public static string MainOptions = "MainOptions";
+        public static string MainPlay = "MainPlay";
+        public static string MainRate = "MainRate";
     }
 }
