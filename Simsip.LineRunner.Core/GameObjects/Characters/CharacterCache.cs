@@ -674,12 +674,6 @@ namespace Simsip.LineRunner.GameObjects.Characters
                 // We can now assign our property for the hero which multiple helper functions
                 // will check for null against to make sure it is complete and ready to go
                 this.TheHeroModel = heroModel;
-
-                // Apply limits on hero to keep in xy plane and limit
-                // rotation in xy plane
-                this.ApplyHeroPhysicsConstraints();
-
-                this.SuspendHeroPhysics();
             }
 
             this._loadContentThreadResults.Enqueue(loadContentThreadArgs);
@@ -728,6 +722,15 @@ namespace Simsip.LineRunner.GameObjects.Characters
                 if (characterModel.PhysicsEntity != null)
                 {
                     this._physicsManager.TheSpace.Add(characterModel.PhysicsEntity);
+                }
+
+                if (characterModel == this.TheHeroModel)
+                {
+                    // Apply limits on hero to keep in xy plane and limit
+                    // rotation in xy plane
+                    this.ApplyHeroPhysicsConstraints();
+
+                    this.SuspendHeroPhysics();
                 }
             }
         }

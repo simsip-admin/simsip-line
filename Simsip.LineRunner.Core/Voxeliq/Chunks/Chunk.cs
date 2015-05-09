@@ -154,10 +154,12 @@ namespace Engine.Chunks
             this.IndexList = new List<short>();
 
             // Initialize our physics static group to hold the representations of the block physics for this chunk
+            /* Important: this has to be on the Update thread
             var physicsCollidables = new List<Collidable>();
             this.PhysicsStaticGroup = new StaticGroup(physicsCollidables);
             var physicsManager = (IPhysicsManager)TheGame.SharedGame.Services.GetService(typeof(IPhysicsManager));
             physicsManager.TheSpace.Add(this.PhysicsStaticGroup);
+            */
         }
 
         /// <summary>
