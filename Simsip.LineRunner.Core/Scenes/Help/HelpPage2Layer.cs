@@ -25,20 +25,22 @@ namespace Simsip.LineRunner.Scenes.Help
             // Page number
             var pageNumberText = string.Empty;
 #if ANDROID
-            pageNumberText = Program.SharedProgram.Resources.GetString(Resource.String.CommonPage2Of4);
+            pageNumberText = Program.SharedProgram.Resources.GetString(Resource.String.CommonPage2Of3);
 #elif IOS
-            pageNumberText = NSBundle.MainBundle.LocalizedString(Strings.CommonPage2Of4, Strings.CommonPage2Of4);
+            pageNumberText = NSBundle.MainBundle.LocalizedString(Strings.CommonPage2Of3 Strings.CommonPage2Of3);
 #else
-            pageNumberText = AppResources.CommonPage2Of4;
+            pageNumberText = AppResources.CommonPage2Of3;
 #endif
-            var pageNumberHeader = new CCLabelTTF(pageNumberText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            var pageNumberHeader = new CCLabelTTF(pageNumberText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             pageNumberHeader.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,
                 0.9f * this.ContentSize.Height);
             this.AddChild(pageNumberHeader);
 
+            // TODO: Just going with description 1 for now
             // How to play sub-title
+            /*
             var howToPlayText = string.Empty;
 #if ANDROID
             howToPlayText = Program.SharedProgram.Resources.GetString(Resource.String.HelpHowToPlay);
@@ -52,6 +54,7 @@ namespace Simsip.LineRunner.Scenes.Help
                 0.5f * this.ContentSize.Width,
                 0.7f * this.ContentSize.Height);
             this.AddChild(howToSubtitle);
+            */
 
             // How to play description 1
             var howToPlayDescription1Text = string.Empty;
@@ -62,23 +65,23 @@ namespace Simsip.LineRunner.Scenes.Help
 #else
             howToPlayDescription1Text = AppResources.HelpHowToPlayDescription1;
 #endif
-            var howToDescription1 = new CCLabelTTF(howToPlayDescription1Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            var howToDescription1 = new CCLabelTTF(howToPlayDescription1Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             howToDescription1.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
-                0.65f * this.ContentSize.Height);
+                0.75f * this.ContentSize.Height);
             this.AddChild(howToDescription1);
 
             // Phone
             var phoneImage = new CCSprite("Images/Misc/HelpPhone");
-            Cocos2DUtils.ResizeSprite(phoneImage,
-                0.7f  * this.ContentSize.Width,
-                0.4f * this.ContentSize.Height);
+            phoneImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
             phoneImage.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
-                0.43f * this.ContentSize.Height);
+                0.2f * this.ContentSize.Height);
             this.AddChild(phoneImage);
 
+            // TODO: Just going with description 1 for now
             // How to play description 2
+            /*
             var howToPlayDescription2Text = string.Empty;
 #if ANDROID
             howToPlayDescription2Text = Program.SharedProgram.Resources.GetString(Resource.String.HelpHowToPlayDescription2);
@@ -92,6 +95,7 @@ namespace Simsip.LineRunner.Scenes.Help
                 0.5f * this.ContentSize.Width,
                 0.2f * this.ContentSize.Height);
             this.AddChild(howToDescription2);
+            */
         }
     }
 }

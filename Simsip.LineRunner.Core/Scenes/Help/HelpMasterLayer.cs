@@ -16,6 +16,9 @@ using Foundation;
 
 namespace Simsip.LineRunner.Scenes.Help
 {
+    /// <summary>
+    /// IMPORTANT: Implementation is currently for 3 pages, but we have a 4th page commented out when we need to add it in.
+    /// </summary>
     public class HelpMasterLayer : UILayer
     {
         private CoreScene _parent;
@@ -28,7 +31,7 @@ namespace Simsip.LineRunner.Scenes.Help
         private HelpPage1Layer _helpPage1Layer;
         private HelpPage2Layer _helpPage2Layer;
         private HelpPage3Layer _helpPage3Layer;
-        private HelpPage4Layer _helpPage4Layer;
+        // private HelpPage4Layer _helpPage4Layer;
 
         // Page actions
         private CCAction _pageActionInFromLeft;
@@ -47,9 +50,6 @@ namespace Simsip.LineRunner.Scenes.Help
         public HelpMasterLayer(CoreScene parent)
         {
             this._parent = parent;
-
-            // We want touches so we can handle selection of resource pack/pad images
-            this.TouchEnabled = true;
 
             // Get these set up for relative positioning below
             var screenSize = CCDirector.SharedDirector.WinSize;
@@ -152,7 +152,7 @@ namespace Simsip.LineRunner.Scenes.Help
 #else
             versionText = AppResources.CommonVersion;
 #endif
-            var versionHeader = new CCLabelTTF(versionText + " " + FileUtils.GetVersion(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            var versionHeader = new CCLabelTTF(versionText + "-" + FileUtils.GetVersion(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
             versionHeader.AnchorPoint = CCPoint.AnchorMiddleLeft;
             versionHeader.Position = new CCPoint(
                 0.05f * this.ContentSize.Width, 
@@ -163,16 +163,16 @@ namespace Simsip.LineRunner.Scenes.Help
             this._helpPage1Layer = new HelpPage1Layer(this._parent, this);
             this._helpPage2Layer = new HelpPage2Layer(this._parent, this);
             this._helpPage3Layer = new HelpPage3Layer(this._parent, this);
-            this._helpPage4Layer = new HelpPage4Layer(this._parent, this);
+            // this._helpPage4Layer = new HelpPage4Layer(this._parent, this);
             this.AddChild(this._helpPage1Layer);
             this.AddChild(this._helpPage2Layer);
             this.AddChild(this._helpPage3Layer);
-            this.AddChild(this._helpPage4Layer);
+            // this.AddChild(this._helpPage4Layer);
             this._helpPage2Layer.Visible = false;
             this._helpPage3Layer.Visible = false;
-            this._helpPage4Layer.Visible = false;
+            // this._helpPage4Layer.Visible = false;
             this._currentPage = 1;
-            this._totalPages = 4;
+            this._totalPages = 3;
 
             // Previous
             var previousNormal = new CCSprite("Images/Icons/PreviousButtonNormal.png");
@@ -285,12 +285,14 @@ namespace Simsip.LineRunner.Scenes.Help
                         incomingLayer = this._helpPage2Layer;
                         break;
                     }
+                    /*
                 case 3:
                     {
                         exitingLayer = this._helpPage4Layer;
                         incomingLayer = this._helpPage3Layer;
                         break;
                     }
+                    */
             }
 
             // Animate page transition
@@ -331,12 +333,14 @@ namespace Simsip.LineRunner.Scenes.Help
                         incomingLayer = this._helpPage3Layer;
                         break;
                     }
+                    /*
                 case 4:
                     {
                         exitingLayer = this._helpPage3Layer;
                         incomingLayer = this._helpPage4Layer;
                         break;
                     }
+                    */
             }
 
             // Animate page transition

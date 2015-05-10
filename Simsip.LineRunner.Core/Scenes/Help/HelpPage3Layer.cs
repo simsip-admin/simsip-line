@@ -25,74 +25,139 @@ namespace Simsip.LineRunner.Scenes.Help
             // Page number
             var pageNumberText = string.Empty;
 #if ANDROID
-            pageNumberText = Program.SharedProgram.Resources.GetString(Resource.String.CommonPage3Of4);
+            pageNumberText = Program.SharedProgram.Resources.GetString(Resource.String.CommonPage3Of3);
 #elif IOS
-            pageNumberText = NSBundle.MainBundle.LocalizedString(Strings.CommonPage3Of4, Strings.CommonPage3Of4);
+            pageNumberText = NSBundle.MainBundle.LocalizedString(Strings.CommonPage3Of3, Strings.CommonPage3Of3);
 #else
-            pageNumberText = AppResources.CommonPage3Of4;
+            pageNumberText = AppResources.CommonPage3Of3;
 #endif
-            var pageNumberHeader = new CCLabelTTF(pageNumberText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            var pageNumberHeader = new CCLabelTTF(pageNumberText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             pageNumberHeader.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,
                 0.9f * this.ContentSize.Height);
             this.AddChild(pageNumberHeader);
 
-            // Free flight sub-title
-            var freeFlightText = string.Empty;
+            // Options sub-title
+            var optionsText = string.Empty;
 #if ANDROID
-            freeFlightText = Program.SharedProgram.Resources.GetString(Resource.String.HelpFreeFlight);
+            optionsText = Program.SharedProgram.Resources.GetString(Resource.String.HelpOptions);
 #elif IOS
-            freeFlightText = NSBundle.MainBundle.LocalizedString(Strings.HelpFreeFlight, Strings.HelpFreeFlight);
+            optionsText = NSBundle.MainBundle.LocalizedString(Strings.HelpOptions, Strings.HelpOptions);
 #else
-            freeFlightText = AppResources.HelpFreeFlight;
+            optionsText = AppResources.HelpOptions;
 #endif
-            var freeflightSubtitle = new CCLabelTTF(freeFlightText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            freeflightSubtitle.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.7f * this.ContentSize.Height);
-            this.AddChild(freeflightSubtitle);
-
-            // Free flight description 1
-            var freeFlightDescription1Text = string.Empty;
-#if ANDROID
-            freeFlightDescription1Text = Program.SharedProgram.Resources.GetString(Resource.String.HelpfreeFlightDescription1);
-#elif IOS
-            freeFlightDescription1Text = NSBundle.MainBundle.LocalizedString(Strings.HelpfreeFlightDescription1, Strings.HelpfreeFlightDescription1);
-#else
-            freeFlightDescription1Text = AppResources.HelpfreeFlightDescription1;
-#endif
-            var freeFlightDescription1 = new CCLabelTTF(freeFlightDescription1Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-            freeFlightDescription1.Position = new CCPoint(
+            var optionsSubtitle = new CCLabelTTF(optionsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            optionsSubtitle.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
-                0.65f * this.ContentSize.Height);
-            this.AddChild(freeFlightDescription1);
+                0.75f * this.ContentSize.Height);
+            this.AddChild(optionsSubtitle);
 
-            // Phone
-            var phoneImage = new CCSprite("Images/Misc/HelpPhone2");
-            Cocos2DUtils.ResizeSprite(phoneImage,
-                0.7f  * this.ContentSize.Width,
-                0.4f * this.ContentSize.Height);
-            phoneImage.Position = new CCPoint(
-                0.5f  * this.ContentSize.Width,
-                0.43f * this.ContentSize.Height);
-            this.AddChild(phoneImage);
-
-            // Free flight description 2
-            var freeFlightDescription2Text = string.Empty;
+            // TODO: Resource packs
+            /*
+            var resourcePacksImage = new CCSprite("Images/Misc/HelpResourcePacks");
+            Cocos2DUtils.ResizeSprite(resourcePacksImage,
+                0.08f * this.ContentSize.Width,
+                0.08f * this.ContentSize.Height);
+            resourcePacksImage.AnchorPoint = CCPoint.AnchorMiddleRight;
+            resourcePacksImage.Position = new CCPoint(
+                0.2f * this.ContentSize.Width,
+                0.6f * this.ContentSize.Height);
+            this.AddChild(resourcePacksImage);
+            var resourcePacksText = string.Empty;
 #if ANDROID
-            freeFlightDescription2Text = Program.SharedProgram.Resources.GetString(Resource.String.HelpfreeFlightDescription2);
+            resourcePacksText = Program.SharedProgram.Resources.GetString(Resource.String.HelpResourcePacks);
 #elif IOS
-            freeFlightDescription2Text = NSBundle.MainBundle.LocalizedString(Strings.HelpfreeFlightDescription2, Strings.HelpfreeFlightDescription2);
+            resourcePacksText = NSBundle.MainBundle.LocalizedString(Strings.HelpResourcePacks, Strings.HelpResourcePacks);
 #else
-            freeFlightDescription2Text = AppResources.HelpfreeFlightDescription2;
+            resourcePacksText = AppResources.HelpResourcePacks;
 #endif
+            var resourcePacksDescription = new CCLabelTTF(resourcePacksText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            resourcePacksDescription.AnchorPoint = CCPoint.AnchorMiddleLeft;
+            resourcePacksDescription.Position = new CCPoint(
+                0.25f * this.ContentSize.Width,
+                0.6f * this.ContentSize.Height);
+            this.AddChild(resourcePacksDescription);
+            */
 
-            var howToDescription2 = new CCLabelTTF(freeFlightDescription2Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-            howToDescription2.Position = new CCPoint(
+            // Pads
+            var padsImage = new CCSprite("Images/Misc/HelpPads");
+            padsImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
+            padsImage.Position = new CCPoint(
+                0.5f  * this.ContentSize.Width,
+                0.55f * this.ContentSize.Height);
+            this.AddChild(padsImage);
+            var padsText = string.Empty;
+#if ANDROID
+            padsText = Program.SharedProgram.Resources.GetString(Resource.String.HelpPads);
+#elif IOS
+            padsText = NSBundle.MainBundle.LocalizedString(Strings.HelpPads, Strings.HelpPads);
+#else
+            padsText = AppResources.HelpPads;
+#endif
+            var padsDescription = new CCLabelTTF(padsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            padsDescription.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
+                0.5f * this.ContentSize.Height);
+            this.AddChild(padsDescription);
+
+            // Lines
+            var linesImage = new CCSprite("Images/Misc/HelpLines");
+            linesImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
+            linesImage.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.3f * this.ContentSize.Height);
+            this.AddChild(linesImage);
+            var linesText = string.Empty;
+#if ANDROID
+            linesText = Program.SharedProgram.Resources.GetString(Resource.String.HelpLines);
+#elif IOS
+            linesText = NSBundle.MainBundle.LocalizedString(Strings.HelpLines, Strings.HelpLines);
+#else
+            linesText = AppResources.HelpLines;
+#endif
+            var linesDescription = new CCLabelTTF(linesText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            linesDescription.Position = new CCPoint(
+                0.5f  * this.ContentSize.Width,
+                0.25f * this.ContentSize.Height);
+            this.AddChild(linesDescription);
+
+            // TODO: Worlds
+            /*
+            var worldsImage = new CCSprite("Images/Misc/HelpWorlds");
+            Cocos2DUtils.ResizeSprite(worldsImage,
+                0.08f * this.ContentSize.Width,
+                0.08f * this.ContentSize.Height);
+            worldsImage.AnchorPoint = CCPoint.AnchorMiddleRight;
+            worldsImage.Position = new CCPoint(
+                0.2f * this.ContentSize.Width,
+                0.3f * this.ContentSize.Height);
+            this.AddChild(worldsImage);
+            var worldsText = string.Empty;
+#if ANDROID
+            worldsText = Program.SharedProgram.Resources.GetString(Resource.String.HelpWorlds);
+#elif IOS
+            worldsText = NSBundle.MainBundle.LocalizedString(Strings.HelpWorlds, Strings.HelpWorlds);
+#else
+            worldsText = AppResources.HelpWorlds;
+#endif
+            var worldsDescription = new CCLabelTTF(worldsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            worldsDescription.AnchorPoint = CCPoint.AnchorMiddleLeft;
+            worldsDescription.Position = new CCPoint(
+                0.25f * this.ContentSize.Width,
+                0.3f * this.ContentSize.Height);
+            this.AddChild(worldsDescription);
+            */
+
+            // TODO: Options footer
+            /* 
+            var optionsFooter = new CCLabelTTF("plus sound, time and more", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            optionsFooter.AnchorPoint = CCPoint.AnchorMiddleLeft;
+            optionsFooter.Position = new CCPoint(
+                0.25f * this.ContentSize.Width,
                 0.2f * this.ContentSize.Height);
-            this.AddChild(howToDescription2);
+            this.AddChild(optionsFooter);
+            */
         }
     }
 }

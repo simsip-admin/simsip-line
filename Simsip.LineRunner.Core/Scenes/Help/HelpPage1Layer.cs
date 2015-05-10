@@ -26,13 +26,13 @@ namespace Simsip.LineRunner.Scenes.Help
             // Page number
             var pageNumberText = string.Empty;
 #if ANDROID
-            pageNumberText = Program.SharedProgram.Resources.GetString(Resource.String.CommonPage1Of4);
+            pageNumberText = Program.SharedProgram.Resources.GetString(Resource.String.CommonPage1Of3);
 #elif IOS
-            pageNumberText = NSBundle.MainBundle.LocalizedString(Strings.CommonPage1Of4, Strings.CommonPage1Of4);
+            pageNumberText = NSBundle.MainBundle.LocalizedString(Strings.CommonPage1Of3, Strings.CommonPage1Of3);
 #else
-            pageNumberText = AppResources.CommonPage1Of4;
+            pageNumberText = AppResources.CommonPage1Of3;
 #endif
-            var pageNumberHeader = new CCLabelTTF(pageNumberText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            var pageNumberHeader = new CCLabelTTF(pageNumberText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             pageNumberHeader.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,
@@ -41,9 +41,6 @@ namespace Simsip.LineRunner.Scenes.Help
 
             // Start button
             var startButtonImage = new CCSprite("Images/Icons/StartButtonNormal");
-            Cocos2DUtils.ResizeSprite(startButtonImage,
-                0.1f * this.ContentSize.Width,
-                0.1f * this.ContentSize.Height);
             startButtonImage.AnchorPoint = CCPoint.AnchorMiddleRight;
             startButtonImage.Position = new CCPoint(
                 0.3f * this.ContentSize.Width, 
@@ -57,7 +54,7 @@ namespace Simsip.LineRunner.Scenes.Help
 #else
             helpStartDescriptionText = AppResources.HelpStartDescription;
 #endif
-            var startButtonDescription = new CCLabelTTF(helpStartDescriptionText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var startButtonDescription = new CCLabelTTF(helpStartDescriptionText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
             startButtonDescription.AnchorPoint = CCPoint.AnchorMiddleLeft;
             startButtonDescription.Position = new CCPoint(
                 0.4f * this.ContentSize.Width, 
@@ -66,9 +63,6 @@ namespace Simsip.LineRunner.Scenes.Help
 
             // Ratings button
             var ratingsButtonImage = new CCSprite("Images/Icons/RatingsButtonNormal");
-            Cocos2DUtils.ResizeSprite(ratingsButtonImage,
-                0.1f * this.ContentSize.Width,
-                0.1f * this.ContentSize.Height);
             ratingsButtonImage.AnchorPoint = CCPoint.AnchorMiddleRight;
             ratingsButtonImage.Position = new CCPoint(
                 0.3f  * this.ContentSize.Width,
@@ -82,7 +76,7 @@ namespace Simsip.LineRunner.Scenes.Help
 #else
             helpRatingsDescriptionText = AppResources.HelpRatingsDescription;
 #endif
-            var ratingsButtonDescription = new CCLabelTTF(helpRatingsDescriptionText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var ratingsButtonDescription = new CCLabelTTF(helpRatingsDescriptionText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
             ratingsButtonDescription.AnchorPoint = CCPoint.AnchorMiddleLeft;
             ratingsButtonDescription.Position = new CCPoint(
                 0.4f  * this.ContentSize.Width,
@@ -91,9 +85,6 @@ namespace Simsip.LineRunner.Scenes.Help
 
             // Options button
             var optionsButtonImage = new CCSprite("Images/Icons/OptionsButtonNormal");
-            Cocos2DUtils.ResizeSprite(optionsButtonImage,
-                0.1f * this.ContentSize.Width,
-                0.1f * this.ContentSize.Height);
             optionsButtonImage.AnchorPoint = CCPoint.AnchorMiddleRight;
             optionsButtonImage.Position = new CCPoint(
                 0.3f * this.ContentSize.Width, 
@@ -107,7 +98,7 @@ namespace Simsip.LineRunner.Scenes.Help
 #else
             helpOptionsDescriptionText = AppResources.HelpOptionsDescription;
 #endif
-            var optionsButtonDescription = new CCLabelTTF(helpOptionsDescriptionText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var optionsButtonDescription = new CCLabelTTF(helpOptionsDescriptionText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
             optionsButtonDescription.AnchorPoint = CCPoint.AnchorMiddleLeft;
             optionsButtonDescription.Position = new CCPoint(
                 0.4f * this.ContentSize.Width, 
@@ -116,9 +107,6 @@ namespace Simsip.LineRunner.Scenes.Help
 
             // Help button
             var helpButtonImage = new CCSprite("Images/Icons/HelpButtonNormal");
-            Cocos2DUtils.ResizeSprite(helpButtonImage,
-                0.1f * this.ContentSize.Width,
-                0.1f * this.ContentSize.Height);
             helpButtonImage.AnchorPoint = CCPoint.AnchorMiddleRight;
             helpButtonImage.Position = new CCPoint(
                 0.3f  * this.ContentSize.Width, 
@@ -133,7 +121,7 @@ namespace Simsip.LineRunner.Scenes.Help
             helpHelpDescriptionText = AppResources.HelpHelpDescription;
 #endif
 
-            var helpButtonDescription = new CCLabelTTF(helpHelpDescriptionText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var helpButtonDescription = new CCLabelTTF(helpHelpDescriptionText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
             helpButtonDescription.AnchorPoint = CCPoint.AnchorMiddleLeft;
             helpButtonDescription.Position = new CCPoint(
                 0.4f  * this.ContentSize.Width, 
