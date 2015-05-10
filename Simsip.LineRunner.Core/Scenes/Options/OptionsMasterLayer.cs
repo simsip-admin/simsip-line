@@ -16,6 +16,9 @@ using Foundation;
 
 namespace Simsip.LineRunner.Scenes.Options
 {
+    /// <summary>
+    /// IMPORTANT: Implementation is for only 2 pages right now, but we have 3 pages coded for future expansion.
+    /// </summary>
     public class OptionsMasterLayer : UILayer
     {
         private CoreScene _parent;
@@ -121,7 +124,7 @@ namespace Simsip.LineRunner.Scenes.Options
 #if ANDROID
             optionsText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsTitle);
 #elif IOS
-            optionsText = NSBundle.MainBundle.LocalizedString(Strings.CommonVersion, Strings.OptionsTitle);
+            optionsText = NSBundle.MainBundle.LocalizedString(Strings.OptionsTitle, Strings.OptionsTitle);
 #else
             optionsText = AppResources.OptionsTitle;
 #endif
@@ -151,7 +154,8 @@ namespace Simsip.LineRunner.Scenes.Options
 #else
             versionText = AppResources.CommonVersion;
 #endif
-            var versionHeader = new CCLabelTTF(versionText + " " + FileUtils.GetVersion(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            // TODO: Not sure why a space instead of dash here will cause the version number not to show on Android
+            var versionHeader = new CCLabelTTF(versionText + "-" + FileUtils.GetVersion(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
             versionHeader.AnchorPoint = CCPoint.AnchorMiddleLeft;
             versionHeader.Position = new CCPoint(
                 0.05f * this.ContentSize.Width,
@@ -281,7 +285,6 @@ namespace Simsip.LineRunner.Scenes.Options
                         incomingLayer = this._optionsPage2Layer;
                         break;
                     }
-
             }
 
             // Animate page transition
@@ -318,7 +321,7 @@ namespace Simsip.LineRunner.Scenes.Options
                     }
                 case 3:
                     {
-                        exitingLayer = this._optionsPage3Layer;
+                        exitingLayer = this._optionsPage2Layer;
                         incomingLayer = this._optionsPage3Layer;
                         break;
                     }
@@ -351,36 +354,6 @@ namespace Simsip.LineRunner.Scenes.Options
                 this._previousMenu.Visible = true;
                 this._nextMenu.Visible = true;
             }
-        }
-
-
-        private string GetVersion()
-        {
-            var versionStr = string.Empty;
-            try
-            {
-#if ANDROID
-                versionStr = Program.SharedProgram.PackageManager.GetPackageInfo(Program.SharedProgram.PackageName, 0).VersionName;
-#elif IOS
-                versionStr = NSBundle.MainBundle.InfoDictionary [new NSString ("CFBundleShortVersionString")].ToString ();
-#elif NETFX_CORE
-                var version = Windows.ApplicationModel.Package.Current.Id.Version;
-                versionStr = string.Format("{0}.{1}.{2}.{3}",
-                    version.Major, version.Minor, version.Build, version.Revision);
-#elif WINDOWS_PHONE
-                const string verLabel = "Version=";
-                var assemblyName = System.Reflection.Assembly.GetExecutingAssembly().FullName;
-                var startIndex = assemblyName.IndexOf(verLabel) + verLabel.Length;
-                var endIndex = assemblyName.IndexOf(',', startIndex + 1);
-                versionStr = assemblyName.Substring(startIndex, endIndex - startIndex);
-#endif
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Exception caught while attempting to get version number: " + ex);
-            }
-
-            return versionStr;
         }
 
         #endregion

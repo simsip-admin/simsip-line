@@ -100,4 +100,6 @@
   <string name="MainOptions">options</string>
   <string name="MainPlay">play</string>
   <string name="MainRate">rate</string>
+  <string name="CommonPage1Of2">page 1 of 2</string>
+  <string name="CommonPage2Of2">page 2 of 2</string>
 </resources>

@@ -21,6 +21,11 @@ namespace Simsip.LineRunner.Scenes.Options
         private CoreScene _parent;
         private OptionsMasterLayer _masterLayer;
 
+        // Time
+        private KeyboardNotificationLayer _timeNotificationLayer;
+        private CCTextFieldTTF _timeTextField;
+
+        // Practice
         private IList<CCSprite> _pageImages;
 
         public OptionsPage3Layer(CoreScene parent, OptionsMasterLayer masterLayer)
@@ -28,9 +33,11 @@ namespace Simsip.LineRunner.Scenes.Options
             this._parent = parent;
             this._masterLayer = masterLayer;
 
-            // We want touches so we can handle selection of page images
+            // TODO: We want touches so we can handle selection of page images
+            /*
             this.TouchEnabled = true;
             this.TouchMode = CCTouchMode.OneByOne;
+            */
 
             // Get this setup for relative positioning
             this.ContentSize = this._masterLayer.ContentSize;
@@ -51,7 +58,176 @@ namespace Simsip.LineRunner.Scenes.Options
                 0.9f * this.ContentSize.Height);
             this.AddChild(pageNumberHeader);
 
-            // Practice mode on/off
+            // Sound (cell 1/2)
+            CCMenuItemImage soundToggleOn =
+                new CCMenuItemImage("Images/Icons/SoundButtonOn.png",
+                                    "Images/Icons/SoundButtonOff.png");
+            CCMenuItemImage soundToggleOff =
+                new CCMenuItemImage("Images/Icons/SoundButtonOff.png",
+                                    "Images/Icons/SoundButtonOn.png");
+            CCMenuItemToggle soundToggle =
+                new CCMenuItemToggle((obj) => SoundTogglePressed(),
+                new CCMenuItem[] { soundToggleOn, soundToggleOff });
+            if (UserDefaults.SharedUserDefault.GetBoolForKey(
+                    GameConstants.USER_DEFAULT_KEY_SOUND,
+                    GameConstants.USER_DEFAULT_INITIAL_SOUND) == false)
+            {
+                soundToggle.SelectedIndex = 1; // SFX are OFF
+            }
+            soundToggle.Position = new CCPoint(
+                0.5f  * this.ContentSize.Width,
+                0.65f * this.ContentSize.Height);
+            this.AddChild(soundToggle);
+            CCLabelTTF soundLabel = null;
+            if (UserDefaults.SharedUserDefault.GetBoolForKey(
+                    GameConstants.USER_DEFAULT_KEY_SOUND,
+                    GameConstants.USER_DEFAULT_INITIAL_SOUND) == true)
+            {
+                var soundOnText = string.Empty;
+#if ANDROID
+                soundOnText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsSoundOn);
+#elif IOS
+                soundOnText = NSBundle.MainBundle.LocalizedString(Strings.OptionsSoundOn, Strings.OptionsSoundOn);
+#else
+                soundOnText = AppResources.OptionsSoundOn;
+#endif
+                soundLabel = new CCLabelTTF(soundOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            }
+            else
+            {
+                var soundOffText = string.Empty;
+#if ANDROID
+                soundOffText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsSoundOff);
+#elif IOS
+                soundOffText = NSBundle.MainBundle.LocalizedString(Strings.OptionsSoundOff, Strings.OptionsSoundOff);
+#else
+                soundOffText = AppResources.OptionsSoundOff;
+#endif
+                soundLabel = new CCLabelTTF(soundOffText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            }
+            var soundItem = new CCMenuItemLabel(soundLabel,
+                                        (obj) => { this.SoundTogglePressed(); });
+            var soundLabelMenu = new CCMenu(
+               new CCMenuItem[] 
+                    {
+                        soundItem
+                    });
+            soundLabelMenu.Position = new CCPoint(
+                0.5f  * this.ContentSize.Width,
+                0.55f * this.ContentSize.Height);
+            this.AddChild(soundLabelMenu);
+
+            // TODO: Time (cell 2/4)
+            /*
+            var timeText = string.Empty;
+#if ANDROID
+            timeText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsTime);
+#elif IOS
+            timeText = NSBundle.MainBundle.LocalizedString(Strings.OptionsTime, Strings.OptionsTime);
+#else
+            timeText = AppResources.OptionsTime;
+#endif
+            var timePageLabel = new CCLabelTTF(timeText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            timePageLabel.Position = new CCPoint(
+                0.7f * this.ContentSize.Width,
+                0.5f * this.ContentSize.Height);
+            this.AddChild(timePageLabel);
+            this._timeTextField = new CCTextFieldTTF(GameManager.SharedGameManager.AdminStartPageNumber.ToString(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._timeTextField.Position = new CCPoint(
+                0.9f * this.ContentSize.Width,
+                0.5f * this.ContentSize.Height);
+            this._timeTextField.AutoEdit = true;
+            this._timeTextField.EditTitle = timeText;
+            var timeDescriptionText = string.Empty;
+#if ANDROID
+            timeDescriptionText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsTimeDescription);
+#elif IOS
+            timeDescriptionText = NSBundle.MainBundle.LocalizedString(Strings.OptionsTimeDescription, Strings.OptionsTimeDescription);
+#else
+            timeDescriptionText = AppResources.OptionsTimeDescription;
+#endif
+            this._timeTextField.EditDescription = timeDescriptionText;
+            this._timeTextField.ContentSize = new CCSize(      // Makes it easier to touch
+                4f * this._timeTextField.ContentSize.Width,
+                1f * this._timeTextField.ContentSize.Height);
+            this._timeNotificationLayer = new KeyboardNotificationLayer(this._timeTextField);
+            AddChild(this._timeNotificationLayer);
+            */
+
+            // TODO: Leaderboards (cell 3/4)
+            /*
+            var leaderboardButton =
+                new CCMenuItemImage("Images/Icons/AchievementsButtonNormal.png",
+                                    "Images/Icons/AchievementsButtonSelected.png",
+                                    (obj) => { _parent.Navigate(LayerTags.AchievementsLayer); });
+            var leaderboardButtonMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        leaderboardButton, 
+                    });
+            leaderboardButtonMenu.Position = new CCPoint(
+                0.3f * this.ContentSize.Width,
+                0.3f * this.ContentSize.Height);
+            this.AddChild(leaderboardButtonMenu);
+            var leaderboardsText = string.Empty;
+#if ANDROID
+            leaderboardsText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsLeaderboards);
+#elif IOS
+            leaderboardsText = NSBundle.MainBundle.LocalizedString(Strings.OptionsLeaderboards, Strings.OptionsLeaderboards);
+#else
+            leaderboardsText = AppResources.OptionsLeaderboards;
+#endif
+            var leaderboardLabel = new CCLabelTTF(leaderboardsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var leaderboardItem = new CCMenuItemLabel(leaderboardLabel,
+                                        (obj) => { _parent.Navigate(LayerTags.AchievementsLayer); });
+            var leaderboardLabelMenu = new CCMenu(
+               new CCMenuItem[] 
+                    {
+                        leaderboardItem
+                    });
+            leaderboardLabelMenu.Position = new CCPoint(
+                0.3f * this.ContentSize.Width,
+                0.2f * this.ContentSize.Height);
+            this.AddChild(leaderboardLabelMenu);
+            */
+
+            // Credits (cell 2/2)
+            CCMenuItemImage creditsButton =
+                new CCMenuItemImage("Images/Icons/RatingsButtonNormal.png",
+                                    "Images/Icons/RatingsButtonSelected.png",
+                                    (obj) => { _parent.Navigate(LayerTags.CreditsMasterLayer); });
+            var creditsMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        creditsButton, 
+                    });
+            creditsMenu.Position = new CCPoint(
+                0.5f  * this.ContentSize.Width,
+                0.35f * this.ContentSize.Height);
+            this.AddChild(creditsMenu);
+            var creditsText = string.Empty;
+#if ANDROID
+            creditsText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsCredits);
+#elif IOS
+            creditsText = NSBundle.MainBundle.LocalizedString(Strings.OptionsCredits, Strings.OptionsCredits);
+#else
+            creditsText = AppResources.OptionsCredits;
+#endif
+            var creditsLabel = new CCLabelTTF(creditsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            var creditsItem = new CCMenuItemLabel(creditsLabel,
+                                        (obj) => { _parent.Navigate(LayerTags.CreditsMasterLayer); });
+            var creditsLabelMenu = new CCMenu(
+               new CCMenuItem[] 
+                    {
+                        creditsItem
+                    });
+            creditsLabelMenu.Position = new CCPoint(
+                0.5f  * this.ContentSize.Width,
+                0.25f * this.ContentSize.Height);
+            this.AddChild(creditsLabelMenu);
+
+            // TODO: Practice mode on/off
+            /*
             CCMenuItemImage practiceModeToggleOn =
                 new CCMenuItemImage("Images/Icons/SoundButtonOn.png",
                                     "Images/Icons/SoundButtonOff.png");
@@ -122,6 +298,7 @@ namespace Simsip.LineRunner.Scenes.Options
                     pageCount++;
                 }
             }
+            */
         }
 
         #region Touch Implementation
@@ -151,6 +328,7 @@ namespace Simsip.LineRunner.Scenes.Options
         /// </summary>
         /// <param name="touch"></param>
         /// <returns></returns>
+        /* TODO
         public override bool TouchBegan(CCTouch touch)
         {
             // Short ciruit if practice mode is off
@@ -188,10 +366,28 @@ namespace Simsip.LineRunner.Scenes.Options
 
             return true;
         }
-
+        */
         #endregion
 
         #region Helper methods
+
+        private void SoundTogglePressed()
+        {
+            if (UserDefaults.SharedUserDefault.GetBoolForKey(
+                    GameConstants.USER_DEFAULT_KEY_SOUND,
+                    GameConstants.USER_DEFAULT_INITIAL_SOUND))
+            {
+                UserDefaults.SharedUserDefault.SetBoolForKey(
+                    GameConstants.USER_DEFAULT_KEY_SOUND,
+                    false);
+            }
+            else
+            {
+                UserDefaults.SharedUserDefault.SetBoolForKey(
+                    GameConstants.USER_DEFAULT_KEY_SOUND,
+                    true);
+            }
+        }
 
         private void PracticeModeTogglePressed() 
         {

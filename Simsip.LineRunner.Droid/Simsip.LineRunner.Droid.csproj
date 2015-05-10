@@ -4088,6 +4088,10 @@
       <Link>Assets\Content\Images\Misc\ChatSpinner.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Models\Lines\Line-thumbnail.xnb">
+      <Link>Assets\Content\Models\Lines\Line-thumbnail.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <AndroidResource Include="Resources\layout\View_OAuth.axml" />

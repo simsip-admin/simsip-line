@@ -1758,3 +1758,14 @@
 /processorParam:TextureFormat=Color
 /build:Content/Images/Misc/ChatSpinner.png
 
+#begin Content/Models/Lines/Line-thumbnail.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Content/Models/Lines/Line-thumbnail.png
+

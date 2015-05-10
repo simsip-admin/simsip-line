@@ -100,6 +100,14 @@
           <source>rate</source>
           <target state="new">rate</target>
         </trans-unit>
+        <trans-unit id="Resx/CommonPage2Of2" translate="yes" xml:space="preserve">
+          <source>page 2 of 2</source>
+          <target state="new">page 2 of 2</target>
+        </trans-unit>
+        <trans-unit id="Resx/CommonPage1Of2" translate="yes" xml:space="preserve">
+          <source>page 1 of 2</source>
+          <target state="new">page 1 of 2</target>
+        </trans-unit>
         <trans-unit id="Resx/MainPlay" translate="yes" xml:space="preserve">
           <source>play</source>
           <target state="new">play</target>

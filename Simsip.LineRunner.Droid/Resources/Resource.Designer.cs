@@ -1968,11 +1968,17 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060070
 			public const int CommonOK = 2131099760;
 			
+			// aapt resource value: 0x7f0600a0
+			public const int CommonPage1Of2 = 2131099808;
+			
 			// aapt resource value: 0x7f060045
 			public const int CommonPage1Of3 = 2131099717;
 			
 			// aapt resource value: 0x7f060041
 			public const int CommonPage1Of4 = 2131099713;
+			
+			// aapt resource value: 0x7f0600a1
+			public const int CommonPage2Of2 = 2131099809;
 			
 			// aapt resource value: 0x7f060046
 			public const int CommonPage2Of3 = 2131099718;

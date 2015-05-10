@@ -102,5 +102,7 @@
         public static string MainOptions = "MainOptions";
         public static string MainPlay = "MainPlay";
         public static string MainRate = "MainRate";
+        public static string CommonPage1Of2 = "CommonPage1Of2";
+        public static string CommonPage2Of2 = "CommonPage2Of2";
     }
 }

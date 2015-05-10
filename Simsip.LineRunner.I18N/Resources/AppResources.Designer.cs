@@ -233,6 +233,15 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to page 1 of 2.
+        /// </summary>
+        public static string CommonPage1Of2 {
+            get {
+                return ResourceManager.GetString("CommonPage1Of2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to page 1 of 3.
         /// </summary>
         public static string CommonPage1Of3 {
@@ -247,6 +256,15 @@ namespace Simsip.LineRunner.Resources {
         public static string CommonPage1Of4 {
             get {
                 return ResourceManager.GetString("CommonPage1Of4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to page 2 of 2.
+        /// </summary>
+        public static string CommonPage2Of2 {
+            get {
+                return ResourceManager.GetString("CommonPage2Of2", resourceCulture);
             }
         }
         

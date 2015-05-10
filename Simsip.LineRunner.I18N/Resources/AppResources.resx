@@ -419,4 +419,10 @@
   <data name="MainRate" xml:space="preserve">
     <value>rate</value>
   </data>
+  <data name="CommonPage1Of2" xml:space="preserve">
+    <value>page 1 of 2</value>
+  </data>
+  <data name="CommonPage2Of2" xml:space="preserve">
+    <value>page 2 of 2</value>
+  </data>
 </root>
