@@ -5,10 +5,13 @@ namespace Simsip.LineRunner.Scenes
 {
     public class UILayer : GameLayer
     {
+        public const int DEFAULT_OPACITY = 128;
+        public CCColor3B DEFAULT_COLOR = CCColor3B.Black;
+
         public UILayer()
         {
-            this.Color = CCColor3B.Black;
-            this.Opacity = 128;
+            this.Color = DEFAULT_COLOR;
+            this.Opacity = DEFAULT_OPACITY;
 
             // Not sure why we need to do this for Android
             for (int i = 0; i < m_pSquareVertices.Length; i++)

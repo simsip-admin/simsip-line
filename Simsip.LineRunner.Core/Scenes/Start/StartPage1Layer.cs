@@ -47,7 +47,8 @@ namespace Simsip.LineRunner.Scenes.Start
         // Allows for controling holding off from starting game from finish screen
         // when navigating quicker than move to start flyby
         private bool _isStartEnabled;
-        private bool _isLoadingShowing;
+        private bool _isProgressShowing;
+        private LayerTags _navigatingToLayer;
 
         public StartPage1Layer(CoreScene parent)
         {
@@ -84,7 +85,7 @@ namespace Simsip.LineRunner.Scenes.Start
             this._isStartEnabled = false;
             var startButtonNormal = new CCSprite("Images/Icons/StartButtonNormal.png");
             var startButtonSelected = new CCSprite("Images/Icons/StartButtonSelected.png");
-            var startButton = new CCMenuItemImage( (obj) => { this.NavigateStartPage2(); });
+            var startButton = new CCMenuItemImage((obj) => { this.NavigateBase(LayerTags.StartPage2Layer); });
             startButton.NormalImage = startButtonNormal;
             startButton.SelectedImage = startButtonSelected;
 
@@ -132,7 +133,7 @@ namespace Simsip.LineRunner.Scenes.Start
 #endif
             var playLabel = new CCLabelTTF(playText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             var playItem = new CCMenuItemLabel(playLabel,
-                (obj) => { this.NavigateStartPage2(); });
+                (obj) => { this.NavigateBase(LayerTags.StartPage2Layer); });
             
             var rateText = string.Empty;
 #if ANDROID
@@ -283,13 +284,13 @@ namespace Simsip.LineRunner.Scenes.Start
             {
                 this._isStartEnabled = true;
 
-                // Remove any previous loading message box and proceed to
-                // StartPage2 (tap to start)
-                if (this._isLoadingShowing)
+                // Remove any previous progress message box and proceed to
+                // the queued up layer we want to navigate to
+                if (this._isProgressShowing)
                 {
-                    this._isLoadingShowing = false;
-                    this._parent.TheMessageBoxLayer.Hide();
-                    this.NavigateStartPage2();
+                    this._isProgressShowing = false;
+                    this._parent.Navigate(this._navigatingToLayer);
+                    this._parent.RemoveBackEntry();
                 }
             }
         }
@@ -309,37 +310,37 @@ namespace Simsip.LineRunner.Scenes.Start
 #endif
         }
 
-        private void NavigateStartPage2()
+        private void NavigateBase(LayerTags layer)
         {
             /* Staging for getting first set of binaries for starter worlds
-            var world = (IWorld)TheGame.SharedGame.Services.GetService(typeof(IWorld));
-            world.Save();
-            return;
+               var world = (IWorld)TheGame.SharedGame.Services.GetService(typeof(IWorld));
+               world.Save();
+               return;
             */
 
+            // Can we immediately navigate to next layer?
             if (this._isStartEnabled)
             {
-                this.NavigateBase(LayerTags.StartPage2Layer);
+                // Ok, setup navigation to occur after we animate layer out
+                var navigateAction = new CCCallFunc(() => { this._parent.Navigate(layer); });
+                var layerMoveOutAction = new CCEaseBackIn(
+                    new CCSequence(new CCFiniteTimeAction[] { this._layerActionOut, navigateAction })
+                    );
+
+                this.RunAction(layerMoveOutAction);
             }
             else
             {
-                this._isLoadingShowing = true;
+                // We are still loading necessary resources. Show progress bar for now.
+                // See event handler LoadContentAsyncFinishedHandler where we allow the
+                // navigation to continue.
+                this._isProgressShowing = true;
+                this._navigatingToLayer = layer;
                 this._parent.TheMessageBoxLayer.Show(
-                    "loading",
-                    string.Empty,
-                    MessageBoxType.MB_PROGRESS);
+                    title: string.Empty,
+                    description: string.Empty,
+                    type: MessageBoxType.MB_PROGRESS);
             }
-        }
-
-        private void NavigateBase(LayerTags layer)
-        {
-            // Setup navigation to occur after we animate layer out
-            var navigateAction = new CCCallFunc(() => { this._parent.Navigate(layer); });
-            var layerMoveOutAction = new CCEaseBackIn(
-                new CCSequence(new CCFiniteTimeAction[] { this._layerActionOut, navigateAction } )
-                );
-
-            this.RunAction(layerMoveOutAction);
         }
 
         private void CheckForRatingsPrompt()

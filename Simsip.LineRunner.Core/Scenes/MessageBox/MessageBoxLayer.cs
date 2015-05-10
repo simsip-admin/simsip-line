@@ -59,8 +59,7 @@ namespace Simsip.LineRunner.Scenes.MessageBox
         private IList<CCMenu> _selectionButtons;
 
         // Progress
-        private CCSprite _progressBackground;
-        private CCProgressTimer _progressTimer;
+        private CCSprite _progressSpinner;
 
         // Tags to help in clean-up cycles
         private int _staticTag = 0;
@@ -73,43 +72,13 @@ namespace Simsip.LineRunner.Scenes.MessageBox
         {
             this._parent = parent;
 
-            // Get these set up for relative positioning below
-            var screenSize = CCDirector.SharedDirector.WinSize;
-            this.ContentSize = new CCSize(
-                0.8f * screenSize.Width,
-                0.8f * screenSize.Height);
-
-            // Layer transition in/out
-            var layerEndPosition = new CCPoint(
-                    0.1f * screenSize.Width,
-                    0.1f * screenSize.Height);
-            var layerStartPosition = new CCPoint(
-                layerEndPosition.X,
-                screenSize.Height);
-            var layerStartPlacementAction = new CCPlace(layerStartPosition);
-            var layerMoveInAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, layerEndPosition);
-            this._layerActionIn = new CCEaseBackOut(
-                new CCSequence(new CCFiniteTimeAction[] { layerStartPlacementAction, layerMoveInAction })
-            );
-            var layerMoveOutAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, layerStartPosition);
-            var navigateAction = new CCCallFunc(() => { this._parent.GoBack(); });
-            this._layerActionOut = new CCEaseBackIn(
-                new CCSequence(new CCFiniteTimeAction[] { layerMoveOutAction, navigateAction })
-            );
-
             // Title
             this._title = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            this._title.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.9f * this.ContentSize.Height);
             this._title.Tag = this._staticTag;
             this.AddChild(this._title);
 
             // Description
             this._description = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._description.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.8f * this.ContentSize.Height);
             this._description.Tag = this._staticTag;
             this.AddChild(this._description);
 
@@ -190,22 +159,7 @@ namespace Simsip.LineRunner.Scenes.MessageBox
             this._noButton.Tag = this._dynamicTag;
 
             // Progress
-            this._progressBackground = new CCSprite("Images/Misc/ProgressBackground.png");
-            this._progressBackground.Position = new CCPoint(
-                0.5f * this.ContentSize.Width, 
-                0.5f * this.ContentSize.Height);
-            this._progressBackground.Tag = this._dynamicTag;
-            var progressHighlight = new CCSprite("Images/Misc/ProgressHighlight.png");
-            this._progressTimer = new CCProgressTimer(progressHighlight);
-            this._progressTimer.Type = CCProgressTimerType.Bar;
-            this._progressTimer.Midpoint = new CCPoint(0.0f, 0.5f);  // Starts from left
-            this._progressTimer.BarChangeRate = new CCPoint(1.0f, 0.0f); // Grow only in the "x" horizontal direction
-            this._progressTimer.Position = new CCPoint(
-                0.5f * this.ContentSize.Width, 
-                0.5f * this.ContentSize.Height); // Overlap the progress background added above
-            var progressAnimation = new CCRepeatForever(new CCProgressFromTo(4, 0, 100));
-            this._progressTimer.RunAction(progressAnimation);
-            this._progressTimer.Tag = this._dynamicTag;
+            this._progressSpinner = new CCSprite("Images/Misc/ChatSpinner.png");
 
             // Selections
             this._selectionButtons = new List<CCMenu>();
@@ -219,7 +173,10 @@ namespace Simsip.LineRunner.Scenes.MessageBox
             base.OnEnter();
 
             // Animate layer
-            this.RunAction(this._layerActionIn);
+            if (this._layerActionIn != null)
+            {
+                this.RunAction(this._layerActionIn);
+            }
         }
 
         #endregion
@@ -235,9 +192,8 @@ namespace Simsip.LineRunner.Scenes.MessageBox
             // Callback
             this._action = action;
 
-            // Title/description
-            this._title.Text = title;
-            this._description.Text = description;
+            // Get these set up for relative positioning below
+            var screenSize = CCDirector.SharedDirector.WinSize;
 
             // Clean-up
             this.RemoveAllChildrenByTag(this._dynamicTag, false);
@@ -247,18 +203,87 @@ namespace Simsip.LineRunner.Scenes.MessageBox
             {
                 case MessageBoxType.MB_OK:
                     {
-                        // Create
+                        // Default background
+                        this.Color = DEFAULT_COLOR;
+                        this.Opacity = DEFAULT_OPACITY;
+
+                        // Size screen accordingly
+                        this.ContentSize = new CCSize(
+                            0.4f * screenSize.Width,
+                            0.4f * screenSize.Height);
+
+                        // Layer transition in/out
+                        var layerEndPosition = new CCPoint(
+                                0.3f * screenSize.Width,
+                                0.3f * screenSize.Height);
+                        var layerStartPosition = new CCPoint(
+                            layerEndPosition.X,
+                            screenSize.Height);
+                        var layerStartPlacementAction = new CCPlace(layerStartPosition);
+                        var layerMoveInAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, layerEndPosition);
+                        this._layerActionIn = new CCEaseBackOut(
+                            new CCSequence(new CCFiniteTimeAction[] { layerStartPlacementAction, layerMoveInAction })
+                        );
+                        var layerMoveOutAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, layerStartPosition);
+                        var navigateAction = new CCCallFunc(() => { this._parent.GoBack(); });
+                        this._layerActionOut = new CCEaseBackIn(
+                            new CCSequence(new CCFiniteTimeAction[] { layerMoveOutAction, navigateAction })
+                        );
+
+                        // Position title/description
+                        this._title.Position = new CCPoint(
+                            0.5f * this.ContentSize.Width,
+                            0.9f * this.ContentSize.Height);
+                        this._description.Position = new CCPoint(
+                            0.5f * this.ContentSize.Width,
+                            0.8f * this.ContentSize.Height);
+
+                        // Create body
                         this.AddChild(this._okButton);
                         this._okButton.Position = new CCPoint(
                             0.5f * this.ContentSize.Width,
                             0.5f * this.ContentSize.Height);
-                       
 
                         break;
                     }
                 case MessageBoxType.MB_OK_CANCEL:
                     {
-                        // Create
+                        // Default background
+                        this.Color = DEFAULT_COLOR;
+                        this.Opacity = DEFAULT_OPACITY;
+
+                        // Size screen accordingly
+                        this.ContentSize = new CCSize(
+                            0.4f * screenSize.Width,
+                            0.4f * screenSize.Height);
+
+                        // Layer transition in/out
+                        var layerEndPosition = new CCPoint(
+                                0.3f * screenSize.Width,
+                                0.3f * screenSize.Height);
+                        var layerStartPosition = new CCPoint(
+                            layerEndPosition.X,
+                            screenSize.Height);
+                        var layerStartPlacementAction = new CCPlace(layerStartPosition);
+                        var layerMoveInAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, layerEndPosition);
+                        this._layerActionIn = new CCEaseBackOut(
+                            new CCSequence(new CCFiniteTimeAction[] { layerStartPlacementAction, layerMoveInAction })
+                        );
+                        var layerMoveOutAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, layerStartPosition);
+                        var navigateAction = new CCCallFunc(() => { this._parent.GoBack(); });
+                        this._layerActionOut = new CCEaseBackIn(
+                            new CCSequence(new CCFiniteTimeAction[] { layerMoveOutAction, navigateAction })
+                        );
+
+                        // Position title/description
+                        this._title.Position = new CCPoint(
+                            0.5f * this.ContentSize.Width,
+                            0.9f * this.ContentSize.Height);
+                        this._description.Position = new CCPoint(
+                            0.5f * this.ContentSize.Width,
+                            0.8f * this.ContentSize.Height);
+
+                        // Create body
                         this.AddChild(this._okButton);
                         this.AddChild(this._cancelButton);
                         this._okButton.Position = new CCPoint(
@@ -272,7 +297,42 @@ namespace Simsip.LineRunner.Scenes.MessageBox
                     }
                 case MessageBoxType.MB_YES_NO:
                     {
-                        // Create
+                        // Default background
+                        this.Color = DEFAULT_COLOR;
+                        this.Opacity = DEFAULT_OPACITY;
+
+                        // Size screen accordingly
+                        this.ContentSize = new CCSize(
+                            0.4f * screenSize.Width,
+                            0.4f * screenSize.Height);
+
+                        // Layer transition in/out
+                        var layerEndPosition = new CCPoint(
+                                0.3f * screenSize.Width,
+                                0.3f * screenSize.Height);
+                        var layerStartPosition = new CCPoint(
+                            layerEndPosition.X,
+                            screenSize.Height);
+                        var layerStartPlacementAction = new CCPlace(layerStartPosition);
+                        var layerMoveInAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, layerEndPosition);
+                        this._layerActionIn = new CCEaseBackOut(
+                            new CCSequence(new CCFiniteTimeAction[] { layerStartPlacementAction, layerMoveInAction })
+                        );
+                        var layerMoveOutAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, layerStartPosition);
+                        var navigateAction = new CCCallFunc(() => { this._parent.GoBack(); });
+                        this._layerActionOut = new CCEaseBackIn(
+                            new CCSequence(new CCFiniteTimeAction[] { layerMoveOutAction, navigateAction })
+                        );
+
+                        // Position title/description
+                        this._title.Position = new CCPoint(
+                            0.5f * this.ContentSize.Width,
+                            0.9f * this.ContentSize.Height);
+                        this._description.Position = new CCPoint(
+                            0.5f * this.ContentSize.Width,
+                            0.8f * this.ContentSize.Height);
+
+                        // Create body
                         this.AddChild(this._yesButton);
                         this.AddChild(this._noButton);
                         this._yesButton.Position = new CCPoint(
@@ -292,9 +352,34 @@ namespace Simsip.LineRunner.Scenes.MessageBox
 
                 case MessageBoxType.MB_PROGRESS:
                     {
-                        // Create
-                        this.AddChild(this._progressBackground);
-                        this.AddChild(this._progressTimer);
+                        // Transparent background
+                        this.Opacity = 0;
+
+                        // Size screen accordingly
+                        this.ContentSize = new CCSize(
+                            1.0f * screenSize.Width,
+                            1.0f * screenSize.Height);
+
+                        // No layer transition in/out
+                        this._layerActionIn = null;
+                        this._layerActionOut = null;
+
+                        // Position title/description
+                        this._title.Position = new CCPoint(
+                            0.5f * this.ContentSize.Width,
+                            0.9f * this.ContentSize.Height);
+                        this._description.Position = new CCPoint(
+                            0.5f * this.ContentSize.Width,
+                            0.8f * this.ContentSize.Height);
+
+                        // Create body
+                        this._progressSpinner.Position = new CCPoint(
+                            0.5f * this.ContentSize.Width,
+                            0.5f * this.ContentSize.Height);
+                        var progressAnimation = new CCRepeatForever(new CCRotateBy(2, 360));
+                        this.AddChild(this._progressSpinner);
+                        this._progressSpinner.RunAction(progressAnimation);
+
                         break;
                     }
 
@@ -307,6 +392,10 @@ namespace Simsip.LineRunner.Scenes.MessageBox
                         throw new NotSupportedException("Unknown message box type in MessageBox.Show");
                     }
             }
+
+            // Title/description
+            this._title.Text = title;
+            this._description.Text = description;
 
             // Navigate
             this._parent.Navigate(LayerTags.MessageBoxLayer);
@@ -326,7 +415,10 @@ namespace Simsip.LineRunner.Scenes.MessageBox
         {
             // Will animate our exit
             // IMPORTANT: There is a CCCallFunc at end that will navigate us back using GoBack()
-            this.RunAction(this._layerActionOut);
+            if (this._layerActionOut != null)
+            {
+                this.RunAction(this._layerActionOut);
+            }
         }
 
         private void OnOK()
