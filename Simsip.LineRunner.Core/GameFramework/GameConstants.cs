@@ -18,6 +18,7 @@ namespace Simsip.LineRunner.GameFramework
         public const float FONT_SIZE_SMALL = 18f;
         public const float FONT_SIZE_NORMAL = 26f;
         public const float FONT_SIZE_LARGE = 36f;
+        public const float FONT_SIZE_EXTRA_LARGE = 48f;
         
         // Worlds
         public const string WORLD_DEFAULT = "default";

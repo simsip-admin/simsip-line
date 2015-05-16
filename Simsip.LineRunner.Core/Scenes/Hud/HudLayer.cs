@@ -128,10 +128,11 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._headerLayerActionOut = new CCEaseBackIn(headerLayerMoveOutAction);
 
             // Score label
-            this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_EXTRA_LARGE);
+            this._scoreLabel.Color = CCColor3B.Green;
             this._scoreLabel.Position = new CCPoint(
                 0.5f * headerContentSize.Width, 
-                0.7f * headerContentSize.Height);
+                0.8f * headerContentSize.Height);
             this._headerLayer.AddChild(this._scoreLabel);
 
             // Score label action
@@ -145,10 +146,10 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._scoreLabelAction = new CCSequence(new CCFiniteTimeAction[] { scaleStartScore, scaleUpScore, scaleBackScore /*, delay, fade, hide*/ });
 
             // Page number label
-            this._pageNumberLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            this._pageNumberLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             this._pageNumberLabel.Position = new CCPoint(
-                0.3f * headerContentSize.Width,
-                0.4f * headerContentSize.Height);
+                0.25f * headerContentSize.Width,
+                0.5f  * headerContentSize.Height);
             this._headerLayer.AddChild(this._pageNumberLabel);
 
             // Page number label action
@@ -158,10 +159,10 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._pageNumberLabelAction = new CCSequence(new CCFiniteTimeAction[] { scaleStartPageNumber, scaleUpPageNumber, scaleBackPageNumber });
 
             // Line number label
-            this._lineNumberLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            this._lineNumberLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             _lineNumberLabel.Position = new CCPoint(
                 0.7f * headerContentSize.Width,
-                0.4f * headerContentSize.Height);
+                0.5f * headerContentSize.Height);
             this._headerLayer.AddChild(this._lineNumberLabel);
 
             // Line number label action
@@ -171,7 +172,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._lineNumberLabelAction = new CCSequence(new CCFiniteTimeAction[] { scaleStartLineNumber, scaleUpLineNumber, scaleBackLineNumber });
 
             // Timer
-            this._timerLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            this._timerLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             this._timerLabel.Position = new CCPoint(
                 0.5f * headerContentSize.Width,
                 0.2f * headerContentSize.Height);
@@ -397,7 +398,6 @@ namespace Simsip.LineRunner.Scenes.Hud
         public void DisplayPageNumber(int pageNumber)
         {
             // Animate display of new page number
-            this._pageNumberLabel.RunAction(this._pageNumberLabelAction);
             this._pageNumberLabel.StopAllActions();
             var pageText = string.Empty;
 #if ANDROID
@@ -408,6 +408,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             pageText = AppResources.HudPage;
 #endif
             this._pageNumberLabel.Text = pageText + " " + pageNumber.ToString();
+            this._pageNumberLabel.RunAction(this._pageNumberLabelAction);
         }
 
         public void DisplayLineNumber(int lineNumber)

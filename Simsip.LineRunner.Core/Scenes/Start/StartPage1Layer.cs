@@ -197,7 +197,7 @@ namespace Simsip.LineRunner.Scenes.Start
 #endif
             var adminLabel = new CCLabelTTF(adminText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             var adminItem = new CCMenuItemLabel(adminLabel,
-                (obj) => { this._parent.Navigate(LayerTags.AdminLayer); });
+                (obj) => { this.NavigateBase(LayerTags.AdminLayer); });
             var adminLabelMenu = new CCMenu(
                new CCMenuItem[] 
                     {
