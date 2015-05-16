@@ -19,7 +19,7 @@ namespace Simsip.LineRunner.GameFramework
             this.AdminStartPageNumber = 1;
             this.AdminStartLineNumber = 1;
             this.AdminStartScore = 0;
-            this.AdminIsKillAllowed = false;
+            this.AdminIsKillAllowed = true;
             this.AdminIsParticlesAllowed = true;
         }
 

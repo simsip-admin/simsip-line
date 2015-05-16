@@ -16,6 +16,12 @@ namespace Simsip.LineRunner.GameObjects.Pages
     public interface IPageCache : IUpdateable
     {
         /// <summary>
+        /// Allows you to be notified when an async load has finished
+        /// AND been processed on the Update() thread.
+        /// </summary>
+        event LoadContentAsyncFinishedEventHandler LoadContentAsyncFinished;
+
+        /// <summary>
         /// The value class that holds all pertinent info regarding
         /// the current page we are displaying.
         /// </summary>

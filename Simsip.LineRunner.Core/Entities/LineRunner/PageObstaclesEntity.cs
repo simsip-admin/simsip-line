@@ -75,6 +75,18 @@ namespace Simsip.LineRunner.Entities.LineRunner
         public float AngleRange { get; set; }
 
         /// <summary>
+        /// A string containing coded values that direct how the display particle effect
+        /// should be created for this obstacle.
+        /// Currently:
+        /// emppty - do not display the display particle effect defined for this obstacle
+        /// y(es) - display the display particle effect defined for this obstacle
+        /// r(andom) - choose from a family of particle effects to display for this obstacle
+        /// m(ultiple) - display multiple display particle effects defined for this obstacle
+        /// specific enum - used to override the default display particle effect, display the particle effect specified by the enum
+        /// </summary>
+        public string DisplayParticle { get; set; }
+
+        /// <summary>
         /// Whether this obstacle should be marked as goal for scoring purposes.
         /// </summary>
         public bool IsGoal { get; set; }

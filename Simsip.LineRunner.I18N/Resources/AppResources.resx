@@ -425,4 +425,10 @@
   <data name="CommonPage2Of2" xml:space="preserve">
     <value>page 2 of 2</value>
   </data>
+  <data name="HudPause" xml:space="preserve">
+    <value>pause</value>
+  </data>
+  <data name="HudSpeed" xml:space="preserve">
+    <value>speed</value>
+  </data>
 </root>

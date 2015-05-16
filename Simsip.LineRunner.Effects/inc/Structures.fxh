@@ -126,12 +126,13 @@ struct VSOutputPixelLighting
 
 struct VSOutputPixelLightingTx
 {
-    float4 PositionPS : SV_Position;
-    float2 TexCoord   : TEXCOORD0;
-    float4 PositionWS : TEXCOORD1;
-    float3 NormalWS   : TEXCOORD2;
-    float4 Diffuse    : COLOR0;
-	float4 Clipping   : TEXCOORD3;
+    float4 PositionPS     : SV_Position;
+    float2 TexCoord       : TEXCOORD0;
+    float4 PositionWS     : TEXCOORD1;
+    float3 NormalWS       : TEXCOORD2;
+    float4 Diffuse        : COLOR0;
+	float4 BottomClipping : TEXCOORD3;
+	float4 TopClipping    : TEXCOORD4;
 };
 
 struct VSOutputTx2

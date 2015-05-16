@@ -160,6 +160,7 @@ namespace Simsip.LineRunner.Scenes.MessageBox
 
             // Progress
             this._progressSpinner = new CCSprite("Images/Misc/ChatSpinner.png");
+            this._progressSpinner.Tag = this._dynamicTag;
 
             // Selections
             this._selectionButtons = new List<CCMenu>();
@@ -352,17 +353,58 @@ namespace Simsip.LineRunner.Scenes.MessageBox
 
                 case MessageBoxType.MB_PROGRESS:
                     {
-                        // Transparent background
-                        this.Opacity = 0;
 
-                        // Size screen accordingly
-                        this.ContentSize = new CCSize(
-                            1.0f * screenSize.Width,
-                            1.0f * screenSize.Height);
+                        // Are we just showing the progress spinner?
+                        if (title == string.Empty &&
+                            description == string.Empty)
+                        {
+                            // Ok, just progress spinner:
+                            // 1. No shaded background
+                            // 2. Full screen size to center the progress indicator within
+                            // 3. No animation in/out
+                            // IMPORTANT: This means you will be responsible for removing messageboxlayer
 
-                        // No layer transition in/out
-                        this._layerActionIn = null;
-                        this._layerActionOut = null;
+                            this.Color = DEFAULT_COLOR;
+                            this.Opacity = 0;
+
+                            this.ContentSize = new CCSize(
+                                1.0f * screenSize.Width,
+                                1.0f * screenSize.Height);
+
+                            this._layerActionIn = null;
+                            this._layerActionOut = null;
+                        }
+                        else
+                        {
+                            // Ok, progress spinner with text:
+                            // 1. Default background
+                            // 2. Adjusted screen size to center the progress indicator within
+                            // 3. Standard animation in/out
+
+                            this.Color = DEFAULT_COLOR;
+                            this.Opacity = DEFAULT_OPACITY;
+
+                            this.ContentSize = new CCSize(
+                                0.8f * screenSize.Width,
+                                0.4f * screenSize.Height);
+
+                            var layerEndPosition = new CCPoint(
+                                    0.1f * screenSize.Width,
+                                    0.3f * screenSize.Height);
+                            var layerStartPosition = new CCPoint(
+                                layerEndPosition.X,
+                                screenSize.Height);
+                            var layerStartPlacementAction = new CCPlace(layerStartPosition);
+                            var layerMoveInAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, layerEndPosition);
+                            this._layerActionIn = new CCEaseBackOut(
+                                new CCSequence(new CCFiniteTimeAction[] { layerStartPlacementAction, layerMoveInAction })
+                            );
+                            var layerMoveOutAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, layerStartPosition);
+                            var navigateAction = new CCCallFunc(() => { this._parent.GoBack(); });
+                            this._layerActionOut = new CCEaseBackIn(
+                                new CCSequence(new CCFiniteTimeAction[] { layerMoveOutAction, navigateAction })
+                            );
+                        }
 
                         // Position title/description
                         this._title.Position = new CCPoint(

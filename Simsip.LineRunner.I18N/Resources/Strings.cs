@@ -104,5 +104,7 @@
         public static string MainRate = "MainRate";
         public static string CommonPage1Of2 = "CommonPage1Of2";
         public static string CommonPage2Of2 = "CommonPage2Of2";
+        public static string HudPause = "HudPause";
+        public static string HudSpeed = "HudSpeed";
     }
 }

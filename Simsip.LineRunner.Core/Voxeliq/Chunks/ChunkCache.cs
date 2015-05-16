@@ -209,6 +209,8 @@ namespace Engine.Chunks
 
         public void SwitchState(GameState gameState)
         {
+            this._currentGameState = gameState;
+
             switch (gameState)
             {
                 case GameState.Refresh:
@@ -217,14 +219,9 @@ namespace Engine.Chunks
                     // which the get on the Asset.BlockTextureAtlas will correctly resolve for us.
                     this._blockTextureAtlas = this._assetManager.GetTexture(Asset.BlockTextureAtlas);
 
-                    // Migrate to start state
-                    gameState = GameState.Start;
-
                     break;
                 }
             }
-
-            this._currentGameState = gameState;
         }
 
         public override void Initialize()

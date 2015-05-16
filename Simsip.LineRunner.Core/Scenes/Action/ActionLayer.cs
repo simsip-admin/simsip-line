@@ -99,6 +99,18 @@ namespace Simsip.LineRunner.Scenes.Action
 
             // Hook-up initial event handlers we'll need
             _parent.SwitchedUI += OnSwitchingUI;
+
+            // Set state
+            this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
+            this._currentLineNumber = 1;
+            this._currentGameState = GameState.None;
+
+            // Dummy up an XNA gametime for us convert Cocos2d times into
+            this._gameTime = new GameTime();
+
+            // Schedule Update/Draw to be called
+            this.ScheduleUpdate();
+
         }
 
         #region Properties
@@ -112,6 +124,16 @@ namespace Simsip.LineRunner.Scenes.Action
         #endregion
 
         #region Api
+
+        public void PauseGame()
+        {
+            this.SwitchState(GameState.PauseGame);
+        }
+
+        public void ResumeGame()
+        {
+            this.SwitchState(GameState.ResumeGame);
+        }
 
         public void Refresh()
         {
@@ -257,7 +279,7 @@ namespace Simsip.LineRunner.Scenes.Action
             }
 
             // Play particle effect animation
-            this._particleCache.AddParticleEffect(e.TheObstacleModel, e.TheObstacleModel.TheContact);
+            this._particleCache.AddHitParticleEffect(e.TheObstacleModel, e.TheObstacleModel.TheContact);
 
             // Play glow animation
             var glowUpAction = new TintTo(GameConstants.DURATION_OBSTACLE_GLOW, Microsoft.Xna.Framework.Color.White, 0.1f);
@@ -296,7 +318,7 @@ namespace Simsip.LineRunner.Scenes.Action
             }
 
             // Play particle effect animation
-            this._particleCache.AddParticleEffect(e.TheLineModel, e.TheLineModel.TheContact);
+            this._particleCache.AddHitParticleEffect(e.TheLineModel, e.TheLineModel.TheContact);
 
             // Play glow animation
             var glowUpAction = new TintTo(GameConstants.DURATION_OBSTACLE_GLOW, Microsoft.Xna.Framework.Color.White, 0.1f);
@@ -330,6 +352,7 @@ namespace Simsip.LineRunner.Scenes.Action
 
         #region CCLayer Framework Overrides
 
+        /*
         public override bool Init()
         {
             if (!base.Init())
@@ -350,6 +373,7 @@ namespace Simsip.LineRunner.Scenes.Action
 
             return true;
         }
+        */
 
         public override void Update(float dt)
         {
@@ -560,9 +584,27 @@ namespace Simsip.LineRunner.Scenes.Action
             // (e.g., see LineCache.Draw)
             //
 
+            // Get state correct before doing our drawing pass
+            // XNAUtils.DefaultDrawState();
+            var previousDepthStencilState = TheGame.SharedGame.GraphicsDevice.DepthStencilState;
+            var previousBlendState = TheGame.SharedGame.GraphicsDevice.BlendState;
+            var previousSamplerState = TheGame.SharedGame.GraphicsDevice.SamplerStates[0];
+            var previousRasterizerState = TheGame.SharedGame.GraphicsDevice.RasterizerState;
+
+            TheGame.SharedGame.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+            TheGame.SharedGame.GraphicsDevice.BlendState = BlendState.Opaque;
+            TheGame.SharedGame.GraphicsDevice.SamplerStates[0] = SamplerState.LinearWrap;
+            TheGame.SharedGame.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
+
             this._deferredShadowMapping.Draw(this._gameTime);
 
             this._particleCache.Draw(this._gameTime);
+
+            // XNAUtils.Cocos2dDrawState();
+            TheGame.SharedGame.GraphicsDevice.DepthStencilState = previousDepthStencilState;
+            TheGame.SharedGame.GraphicsDevice.BlendState = previousBlendState;
+            TheGame.SharedGame.GraphicsDevice.SamplerStates[0] = previousSamplerState;
+            TheGame.SharedGame.GraphicsDevice.RasterizerState = previousRasterizerState;
 
             /* TODO: Why is this not working here?
              * We currently have this in the DeferredShadowMapping drawing pipeline.
@@ -575,8 +617,8 @@ namespace Simsip.LineRunner.Scenes.Action
             BoundingBoxDrawer.Draw(LineDrawer, this._physicsManager.TheSpace);
             */
             
-            
-            base.Draw();
+            // TODO: Is this OK?
+            // base.Draw();
         }
 
         #endregion
@@ -840,9 +882,6 @@ namespace Simsip.LineRunner.Scenes.Action
                         // TODO: Not beting useed - keeping it simple now, will consider animation later.
                         // If so, see HudLayer.Draw for how to keep ui positioned correctly
 
-                        /*
-                        this.TouchEnabled = false;
-
                         // Set state
                         this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
@@ -852,38 +891,18 @@ namespace Simsip.LineRunner.Scenes.Action
                         this._hudLayer.DisplayPageNumber(this._currentPageNumber);
                         this._hudLayer.DisplayLineNumber(this._currentLineNumber);
 
-                        // IMPORTANT: Turn off ability to start game until the flyby created
-                        // here is finished. In the flyby callback we will enable starting game
-                        // again.
-                        this._parent.TheStartPage1Layer.EnableStart(false);
+                        break;
+                    }
+                case GameState.PauseGame:
+                    {
+                        this.TouchEnabled = false;
 
-                        // Create bezier based on current page and start position
-                        this._currentFlyBy = new FlyBy(
-                            cameraUpdate: FlyByCameraUpdate.TrackingAndStationaryHeightOnly,
-                            targetAttachment: this._characterCache.TheHeroModel,
-                            targetAttachmentUse: FlyByTargetAttachment.UsePhysicsBody);
-                        this._currentFlyBy.FlyByFinished += OnCurrentFlyByFinished;     // Will switch state here in this event handler when finished
-                        var pageModel = this._pageCache.CurrentPageModel;
-                        var controlPoints = new List<Vector3>()
-                        {
-                            this._trackingCamera.Position,                                                                                // Start at our current camera position
-                            this._trackingCamera.Position + new Vector3(-1.5f * pageModel.WorldWidth, 0.25f * pageModel.WorldHeight, 20f),  // By first control point move to left and up 1/4 page height
-                            this._trackingCamera.Position + new Vector3(-1.5f * pageModel.WorldWidth, 0.75f * pageModel.WorldHeight, 20f),  // By second control point we still to left and up 3/4 page height
-                            pageModel.PageStartOrigin + new Vector3(                                                           // Finish at world starting point adjusted back appropriately for camera
-                                0,                                                            
-                                0,
-                                this._pageCache.PageDepthFromCameraStart)
-                        };
-                        var targetPoints = new List<Vector3>()
-                        {
-                            this._trackingCamera.Target,                                                                                  // Start with current camera target
-                            this._trackingCamera.Target + new Vector3(-1.5f * pageModel.WorldWidth, 0.25f * pageModel.WorldHeight, 20f),    // By first control point move to left and up 1/4 page height
-                            this._trackingCamera.Target + new Vector3(-1.5f * pageModel.WorldWidth, 0.75f * pageModel.WorldHeight, 20f),    // By second control point we still to left and up 3/4 page height
-                            pageModel.PageStartOrigin
-                        };
+                        break;
+                    }
+                case GameState.ResumeGame:
+                    {
+                        this.TouchEnabled = true;
 
-                        this._currentFlyBy.InitBezierControlPoints(GameConstants.DURATION_MOVE_TO_NEXT_PAGE, controlPoints, targetPoints);
-                        */
                         break;
                     }
                 case GameState.ResumingFromWorld:
@@ -922,14 +941,17 @@ namespace Simsip.LineRunner.Scenes.Action
             this._chunkCache.SwitchState(gameState);
             this._inputManager.SwitchState(gameState);
             this._audioManager.SwitchState(gameState);
+
+            // IMPORTANT DEPENDENCY GRAPH:
+            // PageCache <- LineCache <- ObstacleCache
+            // Hence SwitchState's are handled for other Game objects include character and sensor
+            // in the appropriate parent SwitchState implementation
             this._pageCache.SwitchState(gameState);
-            this._lineCache.SwitchState(gameState);
-            // IMPORTANT: ObstacleCache depends upon LineCache hence SwitchState's are handled
-            //            for ObstacleCache are handled in LineCache's SwitchState and possibly
-            //            subsequent load functions
+            // this._lineCache.SwitchState(gameState);
             // this._obstacleCache.SwitchState(gameState);
             // this._characterCache.SwitchState(gameState);
             // this._sensorCache.SwitchState(gameState);
+
             this._particleCache.SwitchState(gameState);
             this._deferredShadowMapping.SwitchState(gameState);
         }
@@ -1014,7 +1036,6 @@ namespace Simsip.LineRunner.Scenes.Action
         public void HandleMoveToFinish()
         {
             // Did we get a new high score?
-            var navigateToLayer = LayerTags.StartPage1Layer;
             var scoreRepository = new FacebookScoreRepository();
             var previousTopScore = scoreRepository.GetTopScoresForPlayer(1);
             if (GameManager.SharedGameManager.CurrentScore > 0  // We have a score to check

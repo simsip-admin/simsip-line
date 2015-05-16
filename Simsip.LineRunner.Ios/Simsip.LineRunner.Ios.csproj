@@ -187,6 +187,12 @@
     <Compile Include="..\Simsip.LineRunner.Core\GameObjects\LoadContentAsyncType.cs">
       <Link>GameObjects\LoadContentAsyncType.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\GameObjects\Obstacles\ObstacleAnimationType.cs">
+      <Link>GameObjects\Obstacles\ObstacleAnimationType.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\GameObjects\Obstacles\ObstacleConvexHulls.cs">
+      <Link>GameObjects\Obstacles\ObstacleConvexHulls.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\GameObjects\Obstacles\ObstacleHitEventArgs.cs">
       <Link>GameObjects\Obstacles\ObstacleHitEventArgs.cs</Link>
     </Compile>
@@ -982,6 +988,46 @@
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Lines\Line-thumbnail.xnb">
       <Link>Content\Models\Lines\Line-thumbnail.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\CreditsButtonNormal.xnb">
+      <Link>Content\Images\Icons\CreditsButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\CreditsButtonSelected.xnb">
+      <Link>Content\Images\Icons\CreditsButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\DecreaseButtonNormal.xnb">
+      <Link>Content\Images\Icons\DecreaseButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\DecreaseButtonSelected.xnb">
+      <Link>Content\Images\Icons\DecreaseButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\IncreaseButtonNormal.xnb">
+      <Link>Content\Images\Icons\IncreaseButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\IncreaseButtonSelected.xnb">
+      <Link>Content\Images\Icons\IncreaseButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\PauseButtonNormal.xnb">
+      <Link>Content\Images\Icons\PauseButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\PauseButtonSelected.xnb">
+      <Link>Content\Images\Icons\PauseButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\ResumeButtonNormal.xnb">
+      <Link>Content\Images\Icons\ResumeButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\ResumeButtonSelected.xnb">
+      <Link>Content\Images\Icons\ResumeButtonSelected.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">

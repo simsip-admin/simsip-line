@@ -13,8 +13,6 @@ namespace Simsip.LineRunner.GameObjects.Characters
 {
     public interface ICharacterCache : IUpdateable
     {
-        void LoadContentAsync(LoadContentAsyncType loadContentType);
-
         event LoadContentAsyncFinishedEventHandler LoadContentAsyncFinished;
 
         IList<CharacterModel> CharacterModels { get; }
@@ -28,6 +26,10 @@ namespace Simsip.LineRunner.GameObjects.Characters
         void HandleKill(Contact theContact, Action handleMoveToFinish);
 
         void Draw(StockBasicEffect effect = null, EffectType type=EffectType.None);
+
+        void IncreaseVelocity();
+
+        void DecreaseVelocity();
     }
 
 }

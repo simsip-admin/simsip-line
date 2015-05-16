@@ -137,6 +137,12 @@ namespace Simsip.LineRunner.Actions
 
                 m_pTarget.WorldMatrix = scaleMatrix * rotateMatrix * translateMatrix;
 
+                // If we have a physics entity, have it follow the rotation
+                if (m_pTarget.PhysicsEntity != null)
+                {
+                    m_pTarget.PhysicsEntity.Orientation = ConversionHelper.MathConverter.Convert(rotate);
+                }
+                
                 /*
                 m_pTarget.RotationX = m_fStartAngleX + m_fAngleX * time;
                 m_pTarget.RotationY = m_fStartAngleY + m_fAngleY * time;

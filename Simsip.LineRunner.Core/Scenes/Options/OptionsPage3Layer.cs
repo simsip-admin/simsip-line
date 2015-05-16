@@ -193,8 +193,8 @@ namespace Simsip.LineRunner.Scenes.Options
 
             // Credits (cell 2/2)
             CCMenuItemImage creditsButton =
-                new CCMenuItemImage("Images/Icons/RatingsButtonNormal.png",
-                                    "Images/Icons/RatingsButtonSelected.png",
+                new CCMenuItemImage("Images/Icons/CreditsButtonNormal.png",
+                                    "Images/Icons/CreditsButtonSelected.png",
                                     (obj) => { _parent.Navigate(LayerTags.CreditsMasterLayer); });
             var creditsMenu = new CCMenu(
                 new CCMenuItem[] 

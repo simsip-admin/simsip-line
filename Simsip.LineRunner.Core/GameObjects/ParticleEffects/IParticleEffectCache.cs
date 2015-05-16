@@ -18,10 +18,23 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
         void SwitchState(GameState state);
 
         /// <summary>
-        /// Our current collection of particle effects.
+        /// Our current collection of display particle effects.
         /// </summary>
-        Dictionary<GameModel, IList<ParticleEffectDesc>> ParticleEffectEntries { get; }
-        
+        Dictionary<GameModel, IList<ParticleEffectDesc>> DisplayParticleEffectEntries { get; }
+
+        /// <summary>
+        /// Our current collection of hit particle effects.
+        /// </summary>
+        Dictionary<GameModel, IList<ParticleEffectDesc>> HitParticleEffectEntries { get; }
+
+        /// <summary>
+        /// Used to add particle effects when displaying a game model.
+        /// 
+        /// Depending on an admin setting, we may skip creating the particle effect.
+        /// </summary>
+        /// <param name="obstacleModel">The model that is to be displayed.</param>
+        void AddDisplayParticleEffect(GameModel gameModel);
+
         /// <summary>
         /// Called from our b2ContactListener whenever we hit a game object that causes
         /// a particle effect to be created.
@@ -29,6 +42,6 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
         /// Depending on an admin setting, we may skip creating the particle effect.
         /// </summary>
         /// <param name="obstacleModel">The model that was hit.</param>
-        void AddParticleEffect(GameModel gameModel, Contact theContact);
+        void AddHitParticleEffect(GameModel gameModel, Contact theContact);
     }
 }

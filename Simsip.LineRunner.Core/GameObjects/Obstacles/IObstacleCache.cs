@@ -10,8 +10,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 {
     public interface IObstacleCache : IUpdateable
     {
-        void LoadContentAsync(LoadContentAsyncType loadContentType);
-
         event LoadContentAsyncFinishedEventHandler LoadContentAsyncFinished;
 
         /// <summary>

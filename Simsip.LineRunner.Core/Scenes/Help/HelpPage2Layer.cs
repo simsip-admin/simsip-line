@@ -27,7 +27,7 @@ namespace Simsip.LineRunner.Scenes.Help
 #if ANDROID
             pageNumberText = Program.SharedProgram.Resources.GetString(Resource.String.CommonPage2Of3);
 #elif IOS
-            pageNumberText = NSBundle.MainBundle.LocalizedString(Strings.CommonPage2Of3 Strings.CommonPage2Of3);
+            pageNumberText = NSBundle.MainBundle.LocalizedString(Strings.CommonPage2Of3, Strings.CommonPage2Of3);
 #else
             pageNumberText = AppResources.CommonPage2Of3;
 #endif

@@ -14,6 +14,20 @@ using BEPUphysics.Entities.Prefabs;
 using Engine.Input;
 using Simsip.LineRunner.Physics;
 using Simsip.LineRunner.Effects.Stock;
+#if NETFX_CORE
+using System.Threading.Tasks;
+using Windows.Foundation;
+#else
+using System.Threading;
+#endif
+#if WINDOWS_PHONE
+using Simsip.LineRunner.Concurrent;
+using Simsip.LineRunner.GameObjects.Lines;
+using System.Collections.Generic;
+#else
+using System.Collections.Concurrent;
+using Simsip.LineRunner.GameObjects.Lines;
+#endif
 
 
 namespace Simsip.LineRunner.GameObjects.Pages
@@ -33,13 +47,24 @@ namespace Simsip.LineRunner.GameObjects.Pages
         // Required services
         private IInputManager _inputManager;
         private IPhysicsManager _physicsManager;
+        private ILineCache _lineCache;
         private IPadRepository _padRepository;
         
         // Determines what gets asked to be drawn
         private OcTreeNode _ocTreeRoot;
 
         // Custom content manager so we can reload a page model with different textures
-        private CustomContentManager _customContentManager;
+        // private CustomContentManager _customContentManager;
+
+        // Support for staging the results of asynchronous loads and then signaling
+        // we need the results processed on the next update cycle
+        private class LoadContentThreadArgs
+        {
+            public LoadContentAsyncType TheLoadContentAsyncType;
+            public int PageNumber;
+            public PageModel PageModelAsync;
+        }
+        private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadResults;
 
         // Logging-facility
         private static readonly Logger Logger = LogManager.CreateLogger();
@@ -58,41 +83,55 @@ namespace Simsip.LineRunner.GameObjects.Pages
             // Initialize state
             this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
             this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+            this._loadContentThreadResults = new ConcurrentQueue<LoadContentThreadArgs>(); 
             
             // Import required services.
             this._inputManager = (IInputManager)this.Game.Services.GetService(typeof(IInputManager));
             this._physicsManager = (IPhysicsManager)this.Game.Services.GetService(typeof(IPhysicsManager));
+            this._lineCache = (ILineCache)this.Game.Services.GetService(typeof(ILineCache));
             this._padRepository = new PadRepository();
 
             // Initialize our octree which will handle determination if we should draw or not
             this._ocTreeRoot = new OcTreeNode(new Vector3(0, 0, 0), OcTreeNode.DefaultSize);
 
-            // We use our own CustomContentManager scoped to this cache so that
-            // we can reload a page model with different textures
-            this._customContentManager = new CustomContentManager(
-                TheGame.SharedGame.Services,
-                TheGame.SharedGame.Content.RootDirectory);
-
             // Load definition for CurrentPageModel and add to octree
+            // IMPORTANT: Note that this is different than other GameObjects as we want on
+            // startup to get our positioning coordinates completed via CalculateWorldCoordinates()
+            // 
             this.InitCurrentPageModel();
 
             base.Initialize();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            // Did we signal we need an async content load processed?
+            if (this._loadContentThreadResults.Count > 0)
+            {
+                LoadContentThreadArgs loadContentThreadArgs = null;
+                if (this._loadContentThreadResults.TryDequeue(out loadContentThreadArgs))
+                {
+                    // Load in new content from a staged collection in args
+                    ProcessLoadContentAsync(loadContentThreadArgs);
+
+                    // Does anyone need to know we finished an async load?
+                    if (LoadContentAsyncFinished != null)
+                    {
+                        var eventArgs = new LoadContentAsyncFinishedEventArgs(loadContentThreadArgs.TheLoadContentAsyncType);
+                        LoadContentAsyncFinished(this, eventArgs);
+                    }
+                }
+            }
         }
 
         #endregion
 
         #region IPageCache Implementation
 
-        public void Draw(StockBasicEffect effect = null, EffectType type = EffectType.None)
-        {
-            // We need to short-circuit when we are in Refresh state they are reinitializing this game object's
-            // state on a background thread. Note that the Update() short circuit for Refresh is handled
-            // in the ActionLayer.Update.
-            if (this._currentGameState == GameState.Refresh)
-            {
-                return;
-            }
+        public event LoadContentAsyncFinishedEventHandler LoadContentAsyncFinished;
 
+        public void Draw(StockBasicEffect effect, EffectType type)
+        {
             var view = this._inputManager.CurrentCamera.ViewMatrix;
             var projection = this._inputManager.CurrentCamera.ProjectionMatrix;
 
@@ -109,6 +148,7 @@ namespace Simsip.LineRunner.GameObjects.Pages
         public float PaneDepthFromCameraStart { get { return PageDepthFromCameraStart - DEFAULT_PANE_DEPTH_FROM_PAGE; } }
 
         public Vector3 StationaryCameraOriginalWorldPosition { get; private set; }
+
         public Vector3 StationaryCameraOriginalWorldTarget { get; private set; }
 
         public void CalculateWorldCoordinates()
@@ -203,6 +243,10 @@ namespace Simsip.LineRunner.GameObjects.Pages
             this._physicsManager.TheSpace.Add(padPhysicsBox);
         }
 
+        /// <summary>
+        /// IMPORTANT: Do not call on background thread. Only call during normal Update/Draw cycle. 
+        /// </summary>
+        /// <param name="state"></param>
         public void SwitchState(GameState state)
         {
             // Update our overall game state
@@ -216,16 +260,26 @@ namespace Simsip.LineRunner.GameObjects.Pages
                         this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
 
+                        // IMPORTANT: No background loading but we do propogate the state to the next
+                        // dependent game object
+                        this._lineCache.SwitchState(this._currentGameState);
+
                         break;
                     }
                 case GameState.Moving:
                     {
+                        // Propogate state change
+                        this._lineCache.SwitchState(state);
+
                         break;
                     }
                 case GameState.MovingToNextLine:
                     {
                         // Set state
                         this._currentLineNumber++;
+
+                        // Propogate state change
+                        this._lineCache.SwitchState(state);
 
                         break;
                     }
@@ -235,6 +289,9 @@ namespace Simsip.LineRunner.GameObjects.Pages
                         this._currentPageNumber++;
                         this._currentLineNumber = 1;
 
+                        // Propogate state change
+                        this._lineCache.SwitchState(state);
+
                         break;
                     }
                 case GameState.MovingToStart:
@@ -243,23 +300,24 @@ namespace Simsip.LineRunner.GameObjects.Pages
                         this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
 
+                        // Propogate state change
+                        this._lineCache.SwitchState(state);
+
                         break;
                     }
                 case GameState.Refresh:
                     {
-                        // We need to set this up-front as refresh is done on a background thread
-                        // and we need to know this to short-circuit draw while this is done
-                        this._currentGameState = state;
-
                         // Set state
                         this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
 
                         // Remaining refresh logic centralized in helper
-                        this.Refresh();
-
-                        // Migrate to the start game state
-                        state = GameState.Start;
+                        // this.Refresh();
+                        // In background get initial lines constructed for first page.
+                        // this.ProcessNextLine() will be called in event handler when
+                        // finished to animate header and first line for first page into position
+                        this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
+                        this.LoadContentAsync(LoadContentAsyncType.Refresh);
 
                         break;
                     }
@@ -269,6 +327,9 @@ namespace Simsip.LineRunner.GameObjects.Pages
                         this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
 
+                        // Propogate state change
+                        this._lineCache.SwitchState(state);
+
                         break;
                     }
             }
@@ -276,7 +337,130 @@ namespace Simsip.LineRunner.GameObjects.Pages
 
         #endregion
 
+        #region Event Handlers
+
+        private void LoadContentAsyncFinishedHandler(object sender, LoadContentAsyncFinishedEventArgs args)
+        {
+            this.LoadContentAsyncFinished -= this.LoadContentAsyncFinishedHandler;
+
+            this._lineCache.SwitchState(this._currentGameState);
+        }
+
+        #endregion
+
         #region Helper methods
+
+         // IMPORTANT: Do not call on background thread. Only call during normal Update/Draw cycle.
+        // (e.g., via SwitchState())
+        private void LoadContentAsync(LoadContentAsyncType loadContentAsyncType)
+        {
+            // Build our state object for this background content load request
+            var loadContentThreadArgs = new LoadContentThreadArgs
+            {
+                TheLoadContentAsyncType = loadContentAsyncType,
+                PageNumber = 1
+            };
+
+#if NETFX_CORE
+
+            IAsyncAction asyncAction = 
+                Windows.System.Threading.ThreadPool.RunAsync(
+                    (workItem) =>
+                    {
+                        LoadContentAsyncThread(loadContentThreadArgs);
+                    });
+#else
+            ThreadPool.QueueUserWorkItem(LoadContentAsyncThread, loadContentThreadArgs);
+#endif
+
+        }
+
+        private void LoadContentAsyncThread(object args)
+        {
+            var loadContentThreadArgs = args as LoadContentThreadArgs;
+            var loadContentAsyncType = loadContentThreadArgs.TheLoadContentAsyncType;
+            var pageNumber = loadContentThreadArgs.PageNumber;
+            var pageModel = loadContentThreadArgs.PageModelAsync;
+
+            // Get our current page definition ready, will be needed for positioning camera
+            var currentPad = UserDefaults.SharedUserDefault.GetStringForKey(
+                GameConstants.USER_DEFAULT_KEY_CURRENT_PAD,
+                GameConstants.USER_DEFAULT_INITIAL_CURRENT_PAD);
+            var padEntity = this._padRepository.GetPad(currentPad);
+
+            // Load a fresh or cached version of our page model
+            var customContentManager = new CustomContentManager(
+               TheGame.SharedGame.Services,
+               TheGame.SharedGame.Content.RootDirectory);
+            pageModel = new PageModel(
+                padEntity: padEntity,
+                customContentManager: customContentManager,
+                allowCached: true);
+
+            // We only have 1 pad at a time to worry about
+            pageModel.ModelID = 1;
+            
+            this._loadContentThreadResults.Enqueue(loadContentThreadArgs);
+        }
+
+        // Migrate staged collection in args to public collection
+        private void ProcessLoadContentAsync(LoadContentThreadArgs loadContentThreadArgs)
+        {
+            this._ocTreeRoot.RemoveModel(this.CurrentPageModel.ModelID);
+
+            if (this.CurrentPageModel.PhysicsEntity != null &&
+                this.CurrentPageModel.PhysicsEntity.Space != null)
+            {
+                this._physicsManager.TheSpace.Remove(this.CurrentPageModel.PhysicsEntity);
+            }
+
+            // Clear out any previous line model textures
+            GameModel.OriginalEffectsDictionary.Remove(this.CurrentPageModel.ThePadEntity.ModelName);
+
+            // Now we are safe to call call Unload on our custom ContentManager.
+            this.CurrentPageModel.TheCustomContentManager.Unload();
+
+            this.CurrentPageModel = loadContentThreadArgs.PageModelAsync;
+
+            this._ocTreeRoot.AddModel(this.CurrentPageModel);
+
+            if (this.CurrentPageModel.PhysicsEntity != null)
+            {
+                this._physicsManager.TheSpace.Add(this.CurrentPageModel.PhysicsEntity);
+            }
+
+            // Refresh pad into world, 
+            // will cause CalculateWorldCoordinates to be called again
+            this._inputManager.ThePlayerControllerInput.RefreshPad();
+        }
+
+        private void InitCurrentPageModel(bool unloadPreviousPageModel=false)
+        {
+            // Get our current page definition ready, will be needed for positioning camera
+            var currentPad = UserDefaults.SharedUserDefault.GetStringForKey(
+                GameConstants.USER_DEFAULT_KEY_CURRENT_PAD,
+                GameConstants.USER_DEFAULT_INITIAL_CURRENT_PAD);
+            var padEntity = this._padRepository.GetPad(currentPad);
+
+            // Load a fresh or cached version of our page model
+            // We use our own CustomContentManager scoped to this cache so that
+            // we can reload a page model with different textures
+             var customContentManager = new CustomContentManager(
+                TheGame.SharedGame.Services,
+                TheGame.SharedGame.Content.RootDirectory);
+            this.CurrentPageModel = new PageModel(
+                padEntity: padEntity,
+                customContentManager: customContentManager,
+                allowCached: true);
+
+            // We only have 1 pad at a time to worry about
+            this.CurrentPageModel.ModelID = 1;  
+            this._ocTreeRoot.AddModel(CurrentPageModel);
+        }
+
+        #endregion
+
+        #region Legacy
 
         private void Refresh()
         {
@@ -298,33 +482,6 @@ namespace Simsip.LineRunner.GameObjects.Pages
             // Refresh pad into world, 
             // will cause CalculateWorldCoordinates to be called again
             this._inputManager.ThePlayerControllerInput.RefreshPad();
-        }
-
-        private void InitCurrentPageModel(bool unloadPreviousPageModel=false)
-        {
-            // Get our current page definition ready, will be needed for positioning camera
-            var currentPad = UserDefaults.SharedUserDefault.GetStringForKey(
-                GameConstants.USER_DEFAULT_KEY_CURRENT_PAD,
-                GameConstants.USER_DEFAULT_INITIAL_CURRENT_PAD);
-            var padEntity = this._padRepository.GetPad(currentPad);
-
-            // If requested, clear out any previous page models and their effects
-            // (e.g., coming from options page and selected a new texture for page model)
-            if (unloadPreviousPageModel)
-            {
-                this._customContentManager.Unload();
-                GameModel.OriginalEffectsDictionary.Remove(padEntity.ModelName);
-            }
-
-            // Load a fresh or cached version of our page model
-            this.CurrentPageModel = new PageModel(
-                padEntity: padEntity,
-                customContentManager: this._customContentManager,
-                allowCached: true);
-
-            // We only have 1 pad at a time to worry about
-            this.CurrentPageModel.ModelID = 1;  
-            this._ocTreeRoot.AddModel(CurrentPageModel);
         }
 
         #endregion

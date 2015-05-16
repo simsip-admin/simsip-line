@@ -10,8 +10,10 @@ namespace Simsip.LineRunner.GameObjects.Lines
 {
     public interface ILineCache : IUpdateable
     {
-        void LoadContentAsync(LoadContentAsyncType loadContentType);
-
+        /// <summary>
+        /// Allows you to be notified when an async load has finished
+        /// AND been processed on the Update() thread.
+        /// </summary>
         event LoadContentAsyncFinishedEventHandler LoadContentAsyncFinished;
 
         /// <summary>

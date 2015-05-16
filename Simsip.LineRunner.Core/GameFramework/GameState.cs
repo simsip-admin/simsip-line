@@ -9,6 +9,8 @@ namespace Simsip.LineRunner.GameFramework
         MovingToNextLine,
 		MovingToNextPage,
         None,
+        PauseGame,
+        ResumeGame,
         ResumingFromWorld,
         Refresh,
         Start,

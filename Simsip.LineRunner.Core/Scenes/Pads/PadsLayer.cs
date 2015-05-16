@@ -9,13 +9,13 @@ using Simsip.LineRunner.Resources;
 using Simsip.LineRunner.Utils;
 using System.Collections.Generic;
 using Simsip.LineRunner.Scenes.MessageBox;
+using Simsip.LineRunner.GameObjects.Characters;
+using Simsip.LineRunner.GameObjects;
 #if IOS
 using Foundation;
 #endif
 #if NETFX_CORE
 using Windows.Foundation;
-#else
-using System.Threading;
 #endif
 
 
@@ -33,6 +33,9 @@ namespace Simsip.LineRunner.Scenes.Pads
         private IPadRepository _padRepository;
         private IList<PadEntity> _padEntities;
         private IList<CCRect> _padBoundingBoxes;
+
+        // Services we'll need
+        private ICharacterCache _characterCache;
 
         public PadsLayer(CoreScene parent)
         {
@@ -114,6 +117,8 @@ namespace Simsip.LineRunner.Scenes.Pads
                 0.1f * this.ContentSize.Height);
             this.AddChild(backMenu);
 
+            // Grab reference to services we'll need
+            this._characterCache = (ICharacterCache)TheGame.SharedGame.Services.GetService(typeof(ICharacterCache));
         }
 
         #region Cocos2D overrides
@@ -179,7 +184,7 @@ namespace Simsip.LineRunner.Scenes.Pads
 
         private void PadSelected(PadEntity pad)
         {
-            // Provide feedback
+            // Provide immediate feedback
             var switchingPadsText = string.Empty;
 #if ANDROID
             switchingPadsText = Program.SharedProgram.Resources.GetString(Resource.String.PadsSwitchingPads);
@@ -188,7 +193,6 @@ namespace Simsip.LineRunner.Scenes.Pads
 #else
             switchingPadsText = AppResources.PadsSwitchingPads;
 #endif
-
             this._parent.TheMessageBoxLayer.Show(
                 switchingPadsText,
                 string.Empty,
@@ -199,30 +203,26 @@ namespace Simsip.LineRunner.Scenes.Pads
                 GameConstants.USER_DEFAULT_KEY_CURRENT_PAD,
                 pad.ModelName);
 
-#if NETFX_CORE
-            IAsyncAction asyncAction = 
-                Windows.System.Threading.ThreadPool.RunAsync(
-                    (workItem) =>
-                    {
-                        RefreshThread();
-                    });
-#else
+            // Hook up an event handler for end of content loading caused by
+            // refresh kicking off background load
+            this._characterCache.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
 
-            var refreshThread = new Thread(RefreshThread) { IsBackground = true };
-            refreshThread.Start();
-#endif
+            // Start the background refresh to get the new pad displayed. See 
+            // LoadContentAsyncFinishedHandler for how we clean-up after refresh is finished
+            this._parent.Refresh();
         }
 
-        private void RefreshThread()
+        private void LoadContentAsyncFinishedHandler(object sender, LoadContentAsyncFinishedEventArgs args)
         {
-            // Go for a refresh to get the new pad displayed
-            this._parent.Refresh();
+            // We only want to react to a refresh event
+            if (args.TheLoadContentAsyncType == LoadContentAsyncType.Refresh)
+            {
+                // Unhook so we are a one-shot event handler
+                this._characterCache.LoadContentAsyncFinished -= this.LoadContentAsyncFinishedHandler;
 
-            // Remove ui
-            this._parent.TheMessageBoxLayer.Hide();
-
-            // Ok, we're done here
-            this._parent.GoBack();
+                // We can now let this layer's ui resume
+                this._parent.TheMessageBoxLayer.Hide();
+            }
         }
 
         #endregion

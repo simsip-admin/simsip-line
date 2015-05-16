@@ -35,7 +35,9 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
 
         #region Properties
 
-        public Dictionary<GameModel, IList<ParticleEffectDesc>> ParticleEffectEntries { get; private set; }
+        public Dictionary<GameModel, IList<ParticleEffectDesc>> DisplayParticleEffectEntries { get; private set; }
+        
+        public Dictionary<GameModel, IList<ParticleEffectDesc>> HitParticleEffectEntries { get; private set; }
         
         #endregion
 
@@ -46,7 +48,8 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
             Logger.Trace("init()");
 
             // Initialize state
-            this.ParticleEffectEntries = new Dictionary<GameModel, IList<ParticleEffectDesc>>();
+            this.DisplayParticleEffectEntries = new Dictionary<GameModel, IList<ParticleEffectDesc>>();
+            this.HitParticleEffectEntries = new Dictionary<GameModel, IList<ParticleEffectDesc>>();
             
             // Create required services
             this._spriteBatchRenderer = new SpriteBatchRenderer
@@ -60,24 +63,32 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
 
         public override void Update(GameTime gameTime)
         {
+            this.UpdateDisplayParticleEffects(gameTime);
+            this.UpdateHitParticleEffects(gameTime);
+        }
+
+
+        private void UpdateHitParticleEffects(GameTime gameTime)
+        {
             // Loop over all particle effect descs (Note: backwards so we can remove if neccessary
-            var keys = new List<GameModel>(ParticleEffectEntries.Keys);
+            var keys = new List<GameModel>(HitParticleEffectEntries.Keys);
+
             foreach (GameModel key in keys)
             {
                 // Has this particle effect entry expired?
                 // TODO: We only check the first ParticleEffectDesc in the ParticleEffectEntry.
                 //       May want to enhance to have various durtions for ParticleEffectDescs in a ParticleEffectEntry.
                 float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
-                var testParticleEffectDesc = this.ParticleEffectEntries[key][0];
+                var testParticleEffectDesc = this.HitParticleEffectEntries[key][0];
                 testParticleEffectDesc.TotalParticleEffectTime += deltaSeconds;
                 if (testParticleEffectDesc.TotalParticleEffectTime > GameConstants.DURATION_PARTICLE_DURATION)
                 {
                     // Clean up particle effect entry
-                    foreach (var particleEffectDesc in ParticleEffectEntries[key])
+                    foreach (var particleEffectDesc in HitParticleEffectEntries[key])
                     {
                         particleEffectDesc.TheParticleEffect.Terminate();
                     }
-                    this.ParticleEffectEntries.Remove(key);
+                    this.HitParticleEffectEntries.Remove(key);
 
                 }
                 else
@@ -90,28 +101,71 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
                         cameraType = XNAUtils.CameraType.Player;
                     }
 
-                    foreach (var particleEffectDesc in ParticleEffectEntries[key])
+                    foreach (var particleEffectDesc in HitParticleEffectEntries[key])
                     {
                         particleEffectDesc.Trigger(particleEffectDesc, gameTime, cameraType);
-                    }    
+                    }
                 }
             }
         }
 
-        public override void Draw(GameTime gameTime)
+        private void UpdateDisplayParticleEffects(GameTime gameTime)
         {
-            // We need to short-circuit when we are in Refresh state they are reinitializing this game object's
-            // state on a background thread. Note that the Update() short circuit for Refresh is handled
-            // in the ActionLayer.Update.
-            if (this._currentGameState == GameState.Refresh)
-            {
-                return;
-            }
+            // Loop over all particle effect descs (Note: backwards so we can remove if neccessary
+            var keys = new List<GameModel>(DisplayParticleEffectEntries.Keys);
 
-            var keys = new List<GameModel>(ParticleEffectEntries.Keys);
             foreach (GameModel key in keys)
             {
-                foreach (var particleEffectDesc in ParticleEffectEntries[key])
+                // Has this particle effect entry expired?
+                // TODO: We only check the first ParticleEffectDesc in the ParticleEffectEntry.
+                //       May want to enhance to have various durtions for ParticleEffectDescs in a ParticleEffectEntry.
+                float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                var testParticleEffectDesc = this.DisplayParticleEffectEntries[key][0];
+                testParticleEffectDesc.TotalParticleEffectTime += deltaSeconds;
+                if (testParticleEffectDesc.TotalParticleEffectTime > GameConstants.DURATION_PARTICLE_DURATION)
+                {
+                    // Clean up particle effect entry
+                    foreach (var particleEffectDesc in DisplayParticleEffectEntries[key])
+                    {
+                        particleEffectDesc.TheParticleEffect.Terminate();
+                    }
+                    this.DisplayParticleEffectEntries.Remove(key);
+
+                }
+                else
+                {
+                    // Ok, this particle effect entry is still live, update via
+                    // its defined trigger
+                    var cameraType = XNAUtils.CameraType.Tracking;
+                    if (this._currentGameState == GameState.World)
+                    {
+                        cameraType = XNAUtils.CameraType.Player;
+                    }
+
+                    foreach (var particleEffectDesc in DisplayParticleEffectEntries[key])
+                    {
+                        particleEffectDesc.Trigger(particleEffectDesc, gameTime, cameraType);
+                    }
+                }
+            }
+        }
+
+
+        public override void Draw(GameTime gameTime)
+        {
+            var displayKeys = new List<GameModel>(DisplayParticleEffectEntries.Keys);
+            foreach (GameModel key in displayKeys)
+            {
+                foreach (var particleEffectDesc in DisplayParticleEffectEntries[key])
+                {
+                    this._spriteBatchRenderer.RenderEffect(particleEffectDesc.TheParticleEffect);
+                }
+            }
+
+            var hitKeys = new List<GameModel>(HitParticleEffectEntries.Keys);
+            foreach (GameModel key in hitKeys)
+            {
+                foreach (var particleEffectDesc in HitParticleEffectEntries[key])
                 {
                     this._spriteBatchRenderer.RenderEffect(particleEffectDesc.TheParticleEffect);
                 }
@@ -122,7 +176,42 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
 
         #region IParticleCache Implementation
 
-        public void AddParticleEffect(GameModel gameModel, Contact theContact)
+        public void AddDisplayParticleEffect(GameModel gameModel)
+        {
+            // We can turn off particles via an admin setting on the Admin screen
+            if (!GameManager.SharedGameManager.AdminIsParticlesAllowed)
+            {
+                return;
+            }
+
+            // Does the model to be displayed have any particle effects?
+            var particleEffectDescs = gameModel.DisplayParticleEffectDescs;
+            if (particleEffectDescs == null)
+            {
+                return;
+            }
+
+            // Have we already recorded this contact?
+            if (this.DisplayParticleEffectEntries.ContainsKey(gameModel))
+            {
+                return;
+            }
+
+            // Loop over all particle effects for this model
+            foreach (var particleEffectDesc in particleEffectDescs)
+            {
+                // Fill out the rest of the fields in the particle effect desc 
+                // for this particle effect
+                particleEffectDesc.TheGameModel = gameModel;
+                particleEffectDesc.TheParticleEffect = ParticleEffectFactory.Create(particleEffectDesc);
+                particleEffectDesc.TotalParticleEffectTime = 0f;
+            }
+
+            // Grab reference to this updated particle desc list
+            this.DisplayParticleEffectEntries[gameModel] = particleEffectDescs;
+        }
+
+        public void AddHitParticleEffect(GameModel gameModel, Contact theContact)
         {
             // We can turn off particles via an admin setting on the Admin screen
             if (!GameManager.SharedGameManager.AdminIsParticlesAllowed)
@@ -131,20 +220,20 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
             }
 
             // We currently only allow one particle effect to display at a time
-            if (this.ParticleEffectEntries.Count > 0)
+            if (this.HitParticleEffectEntries.Count > 0)
             {
                 return;
             }
 
             // Does the contacted model have any particle effects?
-            var particleEffectDescs = gameModel.ParticleEffectDescs;
+            var particleEffectDescs = gameModel.HitParticleEffectDescs;
             if (particleEffectDescs == null)
             {
                 return;
             }
 
             // Have we already recorded this contact?
-            if (this.ParticleEffectEntries.ContainsKey(gameModel))
+            if (this.HitParticleEffectEntries.ContainsKey(gameModel))
             {
                 return;
             }
@@ -161,7 +250,7 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
             }
 
             // Grab reference to this updated particle desc list
-            this.ParticleEffectEntries[gameModel] = particleEffectDescs;
+            this.HitParticleEffectEntries[gameModel] = particleEffectDescs;
         }
 
         public void SwitchState(GameState state)

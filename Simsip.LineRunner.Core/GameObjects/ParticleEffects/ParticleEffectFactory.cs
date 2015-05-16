@@ -19,6 +19,20 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
 
     public static class ParticleEffectFactory
     {
+        private static List<ParticleEffectType> _allowedObstacleDisplayTypes = new List<ParticleEffectType>
+        {
+            ParticleEffectType.BasicFireball,
+            ParticleEffectType.BasicSmokePlume,
+            ParticleEffectType.CampFire,
+            ParticleEffectType.FlowerBloom,
+            ParticleEffectType.WaterJet
+        };
+
+        // Used to create our random selections
+        private static Random _randomNumberGenerator = new Random();
+
+        private static IPageCache _pageCache = (IPageCache)TheGame.SharedGame.Services.GetService(typeof(IPageCache));
+
         public static IList<ParticleEffectDesc> Create(LineModel lineModel)
         {
             var particleEffectDescs = new List<ParticleEffectDesc>();
@@ -36,25 +50,71 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
             return particleEffectDescs;
         }
 
-        public static IList<ParticleEffectDesc> Create(ObstacleModel obstacleModel)
+        public static IList<ParticleEffectDesc> CreateObstacleDisplayParticles(ObstacleModel obstacleModel)
         {
-            // Short circuit if no particle effects defined for this obstacle
-            if (string.IsNullOrEmpty(obstacleModel.TheObstacleEntity.ParticleEffectType))
+            var displayParticle = obstacleModel.ThePageObstaclesEntity.DisplayParticle;
+
+            // Short circuit if no particle effects defined to be displayed for this obstacle
+            if (string.IsNullOrEmpty(displayParticle))
             {
                 return null;
             }
 
-            var particleEffectType = (ParticleEffectType)Enum.Parse(typeof(ParticleEffectType), obstacleModel.TheObstacleEntity.ParticleEffectType);
+            ParticleEffectType particleEffectType;
+            if (displayParticle == "y" ||
+                displayParticle == "m")
+            {
+                particleEffectType = (ParticleEffectType)Enum.Parse(typeof(ParticleEffectType), obstacleModel.TheObstacleEntity.DisplayParticleType);
+            }
+            else if (displayParticle == "r")
+            {
+                var randomDisplay = _randomNumberGenerator.Next(0, _allowedObstacleDisplayTypes.Count);
+            
+                particleEffectType = _allowedObstacleDisplayTypes[randomDisplay];
+            }
+            else
+            {
+                particleEffectType = (ParticleEffectType)Enum.Parse(typeof(ParticleEffectType), displayParticle);
+            }
+
+            var particleEffectDescs = new List<ParticleEffectDesc>();
+            var count = displayParticle == "m" ? 3 : 1;
+            for (int i = 0; i < count; i++)
+            {
+                particleEffectDescs.Add
+                (
+                     new ParticleEffectDesc()
+                     {
+                         TheParticleEffectType = particleEffectType,
+                         ParticleEffectIndex = 0,
+                         Trigger = ParticleEffectFactory.DisplayObstacleModelTrigger,
+                         TheGameModel = obstacleModel
+                     }
+                );
+            }
+
+            return particleEffectDescs;
+        }
+        
+        public static IList<ParticleEffectDesc> CreateObstacleHitParticles(ObstacleModel obstacleModel)
+        {
+            // Short circuit if no particle effects defined for this obstacle
+            if (string.IsNullOrEmpty(obstacleModel.TheObstacleEntity.HitParticleType))
+            {
+                return null;
+            }
+
+            var particleEffectType = (ParticleEffectType)Enum.Parse(typeof(ParticleEffectType), obstacleModel.TheObstacleEntity.HitParticleType);
             var particleEffectDescs = new List<ParticleEffectDesc>();
             particleEffectDescs.Add
             (
                  new ParticleEffectDesc()
-                {
-                    TheParticleEffectType = particleEffectType,
-                    ParticleEffectIndex = 0,
-                    Trigger = ParticleEffectFactory.BaseObstacleModelTrigger,
-                    TheGameModel = obstacleModel
-                }
+                 {
+                     TheParticleEffectType = particleEffectType,
+                     ParticleEffectIndex = 0,
+                     Trigger = ParticleEffectFactory.HitObstacleModelTrigger,
+                     TheGameModel = obstacleModel
+                 }
             );
 
             return particleEffectDescs;
@@ -141,7 +201,8 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
                     {
                         particleEffect = new WaterJet();
                         var obstacleModel = particleEffectDesc.TheGameModel as ObstacleModel;
-                        if (obstacleModel != null)
+                        if (obstacleModel != null &&
+                            particleEffectDesc.TheContact != null)
                         {
                             var mist1 = particleEffect["Mist1"] as ConeEmitter;
                             mist1.Direction = (float)Math.Atan2(
@@ -201,13 +262,35 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
             particleEffectDesc.TheParticleEffect.Update(deltaSeconds);
         }
 
-        public static void BaseObstacleModelTrigger(ParticleEffectDesc particleEffectDesc, 
+        public static void DisplayObstacleModelTrigger(ParticleEffectDesc particleEffectDesc,
+                                            GameTime gameTime,
+                                            XNAUtils.CameraType cameraType)
+        {
+            // Create appropriate offset for positioning particle effect
+            var obstacleModel = particleEffectDesc.TheGameModel as ObstacleModel;
+            var offsetPosition = new Microsoft.Xna.Framework.Vector3(
+                obstacleModel.WorldOrigin.X + (obstacleModel.TheObstacleEntity.DisplayParticleModelX * _pageCache.CurrentPageModel.ModelToWorldRatio),
+                obstacleModel.WorldOrigin.Y + (obstacleModel.TheObstacleEntity.DisplayParticleModelY * _pageCache.CurrentPageModel.ModelToWorldRatio),
+                obstacleModel.WorldOrigin.Z);
+
+            // Convert world point for position to screen point
+            var screenPoint = XNAUtils.WorldToScreen(offsetPosition, cameraType);
+
+            // Update the particle effects location
+            particleEffectDesc.TheParticleEffect.Trigger(screenPoint);
+
+            // Let the particle effect know the delta time that has passed
+            float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            particleEffectDesc.TheParticleEffect.Update(deltaSeconds);
+        }
+
+        public static void HitObstacleModelTrigger(ParticleEffectDesc particleEffectDesc, 
                                                     GameTime gameTime,
                                                     XNAUtils.CameraType cameraType)
         {
             // Convert world point for contact to screen point
             var screenPoint = XNAUtils.WorldToScreen(
-                ConversionHelper.MathConverter.Convert(particleEffectDesc.TheContact.Position),
+                ConversionHelper.MathConverter.Convert(particleEffectDesc.TheContact.Position), 
                 cameraType);
 
             // Update the particle effects location

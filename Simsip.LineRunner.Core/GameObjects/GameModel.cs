@@ -140,9 +140,14 @@ namespace Simsip.LineRunner.GameObjects
         public float WorldDepth { get; set; }
 
         /// <summary>
-        /// Optional particle effect description structures associated with this model.
+        /// Optional particle effect description structures associated with this model to be used when obstacle is displayed.
         /// </summary>
-        public IList<ParticleEffectDesc> ParticleEffectDescs { get; protected set; }
+        public IList<ParticleEffectDesc> DisplayParticleEffectDescs { get; protected set; }
+
+        /// <summary>
+        /// Optional particle effect description structures associated with this model to be used when obstacle is hit.
+        /// </summary>
+        public IList<ParticleEffectDesc> HitParticleEffectDescs { get; protected set; }
 
         /// <summary>
         /// Allows us to flag if we want model tinted.

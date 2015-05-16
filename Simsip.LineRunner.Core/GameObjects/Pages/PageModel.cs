@@ -38,6 +38,14 @@ namespace Simsip.LineRunner.GameObjects.Pages
 
         #region Properties
 
+        public CustomContentManager TheCustomContentManager 
+        {
+            get
+            {
+                return _customContentManager;
+            }
+        }
+
         /// <summary>
         /// Holds additional database entries that define this page.
         /// </summary>

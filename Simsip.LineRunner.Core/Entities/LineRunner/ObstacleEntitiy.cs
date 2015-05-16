@@ -24,7 +24,22 @@ namespace Simsip.LineRunner.Entities.LineRunner
         /// <summary>
         /// If set, maps to an enumeration for a particle effect type for the obstacle to use when hit.
         /// </summary>
-        public string ParticleEffectType { get; set; }
+        public string HitParticleType { get; set; }
 
+        /// <summary>
+        /// If set, maps to an enumeration for a particle effect type for the obstacle to use when displayed if 
+        /// the PageObstaclesEntity.DisplayParticle dictates so.
+        /// </summary>
+        public string DisplayParticleType { get; set; }
+
+        /// <summary>
+        /// The X offset in model coordinates to center the display particle effect at.
+        /// </summary>
+        public float DisplayParticleModelX { get; set; }
+
+        /// <summary>
+        /// The Y offset in model coordinates to center the display particle effect at.
+        /// </summary>
+        public float DisplayParticleModelY { get; set; }
     }
 }

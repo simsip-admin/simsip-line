@@ -104,6 +104,14 @@
           <source>page 2 of 2</source>
           <target state="new">page 2 of 2</target>
         </trans-unit>
+        <trans-unit id="Resx/HudPause" translate="yes" xml:space="preserve">
+          <source>pause</source>
+          <target state="new">pause</target>
+        </trans-unit>
+        <trans-unit id="Resx/HudSpeed" translate="yes" xml:space="preserve">
+          <source>speed</source>
+          <target state="new">speed</target>
+        </trans-unit>
         <trans-unit id="Resx/CommonPage1Of2" translate="yes" xml:space="preserve">
           <source>page 1 of 2</source>
           <target state="new">page 1 of 2</target>

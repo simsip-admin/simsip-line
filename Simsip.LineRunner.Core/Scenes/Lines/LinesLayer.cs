@@ -10,13 +10,13 @@ using Simsip.LineRunner.Resources;
 using Simsip.LineRunner.Utils;
 using System.Collections.Generic;
 using Simsip.LineRunner.Scenes.MessageBox;
+using Simsip.LineRunner.GameObjects.Characters;
+using Simsip.LineRunner.GameObjects;
 #if IOS
 using Foundation;
 #endif
 #if NETFX_CORE
 using Windows.Foundation;
-#else
-using System.Threading;
 #endif
 
 
@@ -35,6 +35,9 @@ namespace Simsip.LineRunner.Scenes.Lines
         private IPageLinesRepository _pageLinesRepository;
         private IList<LineEntity> _lineEntities;
         private IList<CCRect> _lineBoundingBoxes;
+
+        // Services we'll need
+        private ICharacterCache _characterCache;
 
         public LinesLayer(CoreScene parent)
         {
@@ -82,7 +85,6 @@ namespace Simsip.LineRunner.Scenes.Lines
                 Cocos2DUtils.ResizeSprite(lineImage,
                     0.5f * this.ContentSize.Width,
                     0.2f * this.ContentSize.Width);
-                // lineImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
                 lineImage.Position = new CCPoint(
                     0.65f * this.ContentSize.Width,
                     y + (0.01f * this.ContentSize.Height));
@@ -120,6 +122,8 @@ namespace Simsip.LineRunner.Scenes.Lines
                 0.1f * this.ContentSize.Height);
             this.AddChild(backMenu);
 
+            // Grab reference to services we'll need
+            this._characterCache = (ICharacterCache)TheGame.SharedGame.Services.GetService(typeof(ICharacterCache));
         }
 
         #region Cocos2D overrides
@@ -185,7 +189,7 @@ namespace Simsip.LineRunner.Scenes.Lines
 
         private void LineSelected(LineEntity line)
         {
-            // Provide feedback
+            // Provide immediate feedback
             var switchingLinesText = string.Empty;
 #if ANDROID
             switchingLinesText = Program.SharedProgram.Resources.GetString(Resource.String.LinesSwitchingLines);
@@ -205,31 +209,26 @@ namespace Simsip.LineRunner.Scenes.Lines
                 GameConstants.USER_DEFAULT_KEY_CURRENT_LINE,
                 line.ModelName);
 
-#if NETFX_CORE
-            IAsyncAction asyncAction = 
-                Windows.System.Threading.ThreadPool.RunAsync(
-                    (workItem) =>
-                    {
-                        RefreshThread();
-                    });
-#else
+            // Hook up an event handler for end of content loading caused by
+            // refresh kicking off background load
+            this._characterCache.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
 
-            var refreshThread = new Thread(RefreshThread) { IsBackground = true };
-            refreshThread.Start();
-#endif
-
+            // Start the background refresh to get the new pad displayed. See 
+            // LoadContentAsyncFinishedHandler for how we clean-up after refresh is finished
+            this._parent.Refresh();
         }
 
-        private void RefreshThread()
+        private void LoadContentAsyncFinishedHandler(object sender, LoadContentAsyncFinishedEventArgs args)
         {
-            // Go for a refresh to get the new lines displayed
-            this._parent.Refresh();
+            // We only want to react to a refresh event
+            if (args.TheLoadContentAsyncType == LoadContentAsyncType.Refresh)
+            {
+                // Unhook so we are a one-shot event handler
+                this._characterCache.LoadContentAsyncFinished -= this.LoadContentAsyncFinishedHandler;
 
-            // Remove ui
-            this._parent.TheMessageBoxLayer.Hide();
-
-            // Ok, we're done here
-            this._parent.GoBack();
+                // We can now let this layer's ui resume
+                this._parent.TheMessageBoxLayer.Hide();
+            }
         }
 
         #endregion

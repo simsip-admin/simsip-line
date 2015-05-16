@@ -400,11 +400,11 @@ namespace Simsip.LineRunner.Scenes
             // Assumes StartPage1Layer is already last in our stack and
             // we want to keep our current top entry layer in place.
             // Example:
-            //     (top)                                               (bottom)
-            // <CurrentLayer><remove-1>...<remove-n><StartPage1Layer><IntroLayer>
+            //     (top)                                (bottom)
+            // <CurrentLayer><remove-1>...<remove-n><StartPage1Layer>
             // will be adjusted to:
-            //     (top)                        (bottom)
-            // <CurrentLayer><StartPage1Layer><IntroLayer>
+            //     (top)          (bottom)
+            // <CurrentLayer><StartPage1Layer>
 
             // Pop reference to current layer
             var currentLayer = _navigationStack.Pop();
@@ -450,6 +450,16 @@ namespace Simsip.LineRunner.Scenes
         #endregion
 
         #region Api
+
+        public void PauseGame()
+        {
+            this.TheActionLayer.PauseGame();
+        }
+
+        public void ResumeGame()
+        {
+            this.TheActionLayer.ResumeGame();
+        }
 
         public void Refresh()
         {

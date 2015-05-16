@@ -53,8 +53,10 @@ namespace Simsip.LineRunner.Effects.Stock
 
     public class StockBasicEffect : BasicEffect
     {
-        private EffectParameter _isClipParam;
-        private EffectParameter _clippingPlaneParam;
+        private EffectParameter _isBottomClippedParam;
+        private EffectParameter _bottomClippingPlaneParam;
+        private EffectParameter _isTopClippedParam;
+        private EffectParameter _topClippingPlaneParam;
 
 #if WINDOWS_PHONE || NETFX_CORE
         public static async Task<StockBasicEffect> Initialize(GraphicsDevice device, string path)
@@ -81,31 +83,55 @@ namespace Simsip.LineRunner.Effects.Stock
 #endif
 
         /// <summary>
-        /// Gets or sets if a clipping plane is to be used.
+        /// Gets or sets if a bottom clipping plane is to be used.
         /// 
-        /// If true, then the clipping plane as defined by ClippingPlane will be used.
+        /// If true, then the clipping plane as defined by BottomClippingPlane will be used.
         /// </summary>
-        public bool IsClip
+        public bool IsBottomClipped
         {
-            get { return _isClipParam.GetValueBoolean(); }
-            set { _isClipParam.SetValue(value); }
+            get { return _isBottomClippedParam.GetValueBoolean(); }
+            set { _isBottomClippedParam.SetValue(value); }
         }
 
         /// <summary>
-        /// Gets or sets the clipping plane to use.
+        /// Gets or sets the bottom clipping plane to use.
         /// 
-        /// Only used if IsClip is set to true;
+        /// Only used if IsBottomClipped is set to true;
         /// </summary>
-        public Vector4 ClippingPlane
+        public Vector4 BottomClippingPlane
         {
-            get { return _clippingPlaneParam.GetValueVector4(); }
-            set { _clippingPlaneParam.SetValue(value); }
+            get { return _bottomClippingPlaneParam.GetValueVector4(); }
+            set { _bottomClippingPlaneParam.SetValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets if a top clipping plane is to be used.
+        /// 
+        /// If true, then the clipping plane as defined by TopClippingPlane will be used.
+        /// </summary>
+        public bool IsTopClipped
+        {
+            get { return _isTopClippedParam.GetValueBoolean(); }
+            set { _isTopClippedParam.SetValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the top clipping plane to use.
+        /// 
+        /// Only used if IsTopClipped is set to true;
+        /// </summary>
+        public Vector4 TopClippingPlane
+        {
+            get { return _topClippingPlaneParam.GetValueVector4(); }
+            set { _topClippingPlaneParam.SetValue(value); }
         }
 
         private void CacheEffectParameters2()
         {
-            this._isClipParam = Parameters["IsClip"];
-            this._clippingPlaneParam = Parameters["ClippingPlane"];
+            this._isBottomClippedParam = Parameters["IsBottomClipped"];
+            this._bottomClippingPlaneParam = Parameters["BottomClippingPlane"];
+            this._isTopClippedParam = Parameters["IsTopClipped"];
+            this._topClippingPlaneParam = Parameters["TopClippingPlane"];
         }
 
 #if ANDROID || IOS || DESKTOP

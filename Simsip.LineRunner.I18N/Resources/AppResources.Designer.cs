@@ -584,11 +584,29 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to pause.
+        /// </summary>
+        public static string HudPause {
+            get {
+                return ResourceManager.GetString("HudPause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to resume.
         /// </summary>
         public static string HudResume {
             get {
                 return ResourceManager.GetString("HudResume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to speed.
+        /// </summary>
+        public static string HudSpeed {
+            get {
+                return ResourceManager.GetString("HudSpeed", resourceCulture);
             }
         }
         

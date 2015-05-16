@@ -10,6 +10,13 @@ using Simsip.LineRunner.GameObjects.Pages;
 using Simsip.LineRunner.Resources;
 using Simsip.LineRunner.SneakyJoystick;
 using Simsip.LineRunner.Utils;
+using System;
+using Simsip.LineRunner.GameObjects.Characters;
+#if NETFX_CORE
+using Windows.System.Threading;
+#else
+using System.Threading;
+#endif
 #if IOS
 using Foundation;
 #endif
@@ -22,8 +29,8 @@ namespace Simsip.LineRunner.Scenes.Hud
         private CoreScene _parent;
 
         // Services we need
+        private ICharacterCache _characterCache;
         private IInputManager _inputManager;
-        private IDeferredShadowMapping _deferredShadowMapping;
 
         // Header layer
         private UILayer _headerLayer;
@@ -36,9 +43,7 @@ namespace Simsip.LineRunner.Scenes.Hud
         private CCAction _footerLayerActionOut;
 
         // Support for keeping hud on screen as hero moves
-        private Vector3 _headerPaneModelOriginalPosition;
         private CCPoint _headerLayerOriginalPosition;
-        private Vector3 _footerPaneModelOriginalPosition;
         private CCPoint _footerLayerOriginalPosition;
         private Vector3 _stationaryCameraOriginalPosition;
         private Vector3 _cocos2DCameraOriginalPosition;
@@ -54,15 +59,30 @@ namespace Simsip.LineRunner.Scenes.Hud
         // Line label
         private CCLabelTTF _lineNumberLabel;
         private CCAction _lineNumberLabelAction;
-        
-        // Free flight/resume
-        private bool _inFlight;
-        private CCLabelTTF _flightLabel;
-        private CCMenu _flightMenu;
+
+        // Timer
+        private CCLabelTTF _timerLabel;
+        private DateTime _timerStartTime;
+        private string _timerLabelText;
+#if NETFX_CORE
+        private ThreadPoolTimer _timer;
+#else
+        private Timer _timer;
+#endif
 
         // Joystick
         private SneakyPanelControl _joystickPanel;
 
+        // Pause/resume
+        private bool _paused;
+        private string _pauseText;
+        private string _resumeText;
+
+        // Free flight/resume
+        private bool _inFlight;
+        private CCLabelTTF _flightLabel;
+        private CCMenu _flightMenu;
+        
         private GameState _currentGameState;
 
         public HudLayer(CoreScene parent)
@@ -71,7 +91,7 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             // Grab rerences to services we'll need
             this._inputManager = (IInputManager)TheGame.SharedGame.Services.GetService(typeof(IInputManager));
-            this._deferredShadowMapping = (IDeferredShadowMapping)TheGame.SharedGame.Services.GetService(typeof(IDeferredShadowMapping));
+            this._characterCache = (ICharacterCache)TheGame.SharedGame.Services.GetService(typeof(ICharacterCache));
 
             // Grab original Cocos2D DrawManager translation and stationary camera position
             // Will be used in positioning as game progresses
@@ -82,13 +102,11 @@ namespace Simsip.LineRunner.Scenes.Hud
             var screenSize = CCDirector.SharedDirector.WinSize;
             var headerContentSize = new CCSize(0.4f * screenSize.Width,
                                                0.2f * screenSize.Height);
-            var footerContentSize = new CCSize(0.2f * screenSize.Height,    // Note how we make it square here
-                                               0.2f * screenSize.Height);
 
             // Header pane transition in/out
             var headerLayerEndPosition = new CCPoint(
-                0.6f * screenSize.Width,
-                0.8f * screenSize.Height);
+                0.58f * screenSize.Width,
+                0.78f * screenSize.Height);
             var headerLayerStartPosition = new CCPoint(
                 headerLayerEndPosition.X, 
                 screenSize.Height);
@@ -152,32 +170,26 @@ namespace Simsip.LineRunner.Scenes.Hud
             var scaleBackLineNumber = new CCScaleTo(0.1f, 1.0f);
             this._lineNumberLabelAction = new CCSequence(new CCFiniteTimeAction[] { scaleStartLineNumber, scaleUpLineNumber, scaleBackLineNumber });
 
-            // World
-            var freeFlightText = string.Empty;
-#if ANDROID
-            freeFlightText = Program.SharedProgram.Resources.GetString(Resource.String.HudFreeFlight);
-#elif IOS
-            freeFlightText = NSBundle.MainBundle.LocalizedString(Strings.HudFreeFlight, Strings.HudFreeFlight);
-#else
-            freeFlightText = AppResources.HudFreeFlight;
+            // Timer
+            this._timerLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            this._timerLabel.Position = new CCPoint(
+                0.5f * headerContentSize.Width,
+                0.2f * headerContentSize.Height);
+            this._timerLabelText = string.Empty;
+            this._headerLayer.AddChild(_timerLabel);
+#if !NETFX_CORE
+            this._timer = new Timer(TimerCallback);
 #endif
-            this._flightLabel = new CCLabelTTF(freeFlightText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-            var flightButton = new CCMenuItemLabel(this._flightLabel,
-                                                 (obj) => { this.ToggleWorld(); });
-            this._flightMenu = new CCMenu(
-               new CCMenuItem[] 
-                    {
-                        flightButton
-                    });
-            this._flightMenu.Position = new CCPoint(
-                0.5f  * headerContentSize.Width, 
-                0.15f * headerContentSize.Height);
-            this._headerLayer.AddChild(this._flightMenu);
+
+            // Get this set up for relative positioning below
+            var footerContentSize = new CCSize(
+                0.96f * screenSize.Width,
+                0.2f  * screenSize.Height);
 
             // Footer pane model
             var footerLayerEndPosition = new CCPoint(
-                0.01f * screenSize.Width,
-                0.01f * screenSize.Height);
+                0.02f * screenSize.Width,
+                0.02f * screenSize.Height);
             var footerLayerStartPosition = new CCPoint(
                 footerLayerEndPosition.X,
                 -footerContentSize.Height);
@@ -200,14 +212,14 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             // Joystick
             this._joystickPanel = new SneakyPanelControl(new CCSize(
-                footerContentSize.Width,
+                0.25f * footerContentSize.Width,
                 footerContentSize.Height), 
                 4);
 
             // TODO: Is this the right position for this? Try setting to middle of parent panel just to get to display
             this._joystickPanel.Position = new CCPoint(
-                0f,
-                0f);
+                0.2f * footerContentSize.Width,
+                0.5f * footerContentSize.Height);
             this._footerLayer.AddChild(this._joystickPanel);
 
             // Hook-up joystick events
@@ -216,6 +228,108 @@ namespace Simsip.LineRunner.Scenes.Hud
             {
                 button.SneakyStartEndEvent += this._inputManager.ButtonStartEndEvent;
             }
+
+            // Pause toggle
+            CCMenuItemImage pauseToggleOn =
+                new CCMenuItemImage("Images/Icons/PauseButtonNormal.png",
+                                    "Images/Icons/ResumeButtonNormal.png");
+            CCMenuItemImage pauseToggleOff =
+                new CCMenuItemImage("Images/Icons/ResumeButtonNormal.png",
+                                    "Images/Icons/PauseButtonNormal.png");
+            CCMenuItemToggle pauseToggle =
+                new CCMenuItemToggle((obj) => PauseTogglePressed(),
+                new CCMenuItem[] { pauseToggleOn, pauseToggleOff });
+            pauseToggle.Position = new CCPoint(
+                0.5f * footerContentSize.Width,
+                0.6f * footerContentSize.Height);
+            this._footerLayer.AddChild(pauseToggle);
+            this._pauseText = string.Empty;
+#if ANDROID
+            this._pauseText = Program.SharedProgram.Resources.GetString(Resource.String.HudPause);
+#elif IOS
+            this._pauseText = NSBundle.MainBundle.LocalizedString(Strings.HudPause, Strings.HudPause);
+#else
+            this._pauseText = AppResources.HudPause;
+#endif
+            var pauseLabel = new CCLabelTTF(this._pauseText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var pauseItem = new CCMenuItemLabel(pauseLabel,
+                (obj) => { this.PauseTogglePressed(); });
+            var pauseLabelMenu = new CCMenu(
+               new CCMenuItem[] 
+                    {
+                        pauseItem
+                    });
+            pauseLabelMenu.Position = new CCPoint(
+                0.5f  * footerContentSize.Width,
+                0.25f * footerContentSize.Height);
+            this._footerLayer.AddChild(pauseLabelMenu);
+
+            // Speed
+            var decreaseButtonNormal = new CCSprite("Images/Icons/DecreaseButtonNormal.png");
+            var decreaseButtonSelected = new CCSprite("Images/Icons/DecreaseButtonSelected.png");
+            var decreaseButton = new CCMenuItemImage((obj) => { this._characterCache.DecreaseVelocity(); });
+            decreaseButton.NormalImage = decreaseButtonNormal;
+            decreaseButton.SelectedImage = decreaseButtonSelected;
+
+            var increaseButtonNormal = new CCSprite("Images/Icons/IncreaseButtonNormal.png");
+            var increaseButtonSelected = new CCSprite("Images/Icons/IncreaseButtonSelected.png");
+            var increaseButton = new CCMenuItemImage((obj) => { this._characterCache.IncreaseVelocity(); });
+            increaseButton.NormalImage = increaseButtonNormal;
+            increaseButton.SelectedImage = increaseButtonSelected;
+
+            var speedMenu = new CCMenu(
+    new CCMenuItem[] 
+                    {
+                        decreaseButton,
+                        increaseButton,
+                    });
+            speedMenu.AlignItemsHorizontallyWithPadding(
+                0.05f * footerContentSize.Width);
+            speedMenu.AnchorPoint = CCPoint.AnchorMiddle;
+            speedMenu.Position = new CCPoint(
+                0.8f * footerContentSize.Width,
+                0.6f  * footerContentSize.Height);
+            this._footerLayer.AddChild(speedMenu);
+
+            var speedText = string.Empty;
+#if ANDROID
+            speedText = Program.SharedProgram.Resources.GetString(Resource.String.HudSpeed);
+#elif IOS
+            speedText = NSBundle.MainBundle.LocalizedString(Strings.HudSpeed, Strings.HudSpeed);
+#else
+            speedText = AppResources.HudSpeed;
+#endif
+            var speedLabel = new CCLabelTTF(speedText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            speedLabel.Position = new CCPoint(
+                0.8f * footerContentSize.Width,
+                0.25f * footerContentSize.Height);
+            this._footerLayer.AddChild(speedLabel);
+
+            this.ScheduleUpdate();
+
+            // TODO: Add in when Worlds are ready
+            /*
+            var freeFlightText = string.Empty;
+#if ANDROID
+            freeFlightText = Program.SharedProgram.Resources.GetString(Resource.String.HudFreeFlight);
+#elif IOS
+            freeFlightText = NSBundle.MainBundle.LocalizedString(Strings.HudFreeFlight, Strings.HudFreeFlight);
+#else
+            freeFlightText = AppResources.HudFreeFlight;
+#endif
+            this._flightLabel = new CCLabelTTF(freeFlightText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            var flightButton = new CCMenuItemLabel(this._flightLabel,
+                                                 (obj) => { this.ToggleWorld(); });
+            this._flightMenu = new CCMenu(
+               new CCMenuItem[] 
+                    {
+                        flightButton
+                    });
+            this._flightMenu.Position = new CCPoint(
+                0.5f * headerContentSize.Width,
+                0.15f * headerContentSize.Height);
+            this._headerLayer.AddChild(this._flightMenu);
+            */
         }
 
         #region Cocos2D overrides
@@ -227,9 +341,29 @@ namespace Simsip.LineRunner.Scenes.Hud
             // Animate panes/layers
             this._headerLayer.RunAction(this._headerLayerActionIn);
             this._footerLayer.RunAction(this._footerLayerActionIn);
+
+            // Initialize timer display
+#if NETFX_CORE
+            this._timer = ThreadPoolTimer.CreatePeriodicTimer(TimerCallback, TimeSpan.FromSeconds(1));
+#else
+            this._timer.Change(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+#endif
+            this._timerStartTime = DateTime.Now;
         }
 
-        public override void Draw()
+        public override void OnExit()
+        {
+            base.OnExit();
+
+            // Turn off timer display
+#if NETFX_CORE
+            this._timer.Cancel();
+#else
+            this._timer.Change(-1, -1);
+#endif
+        }
+
+        public override void Update(float dt)
         {
             // Our Cocos2d draw manager is moving with hero, so determine where we are now
             // See ActionLayer.UpdateTrackingCamera for details.
@@ -245,7 +379,7 @@ namespace Simsip.LineRunner.Scenes.Hud
                  this._footerLayerOriginalPosition.X + offsetX,
                  this._footerLayerOriginalPosition.Y + offsetY);
 
-            base.Draw();
+            this._timerLabel.Text = this._timerLabelText;
         }
 
         #endregion
@@ -296,6 +430,7 @@ namespace Simsip.LineRunner.Scenes.Hud
         {
             this._currentGameState = gameState;
 
+            /* TODO Add in when world is ready
             if (this._currentGameState == GameState.Moving ||
                 this._currentGameState == GameState.World)
             {
@@ -305,11 +440,27 @@ namespace Simsip.LineRunner.Scenes.Hud
             {
                 this._flightMenu.Enabled = false;
             }
+            */
         }
 
         #endregion
 
         #region Helper methods
+
+        private void PauseTogglePressed()
+        {
+            // TODO: Just call pause on charactercache?
+            if (this._paused)
+            {
+                this._paused = false;
+                this._parent.ResumeGame();
+            }
+            else
+            {
+                this._paused = true;
+                this._parent.PauseGame();
+            }
+        }
 
         private void ToggleWorld()
         {
@@ -357,6 +508,16 @@ namespace Simsip.LineRunner.Scenes.Hud
                 // Switch state to flight
                 this._parent.TheActionLayer.StartWorld();
             }
+        }
+
+#if NETFX_CORE
+        private void TimerCallback(ThreadPoolTimer timer)
+#else
+        private void TimerCallback(object timer)
+#endif
+        {
+            var elapsed = DateTime.Now - this._timerStartTime;
+            this._timerLabelText = elapsed.ToString(@"h\:mm\:ss");
         }
 
         #endregion

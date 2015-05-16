@@ -34,8 +34,10 @@ BEGIN_CONSTANTS
 	// Note: Had to use float instead of bool due to error on DX9 builds
 	// "IF src0 must have replicate swizzle"
 	// https://monogame.codeplex.com/discussions/391687
-	bool IsClip                   _vs(c27) _ps(c15) _cb(c22);
-	float4 ClippingPlane          _vs(c28) _ps(c16) _cb(c23);
+	bool IsBottomClipped            _vs(c27) _ps(c15) _cb(c22);
+	float4 BottomClippingPlane      _vs(c28) _ps(c16) _cb(c23);
+	bool IsTopClipped               _vs(c32) _ps(c20) _cb(c27);
+	float4 TopClippingPlane         _vs(c33) _ps(c21) _cb(c28);
 
 MATRIX_CONSTANTS
 
@@ -309,13 +311,18 @@ VSOutputPixelLightingTx VSBasicPixelLightingTx(VSInputNmTx vin)
     vout.Diffuse = float4(1, 1, 1, DiffuseColor.a);
     vout.TexCoord = vin.TexCoord;
 
-	// Do we have a clipping plane to consider?
+	// Do we have clipping planes to consider?
 	// IMPORTANT: Can't do conditionals in vertex shader similar to if(IsClip), must be if (IsClip == true)
-	vout.Clipping = 0;
-	if (IsClip == true)
+	vout.BottomClipping = 0;
+	vout.TopClipping = 0;
+	float4 clp = mul(vin.Position, World);
+    if (IsBottomClipped == true)
 	{
-		float4 clp = mul(vin.Position, World);
-	    vout.Clipping.x = dot(clp, ClippingPlane);
+	    vout.BottomClipping.x = dot(clp, BottomClippingPlane);
+	}
+	if (IsTopClipped == true)
+	{
+		vout.TopClipping.x = dot(clp, TopClippingPlane);
 	}
 
     return vout;
@@ -334,8 +341,9 @@ VSOutputPixelLightingTx VSBasicPixelLightingTxVc(VSInputNmTxVc vin)
     vout.Diffuse.a = vin.Color.a * DiffuseColor.a;
     vout.TexCoord = vin.TexCoord;
 
-	// Do we have a clipping plane to consider?
-	vout.Clipping = 0;
+	// Do we have clipping planes to consider?
+	vout.BottomClipping = 0;
+	vout.TopClipping = 0;
 
     return vout;
 }
@@ -445,10 +453,14 @@ float4 PSBasicPixelLighting(VSOutputPixelLighting pin) : SV_Target0
 // Pixel shader: pixel lighting + texture.
 float4 PSBasicPixelLightingTx(VSOutputPixelLightingTx pin) : SV_Target0
 {
-	// Do we have a clipping plane to consider?
-	if (IsClip == true)
+	// Do we have clipping planes to consider?
+	if (IsBottomClipped == true)
 	{
-		clip(pin.Clipping.x);
+		clip(pin.BottomClipping.x);
+	}
+	if (IsTopClipped == true)
+	{
+		clip(pin.TopClipping.x);
 	}
 
     float4 color = SAMPLE_TEXTURE(Texture, pin.TexCoord) * pin.Diffuse;

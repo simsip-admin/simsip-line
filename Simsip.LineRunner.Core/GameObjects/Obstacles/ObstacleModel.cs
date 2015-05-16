@@ -36,6 +36,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
         #region Properties
 
+        public ObstacleAnimationType TheObstacleAnimationType { get; set; }
+
         /// <summary>
         /// The additional database entries that describe this obstacle.
         /// </summary>
@@ -67,9 +69,15 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
         /// <summary>
         /// Once the obstacle model has been positioned, we can determine an appropriate
-        /// clipping plane for it.
+        /// bottom clipping plane for it.
         /// </summary>
-        public Vector4 ClippingPlane { get; set; }
+        public Vector4 BottomClippingPlane { get; set; }
+
+        /// <summary>
+        /// Once the obstacle model has been positioned, we can determine an appropriate
+        /// top clipping plane for it.
+        /// </summary>
+        public Vector4 TopClippingPlane { get; set; }
 
         #endregion
 
@@ -158,13 +166,18 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             }
 
             // Do we have any particle effects?
-            this.ParticleEffectDescs = ParticleEffectFactory.Create(this);
+            this.DisplayParticleEffectDescs = ParticleEffectFactory.CreateObstacleDisplayParticles(this);
+            this.HitParticleEffectDescs = ParticleEffectFactory.CreateObstacleHitParticles(this);
+
+            // Default to no additional animation
+            this.TheObstacleAnimationType = ObstacleAnimationType.None;
         }
 
         public override void Draw(Matrix view, Matrix projection, StockBasicEffect effect = null, EffectType type = EffectType.None)
         {
             // TODO: Do we have to do this every draw?
             // Adjust for physics centering at center of mesh
+            /*
             if (this.PhysicsEntity != null) // &&
                 // this.PhysicsLocalTransform != null) TODO: This is a struct, do we need some type of check?
             {
@@ -175,11 +188,15 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 }
 
                 var scaleMatrix = Matrix.CreateScale(scale);
-                this.WorldMatrix = scaleMatrix * this.RotationMatrix * MathConverter.Convert(this.PhysicsLocalTransform * this.PhysicsEntity.WorldTransform);
+                var translateMatrix = Matrix.CreateTranslation(MathConverter.Convert(this.PhysicsEntity.Position));
+                this.WorldMatrix = scaleMatrix * this.RotationMatrix * MathConverter.Convert(this.PhysicsLocalTransform) * translateMatrix;
+                // this.WorldMatrix = scaleMatrix * this.RotationMatrix * MathConverter.Convert(this.PhysicsLocalTransform * this.PhysicsEntity.WorldTransform);
             }
+            */
 
-            // Assign an appropriate clipping plane to use
-            effect.ClippingPlane = this.ClippingPlane;
+            // Assign appropriate clipping planes to use
+            effect.BottomClippingPlane = this.BottomClippingPlane;
+            effect.TopClippingPlane = this.TopClippingPlane;
 
             base.Draw(view, projection, effect, type);
         }

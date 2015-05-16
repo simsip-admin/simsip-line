@@ -2088,8 +2088,14 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f06007a
 			public const int HudPage = 2131099770;
 			
+			// aapt resource value: 0x7f0600a2
+			public const int HudPause = 2131099810;
+			
 			// aapt resource value: 0x7f06007b
 			public const int HudResume = 2131099771;
+			
+			// aapt resource value: 0x7f0600a3
+			public const int HudSpeed = 2131099811;
 			
 			// aapt resource value: 0x7f06007c
 			public const int IntroGeneratingTerrain = 2131099772;

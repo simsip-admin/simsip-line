@@ -171,7 +171,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
             }
 
             // Do we have any particle effects?
-            this.ParticleEffectDescs = ParticleEffectFactory.Create(this);
+            this.HitParticleEffectDescs = ParticleEffectFactory.Create(this);
         }
 
         public override void Draw(Matrix view, Matrix projection, StockBasicEffect effect = null, EffectType type = EffectType.None)

@@ -52,21 +52,6 @@ namespace Simsip.LineRunner.Entities.LineRunner
         public float LogicalHeightScaledTo100 { get; set; }
 
         /// <summary>
-        /// If non-zero, an additional percentage scaling we will apply to the obstacle.
-        /// </summary>
-        public float LogicalScaleScaledTo100 { get; set; }
-
-        /// <summary>
-        /// The logical angle we will rotate this obstacle to.
-        /// </summary>
-        public float LogicalAngle { get; set; }
-
-        /// <summary>
-        /// Whether this obstacle should be marked as goal for scoring purposes.
-        /// </summary>
-        public bool IsGoal { get; set; }
-
-        /// <summary>
         /// A height range we can apply to each obstacle to add additional randomization.
         /// 
         /// IMPORTANT: Needs to be int as the Random class we use in the code only has 
@@ -77,5 +62,33 @@ namespace Simsip.LineRunner.Entities.LineRunner
         /// Pick a value between -10 to 10 to add to the logical height of each obstacle.
         /// </summary>
         public int HeightRange { get; set; }
+
+        /// <summary>
+        /// If non-zero, an additional percentage scaling we will apply to the obstacle.
+        /// </summary>
+        public float LogicalScaleScaledTo100 { get; set; }
+
+        /// <summary>
+        /// The logical angle we will rotate this obstacle to.
+        /// </summary>
+        public float LogicalAngle { get; set; }
+
+        /// <summary>
+        /// A string containing coded values that direct how the display particle effect
+        /// should be created for this obstacle.
+        /// Currently:
+        /// emppty - do not display the display particle effect defined for this obstacle
+        /// y(es) - display the display particle effect defined for this obstacle
+        /// r(andom) - choose from a family of particle effects to display for this obstacle
+        /// m(ultiple) - display multiple display particle effects defined for this obstacle
+        /// specific enum - used to override the default display particle effect, display the particle effect specified by the enum
+        /// </summary>
+        public string DisplayParticle { get; set; }
+
+        /// <summary>
+        /// Whether this obstacle should be marked as goal for scoring purposes.
+        /// </summary>
+        public bool IsGoal { get; set; }
+
     }
 }

@@ -53,9 +53,32 @@ namespace Simsip.LineRunner.Actions
                 m_startPosition = m_startPosition + diff;
                 */
 
+                // Grab our existing scale, rotate and translate matrices
+                Vector3 scale = new Vector3();
+                Quaternion rot = new Quaternion();
+                Vector3 trans = new Vector3();
+                m_pTarget.WorldMatrix.Decompose(out scale, out rot, out trans);
+
+                // Make sure to only modify the rotate matrix
+                Vector3 newPos = m_startPosition + m_positionDelta * time;
+                var translateMatrix = Matrix.CreateTranslation(newPos);
+                var rotateMatrix = Matrix.CreateFromQuaternion(rot);
+                var scaleMatrix = Matrix.CreateScale(scale);
+
+                m_pTarget.WorldMatrix = scaleMatrix * rotateMatrix * translateMatrix;
+
+                // If we have a physics entity, have it follow the translation
+                if (m_pTarget.PhysicsEntity != null)
+                {
+                    // m_pTarget.PhysicsEntity.Position = ConversionHelper.MathConverter.Convert(newPos);
+                    m_pTarget.PhysicsEntity.WorldTransform = ConversionHelper.MathConverter.Convert(m_pTarget.WorldMatrix);
+                }
+
+                /* legacy
                 Vector3 newPos = m_startPosition + m_positionDelta * time;
                 m_pTarget.WorldOrigin = newPos;
                 m_previousPosition = newPos;
+                */
             }
         }
 

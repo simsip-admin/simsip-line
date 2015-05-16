@@ -71,7 +71,6 @@ namespace Simsip.LineRunner.GameObjects.Lines
             public int PageNumber;
             public int[] LineNumbers;
             public IList<LineModel> LineModelsAsync;
-            public bool UnloadPreviousLineModels;
         }
         private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadResults;
 
@@ -163,70 +162,6 @@ namespace Simsip.LineRunner.GameObjects.Lines
 
         public event LoadContentAsyncFinishedEventHandler LoadContentAsyncFinished;
 
-        public void LoadContentAsync(LoadContentAsyncType loadContentAsyncType)
-        {
-            // Determine which page/line number we are loading
-            var pageNumber = -1;
-            int[] lineNumbers = null;
-            switch (loadContentAsyncType)
-            {
-                case LoadContentAsyncType.Initialize:
-                case LoadContentAsyncType.Refresh:
-                    {
-                        pageNumber = 1;
-                        lineNumbers = new int[] { 0, 1, 2 };
-                        break;
-                    }
-                case LoadContentAsyncType.Next:
-                    {
-                        // Are we on the last line of the page
-                        var lineCount = this._pageCache.CurrentPageModel.ThePadEntity.LineCount;
-                        if (this._currentLineNumber == lineCount)
-                        {
-                            // Ok, on last line, move to first line of next page
-                            pageNumber = this._currentPageNumber + 1;
-                            lineNumbers = new int[] { 1 };
-                        }
-                        else
-                        {
-                            // Not on last line, just go for next line
-                            pageNumber = this._currentPageNumber;
-                            lineNumbers = new int[] { this._currentLineNumber + 1 };
-                        }
-                        break;
-                    }
-            }
-
-            // Build our state object for this background content load request
-            var loadContentThreadArgs = new LoadContentThreadArgs
-            {
-                TheLoadContentAsyncType = loadContentAsyncType,
-                PageNumber = pageNumber,
-                LineNumbers = lineNumbers,
-                LineModelsAsync = new List<LineModel>(),
-                UnloadPreviousLineModels = false
-            };
-
-            // This will force us to flush our content manaager so we don't load
-            // a cached version of the model - critical when changing textures for model.
-            if (loadContentAsyncType == LoadContentAsyncType.Refresh)
-            {
-                loadContentThreadArgs.UnloadPreviousLineModels = true;
-            }
-
-#if NETFX_CORE
-
-            IAsyncAction asyncAction = 
-                Windows.System.Threading.ThreadPool.RunAsync(
-                    (workItem) =>
-                    {
-                        LoadContentAsyncThread(loadContentThreadArgs);
-                    });
-#else
-            ThreadPool.QueueUserWorkItem(LoadContentAsyncThread, loadContentThreadArgs);
-#endif
-        }
-
         public void Draw(StockBasicEffect effect, EffectType type)
         {
             var view = this._inputManager.CurrentCamera.ViewMatrix;
@@ -247,6 +182,10 @@ namespace Simsip.LineRunner.GameObjects.Lines
             }
         }
 
+        /// <summary>
+        /// IMPORTANT: Do not call on background thread. Only call during normal Update/Draw cycle. 
+        /// </summary>
+        /// <param name="state"></param>
         public void SwitchState(GameState state)
         {
             // Update our overall game state
@@ -260,12 +199,9 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
 
-                        // Get lines constructed for first page
-                        // this.ProcessNextPage();
-
-                        // Animate header and first line for first page into position
-                        // this.ProcessNextLine();
-
+                        // In background get initial lines constructed for first page.
+                        // this.ProcessNextLine() will be called in event handler when 
+                        // finished to animate header and first line for first page into position
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
                         this.LoadContentAsync(LoadContentAsyncType.Initialize);
 
@@ -273,7 +209,9 @@ namespace Simsip.LineRunner.GameObjects.Lines
                     }
                 case GameState.Moving:
                     {
+                        // Propogate state change
                         this._obstacleCache.SwitchState(state);
+
                         break;
                     }
                 case GameState.MovingToNextLine:
@@ -296,9 +234,6 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         this._currentPageNumber++;
                         this._currentLineNumber = 1;
 
-                        // Get lines constructed for next page
-                        // this.ProcessNextPage();
-
                         // Animate first line and header for next page into position
                         this.ProcessNextLine();
 
@@ -314,13 +249,9 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
 
-                        // Get lines constructed for first page
-                        // this.ProcessNextPage();
-
-                        // Animate header and first line for first page into position
-                        // this.ProcessNextLine();
-
-                        // In background load up the line following our current line we are moving to
+                        // In background get initial lines constructed for first page.
+                        // this.ProcessNextLine() will be called in event handler when
+                        // finished to animate header and first line for first page into position
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
                         this.LoadContentAsync(LoadContentAsyncType.Initialize);
 
@@ -328,23 +259,13 @@ namespace Simsip.LineRunner.GameObjects.Lines
                     }
                 case GameState.Refresh:
                     {
-                        // We need to set this up-front as refresh is done on a background thread
-                        // and we need to know this to short-circuit draw while this is done
-                        this._currentGameState = state;
-
                         // Set state
                         this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
 
-                        // Get lines constructed for first page
-                        // IMPORTANT: Note how we override the default parameter of unloadPreviousLineModels
-                        //            to true. This will force us to get a fresh copy of the line models.
-                        // this.ProcessNextPage(unloadPreviousLineModels: true);
-
-                        // Animate header and first line for first page into position
-                        // this.ProcessNextLine();
-
-                        // In background load up the line following our current line we are moving to
+                        // In background get initial lines constructed for first page.
+                        // this.ProcessNextLine() will be called in event handler when
+                        // finished to animate header and first line for first page into position
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
                         this.LoadContentAsync(LoadContentAsyncType.Refresh);
 
@@ -356,6 +277,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
 
+                        // Propogate state change
                         this._obstacleCache.SwitchState(state);
 
                         break;
@@ -400,7 +322,95 @@ namespace Simsip.LineRunner.GameObjects.Lines
 
         #region Helper methods
 
-        // Formerly ProcessNextPage
+        // IMPORTANT: Do not call on background thread. Only call during normal Update/Draw cycle.
+        // (e.g., via SwitchState())
+        private void LoadContentAsync(LoadContentAsyncType loadContentAsyncType)
+        {
+            // Determine which page/line number we are loading
+            var pageNumber = -1;
+            int[] lineNumbers = null;
+            switch (loadContentAsyncType)
+            {
+                case LoadContentAsyncType.Initialize:
+                case LoadContentAsyncType.Refresh:
+                    {
+                        pageNumber = 1;
+                        lineNumbers = new int[] { 0, 1, 2 };
+                        break;
+                    }
+                case LoadContentAsyncType.Next:
+                    {
+                        // Are we on the last line of the page
+                        var lineCount = this._pageCache.CurrentPageModel.ThePadEntity.LineCount;
+                        if (this._currentLineNumber == lineCount)
+                        {
+                            // Ok, on last line, move to first line of next page
+                            pageNumber = this._currentPageNumber + 1;
+                            lineNumbers = new int[] { 1 };
+                        }
+                        else
+                        {
+                            // Not on last line, just go for next line
+                            pageNumber = this._currentPageNumber;
+                            lineNumbers = new int[] { this._currentLineNumber + 1 };
+                        }
+                        break;
+                    }
+            }
+
+            // Build our state object for this background content load request
+            var loadContentThreadArgs = new LoadContentThreadArgs
+            {
+                TheLoadContentAsyncType = loadContentAsyncType,
+                PageNumber = pageNumber,
+                LineNumbers = lineNumbers,
+                LineModelsAsync = new List<LineModel>()
+            };
+
+            // If we are doing a refresh we need to flush our custom content manaager so we don't load
+            // a cached version of the model - critical when changing textures for model.
+            // (e.g., coming from options page and selected a new texture for line models)
+            //
+            // Since this will cause Dispose to be called on our XNA models, we need to carefully
+            // clear out our entire set of models, physics and textures for this scenario.
+            if (loadContentAsyncType == LoadContentAsyncType.Refresh)
+            {
+                // Remove all previous models from our drawing filter
+                // and physics from our physics simulation
+                foreach (var lineModel in this.LineModels.ToList())
+                {
+                    this._ocTreeRoot.RemoveModel(lineModel.ModelID);
+
+                    if (lineModel.PhysicsEntity != null &&
+                        lineModel.PhysicsEntity.Space != null)
+                    {
+                        this._physicsManager.TheSpace.Remove(lineModel.PhysicsEntity);
+                    }
+
+                    // Clear out any previous line model textures
+                    GameModel.OriginalEffectsDictionary.Remove(lineModel.TheLineEntity.ModelName);
+                }
+
+                // And finally clear out the full set of previous models
+                this.LineModels.Clear();
+
+                // Now we are safe to call call Unload on our custom ContentManager.
+                this._customContentManager.Unload();
+            }
+
+#if NETFX_CORE
+
+            IAsyncAction asyncAction = 
+                Windows.System.Threading.ThreadPool.RunAsync(
+                    (workItem) =>
+                    {
+                        LoadContentAsyncThread(loadContentThreadArgs);
+                    });
+#else
+            ThreadPool.QueueUserWorkItem(LoadContentAsyncThread, loadContentThreadArgs);
+#endif
+        }
+
         private void LoadContentAsyncThread(object args)
         {
             var loadContentThreadArgs = args as LoadContentThreadArgs;
@@ -408,14 +418,6 @@ namespace Simsip.LineRunner.GameObjects.Lines
             var pageNumber = loadContentThreadArgs.PageNumber;
             var lineNumbers = loadContentThreadArgs.LineNumbers;
             var lineModels = loadContentThreadArgs.LineModelsAsync;
-            var unloadPreviousLineModels = loadContentThreadArgs.UnloadPreviousLineModels;
-
-            // If requested, clear out any previous line models
-            // (e.g., coming from options page and selected a new texture for line models)
-            if (unloadPreviousLineModels)
-            {
-                this._customContentManager.Unload();
-            }
 
             // Line construction logic will vary based on if we have
             // 1 line definition or more than 1 line definition for the current page
@@ -432,13 +434,6 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         GameConstants.USER_DEFAULT_KEY_CURRENT_LINE,
                         GameConstants.USER_DEFAULT_INITIAL_CURRENT_LINE);
                     var lineEntity = this._lineRepository.GetLine(currentLine);
-
-                    // If requested, clear out any previous line model effects
-                    // (e.g., coming from options page and selected a new texture for line models)
-                    if (unloadPreviousLineModels)
-                    {
-                        GameModel.OriginalEffectsDictionary.Remove(lineEntity.ModelName);
-                    }
 
                     // Load a fresh or cached version of our page model
                     var lineModel = new LineModel(

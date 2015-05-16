@@ -277,38 +277,9 @@ namespace Simsip.LineRunner.Scenes.Start
             this._isStartEnabled = enableStart;
         }
 
-        private void LoadContentAsyncFinishedHandler(object sender, LoadContentAsyncFinishedEventArgs args)
-        {
-            if (args.TheLoadContentAsyncType == LoadContentAsyncType.Initialize ||
-                args.TheLoadContentAsyncType == LoadContentAsyncType.Refresh)
-            {
-                this._isStartEnabled = true;
-
-                // Remove any previous progress message box and proceed to
-                // the queued up layer we want to navigate to
-                if (this._isProgressShowing)
-                {
-                    this._isProgressShowing = false;
-                    this._parent.Navigate(this._navigatingToLayer);
-                    this._parent.RemoveBackEntry();
-                }
-            }
-        }
-
         #endregion
 
         #region Helper methods
-
-        private void Rate()
-        {
-#if NETFX_CORE
-            App.RateApp();
-#elif DESKTOP
-            Program.RateApp();
-#else
-           Program.SharedProgram.RateApp();
-#endif
-        }
 
         private void NavigateBase(LayerTags layer)
         {
@@ -341,6 +312,35 @@ namespace Simsip.LineRunner.Scenes.Start
                     description: string.Empty,
                     type: MessageBoxType.MB_PROGRESS);
             }
+        }
+
+        private void LoadContentAsyncFinishedHandler(object sender, LoadContentAsyncFinishedEventArgs args)
+        {
+            if (args.TheLoadContentAsyncType == LoadContentAsyncType.Initialize ||
+                args.TheLoadContentAsyncType == LoadContentAsyncType.Refresh)
+            {
+                this._isStartEnabled = true;
+
+                // Remove any previous progress message box and proceed to
+                // the queued up layer we want to navigate to
+                if (this._isProgressShowing)
+                {
+                    this._isProgressShowing = false;
+                    this._parent.Navigate(this._navigatingToLayer);
+                    this._parent.RemoveBackEntry();
+                }
+            }
+        }
+
+        private void Rate()
+        {
+#if NETFX_CORE
+            App.RateApp();
+#elif DESKTOP
+            Program.RateApp();
+#else
+            Program.SharedProgram.RateApp();
+#endif
         }
 
         private void CheckForRatingsPrompt()

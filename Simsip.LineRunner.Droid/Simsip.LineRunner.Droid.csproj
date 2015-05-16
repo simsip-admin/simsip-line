@@ -2134,8 +2134,14 @@
     <Compile Include="..\Simsip.LineRunner.Core\GameObjects\Obstacles\IObstacleCache.cs">
       <Link>GameObjects\Obstacles\IObstacleCache.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\GameObjects\Obstacles\ObstacleAnimationType.cs">
+      <Link>GameObjects\Obstacles\ObstacleAnimationType.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\GameObjects\Obstacles\ObstacleCache.cs">
       <Link>GameObjects\Obstacles\ObstacleCache.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\GameObjects\Obstacles\ObstacleConvexHulls.cs">
+      <Link>GameObjects\Obstacles\ObstacleConvexHulls.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\GameObjects\Obstacles\ObstacleHitEventArgs.cs">
       <Link>GameObjects\Obstacles\ObstacleHitEventArgs.cs</Link>
@@ -4090,6 +4096,46 @@
     </AndroidAsset>
     <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Models\Lines\Line-thumbnail.xnb">
       <Link>Assets\Content\Models\Lines\Line-thumbnail.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\CreditsButtonNormal.xnb">
+      <Link>Assets\Content\Images\Icons\CreditsButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\CreditsButtonSelected.xnb">
+      <Link>Assets\Content\Images\Icons\CreditsButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\DecreaseButtonNormal.xnb">
+      <Link>Assets\Content\Images\Icons\DecreaseButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\DecreaseButtonSelected.xnb">
+      <Link>Assets\Content\Images\Icons\DecreaseButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\IncreaseButtonNormal.xnb">
+      <Link>Assets\Content\Images\Icons\IncreaseButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\IncreaseButtonSelected.xnb">
+      <Link>Assets\Content\Images\Icons\IncreaseButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\PauseButtonNormal.xnb">
+      <Link>Assets\Content\Images\Icons\PauseButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\PauseButtonSelected.xnb">
+      <Link>Assets\Content\Images\Icons\PauseButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\ResumeButtonNormal.xnb">
+      <Link>Assets\Content\Images\Icons\ResumeButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\ResumeButtonSelected.xnb">
+      <Link>Assets\Content\Images\Icons\ResumeButtonSelected.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
     <None Include="packages.config" />

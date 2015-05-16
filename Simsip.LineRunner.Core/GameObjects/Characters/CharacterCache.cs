@@ -194,71 +194,8 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
         public event LoadContentAsyncFinishedEventHandler LoadContentAsyncFinished;
 
-        public void LoadContentAsync(LoadContentAsyncType loadContentAsyncType)
-        {
-            // Determine which page/line number we are loading
-            var pageNumber = -1;
-            int[] lineNumbers = null;
-            switch (loadContentAsyncType)
-            {
-                case LoadContentAsyncType.Initialize:
-                    {
-                        pageNumber = 1;
-                        lineNumbers = new int[] { 1, 2 };
-                        break;
-                    }
-                case LoadContentAsyncType.Next:
-                    {
-                        // Are we on the last line of the page
-                        var lineCount = this._pageCache.CurrentPageModel.ThePadEntity.LineCount;
-                        if (this._currentLineNumber == lineCount)
-                        {
-                            // Ok, on last line, move to first line of next page
-                            pageNumber = this._currentPageNumber + 1;
-                            lineNumbers = new int[] { 1 };
-                        }
-                        else
-                        {
-                            // Not on last line, just go for next line
-                            pageNumber = this._currentPageNumber;
-                            lineNumbers = new int[] { this._currentLineNumber + 1 };
-                        }
-                        break;
-                    }
-            }
-
-            // Build our state object for this background content load request
-            var loadContentThreadArgs = new LoadContentThreadArgs
-            {
-                TheLoadContentAsyncType = loadContentAsyncType,
-                PageNumber = pageNumber,
-                LineNumbers = lineNumbers,
-                CharacterModelsAsync = new List<CharacterModel>()
-            };
-
-#if NETFX_CORE
-
-            IAsyncAction asyncAction = 
-                Windows.System.Threading.ThreadPool.RunAsync(
-                    (workItem) =>
-                    {
-                        LoadContentAsyncThread(loadContentThreadArgs);
-                    });
-#else
-            ThreadPool.QueueUserWorkItem(LoadContentAsyncThread, loadContentThreadArgs);
-#endif
-        }
-
         public void Draw(StockBasicEffect effect = null, EffectType type = EffectType.None)
         {
-            // We need to short-circuit when we are in Refresh state they are reinitializing this game object's
-            // state on a background thread. Note that the Update() short circuit for Refresh is handled
-            // in the ActionLayer.Update.
-            if (this._currentGameState == GameState.Refresh)
-            {
-                return;
-            }
-
             var view = this._inputManager.CurrentCamera.ViewMatrix;
             var projection = this._inputManager.CurrentCamera.ProjectionMatrix;
 
@@ -298,6 +235,9 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
         public void SwitchState(GameState state)
         {
+            // Update our overall game state
+            this._currentGameState = state;
+
             switch (state)
             {
                 case GameState.Intro:
@@ -306,19 +246,12 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
 
-                        // Get characters constructed for first page
-                        // this.ProcessNextPage();
-
-                        // Attempt to suspend physics as best as possible
-                        // this.SuspendHeroPhysics();
-
-                        // Position hero at defined start position
-                        // Will include logic to handle admin setting of line number other than 1
-                        // this.InitHeroPosition();
-
-                        // Create holder to keep hero in start location
-                        // this.CreateHolderForHero();
-
+                        // In background/event handler when finished:
+                        // 1. Get initial characters constructed for first page
+                        // 2. Attempt to suspend physics as best as possible
+                        // 3. Position hero at defined start position
+                        // 4. Will include logic to handle admin setting of line number other than 1
+                        // 5. Create holder to keep hero in start location
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
                         this.LoadContentAsync(LoadContentAsyncType.Initialize);
 
@@ -398,9 +331,6 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         this._currentPageNumber++;
                         this._currentLineNumber = 1;
 
-                        // Get characters constructed for next page
-                        // this.ProcessNextPage();
-
                         // Attempt to suspend physics as best as possible
                         this.SuspendHeroPhysics();
                         this.RemoveHeroPhysicsConstraints();
@@ -417,13 +347,9 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
 
-                        // Get characters constructed for first page
-                        // this.ProcessNextPage();
-
+                        // In background load up initial characters for first page
                         // See HandleKill() for additional steps taken for this state
                         // that have to be implemented after we animate the kill.
-
-                        // In background load up the line following our current line we are moving to
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
                         this.LoadContentAsync(LoadContentAsyncType.Initialize);
 
@@ -459,7 +385,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
                         // In background load up the line following our current line we are moving to
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
-                        this.LoadContentAsync(LoadContentAsyncType.Initialize);
+                        this.LoadContentAsync(LoadContentAsyncType.Refresh);
 
                         break;
                     }
@@ -489,9 +415,6 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         break;
                     }
             }
-
-            // Ok, now set our current state
-            this._currentGameState = state;
         }
 
         public void HandleKill(Contact theContact, System.Action handleMoveToFinish)
@@ -532,6 +455,45 @@ namespace Simsip.LineRunner.GameObjects.Characters
             this.TheHeroModel.ModelRunAction(heroKilledAction);
         }
 
+        public void IncreaseVelocity()
+        {
+            // Depending on line we are on, increase our velocity
+            // Odd => moving to right
+            // Even => moving to left
+            if (this._currentLineNumber % 2 != 0)
+            {
+                this.TheHeroModel.PhysicsEntity.LinearVelocity =
+                    this.TheHeroModel.PhysicsEntity.LinearVelocity +
+                    new BEPUutilities.Vector3(0.1f, 0f, 0f);
+            }
+            else
+            {
+                this.TheHeroModel.PhysicsEntity.LinearVelocity =
+                    this.TheHeroModel.PhysicsEntity.LinearVelocity +
+                    new BEPUutilities.Vector3(-0.1f, 0f, 0f);
+            }
+        }
+
+        public void DecreaseVelocity()
+        {
+            // Depending on line we are on, increase our velocity
+            // Odd => moving to right
+            // Even => moving to left
+            if (this._currentLineNumber % 2 != 0)
+            {
+                this.TheHeroModel.PhysicsEntity.LinearVelocity =
+                    this.TheHeroModel.PhysicsEntity.LinearVelocity +
+                    new BEPUutilities.Vector3(-0.1f, 0f, 0f);
+            }
+            else
+            {
+                this.TheHeroModel.PhysicsEntity.LinearVelocity =
+                    this.TheHeroModel.PhysicsEntity.LinearVelocity +
+                    new BEPUutilities.Vector3(0.1f, 0f, 0f);
+
+            }
+        }
+
         #endregion
 
         #region Event Handlers
@@ -562,7 +524,62 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
         #region Helper methods
 
-        // Formerly ProcessNextPage
+        private void LoadContentAsync(LoadContentAsyncType loadContentAsyncType)
+        {
+            // Determine which page/line number we are loading
+            var pageNumber = -1;
+            int[] lineNumbers = null;
+            switch (loadContentAsyncType)
+            {
+                case LoadContentAsyncType.Initialize:
+                case LoadContentAsyncType.Refresh:
+                    {
+                        pageNumber = 1;
+                        lineNumbers = new int[] { 1, 2 };
+                        break;
+                    }
+                case LoadContentAsyncType.Next:
+                    {
+                        // Are we on the last line of the page
+                        var lineCount = this._pageCache.CurrentPageModel.ThePadEntity.LineCount;
+                        if (this._currentLineNumber == lineCount)
+                        {
+                            // Ok, on last line, move to first line of next page
+                            pageNumber = this._currentPageNumber + 1;
+                            lineNumbers = new int[] { 1 };
+                        }
+                        else
+                        {
+                            // Not on last line, just go for next line
+                            pageNumber = this._currentPageNumber;
+                            lineNumbers = new int[] { this._currentLineNumber + 1 };
+                        }
+                        break;
+                    }
+            }
+
+            // Build our state object for this background content load request
+            var loadContentThreadArgs = new LoadContentThreadArgs
+            {
+                TheLoadContentAsyncType = loadContentAsyncType,
+                PageNumber = pageNumber,
+                LineNumbers = lineNumbers,
+                CharacterModelsAsync = new List<CharacterModel>()
+            };
+
+#if NETFX_CORE
+
+            IAsyncAction asyncAction = 
+                Windows.System.Threading.ThreadPool.RunAsync(
+                    (workItem) =>
+                    {
+                        LoadContentAsyncThread(loadContentThreadArgs);
+                    });
+#else
+            ThreadPool.QueueUserWorkItem(LoadContentAsyncThread, loadContentThreadArgs);
+#endif
+        }
+
         private void LoadContentAsyncThread(object args)
         {
             var loadContentThreadArgs = args as LoadContentThreadArgs;
