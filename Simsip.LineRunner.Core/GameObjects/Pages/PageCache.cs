@@ -61,6 +61,7 @@ namespace Simsip.LineRunner.GameObjects.Pages
         private class LoadContentThreadArgs
         {
             public LoadContentAsyncType TheLoadContentAsyncType;
+            public GameState TheGameState;
             public int PageNumber;
             public PageModel PageModelAsync;
         }
@@ -117,7 +118,9 @@ namespace Simsip.LineRunner.GameObjects.Pages
                     // Does anyone need to know we finished an async load?
                     if (LoadContentAsyncFinished != null)
                     {
-                        var eventArgs = new LoadContentAsyncFinishedEventArgs(loadContentThreadArgs.TheLoadContentAsyncType);
+                        var eventArgs = new LoadContentAsyncFinishedEventArgs(
+                            loadContentThreadArgs.TheLoadContentAsyncType,
+                            loadContentThreadArgs.TheGameState);
                         LoadContentAsyncFinished(this, eventArgs);
                     }
                 }
@@ -318,7 +321,7 @@ namespace Simsip.LineRunner.GameObjects.Pages
                         // this.ProcessNextLine() will be called in event handler when
                         // finished to animate header and first line for first page into position
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
-                        this.LoadContentAsync(LoadContentAsyncType.Refresh);
+                        this.LoadContentAsync(LoadContentAsyncType.Refresh, state);
 
                         break;
                     }
@@ -343,8 +346,12 @@ namespace Simsip.LineRunner.GameObjects.Pages
         private void LoadContentAsyncFinishedHandler(object sender, LoadContentAsyncFinishedEventArgs args)
         {
             this.LoadContentAsyncFinished -= this.LoadContentAsyncFinishedHandler;
-
-            this._lineCache.SwitchState(this._currentGameState);
+            if (args.TheLoadContentAsyncType == LoadContentAsyncType.Initialize ||
+                args.TheLoadContentAsyncType == LoadContentAsyncType.Refresh)
+            {
+                // Propogate state change
+                this._lineCache.SwitchState(args.TheGameState);
+            }
         }
 
         #endregion
@@ -353,12 +360,13 @@ namespace Simsip.LineRunner.GameObjects.Pages
 
          // IMPORTANT: Do not call on background thread. Only call during normal Update/Draw cycle.
         // (e.g., via SwitchState())
-        private void LoadContentAsync(LoadContentAsyncType loadContentAsyncType)
+        private void LoadContentAsync(LoadContentAsyncType loadContentAsyncType, GameState gameState)
         {
             // Build our state object for this background content load request
             var loadContentThreadArgs = new LoadContentThreadArgs
             {
                 TheLoadContentAsyncType = loadContentAsyncType,
+                TheGameState = gameState,
                 PageNumber = 1
             };
 

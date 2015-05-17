@@ -73,6 +73,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         private class LoadContentThreadArgs
         {
             public LoadContentAsyncType TheLoadContentAsyncType;
+            public GameState TheGameState;
             public int PageNumber;
             public int[] LineNumbers;
             public IList<ObstacleModel> ObstacleModelsAsync;
@@ -176,7 +177,9 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                     // Did anyone need to know we finished?
                     if (LoadContentAsyncFinished != null)
                     {
-                        var eventArgs = new LoadContentAsyncFinishedEventArgs(loadContentThreadArgs.TheLoadContentAsyncType);
+                        var eventArgs = new LoadContentAsyncFinishedEventArgs(
+                            loadContentThreadArgs.TheLoadContentAsyncType,
+                            loadContentThreadArgs.TheGameState);
                         LoadContentAsyncFinished(this, eventArgs);
                     }
                 }
@@ -218,7 +221,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         // 2. Disable previous line physics (n/a)
                         // 3. Enable current line physics
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
-                        this.LoadContentAsync(LoadContentAsyncType.Initialize);
+                        this.LoadContentAsync(LoadContentAsyncType.Initialize, state);
 
                         break;
                     }
@@ -239,14 +242,13 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         // 3. Enable current line physics
                         this.ProcessNextLine();
 
-                        // Clear out previous sensors and load new sensors
-                        this._sensorCache.SwitchState(state);
-
-                        this._characterCache.SwitchState(state);
-
                         // In background load up the line following our current line we are moving to
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
-                        this.LoadContentAsync(LoadContentAsyncType.Next);
+                        this.LoadContentAsync(LoadContentAsyncType.Next, state);
+
+                        // Propogate state change
+                        this._sensorCache.SwitchState(state);
+                        this._characterCache.SwitchState(state);
 
                         break;
                     }
@@ -261,14 +263,13 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         // 3. Enable current line physics
                         this.ProcessNextLine();
 
-                        // Clear out previous sensors and load new sensors
-                        this._sensorCache.SwitchState(state);
-
-                        this._characterCache.SwitchState(state);
-
                         // In background load up the line following our current line we are moving to
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
-                        this.LoadContentAsync(LoadContentAsyncType.Next);
+                        this.LoadContentAsync(LoadContentAsyncType.Next, state);
+
+                        // Propogate state change
+                        this._sensorCache.SwitchState(state);
+                        this._characterCache.SwitchState(state);
 
                         break;
                     }
@@ -285,7 +286,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         // 2. Disable previous line physics
                         // 3. Enable current line physics
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
-                        this.LoadContentAsync(LoadContentAsyncType.Initialize);
+                        this.LoadContentAsync(LoadContentAsyncType.Initialize, state);
 
                         break;
                     }
@@ -302,7 +303,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         // 2. Disable previous line physics
                         // 3. Enable current line physics
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
-                        this.LoadContentAsync(LoadContentAsyncType.Refresh);
+                        this.LoadContentAsync(LoadContentAsyncType.Refresh, state);
 
                         break;
                     }
@@ -349,10 +350,9 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 //
                 this.ProcessNextLine();
 
-                // Clear out previous sensors and load new sensors
-                this._sensorCache.SwitchState(this._currentGameState);
-
-                this._characterCache.SwitchState(this._currentGameState);
+                // Propogate state change
+                this._sensorCache.SwitchState(args.TheGameState);
+                this._characterCache.SwitchState(args.TheGameState);
             }
         }
 
@@ -360,7 +360,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
         #region Helper Methods
 
-        private void LoadContentAsync(LoadContentAsyncType loadContentAsyncType)
+        private void LoadContentAsync(LoadContentAsyncType loadContentAsyncType, GameState gameState)
         {
             // Determine which page/line number we are loading
             var pageNumber = -1;
@@ -398,6 +398,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             var loadContentThreadArgs = new LoadContentThreadArgs
             {
                 TheLoadContentAsyncType = loadContentAsyncType,
+                TheGameState = gameState,
                 PageNumber = pageNumber,
                 LineNumbers = lineNumbers,
                 ObstacleModelsAsync = new List<ObstacleModel>(),

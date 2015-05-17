@@ -75,6 +75,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
         private class LoadContentThreadArgs
         {
             public LoadContentAsyncType TheLoadContentAsyncType;
+            public GameState TheGameState;
             public int PageNumber;
             public int[] LineNumbers;
             public IList<CharacterModel> CharacterModelsAsync;
@@ -180,7 +181,9 @@ namespace Simsip.LineRunner.GameObjects.Characters
                     // Did anyone need to know we finished?
                     if (LoadContentAsyncFinished != null)
                     {
-                        var eventArgs = new LoadContentAsyncFinishedEventArgs(loadContentThreadArgs.TheLoadContentAsyncType);
+                        var eventArgs = new LoadContentAsyncFinishedEventArgs(
+                            loadContentThreadArgs.TheLoadContentAsyncType,
+                            loadContentThreadArgs.TheGameState);
                         LoadContentAsyncFinished(this, eventArgs);
                     }
                 }
@@ -253,7 +256,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         // 4. Will include logic to handle admin setting of line number other than 1
                         // 5. Create holder to keep hero in start location
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
-                        this.LoadContentAsync(LoadContentAsyncType.Initialize);
+                        this.LoadContentAsync(LoadContentAsyncType.Initialize, state);
 
                         break;
                     }
@@ -321,7 +324,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
                         // In background load up the line following our current line we are moving to
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
-                        this.LoadContentAsync(LoadContentAsyncType.Next);
+                        this.LoadContentAsync(LoadContentAsyncType.Next, state);
 
                         break;
                     }
@@ -337,7 +340,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
                         // In background load up the line following our current line we are moving to
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
-                        this.LoadContentAsync(LoadContentAsyncType.Next);
+                        this.LoadContentAsync(LoadContentAsyncType.Next, state);
 
                         break;
                     }
@@ -351,7 +354,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         // See HandleKill() for additional steps taken for this state
                         // that have to be implemented after we animate the kill.
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
-                        this.LoadContentAsync(LoadContentAsyncType.Initialize);
+                        this.LoadContentAsync(LoadContentAsyncType.Initialize, state);
 
                         break;
                     }
@@ -385,7 +388,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
                         // In background load up the line following our current line we are moving to
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
-                        this.LoadContentAsync(LoadContentAsyncType.Refresh);
+                        this.LoadContentAsync(LoadContentAsyncType.Refresh, state);
 
                         break;
                     }
@@ -524,7 +527,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
         #region Helper methods
 
-        private void LoadContentAsync(LoadContentAsyncType loadContentAsyncType)
+        private void LoadContentAsync(LoadContentAsyncType loadContentAsyncType, GameState gameState)
         {
             // Determine which page/line number we are loading
             var pageNumber = -1;
@@ -562,6 +565,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
             var loadContentThreadArgs = new LoadContentThreadArgs
             {
                 TheLoadContentAsyncType = loadContentAsyncType,
+                TheGameState = gameState,
                 PageNumber = pageNumber,
                 LineNumbers = lineNumbers,
                 CharacterModelsAsync = new List<CharacterModel>()

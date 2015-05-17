@@ -907,7 +907,8 @@ namespace Simsip.LineRunner.Scenes.Action
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
                         GameManager.SharedGameManager.CurrentScore = GameManager.SharedGameManager.AdminStartScore;
 
-                        // Update page/line number in hud
+                        // Update score/page/line number in hud
+                        this._hudLayer.DisplayScore(GameManager.SharedGameManager.AdminStartScore);
                         this._hudLayer.DisplayPageNumber(this._currentPageNumber);
                         this._hudLayer.DisplayLineNumber(this._currentLineNumber);
 
@@ -941,7 +942,8 @@ namespace Simsip.LineRunner.Scenes.Action
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
                         GameManager.SharedGameManager.CurrentScore = GameManager.SharedGameManager.AdminStartScore;
 
-                        // Update page/line number in hud
+                        // Update score/page/line number in hud
+                        this._hudLayer.DisplayScore(GameManager.SharedGameManager.AdminStartScore);
                         this._hudLayer.DisplayPageNumber(this._currentPageNumber);
                         this._hudLayer.DisplayLineNumber(this._currentLineNumber);
 

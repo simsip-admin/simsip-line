@@ -68,6 +68,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
         private class LoadContentThreadArgs
         {
             public LoadContentAsyncType TheLoadContentAsyncType;
+            public GameState TheGameState;
             public int PageNumber;
             public int[] LineNumbers;
             public IList<LineModel> LineModelsAsync;
@@ -149,7 +150,9 @@ namespace Simsip.LineRunner.GameObjects.Lines
                     // Does anyone need to know we finished an async load?
                     if (LoadContentAsyncFinished != null)
                     {
-                        var eventArgs = new LoadContentAsyncFinishedEventArgs(loadContentThreadArgs.TheLoadContentAsyncType);
+                        var eventArgs = new LoadContentAsyncFinishedEventArgs(
+                            loadContentThreadArgs.TheLoadContentAsyncType,
+                            loadContentThreadArgs.TheGameState);
                         LoadContentAsyncFinished(this, eventArgs);
                     }
                 }
@@ -203,7 +206,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         // this.ProcessNextLine() will be called in event handler when 
                         // finished to animate header and first line for first page into position
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
-                        this.LoadContentAsync(LoadContentAsyncType.Initialize);
+                        this.LoadContentAsync(LoadContentAsyncType.Initialize, state);
 
                         break;
                     }
@@ -224,7 +227,10 @@ namespace Simsip.LineRunner.GameObjects.Lines
 
                         // In background load up the line following our current line we are moving to
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
-                        this.LoadContentAsync(LoadContentAsyncType.Next);
+                        this.LoadContentAsync(LoadContentAsyncType.Next, state);
+
+                        // Propogate state change
+                        this._obstacleCache.SwitchState(state);
 
                         break;
                     }
@@ -239,7 +245,10 @@ namespace Simsip.LineRunner.GameObjects.Lines
 
                         // In background load up the line following our current line we are moving to
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
-                        this.LoadContentAsync(LoadContentAsyncType.Next);
+                        this.LoadContentAsync(LoadContentAsyncType.Next, state);
+
+                        // Propogate state change
+                        this._obstacleCache.SwitchState(state);
 
                         break;
                     }
@@ -253,7 +262,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         // this.ProcessNextLine() will be called in event handler when
                         // finished to animate header and first line for first page into position
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
-                        this.LoadContentAsync(LoadContentAsyncType.Initialize);
+                        this.LoadContentAsync(LoadContentAsyncType.Initialize, state);
 
                         break;
                     }
@@ -267,7 +276,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         // this.ProcessNextLine() will be called in event handler when
                         // finished to animate header and first line for first page into position
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
-                        this.LoadContentAsync(LoadContentAsyncType.Refresh);
+                        this.LoadContentAsync(LoadContentAsyncType.Refresh, state);
 
                         break;
                     }
@@ -309,12 +318,14 @@ namespace Simsip.LineRunner.GameObjects.Lines
         {
             this.LoadContentAsyncFinished -= this.LoadContentAsyncFinishedHandler;
 
-            this._obstacleCache.SwitchState(this._currentGameState);
 
             if (args.TheLoadContentAsyncType == LoadContentAsyncType.Initialize ||
                 args.TheLoadContentAsyncType == LoadContentAsyncType.Refresh)
             {
                 this.ProcessNextLine();
+
+                // Propogate state change
+                this._obstacleCache.SwitchState(args.TheGameState);
             }
         }
 
@@ -324,7 +335,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
 
         // IMPORTANT: Do not call on background thread. Only call during normal Update/Draw cycle.
         // (e.g., via SwitchState())
-        private void LoadContentAsync(LoadContentAsyncType loadContentAsyncType)
+        private void LoadContentAsync(LoadContentAsyncType loadContentAsyncType, GameState gameState)
         {
             // Determine which page/line number we are loading
             var pageNumber = -1;
@@ -362,6 +373,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
             var loadContentThreadArgs = new LoadContentThreadArgs
             {
                 TheLoadContentAsyncType = loadContentAsyncType,
+                TheGameState = gameState,
                 PageNumber = pageNumber,
                 LineNumbers = lineNumbers,
                 LineModelsAsync = new List<LineModel>()
