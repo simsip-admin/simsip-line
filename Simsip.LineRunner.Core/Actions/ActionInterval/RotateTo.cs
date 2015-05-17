@@ -180,6 +180,7 @@ namespace Simsip.LineRunner.Actions
                 var rotateMatrix = Matrix.CreateFromQuaternion(rotate);
                 var scaleMatrix = Matrix.CreateScale(scale);
 
+                // Update our 3d model's world matrix
                 m_pTarget.WorldMatrix = scaleMatrix * rotateMatrix * translateMatrix;
 
                 // If we have a physics entity, have it follow the rotation
@@ -187,13 +188,6 @@ namespace Simsip.LineRunner.Actions
                 {
                     m_pTarget.PhysicsEntity.Orientation = ConversionHelper.MathConverter.Convert(rotate); 
                 }
-
-                /*
-                m_pTarget.RotationX = m_fStartAngleX + m_fDiffAngleX * time;
-                m_pTarget.RotationY = m_fStartAngleY + m_fDiffAngleY * time;
-                // TODO: m_pTarget.RotationZ = m_fStartAngleZ + m_fDiffAngleZ * time;
-                */
-
             }
         }
     }

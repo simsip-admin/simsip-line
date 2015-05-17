@@ -172,16 +172,6 @@ namespace Simsip.LineRunner.GameObjects.Pages
             }
         }
 
-        public override void Draw(Matrix viewMatrix, Matrix projectionMatrix, StockBasicEffect effect = null, EffectType type = EffectType.None)
-        {
-            if (effect == null)
-            {
-                XNAUtils.DefaultDrawState();
-            }
-
-            base.Draw(viewMatrix, projectionMatrix, effect, type);
-        }
-
         #endregion
 
         #region Api

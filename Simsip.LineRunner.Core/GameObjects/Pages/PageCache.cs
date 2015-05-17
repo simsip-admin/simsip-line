@@ -226,15 +226,16 @@ namespace Simsip.LineRunner.GameObjects.Pages
 
             // Create pad as a physics box body
             // IMPORTANT: Adjusting for physics representation with origin in middle
-            var padPhysicsOrigin = new Vector3(
-                this.CurrentPageModel.WorldOrigin.X + (0.5f * this.CurrentPageModel.WorldWidth),
-                this.CurrentPageModel.WorldOrigin.Y + (0.5f * this.CurrentPageModel.WorldHeight),
-                this.CurrentPageModel.WorldOrigin.Z - (0.5f * this.CurrentPageModel.WorldDepth)
-                );
+            var physicsLocalTransform = new BEPUutilities.Vector3(
+                (0.5f * this.CurrentPageModel.WorldWidth),
+                (0.5f * this.CurrentPageModel.WorldHeight),
+                -(0.5f * this.CurrentPageModel.WorldDepth));
+            this.CurrentPageModel.PhysicsLocalTransform = BEPUutilities.Matrix.CreateTranslation(physicsLocalTransform);
 
             // Create physics box to represent pad and add to physics space
+            var padPhysicsOrigin = ConversionHelper.MathConverter.Convert(this.CurrentPageModel.WorldOrigin) + physicsLocalTransform;
             var padPhysicsBox = new Box(
-                MathConverter.Convert(padPhysicsOrigin), 
+                padPhysicsOrigin, 
                 this.CurrentPageModel.WorldWidth, 
                 this.CurrentPageModel.WorldHeight, 
                 this.CurrentPageModel.WorldDepth);

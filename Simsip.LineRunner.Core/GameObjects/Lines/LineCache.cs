@@ -475,26 +475,30 @@ namespace Simsip.LineRunner.GameObjects.Lines
 
                     // Create line as a physics box body
                     // IMPORTANT: Adjusting for physics representation with origin in middle
-                    var linePhysicsOrigin = new Vector3(
-                        lineModel.WorldOrigin.X + (0.5f * lineModel.WorldWidth),
-                        lineModel.WorldOrigin.Y + (0.5f * lineModel.WorldHeight),
-                        // IMPORTANT, line will move out in ProcessLine(), hence the adjustment here to our z value
-                        // (normally we would subtract but above in setting line origin we hav sunk it into pad)
-                        lineModel.WorldOrigin.Z + (0.5f * this._pageCache.CurrentPageModel.WorldDepth) +
-                            (0.5f * lineModel.WorldDepth)
-                        );
+                    var physicsLocalTransfrom = new BEPUutilities.Vector3(
+                        (0.5f * lineModel.WorldWidth),
+                        (0.5f * lineModel.WorldHeight),
+                        -(0.5f * lineModel.WorldDepth));
+                    lineModel.PhysicsLocalTransform = BEPUutilities.Matrix.CreateTranslation(physicsLocalTransfrom);
 
+                    // IMPORTANT, line will move out in ProcessLine(), hence the adjustment here to our z value
+                    var linePhysicsOrigin = 
+                        ConversionHelper.MathConverter.Convert(lineModel.WorldOrigin) +
+                        physicsLocalTransfrom;
+                    linePhysicsOrigin.Z = 
+                        linePhysicsOrigin.Z -
+                        (0.5f * this._pageCache.CurrentPageModel.WorldDepth);
+                        
                     // Create physics box to represent line and add to physics space
                     // IMPORTANT: Don't add until we are on the thread executing our Update() logic
                     var linePhysicsBox = new Box(
-                        MathConverter.Convert(linePhysicsOrigin),
+                        linePhysicsOrigin,
                         lineModel.WorldWidth,
                         lineModel.WorldHeight,
                         lineModel.WorldDepth);
                     lineModel.PhysicsEntity = linePhysicsBox;
                     linePhysicsBox.Tag = lineModel;
                     linePhysicsBox.CollisionInformation.Events.InitialCollisionDetected += HandleCollision;
-                    // this._physicsManager.TheSpace.Add(linePhysicsBox);
                 }
             }
             else

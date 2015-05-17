@@ -174,16 +174,6 @@ namespace Simsip.LineRunner.GameObjects.Lines
             this.HitParticleEffectDescs = ParticleEffectFactory.Create(this);
         }
 
-        public override void Draw(Matrix view, Matrix projection, StockBasicEffect effect = null, EffectType type = EffectType.None)
-        {
-            if (effect == null)
-            {
-                XNAUtils.DefaultDrawState();
-            }
-
-            base.Draw(view, projection, effect, type);
-        }
-
         #endregion
 
         #region Api

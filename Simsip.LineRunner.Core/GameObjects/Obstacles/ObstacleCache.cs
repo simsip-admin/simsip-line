@@ -1075,9 +1075,45 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
         private void ProcessObstaclePhysics(ObstacleModel obstacleModel)
         {
+            // 1. Grab our definition for the point cloud for this obstacle
+            // 2. Loop over the point cloud and multiply via our world matrix for this obstacle
+            // IMPORTANT: Note the 2 ToList calls so that we don't modify original point cloud and
+            //            we can modify our copy of the point cloud.
+            var convexHull = ObstacleConvexHulls.ConvexHullTable[obstacleModel.TheModelEntity.ModelName].ToList();
+            var pointCounter = 0;
+            var worldMatrix = ConversionHelper.MathConverter.Convert(obstacleModel.WorldMatrix);
+            foreach (var point in convexHull.ToList())
+            {
+                var origPoint = convexHull[pointCounter];
+                var newPoint = BEPUutilities.Vector3.Zero;
+                BEPUutilities.Matrix.Transform(ref origPoint, ref worldMatrix, out newPoint);
+                convexHull[pointCounter] = newPoint;
+                pointCounter++;
+            }
+
+            // Now construct our convexHull with the appropriately transformed point cloud
+            var physicsMesh = new ConvexHull(convexHull);
+
+            // IMPORTANT: Immediately determine our offset to the physics center so we can use this if we 
+            //            need to modify position of physics entity (e.g., when animating)
+            var physicsLocalTransform = physicsMesh.Position - ConversionHelper.MathConverter.Convert(obstacleModel.WorldOrigin);
+            obstacleModel.PhysicsLocalTransform = BEPUutilities.Matrix.CreateTranslation(physicsLocalTransform);
+
+            // Assign references between 3d model and physics entity
+            obstacleModel.PhysicsEntity = physicsMesh;
+            physicsMesh.Tag = obstacleModel;
+
+            // Hook up collision handling
+            obstacleModel.PhysicsEntity.CollisionInformation.Events.InitialCollisionDetected += HandleCollision;
+            
+            // And finally add to the physics world
+            this._physicsManager.TheSpace.Add(physicsMesh);
+
+            // TODO: Leaving in as example of this content pipeline component
             // IMPORTANT: We have already accounted for any scaling when we first loaded the vertices
             // and that is recorded into our WorldMatrix. Hence, even though we pull original unscaled 
-            // vertices from model, the 
+            // vertices from model, the
+            /*
             var physicsTransform = new BEPUutilities.AffineTransform()
             {
                 Matrix = ConversionHelper.MathConverter.Convert(obstacleModel.WorldMatrix)
@@ -1100,16 +1136,9 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             }
 
             // var physicsMesh = new MobileMesh(physicsVertices.PhysicsVertices, physicsVertices.Indices, physicsTransform, MobileMeshSolidity.Counterclockwise);
-            var physicsMesh = new ConvexHull(ObstacleConvexHulls.ConvexHullTable["Gramophone01"]);
-            var initialCenter = physicsMesh.Position;
-            physicsMesh.Position = ConversionHelper.MathConverter.Convert(obstacleModel.WorldOrigin) + initialCenter;
-            obstacleModel.PhysicsEntity = physicsMesh;
-            physicsMesh.Tag = obstacleModel;
-            var physicsLocalTransform = physicsMesh.Position -
-                ConversionHelper.MathConverter.Convert(obstacleModel.WorldMatrix.Translation);
-            obstacleModel.PhysicsLocalTransform = BEPUutilities.Matrix.CreateTranslation(-physicsLocalTransform);
-            obstacleModel.PhysicsEntity.CollisionInformation.Events.InitialCollisionDetected += HandleCollision;
-            this._physicsManager.TheSpace.Add(physicsMesh);
+            */
+
+
         }
 
         /// <summary>
