@@ -362,6 +362,31 @@ namespace Simsip.LineRunner.GameObjects.Pages
                 PageNumber = 1
             };
 
+            // If we are doing a refresh we need to flush our custom content manaager so we don't load
+            // a cached version of the model - critical when changing textures for model.
+            // (e.g., coming from options page and selected a new texture for line models)
+            //
+            // Since this will cause Dispose to be called on our XNA models, we need to carefully
+            // clear out our entire set of models, physics and textures for this scenario.
+            if (loadContentAsyncType == LoadContentAsyncType.Refresh)
+            {
+                // Remove all previous models from our drawing filter
+                // and physics from our physics simulation
+                this._ocTreeRoot.RemoveModel(this.CurrentPageModel.ModelID);
+
+                if (this.CurrentPageModel.PhysicsEntity != null &&
+                    this.CurrentPageModel.PhysicsEntity.Space != null)
+                {
+                    this._physicsManager.TheSpace.Remove(this.CurrentPageModel.PhysicsEntity);
+                }
+
+                // Clear out any previous line model textures
+                GameModel.OriginalEffectsDictionary.Remove(this.CurrentPageModel.ThePadEntity.ModelName);
+
+                // Now we are safe to call call Unload on our custom ContentManager.
+                this.CurrentPageModel.TheCustomContentManager.Unload();
+            }
+
 #if NETFX_CORE
 
             IAsyncAction asyncAction = 
@@ -381,7 +406,6 @@ namespace Simsip.LineRunner.GameObjects.Pages
             var loadContentThreadArgs = args as LoadContentThreadArgs;
             var loadContentAsyncType = loadContentThreadArgs.TheLoadContentAsyncType;
             var pageNumber = loadContentThreadArgs.PageNumber;
-            var pageModel = loadContentThreadArgs.PageModelAsync;
 
             // Get our current page definition ready, will be needed for positioning camera
             var currentPad = UserDefaults.SharedUserDefault.GetStringForKey(
@@ -393,45 +417,29 @@ namespace Simsip.LineRunner.GameObjects.Pages
             var customContentManager = new CustomContentManager(
                TheGame.SharedGame.Services,
                TheGame.SharedGame.Content.RootDirectory);
-            pageModel = new PageModel(
+            loadContentThreadArgs.PageModelAsync = new PageModel(
                 padEntity: padEntity,
                 customContentManager: customContentManager,
                 allowCached: true);
 
             // We only have 1 pad at a time to worry about
-            pageModel.ModelID = 1;
-            
+            loadContentThreadArgs.PageModelAsync.ModelID = 1;
+
+            // Signal we have a new page model to process
             this._loadContentThreadResults.Enqueue(loadContentThreadArgs);
         }
 
         // Migrate staged collection in args to public collection
         private void ProcessLoadContentAsync(LoadContentThreadArgs loadContentThreadArgs)
         {
-            this._ocTreeRoot.RemoveModel(this.CurrentPageModel.ModelID);
-
-            if (this.CurrentPageModel.PhysicsEntity != null &&
-                this.CurrentPageModel.PhysicsEntity.Space != null)
-            {
-                this._physicsManager.TheSpace.Remove(this.CurrentPageModel.PhysicsEntity);
-            }
-
-            // Clear out any previous line model textures
-            GameModel.OriginalEffectsDictionary.Remove(this.CurrentPageModel.ThePadEntity.ModelName);
-
-            // Now we are safe to call call Unload on our custom ContentManager.
-            this.CurrentPageModel.TheCustomContentManager.Unload();
-
             this.CurrentPageModel = loadContentThreadArgs.PageModelAsync;
 
             this._ocTreeRoot.AddModel(this.CurrentPageModel);
 
-            if (this.CurrentPageModel.PhysicsEntity != null)
-            {
-                this._physicsManager.TheSpace.Add(this.CurrentPageModel.PhysicsEntity);
-            }
-
             // Refresh pad into world, 
             // will cause CalculateWorldCoordinates to be called again
+            // which will handle updating octree (not adding like above) and
+            // physics
             this._inputManager.ThePlayerControllerInput.RefreshPad();
         }
 
