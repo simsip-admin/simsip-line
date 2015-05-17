@@ -561,12 +561,27 @@ namespace Simsip.LineRunner.GameObjects.Lines
                 var headerScaleAction = new ScaleTo(GameConstants.DURATION_MOVE_TO_NEXT_LINE, headerLine.ModelToWorldRatio);
                 var headerMoveAction = new MoveTo(GameConstants.DURATION_MOVE_TO_NEXT_LINE, headerMoveToPosition);
                 var headerAction = new Simsip.LineRunner.Actions.Parallel(new FiniteTimeAction[] { headerScaleAction, headerMoveAction });
-                headerLine.ModelRunAction(headerAction);
+
+                // Now only animate header if we are doing the intro, otherwise, just get header in place
+                // quickly after kill
+                if (this._currentGameState == GameState.Intro)
+                {
+                    headerLine.ModelRunAction(headerAction);
+                }
+                else
+                {
+                    var scale = this._pageCache.CurrentPageModel.ModelToWorldRatio;
+                    var scaleMatrix = Matrix.CreateScale(scale);
+                    var translateMatrix = Matrix.CreateTranslation(headerMoveToPosition);
+                    headerLine.WorldMatrix = scaleMatrix * translateMatrix;
+                    headerLine.PhysicsEntity.Position =
+                        ConversionHelper.MathConverter.Convert(headerMoveToPosition) +
+                        headerLine.PhysicsLocalTransform.Translation;
+                }
             }                    
 
             // Normal line animation into place        
             var lineModel = this.GetLineModel(this._currentLineNumber);
-
 
             // IMPORTANT: Note the adjustment in depth as we have staged this line tucked behind page.
             //            See ProcessNextPage() for staging
@@ -576,7 +591,24 @@ namespace Simsip.LineRunner.GameObjects.Lines
             var lineScaleAction = new ScaleTo(GameConstants.DURATION_MOVE_TO_NEXT_LINE, lineModel.ModelToWorldRatio);
             var lineMoveAction = new MoveTo(GameConstants.DURATION_MOVE_TO_NEXT_LINE, lineMoveToPosition);
             var lineAction = new Simsip.LineRunner.Actions.Parallel(new FiniteTimeAction[] { lineScaleAction, lineMoveAction });
-            lineModel.ModelRunAction(lineAction);
+
+            // Now if we are not in the intro and this is the first line display
+            // right away as we are coming back from a kill
+            if (this._currentGameState != GameState.Intro &&
+                this._currentLineNumber == 1)
+            {
+                var scale = this._pageCache.CurrentPageModel.ModelToWorldRatio;
+                var scaleMatrix = Matrix.CreateScale(scale);
+                var translateMatrix = Matrix.CreateTranslation(lineMoveToPosition);
+                lineModel.WorldMatrix = scaleMatrix * translateMatrix;
+                lineModel.PhysicsEntity.Position =
+                    ConversionHelper.MathConverter.Convert(lineMoveToPosition) +
+                    lineModel.PhysicsLocalTransform.Translation;
+            }
+            else
+            {
+                lineModel.ModelRunAction(lineAction);
+            }
         }
 
         /// <summary>

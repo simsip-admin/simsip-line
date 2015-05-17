@@ -888,15 +888,16 @@ namespace Simsip.LineRunner.GameObjects.Characters
             var heroStartOrigin = this._pageCache.CurrentPageModel.HeroStartOrigin;
 
             // Do we need to adjust for admin setting of line number?
-            if (this._currentLineNumber > 1)
+            var adminLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+            if (adminLineNumber > 1)
             {
                 heroStartOrigin -= new Vector3(
                     0,
-                    (_currentLineNumber - 1) * this._pageCache.CurrentPageModel.WorldLineSpacing,
+                    (adminLineNumber - 1) * this._pageCache.CurrentPageModel.WorldLineSpacing,
                     0);
 
                 // Do we need to adjust for starting on an even line number?
-                if (this._currentLineNumber % 2 == 0)
+                if (adminLineNumber % 2 == 0)
                 {
                     // Move to other side
                     heroStartOrigin += new Vector3(

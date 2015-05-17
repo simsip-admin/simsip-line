@@ -93,6 +93,13 @@ namespace Simsip.LineRunner.Scenes.Action
         // Manages periodic adjustments in update cycle
         private double _timeAccumulator = 0;
 
+        // Allows us to gate kill logic so we only handle one kill at a time
+        private bool _handlingKill;
+
+        // Recorded in our first time initialization so that we can restore the 
+        // the Cocos2D view appropriately coming back from GameState.Moving.
+        private Matrix _originalCocos2DViewMatrix;
+
         public ActionLayer(CoreScene parent)
         {
             this._parent = parent;
@@ -168,6 +175,8 @@ namespace Simsip.LineRunner.Scenes.Action
                 case LayerTags.OptionsMasterLayer:
                 case LayerTags.StartPage1Layer:
                     {
+                        this.UpdateStartingCamera();
+
                         SwitchState(GameState.Start);
                         break;
                     }
@@ -293,14 +302,16 @@ namespace Simsip.LineRunner.Scenes.Action
                 });
             e.TheObstacleModel.ModelRunAction(glowAction);
 
-            // Are we allowing kills?
-            if (GameManager.SharedGameManager.AdminIsKillAllowed)
+            // Are we allowing kills
+            // AND we are not already handling a previous kill?
+            if (GameManager.SharedGameManager.AdminIsKillAllowed &&
+                !this._handlingKill)
             {
+                // Make sure we only handle one kill at at a time
+                this._handlingKill = true;
+
                 // Don't let touches sneak in
                 this.TouchEnabled = false;
-
-                // Move us out of gameplay
-                this.SwitchState(GameState.MovingToStart);
 
                 // Animate hero being killed then determine where to navigate to in callback
                 this._characterCache.HandleKill(
@@ -333,13 +344,14 @@ namespace Simsip.LineRunner.Scenes.Action
             e.TheLineModel.ModelRunAction(glowAction);
 
             // Are we allowing kills?
-            if (GameManager.SharedGameManager.AdminIsKillAllowed)
+            if (GameManager.SharedGameManager.AdminIsKillAllowed &&
+                !this._handlingKill)
             {
+                // Make sure we only handle one kill at at a time
+                this._handlingKill = true;
+
                 // Don't let touches sneak in
                 this.TouchEnabled = false;
-
-                // Move us out of gameplay
-                this.SwitchState(GameState.MovingToStart);
 
                 // Animate hero being killed then determine where to navigate to in callback
                 this._characterCache.HandleKill(
@@ -523,6 +535,8 @@ namespace Simsip.LineRunner.Scenes.Action
                 // (depends upon stationary camera being in place for display of panes)
                 this._hudLayer = _parent.TheHudLayer;
 
+                this._originalCocos2DViewMatrix = CCDrawManager.ViewMatrix;
+
                 // Now that our page components are ready to be accessed, get our intro mechanics going (e.g., flyby),
                 // and background loading of models going.
                 // UNLESS we user has already indicated they want to skip intro by tapping start
@@ -561,9 +575,15 @@ namespace Simsip.LineRunner.Scenes.Action
             {
                 this._currentFlyBy.UpdateBezier(dt);
             }
-            else if (this._characterCache.TheHeroModel != null)
+            // else if (this._characterCache.TheHeroModel != null)
+            else if (this._currentGameState == GameState.Moving &&
+                     this._characterCache.TheHeroModel != null)
             {
                 this.UpdateTrackingCamera();
+            }
+            else
+            {
+                this.UpdateStartingCamera();
             }
         }
 
@@ -913,6 +933,7 @@ namespace Simsip.LineRunner.Scenes.Action
                 case GameState.Refresh:
                 case GameState.Start:
                     {
+                        this._handlingKill = false;
                         this.TouchEnabled = false;
 
                         // Set state
@@ -956,85 +977,79 @@ namespace Simsip.LineRunner.Scenes.Action
             this._deferredShadowMapping.SwitchState(gameState);
         }
 
+        private void UpdateStartingCamera()
+        {
+            // TODO:
+            // Position camera slightly off angle from hero
+            var heroPosition = this._characterCache.TheHeroModel.WorldOrigin;
+            var lineModel = this._lineCache.GetLineModel(this._currentLineNumber);
+            var lineSpacing = this._pageCache.CurrentPageModel.WorldLineSpacing;
+            var centerLineWorldHeight = lineModel.WorldOrigin.Y +
+                                        (0.5f * lineSpacing);
+            var offset = this._characterCache.TheHeroModel.WorldWidth;
+            if (this._currentLineNumber % 2 == 0)
+            {
+                offset = -offset;
+            }
+            this._inputManager.LineRunnerCamera.Position =
+                new Vector3( // Position
+                    heroPosition.X + offset,
+                    centerLineWorldHeight,
+                    heroPosition.Z + this._pageCache.CharacterDepthFromCameraStart);
+            this._inputManager.LineRunnerCamera.Target =
+                new Vector3(            // Target
+                    heroPosition.X + (2f * offset),
+                    centerLineWorldHeight,
+                    heroPosition.Z
+                    );
+
+            CCDrawManager.ViewMatrix = this._originalCocos2DViewMatrix;
+        }
+
         private void UpdateTrackingCamera()
         {
-            switch (this._currentGameState)
+            // TODO:
+            // Slightly angle off of hero then come to opposite of angle as we reach end of line
+            var heroPosition = this._characterCache.TheHeroModel.WorldOrigin;
+            var lineModel = this._lineCache.GetLineModel(this._currentLineNumber);
+            var lineSpacing = this._pageCache.CurrentPageModel.WorldLineSpacing;
+            var centerLineWorldHeight = lineModel.WorldOrigin.Y +
+                                        (0.5f * lineSpacing);
+            var offset = this._characterCache.TheHeroModel.WorldWidth;
+            if (this._currentLineNumber % 2 == 0)
             {
-                case GameState.Moving:
-                    {
-                        // TODO:
-                        // Slightly angle off of hero then come to opposite of angle as we reach end of line
-                        var heroPosition = this._characterCache.TheHeroModel.WorldOrigin;
-                        var lineModel = this._lineCache.GetLineModel(this._currentLineNumber);
-                        var lineSpacing = this._pageCache.CurrentPageModel.WorldLineSpacing;
-                        var centerLineWorldHeight = lineModel.WorldOrigin.Y +
-                                                    (0.5f * lineSpacing);
-                        var offset = this._characterCache.TheHeroModel.WorldWidth;
-                        if (this._currentLineNumber % 2 == 0)
-                        {
-                            offset = -offset;
-                        }
-                        this._inputManager.LineRunnerCamera.Position =
-                            new Vector3( // Position
-                                heroPosition.X + offset,
-                                centerLineWorldHeight,
-                                heroPosition.Z + this._pageCache.CharacterDepthFromCameraStart);
-                        this._inputManager.LineRunnerCamera.Target =
-                            new Vector3(            // Target
-                                heroPosition.X + (2f * offset),
-                                centerLineWorldHeight,
-                                heroPosition.Z
-                                );
-
-                        var cameraPositionLogical = XNAUtils.WorldToLogical(new Vector3(
-                            heroPosition.X,
-                            centerLineWorldHeight,
-                            heroPosition.Z),
-                            XNAUtils.CameraType.Stationary);
-
-                        // Ok, now position the Cocos2D view so we follow the hero as well
-                        CCDrawManager.ViewMatrix = Matrix.CreateLookAt(
-                                new Vector3(cameraPositionLogical.X, cameraPositionLogical.Y, CCDirector.SharedDirector.ZEye),
-                                new Vector3(cameraPositionLogical.X, cameraPositionLogical.Y, 0f),
-                                Vector3.Up);
-
-                        break;
-                    }
-                case GameState.Start:
-                    {
-                        // TODO:
-                        // Position camera slightly off angle from hero
-                        var heroPosition = this._characterCache.TheHeroModel.WorldOrigin;
-                        // var heroPosition = this._pageCache.CurrentPageModel.HeroStartOrigin;
-                        var lineModel = this._lineCache.GetLineModel(this._currentLineNumber);
-                        var lineSpacing = this._pageCache.CurrentPageModel.WorldLineSpacing;
-                        var centerLineWorldHeight = lineModel.WorldOrigin.Y +
-                                                    (0.5f * lineSpacing);
-                        var offset = this._characterCache.TheHeroModel.WorldWidth;
-                        if (this._currentLineNumber%2 == 0)
-                        {
-                            offset = -offset;
-                        }
-                        this._inputManager.LineRunnerCamera.Position =
-                            new Vector3( // Position
-                                heroPosition.X + offset,
-                                centerLineWorldHeight,
-                                heroPosition.Z + this._pageCache.CharacterDepthFromCameraStart);
-                        this._inputManager.LineRunnerCamera.Target =
-                            new Vector3(            // Target
-                                heroPosition.X + (2f * offset),
-                                centerLineWorldHeight,
-                                heroPosition.Z
-                                );
-                        break;
-                    }
+                offset = -offset;
             }
+            this._inputManager.LineRunnerCamera.Position =
+                new Vector3( // Position
+                    heroPosition.X + offset,
+                    centerLineWorldHeight,
+                    heroPosition.Z + this._pageCache.CharacterDepthFromCameraStart);
+            this._inputManager.LineRunnerCamera.Target =
+                new Vector3(            // Target
+                    heroPosition.X + (2f * offset),
+                    centerLineWorldHeight,
+                    heroPosition.Z
+                    );
+
+            // Ok, now position the Cocos2D view so we follow the hero as well
+            var cameraPositionLogical = XNAUtils.WorldToLogical(new Vector3(
+                heroPosition.X,
+                centerLineWorldHeight,
+                heroPosition.Z),
+                XNAUtils.CameraType.Stationary);
+            CCDrawManager.ViewMatrix = Matrix.CreateLookAt(
+                    new Vector3(cameraPositionLogical.X, cameraPositionLogical.Y, CCDirector.SharedDirector.ZEye),
+                    new Vector3(cameraPositionLogical.X, cameraPositionLogical.Y, 0f),
+                    Vector3.Up);
         }
 
         // Callback used when line/obstacle hit to determine
         // where to navigate to next
         public void HandleMoveToFinish()
         {
+            this.SwitchState(GameState.MovingToStart);
+
             // Did we get a new high score?
             var scoreRepository = new FacebookScoreRepository();
             var previousTopScore = scoreRepository.GetTopScoresForPlayer(1);

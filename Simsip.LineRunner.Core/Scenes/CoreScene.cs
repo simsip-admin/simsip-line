@@ -410,7 +410,7 @@ namespace Simsip.LineRunner.Scenes
             var currentLayer = _navigationStack.Pop();
 
             // Pop everything off stack except for last entry
-            var stackCountToRemove = _navigationStack.Count - 2;
+            var stackCountToRemove = _navigationStack.Count - 1;
             for (var i = 0; i < stackCountToRemove; i++)
             {
                 _navigationStack.Pop();

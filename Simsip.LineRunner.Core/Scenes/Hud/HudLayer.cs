@@ -306,8 +306,6 @@ namespace Simsip.LineRunner.Scenes.Hud
                 0.25f * footerContentSize.Height);
             this._footerLayer.AddChild(speedLabel);
 
-            this.ScheduleUpdate();
-
             // TODO: Add in when Worlds are ready
             /*
             var freeFlightText = string.Empty;
@@ -338,6 +336,10 @@ namespace Simsip.LineRunner.Scenes.Hud
         public override void OnEnter()
         {
             base.OnEnter();
+
+            // IMPORTANT: Had to place this here as it was previously in constructor
+            // and it was not being enabled again when entering OnEnter()
+            this.ScheduleUpdate();
 
             // Animate panes/layers
             this._headerLayer.RunAction(this._headerLayerActionIn);

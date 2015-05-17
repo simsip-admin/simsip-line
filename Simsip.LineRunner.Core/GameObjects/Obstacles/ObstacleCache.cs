@@ -847,7 +847,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
                 // Now animate for the defined move to next line duration (will match move to next line flyby, etc.)
                 var obstacleMoveTo = new MoveTo(GameConstants.DURATION_MOVE_TO_NEXT_LINE, obstacleMoveToPosition);
-                // var obstacleProcessPhysics = new CallFunc(() => ProcessObstaclePhysics(obstacleModel));
 
                 // Do we get an additional animation?
                 var obstacleAnimation = DetermineAnimation(i, currentLineObstacles);
