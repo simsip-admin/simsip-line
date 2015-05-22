@@ -12,11 +12,11 @@ using Simsip.LineRunner.SneakyJoystick;
 using Simsip.LineRunner.Utils;
 using System;
 using Simsip.LineRunner.GameObjects.Characters;
+using Microsoft.Xna.Framework.Input.Touch;
 #if NETFX_CORE
 using Windows.System.Threading;
 #else
 using System.Threading;
-using Microsoft.Xna.Framework.Input.Touch;
 #endif
 #if IOS
 using Foundation;
@@ -98,12 +98,13 @@ namespace Simsip.LineRunner.Scenes.Hud
                 screenSize.Width,
                 screenSize.Height);
             this.Position = new CCPoint(0, 0);
-            var headerContentSize = new CCSize(0.4f * screenSize.Width,
-                                               0.2f * screenSize.Height);
+            var headerContentSize = new CCSize(
+                0.96f * screenSize.Width,
+                0.2f  * screenSize.Height);
 
             // Header pane transition in/out
             var headerLayerEndPosition = new CCPoint(
-                0.58f * screenSize.Width,
+                0.02f * screenSize.Width,
                 0.78f * screenSize.Height);
             var headerLayerStartPosition = new CCPoint(
                 headerLayerEndPosition.X, 
@@ -124,19 +125,29 @@ namespace Simsip.LineRunner.Scenes.Hud
             var headerLayerMoveOutAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, headerLayerStartPosition);
             this._headerLayerActionOut = new CCEaseBackIn(headerLayerMoveOutAction);
 
+            // Trackball
+            var trackballImage = new CCSprite("Images/Misc/Trackball.png");
+            trackballImage.AnchorPoint = CCPoint.AnchorMiddle;
+            trackballImage.Position = new CCPoint(
+                0.2f * headerContentSize.Width,
+                0.5f * headerContentSize.Height);
+            this._headerLayer.AddChild(trackballImage);
+
             // Status label
             this._statusLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             this._statusLabel.Color = CCColor3B.Red;
+            this._statusLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._statusLabel.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.9f * this.ContentSize.Height);
-            this.AddChild(this._statusLabel);
+                0.5f * headerContentSize.Width,
+                0.5f * headerContentSize.Height);
+            this._headerLayer.AddChild(this._statusLabel);
 
             // Score label
             this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_EXTRA_LARGE);
             this._scoreLabel.Color = CCColor3B.Green;
+            this._statusLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._scoreLabel.Position = new CCPoint(
-                0.5f * headerContentSize.Width, 
+                0.8f * headerContentSize.Width, 
                 0.8f * headerContentSize.Height);
             this._headerLayer.AddChild(this._scoreLabel);
 
@@ -152,8 +163,9 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             // Page number label
             this._pageNumberLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._pageNumberLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._pageNumberLabel.Position = new CCPoint(
-                0.25f * headerContentSize.Width,
+                0.7f * headerContentSize.Width,
                 0.5f  * headerContentSize.Height);
             this._headerLayer.AddChild(this._pageNumberLabel);
 
@@ -165,8 +177,9 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             // Line number label
             this._lineNumberLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._lineNumberLabel.AnchorPoint = CCPoint.AnchorMiddle;
             _lineNumberLabel.Position = new CCPoint(
-                0.7f * headerContentSize.Width,
+                0.9f * headerContentSize.Width,
                 0.5f * headerContentSize.Height);
             this._headerLayer.AddChild(this._lineNumberLabel);
 
@@ -178,8 +191,9 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             // Timer
             this._timerLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._timerLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._timerLabel.Position = new CCPoint(
-                0.5f * headerContentSize.Width,
+                0.8f * headerContentSize.Width,
                 0.2f * headerContentSize.Height);
             this._timerLabelText = string.Empty;
             this._headerLayer.AddChild(_timerLabel);
@@ -233,6 +247,60 @@ namespace Simsip.LineRunner.Scenes.Hud
             {
                 button.SneakyStartEndEvent += this.HudButtonStartEndEvent;
             }
+
+            // Joystick
+            var joystickLeftMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        new CCMenuItemImage(
+                            "Images/Icons/JoystickLeftNormal.png",
+                            "Images/Icons/JoystickLeftSelected.png",
+                            (obj) => { this.IncreaseVelocity(); })
+                        });
+            joystickLeftMenu.AnchorPoint = CCPoint.AnchorMiddle;
+            joystickLeftMenu.Position = new CCPoint(
+                0.05f * footerContentSize.Width,
+                0.5f * footerContentSize.Height);
+            this._footerLayer.AddChild(joystickLeftMenu);
+            var joystickRightMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        new CCMenuItemImage(
+                            "Images/Icons/JoystickRightNormal.png",
+                            "Images/Icons/JoystickRightSelected.png",
+                            (obj) => { this.IncreaseVelocity(); })
+                        });
+            joystickRightMenu.AnchorPoint = CCPoint.AnchorMiddle;
+            joystickRightMenu.Position = new CCPoint(
+                0.35f * footerContentSize.Width,
+                0.5f  * footerContentSize.Height);
+            this._footerLayer.AddChild(joystickRightMenu);
+            var joystickUpMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        new CCMenuItemImage(
+                            "Images/Icons/JoystickUpNormal.png",
+                            "Images/Icons/JoystickUpSelected.png",
+                            (obj) => { this.IncreaseVelocity(); })
+                        });
+            joystickUpMenu.AnchorPoint = CCPoint.AnchorMiddle;
+            joystickUpMenu.Position = new CCPoint(
+                0.2f  * footerContentSize.Width,
+                0.75f * footerContentSize.Height);
+            this._footerLayer.AddChild(joystickUpMenu);
+            var joystickDownMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        new CCMenuItemImage(
+                            "Images/Icons/JoystickDownNormal.png",
+                            "Images/Icons/JoystickDownSelected.png",
+                            (obj) => { this.IncreaseVelocity(); })
+                        });
+            joystickDownMenu.AnchorPoint = CCPoint.AnchorMiddle;
+            joystickDownMenu.Position = new CCPoint(
+                0.2f  * footerContentSize.Width,
+                0.25f * footerContentSize.Height);
+            this._footerLayer.AddChild(joystickDownMenu);
 
             // Pause toggle
             CCMenuItemImage pauseToggleOn =

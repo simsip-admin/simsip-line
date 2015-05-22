@@ -211,8 +211,17 @@ namespace Engine.Input
         {
             if (g.GestureType == GestureType.FreeDrag)
             {
-                this.HudCameraOffsetYaw += g.Delta.X;
-                this.HudCameraOrbitPitch += g.Delta.Y;
+                // 1. want a full swipe to equate to 45 degrees
+                var xRadiansForSwipe = (g.Delta.X / TheGame.SharedGame.Window.ClientBounds.Width)  * (Microsoft.Xna.Framework.MathHelper.PiOver4);
+                var yRadiansForSwipe = (g.Delta.Y / TheGame.SharedGame.Window.ClientBounds.Height) * (Microsoft.Xna.Framework.MathHelper.PiOver4);
+
+                // 2. account for if we have rotated completely around
+                this.HudCameraOffsetYaw = (this.HudCameraOffsetYaw + xRadiansForSwipe) % Microsoft.Xna.Framework.MathHelper.TwoPi;
+                this.HudCameraOffsetPitch = (this.HudCameraOffsetPitch + yRadiansForSwipe) % Microsoft.Xna.Framework.MathHelper.TwoPi;
+
+                // 3. Save for when we start up again
+                UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_YAW, this.HudCameraOffsetYaw);
+                UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_PITCH, this.HudCameraOffsetPitch);
             }
         }
 

@@ -4138,6 +4138,42 @@
       <Link>Assets\Content\Images\Icons\ResumeButtonSelected.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\JoystickDownNormal.xnb">
+      <Link>Assets\Content\Images\Icons\JoystickDownNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\JoystickDownSelected.xnb">
+      <Link>Assets\Content\Images\Icons\JoystickDownSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\JoystickLeftNormal.xnb">
+      <Link>Assets\Content\Images\Icons\JoystickLeftNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\JoystickLeftSelected.xnb">
+      <Link>Assets\Content\Images\Icons\JoystickLeftSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\JoystickRightNormal.xnb">
+      <Link>Assets\Content\Images\Icons\JoystickRightNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\JoystickRightSelected.xnb">
+      <Link>Assets\Content\Images\Icons\JoystickRightSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\JoystickUpNormal.xnb">
+      <Link>Assets\Content\Images\Icons\JoystickUpNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\JoystickUpSelected.xnb">
+      <Link>Assets\Content\Images\Icons\JoystickUpSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Misc\Trackball.xnb">
+      <Link>Assets\Content\Images\Misc\Trackball.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <AndroidResource Include="Resources\layout\View_OAuth.axml" />

@@ -70,6 +70,9 @@ namespace Simsip.LineRunner.GameObjects.Characters
         private RevoluteLimit _limitHeroRevoluteZ;
         private EntityRotator _heroRotator;
 
+        // Support for pausing
+        private bool _paused;
+
         // Support for staging the results of asynchronous loads and then signaling
         // we need the results processed on the next update cycle
         private class LoadContentThreadArgs
@@ -217,6 +220,11 @@ namespace Simsip.LineRunner.GameObjects.Characters
         
         public bool TouchBegan(CCTouch touch)
         {
+            if (this._paused)
+            {
+                return true;
+            }
+
             // Only process touches (i.e., jumps), when moving
             if (this._currentGameState == GameState.Moving)
             {
@@ -443,6 +451,8 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
         public void Pause(bool pause)
         {
+            this._paused = pause;
+
             if (pause)
             {
                 this.SuspendHeroPhysics();
