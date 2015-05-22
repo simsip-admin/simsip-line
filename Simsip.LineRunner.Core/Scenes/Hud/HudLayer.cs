@@ -387,7 +387,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._timerStartTime = DateTime.Now;
 
             // Enable support for gestures
-            TouchPanel.EnabledGestures = GestureType.DragComplete | GestureType.Flick;
+            TouchPanel.EnabledGestures = GestureType.FreeDrag;
             CCApplication.SharedApplication.OnGesture += this.HudOnGesture;
         }
 
@@ -493,7 +493,10 @@ namespace Simsip.LineRunner.Scenes.Hud
 
         private void HudOnGesture(CCGesture g)
         {
-            this._inputManager.HudOnGesture(g);
+            if (g.GestureType == GestureType.FreeDrag)
+            {
+                this._inputManager.HudOnGesture(g);
+            }
         }
 
         private void HudStickStartEndEvent(object sender, EventCustom e)

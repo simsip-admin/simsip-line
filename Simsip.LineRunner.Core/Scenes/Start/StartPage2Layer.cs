@@ -56,19 +56,12 @@ namespace Simsip.LineRunner.Scenes.Start
                 XNAUtils.CameraType.Stationary);
 
             // Start button
-            var startTapImage = new CCSprite("Images/Icons/TapButton");
-            /*
-            Cocos2DUtils.ResizeSprite(startTapImage,
-                0.2f * this.ContentSize.Width,
-                0.2f * this.ContentSize.Height);
-            startTapImage.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.3f * this.ContentSize.Height);
-            */
+            this._startTapImage = new CCSprite("Images/Icons/TapButton");
+            this._startTapImage.AnchorPoint = CCPoint.AnchorMiddleTop;
             this._startTapImage.Position = new CCPoint(
                 heroBottomMiddle.X,
                 heroBottomMiddle.Y - (0.2f * this.ContentSize.Height));
-            this.AddChild(startTapImage);
+            this.AddChild(this._startTapImage);
             this._startTapAction = new CCRepeatForever(new CCSequence(new CCFiniteTimeAction[] 
                 { 
                     new CCMoveBy(1, new CCPoint(
@@ -89,27 +82,19 @@ namespace Simsip.LineRunner.Scenes.Start
             startTapText = AppResources.StartTap;
 #endif
             var startTapDescription1 = new CCLabelTTF(startTapText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            startTapDescription1.AnchorPoint = CCPoint.AnchorMiddleRight;
             startTapDescription1.Color = CCColor3B.Green;
             startTapDescription1.Position = new CCPoint(
                 heroMiddleLeft.X - (0.1f * this.ContentSize.Width),
                 heroMiddleLeft.Y);
-            /*
-            startTapDescription1.Position = new CCPoint(
-                0.2f * this.ContentSize.Width,
-                0.5f * this.ContentSize.Height);
-            */
             this.AddChild(startTapDescription1);
 
             var startTapDescription2 = new CCLabelTTF(startTapText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            startTapDescription1.AnchorPoint = CCPoint.AnchorMiddleLeft;
             startTapDescription2.Color = CCColor3B.Green;
             startTapDescription2.Position = new CCPoint(
                 heroMiddleRight.X + (0.1f * this.ContentSize.Width),
                 heroMiddleRight.Y);
-            /*
-            startTapDescription2.Position = new CCPoint(
-                0.8f * this.ContentSize.Width,
-                0.5f * this.ContentSize.Height);
-            */
             this.AddChild(startTapDescription2);
 
         }

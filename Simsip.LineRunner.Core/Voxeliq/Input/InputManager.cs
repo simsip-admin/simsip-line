@@ -24,6 +24,7 @@ using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.Physics;
 using Simsip.LineRunner.SneakyJoystick;
 using Simsip.LineRunner.Utils;
+using Microsoft.Xna.Framework.Input.Touch;
 
 
 namespace Engine.Input
@@ -208,7 +209,11 @@ namespace Engine.Input
 
         public void HudOnGesture(CCGesture g)
         {
-
+            if (g.GestureType == GestureType.FreeDrag)
+            {
+                this.HudCameraOffsetYaw += g.Delta.X;
+                this.HudCameraOrbitPitch += g.Delta.Y;
+            }
         }
 
         public void HudButtonStartEndEvent(object sender, EventCustom e) 
