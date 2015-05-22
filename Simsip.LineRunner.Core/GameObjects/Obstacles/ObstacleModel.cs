@@ -175,25 +175,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
         public override void Draw(Matrix view, Matrix projection, StockBasicEffect effect = null, EffectType type = EffectType.None)
         {
-            // TODO: Do we have to do this every draw?
-            // Adjust for physics centering at center of mesh
-            /*
-            if (this.PhysicsEntity != null) // &&
-                // this.PhysicsLocalTransform != null) TODO: This is a struct, do we need some type of check?
-            {
-                var scale = this._pageCache.CurrentPageModel.ModelToWorldRatio;
-                if (this.ThePageObstaclesEntity.LogicalScaleScaledTo100 != 0)
-                {
-                    scale *= this.ThePageObstaclesEntity.LogicalScaleScaledTo100 / 100;
-                }
-
-                var scaleMatrix = Matrix.CreateScale(scale);
-                var translateMatrix = Matrix.CreateTranslation(MathConverter.Convert(this.PhysicsEntity.Position));
-                this.WorldMatrix = scaleMatrix * this.RotationMatrix * MathConverter.Convert(this.PhysicsLocalTransform) * translateMatrix;
-                // this.WorldMatrix = scaleMatrix * this.RotationMatrix * MathConverter.Convert(this.PhysicsLocalTransform * this.PhysicsEntity.WorldTransform);
-            }
-            */
-
             // Assign appropriate clipping planes to use
             effect.BottomClippingPlane = this.BottomClippingPlane;
             effect.TopClippingPlane = this.TopClippingPlane;

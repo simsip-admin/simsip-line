@@ -36,6 +36,8 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
         #region Properties
 
         public Dictionary<GameModel, IList<ParticleEffectDesc>> DisplayParticleEffectEntries { get; private set; }
+
+        public IList<IList<ParticleEffectDesc>> FinishParticleEffectEntries { get; private set; }
         
         public Dictionary<GameModel, IList<ParticleEffectDesc>> HitParticleEffectEntries { get; private set; }
         
@@ -49,9 +51,10 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
 
             // Initialize state
             this.DisplayParticleEffectEntries = new Dictionary<GameModel, IList<ParticleEffectDesc>>();
+            this.FinishParticleEffectEntries = new List<IList<ParticleEffectDesc>>();
             this.HitParticleEffectEntries = new Dictionary<GameModel, IList<ParticleEffectDesc>>();
             
-            // Create required services
+            // CreateLineHitParticles required services
             this._spriteBatchRenderer = new SpriteBatchRenderer
             {
                 GraphicsDeviceService = TheGame.SharedGame.TheGraphicsDeviceManager
@@ -64,92 +67,9 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
         public override void Update(GameTime gameTime)
         {
             this.UpdateDisplayParticleEffects(gameTime);
+            this.UpdateFinishParticleEffects(gameTime);
             this.UpdateHitParticleEffects(gameTime);
         }
-
-
-        private void UpdateHitParticleEffects(GameTime gameTime)
-        {
-            // Loop over all particle effect descs (Note: backwards so we can remove if neccessary
-            var keys = new List<GameModel>(HitParticleEffectEntries.Keys);
-
-            foreach (GameModel key in keys)
-            {
-                // Has this particle effect entry expired?
-                // TODO: We only check the first ParticleEffectDesc in the ParticleEffectEntry.
-                //       May want to enhance to have various durtions for ParticleEffectDescs in a ParticleEffectEntry.
-                float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
-                var testParticleEffectDesc = this.HitParticleEffectEntries[key][0];
-                testParticleEffectDesc.TotalParticleEffectTime += deltaSeconds;
-                if (testParticleEffectDesc.TotalParticleEffectTime > GameConstants.DURATION_PARTICLE_DURATION)
-                {
-                    // Clean up particle effect entry
-                    foreach (var particleEffectDesc in HitParticleEffectEntries[key])
-                    {
-                        particleEffectDesc.TheParticleEffect.Terminate();
-                    }
-                    this.HitParticleEffectEntries.Remove(key);
-
-                }
-                else
-                {
-                    // Ok, this particle effect entry is still live, update via
-                    // its defined trigger
-                    var cameraType = XNAUtils.CameraType.Tracking;
-                    if (this._currentGameState == GameState.World)
-                    {
-                        cameraType = XNAUtils.CameraType.Player;
-                    }
-
-                    foreach (var particleEffectDesc in HitParticleEffectEntries[key])
-                    {
-                        particleEffectDesc.Trigger(particleEffectDesc, gameTime, cameraType);
-                    }
-                }
-            }
-        }
-
-        private void UpdateDisplayParticleEffects(GameTime gameTime)
-        {
-            // Loop over all particle effect descs (Note: backwards so we can remove if neccessary
-            var keys = new List<GameModel>(DisplayParticleEffectEntries.Keys);
-
-            foreach (GameModel key in keys)
-            {
-                // Has this particle effect entry expired?
-                // TODO: We only check the first ParticleEffectDesc in the ParticleEffectEntry.
-                //       May want to enhance to have various durtions for ParticleEffectDescs in a ParticleEffectEntry.
-                float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
-                var testParticleEffectDesc = this.DisplayParticleEffectEntries[key][0];
-                testParticleEffectDesc.TotalParticleEffectTime += deltaSeconds;
-                if (testParticleEffectDesc.TotalParticleEffectTime > GameConstants.DURATION_PARTICLE_DURATION)
-                {
-                    // Clean up particle effect entry
-                    foreach (var particleEffectDesc in DisplayParticleEffectEntries[key])
-                    {
-                        particleEffectDesc.TheParticleEffect.Terminate();
-                    }
-                    this.DisplayParticleEffectEntries.Remove(key);
-
-                }
-                else
-                {
-                    // Ok, this particle effect entry is still live, update via
-                    // its defined trigger
-                    var cameraType = XNAUtils.CameraType.Tracking;
-                    if (this._currentGameState == GameState.World)
-                    {
-                        cameraType = XNAUtils.CameraType.Player;
-                    }
-
-                    foreach (var particleEffectDesc in DisplayParticleEffectEntries[key])
-                    {
-                        particleEffectDesc.Trigger(particleEffectDesc, gameTime, cameraType);
-                    }
-                }
-            }
-        }
-
 
         public override void Draw(GameTime gameTime)
         {
@@ -157,6 +77,14 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
             foreach (GameModel key in displayKeys)
             {
                 foreach (var particleEffectDesc in DisplayParticleEffectEntries[key])
+                {
+                    this._spriteBatchRenderer.RenderEffect(particleEffectDesc.TheParticleEffect);
+                }
+            }
+
+            foreach (var entry in FinishParticleEffectEntries)
+            {
+                foreach (var particleEffectDesc in entry)
                 {
                     this._spriteBatchRenderer.RenderEffect(particleEffectDesc.TheParticleEffect);
                 }
@@ -209,6 +137,28 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
 
             // Grab reference to this updated particle desc list
             this.DisplayParticleEffectEntries[gameModel] = particleEffectDescs;
+        }
+
+        public void AddFinishParticleEffect(IList<ParticleEffectDesc> particleEffectDescs)
+        {
+            // We can turn off particles via an admin setting on the Admin screen
+            if (!GameManager.SharedGameManager.AdminIsParticlesAllowed)
+            {
+                return;
+            }
+
+            // Loop over all particle effects for this model
+            foreach (var particleEffectDesc in particleEffectDescs)
+            {
+                // Fill out the rest of the fields in the particle effect desc 
+                // for this particle effect
+                particleEffectDesc.TheParticleEffect = ParticleEffectFactory.Create(particleEffectDesc);
+                particleEffectDesc.TotalParticleEffectTime = 0f;
+            }
+
+            // Grab reference to this updated particle desc list
+            this.FinishParticleEffectEntries.Add(particleEffectDescs);
+
         }
 
         public void AddHitParticleEffect(GameModel gameModel, Contact theContact)
@@ -302,5 +252,128 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
 
         #endregion
 
+        #region Helper methods
+
+        private void UpdateDisplayParticleEffects(GameTime gameTime)
+        {
+            // Loop over all particle effect descs (Note: backwards so we can remove if neccessary
+            var keys = new List<GameModel>(DisplayParticleEffectEntries.Keys);
+
+            foreach (GameModel key in keys)
+            {
+                // Has this particle effect entry expired?
+                // TODO: We only check the first ParticleEffectDesc in the ParticleEffectEntry.
+                //       May want to enhance to have various durtions for ParticleEffectDescs in a ParticleEffectEntry.
+                float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                var testParticleEffectDesc = this.DisplayParticleEffectEntries[key][0];
+                testParticleEffectDesc.TotalParticleEffectTime += deltaSeconds;
+                if (testParticleEffectDesc.TotalParticleEffectTime > GameConstants.DURATION_PARTICLE_DURATION)
+                {
+                    // Clean up particle effect entry
+                    foreach (var particleEffectDesc in DisplayParticleEffectEntries[key])
+                    {
+                        particleEffectDesc.TheParticleEffect.Terminate();
+                    }
+                    this.DisplayParticleEffectEntries.Remove(key);
+
+                }
+                else
+                {
+                    // Ok, this particle effect entry is still live, update via
+                    // its defined trigger
+                    var cameraType = XNAUtils.CameraType.Tracking;
+                    if (this._currentGameState == GameState.World)
+                    {
+                        cameraType = XNAUtils.CameraType.Player;
+                    }
+
+                    foreach (var particleEffectDesc in DisplayParticleEffectEntries[key])
+                    {
+                        particleEffectDesc.Trigger(particleEffectDesc, gameTime, cameraType);
+                    }
+                }
+            }
+        }
+
+        private void UpdateFinishParticleEffects(GameTime gameTime)
+        {
+            // Loop over all particle effect descs (Note: backwards so we can remove if neccessary
+            foreach(var entry in FinishParticleEffectEntries.ToList())
+            {
+                // Has this particle effect entry expired?
+                // TODO: We only check the first ParticleEffectDesc in the ParticleEffectEntry.
+                //       May want to enhance to have various durtions for ParticleEffectDescs in a ParticleEffectEntry.
+                float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                var testParticleEffectDesc = entry[0];
+                testParticleEffectDesc.TotalParticleEffectTime += deltaSeconds;
+                if (testParticleEffectDesc.TotalParticleEffectTime > GameConstants.DURATION_PARTICLE_DURATION)
+                {
+                    // Clean up particle effect entry
+                    foreach (var particleEffectDesc in entry)
+                    {
+                        particleEffectDesc.TheParticleEffect.Terminate();
+                    }
+                    this.FinishParticleEffectEntries.Remove(entry);
+                }
+                else
+                {
+                    // Ok, this particle effect entry is still live, update via
+                    // its defined trigger
+                    var cameraType = XNAUtils.CameraType.Tracking;
+                    if (this._currentGameState == GameState.World)
+                    {
+                        cameraType = XNAUtils.CameraType.Player;
+                    }
+
+                    foreach (var particleEffectDesc in entry)
+                    {
+                        particleEffectDesc.Trigger(particleEffectDesc, gameTime, cameraType);
+                    }
+                }
+            }
+        }
+
+        private void UpdateHitParticleEffects(GameTime gameTime)
+        {
+            // Loop over all particle effect descs (Note: backwards so we can remove if neccessary
+            var keys = new List<GameModel>(HitParticleEffectEntries.Keys);
+
+            foreach (GameModel key in keys)
+            {
+                // Has this particle effect entry expired?
+                // TODO: We only check the first ParticleEffectDesc in the ParticleEffectEntry.
+                //       May want to enhance to have various durtions for ParticleEffectDescs in a ParticleEffectEntry.
+                float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                var testParticleEffectDesc = this.HitParticleEffectEntries[key][0];
+                testParticleEffectDesc.TotalParticleEffectTime += deltaSeconds;
+                if (testParticleEffectDesc.TotalParticleEffectTime > GameConstants.DURATION_PARTICLE_DURATION)
+                {
+                    // Clean up particle effect entry
+                    foreach (var particleEffectDesc in HitParticleEffectEntries[key])
+                    {
+                        particleEffectDesc.TheParticleEffect.Terminate();
+                    }
+                    this.HitParticleEffectEntries.Remove(key);
+
+                }
+                else
+                {
+                    // Ok, this particle effect entry is still live, update via
+                    // its defined trigger
+                    var cameraType = XNAUtils.CameraType.Tracking;
+                    if (this._currentGameState == GameState.World)
+                    {
+                        cameraType = XNAUtils.CameraType.Player;
+                    }
+
+                    foreach (var particleEffectDesc in HitParticleEffectEntries[key])
+                    {
+                        particleEffectDesc.Trigger(particleEffectDesc, gameTime, cameraType);
+                    }
+                }
+            }
+        }
+
+        #endregion
     }
 }

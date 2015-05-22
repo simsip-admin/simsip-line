@@ -16,6 +16,7 @@ using Simsip.LineRunner.GameObjects.Characters;
 using Windows.System.Threading;
 #else
 using System.Threading;
+using Microsoft.Xna.Framework.Input.Touch;
 #endif
 #if IOS
 using Foundation;
@@ -42,11 +43,8 @@ namespace Simsip.LineRunner.Scenes.Hud
         private CCAction _footerLayerActionIn;
         private CCAction _footerLayerActionOut;
 
-        // Support for keeping hud on screen as hero moves
-        private CCPoint _headerLayerOriginalPosition;
-        private CCPoint _footerLayerOriginalPosition;
-        private Vector3 _stationaryCameraOriginalPosition;
-        private Vector3 _cocos2DCameraOriginalPosition;
+        // Status label
+        private CCLabelTTF _statusLabel;
 
         // Score label
         private CCLabelTTF _scoreLabel;
@@ -63,6 +61,7 @@ namespace Simsip.LineRunner.Scenes.Hud
         // Timer
         private CCLabelTTF _timerLabel;
         private DateTime _timerStartTime;
+        private TimeSpan _elapsedTime;
         private string _timerLabelText;
 #if NETFX_CORE
         private ThreadPoolTimer _timer;
@@ -93,13 +92,12 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._inputManager = (IInputManager)TheGame.SharedGame.Services.GetService(typeof(IInputManager));
             this._characterCache = (ICharacterCache)TheGame.SharedGame.Services.GetService(typeof(ICharacterCache));
 
-            // Grab original Cocos2D DrawManager translation and stationary camera position
-            // Will be used in positioning as game progresses
-            this._cocos2DCameraOriginalPosition = Matrix.Invert(CCDrawManager.ViewMatrix).Translation;
-            this._stationaryCameraOriginalPosition = this._inputManager.TheStationaryCamera.Position;
-
             // Get these set up for relative positioning below
             var screenSize = CCDirector.SharedDirector.WinSize;
+            this.ContentSize = new CCSize(
+                screenSize.Width,
+                screenSize.Height);
+            this.Position = new CCPoint(0, 0);
             var headerContentSize = new CCSize(0.4f * screenSize.Width,
                                                0.2f * screenSize.Height);
 
@@ -115,7 +113,6 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._headerLayer = new UILayer();
             this._headerLayer.ContentSize = headerContentSize;
             this._headerLayer.Position = headerLayerEndPosition;
-            this._headerLayerOriginalPosition = this._headerLayer.Position;
             this.AddChild(this._headerLayer);
 
             // Header layer transition in/out
@@ -126,6 +123,14 @@ namespace Simsip.LineRunner.Scenes.Hud
             );
             var headerLayerMoveOutAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, headerLayerStartPosition);
             this._headerLayerActionOut = new CCEaseBackIn(headerLayerMoveOutAction);
+
+            // Status label
+            this._statusLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._statusLabel.Color = CCColor3B.Red;
+            this._statusLabel.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.9f * this.ContentSize.Height);
+            this.AddChild(this._statusLabel);
 
             // Score label
             this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_EXTRA_LARGE);
@@ -199,7 +204,6 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._footerLayer = new UILayer();
             this._footerLayer.ContentSize = footerContentSize;
             this._footerLayer.Position = footerLayerEndPosition;
-            this._footerLayerOriginalPosition = this._footerLayer.Position;
             this.AddChild(this._footerLayer);
 
             // Footer layer transition in/out
@@ -224,10 +228,10 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._footerLayer.AddChild(this._joystickPanel);
 
             // Hook-up joystick events
-            this._joystickPanel.JoyControl.SneakyStartEndEvent += this._inputManager.StickStartEndEvent;
+            this._joystickPanel.JoyControl.SneakyStartEndEvent += this.HudStickStartEndEvent;
             foreach (var button in this._joystickPanel.Buttons)
             {
-                button.SneakyStartEndEvent += this._inputManager.ButtonStartEndEvent;
+                button.SneakyStartEndEvent += this.HudButtonStartEndEvent;
             }
 
             // Pause toggle
@@ -240,10 +244,15 @@ namespace Simsip.LineRunner.Scenes.Hud
             CCMenuItemToggle pauseToggle =
                 new CCMenuItemToggle((obj) => PauseTogglePressed(),
                 new CCMenuItem[] { pauseToggleOn, pauseToggleOff });
-            pauseToggle.Position = new CCPoint(
+            var pauseMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        pauseToggle,
+                    });
+            pauseMenu.Position = new CCPoint(
                 0.5f * footerContentSize.Width,
                 0.6f * footerContentSize.Height);
-            this._footerLayer.AddChild(pauseToggle);
+            this._footerLayer.AddChild(pauseMenu);
             this._pauseText = string.Empty;
 #if ANDROID
             this._pauseText = Program.SharedProgram.Resources.GetString(Resource.String.HudPause);
@@ -268,13 +277,13 @@ namespace Simsip.LineRunner.Scenes.Hud
             // Speed
             var decreaseButtonNormal = new CCSprite("Images/Icons/DecreaseButtonNormal.png");
             var decreaseButtonSelected = new CCSprite("Images/Icons/DecreaseButtonSelected.png");
-            var decreaseButton = new CCMenuItemImage((obj) => { this._characterCache.DecreaseVelocity(); });
+            var decreaseButton = new CCMenuItemImage((obj) => { this.DecreaseVelocity(); });
             decreaseButton.NormalImage = decreaseButtonNormal;
             decreaseButton.SelectedImage = decreaseButtonSelected;
 
             var increaseButtonNormal = new CCSprite("Images/Icons/IncreaseButtonNormal.png");
             var increaseButtonSelected = new CCSprite("Images/Icons/IncreaseButtonSelected.png");
-            var increaseButton = new CCMenuItemImage((obj) => { this._characterCache.IncreaseVelocity(); });
+            var increaseButton = new CCMenuItemImage((obj) => { this.IncreaseVelocity(); });
             increaseButton.NormalImage = increaseButtonNormal;
             increaseButton.SelectedImage = increaseButtonSelected;
 
@@ -305,6 +314,30 @@ namespace Simsip.LineRunner.Scenes.Hud
                 0.8f * footerContentSize.Width,
                 0.25f * footerContentSize.Height);
             this._footerLayer.AddChild(speedLabel);
+
+#if DEBUG
+            var adminText = string.Empty;
+#if ANDROID
+            adminText = Program.SharedProgram.Resources.GetString(Resource.String.StartAdmin);
+#elif IOS
+            adminText = NSBundle.MainBundle.LocalizedString(Strings.StartAdmin, Strings.StartAdmin);
+#else
+            adminText = AppResources.StartAdmin;
+#endif
+            var adminLabel = new CCLabelTTF(adminText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var adminItem = new CCMenuItemLabel(adminLabel,
+                (obj) => { this.NavigateAdmin(); });
+            var adminLabelMenu = new CCMenu(
+               new CCMenuItem[] 
+                    {
+                        adminItem
+                    });
+            adminLabelMenu.Position = new CCPoint(
+                 0.5f * this.ContentSize.Width,
+                -0.1f * this.ContentSize.Height);
+            this.AddChild(adminLabelMenu);
+#endif
+
 
             // TODO: Add in when Worlds are ready
             /*
@@ -352,6 +385,15 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._timer.Change(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
 #endif
             this._timerStartTime = DateTime.Now;
+
+            // Enable support for gestures
+            TouchPanel.EnabledGestures = GestureType.DragComplete | GestureType.Flick;
+            CCApplication.SharedApplication.OnGesture += this.HudOnGesture;
+        }
+
+        public override void Update(float dt)
+        {
+            this._timerLabel.Text = this._timerLabelText;
         }
 
         public override void OnExit()
@@ -362,27 +404,12 @@ namespace Simsip.LineRunner.Scenes.Hud
 #if NETFX_CORE
             this._timer.Cancel();
 #else
-            this._timer.Change(-1, -1);
+            this.StopTimer();
 #endif
-        }
 
-        public override void Update(float dt)
-        {
-            // Our Cocos2d draw manager is moving with hero, so determine where we are now
-            // See ActionLayer.UpdateTrackingCamera for details.
-            var drawManagerTranslationNew = Matrix.Invert(CCDrawManager.ViewMatrix).Translation;
-            var offsetX = drawManagerTranslationNew.X - this._cocos2DCameraOriginalPosition.X;
-            var offsetY = drawManagerTranslationNew.Y - this._cocos2DCameraOriginalPosition.Y;
-
-            // Ok, now reposition Cocos2D ui so it stays in same place on screen
-            this._headerLayer.Position = new CCPoint(
-                 this._headerLayerOriginalPosition.X + offsetX,
-                 this._headerLayerOriginalPosition.Y + offsetY);
-            this._footerLayer.Position = new CCPoint(
-                 this._footerLayerOriginalPosition.X + offsetX,
-                 this._footerLayerOriginalPosition.Y + offsetY);
-
-            this._timerLabel.Text = this._timerLabelText;
+            // Disable support for gestures
+            TouchPanel.EnabledGestures = GestureType.None;
+            CCApplication.SharedApplication.OnGesture -= this.HudOnGesture;
         }
 
         #endregion
@@ -446,23 +473,186 @@ namespace Simsip.LineRunner.Scenes.Hud
             */
         }
 
+        public void StopTimer()
+        {
+#if NETFX_CORE
+            this._timer.Cancel();
+#else
+            this._timer.Change(-1, -1);
+#endif
+        }
+
+        public TimeSpan GetTime()
+        {
+            return this._elapsedTime;
+        }
+
+        #endregion
+
+        #region Event handlers
+
+        private void HudOnGesture(CCGesture g)
+        {
+            this._inputManager.HudOnGesture(g);
+        }
+
+        private void HudStickStartEndEvent(object sender, EventCustom e)
+        {
+            this._inputManager.HudStickStartEndEvent(sender, e);
+        }
+
+        private void HudButtonStartEndEvent(object sender, EventCustom e)
+        {
+            var sneakyButtonEventResponse = e.UserData as SneakyButtonEventResponse;
+            var sneakyButtonStatus = sneakyButtonEventResponse.ResponseType;
+            var sneakyButtonId = sneakyButtonEventResponse.ID;
+
+            if (sneakyButtonStatus != SneakyButtonStatus.Press)
+            {
+                return;
+            }
+
+            var requiresStatus = false;
+            MoveDirection moveDirection = (MoveDirection)sneakyButtonId;
+            this._inputManager.HudButtonStartEndEvent(sender, e);
+
+            if (requiresStatus)
+            {
+                var statusText = string.Empty;
+#if ANDROID
+                statusText = Program.SharedProgram.Resources.GetString(Resource.String.HudJoystickLimit);
+#elif IOS
+                statusText = NSBundle.MainBundle.LocalizedString(Strings.HudJoystickLimit, Strings.HudJoystickLimit);
+#else
+                statusText = AppResources.HudJoystickLimit;
+#endif
+                this._statusLabel.Text = statusText; ;
+
+                // Clear out any previous activity for status label
+                this._statusLabel.ActionManager.RemoveAllActionsFromTarget(this);
+
+                // Construct and run an action to display the status for only a short duration
+                var statusLabelAction = new CCSequence(new CCFiniteTimeAction[]
+                {
+                    new CCDelayTime(GameConstants.DURATION_STATUS_LABEL),
+                    new CCCallFunc(() => this._statusLabel.Text = string.Empty)
+                }
+                );
+                this._statusLabel.RunAction(statusLabelAction);
+            }
+        }
+
         #endregion
 
         #region Helper methods
 
         private void PauseTogglePressed()
         {
-            // TODO: Just call pause on charactercache?
             if (this._paused)
             {
                 this._paused = false;
-                this._parent.ResumeGame();
+                this._characterCache.Pause(false);
+
+                // Clear out any previous activity for status label
+                // and clear out the label itself
+                this._statusLabel.ActionManager.RemoveAllActionsFromTarget(this);
+                this._statusLabel.Text = string.Empty;
             }
             else
             {
                 this._paused = true;
-                this._parent.PauseGame();
+                this._characterCache.Pause(true);
+
+                var statusText = string.Empty;
+#if ANDROID
+                statusText = Program.SharedProgram.Resources.GetString(Resource.String.HudPaused);
+#elif IOS
+                statusText = NSBundle.MainBundle.LocalizedString(Strings.HudPaused, Strings.HudPaused);
+#else
+                statusText = AppResources.HudPaused;
+#endif
+                // Clear out any previous activity for status label
+                // and set new text
+                this._statusLabel.ActionManager.RemoveAllActionsFromTarget(this);
+                this._statusLabel.Text = statusText;
             }
+        }
+
+        private void DecreaseVelocity()
+        {
+            // Attempt to decrease velocity then determine an appropriate status text
+            // based on if we have hit our lower velocity limit or not
+            var statusText = string.Empty;
+            if (this._characterCache.DecreaseVelocity())
+            {
+#if ANDROID
+                statusText = Program.SharedProgram.Resources.GetString(Resource.String.HudSpeed);
+#elif IOS
+                statusText = NSBundle.MainBundle.LocalizedString(Strings.HudSpeed, Strings.HudSpeed);
+#else
+                statusText = AppResources.HudSpeed; 
+#endif
+            }
+            else
+            {
+                #if ANDROID
+                    statusText = Program.SharedProgram.Resources.GetString(Resource.String.HudCannotGoSlowerThan);
+                #elif IOS
+                    statusText = NSBundle.MainBundle.LocalizedString(Strings.HudCannotGoSlowerThan, Strings.HudCannotGoSlowerThan);
+                #else
+                    statusText = AppResources.HudCannotGoSlowerThan; 
+                #endif
+            }
+            this._statusLabel.Text = statusText + " " + (this._characterCache.GetLinearVelocityX() * 100);
+
+            // Clear out any previous activity for status label
+            this._statusLabel.ActionManager.RemoveAllActionsFromTarget(this);
+
+            // Construct and run an action to display the status for only a short duration
+            var statusLabelAction = new CCSequence(new CCFiniteTimeAction[]
+                    {
+                        new CCDelayTime(GameConstants.DURATION_STATUS_LABEL),
+                        new CCCallFunc(() => this._statusLabel.Text = string.Empty)
+                    }
+                );
+            this._statusLabel.RunAction(statusLabelAction);
+        }
+
+        private void IncreaseVelocity()
+        {
+            this._characterCache.IncreaseVelocity();
+
+            var statusText = string.Empty;
+#if ANDROID
+            statusText = Program.SharedProgram.Resources.GetString(Resource.String.HudSpeed);
+#elif IOS
+            statusText = NSBundle.MainBundle.LocalizedString(Strings.HudSpeed, Strings.HudSpeed);
+#else
+            statusText = AppResources.HudSpeed; 
+#endif
+            this._statusLabel.Text = statusText + " " + (this._characterCache.GetLinearVelocityX() * 100);
+
+            // Clear out any previous activity for status label
+            this._statusLabel.ActionManager.RemoveAllActionsFromTarget(this);
+
+            // Construct and run an action to display the status for only a short duration
+            var statusLabelAction = new CCSequence(new CCFiniteTimeAction[]
+                {
+                    new CCDelayTime(GameConstants.DURATION_STATUS_LABEL),
+                    new CCCallFunc(() => this._statusLabel.Text = string.Empty)
+                }
+            );
+            this._statusLabel.RunAction(statusLabelAction);
+        }
+
+        private void NavigateAdmin()
+        {
+            if (!this._paused)
+            {
+                this.PauseTogglePressed();
+            }
+
+            this._parent.Navigate(LayerTags.AdminLayer);
         }
 
         private void ToggleWorld()
@@ -519,8 +709,8 @@ namespace Simsip.LineRunner.Scenes.Hud
         private void TimerCallback(object timer)
 #endif
         {
-            var elapsed = DateTime.Now - this._timerStartTime;
-            this._timerLabelText = elapsed.ToString(@"h\:mm\:ss");
+            this._elapsedTime = DateTime.Now - this._timerStartTime;
+            this._timerLabelText = this._elapsedTime.ToString(@"h\:mm\:ss");
         }
 
         #endregion

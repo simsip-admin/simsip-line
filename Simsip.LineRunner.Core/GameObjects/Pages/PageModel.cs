@@ -189,16 +189,6 @@ namespace Simsip.LineRunner.GameObjects.Pages
             base.Draw(CCDrawManager.ViewMatrix, CCDrawManager.ProjectionMatrix);
         }
 
-        public void DrawViaStationaryCamera()
-        {
-            TheGame.SharedGame.GraphicsDevice.DepthStencilState = DepthStencilState.None;
-            TheGame.SharedGame.GraphicsDevice.BlendState = BlendState.AlphaBlend;
-            TheGame.SharedGame.GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
-            TheGame.SharedGame.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
-
-            base.Draw(this._inputManager.TheStationaryCamera.ViewMatrix, this._inputManager.TheStationaryCamera.ProjectionMatrix);
-        }
-
         #endregion
     }
 }

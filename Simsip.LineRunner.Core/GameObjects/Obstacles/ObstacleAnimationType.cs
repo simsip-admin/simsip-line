@@ -8,7 +8,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         SimpleRotatePitch,
         SimpleRotateRoll,
         SimpleRotateYaw,
-        SimpleScale,
         SimpleTranslateX,
         SimpleTranslateY
     }

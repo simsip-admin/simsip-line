@@ -307,7 +307,6 @@ namespace Simsip.LineRunner.GameObjects.Lines
         public LineModel GetLineModel(int lineNumber)
         {
             return this.LineModels[lineNumber];
-            // return this.LineModels[this.LineModels.Count - (lineNumber+1)];
         }
 
         #endregion
@@ -485,7 +484,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
                     // Record to our staging collection
                     lineModels.Add(lineModel);
 
-                    // Create line as a physics box body
+                    // CreateLineHitParticles line as a physics box body
                     // IMPORTANT: Adjusting for physics representation with origin in middle
                     var physicsLocalTransfrom = new BEPUutilities.Vector3(
                         (0.5f * lineModel.WorldWidth),
@@ -501,7 +500,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         linePhysicsOrigin.Z -
                         (0.5f * this._pageCache.CurrentPageModel.WorldDepth);
                         
-                    // Create physics box to represent line and add to physics space
+                    // CreateLineHitParticles physics box to represent line and add to physics space
                     // IMPORTANT: Don't add until we are on the thread executing our Update() logic
                     var linePhysicsBox = new Box(
                         linePhysicsOrigin,

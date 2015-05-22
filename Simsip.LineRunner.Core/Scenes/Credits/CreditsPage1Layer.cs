@@ -39,7 +39,7 @@ namespace Simsip.LineRunner.Scenes.Credits
 #else
             pageNumberText = AppResources.CommonPage1Of3;
 #endif
-            var pageNumberHeader = new CCLabelTTF(pageNumberText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            var pageNumberHeader = new CCLabelTTF(pageNumberText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             pageNumberHeader.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,
@@ -54,10 +54,10 @@ namespace Simsip.LineRunner.Scenes.Credits
 #else
             createdByText = AppResources.CreditsCreatedBy;
 #endif
-            var createdTitle = new CCLabelTTF(createdByText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var createdTitle = new CCLabelTTF(createdByText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
             createdTitle.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
-                0.8f * this.ContentSize.Height);
+                0.6f * this.ContentSize.Height);
             this.AddChild(createdTitle);
 
             var createdBySimsipText = string.Empty;
@@ -68,10 +68,10 @@ namespace Simsip.LineRunner.Scenes.Credits
 #else
             createdBySimsipText = AppResources.CreditsCreatedBySimsip;
 #endif
-            var createdDescription = new CCLabelTTF(createdBySimsipText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            var createdDescription = new CCLabelTTF(createdBySimsipText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_EXTRA_LARGE);
             createdDescription.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
-                0.7f * this.ContentSize.Height);
+                0.5f * this.ContentSize.Height);
             this.AddChild(createdDescription);
         }
     }

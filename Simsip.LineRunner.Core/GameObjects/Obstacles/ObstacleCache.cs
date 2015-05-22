@@ -799,7 +799,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         // removing/adding physics objects
         private void ProcessNextLine()
         {
-            // Remove previous line physics
+            // Remove previous line physics/animations
             var previousLineObstacles = this.ObstacleModels
                 .Where(x => x.ThePageObstaclesEntity.LineNumber == this._currentLineNumber - 1);
             foreach (var obstacleModel in previousLineObstacles)
@@ -809,6 +809,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 {
                     this._physicsManager.TheSpace.Remove(obstacleModel.PhysicsEntity);
                 }
+
+                obstacleModel.ModelActionManager.RemoveAllActionsFromTarget(obstacleModel);
             }
 
             // Grab current line obstacles
@@ -856,11 +858,11 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 Actions.Action obstacleAction = null;
                 if (obstacleAnimation != null)
                 {
-                    obstacleAction = new Sequence(new FiniteTimeAction[] { obstacleMoveTo, /*obstacleProcessPhysics,*/ obstacleAnimation });
+                    obstacleAction = new Sequence(new FiniteTimeAction[] { obstacleMoveTo, obstacleAnimation });
                 }
                 else
                 {
-                    obstacleAction = new Sequence(new FiniteTimeAction[] { obstacleMoveTo /*, obstacleProcessPhysics*/ });
+                    obstacleAction = new Sequence(new FiniteTimeAction[] { obstacleMoveTo });
                 }
                 obstacleModel.ModelRunAction(obstacleAction);
 
@@ -903,22 +905,24 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         private FiniteTimeAction DetermineAnimation(int index, List<ObstacleModel> currentLineObstacles)
         {
             // TESTING: Uncomment for testing
+            /*
             if (index != 0)
             {
                 return null;
             }
+            */
 
             FiniteTimeAction returnAction = null;
 
             var currentObstacle = currentLineObstacles[index];
-
+            var predecessor = (index != 0) ? currentLineObstacles[index - 1] : null;
+                
             // Do our predecessor check first
-            if (index != 0 &&
-                (currentObstacle.TheObstacleAnimationType == ObstacleAnimationType.SimpleTranslateX ||
-                 currentObstacle.TheObstacleAnimationType == ObstacleAnimationType.SimpleTranslateY) )
+            if (predecessor != null &&
+                (predecessor.TheObstacleAnimationType == ObstacleAnimationType.SimpleTranslateX ||
+                 predecessor.TheObstacleAnimationType == ObstacleAnimationType.SimpleTranslateY) )
             {
                 // Do we have a predecessor at the same x location we should copy the animation from
-                var predecessor = currentLineObstacles[index - 1];
                 if (predecessor.ThePageObstaclesEntity.LogicalXScaledTo100 == currentObstacle.ThePageObstaclesEntity.LogicalXScaledTo100)
                 {
                     // If we tagged this predecessor for copying, short-circuit by returning copy
@@ -934,7 +938,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             // up to 6th page where we top out at 50% frequency of assigning an animation to an obstacle
             // (Tip: Map out several current page numbers to see how this works
             // TESTING: Comment out below for testing
-            /*
             var exclusiveUpperBound  = 3;
             var divisor = 2;
             if (this._currentPageNumber < 7)
@@ -942,14 +945,16 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 exclusiveUpperBound =  9 - this._currentPageNumber;
                 divisor = 8 - this._currentPageNumber;
             }
-            var qualifiesForAnimation = this._randomNumberGenerator.Next(1,exclusiveUpperBound) % divisor;
+            var qualifiesForAnimation = (this._randomNumberGenerator.Next(1,exclusiveUpperBound) % divisor) == 0;
 
-            // If we didn't get a hit based on page frequency, return null to indicate this
-            if (qualifiesForAnimation != 0)
+            // If we didn't get a hit for an animation based on page frequency
+            // AND we have no particle for this obstacle
+            // return null to indicate this
+            if (!qualifiesForAnimation &&
+                string.IsNullOrEmpty(currentObstacle.ThePageObstaclesEntity.DisplayParticle))
             {
                 return null;
             }
-            */
 
             // Do we want some type of particle effect with this obstacle?
             CallFunc particleAction = null;
@@ -960,15 +965,29 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                     );
             }
 
+            // If we do not have an animation BUT we do have a particle
+            // short circuit with a simple animation for just the particle
+            if (!qualifiesForAnimation &&
+                particleAction != null)
+            {
+                var delayAction = new DelayTime(GameConstants.DURATION_PARTICLE_DURATION);
+
+                returnAction = new RepeatForever(new Sequence(new FiniteTimeAction[]
+                    {
+                        delayAction,
+                        particleAction
+                    }));
+
+                return returnAction;
+            }
+
             // Ok we qualify for an animation, let's randomly get one from our enum
             // TESTING: Comment out below for testing
-            /*
             var enumCount = Enum.GetNames(typeof(ObstacleAnimationType)).Length;
             var randomEnum = this._randomNumberGenerator.Next(1,enumCount+1);       // Excludes ObstacleAnimationType.None
             currentObstacle.TheObstacleAnimationType = (ObstacleAnimationType)randomEnum;
-            */
             // TESTING: Uncomment for testing
-            currentObstacle.TheObstacleAnimationType = ObstacleAnimationType.SimpleRotateYaw;
+            // currentObstacle.TheObstacleAnimationType = ObstacleAnimationType.SimpleRotateYaw;
 
             switch (currentObstacle.TheObstacleAnimationType)
             {
@@ -979,19 +998,34 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         var rotateByForward = new RotateBy(
                             interval,
                             0f,
-                            45f,
+                            15f,
                             0f);
                         var rotateByBack = new RotateBy(
                             2f * interval,
                             0f,
-                            -90f,
+                            -30f,
                             0f);
-                        var rotateBySequence = new Sequence(new FiniteTimeAction[] 
+                        Sequence rotateBySequence = null;
+                        if (particleAction != null)
+                        {
+                            rotateBySequence = new Sequence(new FiniteTimeAction[] 
+                            { 
+                                rotateByForward,
+                                particleAction,
+                                rotateByBack,
+                                particleAction,
+                                rotateByForward
+                            });
+                        }
+                        else
+                        {
+                            rotateBySequence = new Sequence(new FiniteTimeAction[] 
                             { 
                                 rotateByForward, 
                                 rotateByBack,
                                 rotateByForward
                             });
+                        }
                         returnAction = new RepeatForever(rotateBySequence);
 
                         break;
@@ -1004,18 +1038,33 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                             interval,
                             0f,
                             0f,
-                            45f);
+                            15f);
                         var rotateByCCW = new RotateBy(         // Counter clock wise
                             2f * interval,
                             0f,
                             0f,
-                            -90f);
-                        var rotateBySequence = new Sequence(new FiniteTimeAction[] 
+                            -30f);
+                        Sequence rotateBySequence = null;
+                        if (particleAction != null)
+                        {
+                            rotateBySequence = new Sequence(new FiniteTimeAction[] 
+                            { 
+                                rotateByCW,
+                                particleAction,
+                                rotateByCCW,
+                                particleAction,
+                                rotateByCW
+                            });
+                        }
+                        else
+                        {
+                            rotateBySequence = new Sequence(new FiniteTimeAction[] 
                             { 
                                 rotateByCW, 
                                 rotateByCCW,
                                 rotateByCW
                             });
+                        }
                         returnAction = new RepeatForever(rotateBySequence);
 
                         break;
@@ -1026,12 +1075,12 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
                         var rotateByRight = new RotateBy(
                             interval,
-                            30f,
+                            15f,
                             0f,
                             0f);
                         var rotateByLeft = new RotateBy(
                             2f * interval,
-                            -60f,
+                            -30f,
                             0f,
                             0f);
                         Sequence rotateBySequence = null;
@@ -1059,11 +1108,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
                         break;
                     }
-                case ObstacleAnimationType.SimpleScale:
-                    {
-                        // Not sure about this one yet as can we scale our physics representation?
-                        break;
-                    }
                 case ObstacleAnimationType.SimpleTranslateX:
                     {
                         // Make delta for animation based on line length
@@ -1074,9 +1118,31 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         float delta = this._pageCache.CurrentPageModel.WorldWidth * (level/1000f);
 
                         var interval = GameConstants.DURATION_ANIMATE_OBSTACLE_SLOW / 4f;
-                        var moveByRight = new MoveBy(interval, new Vector3(delta, 0, 0));
-                        var moveByLeft = new MoveBy(2f * interval, new Vector3(-2f * delta, 0, 0));
-                        var moveBySequence = new Sequence(new FiniteTimeAction[] { moveByRight, moveByLeft, moveByRight });
+                        var moveByRight = new MoveBy(interval, new Vector3(0.5f * delta, 0, 0));
+                        var moveByLeft = new MoveBy(2f * interval, new Vector3(-1.0f * delta, 0, 0));
+
+                        Sequence moveBySequence = null;
+                        if (particleAction != null)
+                        {
+                            moveBySequence = new Sequence(new FiniteTimeAction[] 
+                            { 
+                                moveByRight,
+                                particleAction,
+                                moveByLeft,
+                                particleAction,
+                                moveByRight 
+                            });
+                        }
+                        else
+                        {
+                            moveBySequence = new Sequence(new FiniteTimeAction[] 
+                            { 
+                                moveByRight, 
+                                moveByLeft, 
+                                moveByRight 
+                            });
+
+                        }
                         returnAction = new RepeatForever(moveBySequence);
 
                         // Tag in case we we are setting up a paired set of animations
@@ -1094,9 +1160,31 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         float delta = this._pageCache.CurrentPageModel.WorldLineSpacing * (randomLevel / 100f);
 
                         var interval = GameConstants.DURATION_ANIMATE_OBSTACLE_SLOW / 4f;
-                        var moveByUp = new MoveBy(interval, new Vector3(0, delta, 0));
-                        var moveByDown = new MoveBy(2f * interval, new Vector3(0, -2f * delta, 0));
-                        var moveBySequence = new Sequence(new FiniteTimeAction[] { moveByUp, moveByDown, moveByUp });
+                        var moveByUp = new MoveBy(interval, new Vector3(0, 0.5f * delta, 0));
+                        var moveByDown = new MoveBy(2f * interval, new Vector3(0, -1.0f * delta, 0));
+
+                        Sequence moveBySequence = null;
+                        if (particleAction != null)
+                        {
+                            moveBySequence = new Sequence(new FiniteTimeAction[] 
+                            { 
+                                moveByUp,
+                                particleAction,
+                                moveByDown,
+                                particleAction,
+                                moveByUp 
+                            });
+                        }
+                        else
+                        {
+                            moveBySequence = new Sequence(new FiniteTimeAction[] 
+                            { 
+                                moveByUp,
+                                moveByDown,
+                                moveByUp 
+                            });
+                        }
+
                         returnAction = new RepeatForever(moveBySequence);
 
                         // Tag in case we we are setting up a paired set of animations
@@ -1177,7 +1265,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             }
         }
 
-        // Create the a set of dictionaries to hold entries for our defined
+        // CreateLineHitParticles the a set of dictionaries to hold entries for our defined
         // random obstacle sets.
         private void InitializeRandomObstacles()
         {
@@ -1218,7 +1306,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                     // We have an entry for the a set with a "count" of 1
                     case 1:
                         {
-                            // Create dictionary for "count" if needed
+                            // CreateLineHitParticles dictionary for "count" if needed
                             if (!this._randomObstacles01.ContainsKey(currentVersion))
                             {
                                 this._randomObstacles01[currentVersion] = new List<RandomObstaclesEntity>();

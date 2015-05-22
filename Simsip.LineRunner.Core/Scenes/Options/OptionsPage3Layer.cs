@@ -74,10 +74,15 @@ namespace Simsip.LineRunner.Scenes.Options
             {
                 soundToggle.SelectedIndex = 1; // SFX are OFF
             }
-            soundToggle.Position = new CCPoint(
+            var soundMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        soundToggle,
+                    });
+            soundMenu.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.65f * this.ContentSize.Height);
-            this.AddChild(soundToggle);
+            this.AddChild(soundMenu);
             CCLabelTTF soundLabel = null;
             if (UserDefaults.SharedUserDefault.GetBoolForKey(
                     GameConstants.USER_DEFAULT_KEY_SOUND,

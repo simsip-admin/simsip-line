@@ -254,7 +254,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         // 2. Attempt to suspend physics as best as possible
                         // 3. Position hero at defined start position
                         // 4. Will include logic to handle admin setting of line number other than 1
-                        // 5. Create holder to keep hero in start location
+                        // 5. CreateLineHitParticles holder to keep hero in start location
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
                         this.LoadContentAsync(LoadContentAsyncType.Initialize, state);
 
@@ -262,24 +262,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
                     }
                 case GameState.Moving:
                     {
-                        // If necessary, remove restraints holding hero in start position
-                        this.RemoveHolderForHero();
-
-                        // Restore physics for hero
-                        this.TheHeroModel.PhysicsEntity.IsAffectedByGravity = true;
-                        this.ApplyHeroPhysicsConstraints();
-
-                        // Depending on line we are on, set our velocity
-                        // Odd => moving to right
-                        // Even => moving to left
-                        if (this._currentLineNumber % 2 != 0)
-                        {
-                            this.TheHeroModel.PhysicsEntity.LinearVelocity = this.TheHeroModel.DEFAULT_VELOCITY;
-                        }
-                        else
-                        {
-                            this.TheHeroModel.PhysicsEntity.LinearVelocity = this.TheHeroModel.OPPOSITE_DEFAULT_VELOCITY;
-                        }
+                        this.ResumeHeroPhysics();
 
                         break;
                     }
@@ -379,7 +362,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         // Will include logic to handle admin setting of line number other than 1
                         // this.InitHeroPosition();
 
-                        // Create holder to keep hero in start location
+                        // CreateLineHitParticles holder to keep hero in start location
                         // this.RemoveHolderForHero();
                         // this.CreateHolderForHero();
 
@@ -406,7 +389,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         // Will include logic to handle admin setting of line number other than 1
                         this.InitHeroPosition();
 
-                        // Create holder to keep hero in start location
+                        // CreateLineHitParticles holder to keep hero in start location
                         this.CreateHolderForHero();
 
                         // Turn this on so hero falls into place
@@ -442,7 +425,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
                     // Will include logic to handle admin setting of line number other than 1
                     this.InitHeroPosition();
 
-                    // Create restraints to keep hero in start position
+                    // CreateLineHitParticles restraints to keep hero in start position
                     this.CreateHolderForHero();
 
                     // Let our callback determine where to navigate to next
@@ -458,43 +441,92 @@ namespace Simsip.LineRunner.GameObjects.Characters
             this.TheHeroModel.ModelRunAction(heroKilledAction);
         }
 
-        public void IncreaseVelocity()
+        public void Pause(bool pause)
         {
-            // Depending on line we are on, increase our velocity
-            // Odd => moving to right
-            // Even => moving to left
-            if (this._currentLineNumber % 2 != 0)
+            if (pause)
             {
-                this.TheHeroModel.PhysicsEntity.LinearVelocity =
-                    this.TheHeroModel.PhysicsEntity.LinearVelocity +
-                    new BEPUutilities.Vector3(0.1f, 0f, 0f);
+                this.SuspendHeroPhysics();
             }
             else
             {
-                this.TheHeroModel.PhysicsEntity.LinearVelocity =
-                    this.TheHeroModel.PhysicsEntity.LinearVelocity +
-                    new BEPUutilities.Vector3(-0.1f, 0f, 0f);
+                this.ResumeHeroPhysics();
             }
         }
 
-        public void DecreaseVelocity()
+        public float GetLinearVelocityX()
         {
+            return this.TheHeroModel.LinearVelocityX;
+        }
+
+        public void IncreaseVelocity()
+        {
+            // Update our state
+            this.TheHeroModel.LinearVelocityX += 0.1f;
+
+            // Store away the new value
+            UserDefaults.SharedUserDefault.SetFloatForKey(
+                GameConstants.USER_DEFAULT_KEY_HERO_LINEAR_VELOCITY_X, 
+                this.TheHeroModel.LinearVelocityX);
+            
             // Depending on line we are on, increase our velocity
             // Odd => moving to right
             // Even => moving to left
             if (this._currentLineNumber % 2 != 0)
             {
                 this.TheHeroModel.PhysicsEntity.LinearVelocity =
-                    this.TheHeroModel.PhysicsEntity.LinearVelocity +
-                    new BEPUutilities.Vector3(-0.1f, 0f, 0f);
+                    new BEPUutilities.Vector3(
+                        this.TheHeroModel.LinearVelocityX, 
+                        0f, 
+                        0f);
             }
             else
             {
                 this.TheHeroModel.PhysicsEntity.LinearVelocity =
-                    this.TheHeroModel.PhysicsEntity.LinearVelocity +
-                    new BEPUutilities.Vector3(0.1f, 0f, 0f);
-
+                    new BEPUutilities.Vector3(
+                        -this.TheHeroModel.LinearVelocityX,
+                        0f,
+                        0f);
             }
+        }
+
+        public bool DecreaseVelocity()
+        {
+            // Update our state with sanity check for lowest speed and
+            // short circuit with failure if trying to decrease below lower limit
+            this.TheHeroModel.LinearVelocityX -= 0.01f;
+            if (this.TheHeroModel.LinearVelocityX < GameConstants.VELOCITY_LOWER_LIMIT_X)
+            {
+                this.TheHeroModel.LinearVelocityX = GameConstants.VELOCITY_LOWER_LIMIT_X;
+                return false;
+            }
+
+            // Store away the new value
+            UserDefaults.SharedUserDefault.SetFloatForKey(
+                GameConstants.USER_DEFAULT_KEY_HERO_LINEAR_VELOCITY_X,
+                this.TheHeroModel.LinearVelocityX);
+
+            // Depending on line we are on, increase our velocity
+            // Odd => moving to right
+            // Even => moving to left
+            if (this._currentLineNumber % 2 != 0)
+            {
+                this.TheHeroModel.PhysicsEntity.LinearVelocity =
+                    new BEPUutilities.Vector3(
+                        this.TheHeroModel.LinearVelocityX,
+                        0f,
+                        0f);
+            }
+            else
+            {
+                this.TheHeroModel.PhysicsEntity.LinearVelocity =
+                    new BEPUutilities.Vector3(
+                        -this.TheHeroModel.LinearVelocityX,
+                        0f,
+                        0f);
+            }
+
+            // Signal success
+            return true;
         }
 
         #endregion
@@ -515,7 +547,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
                 // Will include logic to handle admin setting of line number other than 1
                 this.InitHeroPosition();
 
-                // Create holder to keep hero in start location
+                // CreateLineHitParticles holder to keep hero in start location
                 this.CreateHolderForHero();
 
                 // TODO: Once we have more characters besides hero
@@ -756,6 +788,35 @@ namespace Simsip.LineRunner.GameObjects.Characters
             }
         }
 
+        // Centralized handling to apply all physics to hero
+        private void ResumeHeroPhysics()
+        {
+            // If necessary, remove restraints holding hero in start position
+            this.RemoveHolderForHero();
+
+            // Restore physics for hero
+            this.TheHeroModel.PhysicsEntity.IsAffectedByGravity = true;
+            this.ApplyHeroPhysicsConstraints();
+
+            // Depending on line we are on, set our velocity
+            // Odd => moving to right
+            // Even => moving to left
+            if (this._currentLineNumber % 2 != 0)
+            {
+                this.TheHeroModel.PhysicsEntity.LinearVelocity = new BEPUutilities.Vector3(
+                        this.TheHeroModel.LinearVelocityX,
+                        0f,
+                        0f);
+            }
+            else
+            {
+                this.TheHeroModel.PhysicsEntity.LinearVelocity = new BEPUutilities.Vector3(
+                        -this.TheHeroModel.LinearVelocityX,
+                        0f,
+                        0f);
+            }
+        }
+
         // Attempt to suspend physics as best as possible
         private void SuspendHeroPhysics()
         {
@@ -890,6 +951,11 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
             // Our standard starting position
             var heroStartOrigin = this._pageCache.CurrentPageModel.HeroStartOrigin;
+            var physicsRotation = Quaternion.CreateFromYawPitchRoll(
+                        MathHelper.ToRadians(0f), 
+                        MathHelper.ToRadians(0f), 
+                        MathHelper.ToRadians(0f));
+            this.TheHeroModel.PhysicsEntity.Orientation = ConversionHelper.MathConverter.Convert(physicsRotation);
 
             // Do we need to adjust for admin setting of line number?
             var adminLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
@@ -910,11 +976,11 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         0);
 
                     // Flip hero
-                    var physicsRotation = Quaternion.CreateFromYawPitchRoll(
+                    var flipRotation = Quaternion.CreateFromYawPitchRoll(
                         MathHelper.ToRadians(-180f), 
-                        MathHelper.ToRadians(0), 
-                        MathHelper.ToRadians(0));
-                    this.TheHeroModel.PhysicsEntity.Orientation = ConversionHelper.MathConverter.Convert(physicsRotation);
+                        MathHelper.ToRadians(0f), 
+                        MathHelper.ToRadians(0f));
+                    this.TheHeroModel.PhysicsEntity.Orientation = ConversionHelper.MathConverter.Convert(flipRotation);
                 }
             }
 
@@ -938,7 +1004,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
             if (this._holderForHero == null)
             {
                 //
-                // Create holder for hero as physics body with 3 edges
+                // CreateLineHitParticles holder for hero as physics body with 3 edges
                 // similar to a cup.
                 //
                 var bottomEdge = new BoxShape(

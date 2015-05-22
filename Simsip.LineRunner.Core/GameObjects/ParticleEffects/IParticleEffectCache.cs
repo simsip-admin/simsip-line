@@ -36,6 +36,12 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
         void AddDisplayParticleEffect(GameModel gameModel);
 
         /// <summary>
+        /// Used to add particle effects when displaying the finish screen.
+        /// </summary>
+        /// <param name="particleEffectDescs"></param>
+        void AddFinishParticleEffect(IList<ParticleEffectDesc> particleEffectDescs);
+
+        /// <summary>
         /// Called from our b2ContactListener whenever we hit a game object that causes
         /// a particle effect to be created.
         /// 

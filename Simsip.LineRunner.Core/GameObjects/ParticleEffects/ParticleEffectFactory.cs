@@ -28,12 +28,19 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
             ParticleEffectType.WaterJet
         };
 
+        private static List<ParticleEffectType> _allowedFinishTypes = new List<ParticleEffectType>
+            {
+                ParticleEffectType.BasicFireball,
+                ParticleEffectType.FlowerBloom
+            };
+
+
         // Used to create our random selections
         private static Random _randomNumberGenerator = new Random();
 
         private static IPageCache _pageCache = (IPageCache)TheGame.SharedGame.Services.GetService(typeof(IPageCache));
 
-        public static IList<ParticleEffectDesc> Create(LineModel lineModel)
+        public static IList<ParticleEffectDesc> CreateLineHitParticles(LineModel lineModel)
         {
             var particleEffectDescs = new List<ParticleEffectDesc>();
             particleEffectDescs.Add
@@ -42,7 +49,7 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
                  {
                      TheParticleEffectType = ParticleEffectType.BeamMeUp,
                      ParticleEffectIndex = 0,
-                     Trigger = ParticleEffectFactory.BaseLineModelTrigger,
+                     Trigger = ParticleEffectFactory.HitLineModelTrigger,
                      TheGameModel = lineModel
                  }
             );
@@ -68,6 +75,26 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
             }
             else if (displayParticle == "r")
             {
+                // Ok, normal random assignment logic, based on page number we will assign an increasingly higher frequency of particles
+                // up to 6th page where we top out at 50% frequency of assigning a particle to an obstacle
+                // (Tip: Map out several current page numbers to see how this works
+                // TESTING: Comment out below for testing
+                var exclusiveUpperBound = 3;
+                var divisor = 2;
+                var currentPageNumber = _pageCache.CurrentPageNumber;
+                if (currentPageNumber < 7)
+                {
+                    exclusiveUpperBound = 9 - currentPageNumber;
+                    divisor = 8 - currentPageNumber;
+                }
+                
+                var qualifiesForParticle = (_randomNumberGenerator.Next(1,exclusiveUpperBound) % divisor) == 0;
+
+                if (!qualifiesForParticle)
+                {
+                    return null;
+                }
+
                 var randomDisplay = _randomNumberGenerator.Next(0, _allowedObstacleDisplayTypes.Count);
             
                 particleEffectType = _allowedObstacleDisplayTypes[randomDisplay];
@@ -114,6 +141,25 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
                      ParticleEffectIndex = 0,
                      Trigger = ParticleEffectFactory.HitObstacleModelTrigger,
                      TheGameModel = obstacleModel
+                 }
+            );
+
+            return particleEffectDescs;
+        }
+
+        public static IList<ParticleEffectDesc> CreateFinishParticles(GetParticleEffectScreenPoint getScreenPoint)
+        {
+            var randomFinish = _randomNumberGenerator.Next(0, _allowedFinishTypes.Count);
+            var particleEffectType = _allowedObstacleDisplayTypes[randomFinish];
+
+            var particleEffectDescs = new List<ParticleEffectDesc>();
+            particleEffectDescs.Add
+            (
+                 new ParticleEffectDesc()
+                 {
+                     TheParticleEffectType = particleEffectType,
+                     Trigger = FinishTrigger,
+                     GetScreenPoint = getScreenPoint
                  }
             );
 
@@ -230,7 +276,7 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
             return particleEffect;
         }
 
-        public static void BaseLineModelTrigger(ParticleEffectDesc particleEffectDesc, 
+        public static void HitLineModelTrigger(ParticleEffectDesc particleEffectDesc, 
                                                 GameTime gameTime,
                                                 XNAUtils.CameraType cameraType)
         {
@@ -266,11 +312,18 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
                                             GameTime gameTime,
                                             XNAUtils.CameraType cameraType)
         {
-            // Create appropriate offset for positioning particle effect
+            // CreateLineHitParticles appropriate offset for positioning particle effect
+            // IMPORTANT: Note how we adjust offsetY if we are simple top as we have flipped the model
+            //            (To understand, best to draw a diagram of a model, mark the particle point, then flip model)
             var obstacleModel = particleEffectDesc.TheGameModel as ObstacleModel;
+            var offsetY = obstacleModel.TheObstacleEntity.DisplayParticleModelY * _pageCache.CurrentPageModel.ModelToWorldRatio;
+            if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
+            {
+                offsetY = obstacleModel.WorldHeight - offsetY;
+            }
             var offsetPosition = new Microsoft.Xna.Framework.Vector3(
                 obstacleModel.WorldOrigin.X + (obstacleModel.TheObstacleEntity.DisplayParticleModelX * _pageCache.CurrentPageModel.ModelToWorldRatio),
-                obstacleModel.WorldOrigin.Y + (obstacleModel.TheObstacleEntity.DisplayParticleModelY * _pageCache.CurrentPageModel.ModelToWorldRatio),
+                obstacleModel.WorldOrigin.Y + offsetY,
                 obstacleModel.WorldOrigin.Z);
 
             // Convert world point for position to screen point
@@ -278,6 +331,22 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
 
             // Update the particle effects location
             particleEffectDesc.TheParticleEffect.Trigger(screenPoint);
+
+            // Let the particle effect know the delta time that has passed
+            float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            particleEffectDesc.TheParticleEffect.Update(deltaSeconds);
+        }
+
+        public static void FinishTrigger(ParticleEffectDesc particleEffectDesc,
+                                         GameTime gameTime,
+                                         XNAUtils.CameraType cameraType)
+        {
+            // Convert world point for position to screen point
+            if (particleEffectDesc.GetScreenPoint != null)
+            {
+                var screenPoint = particleEffectDesc.GetScreenPoint(particleEffectDesc);
+                particleEffectDesc.TheParticleEffect.Trigger(screenPoint);
+            }
 
             // Let the particle effect know the delta time that has passed
             float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;

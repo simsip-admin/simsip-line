@@ -282,7 +282,7 @@
     <value>yes</value>
   </data>
   <data name="CreditsCreatedBy" xml:space="preserve">
-    <value>created by</value>
+    <value>development</value>
   </data>
   <data name="CreditsCreatedBySimsip" xml:space="preserve">
     <value>simsip</value>
@@ -297,7 +297,7 @@
     <value>score</value>
   </data>
   <data name="FinishTopScoresFor" xml:space="preserve">
-    <value>top scores for</value>
+    <value>top scores</value>
   </data>
   <data name="HudFreeFlight" xml:space="preserve">
     <value>free flight</value>
@@ -430,5 +430,14 @@
   </data>
   <data name="HudSpeed" xml:space="preserve">
     <value>speed</value>
+  </data>
+  <data name="HudCannotGoSlowerThan" xml:space="preserve">
+    <value>cannot go slower than</value>
+  </data>
+  <data name="HudPaused" xml:space="preserve">
+    <value>paused</value>
+  </data>
+  <data name="HudJoystickLimit" xml:space="preserve">
+    <value>can't move joystick further</value>
   </data>
 </root>

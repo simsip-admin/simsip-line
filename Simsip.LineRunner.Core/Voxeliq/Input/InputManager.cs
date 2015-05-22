@@ -23,6 +23,7 @@ using Simsip.LineRunner;
 using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.Physics;
 using Simsip.LineRunner.SneakyJoystick;
+using Simsip.LineRunner.Utils;
 
 
 namespace Engine.Input
@@ -61,6 +62,8 @@ namespace Engine.Input
 
         private int _previousButtonId;
         private SneakyButtonStatus _previousButtonStatus;
+
+        private float _joystickDelta;
 
         private DateTime _previousDateTime;
 
@@ -154,6 +157,27 @@ namespace Engine.Input
             this._previousButtonStatus = SneakyButtonStatus.None;
             this._previousDateTime = DateTime.Now;
 
+            this.HudCameraOffsetX = UserDefaults.SharedUserDefault.GetFloatForKey(
+                GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_X,
+                GameConstants.USER_DEFAULT_INITIAL_HUD_OFFSET_X);
+            this.HudCameraOffsetY = UserDefaults.SharedUserDefault.GetFloatForKey(
+                GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_Y,
+                GameConstants.USER_DEFAULT_INITIAL_HUD_OFFSET_Y);
+            this.HudCameraOffsetYaw = UserDefaults.SharedUserDefault.GetFloatForKey(
+                GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_YAW,
+                GameConstants.USER_DEFAULT_INITIAL_HUD_OFFSET_YAW);
+            this.HudCameraOffsetPitch = UserDefaults.SharedUserDefault.GetFloatForKey(
+                GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_PITCH,
+                GameConstants.USER_DEFAULT_INITIAL_HUD_OFFSET_PITCH);
+            this.HudCameraOrbitYaw = UserDefaults.SharedUserDefault.GetFloatForKey(
+                GameConstants.USER_DEFAULT_KEY_HUD_ORBIT_YAW,
+                GameConstants.USER_DEFAULT_INITIAL_HUD_ORBIT_YAW);
+            this.HudCameraOrbitPitch = UserDefaults.SharedUserDefault.GetFloatForKey(
+                GameConstants.USER_DEFAULT_KEY_HUD_ORBIT_PITCH,
+                GameConstants.USER_DEFAULT_INITIAL_HUD_ORBIT_PITCH);
+            
+            this._joystickDelta = 0.1f;
+
             // Construct our controllers
             this._defaultNearPlaneDistance = 0.01f;
             this._defaultFarPlaneDistance = 1500f;
@@ -182,9 +206,13 @@ namespace Engine.Input
             this._currentGameState = gameState;
         }
 
-        public void ButtonStartEndEvent(object sender, EventCustom e) 
+        public void HudOnGesture(CCGesture g)
         {
-            
+
+        }
+
+        public void HudButtonStartEndEvent(object sender, EventCustom e) 
+        {
             var sneakyButtonEventResponse = e.UserData as SneakyButtonEventResponse;
             var sneakyButtonStatus = sneakyButtonEventResponse.ResponseType;
             var sneakyButtonId = sneakyButtonEventResponse.ID;
@@ -194,7 +222,33 @@ namespace Engine.Input
                 return;
             }
 
+            MoveDirection moveDirection = (MoveDirection)sneakyButtonId;
+            switch (moveDirection)
+            {
+                case MoveDirection.Forward:
+                    {
+                        this.HudCameraOffsetY += this._joystickDelta;
+                        break;
+                    }
+                case MoveDirection.Backward:
+                    {
+                        this.HudCameraOffsetY -= this._joystickDelta;
+                        break;
+                    }
+                case MoveDirection.Left:
+                    {
+                        this.HudCameraOffsetX -= this._joystickDelta;
+                        break;
+                    }
+                case MoveDirection.Right:
+                    {
+                        this.HudCameraOffsetX += this._joystickDelta;
+                        break;
+                    }
+            }
+
             // movement keys.
+            /*
             var moveDirection = MoveDirection.None;
             if (sneakyButtonId == (int)MoveDirection.Forward ||
                 sneakyButtonId == (int)MoveDirection.Backward ||
@@ -203,6 +257,7 @@ namespace Engine.Input
             {
                 moveDirection = (MoveDirection)sneakyButtonId;
             }
+            */
 
             // TODO: How to jump - 2nd joystick?
             /*
@@ -212,13 +267,16 @@ namespace Engine.Input
             }
             */
 
+            /* TODO: Leaving in until we know what we want to do here
             var newGameTime = new GameTime();
             var currentDateTime = DateTime.Now;
             newGameTime.ElapsedGameTime = currentDateTime - this._previousDateTime;
             this._previousButtonStatus = sneakyButtonStatus;
             this._previousButtonId = sneakyButtonId;
             this._previousDateTime = currentDateTime;
+            */
 
+            /* TODO: Leaving in until we know what we want to do here
             switch(this._currentGameState)
             {
                 case GameState.Moving:
@@ -236,9 +294,10 @@ namespace Engine.Input
                         break;
                     }
             }
+            */
         }
 
-        public void StickStartEndEvent(object sender, EventCustom e)
+        public void HudStickStartEndEvent(object sender, EventCustom e)
         {
             var stickDirection = (CCPoint)e.UserData;
 
@@ -295,6 +354,13 @@ namespace Engine.Input
                     }
             }
         }
+
+        public float HudCameraOffsetX { get; private set; }
+        public float HudCameraOffsetY { get; private set; }
+        public float HudCameraOffsetYaw { get; private set; }
+        public float HudCameraOffsetPitch { get; private set; }
+        public float HudCameraOrbitYaw { get; private set; }
+        public float HudCameraOrbitPitch { get; private set; }
 
         /// <summary>
         /// Handles input updates.

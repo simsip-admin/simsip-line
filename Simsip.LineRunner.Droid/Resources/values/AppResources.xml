@@ -54,12 +54,12 @@
   <string name="CommonNo">no</string>
   <string name="CommonOK">ok</string>
   <string name="CommonYes">yes</string>
-  <string name="CreditsCreatedBy">created by</string>
+  <string name="CreditsCreatedBy">development</string>
   <string name="CreditsCreatedBySimsip">simsip</string>
   <string name="FinishNewHighScore">new high score</string>
   <string name="FinishPost">post</string>
   <string name="FinishScore">score</string>
-  <string name="FinishTopScoresFor">top scores for</string>
+  <string name="FinishTopScoresFor">top scores</string>
   <string name="HudFreeFlight">free flight</string>
   <string name="HudLine">line</string>
   <string name="HudPage">page</string>
@@ -104,4 +104,7 @@
   <string name="CommonPage2Of2">page 2 of 2</string>
   <string name="HudPause">pause</string>
   <string name="HudSpeed">speed</string>
+  <string name="HudCannotGoSlowerThan">cannot go slower than</string>
+  <string name="HudPaused">paused</string>
+  <string name="HudJoystickLimit">can\'t move joystick further</string>
 </resources>

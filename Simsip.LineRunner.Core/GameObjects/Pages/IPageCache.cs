@@ -27,6 +27,8 @@ namespace Simsip.LineRunner.GameObjects.Pages
         /// </summary>
         PageModel CurrentPageModel { get;  }
 
+        int CurrentPageNumber { get; }
+
         /// <summary>
         /// IMPORTANT: Not the depth from the origin, but the absolute depth from a camera's defined
         /// start position.

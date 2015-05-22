@@ -6,6 +6,7 @@ using Simsip.LineRunner.Entities.Facebook;
 using Simsip.LineRunner.Entities.OAuth;
 using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.GameObjects.Pages;
+using Simsip.LineRunner.GameObjects.ParticleEffects;
 using Simsip.LineRunner.Resources;
 using Simsip.LineRunner.Services.Facebook;
 using Simsip.LineRunner.Services.OAuth;
@@ -30,9 +31,16 @@ namespace Simsip.LineRunner.Scenes.Finish
         private CCAction _layerActionIn;
         private CCAction _layerActionOut;
 
-        // Score/date
-        private List<CCLabelTTF> _userScoreScore;
-        private List<CCLabelTTF> _userScoreDate;
+        // New top score
+        private CCLabelTTF _newTopScore;
+        private CCLabelTTF _newTopTime;
+
+        // Top 5 score/date
+        private List<CCLabelTTF> _userTop5Score;
+        private List<CCLabelTTF> _userTop5Date;
+
+        // Particle effects
+        private IParticleEffectCache _particleEffectCache;
 
         public FinishLayer(CoreScene parent)
         {
@@ -62,7 +70,38 @@ namespace Simsip.LineRunner.Scenes.Finish
                 new CCSequence(new CCFiniteTimeAction[] { layerMoveOutAction, layerNavigateAction })
             );
 
-            // Top user scores
+            // New top score header
+            var newHighScoreText = string.Empty;
+#if ANDROID
+            newHighScoreText = Program.SharedProgram.Resources.GetString(Resource.String.FinishNewHighScore);
+#elif IOS
+            newHighScoreText = NSBundle.MainBundle.LocalizedString(Strings.FinishNewHighScore, Strings.FinishNewHighScore);
+#else
+            newHighScoreText = AppResources.FinishNewHighScore;
+#endif
+            var newHighScoreHeader = new CCLabelTTF(newHighScoreText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            newHighScoreHeader.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.9f * this.ContentSize.Height);
+            this.AddChild(newHighScoreHeader);
+
+            // New top score
+            this._newTopScore = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_EXTRA_LARGE);
+            this._newTopScore.Color = CCColor3B.Green;
+            this._newTopScore.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.8f * this.ContentSize.Height);
+            this.AddChild(this._newTopScore);
+
+            // New top time
+            this._newTopTime = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            this._newTopTime.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.7f * this.ContentSize.Height);
+            this.AddChild(this._newTopTime);
+
+            /* TODO: Add back in when first version of finish layer is stablized
+            // Top 5 scores
             var topScoresForText = string.Empty;
 #if ANDROID
             topScoresForText = Program.SharedProgram.Resources.GetString(Resource.String.FinishTopScoresFor);
@@ -71,29 +110,31 @@ namespace Simsip.LineRunner.Scenes.Finish
 #else
             topScoresForText = AppResources.FinishTopScoresFor;
 #endif
-            var userScoresHeader = new CCLabelTTF(topScoresForText + " " + "", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            var userScoresHeader = new CCLabelTTF(topScoresForText + " " + "", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
             userScoresHeader.Position = new CCPoint(
                 0.5f * this.ContentSize.Width, 
-                0.9f * this.ContentSize.Height);
+                0.5f * this.ContentSize.Height);
             this.AddChild(userScoresHeader);
-            this._userScoreScore = new List<CCLabelTTF>();
+
+            this._userTop5Score = new List<CCLabelTTF>();
             for (int i = 0; i < 5; i++)
             {
                 var score = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-                this._userScoreScore.Add(score);
+                this._userTop5Score.Add(score);
                 score.Position = new CCPoint(
                     0.2f * this.ContentSize.Width, 
                     userScoresHeader.Position.Y - (0.1f*this.ContentSize.Height * (i + 1)));
             }
-            this._userScoreDate = new List<CCLabelTTF>();
+            this._userTop5Date = new List<CCLabelTTF>();
             for (int i = 0; i < 5; i++)
             {
                 var date = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-                this._userScoreDate.Add(date);
+                this._userTop5Date.Add(date);
                 date.Position = new CCPoint(
                     0.6f * this.ContentSize.Width, 
                     userScoresHeader.Position.Y - (0.1f*this.ContentSize.Height * (i + 1)));
             }
+            */
 
             // Back
             CCMenuItemImage backButton =
@@ -112,6 +153,10 @@ namespace Simsip.LineRunner.Scenes.Finish
                 0.5f * this.ContentSize.Width, 
                 0.1f * this.ContentSize.Height);
             this.AddChild(backMenu);
+
+            this._particleEffectCache = (IParticleEffectCache)TheGame.SharedGame.Services.GetService(typeof(IParticleEffectCache));
+
+
         }
 
         #region Cocos2D overrides
@@ -137,8 +182,9 @@ namespace Simsip.LineRunner.Scenes.Finish
             // we have a new highest score
             this.DisplayScore();
 
+            // TODO: Add in after first version of finish layer is stabilized
             // For reference, show them the current top 5 scores
-            this.DisplayTopScores();
+            // this.DisplayTopScores();
         }
 
         #endregion
@@ -164,19 +210,20 @@ namespace Simsip.LineRunner.Scenes.Finish
             };
             scoreRepository.Create(score);
 
-            // Construct display based on new high score
-            var newHighScoreText = string.Empty;
-#if ANDROID
-            newHighScoreText = Program.SharedProgram.Resources.GetString(Resource.String.FinishNewHighScore);
-#elif IOS
-            newHighScoreText = NSBundle.MainBundle.LocalizedString(Strings.FinishNewHighScore, Strings.FinishNewHighScore);
-#else
-            newHighScoreText = AppResources.FinishNewHighScore;
-#endif
-            var scoreLabel = new CCLabelTTF(newHighScoreText + GameManager.SharedGameManager.CurrentScore.ToString(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            scoreLabel.Position = new CCPoint(
-                0.5f * this.ContentSize.Width, 
-                0.8f * this.ContentSize.Height);
+            this._newTopScore.Text = GameManager.SharedGameManager.CurrentScore.ToString();
+
+            var newTopTimeSpan = this._parent.TheHudLayer.GetTime();
+            this._newTopTime.Text = newTopTimeSpan.ToString(@"h\:mm\:ss");
+
+            var finishParticleDescs = ParticleEffectFactory.CreateFinishParticles(GetParticleEffectScreenPoint);
+            int i = 0;
+            foreach(var finishParticleDesc in finishParticleDescs)
+            {
+                finishParticleDesc.ParticleEffectIndex = i++;
+            }
+            this._particleEffectCache.AddFinishParticleEffect(finishParticleDescs);
+
+            /* TODO: Add back in when facebook support is in place
             var postText = string.Empty;
 #if ANDROID
             postText = Program.SharedProgram.Resources.GetString(Resource.String.FinishPost);
@@ -201,7 +248,40 @@ namespace Simsip.LineRunner.Scenes.Finish
             postMenu.Position = new CCPoint(
                 0.5f * this.ContentSize.Width, 
                 0.6f * this.ContentSize.Height);
-            this.AddChild(postMenu);        
+            this.AddChild(postMenu);
+            */
+        }
+
+        private CCPoint GetParticleEffectScreenPoint(ParticleEffectDesc particleEffectDesc)
+        {
+            var returnPoint = CCPoint.Zero;
+
+            switch (particleEffectDesc.ParticleEffectIndex)
+            {
+                case 0:
+                    {
+                        returnPoint = this.ConvertToWorldSpace(new CCPoint(
+                            0.2f * this.ContentSize.Width, 
+                            0.2f * this.ContentSize.Height));
+                        break;
+                    }
+                case 1:
+                    {
+                        returnPoint = this.ConvertToWorldSpace(new CCPoint(
+                            0.4f * this.ContentSize.Width, 
+                            0.2f * this.ContentSize.Height));
+                        break;
+                    }
+                case 2:
+                    {
+                        returnPoint = this.ConvertToWorldSpace(new CCPoint(
+                            0.8f * this.ContentSize.Width, 
+                            0.2f * this.ContentSize.Height));
+                        break;
+                    }
+            }
+
+            return returnPoint;
         }
 
         private async Task CreateScore()
@@ -248,16 +328,17 @@ namespace Simsip.LineRunner.Scenes.Finish
         {
             try
             {
-                // Get local top 5
+                // Get local top 5 (or up to top 5)
                 var scoreRepository = new FacebookScoreRepository();
                 var topScores = scoreRepository.GetTopScoresForPlayer(5);
-
+                var topScoresCount = (topScores.Count > 5) ? 5 : topScores.Count;
+                
                 // Update display
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < topScoresCount; i++)
                 {
-                    this._userScoreScore[i].Text = topScores[i].Score.ToString();
+                    this._userTop5Score[i].Text = topScores[i].Score.ToString();
                     // TODO
-                    // this._userScoreDate[i].Text = topScores[i].CreatedDate.ToString();
+                    // this._userTop5Date[i].Text = topScores[i].CreatedDate.ToString();
                 }
             }
             catch (Exception ex)

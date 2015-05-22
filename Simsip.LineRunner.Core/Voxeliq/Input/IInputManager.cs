@@ -41,9 +41,18 @@ namespace Engine.Input
 
         void SwitchState(GameState gameState);
 
-        void ButtonStartEndEvent(object sender, EventCustom e);
+        void HudOnGesture(CCGesture g);
 
-        void StickStartEndEvent(object sender, EventCustom e);
+        void HudButtonStartEndEvent(object sender, EventCustom e);
+
+        void HudStickStartEndEvent(object sender, EventCustom e);
+
+        float HudCameraOffsetX { get; }
+        float HudCameraOffsetY { get; }
+        float HudCameraOffsetYaw { get; }
+        float HudCameraOffsetPitch { get; }
+        float HudCameraOrbitYaw { get; }
+        float HudCameraOrbitPitch { get; }
 
         /// <summary>
         /// Should the game capture mouse?

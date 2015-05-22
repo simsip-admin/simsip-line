@@ -38,7 +38,7 @@ namespace Simsip.LineRunner.Scenes.Credits
 #else
             pageNumberText = AppResources.CommonPage3Of3;
 #endif
-            var pageNumberHeader = new CCLabelTTF(pageNumberText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            var pageNumberHeader = new CCLabelTTF(pageNumberText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             pageNumberHeader.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,
@@ -48,9 +48,10 @@ namespace Simsip.LineRunner.Scenes.Credits
             var iconsTitle = new CCLabelTTF("Icons by freepik (freepik.com)", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             iconsTitle.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
-                0.8f * this.ContentSize.Height);
+                0.7f * this.ContentSize.Height);
             this.AddChild(iconsTitle);
 
+            /* TODO: Add back in when resource packs are ready
             var resourcePacksText = string.Empty;
 #if ANDROID
             resourcePacksText = Program.SharedProgram.Resources.GetString(Resource.String.CreditsResourcePacks);
@@ -100,6 +101,7 @@ namespace Simsip.LineRunner.Scenes.Credits
                 0.5f * this.ContentSize.Width,
                 0.1f * this.ContentSize.Height);
             this.AddChild(upscaledResourceLink);
+            */
         }
     }
 }

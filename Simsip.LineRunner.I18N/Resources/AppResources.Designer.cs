@@ -332,7 +332,7 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to created by.
+        ///   Looks up a localized string similar to development.
         /// </summary>
         public static string CreditsCreatedBy {
             get {
@@ -404,7 +404,7 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to top scores for.
+        ///   Looks up a localized string similar to top scores.
         /// </summary>
         public static string FinishTopScoresFor {
             get {
@@ -557,11 +557,29 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to cannot go slower than.
+        /// </summary>
+        public static string HudCannotGoSlowerThan {
+            get {
+                return ResourceManager.GetString("HudCannotGoSlowerThan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to free flight.
         /// </summary>
         public static string HudFreeFlight {
             get {
                 return ResourceManager.GetString("HudFreeFlight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to can&apos;t move joystick further.
+        /// </summary>
+        public static string HudJoystickLimit {
+            get {
+                return ResourceManager.GetString("HudJoystickLimit", resourceCulture);
             }
         }
         
@@ -589,6 +607,15 @@ namespace Simsip.LineRunner.Resources {
         public static string HudPause {
             get {
                 return ResourceManager.GetString("HudPause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to paused.
+        /// </summary>
+        public static string HudPaused {
+            get {
+                return ResourceManager.GetString("HudPaused", resourceCulture);
             }
         }
         

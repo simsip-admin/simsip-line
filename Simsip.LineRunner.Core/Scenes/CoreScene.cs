@@ -39,7 +39,7 @@ namespace Simsip.LineRunner.Scenes
 
         public CoreScene()
         {
-            // Create services we need
+            // CreateLineHitParticles services we need
             this._assetManager = (IAssetManager)TheGame.SharedGame.Services.GetService(typeof(IAssetManager)); 
             this._padRepository = new PadRepository();
             this._resourcePackRepository = new ResourcePackRepository();
@@ -450,16 +450,6 @@ namespace Simsip.LineRunner.Scenes
         #endregion
 
         #region Api
-
-        public void PauseGame()
-        {
-            this.TheActionLayer.PauseGame();
-        }
-
-        public void ResumeGame()
-        {
-            this.TheActionLayer.ResumeGame();
-        }
 
         public void Refresh()
         {

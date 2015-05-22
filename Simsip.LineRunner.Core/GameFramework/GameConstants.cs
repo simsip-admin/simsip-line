@@ -43,6 +43,27 @@ namespace Simsip.LineRunner.GameFramework
 
         public const string USER_DEFAULT_KEY_ASK_FOR_RATING = "AskForRating";
 
+        public const string USER_DEFAULT_KEY_HERO_LINEAR_VELOCITY_X = "HeroLinearVelocityY";
+        public const float USER_DEFAULT_INITIAL_HERO_LINEAR_VELOCITY_X = 0.1f;
+
+        public const string USER_DEFAULT_KEY_HUD_OFFSET_X = "HudOffsetX";
+        public const float USER_DEFAULT_INITIAL_HUD_OFFSET_X = 0f;
+        public const string USER_DEFAULT_KEY_HUD_OFFSET_Y = "HudOffsetY";
+        public const float USER_DEFAULT_INITIAL_HUD_OFFSET_Y = 0f;
+        public const string USER_DEFAULT_KEY_HUD_OFFSET_YAW = "HudOffsetYaw";
+        public const float USER_DEFAULT_INITIAL_HUD_OFFSET_YAW = 0f;
+        public const string USER_DEFAULT_KEY_HUD_OFFSET_PITCH = "HudOffsetPitch";
+        public const float USER_DEFAULT_INITIAL_HUD_OFFSET_PITCH = 0f;
+        public const string USER_DEFAULT_KEY_HUD_ORBIT_YAW = "HudOrbitYaw";
+        public const float USER_DEFAULT_INITIAL_HUD_ORBIT_YAW = 0f;
+        public const string USER_DEFAULT_KEY_HUD_ORBIT_PITCH = "HudOrbitPitch";
+        public const float USER_DEFAULT_INITIAL_HUD_ORBIT_PITCH = 0f;
+
+        // Limits
+        public const float VELOCITY_LOWER_LIMIT_X = 0.01f;
+        public const float HUD_JOYSTICK_LIMIT_X = 1.0f;
+        public const float HUD_JOYSTICK_LIMIT_Y = 1.0f;
+
         // Ratings prompt window (how long before we qualify to prompt user to rate us)
         public const int RATING_WINDOW_IN_DAYS = 10;
 
@@ -157,5 +178,10 @@ namespace Simsip.LineRunner.GameFramework
         /// Used to animate obstacle's X position, height or angle.
         /// </summary>
         public const float DURATION_ANIMATE_OBSTACLE_SLOW = 8.0f;
+
+        /// <summary>
+        /// How long we display a status message for 
+        /// </summary>
+        public const float DURATION_STATUS_LABEL = 2.0f;
     }
 }

@@ -69,8 +69,8 @@
           <target state="new">cancel</target>
         </trans-unit>
         <trans-unit id="Resx/FinishTopScoresFor" translate="yes" xml:space="preserve">
-          <source>top scores for</source>
-          <target state="new">top scores for</target>
+          <source>top scores</source>
+          <target state="new">top scores</target>
         </trans-unit>
         <trans-unit id="Resx/HudResume" translate="yes" xml:space="preserve">
           <source>resume</source>
@@ -111,6 +111,18 @@
         <trans-unit id="Resx/HudSpeed" translate="yes" xml:space="preserve">
           <source>speed</source>
           <target state="new">speed</target>
+        </trans-unit>
+        <trans-unit id="Resx/HudPaused" translate="yes" xml:space="preserve">
+          <source>paused</source>
+          <target state="new">paused</target>
+        </trans-unit>
+        <trans-unit id="Resx/HudJoystickLimit" translate="yes" xml:space="preserve">
+          <source>can't move joystick further</source>
+          <target state="new">can't move joystick further</target>
+        </trans-unit>
+        <trans-unit id="Resx/HudCannotGoSlowerThan" translate="yes" xml:space="preserve">
+          <source>cannot go slower than</source>
+          <target state="new">cannot go slower than</target>
         </trans-unit>
         <trans-unit id="Resx/CommonPage1Of2" translate="yes" xml:space="preserve">
           <source>page 1 of 2</source>
@@ -265,8 +277,8 @@
           <target state="new">simsip</target>
         </trans-unit>
         <trans-unit id="Resx/CreditsCreatedBy" translate="yes" xml:space="preserve">
-          <source>created by</source>
-          <target state="new">created by</target>
+          <source>development</source>
+          <target state="new">development</target>
         </trans-unit>
         <trans-unit id="Resx/AdminStartPage" translate="yes" xml:space="preserve">
           <source>start page</source>

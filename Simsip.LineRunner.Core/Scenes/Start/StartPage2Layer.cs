@@ -7,6 +7,7 @@ using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.GameObjects.Pages;
 using Simsip.LineRunner.Resources;
 using Simsip.LineRunner.Utils;
+using Simsip.LineRunner.GameObjects.Characters;
 #if IOS
 using Foundation;
 #endif
@@ -18,6 +19,14 @@ namespace Simsip.LineRunner.Scenes.Start
     {
         private CoreScene _parent;
 
+        // Start tap button/animation
+        private CCSprite _startTapImage;
+        private CCAction _startTapAction;
+
+        // Services we'll need
+        private IPageCache _pageCache;
+        private ICharacterCache _characterCache;
+
         public StartPage2Layer(CoreScene parent)
         {
             this._parent = parent;
@@ -25,15 +34,52 @@ namespace Simsip.LineRunner.Scenes.Start
             // We want touches any tap will get us started
             this.TouchEnabled = true;
 
+            // Box out positioning around hero
+            this._pageCache = (IPageCache)TheGame.SharedGame.Services.GetService(typeof(IPageCache));
+            this._characterCache = (ICharacterCache)TheGame.SharedGame.Services.GetService(typeof(ICharacterCache));
+            var heroStartOrigin = this._pageCache.CurrentPageModel.HeroStartOrigin;
+            var heroModel = this._characterCache.TheHeroModel;
+            var heroBottomMiddle = XNAUtils.WorldToLogical(new Vector3(
+                heroStartOrigin.X + (0.5f * heroModel.WorldWidth),
+                heroStartOrigin.Y,
+                heroStartOrigin.Z),
+                XNAUtils.CameraType.Stationary);
+            var heroMiddleLeft = XNAUtils.WorldToLogical(new Vector3(
+                heroStartOrigin.X,
+                heroStartOrigin.Y + (0.5f * heroModel.WorldHeight),
+                heroStartOrigin.Z),
+                XNAUtils.CameraType.Stationary);
+            var heroMiddleRight = XNAUtils.WorldToLogical(new Vector3(
+                heroStartOrigin.X + heroModel.WorldWidth,
+                heroStartOrigin.Y + (0.5f * heroModel.WorldHeight),
+                heroStartOrigin.Z),
+                XNAUtils.CameraType.Stationary);
+
             // Start button
             var startTapImage = new CCSprite("Images/Icons/TapButton");
+            /*
             Cocos2DUtils.ResizeSprite(startTapImage,
                 0.2f * this.ContentSize.Width,
                 0.2f * this.ContentSize.Height);
             startTapImage.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.3f * this.ContentSize.Height);
+            */
+            this._startTapImage.Position = new CCPoint(
+                heroBottomMiddle.X,
+                heroBottomMiddle.Y - (0.2f * this.ContentSize.Height));
             this.AddChild(startTapImage);
+            this._startTapAction = new CCRepeatForever(new CCSequence(new CCFiniteTimeAction[] 
+                { 
+                    new CCMoveBy(1, new CCPoint(
+                        0,
+                        0.1f * this.ContentSize.Height)),
+                    new CCMoveBy(2, new CCPoint(
+                        0,
+                        -0.1f * this.ContentSize.Height)),
+                }));
+            this._startTapImage.RunAction(this._startTapAction);
+
             var startTapText = string.Empty;
 #if ANDROID
             startTapText = Program.SharedProgram.Resources.GetString(Resource.String.StartTap);
@@ -45,15 +91,25 @@ namespace Simsip.LineRunner.Scenes.Start
             var startTapDescription1 = new CCLabelTTF(startTapText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             startTapDescription1.Color = CCColor3B.Green;
             startTapDescription1.Position = new CCPoint(
+                heroMiddleLeft.X - (0.1f * this.ContentSize.Width),
+                heroMiddleLeft.Y);
+            /*
+            startTapDescription1.Position = new CCPoint(
                 0.2f * this.ContentSize.Width,
                 0.5f * this.ContentSize.Height);
+            */
             this.AddChild(startTapDescription1);
 
             var startTapDescription2 = new CCLabelTTF(startTapText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             startTapDescription2.Color = CCColor3B.Green;
             startTapDescription2.Position = new CCPoint(
+                heroMiddleRight.X + (0.1f * this.ContentSize.Width),
+                heroMiddleRight.Y);
+            /*
+            startTapDescription2.Position = new CCPoint(
                 0.8f * this.ContentSize.Width,
                 0.5f * this.ContentSize.Height);
+            */
             this.AddChild(startTapDescription2);
 
         }

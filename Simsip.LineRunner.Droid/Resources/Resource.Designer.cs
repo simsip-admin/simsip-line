@@ -2079,8 +2079,14 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f06004a
 			public const int HelpfreeFlightDescription2 = 2131099722;
 			
+			// aapt resource value: 0x7f0600a4
+			public const int HudCannotGoSlowerThan = 2131099812;
+			
 			// aapt resource value: 0x7f060078
 			public const int HudFreeFlight = 2131099768;
+			
+			// aapt resource value: 0x7f0600a6
+			public const int HudJoystickLimit = 2131099814;
 			
 			// aapt resource value: 0x7f060079
 			public const int HudLine = 2131099769;
@@ -2090,6 +2096,9 @@ namespace Simsip.LineRunner
 			
 			// aapt resource value: 0x7f0600a2
 			public const int HudPause = 2131099810;
+			
+			// aapt resource value: 0x7f0600a5
+			public const int HudPaused = 2131099813;
 			
 			// aapt resource value: 0x7f06007b
 			public const int HudResume = 2131099771;

@@ -106,5 +106,8 @@
         public static string CommonPage2Of2 = "CommonPage2Of2";
         public static string HudPause = "HudPause";
         public static string HudSpeed = "HudSpeed";
+        public static string HudCannotGoSlowerThan = "HudCannotGoSlowerThan";
+        public static string HudPaused = "HudPaused";
+        public static string HudJoystickLimit = "HudJoystickLimit";
     }
 }

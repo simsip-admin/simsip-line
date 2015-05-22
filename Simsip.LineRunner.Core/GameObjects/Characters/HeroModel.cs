@@ -34,8 +34,6 @@ namespace Simsip.LineRunner.GameObjects.Characters
         // Physics control variables
         //
         // Velocity controls
-        public  BEPUutilities.Vector3 DEFAULT_VELOCITY = new  BEPUutilities.Vector3(0.1f, 0f, 0f);
-        public BEPUutilities.Vector3 OPPOSITE_DEFAULT_VELOCITY = new BEPUutilities.Vector3(-0.1f, 0f, 0f);
         public BEPUutilities.Vector3 STOP_VELOCITY = BEPUutilities.Vector3.Zero;
         private float VELOCITY_X_LIMIT = -1;
         //
@@ -80,6 +78,8 @@ namespace Simsip.LineRunner.GameObjects.Characters
         /// The database entity that defines how this character is placed on a page.
         /// </summary>
         public PageCharactersEntity ThePageCharactersEntity { get; private set; }
+
+        public float LinearVelocityX { get; set; }
 
         #endregion
 
@@ -140,7 +140,13 @@ namespace Simsip.LineRunner.GameObjects.Characters
                 this._textureOverrides.Add(texture);
             }
 
+            // Load our point cloud for this model
             this.InitializeConvexHull();
+
+            // Get the default or user modified speed
+            this.LinearVelocityX = UserDefaults.SharedUserDefault.GetFloatForKey(
+                GameConstants.USER_DEFAULT_KEY_HERO_LINEAR_VELOCITY_X,
+                GameConstants.USER_DEFAULT_INITIAL_HERO_LINEAR_VELOCITY_X);
         }
 
         public override void Draw(Matrix view, Matrix projection, StockBasicEffect effect = null, EffectType type = EffectType.None)

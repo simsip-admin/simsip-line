@@ -144,6 +144,14 @@ namespace Simsip.LineRunner.GameObjects.Pages
 
         public PageModel CurrentPageModel { get; private set; }
 
+        public int CurrentPageNumber
+        {
+            get
+            {
+                return this._currentPageNumber;
+            }
+        }
+
         public float PageDepthFromCameraStart { get { return DEFAULT_PAGE_DEPTH_FROM_CAMERA; } }
 
         public float CharacterDepthFromCameraStart { get { return PageDepthFromCameraStart - DEFAULT_CHARACTER_DEPTH_FROM_PAGE; } }
@@ -215,6 +223,8 @@ namespace Simsip.LineRunner.GameObjects.Pages
             var trackingCameraTarget = trackingCameraPosition + new Vector3(0, 0, -this.PageDepthFromCameraStart);
             this._inputManager.LineRunnerCamera.Position = trackingCameraPosition;
             this._inputManager.LineRunnerCamera.Target = trackingCameraTarget;
+            this._inputManager.TheStationaryCamera.Position = trackingCameraPosition;
+            this._inputManager.TheStationaryCamera.Target = trackingCameraTarget;
 
             this.CurrentPageModel.PageStartOrigin = trackingCameraPosition + new Vector3(0, 0, -this.PageDepthFromCameraStart); ;
             this.CurrentPageModel.HeroStartOrigin = trackingCameraPosition + new Vector3(0, 0, -this.CharacterDepthFromCameraStart);
@@ -227,7 +237,7 @@ namespace Simsip.LineRunner.GameObjects.Pages
             this._ocTreeRoot.UpdateModelWorldMatrix(this.CurrentPageModel.ModelID,
                                                     this.CurrentPageModel.WorldMatrix);
 
-            // Create pad as a physics box body
+            // CreateLineHitParticles pad as a physics box body
             // IMPORTANT: Adjusting for physics representation with origin in middle
             var physicsLocalTransform = new BEPUutilities.Vector3(
                 (0.5f * this.CurrentPageModel.WorldWidth),
@@ -235,7 +245,7 @@ namespace Simsip.LineRunner.GameObjects.Pages
                 -(0.5f * this.CurrentPageModel.WorldDepth));
             this.CurrentPageModel.PhysicsLocalTransform = BEPUutilities.Matrix.CreateTranslation(physicsLocalTransform);
 
-            // Create physics box to represent pad and add to physics space
+            // CreateLineHitParticles physics box to represent pad and add to physics space
             var padPhysicsOrigin = ConversionHelper.MathConverter.Convert(this.CurrentPageModel.WorldOrigin) + physicsLocalTransform;
             var padPhysicsBox = new Box(
                 padPhysicsOrigin, 
@@ -476,32 +486,6 @@ namespace Simsip.LineRunner.GameObjects.Pages
         }
 
         #endregion
-
-        #region Legacy
-
-        private void Refresh()
-        {
-            // Remove physics model from physics space
-            if (this.CurrentPageModel.PhysicsEntity != null &&
-                this.CurrentPageModel.PhysicsEntity.Space != null)
-            {
-                this._physicsManager.TheSpace.Remove(this.CurrentPageModel.PhysicsEntity);
-            }
-
-            // Clean out previous pad model
-            this._ocTreeRoot.RemoveModel(this.CurrentPageModel.ModelID);
-
-            // Load definition for CurrentPageModel and add to octree
-            // IMPORTANT: Note how we override the default paramter of unloadPreviousPageModel to
-            //            true. This will allow us to get a fresh copy of the page model.
-            this.InitCurrentPageModel(unloadPreviousPageModel: true);
-
-            // Refresh pad into world, 
-            // will cause CalculateWorldCoordinates to be called again
-            this._inputManager.ThePlayerControllerInput.RefreshPad();
-        }
-
-        #endregion
-
+               
     }
 }

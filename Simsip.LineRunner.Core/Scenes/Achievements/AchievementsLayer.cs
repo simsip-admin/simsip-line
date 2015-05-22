@@ -209,7 +209,7 @@ namespace Simsip.LineRunner.Scenes.Achievements
                 {
                     this._userScoreScore[i].Text = topScores[i].Score.ToString();
                     // TODO
-                    // this._userScoreDate[i].Text = topScores[i].CreatedDate.ToString();
+                    // this._userTop5Date[i].Text = topScores[i].CreatedDate.ToString();
                 }
             }
             catch(Exception ex)

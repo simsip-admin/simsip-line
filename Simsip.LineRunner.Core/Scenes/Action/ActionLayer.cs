@@ -96,10 +96,6 @@ namespace Simsip.LineRunner.Scenes.Action
         // Allows us to gate kill logic so we only handle one kill at a time
         private bool _handlingKill;
 
-        // Recorded in our first time initialization so that we can restore the 
-        // the Cocos2D view appropriately coming back from GameState.Moving.
-        private Matrix _originalCocos2DViewMatrix;
-
         public ActionLayer(CoreScene parent)
         {
             this._parent = parent;
@@ -131,16 +127,6 @@ namespace Simsip.LineRunner.Scenes.Action
         #endregion
 
         #region Api
-
-        public void PauseGame()
-        {
-            this.SwitchState(GameState.PauseGame);
-        }
-
-        public void ResumeGame()
-        {
-            this.SwitchState(GameState.ResumeGame);
-        }
 
         public void Refresh()
         {
@@ -175,7 +161,8 @@ namespace Simsip.LineRunner.Scenes.Action
                 case LayerTags.OptionsMasterLayer:
                 case LayerTags.StartPage1Layer:
                     {
-                        this.UpdateStartingCamera();
+                        // this.UpdateStartingCamera();
+                        this.UpdateTrackingCamera();
 
                         SwitchState(GameState.Start);
                         break;
@@ -313,6 +300,9 @@ namespace Simsip.LineRunner.Scenes.Action
                 // Don't let touches sneak in
                 this.TouchEnabled = false;
 
+                // Stop timer
+                this._hudLayer.StopTimer();
+
                 // Animate hero being killed then determine where to navigate to in callback
                 this._characterCache.HandleKill(
                     e.TheObstacleModel.TheContact,
@@ -352,6 +342,9 @@ namespace Simsip.LineRunner.Scenes.Action
 
                 // Don't let touches sneak in
                 this.TouchEnabled = false;
+
+                // Stop timer
+                this._hudLayer.StopTimer();
 
                 // Animate hero being killed then determine where to navigate to in callback
                 this._characterCache.HandleKill(
@@ -535,8 +528,6 @@ namespace Simsip.LineRunner.Scenes.Action
                 // (depends upon stationary camera being in place for display of panes)
                 this._hudLayer = _parent.TheHudLayer;
 
-                this._originalCocos2DViewMatrix = CCDrawManager.ViewMatrix;
-
                 // Now that our page components are ready to be accessed, get our intro mechanics going (e.g., flyby),
                 // and background loading of models going.
                 // UNLESS we user has already indicated they want to skip intro by tapping start
@@ -583,7 +574,8 @@ namespace Simsip.LineRunner.Scenes.Action
             }
             else
             {
-                this.UpdateStartingCamera();
+                this.UpdateTrackingCamera();
+                // this.UpdateStartingCamera();
             }
         }
 
@@ -803,7 +795,7 @@ namespace Simsip.LineRunner.Scenes.Action
                         // Update line number in hud
                         this._hudLayer.DisplayLineNumber(this._currentLineNumber);
 
-                        // Create bezier based on current and next lines from _lineCache
+                        // CreateLineHitParticles bezier based on current and next lines from _lineCache
                         this._currentFlyBy = new FlyBy(
                             cameraUpdate: FlyByCameraUpdate.TrackingAndStationaryHeightOnly,    // We will update our tracking camera and only the height of the stationary camera
                             targetAttachment: this._characterCache.TheHeroModel,                // We will have the hero model follow our target bezier
@@ -868,7 +860,7 @@ namespace Simsip.LineRunner.Scenes.Action
                         this._hudLayer.DisplayPageNumber(this._currentPageNumber);
                         this._hudLayer.DisplayLineNumber(this._currentLineNumber);
 
-                        // Create bezier based on current page and start position
+                        // CreateLineHitParticles bezier based on current page and start position
                         this._currentFlyBy = new FlyBy(
                             cameraUpdate: FlyByCameraUpdate.TrackingAndStationaryHeightOnly,
                             targetAttachment: this._characterCache.TheHeroModel,
@@ -902,27 +894,16 @@ namespace Simsip.LineRunner.Scenes.Action
                         // TODO: Not beting useed - keeping it simple now, will consider animation later.
                         // If so, see HudLayer.Draw for how to keep ui positioned correctly
 
+                        /* TODO: Analyze this
                         // Set state
                         this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
-                        GameManager.SharedGameManager.CurrentScore = GameManager.SharedGameManager.AdminStartScore;
 
                         // Update score/page/line number in hud
                         this._hudLayer.DisplayScore(GameManager.SharedGameManager.AdminStartScore);
                         this._hudLayer.DisplayPageNumber(this._currentPageNumber);
                         this._hudLayer.DisplayLineNumber(this._currentLineNumber);
-
-                        break;
-                    }
-                case GameState.PauseGame:
-                    {
-                        this.TouchEnabled = false;
-
-                        break;
-                    }
-                case GameState.ResumeGame:
-                    {
-                        this.TouchEnabled = true;
+                        */
 
                         break;
                     }
@@ -979,10 +960,9 @@ namespace Simsip.LineRunner.Scenes.Action
             this._deferredShadowMapping.SwitchState(gameState);
         }
 
+        /* TODO: Taking out as we get joystick in place
         private void UpdateStartingCamera()
         {
-            // TODO:
-            // Position camera slightly off angle from hero
             var heroPosition = this._characterCache.TheHeroModel.WorldOrigin;
             var lineModel = this._lineCache.GetLineModel(this._currentLineNumber);
             var lineSpacing = this._pageCache.CurrentPageModel.WorldLineSpacing;
@@ -993,57 +973,80 @@ namespace Simsip.LineRunner.Scenes.Action
             {
                 offset = -offset;
             }
-            this._inputManager.LineRunnerCamera.Position =
-                new Vector3( // Position
-                    heroPosition.X + offset,
-                    centerLineWorldHeight,
-                    heroPosition.Z + this._pageCache.CharacterDepthFromCameraStart);
+            var originPosition = new Vector3( // Position
+                heroPosition.X + offset,
+                centerLineWorldHeight,
+                heroPosition.Z + this._pageCache.CharacterDepthFromCameraStart);
+
+            this._inputManager.LineRunnerCamera.Position = originPosition + this._inputManager.HudCameraOffset;
             this._inputManager.LineRunnerCamera.Target =
                 new Vector3(            // Target
                     heroPosition.X + (2f * offset),
                     centerLineWorldHeight,
                     heroPosition.Z
                     );
-
-            CCDrawManager.ViewMatrix = this._originalCocos2DViewMatrix;
         }
+        */
 
         private void UpdateTrackingCamera()
         {
-            // TODO:
-            // Slightly angle off of hero then come to opposite of angle as we reach end of line
             var heroPosition = this._characterCache.TheHeroModel.WorldOrigin;
             var lineModel = this._lineCache.GetLineModel(this._currentLineNumber);
             var lineSpacing = this._pageCache.CurrentPageModel.WorldLineSpacing;
             var centerLineWorldHeight = lineModel.WorldOrigin.Y +
                                         (0.5f * lineSpacing);
+            /* TODO: Remove when joystick complete
             var offset = this._characterCache.TheHeroModel.WorldWidth;
             if (this._currentLineNumber % 2 == 0)
             {
                 offset = -offset;
             }
-            this._inputManager.LineRunnerCamera.Position =
-                new Vector3( // Position
-                    heroPosition.X + offset,
-                    centerLineWorldHeight,
-                    heroPosition.Z + this._pageCache.CharacterDepthFromCameraStart);
-            this._inputManager.LineRunnerCamera.Target =
+            
+            var originPosition = new Vector3( // Position
+                heroPosition.X + offset,
+                centerLineWorldHeight,
+                heroPosition.Z + this._pageCache.CharacterDepthFromCameraStart);
+           // this._inputManager.LineRunnerCamera.Position = originPosition + this._inputManager.HudCameraOffset;
+           this._inputManager.LineRunnerCamera.Target =
                 new Vector3(            // Target
                     heroPosition.X + (2f * offset),
                     centerLineWorldHeight,
                     heroPosition.Z
                     );
 
-            // Ok, now position the Cocos2D view so we follow the hero as well
-            var cameraPositionLogical = XNAUtils.WorldToLogical(new Vector3(
+            */
+            
+            // TODO: Get setup once and then just add in deltas
+            var cameraOriginalPosition = new Vector3(
                 heroPosition.X,
                 centerLineWorldHeight,
-                heroPosition.Z),
-                XNAUtils.CameraType.Stationary);
-            CCDrawManager.ViewMatrix = Matrix.CreateLookAt(
-                    new Vector3(cameraPositionLogical.X, cameraPositionLogical.Y, CCDirector.SharedDirector.ZEye),
-                    new Vector3(cameraPositionLogical.X, cameraPositionLogical.Y, 0f),
-                    Vector3.Up);
+                heroPosition.Z + this._pageCache.CharacterDepthFromCameraStart);
+            this._inputManager.LineRunnerCamera.Position = cameraOriginalPosition + new Vector3(
+                this._inputManager.HudCameraOffsetX,
+                this._inputManager.HudCameraOffsetY,
+                0f);
+
+            // http://stackoverflow.com/questions/10372495/rotation-around-a-point
+            this._inputManager.LineRunnerCamera.Target = new Vector3(
+                this._inputManager.LineRunnerCamera.Position.X,
+                this._inputManager.LineRunnerCamera.Position.Y,
+                this._inputManager.LineRunnerCamera.Position.Z - this._pageCache.CharacterDepthFromCameraStart);
+
+            // Other approach that consider the initial pos of the object to rotate
+            Vector3 orbitOffset = this._inputManager.LineRunnerCamera.Position - this._inputManager.LineRunnerCamera.Target;       
+
+            Matrix orbitRotation = Matrix.CreateFromYawPitchRoll(
+                this._inputManager.HudCameraOrbitYaw,
+                this._inputManager.HudCameraOrbitPitch, 
+                0f);
+
+            Vector3.Transform(ref orbitOffset, ref orbitRotation, out orbitOffset);
+
+            // Final position of the rotated object
+            this._inputManager.LineRunnerCamera.Position = this._inputManager.LineRunnerCamera.Position + orbitOffset;  
+
+            this._inputManager.LineRunnerCamera.Yaw(this._inputManager.HudCameraOffsetYaw);
+            this._inputManager.LineRunnerCamera.Pitch(this._inputManager.HudCameraOffsetPitch);
         }
 
         // Callback used when line/obstacle hit to determine

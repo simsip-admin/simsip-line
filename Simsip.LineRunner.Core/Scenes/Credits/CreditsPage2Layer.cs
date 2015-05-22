@@ -38,13 +38,14 @@ namespace Simsip.LineRunner.Scenes.Credits
 #else
             pageNumberText = AppResources.CommonPage2Of3;
 #endif
-            var pageNumberHeader = new CCLabelTTF(pageNumberText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            var pageNumberHeader = new CCLabelTTF(pageNumberText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             pageNumberHeader.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,
                 0.9f * this.ContentSize.Height);
             this.AddChild(pageNumberHeader);
 
+            /* TODO: Taking out for now
             var frameworksText = string.Empty;
 #if ANDROID
             frameworksText = Program.SharedProgram.Resources.GetString(Resource.String.CreditsFrameworks);
@@ -58,6 +59,7 @@ namespace Simsip.LineRunner.Scenes.Credits
                 0.5f * this.ContentSize.Width,
                 0.9f * this.ContentSize.Height);
             this.AddChild(frameworksTitle);
+            */
 
             // Bepu
             var bepuTitle = new CCLabelTTF("BEPUphysics", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
