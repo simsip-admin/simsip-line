@@ -63,8 +63,7 @@
         public static string FinishScore = "FinishScore";
         public static string FinishTopScoresFor = "FinishTopScoresFor";
         public static string HudFreeFlight = "HudFreeFlight";
-        public static string HudLine = "HudLine";
-        public static string HudPage = "HudPage";
+        public static string HudPageLine = "HudPageLine";
         public static string HudResume = "HudResume";
         public static string IntroGeneratingTerrain = "IntroGeneratingTerrain";
         public static string IntroLoadingModels = "IntroLoadingModels";
@@ -109,5 +108,9 @@
         public static string HudCannotGoSlowerThan = "HudCannotGoSlowerThan";
         public static string HudPaused = "HudPaused";
         public static string HudJoystickLimit = "HudJoystickLimit";
+        public static string HudJoystick = "HudJoystick";
+        public static string HudTrackball = "HudTrackball";
+        public static string HudTopScore = "HudTopScore";
+        public static string HudIn = "HudIn";
     }
 }

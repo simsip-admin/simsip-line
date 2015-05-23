@@ -120,6 +120,22 @@
           <source>can't move joystick further</source>
           <target state="new">can't move joystick further</target>
         </trans-unit>
+        <trans-unit id="Resx/HudTrackball" translate="yes" xml:space="preserve">
+          <source>trackball</source>
+          <target state="new">trackball</target>
+        </trans-unit>
+        <trans-unit id="Resx/HudTopScore" translate="yes" xml:space="preserve">
+          <source>top score</source>
+          <target state="new">top score</target>
+        </trans-unit>
+        <trans-unit id="Resx/HudIn" translate="yes" xml:space="preserve">
+          <source>in</source>
+          <target state="new">in</target>
+        </trans-unit>
+        <trans-unit id="Resx/HudJoystick" translate="yes" xml:space="preserve">
+          <source>joystick</source>
+          <target state="new">joystick</target>
+        </trans-unit>
         <trans-unit id="Resx/HudCannotGoSlowerThan" translate="yes" xml:space="preserve">
           <source>cannot go slower than</source>
           <target state="new">cannot go slower than</target>
@@ -248,17 +264,13 @@
           <source>generating terrain</source>
           <target state="new">generating terrain</target>
         </trans-unit>
-        <trans-unit id="Resx/HudPage" translate="yes" xml:space="preserve">
-          <source>page</source>
-          <target state="new">page</target>
-        </trans-unit>
-        <trans-unit id="Resx/HudLine" translate="yes" xml:space="preserve">
-          <source>line</source>
-          <target state="new">line</target>
-        </trans-unit>
         <trans-unit id="Resx/HudFreeFlight" translate="yes" xml:space="preserve">
           <source>free flight</source>
           <target state="new">free flight</target>
+        </trans-unit>
+        <trans-unit id="Resx/HudPageLine" translate="yes" xml:space="preserve">
+          <source>page/line</source>
+          <target state="new">page/line</target>
         </trans-unit>
         <trans-unit id="Resx/FinishScore" translate="yes" xml:space="preserve">
           <source>score</source>

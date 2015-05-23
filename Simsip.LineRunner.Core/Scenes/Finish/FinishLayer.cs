@@ -204,15 +204,16 @@ namespace Simsip.LineRunner.Scenes.Finish
         {
             // First, update our new high score locally
             var scoreRepository = new FacebookScoreRepository();
+            var newTopTimeSpan = this._parent.TheHudLayer.GetTime();
             var score = new FacebookScoreEntity
             {
                 Score = GameManager.SharedGameManager.CurrentScore,
+                ScoreTime = newTopTimeSpan
             };
             scoreRepository.Create(score);
 
             this._newTopScore.Text = GameManager.SharedGameManager.CurrentScore.ToString();
 
-            var newTopTimeSpan = this._parent.TheHudLayer.GetTime();
             this._newTopTime.Text = newTopTimeSpan.ToString(@"h\:mm\:ss");
 
             var finishParticleDescs = ParticleEffectFactory.CreateFinishParticles(GetParticleEffectScreenPoint);

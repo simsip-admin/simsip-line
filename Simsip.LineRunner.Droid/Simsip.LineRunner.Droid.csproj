@@ -4174,6 +4174,10 @@
       <Link>Assets\Content\Images\Misc\Trackball.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Misc\MenuDivider.xnb">
+      <Link>Assets\Content\Images\Misc\MenuDivider.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <AndroidResource Include="Resources\layout\View_OAuth.axml" />

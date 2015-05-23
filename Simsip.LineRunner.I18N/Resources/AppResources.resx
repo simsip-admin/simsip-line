@@ -302,11 +302,8 @@
   <data name="HudFreeFlight" xml:space="preserve">
     <value>free flight</value>
   </data>
-  <data name="HudLine" xml:space="preserve">
-    <value>line</value>
-  </data>
-  <data name="HudPage" xml:space="preserve">
-    <value>page</value>
+  <data name="HudPageLine" xml:space="preserve">
+    <value>page/line</value>
   </data>
   <data name="HudResume" xml:space="preserve">
     <value>resume</value>
@@ -439,5 +436,17 @@
   </data>
   <data name="HudJoystickLimit" xml:space="preserve">
     <value>can't move joystick further</value>
+  </data>
+  <data name="HudJoystick" xml:space="preserve">
+    <value>joystick</value>
+  </data>
+  <data name="HudTrackball" xml:space="preserve">
+    <value>trackball</value>
+  </data>
+  <data name="HudTopScore" xml:space="preserve">
+    <value>top score</value>
+  </data>
+  <data name="HudIn" xml:space="preserve">
+    <value>in</value>
   </data>
 </root>

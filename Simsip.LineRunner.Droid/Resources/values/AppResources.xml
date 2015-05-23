@@ -61,8 +61,7 @@
   <string name="FinishScore">score</string>
   <string name="FinishTopScoresFor">top scores</string>
   <string name="HudFreeFlight">free flight</string>
-  <string name="HudLine">line</string>
-  <string name="HudPage">page</string>
+  <string name="HudPageLine">page/line</string>
   <string name="HudResume">resume</string>
   <string name="IntroGeneratingTerrain">generating terrain</string>
   <string name="IntroLoadingModels">loading models</string>
@@ -107,4 +106,8 @@
   <string name="HudCannotGoSlowerThan">cannot go slower than</string>
   <string name="HudPaused">paused</string>
   <string name="HudJoystickLimit">can\'t move joystick further</string>
+  <string name="HudJoystick">joystick</string>
+  <string name="HudTrackball">trackball</string>
+  <string name="HudTopScore">top score</string>
+  <string name="HudIn">in</string>
 </resources>

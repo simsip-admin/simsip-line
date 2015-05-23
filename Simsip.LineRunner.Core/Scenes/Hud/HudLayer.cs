@@ -13,6 +13,7 @@ using Simsip.LineRunner.Utils;
 using System;
 using Simsip.LineRunner.GameObjects.Characters;
 using Microsoft.Xna.Framework.Input.Touch;
+using Simsip.LineRunner.Data.Facebook;
 #if NETFX_CORE
 using Windows.System.Threading;
 #else
@@ -43,20 +44,16 @@ namespace Simsip.LineRunner.Scenes.Hud
         private CCAction _footerLayerActionIn;
         private CCAction _footerLayerActionOut;
 
+        // Top score
+        private CCLabelTTF _topScoreLabel;
+
         // Status label
         private CCLabelTTF _statusLabel;
+        private CCAction _statusLabelAction;
 
         // Score label
         private CCLabelTTF _scoreLabel;
         private CCAction _scoreLabelAction;
-        
-        // Page label
-        private CCLabelTTF _pageNumberLabel;
-        private CCAction _pageNumberLabelAction;
-        
-        // Line label
-        private CCLabelTTF _lineNumberLabel;
-        private CCAction _lineNumberLabelAction;
 
         // Timer
         private CCLabelTTF _timerLabel;
@@ -68,9 +65,6 @@ namespace Simsip.LineRunner.Scenes.Hud
 #else
         private Timer _timer;
 #endif
-
-        // Joystick
-        private SneakyPanelControl _joystickPanel;
 
         // Pause/resume
         private bool _paused;
@@ -130,71 +124,98 @@ namespace Simsip.LineRunner.Scenes.Hud
             trackballImage.AnchorPoint = CCPoint.AnchorMiddle;
             trackballImage.Position = new CCPoint(
                 0.2f * headerContentSize.Width,
-                0.5f * headerContentSize.Height);
+                0.6f * headerContentSize.Height);
             this._headerLayer.AddChild(trackballImage);
+            var trackballText = string.Empty;
+#if ANDROID
+            trackballText = Program.SharedProgram.Resources.GetString(Resource.String.HudTrackball);
+#elif IOS
+            trackballText = NSBundle.MainBundle.LocalizedString(Strings.HudTrackball, Strings.HudTrackball);
+#else
+            trackballText = AppResources.HudTrackball;
+#endif
+            var trackballLabel = new CCLabelTTF(trackballText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            trackballLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            trackballLabel.Position = new CCPoint(
+                0.2f * headerContentSize.Width,
+                0.2f * headerContentSize.Height);
+            this._headerLayer.AddChild(trackballLabel);
 
-            // Status label
+            // Header divider left
+            var headerDividerLeft = new CCSprite("Images/Misc/MenuDivider.png");
+            headerDividerLeft.AnchorPoint = CCPoint.AnchorMiddle;
+            headerDividerLeft.Opacity = 128;
+            headerDividerLeft.Position = new CCPoint(
+                0.4f * headerContentSize.Width,
+                0.5f * headerContentSize.Height);
+            this._headerLayer.AddChild(headerDividerLeft);
+
+            // Top score
+            var topScoreHeaderText = string.Empty;
+#if ANDROID
+            topScoreHeaderText = Program.SharedProgram.Resources.GetString(Resource.String.HudTopScore);
+#elif IOS
+            topScoreHeaderText = NSBundle.MainBundle.LocalizedString(Strings.HudTopScore, Strings.HudTopScore);
+#else
+            topScoreHeaderText = AppResources.HudTopScore;
+#endif
+            var topScoreHeaderLabel = new CCLabelTTF(topScoreHeaderText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            topScoreHeaderLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            topScoreHeaderLabel.Position = new CCPoint(
+                0.58f * headerContentSize.Width,
+                0.8f  * headerContentSize.Height);
+            this._headerLayer.AddChild(topScoreHeaderLabel);
+            this._topScoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._topScoreLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            this._topScoreLabel.Position = new CCPoint(
+                0.58f * headerContentSize.Width,
+                0.6f  * headerContentSize.Height);
+            this._headerLayer.AddChild(this._topScoreLabel);
+
+            // Status
             this._statusLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._statusLabel.Color = CCColor3B.Red;
             this._statusLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._statusLabel.Position = new CCPoint(
-                0.5f * headerContentSize.Width,
-                0.5f * headerContentSize.Height);
+                0.58f * headerContentSize.Width,
+                0.2f  * headerContentSize.Height);
             this._headerLayer.AddChild(this._statusLabel);
+
+            // Header divider right
+            var headerDividerRight = new CCSprite("Images/Misc/MenuDivider.png");
+            headerDividerRight.AnchorPoint = CCPoint.AnchorMiddle;
+            headerDividerRight.Opacity = 128;
+            headerDividerRight.Position = new CCPoint(
+                0.76f * headerContentSize.Width,
+                0.5f  * headerContentSize.Height);
+            this._headerLayer.AddChild(headerDividerRight);
 
             // Score label
             this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_EXTRA_LARGE);
             this._scoreLabel.Color = CCColor3B.Green;
             this._statusLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._scoreLabel.Position = new CCPoint(
-                0.8f * headerContentSize.Width, 
-                0.8f * headerContentSize.Height);
+                0.88f * headerContentSize.Width, 
+                0.7f  * headerContentSize.Height);
             this._headerLayer.AddChild(this._scoreLabel);
 
             // Score label action
             var scaleStartScore = new CCScaleTo(0f, 0f);
             var scaleUpScore = new CCScaleTo(0.5f, 1.2f);
             var scaleBackScore = new CCScaleTo(0.1f, 1.0f);
-            // Currently not using these - so score remains displayed on screen
-            var delay = new CCDelayTime(2.0f);
-            var fade = new CCFadeOut(0.5f);
-            var hide = new CCHide();
-            this._scoreLabelAction = new CCSequence(new CCFiniteTimeAction[] { scaleStartScore, scaleUpScore, scaleBackScore /*, delay, fade, hide*/ });
-
-            // Page number label
-            this._pageNumberLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._pageNumberLabel.AnchorPoint = CCPoint.AnchorMiddle;
-            this._pageNumberLabel.Position = new CCPoint(
-                0.7f * headerContentSize.Width,
-                0.5f  * headerContentSize.Height);
-            this._headerLayer.AddChild(this._pageNumberLabel);
+            this._scoreLabelAction = new CCSequence(new CCFiniteTimeAction[] { scaleStartScore, scaleUpScore, scaleBackScore });
 
             // Page number label action
             var scaleStartPageNumber = new CCScaleTo(0f, 0f);
             var scaleUpPageNumber = new CCScaleTo(0.5f, 1.2f);
             var scaleBackPageNumber = new CCScaleTo(0.1f, 1.0f);
-            this._pageNumberLabelAction = new CCSequence(new CCFiniteTimeAction[] { scaleStartPageNumber, scaleUpPageNumber, scaleBackPageNumber });
-
-            // Line number label
-            this._lineNumberLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._lineNumberLabel.AnchorPoint = CCPoint.AnchorMiddle;
-            _lineNumberLabel.Position = new CCPoint(
-                0.9f * headerContentSize.Width,
-                0.5f * headerContentSize.Height);
-            this._headerLayer.AddChild(this._lineNumberLabel);
-
-            // Line number label action
-            var scaleStartLineNumber = new CCScaleTo(0f, 0f);
-            var scaleUpLineNumber = new CCScaleTo(0.5f, 1.2f);
-            var scaleBackLineNumber = new CCScaleTo(0.1f, 1.0f);
-            this._lineNumberLabelAction = new CCSequence(new CCFiniteTimeAction[] { scaleStartLineNumber, scaleUpLineNumber, scaleBackLineNumber });
+            this._statusLabelAction = new CCSequence(new CCFiniteTimeAction[] { scaleStartPageNumber, scaleUpPageNumber, scaleBackPageNumber });
 
             // Timer
             this._timerLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             this._timerLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._timerLabel.Position = new CCPoint(
-                0.8f * headerContentSize.Width,
-                0.2f * headerContentSize.Height);
+                0.88f * headerContentSize.Width,
+                0.4f  * headerContentSize.Height);
             this._timerLabelText = string.Empty;
             this._headerLayer.AddChild(_timerLabel);
 #if !NETFX_CORE
@@ -228,25 +249,6 @@ namespace Simsip.LineRunner.Scenes.Hud
             );
             var footerLayerMoveOutAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, footerLayerStartPosition);
             this._footerLayerActionOut = new CCEaseBackIn(headerLayerMoveOutAction);
-
-            // Joystick
-            this._joystickPanel = new SneakyPanelControl(new CCSize(
-                0.25f * footerContentSize.Width,
-                footerContentSize.Height), 
-                4);
-
-            // TODO: Is this the right position for this? Try setting to middle of parent panel just to get to display
-            this._joystickPanel.Position = new CCPoint(
-                0.2f * footerContentSize.Width,
-                0.5f * footerContentSize.Height);
-            this._footerLayer.AddChild(this._joystickPanel);
-
-            // Hook-up joystick events
-            this._joystickPanel.JoyControl.SneakyStartEndEvent += this.HudStickStartEndEvent;
-            foreach (var button in this._joystickPanel.Buttons)
-            {
-                button.SneakyStartEndEvent += this.HudButtonStartEndEvent;
-            }
 
             // Joystick
             var joystickLeftMenu = new CCMenu(
@@ -301,6 +303,29 @@ namespace Simsip.LineRunner.Scenes.Hud
                 0.2f  * footerContentSize.Width,
                 0.25f * footerContentSize.Height);
             this._footerLayer.AddChild(joystickDownMenu);
+            var joystickText = string.Empty;
+#if ANDROID
+            joystickText = Program.SharedProgram.Resources.GetString(Resource.String.HudJoystick);
+#elif IOS
+            joystickText = NSBundle.MainBundle.LocalizedString(Strings.HudJoystick, Strings.HudJoystick);
+#else
+            joystickText = AppResources.HudJoystick;
+#endif
+            var joystickLabel = new CCLabelTTF(joystickText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            joystickLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            joystickLabel.Position = new CCPoint(
+                0.2f * footerContentSize.Width,
+                0.5f * footerContentSize.Height);
+            this._footerLayer.AddChild(joystickLabel);
+
+            // Footer divider
+            var footerDivider = new CCSprite("Images/Misc/MenuDivider.png");
+            footerDivider.AnchorPoint = CCPoint.AnchorMiddle;
+            footerDivider.Opacity = 128;
+            footerDivider.Position = new CCPoint(
+                0.42f * headerContentSize.Width,
+                0.5f  * headerContentSize.Height);
+            this._footerLayer.AddChild(footerDivider);
 
             // Pause toggle
             CCMenuItemImage pauseToggleOn =
@@ -318,8 +343,8 @@ namespace Simsip.LineRunner.Scenes.Hud
                         pauseToggle,
                     });
             pauseMenu.Position = new CCPoint(
-                0.5f * footerContentSize.Width,
-                0.6f * footerContentSize.Height);
+                0.53f * footerContentSize.Width,
+                0.6f  * footerContentSize.Height);
             this._footerLayer.AddChild(pauseMenu);
             this._pauseText = string.Empty;
 #if ANDROID
@@ -338,7 +363,7 @@ namespace Simsip.LineRunner.Scenes.Hud
                         pauseItem
                     });
             pauseLabelMenu.Position = new CCPoint(
-                0.5f  * footerContentSize.Width,
+                0.53f  * footerContentSize.Width,
                 0.25f * footerContentSize.Height);
             this._footerLayer.AddChild(pauseLabelMenu);
 
@@ -365,7 +390,7 @@ namespace Simsip.LineRunner.Scenes.Hud
                 0.05f * footerContentSize.Width);
             speedMenu.AnchorPoint = CCPoint.AnchorMiddle;
             speedMenu.Position = new CCPoint(
-                0.8f * footerContentSize.Width,
+                0.82f * footerContentSize.Width,
                 0.6f  * footerContentSize.Height);
             this._footerLayer.AddChild(speedMenu);
 
@@ -379,7 +404,7 @@ namespace Simsip.LineRunner.Scenes.Hud
 #endif
             var speedLabel = new CCLabelTTF(speedText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             speedLabel.Position = new CCPoint(
-                0.8f * footerContentSize.Width,
+                0.82f * footerContentSize.Width,
                 0.25f * footerContentSize.Height);
             this._footerLayer.AddChild(speedLabel);
 
@@ -442,6 +467,25 @@ namespace Simsip.LineRunner.Scenes.Hud
             // and it was not being enabled again when entering OnEnter()
             this.ScheduleUpdate();
 
+            // Top score display
+            var scoreRepository = new FacebookScoreRepository();
+            var topScore = scoreRepository.GetTopScoreForPlayer();
+            if (topScore != null)
+            {
+                var inText = string.Empty;
+#if ANDROID
+                inText = Program.SharedProgram.Resources.GetString(Resource.String.HudIn);
+#elif IOS
+                inText = NSBundle.MainBundle.LocalizedString(Strings.HudIn, Strings.HudIn);
+#else
+                inText = AppResources.HudIn;
+#endif
+                this._topScoreLabel.Text = 
+                    topScore.Score.ToString()  + " " + 
+                    inText + " " + 
+                    topScore.ScoreTime.ToString(@"h\:mm\:ss");
+            }
+
             // Animate panes/layers
             this._headerLayer.RunAction(this._headerLayerActionIn);
             this._footerLayer.RunAction(this._footerLayerActionIn);
@@ -492,36 +536,22 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._scoreLabel.RunAction(this._scoreLabelAction);
         }
 
-        public void DisplayPageNumber(int pageNumber)
+        public void DisplayPageLineNumber(int pageNumber, int lineNumber)
         {
             // Animate display of new page number
-            this._pageNumberLabel.StopAllActions();
-            var pageText = string.Empty;
+            this._statusLabel.StopAllActions();
+            var pageLineText = string.Empty;
 #if ANDROID
-            pageText = Program.SharedProgram.Resources.GetString(Resource.String.HudPage);
+            pageLineText = Program.SharedProgram.Resources.GetString(Resource.String.HudPageLine);
 #elif IOS
-            pageText = NSBundle.MainBundle.LocalizedString(Strings.HudPage, Strings.HudPage);
+            pageLineText = NSBundle.MainBundle.LocalizedString(Strings.HudPageLine, Strings.HudPageLine);
 #else
-            pageText = AppResources.HudPage;
+            pageLineText = AppResources.HudPageLine;
 #endif
-            this._pageNumberLabel.Text = pageText + " " + pageNumber.ToString();
-            this._pageNumberLabel.RunAction(this._pageNumberLabelAction);
-        }
-
-        public void DisplayLineNumber(int lineNumber)
-        {
-            // Animate display of new line number
-            this._lineNumberLabel.StopAllActions();
-            var lineText = string.Empty;
-#if ANDROID
-            lineText = Program.SharedProgram.Resources.GetString(Resource.String.HudLine);
-#elif IOS
-            lineText = NSBundle.MainBundle.LocalizedString(Strings.HudLine, Strings.HudLine);
-#else
-            lineText = AppResources.HudLine;
-#endif
-            this._lineNumberLabel.Text = lineText + " " + lineNumber.ToString();
-            this._lineNumberLabel.RunAction(this._lineNumberLabelAction);
+            this._statusLabel.Text = 
+                pageLineText + " " + pageNumber.ToString() + "/" + lineNumber.ToString();
+            this._statusLabel.Color = CCColor3B.White;
+            this._statusLabel.RunAction(this._statusLabelAction);
         }
 
         public void SwitchState(GameState gameState)
@@ -627,6 +657,7 @@ namespace Simsip.LineRunner.Scenes.Hud
                 // Clear out any previous activity for status label
                 // and clear out the label itself
                 this._statusLabel.ActionManager.RemoveAllActionsFromTarget(this);
+                this._statusLabel.Color = CCColor3B.White;
                 this._statusLabel.Text = string.Empty;
             }
             else
@@ -645,6 +676,7 @@ namespace Simsip.LineRunner.Scenes.Hud
                 // Clear out any previous activity for status label
                 // and set new text
                 this._statusLabel.ActionManager.RemoveAllActionsFromTarget(this);
+                this._statusLabel.Color = CCColor3B.Red;
                 this._statusLabel.Text = statusText;
             }
         }

@@ -575,6 +575,24 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to in.
+        /// </summary>
+        public static string HudIn {
+            get {
+                return ResourceManager.GetString("HudIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to joystick.
+        /// </summary>
+        public static string HudJoystick {
+            get {
+                return ResourceManager.GetString("HudJoystick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to can&apos;t move joystick further.
         /// </summary>
         public static string HudJoystickLimit {
@@ -584,20 +602,11 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to line.
+        ///   Looks up a localized string similar to page/line.
         /// </summary>
-        public static string HudLine {
+        public static string HudPageLine {
             get {
-                return ResourceManager.GetString("HudLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to page.
-        /// </summary>
-        public static string HudPage {
-            get {
-                return ResourceManager.GetString("HudPage", resourceCulture);
+                return ResourceManager.GetString("HudPageLine", resourceCulture);
             }
         }
         
@@ -634,6 +643,24 @@ namespace Simsip.LineRunner.Resources {
         public static string HudSpeed {
             get {
                 return ResourceManager.GetString("HudSpeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to top score.
+        /// </summary>
+        public static string HudTopScore {
+            get {
+                return ResourceManager.GetString("HudTopScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to trackball.
+        /// </summary>
+        public static string HudTrackball {
+            get {
+                return ResourceManager.GetString("HudTrackball", resourceCulture);
             }
         }
         

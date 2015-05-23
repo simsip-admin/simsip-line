@@ -36,6 +36,11 @@ namespace Simsip.LineRunner.Entities.Facebook
         public int Score { get; set; }
 
         /// <summary>
+        /// Elapsed time for score
+        /// </summary>
+        public TimeSpan ScoreTime { get; set; }
+
+        /// <summary>
         /// App id associated with the score
         /// </summary>
         public string AppId { get; set; }

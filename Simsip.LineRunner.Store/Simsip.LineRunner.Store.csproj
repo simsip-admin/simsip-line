@@ -4142,6 +4142,10 @@
       <Link>Content\Images\Misc\Trackball.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Misc\MenuDivider.xnb">
+      <Link>Content\Images\Misc\MenuDivider.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Simsip.LineRunner.Store_TemporaryKey.pfx" />
   </ItemGroup>

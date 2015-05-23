@@ -712,8 +712,11 @@ namespace Simsip.LineRunner.Scenes.Action
                         GameManager.SharedGameManager.CurrentScore = GameManager.SharedGameManager.AdminStartScore;
 
                         // Update page/line number in hud
+                        this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
+                        /*
                         this._hudLayer.DisplayPageNumber(this._currentPageNumber);
                         this._hudLayer.DisplayLineNumber(this._currentLineNumber);
+                        */
 
                         var pageWidth = this._pageCache.CurrentPageModel.WorldWidth;
                         var pageHeight = this._pageCache.CurrentPageModel.WorldHeight;
@@ -793,7 +796,8 @@ namespace Simsip.LineRunner.Scenes.Action
                         this._currentLineNumber++;
 
                         // Update line number in hud
-                        this._hudLayer.DisplayLineNumber(this._currentLineNumber);
+                        this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
+                        // this._hudLayer.DisplayLineNumber(this._currentLineNumber);
 
                         // CreateLineHitParticles bezier based on current and next lines from _lineCache
                         this._currentFlyBy = new FlyBy(
@@ -857,8 +861,11 @@ namespace Simsip.LineRunner.Scenes.Action
                         this._currentLineNumber = 1;
 
                         // Update page/line number in hud
+                        this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
+                        /*
                         this._hudLayer.DisplayPageNumber(this._currentPageNumber);
                         this._hudLayer.DisplayLineNumber(this._currentLineNumber);
+                        */
 
                         // CreateLineHitParticles bezier based on current page and start position
                         this._currentFlyBy = new FlyBy(
@@ -925,8 +932,11 @@ namespace Simsip.LineRunner.Scenes.Action
 
                         // Update score/page/line number in hud
                         this._hudLayer.DisplayScore(GameManager.SharedGameManager.AdminStartScore);
+                        this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
+                        /*
                         this._hudLayer.DisplayPageNumber(this._currentPageNumber);
                         this._hudLayer.DisplayLineNumber(this._currentLineNumber);
+                        */
 
                         break;
                     }

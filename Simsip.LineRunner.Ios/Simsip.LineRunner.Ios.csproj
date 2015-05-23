@@ -1062,6 +1062,10 @@
       <Link>Content\Images\Icons\JoystickUpSelected.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Misc\MenuDivider.xnb">
+      <Link>Content\Images\Misc\MenuDivider.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Misc\Trackball.xnb">
       <Link>Content\Images\Misc\Trackball.xnb</Link>
     </None>

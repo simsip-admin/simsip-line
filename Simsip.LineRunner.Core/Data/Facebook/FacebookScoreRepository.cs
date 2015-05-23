@@ -58,6 +58,29 @@ namespace Simsip.LineRunner.Data.Facebook
             }
         }
 
+        public FacebookScoreEntity GetTopScoreForPlayer()
+        {
+            try
+            {
+                lock (Database.DATABASE_LOCK)
+                {
+                    using (var connection = new SQLiteConnection(Database.DatabasePath()))
+                    {
+                        var result = connection.Table<FacebookScoreEntity>()
+                                      .OrderBy(x => x.Score)
+                                      .FirstOrDefault();
+
+                        return result;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception in GetTopScoreForPlayer: " + ex);
+                return null;
+            }
+        }
+
         public List<FacebookScoreEntity> GetTopScoresForPlayer(int count)
         {
             try

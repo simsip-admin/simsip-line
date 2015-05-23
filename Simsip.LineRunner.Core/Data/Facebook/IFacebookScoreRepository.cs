@@ -7,6 +7,7 @@ namespace Simsip.LineRunner.Data.Facebook
     {
         void Create(FacebookScoreEntity score);
         List<FacebookScoreEntity> GetPlayersScores(int skip, int pageSize);
+        FacebookScoreEntity GetTopScoreForPlayer();
         List<FacebookScoreEntity> GetTopScoresForPlayer(int count);
         FacebookScoreEntity GetScoreForUserAndAppId(string userId, string appId);
         void Update(FacebookScoreEntity album);
