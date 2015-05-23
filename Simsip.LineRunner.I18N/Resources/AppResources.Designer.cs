@@ -89,7 +89,7 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to top scores for.
+        ///   Looks up a localized string similar to top scores.
         /// </summary>
         public static string AchievementsTopScoresFor {
             get {

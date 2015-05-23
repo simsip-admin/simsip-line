@@ -33,6 +33,7 @@ namespace Simsip.LineRunner.Scenes.Achievements
 
         // User scores
         private List<CCLabelTTF> _userScoreScore;
+        private List<CCLabelTTF> _userScoreTime;
         private List<CCLabelTTF> _userScoreDate;
 
         // Global scores
@@ -50,13 +51,13 @@ namespace Simsip.LineRunner.Scenes.Achievements
             // Get these set up for relative positioning below
             var screenSize = CCDirector.SharedDirector.WinSize;
             this.ContentSize = new CCSize(
-                0.6f * screenSize.Width,
+                0.8f * screenSize.Width,
                 0.6f * screenSize.Height);
 
             // Layer transition in/out
             var layerEndPosition = new CCPoint(
-                0.2f * screenSize.Width,
-                0.2f * screenSize.Height);
+                0.1f * screenSize.Width,
+                0.2f  * screenSize.Height);
             var layerStartPosition = new CCPoint(
                 layerEndPosition.X,
                 screenSize.Height);
@@ -81,7 +82,7 @@ namespace Simsip.LineRunner.Scenes.Achievements
             leaderboardsText = AppResources.AchievementsLeaderboards;
 #endif
 
-            var leaderboardTitle = new CCLabelTTF(leaderboardsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            var leaderboardTitle = new CCLabelTTF(leaderboardsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_EXTRA_LARGE);
             leaderboardTitle.Position = new CCPoint(
                 0.5f * this.ContentSize.Width, 
                 0.9f * this.ContentSize.Height);
@@ -96,30 +97,50 @@ namespace Simsip.LineRunner.Scenes.Achievements
 #else
             topScoresForText = AppResources.AchievementsTopScoresFor;
 #endif
-            var userScoresHeader = new CCLabelTTF(topScoresForText + " " + "", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var userScoresHeader = new CCLabelTTF(topScoresForText + " " + "", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
             userScoresHeader.Position = new CCPoint(
                 0.5f * this.ContentSize.Width, 
                 0.8f * this.ContentSize.Height);
             this.AddChild(userScoresHeader);
+
+            var tableStartHeight = userScoresHeader.Position.Y - (0.05f * this.ContentSize.Height);
             this._userScoreScore = new List<CCLabelTTF>();
             for (int i = 0; i < 5; i++)
             {
-                var score = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-                this._userScoreScore.Add(score);
+                var score = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                score.AnchorPoint = CCPoint.AnchorMiddleRight;
                 score.Position = new CCPoint(
-                    0.1f * this.ContentSize.Width, 
-                    userScoresHeader.Position.Y - (0.05f * this.ContentSize.Height * (i+1)));
+                    0.2f * this.ContentSize.Width, 
+                    tableStartHeight - (0.08f * this.ContentSize.Height * (i+1)));
+                this.AddChild(score);
+                this._userScoreScore.Add(score);
             }
+
+            this._userScoreTime = new List<CCLabelTTF>();
+            for (int i = 0; i < 5; i++)
+            {
+                var time = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                time.AnchorPoint = CCPoint.AnchorMiddleLeft;
+                time.Position = new CCPoint(
+                    0.3f * this.ContentSize.Width,
+                    tableStartHeight - (0.08f * this.ContentSize.Height * (i + 1)));
+                this.AddChild(time);
+                this._userScoreTime.Add(time);
+            }
+
             this._userScoreDate = new List<CCLabelTTF>();
             for (int i = 0; i < 5; i++)
             {
-                var date = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-                this._userScoreDate.Add(date);
+                var date = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                date.AnchorPoint = CCPoint.AnchorMiddleLeft;
                 date.Position = new CCPoint(
-                    0.6f * this.ContentSize.Width, 
-                    userScoresHeader.Position.Y - (0.05f * this.ContentSize.Height * (i + 1)));
+                    0.6f * this.ContentSize.Width,
+                    tableStartHeight - (0.08f * this.ContentSize.Height * (i + 1)));
+                this.AddChild(date);
+                this._userScoreDate.Add(date);
             }
 
+            /* TODO: Add back in when facebook support is here
             // Top global scores
             var topGlobalScoresText = string.Empty;
 #if ANDROID
@@ -161,6 +182,7 @@ namespace Simsip.LineRunner.Scenes.Achievements
                     0.8f * this.ContentSize.Width, 
                     userScoresHeader.Position.Y - (0.05f * this.ContentSize.Height * (i + 1)));
             }
+            */
 
             // Back
             CCMenuItemImage backButton =
@@ -174,7 +196,7 @@ namespace Simsip.LineRunner.Scenes.Achievements
                     });
             backMenu.Position = new CCPoint(
                 0.5f * this.ContentSize.Width, 
-                0.9f * this.ContentSize.Height);
+                0.1f * this.ContentSize.Height);
             this.AddChild(backMenu);
         }
 
@@ -189,7 +211,9 @@ namespace Simsip.LineRunner.Scenes.Achievements
 
             // Get latest scores and display them
             this.UpdateUserScores();
-            this.UpdateGlobalScores();
+            
+            // TODO: Add back in when facebook scores is here
+            // this.UpdateGlobalScores();
         }
 
         #endregion
@@ -200,16 +224,17 @@ namespace Simsip.LineRunner.Scenes.Achievements
         {
             try
             {
-                // Get local top 5
+                // Get local top 5 (actually up to top 5, could be less if we do not have 5 scores set yet)
                 var scoreRepository = new FacebookScoreRepository();
                 var topScores = scoreRepository.GetTopScoresForPlayer(5);
+                var topScoresCount = topScores.Count() > 5 ? 5 : topScores.Count();
 
                 // Update display
-                for(int i = 0; i < 5; i++)
+                for(int i = 0; i < topScoresCount; i++)
                 {
                     this._userScoreScore[i].Text = topScores[i].Score.ToString();
-                    // TODO
-                    // this._userTop5Date[i].Text = topScores[i].CreatedDate.ToString();
+                    this._userScoreTime[i].Text = topScores[i].ScoreTime.ToString(@"h\:mm\:ss");
+                    this._userScoreDate[i].Text = topScores[i].CreateDate.ToString("d");
                 }
             }
             catch(Exception ex)

@@ -41,7 +41,8 @@ namespace Simsip.LineRunner.Data.Facebook
                 using (var connection = new SQLiteConnection(Database.DatabasePath()))
                 {
                     var results = connection.Table<FacebookScoreEntity>()
-                                  .OrderBy(x => x.Score);
+                                  .OrderByDescending(x => x.Score)
+                                  .ThenBy(x => x.ScoreTime);
 
                     if (skip != -1)
                     {
@@ -67,7 +68,8 @@ namespace Simsip.LineRunner.Data.Facebook
                     using (var connection = new SQLiteConnection(Database.DatabasePath()))
                     {
                         var result = connection.Table<FacebookScoreEntity>()
-                                      .OrderBy(x => x.Score)
+                                      .OrderByDescending(x => x.Score)
+                                      .ThenBy(x => x.ScoreTime)
                                       .FirstOrDefault();
 
                         return result;
@@ -90,7 +92,8 @@ namespace Simsip.LineRunner.Data.Facebook
                     using (var connection = new SQLiteConnection(Database.DatabasePath()))
                     {
                         var results = connection.Table<FacebookScoreEntity>()
-                                      .OrderBy(x => x.Score)
+                                      .OrderByDescending(x => x.Score)
+                                      .ThenBy(x => x.ScoreTime)
                                       .Take(count);
 
                         return results.ToList();

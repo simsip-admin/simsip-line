@@ -58,7 +58,7 @@ namespace Simsip.LineRunner.Scenes.Options
                 0.9f * this.ContentSize.Height);
             this.AddChild(pageNumberHeader);
 
-            // Sound (cell 1/2)
+            // Sound
             CCMenuItemImage soundToggleOn =
                 new CCMenuItemImage("Images/Icons/SoundButtonOn.png",
                                     "Images/Icons/SoundButtonOff.png");
@@ -81,7 +81,7 @@ namespace Simsip.LineRunner.Scenes.Options
                     });
             soundMenu.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
-                0.65f * this.ContentSize.Height);
+                0.7f * this.ContentSize.Height);
             this.AddChild(soundMenu);
             CCLabelTTF soundLabel = null;
             if (UserDefaults.SharedUserDefault.GetBoolForKey(
@@ -119,8 +119,79 @@ namespace Simsip.LineRunner.Scenes.Options
                     });
             soundLabelMenu.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
-                0.55f * this.ContentSize.Height);
+                0.6f * this.ContentSize.Height);
             this.AddChild(soundLabelMenu);
+
+            // Leaderboards
+            var leaderboardButton =
+    new CCMenuItemImage("Images/Icons/AchievementsButtonNormal.png",
+                        "Images/Icons/AchievementsButtonSelected.png",
+                        (obj) => { _parent.Navigate(LayerTags.AchievementsLayer); });
+            var leaderboardButtonMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        leaderboardButton, 
+                    });
+            leaderboardButtonMenu.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.5f * this.ContentSize.Height);
+            this.AddChild(leaderboardButtonMenu);
+            var leaderboardsText = string.Empty;
+#if ANDROID
+            leaderboardsText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsLeaderboards);
+#elif IOS
+            leaderboardsText = NSBundle.MainBundle.LocalizedString(Strings.OptionsLeaderboards, Strings.OptionsLeaderboards);
+#else
+            leaderboardsText = AppResources.OptionsLeaderboards;
+#endif
+            var leaderboardLabel = new CCLabelTTF(leaderboardsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            var leaderboardItem = new CCMenuItemLabel(leaderboardLabel,
+                                        (obj) => { _parent.Navigate(LayerTags.AchievementsLayer); });
+            var leaderboardLabelMenu = new CCMenu(
+               new CCMenuItem[] 
+                    {
+                        leaderboardItem
+                    });
+            leaderboardLabelMenu.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.4f * this.ContentSize.Height);
+            this.AddChild(leaderboardLabelMenu);
+
+            // Credits
+            CCMenuItemImage creditsButton =
+                new CCMenuItemImage("Images/Icons/CreditsButtonNormal.png",
+                                    "Images/Icons/CreditsButtonSelected.png",
+                                    (obj) => { _parent.Navigate(LayerTags.CreditsMasterLayer); });
+            var creditsMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        creditsButton, 
+                    });
+            creditsMenu.Position = new CCPoint(
+                0.5f  * this.ContentSize.Width,
+                0.3f * this.ContentSize.Height);
+            this.AddChild(creditsMenu);
+            var creditsText = string.Empty;
+#if ANDROID
+            creditsText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsCredits);
+#elif IOS
+            creditsText = NSBundle.MainBundle.LocalizedString(Strings.OptionsCredits, Strings.OptionsCredits);
+#else
+            creditsText = AppResources.OptionsCredits;
+#endif
+            var creditsLabel = new CCLabelTTF(creditsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            var creditsItem = new CCMenuItemLabel(creditsLabel,
+                                        (obj) => { _parent.Navigate(LayerTags.CreditsMasterLayer); });
+            var creditsLabelMenu = new CCMenu(
+               new CCMenuItem[] 
+                    {
+                        creditsItem
+                    });
+            creditsLabelMenu.Position = new CCPoint(
+                0.5f  * this.ContentSize.Width,
+                0.2f * this.ContentSize.Height);
+            this.AddChild(creditsLabelMenu);
+
 
             // TODO: Time (cell 2/4)
             /*
@@ -158,78 +229,6 @@ namespace Simsip.LineRunner.Scenes.Options
             this._timeNotificationLayer = new KeyboardNotificationLayer(this._timeTextField);
             AddChild(this._timeNotificationLayer);
             */
-
-            // TODO: Leaderboards (cell 3/4)
-            /*
-            var leaderboardButton =
-                new CCMenuItemImage("Images/Icons/AchievementsButtonNormal.png",
-                                    "Images/Icons/AchievementsButtonSelected.png",
-                                    (obj) => { _parent.Navigate(LayerTags.AchievementsLayer); });
-            var leaderboardButtonMenu = new CCMenu(
-                new CCMenuItem[] 
-                    {
-                        leaderboardButton, 
-                    });
-            leaderboardButtonMenu.Position = new CCPoint(
-                0.3f * this.ContentSize.Width,
-                0.3f * this.ContentSize.Height);
-            this.AddChild(leaderboardButtonMenu);
-            var leaderboardsText = string.Empty;
-#if ANDROID
-            leaderboardsText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsLeaderboards);
-#elif IOS
-            leaderboardsText = NSBundle.MainBundle.LocalizedString(Strings.OptionsLeaderboards, Strings.OptionsLeaderboards);
-#else
-            leaderboardsText = AppResources.OptionsLeaderboards;
-#endif
-            var leaderboardLabel = new CCLabelTTF(leaderboardsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            var leaderboardItem = new CCMenuItemLabel(leaderboardLabel,
-                                        (obj) => { _parent.Navigate(LayerTags.AchievementsLayer); });
-            var leaderboardLabelMenu = new CCMenu(
-               new CCMenuItem[] 
-                    {
-                        leaderboardItem
-                    });
-            leaderboardLabelMenu.Position = new CCPoint(
-                0.3f * this.ContentSize.Width,
-                0.2f * this.ContentSize.Height);
-            this.AddChild(leaderboardLabelMenu);
-            */
-
-            // Credits (cell 2/2)
-            CCMenuItemImage creditsButton =
-                new CCMenuItemImage("Images/Icons/CreditsButtonNormal.png",
-                                    "Images/Icons/CreditsButtonSelected.png",
-                                    (obj) => { _parent.Navigate(LayerTags.CreditsMasterLayer); });
-            var creditsMenu = new CCMenu(
-                new CCMenuItem[] 
-                    {
-                        creditsButton, 
-                    });
-            creditsMenu.Position = new CCPoint(
-                0.5f  * this.ContentSize.Width,
-                0.35f * this.ContentSize.Height);
-            this.AddChild(creditsMenu);
-            var creditsText = string.Empty;
-#if ANDROID
-            creditsText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsCredits);
-#elif IOS
-            creditsText = NSBundle.MainBundle.LocalizedString(Strings.OptionsCredits, Strings.OptionsCredits);
-#else
-            creditsText = AppResources.OptionsCredits;
-#endif
-            var creditsLabel = new CCLabelTTF(creditsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            var creditsItem = new CCMenuItemLabel(creditsLabel,
-                                        (obj) => { _parent.Navigate(LayerTags.CreditsMasterLayer); });
-            var creditsLabelMenu = new CCMenu(
-               new CCMenuItem[] 
-                    {
-                        creditsItem
-                    });
-            creditsLabelMenu.Position = new CCPoint(
-                0.5f  * this.ContentSize.Width,
-                0.25f * this.ContentSize.Height);
-            this.AddChild(creditsLabelMenu);
 
             // TODO: Practice mode on/off
             /*

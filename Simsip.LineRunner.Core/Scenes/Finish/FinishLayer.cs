@@ -50,12 +50,12 @@ namespace Simsip.LineRunner.Scenes.Finish
             var screenSize = CCDirector.SharedDirector.WinSize;
             this.ContentSize = new CCSize(
                 0.6f * screenSize.Width,
-                0.6f * screenSize.Height);
+                0.4f * screenSize.Height);
 
             // Layer transition in/out
             var layerEndPosition = new CCPoint(
                 0.2f * screenSize.Width,
-                0.2f * screenSize.Height);
+                0.3f * screenSize.Height);
             var layerStartPosition = new CCPoint(
                 layerEndPosition.X,
                 screenSize.Height);
@@ -82,7 +82,7 @@ namespace Simsip.LineRunner.Scenes.Finish
             var newHighScoreHeader = new CCLabelTTF(newHighScoreText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
             newHighScoreHeader.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
-                0.9f * this.ContentSize.Height);
+                0.8f * this.ContentSize.Height);
             this.AddChild(newHighScoreHeader);
 
             // New top score
@@ -90,14 +90,14 @@ namespace Simsip.LineRunner.Scenes.Finish
             this._newTopScore.Color = CCColor3B.Green;
             this._newTopScore.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
-                0.8f * this.ContentSize.Height);
+                0.6f * this.ContentSize.Height);
             this.AddChild(this._newTopScore);
 
             // New top time
             this._newTopTime = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
             this._newTopTime.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
-                0.7f * this.ContentSize.Height);
+                0.4f * this.ContentSize.Height);
             this.AddChild(this._newTopTime);
 
             /* TODO: Add back in when first version of finish layer is stablized
@@ -150,8 +150,8 @@ namespace Simsip.LineRunner.Scenes.Finish
                         backButton, 
                     });
             backMenu.Position = new CCPoint(
-                0.5f * this.ContentSize.Width, 
-                0.1f * this.ContentSize.Height);
+                0.5f  * this.ContentSize.Width, 
+                0.15f * this.ContentSize.Height);
             this.AddChild(backMenu);
 
             this._particleEffectCache = (IParticleEffectCache)TheGame.SharedGame.Services.GetService(typeof(IParticleEffectCache));
@@ -208,7 +208,8 @@ namespace Simsip.LineRunner.Scenes.Finish
             var score = new FacebookScoreEntity
             {
                 Score = GameManager.SharedGameManager.CurrentScore,
-                ScoreTime = newTopTimeSpan
+                ScoreTime = newTopTimeSpan,
+                CreateDate = DateTime.Now
             };
             scoreRepository.Create(score);
 

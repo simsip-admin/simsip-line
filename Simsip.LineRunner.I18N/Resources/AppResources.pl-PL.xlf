@@ -37,8 +37,8 @@
           <target state="new">worlds</target>
         </trans-unit>
         <trans-unit id="Resx/AchievementsTopScoresFor" translate="yes" xml:space="preserve">
-          <source>top scores for</source>
-          <target state="new">top scores for</target>
+          <source>top scores</source>
+          <target state="new">top scores</target>
         </trans-unit>
         <trans-unit id="Resx/AdminStartPageDescription" translate="yes" xml:space="preserve">
           <source>enter page to start on</source>

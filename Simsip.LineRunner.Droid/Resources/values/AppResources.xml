@@ -41,7 +41,7 @@
   <string name="AchievementsAverageGlobalScore">average global score</string>
   <string name="AchievementsLeaderboards">leaderboards</string>
   <string name="AchievementsTopGlobalScores">top global scores</string>
-  <string name="AchievementsTopScoresFor">top scores for</string>
+  <string name="AchievementsTopScoresFor">top scores</string>
   <string name="AdminKillOff">kill off</string>
   <string name="AdminKillOn">kill on</string>
   <string name="AdminParticlesOff">particles off</string>

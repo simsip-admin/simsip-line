@@ -55,6 +55,11 @@ namespace Simsip.LineRunner.Entities.Facebook
         /// </summary>
         public string Type { get; set; }
 
+        /// <summary>
+        /// The time stamp for when the score was created.
+        /// </summary>
+        public DateTime CreateDate { get; set; }
+
         #endregion
     }
 }
