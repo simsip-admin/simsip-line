@@ -2661,11 +2661,8 @@
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\SceneZOrder.cs">
       <Link>Scenes\SceneZOrder.cs</Link>
     </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Start\StartPage1Layer.cs">
-      <Link>Scenes\Start\StartPage1Layer.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Start\StartPage2Layer.cs">
-      <Link>Scenes\Start\StartPage2Layer.cs</Link>
+    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Start\StartLayer.cs">
+      <Link>Scenes\Start\StartLayer.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\UILayer.cs">
       <Link>Scenes\UILayer.cs</Link>

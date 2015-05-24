@@ -33,7 +33,7 @@ using Windows.Foundation;
 
 namespace Simsip.LineRunner.Scenes.Start
 {
-    public class StartPage1Layer : UILayer
+    public class StartLayer : UILayer
     {
         private CoreScene _parent;
 
@@ -50,7 +50,7 @@ namespace Simsip.LineRunner.Scenes.Start
         private bool _isProgressShowing;
         private LayerTags _navigatingToLayer;
 
-        public StartPage1Layer(CoreScene parent)
+        public StartLayer(CoreScene parent)
         {
             this._parent = parent;
 
@@ -85,7 +85,7 @@ namespace Simsip.LineRunner.Scenes.Start
             this._isStartEnabled = false;
             var startButtonNormal = new CCSprite("Images/Icons/StartButtonNormal.png");
             var startButtonSelected = new CCSprite("Images/Icons/StartButtonSelected.png");
-            var startButton = new CCMenuItemImage((obj) => { this.NavigateBase(LayerTags.StartPage2Layer); });
+            var startButton = new CCMenuItemImage((obj) => { this.NavigateBase(LayerTags.HudLayer); });
             startButton.NormalImage = startButtonNormal;
             startButton.SelectedImage = startButtonSelected;
 
@@ -133,7 +133,7 @@ namespace Simsip.LineRunner.Scenes.Start
 #endif
             var playLabel = new CCLabelTTF(playText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             var playItem = new CCMenuItemLabel(playLabel,
-                (obj) => { this.NavigateBase(LayerTags.StartPage2Layer); });
+                (obj) => { this.NavigateBase(LayerTags.HudLayer); });
             
             var rateText = string.Empty;
 #if ANDROID

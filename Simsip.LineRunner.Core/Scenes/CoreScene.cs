@@ -53,7 +53,7 @@ namespace Simsip.LineRunner.Scenes
 
             // Since we bypassed our navigation service above for the start layer, we need
             // to prime the service here
-            _navigationStack.Push(LayerTags.StartPage1Layer);
+            _navigationStack.Push(LayerTags.StartLayer);
         }
 
         #region Properties
@@ -299,38 +299,21 @@ namespace Simsip.LineRunner.Scenes
             }
         }
 
-        private StartPage1Layer _theStartPage1Layer;
+        private StartLayer _theStartPage1Layer;
         /// <summary>
         /// The UI layer that allows players to start the game or navigate
         /// to the options screen.
         /// </summary>
-        public StartPage1Layer TheStartPage1Layer
+        public StartLayer TheStartPage1Layer
         {
             get
             {
                 if (_theStartPage1Layer == null)
                 {
-                    _theStartPage1Layer = new StartPage1Layer(this);
-                    _theStartPage1Layer.Tag = (int)LayerTags.StartPage1Layer;
+                    _theStartPage1Layer = new StartLayer(this);
+                    _theStartPage1Layer.Tag = (int)LayerTags.StartLayer;
                 }
                 return _theStartPage1Layer;
-            }
-        }
-
-        private StartPage2Layer _theStartPage2Layer;
-        /// <summary>
-        /// The UI layer that displays the initial tap indicator.
-        /// </summary>
-        public StartPage2Layer TheStartPage2Layer
-        {
-            get
-            {
-                if (_theStartPage2Layer == null)
-                {
-                    _theStartPage2Layer = new StartPage2Layer(this);
-                    _theStartPage2Layer.Tag = (int)LayerTags.StartPage2Layer;
-                }
-                return _theStartPage2Layer;
             }
         }
 
@@ -397,14 +380,14 @@ namespace Simsip.LineRunner.Scenes
         public void AdjustNavigationStackToStart()
         {
             // IMPORTANT:
-            // Assumes StartPage1Layer is already last in our stack and
+            // Assumes StartLayer is already last in our stack and
             // we want to keep our current top entry layer in place.
             // Example:
             //     (top)                                (bottom)
-            // <CurrentLayer><remove-1>...<remove-n><StartPage1Layer>
+            // <CurrentLayer><remove-1>...<remove-n><StartLayer>
             // will be adjusted to:
             //     (top)          (bottom)
-            // <CurrentLayer><StartPage1Layer>
+            // <CurrentLayer><StartLayer>
 
             // Pop reference to current layer
             var currentLayer = _navigationStack.Pop();
@@ -516,13 +499,9 @@ namespace Simsip.LineRunner.Scenes
                     {
                         return TheResourcePacksLayer;
                     }
-                case LayerTags.StartPage1Layer:
+                case LayerTags.StartLayer:
                     {
                         return TheStartPage1Layer;
-                    }
-                case LayerTags.StartPage2Layer:
-                    {
-                        return TheStartPage2Layer;
                     }
                 case LayerTags.WorldsLayer:
                     {

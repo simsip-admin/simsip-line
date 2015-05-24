@@ -128,6 +128,276 @@ namespace Simsip.LineRunner.Scenes.Action
 
         #region Api
 
+        public void SwitchState(GameState gameState)
+        {
+            // Ok, now set our current state
+            this._currentGameState = gameState;
+
+            switch (this._currentGameState)
+            {
+                case GameState.World:
+                    {
+                        var blockStorage = (IBlockStorage)TheGame.SharedGame.Services.GetService(typeof(IBlockStorage));
+
+                        var footPosition = this._inputManager.LineRunnerCamera.Position +
+                            new Vector3(20f, 0f, 0f);
+                        var standingBlock = blockStorage.BlockAt(footPosition);
+                        while (!standingBlock.Exists)
+                        {
+                            footPosition += new Vector3(0f, -1f, 0f);
+                            standingBlock = blockStorage.BlockAt(footPosition);
+                        }
+
+                        this._inputManager.PlayerCamera.Position = footPosition;
+                        this._inputManager.PlayerCamera.Target = Vector3.Forward;
+
+                        break;
+                    }
+                case GameState.Intro:
+                    {
+                        this.TouchEnabled = false;
+
+                        // Set state
+                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        GameManager.SharedGameManager.CurrentScore = GameManager.SharedGameManager.AdminStartScore;
+
+                        // Update page/line number in hud
+                        this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
+                        /*
+                        this._hudLayer.DisplayPageNumber(this._currentPageNumber);
+                        this._hudLayer.DisplayLineNumber(this._currentLineNumber);
+                        */
+
+                        var pageWidth = this._pageCache.CurrentPageModel.WorldWidth;
+                        var pageHeight = this._pageCache.CurrentPageModel.WorldHeight;
+                        var pageDepthFromCamera = this._pageCache.PageDepthFromCameraStart;
+                        var cameraStartingPoint = this._inputManager.LineRunnerCamera.Position;
+                        var controlPoints = new List<Vector3>()
+                        {
+                            cameraStartingPoint, // Start to right and behing pad
+                            cameraStartingPoint + new Vector3(0.25f * pageWidth, 0, 4.0f * pageDepthFromCamera), // By first control point in middle of pad in front
+                            cameraStartingPoint + new Vector3(0.75f * pageWidth, 0, 4.0f * pageDepthFromCamera), // By second control point we are way out to top left of pad
+                            cameraStartingPoint + new Vector3(1.1f * pageWidth, 0, 0)                                                           // Finish at camera position
+                        };
+                        var targetPoints = new List<Vector3>()
+                        {
+                            this._inputManager.LineRunnerCamera.Target,          // Start looking back at terrain
+                            this._inputManager.LineRunnerCamera.Target,          // By first control point we still looking straight back
+                            this._inputManager.LineRunnerCamera.Target,          // Be second control point we are looking down at pad from upper left
+                            this._inputManager.LineRunnerCamera.Target          // Finish by mimicing original camera target
+                        };
+                        var controlPointsReversed = new List<Vector3>()
+                        {
+                            cameraStartingPoint + new Vector3(1.1f * pageWidth, 0, 0),                                                           // Finish at camera position
+                            cameraStartingPoint + new Vector3(0.75f * pageWidth, 0, 4.0f * pageDepthFromCamera), // By second control point we are way out to top left of pad
+                            cameraStartingPoint + new Vector3(0.25f * pageWidth, 0, 4.0f * pageDepthFromCamera), // By first control point in middle of pad in front
+                            cameraStartingPoint, // Start to right and behing pad
+                        };
+                        var targetPointsReversed = new List<Vector3>()
+                        {
+                            this._inputManager.LineRunnerCamera.Target,          // Start looking back at terrain
+                            this._inputManager.LineRunnerCamera.Target,          // By first control point we still looking straight back
+                            this._inputManager.LineRunnerCamera.Target,          // Be second control point we are looking down at pad from upper left
+                            this._inputManager.LineRunnerCamera.Target          // Finish by mimicing original camera target
+                        };
+
+                        this._currentFlyBy = new FlyBy();
+                        this._currentFlyBy.FlyByFinished += OnCurrentFlyByFinished;
+                        this._currentFlyBy.InitBezierControlPoints(GameConstants.DURATION_INTRO, controlPoints, targetPoints);
+
+                        var nextFlyBy = new FlyBy();
+                        nextFlyBy.FlyByFinished += OnCurrentFlyByFinished;
+                        nextFlyBy.InitBezierControlPoints(GameConstants.DURATION_INTRO, controlPointsReversed, targetPointsReversed);
+
+                        this._currentFlyBy.NextFlyBy = nextFlyBy;
+
+                        /* Legacy: remove when comfortable
+                        var controlPoints = new List<Vector3>()
+                        {
+                            cameraStartingPoint + new Vector3( 1.2f * pageWidth, -0.8f * pageHeight, -40), // Start to right and behing pad
+                            cameraStartingPoint + new Vector3( 0.5f * pageWidth, -0.5f * pageHeight,  120), // By first control point in middle of pad in front
+                            cameraStartingPoint + new Vector3(-0.2f * pageWidth,  0.2f * pageHeight,  120), // By second control point we are way out to top left of pad
+                            cameraStartingPoint                                                            // Finish at camera position
+                        };
+                        var targetPoints = new List<Vector3>()
+                        {
+                            controlPoints[0] + new Vector3(0,  0, -1),          // Start looking back at terrain
+                            controlPoints[1] + new Vector3(0,  0, -1),          // By first control point we still looking straight back
+                            controlPoints[2] + new Vector3(1, -1, -1),          // Be second control point we are looking down at pad from upper left
+                            this._inputManager.LineRunnerCamera.Target          // Finish by mimicing original camera target
+                        };
+                        */
+
+                        break;
+                    }
+                case GameState.Moving:
+                    {
+                        // Enable touches for hero
+                        this.TouchMode = CCTouchMode.OneByOne;
+                        this.TouchEnabled = true;
+
+                        break;
+                    }
+                case GameState.MovingToNextLine:
+                    {
+                        this.TouchEnabled = false;
+
+                        // Set state
+                        this._currentLineNumber++;
+
+                        // Update line number in hud
+                        this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
+                        // this._hudLayer.DisplayLineNumber(this._currentLineNumber);
+
+                        // CreateLineHitParticles bezier based on current and next lines from _lineCache
+                        this._currentFlyBy = new FlyBy(
+                            cameraUpdate: FlyByCameraUpdate.TrackingAndStationaryHeightOnly,    // We will update our tracking camera and only the height of the stationary camera
+                            targetAttachment: this._characterCache.TheHeroModel,                // We will have the hero model follow our target bezier
+                            targetAttachmentUse: FlyByTargetAttachment.UsePhysicsBody);         // We will use the physics model for the hero when following the target bezier
+                        this._currentFlyBy.FlyByFinished += OnCurrentFlyByFinished;             // Will switch state here in this event handler when finished
+                        var heroPosition = this._characterCache.TheHeroModel.WorldOrigin;
+                        var previousLineModel = this._lineCache.GetLineModel(this._currentLineNumber - 1);
+                        var lineModel = this._lineCache.GetLineModel(this._currentLineNumber);
+                        var lineSpacing = this._pageCache.CurrentPageModel.WorldLineSpacing;
+                        var pageWidth = this._pageCache.CurrentPageModel.WorldWidth;
+                        var pageDepth = this._pageCache.CurrentPageModel.WorldDepth;
+                        var previousCenterLineWorldHeight = previousLineModel.WorldOrigin.Y +
+                                                    (0.5f * lineSpacing);
+                        var cameraStartPosition = new Vector3(
+                                heroPosition.X,
+                                previousCenterLineWorldHeight,
+                                heroPosition.Z + this._pageCache.CharacterDepthFromCameraStart);
+                        var cameraStartTarget = heroPosition;
+
+                        // We use this direction modifier to control our curve
+                        // line number even => construct curve on right of pad
+                        // line number odd => construct curve on left of pad
+                        float direction = 1f;
+                        if (this._currentLineNumber % 2 != 0)
+                        {
+                            direction = -direction;
+                        }
+
+                        var controlPoints = new List<Vector3>()
+                        {
+                            cameraStartPosition,                                              // Start at our current camera position
+                            cameraStartPosition + new Vector3(0.75f*pageWidth * direction, -0.75f * lineSpacing, -1.2f* this._pageCache.CharacterDepthFromCameraStart),  // By first control point move to right and down 1/4 page margin
+                            cameraStartPosition + new Vector3(1.5f*pageWidth * direction, -1.0f * lineSpacing,  -1.2f*this._pageCache.CharacterDepthFromCameraStart),  // By second control point we still to right and down 3/4 page margin
+                            new Vector3(                                                        // Finish at previous camera position x,z and set our height to be middle of next line
+                                cameraStartPosition.X,                                                            
+                                lineModel.WorldOrigin.Y + (0.5f * lineSpacing),
+                                cameraStartPosition.Z)
+                        };
+                        var targetPoints = new List<Vector3>()
+                        {
+                            cameraStartTarget,                                                // Start with current camera target
+                            cameraStartTarget + new Vector3(0.5f * pageWidth * direction, -0.75f * lineSpacing, 0f),    // By first control point move to right and down 1/4 line spacing
+                            cameraStartTarget + new Vector3(0.5f * pageWidth * direction, -1.0f * lineSpacing, 0f),    // By second control point we still to right and down 3/4 line spacing
+                            new Vector3(                                                        // Finish at previous camera target x,z and set our height to be middle of next line
+                                cameraStartTarget.X,                                                            
+                                lineModel.WorldOrigin.Y + (0.5f * lineSpacing),
+                                cameraStartTarget.Z)                        };
+
+                        this._currentFlyBy.InitBezierControlPoints(GameConstants.DURATION_MOVE_TO_NEXT_LINE, controlPoints, targetPoints);
+
+                        break;
+                    }
+                case GameState.MovingToNextPage:
+                    {
+                        this.TouchEnabled = false;
+
+                        // Set state
+                        this._currentPageNumber++;
+                        this._currentLineNumber = 1;
+
+                        // Update page/line number in hud
+                        this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
+                        /*
+                        this._hudLayer.DisplayPageNumber(this._currentPageNumber);
+                        this._hudLayer.DisplayLineNumber(this._currentLineNumber);
+                        */
+
+                        // CreateLineHitParticles bezier based on current page and start position
+                        this._currentFlyBy = new FlyBy(
+                            cameraUpdate: FlyByCameraUpdate.TrackingAndStationaryHeightOnly,
+                            targetAttachment: this._characterCache.TheHeroModel,
+                            targetAttachmentUse: FlyByTargetAttachment.UsePhysicsBody);
+                        this._currentFlyBy.FlyByFinished += OnCurrentFlyByFinished;     // Will switch state here in this event handler when finished
+                        var pageModel = this._pageCache.CurrentPageModel;
+                        var controlPoints = new List<Vector3>()
+                        {
+                            this._inputManager.LineRunnerCamera.Position,                                                                                // Start at our current camera position
+                            this._inputManager.LineRunnerCamera.Position + new Vector3(-1.5f * pageModel.WorldWidth, 0.25f * pageModel.WorldHeight, 20f),  // By first control point move to left and up 1/4 page height
+                            this._inputManager.LineRunnerCamera.Position + new Vector3(-1.5f * pageModel.WorldWidth, 0.75f * pageModel.WorldHeight, 20f),  // By second control point we still to left and up 3/4 page height
+                            pageModel.PageStartOrigin + new Vector3(                                                           // Finish at world starting point adjusted back appropriately for camera
+                                0,                                                            
+                                0,
+                                this._pageCache.PageDepthFromCameraStart)
+                        };
+                        var targetPoints = new List<Vector3>()
+                        {
+                            this._inputManager.LineRunnerCamera.Target,                                                                                  // Start with current camera target
+                            this._inputManager.LineRunnerCamera.Target + new Vector3(-1.5f * pageModel.WorldWidth, 0.25f * pageModel.WorldHeight, 20f),    // By first control point move to left and up 1/4 page height
+                            this._inputManager.LineRunnerCamera.Target + new Vector3(-1.5f * pageModel.WorldWidth, 0.75f * pageModel.WorldHeight, 20f),    // By second control point we still to left and up 3/4 page height
+                            pageModel.PageStartOrigin
+                        };                                                                        // Finish with target looking at world starting point
+
+                        this._currentFlyBy.InitBezierControlPoints(GameConstants.DURATION_MOVE_TO_NEXT_PAGE, controlPoints, targetPoints);
+
+                        break;
+                    }
+                case GameState.MovingToStart:
+                    {
+                        // TODO: Not beting useed - keeping it simple now, will consider animation later.
+                        // If so, see HudLayer.Draw for how to keep ui positioned correctly
+
+                        /* TODO: Analyze this
+                        // Set state
+                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+
+                        // Update score/page/line number in hud
+                        this._hudLayer.DisplayScore(GameManager.SharedGameManager.AdminStartScore);
+                        this._hudLayer.DisplayPageNumber(this._currentPageNumber);
+                        this._hudLayer.DisplayLineNumber(this._currentLineNumber);
+                        */
+
+                        break;
+                    }
+                case GameState.ResumingFromWorld:
+                    {
+                        // Currently a no-op
+                        break;
+                    }
+                case GameState.Refresh:
+                case GameState.Start:
+                    {
+                        this._handlingKill = false;
+                        this.TouchEnabled = false;
+
+                        // Set state
+                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        GameManager.SharedGameManager.CurrentScore = GameManager.SharedGameManager.AdminStartScore;
+
+                        // Update score/page/line number in hud
+                        this._hudLayer.DisplayScore(GameManager.SharedGameManager.AdminStartScore);
+                        this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
+                        /*
+                        this._hudLayer.DisplayPageNumber(this._currentPageNumber);
+                        this._hudLayer.DisplayLineNumber(this._currentLineNumber);
+                        */
+
+                        break;
+                    }
+            }
+
+            this.SwitchServicesState(gameState);
+
+            this._hudLayer.SwitchState(gameState);
+        }
+
         public void Refresh()
         {
             this.SwitchState(GameState.Refresh);
@@ -153,22 +423,6 @@ namespace Simsip.LineRunner.Scenes.Action
             {
                 case LayerTags.HudLayer:
                     {
-                        SwitchState(GameState.Moving);
-                        break;
-                    }
-                case LayerTags.AchievementsLayer:
-                case LayerTags.CreditsMasterLayer:
-                case LayerTags.OptionsMasterLayer:
-                case LayerTags.StartPage1Layer:
-                    {
-                        // this.UpdateStartingCamera();
-                        this.UpdateTrackingCamera();
-
-                        SwitchState(GameState.Start);
-                        break;
-                    }
-                case LayerTags.StartPage2Layer:
-                    {
                         // Immediately unhook any fly-bys in progress
                         if (this._currentFlyBy != null)
                         {
@@ -176,23 +430,33 @@ namespace Simsip.LineRunner.Scenes.Action
                             this._currentFlyBy = null;
                         }
 
-                        // If so, see HudLayer.Draw for how to keep ui positioned correctly
-                        // SwitchState(GameState.MovingToStart);
+                        // IMPORTANT: The switch state to GameState.Moving will originate
+                        //            from the existing HudLayer.
+
+                        break;
+                    }
+                case LayerTags.AchievementsLayer:
+                case LayerTags.CreditsMasterLayer:
+                case LayerTags.OptionsMasterLayer:
+                case LayerTags.StartLayer:
+                    {
+                        // TODO: Previous, leaving here until stable
+                        // this.UpdateStartingCamera();
+                        this.UpdateTrackingCamera();
 
                         SwitchState(GameState.Start);
+
                         break;
                     }
                 case LayerTags.FinishLayer:
                     {
                         // TODO: Keeping it simple now, will consider animation later
                         // If so, see HudLayer.Draw for how to keep ui positioned correctly
-                        // SwitchState(GameState.MovingToStart);
                         SwitchState(GameState.Start);
 
                         break;
                     }
             }
-
         }
 
         private void OnCurrentFlyByFinished(object sender, FlyByFinishedEventArgs e)
@@ -212,7 +476,7 @@ namespace Simsip.LineRunner.Scenes.Action
                 case GameState.Intro:
                     {
                         // Intro is finished, display start screen
-                        // _parent.Navigate(LayerTags.StartPage1Layer);
+                        // _parent.Navigate(LayerTags.StartLayer);
                         break;
                     }
                 case GameState.MovingToNextLine:
@@ -676,276 +940,6 @@ namespace Simsip.LineRunner.Scenes.Action
         #endregion
 
         #region Helper Methods
-
-        private void SwitchState(GameState gameState)
-        {
-            // Ok, now set our current state
-            this._currentGameState = gameState;
-
-            switch (this._currentGameState)
-            {
-                case GameState.World:
-                        {
-                             var blockStorage = (IBlockStorage)TheGame.SharedGame.Services.GetService(typeof(IBlockStorage));
-
-                            var footPosition = this._inputManager.LineRunnerCamera.Position + 
-                                new Vector3(20f, 0f, 0f);
-                            var standingBlock = blockStorage.BlockAt(footPosition);
-                            while (!standingBlock.Exists)
-                            {
-                                footPosition += new Vector3(0f, -1f, 0f);
-                                standingBlock = blockStorage.BlockAt(footPosition);
-                            }
-
-                            this._inputManager.PlayerCamera.Position = footPosition;
-                            this._inputManager.PlayerCamera.Target = Vector3.Forward;
-
-                            break;
-                        }
-                case GameState.Intro:
-                    {
-                        this.TouchEnabled = false;
-
-                        // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
-                        GameManager.SharedGameManager.CurrentScore = GameManager.SharedGameManager.AdminStartScore;
-
-                        // Update page/line number in hud
-                        this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
-                        /*
-                        this._hudLayer.DisplayPageNumber(this._currentPageNumber);
-                        this._hudLayer.DisplayLineNumber(this._currentLineNumber);
-                        */
-
-                        var pageWidth = this._pageCache.CurrentPageModel.WorldWidth;
-                        var pageHeight = this._pageCache.CurrentPageModel.WorldHeight;
-                        var pageDepthFromCamera = this._pageCache.PageDepthFromCameraStart;
-                        var cameraStartingPoint = this._inputManager.LineRunnerCamera.Position;
-                        var controlPoints = new List<Vector3>()
-                        {
-                            cameraStartingPoint, // Start to right and behing pad
-                            cameraStartingPoint + new Vector3(0.25f * pageWidth, 0, 4.0f * pageDepthFromCamera), // By first control point in middle of pad in front
-                            cameraStartingPoint + new Vector3(0.75f * pageWidth, 0, 4.0f * pageDepthFromCamera), // By second control point we are way out to top left of pad
-                            cameraStartingPoint + new Vector3(1.1f * pageWidth, 0, 0)                                                           // Finish at camera position
-                        };
-                        var targetPoints = new List<Vector3>()
-                        {
-                            this._inputManager.LineRunnerCamera.Target,          // Start looking back at terrain
-                            this._inputManager.LineRunnerCamera.Target,          // By first control point we still looking straight back
-                            this._inputManager.LineRunnerCamera.Target,          // Be second control point we are looking down at pad from upper left
-                            this._inputManager.LineRunnerCamera.Target          // Finish by mimicing original camera target
-                        };
-                        var controlPointsReversed = new List<Vector3>()
-                        {
-                            cameraStartingPoint + new Vector3(1.1f * pageWidth, 0, 0),                                                           // Finish at camera position
-                            cameraStartingPoint + new Vector3(0.75f * pageWidth, 0, 4.0f * pageDepthFromCamera), // By second control point we are way out to top left of pad
-                            cameraStartingPoint + new Vector3(0.25f * pageWidth, 0, 4.0f * pageDepthFromCamera), // By first control point in middle of pad in front
-                            cameraStartingPoint, // Start to right and behing pad
-                        };
-                        var targetPointsReversed = new List<Vector3>()
-                        {
-                            this._inputManager.LineRunnerCamera.Target,          // Start looking back at terrain
-                            this._inputManager.LineRunnerCamera.Target,          // By first control point we still looking straight back
-                            this._inputManager.LineRunnerCamera.Target,          // Be second control point we are looking down at pad from upper left
-                            this._inputManager.LineRunnerCamera.Target          // Finish by mimicing original camera target
-                        };
-
-                        this._currentFlyBy = new FlyBy();
-                        this._currentFlyBy.FlyByFinished += OnCurrentFlyByFinished;
-                        this._currentFlyBy.InitBezierControlPoints(GameConstants.DURATION_INTRO, controlPoints, targetPoints);
-
-                        var nextFlyBy = new FlyBy();
-                        nextFlyBy.FlyByFinished += OnCurrentFlyByFinished;
-                        nextFlyBy.InitBezierControlPoints(GameConstants.DURATION_INTRO, controlPointsReversed, targetPointsReversed);
-                        
-                        this._currentFlyBy.NextFlyBy = nextFlyBy;
-                        
-                        /* Legacy: remove when comfortable
-                        var controlPoints = new List<Vector3>()
-                        {
-                            cameraStartingPoint + new Vector3( 1.2f * pageWidth, -0.8f * pageHeight, -40), // Start to right and behing pad
-                            cameraStartingPoint + new Vector3( 0.5f * pageWidth, -0.5f * pageHeight,  120), // By first control point in middle of pad in front
-                            cameraStartingPoint + new Vector3(-0.2f * pageWidth,  0.2f * pageHeight,  120), // By second control point we are way out to top left of pad
-                            cameraStartingPoint                                                            // Finish at camera position
-                        };
-                        var targetPoints = new List<Vector3>()
-                        {
-                            controlPoints[0] + new Vector3(0,  0, -1),          // Start looking back at terrain
-                            controlPoints[1] + new Vector3(0,  0, -1),          // By first control point we still looking straight back
-                            controlPoints[2] + new Vector3(1, -1, -1),          // Be second control point we are looking down at pad from upper left
-                            this._inputManager.LineRunnerCamera.Target          // Finish by mimicing original camera target
-                        };
-                        */
-
-                        break;
-                    }
-                case GameState.Moving:
-                    {
-                        // Enable touches for hero
-                        this.TouchMode = CCTouchMode.OneByOne;
-                        this.TouchEnabled = true;
-
-                        break;
-                    }
-                case GameState.MovingToNextLine:
-                    {
-                        this.TouchEnabled = false;
-
-                        // Set state
-                        this._currentLineNumber++;
-
-                        // Update line number in hud
-                        this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
-                        // this._hudLayer.DisplayLineNumber(this._currentLineNumber);
-
-                        // CreateLineHitParticles bezier based on current and next lines from _lineCache
-                        this._currentFlyBy = new FlyBy(
-                            cameraUpdate: FlyByCameraUpdate.TrackingAndStationaryHeightOnly,    // We will update our tracking camera and only the height of the stationary camera
-                            targetAttachment: this._characterCache.TheHeroModel,                // We will have the hero model follow our target bezier
-                            targetAttachmentUse: FlyByTargetAttachment.UsePhysicsBody);         // We will use the physics model for the hero when following the target bezier
-                        this._currentFlyBy.FlyByFinished += OnCurrentFlyByFinished;             // Will switch state here in this event handler when finished
-                        var heroPosition = this._characterCache.TheHeroModel.WorldOrigin;
-                        var previousLineModel = this._lineCache.GetLineModel(this._currentLineNumber - 1);
-                        var lineModel = this._lineCache.GetLineModel(this._currentLineNumber);
-                        var lineSpacing = this._pageCache.CurrentPageModel.WorldLineSpacing;
-                        var pageWidth = this._pageCache.CurrentPageModel.WorldWidth;
-                        var pageDepth = this._pageCache.CurrentPageModel.WorldDepth;
-                        var previousCenterLineWorldHeight = previousLineModel.WorldOrigin.Y +
-                                                    (0.5f * lineSpacing);
-                         var cameraStartPosition = new Vector3(
-                                 heroPosition.X,
-                                 previousCenterLineWorldHeight,
-                                 heroPosition.Z + this._pageCache.CharacterDepthFromCameraStart);
-                         var cameraStartTarget = heroPosition;
-
-                        // We use this direction modifier to control our curve
-                        // line number even => construct curve on right of pad
-                        // line number odd => construct curve on left of pad
-                        float direction = 1f;
-                        if (this._currentLineNumber % 2 != 0)
-                        {
-                            direction = -direction;
-                        }
-                        
-                        var controlPoints = new List<Vector3>()
-                        {
-                            cameraStartPosition,                                              // Start at our current camera position
-                            cameraStartPosition + new Vector3(0.75f*pageWidth * direction, -0.75f * lineSpacing, -1.2f* this._pageCache.CharacterDepthFromCameraStart),  // By first control point move to right and down 1/4 page margin
-                            cameraStartPosition + new Vector3(1.5f*pageWidth * direction, -1.0f * lineSpacing,  -1.2f*this._pageCache.CharacterDepthFromCameraStart),  // By second control point we still to right and down 3/4 page margin
-                            new Vector3(                                                        // Finish at previous camera position x,z and set our height to be middle of next line
-                                cameraStartPosition.X,                                                            
-                                lineModel.WorldOrigin.Y + (0.5f * lineSpacing),
-                                cameraStartPosition.Z)
-                        };
-                        var targetPoints = new List<Vector3>()
-                        {
-                            cameraStartTarget,                                                // Start with current camera target
-                            cameraStartTarget + new Vector3(0.5f * pageWidth * direction, -0.75f * lineSpacing, 0f),    // By first control point move to right and down 1/4 line spacing
-                            cameraStartTarget + new Vector3(0.5f * pageWidth * direction, -1.0f * lineSpacing, 0f),    // By second control point we still to right and down 3/4 line spacing
-                            new Vector3(                                                        // Finish at previous camera target x,z and set our height to be middle of next line
-                                cameraStartTarget.X,                                                            
-                                lineModel.WorldOrigin.Y + (0.5f * lineSpacing),
-                                cameraStartTarget.Z)                        };
-
-                        this._currentFlyBy.InitBezierControlPoints(GameConstants.DURATION_MOVE_TO_NEXT_LINE, controlPoints, targetPoints);
-
-                        break;
-                    }
-                case GameState.MovingToNextPage:
-                    {
-                        this.TouchEnabled = false;
-
-                        // Set state
-                        this._currentPageNumber++;
-                        this._currentLineNumber = 1;
-
-                        // Update page/line number in hud
-                        this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
-                        /*
-                        this._hudLayer.DisplayPageNumber(this._currentPageNumber);
-                        this._hudLayer.DisplayLineNumber(this._currentLineNumber);
-                        */
-
-                        // CreateLineHitParticles bezier based on current page and start position
-                        this._currentFlyBy = new FlyBy(
-                            cameraUpdate: FlyByCameraUpdate.TrackingAndStationaryHeightOnly,
-                            targetAttachment: this._characterCache.TheHeroModel,
-                            targetAttachmentUse: FlyByTargetAttachment.UsePhysicsBody);
-                        this._currentFlyBy.FlyByFinished += OnCurrentFlyByFinished;     // Will switch state here in this event handler when finished
-                        var pageModel = this._pageCache.CurrentPageModel;
-                        var controlPoints = new List<Vector3>()
-                        {
-                            this._inputManager.LineRunnerCamera.Position,                                                                                // Start at our current camera position
-                            this._inputManager.LineRunnerCamera.Position + new Vector3(-1.5f * pageModel.WorldWidth, 0.25f * pageModel.WorldHeight, 20f),  // By first control point move to left and up 1/4 page height
-                            this._inputManager.LineRunnerCamera.Position + new Vector3(-1.5f * pageModel.WorldWidth, 0.75f * pageModel.WorldHeight, 20f),  // By second control point we still to left and up 3/4 page height
-                            pageModel.PageStartOrigin + new Vector3(                                                           // Finish at world starting point adjusted back appropriately for camera
-                                0,                                                            
-                                0,
-                                this._pageCache.PageDepthFromCameraStart)
-                        };
-                        var targetPoints = new List<Vector3>()
-                        {
-                            this._inputManager.LineRunnerCamera.Target,                                                                                  // Start with current camera target
-                            this._inputManager.LineRunnerCamera.Target + new Vector3(-1.5f * pageModel.WorldWidth, 0.25f * pageModel.WorldHeight, 20f),    // By first control point move to left and up 1/4 page height
-                            this._inputManager.LineRunnerCamera.Target + new Vector3(-1.5f * pageModel.WorldWidth, 0.75f * pageModel.WorldHeight, 20f),    // By second control point we still to left and up 3/4 page height
-                            pageModel.PageStartOrigin
-                        };                                                                        // Finish with target looking at world starting point
-
-                        this._currentFlyBy.InitBezierControlPoints(GameConstants.DURATION_MOVE_TO_NEXT_PAGE, controlPoints, targetPoints);
-
-                        break;
-                    }
-                case GameState.MovingToStart:
-                    {
-                        // TODO: Not beting useed - keeping it simple now, will consider animation later.
-                        // If so, see HudLayer.Draw for how to keep ui positioned correctly
-
-                        /* TODO: Analyze this
-                        // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
-
-                        // Update score/page/line number in hud
-                        this._hudLayer.DisplayScore(GameManager.SharedGameManager.AdminStartScore);
-                        this._hudLayer.DisplayPageNumber(this._currentPageNumber);
-                        this._hudLayer.DisplayLineNumber(this._currentLineNumber);
-                        */
-
-                        break;
-                    }
-                case GameState.ResumingFromWorld:
-                    {
-                        // Currently a no-op
-                        break;
-                    }
-                case GameState.Refresh:
-                case GameState.Start:
-                    {
-                        this._handlingKill = false;
-                        this.TouchEnabled = false;
-
-                        // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
-                        GameManager.SharedGameManager.CurrentScore = GameManager.SharedGameManager.AdminStartScore;
-
-                        // Update score/page/line number in hud
-                        this._hudLayer.DisplayScore(GameManager.SharedGameManager.AdminStartScore);
-                        this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
-                        /*
-                        this._hudLayer.DisplayPageNumber(this._currentPageNumber);
-                        this._hudLayer.DisplayLineNumber(this._currentLineNumber);
-                        */
-
-                        break;
-                    }
-            }
-
-            this.SwitchServicesState(gameState);
-
-            this._hudLayer.SwitchState(gameState);
-        }
 
         // Helper function to centralize calling SwitchState on all appropriate game services
         private void SwitchServicesState(GameState gameState)

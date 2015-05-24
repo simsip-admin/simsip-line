@@ -20,8 +20,7 @@ namespace Simsip.LineRunner.Scenes
         PadsLayer,
         RatingsLayer,
         ResourcePacksLayer,
-        StartPage1Layer,
-        StartPage2Layer,
+        StartLayer,
         WorldsLayer
     }
 }

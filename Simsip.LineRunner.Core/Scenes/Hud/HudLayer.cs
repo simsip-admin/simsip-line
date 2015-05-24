@@ -31,8 +31,20 @@ namespace Simsip.LineRunner.Scenes.Hud
         private CoreScene _parent;
 
         // Services we need
+        private IPageCache _pageCache;
         private ICharacterCache _characterCache;
         private IInputManager _inputManager;
+
+        // Start tap button/animation
+        private CCSprite _startTapImage;
+        private CCAction _startTapAction;
+
+        // Tap text
+        private CCLabelTTF _startTapDescription1;
+        private CCLabelTTF _startTapDescription2;
+
+        // Base layer
+        private GameLayer _baseLayer;
 
         // Header layer
         private UILayer _headerLayer;
@@ -83,6 +95,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._parent = parent;
 
             // Grab rerences to services we'll need
+            this._pageCache = (IPageCache)TheGame.SharedGame.Services.GetService(typeof(IPageCache));
             this._inputManager = (IInputManager)TheGame.SharedGame.Services.GetService(typeof(IInputManager));
             this._characterCache = (ICharacterCache)TheGame.SharedGame.Services.GetService(typeof(ICharacterCache));
 
@@ -91,10 +104,72 @@ namespace Simsip.LineRunner.Scenes.Hud
             this.ContentSize = new CCSize(
                 screenSize.Width,
                 screenSize.Height);
-            this.Position = new CCPoint(0, 0);
+            var baseContentSize = new CCSize(   // IMPORTANT: Needs to be full size for proper placement of hero, see OnEnter()
+                screenSize.Width,
+                screenSize.Height);
             var headerContentSize = new CCSize(
                 0.96f * screenSize.Width,
                 0.2f  * screenSize.Height);
+            var footerContentSize = new CCSize(
+                0.96f * screenSize.Width,
+                0.2f * screenSize.Height);
+
+            // Base layer
+            this._baseLayer = new GameLayer();
+            this._baseLayer.ContentSize = baseContentSize;
+            this._baseLayer.Position = new CCPoint(
+                0,
+                0);
+            this.AddChild(this._baseLayer);
+
+            // Start button
+            // Transparent button sized/positioned between header/footer
+            var startButtonLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var startButtonItem = new CCMenuItemLabel(startButtonLabel,
+                (obj) => { this.StartPressed(); });
+            startButtonItem.ContentSize = this.ContentSize;
+            var startLabelMenu = new CCMenu(
+               new CCMenuItem[] 
+                    {
+                        startButtonItem
+                    });
+            startLabelMenu.AnchorPoint = CCPoint.AnchorMiddle;
+            startLabelMenu.Position = new CCPoint(
+                0.5f * this._baseLayer.ContentSize.Width,
+                0.5f * this._baseLayer.ContentSize.Height);
+            this._baseLayer.AddChild(startLabelMenu);
+
+            // Start image
+            this._startTapImage = new CCSprite("Images/Icons/TapButton");
+            this._startTapImage.AnchorPoint = CCPoint.AnchorMiddleTop;
+            this._baseLayer.AddChild(this._startTapImage);
+            this._startTapAction = new CCRepeatForever(new CCSequence(new CCFiniteTimeAction[] 
+                { 
+                    new CCMoveBy(1, new CCPoint(
+                        0,
+                        0.1f * this.ContentSize.Height)),
+                    new CCMoveBy(2, new CCPoint(
+                        0,
+                        -0.1f * this.ContentSize.Height)),
+                }));
+
+            // Tap text
+            var startTapText = string.Empty;
+#if ANDROID
+            startTapText = Program.SharedProgram.Resources.GetString(Resource.String.StartTap);
+#elif IOS
+            startTapText = NSBundle.MainBundle.LocalizedString(Strings.StartTap, Strings.StartTap);
+#else
+            startTapText = AppResources.StartTap;
+#endif
+            this._startTapDescription1 = new CCLabelTTF(startTapText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._startTapDescription1.AnchorPoint = CCPoint.AnchorMiddleRight;
+            this._startTapDescription1.Color = CCColor3B.Green;
+            this._baseLayer.AddChild(this._startTapDescription1);
+            this._startTapDescription2 = new CCLabelTTF(startTapText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._startTapDescription2.AnchorPoint = CCPoint.AnchorMiddleLeft;
+            this._startTapDescription2.Color = CCColor3B.Green;
+            this._baseLayer.AddChild(this._startTapDescription2);
 
             // Header pane transition in/out
             var headerLayerEndPosition = new CCPoint(
@@ -221,11 +296,6 @@ namespace Simsip.LineRunner.Scenes.Hud
 #if !NETFX_CORE
             this._timer = new Timer(TimerCallback);
 #endif
-
-            // Get this set up for relative positioning below
-            var footerContentSize = new CCSize(
-                0.96f * screenSize.Width,
-                0.2f  * screenSize.Height);
 
             // Footer pane model
             var footerLayerEndPosition = new CCPoint(
@@ -408,6 +478,7 @@ namespace Simsip.LineRunner.Scenes.Hud
                 0.25f * footerContentSize.Height);
             this._footerLayer.AddChild(speedLabel);
 
+            // Admin
 #if DEBUG
             var adminText = string.Empty;
 #if ANDROID
@@ -498,9 +569,49 @@ namespace Simsip.LineRunner.Scenes.Hud
 #endif
             this._timerStartTime = DateTime.Now;
 
+            // IMPORTANT: We do not want touches. We will only be handling
+            //            responsed from menus and free drags.
+            this.TouchEnabled = false;
+
             // Enable support for gestures
             TouchPanel.EnabledGestures = GestureType.FreeDrag;
             CCApplication.SharedApplication.OnGesture += this.HudOnGesture;
+
+            // Box out positioning around hero
+            var heroStartOrigin = this._pageCache.CurrentPageModel.HeroStartOrigin;
+            var heroModel = this._characterCache.TheHeroModel;
+            var heroBottomMiddle = XNAUtils.WorldToLogical(new Vector3(
+                heroStartOrigin.X + (0.5f * heroModel.WorldWidth),
+                heroStartOrigin.Y,
+                heroStartOrigin.Z),
+                XNAUtils.CameraType.Tracking);
+            var heroMiddleLeft = XNAUtils.WorldToLogical(new Vector3(
+                heroStartOrigin.X,
+                heroStartOrigin.Y + (0.5f * heroModel.WorldHeight),
+                heroStartOrigin.Z),
+                XNAUtils.CameraType.Tracking);
+            var heroMiddleRight = XNAUtils.WorldToLogical(new Vector3(
+                heroStartOrigin.X + heroModel.WorldWidth,
+                heroStartOrigin.Y + (0.5f * heroModel.WorldHeight),
+                heroStartOrigin.Z),
+                XNAUtils.CameraType.Tracking);
+
+            // Base layer on
+            this._baseLayer.Visible = true;
+
+            // Start image
+            this._startTapImage.Position = new CCPoint(
+                heroBottomMiddle.X,
+                heroBottomMiddle.Y - (0.2f * this.ContentSize.Height));
+            this._startTapImage.RunAction(this._startTapAction);
+
+            // Tap text
+            this._startTapDescription1.Position = new CCPoint(
+                heroMiddleLeft.X - (0.1f * this.ContentSize.Width),
+                heroMiddleLeft.Y);
+            this._startTapDescription2.Position = new CCPoint(
+                heroMiddleRight.X + (0.1f * this.ContentSize.Width),
+                heroMiddleRight.Y);
         }
 
         public override void Update(float dt)
@@ -646,6 +757,15 @@ namespace Simsip.LineRunner.Scenes.Hud
         #endregion
 
         #region Helper methods
+
+        private void StartPressed()
+        {
+            // Base layer off
+            this._baseLayer.Visible = false;
+
+            // Get game going
+            this._parent.TheActionLayer.SwitchState(GameState.Moving);
+        }
 
         private void PauseTogglePressed()
         {
