@@ -41,7 +41,12 @@ namespace Engine.Input
 
         void SwitchState(GameState gameState);
 
-        void HudOnGesture(CCGesture g);
+        void HudOnGestureOffset(CCGesture g);
+        void HudOnGestureOrbit(CCGesture g);
+
+        void HudOnGestureReset();
+
+        void HudOnJoystick(MoveDirection moveDirection);
 
         void HudButtonStartEndEvent(object sender, EventCustom e);
 

@@ -18,6 +18,7 @@ using Simsip.LineRunner.Data.Facebook;
 using Windows.System.Threading;
 #else
 using System.Threading;
+using System.Diagnostics;
 #endif
 #if IOS
 using Foundation;
@@ -35,9 +36,10 @@ namespace Simsip.LineRunner.Scenes.Hud
         private ICharacterCache _characterCache;
         private IInputManager _inputManager;
 
-        // Start tap button/animation
+        // Start tap image/animation/button
         private CCSprite _startTapImage;
         private CCAction _startTapAction;
+        private CCMenuItemLabel _startButtonItem;
 
         // Tap text
         private CCLabelTTF _startTapDescription1;
@@ -55,6 +57,9 @@ namespace Simsip.LineRunner.Scenes.Hud
         private UILayer _footerLayer;
         private CCAction _footerLayerActionIn;
         private CCAction _footerLayerActionOut;
+        
+        // Trackball
+        private CCMenuItemLabel _trackballItem;
 
         // Top score
         private CCLabelTTF _topScoreLabel;
@@ -78,10 +83,26 @@ namespace Simsip.LineRunner.Scenes.Hud
         private Timer _timer;
 #endif
 
+        // Joystick
+        private CCMenuItemImage _joystickLeftItem;
+        private CCMenuItemImage _joystickRightItem;
+        private CCMenuItemImage _joystickUpItem;
+        private CCMenuItemImage _joystickDownItem;
+        private MoveDirection _joystickMoveDirection;
+
         // Pause/resume
         private bool _paused;
         private string _pauseText;
         private string _resumeText;
+
+        // Dragging support
+        private enum Dragging
+        {
+            None,
+            Offset,
+            Orbit
+        }
+        private Dragging _dragging;
 
         // Free flight/resume
         private bool _inFlight;
@@ -93,6 +114,9 @@ namespace Simsip.LineRunner.Scenes.Hud
         public HudLayer(CoreScene parent)
         {
             this._parent = parent;
+
+            // Not draffing anything at start
+            this._dragging = Dragging.None;
 
             // Grab rerences to services we'll need
             this._pageCache = (IPageCache)TheGame.SharedGame.Services.GetService(typeof(IPageCache));
@@ -125,13 +149,15 @@ namespace Simsip.LineRunner.Scenes.Hud
             // Start button
             // Transparent button sized/positioned between header/footer
             var startButtonLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            var startButtonItem = new CCMenuItemLabel(startButtonLabel,
+            this._startButtonItem = new CCMenuItemLabel(startButtonLabel,
                 (obj) => { this.StartPressed(); });
-            startButtonItem.ContentSize = this.ContentSize;
+            this._startButtonItem.ContentSize = new CCSize(
+                screenSize.Width,
+                0.52f * screenSize.Height);
             var startLabelMenu = new CCMenu(
                new CCMenuItem[] 
                     {
-                        startButtonItem
+                        this._startButtonItem
                     });
             startLabelMenu.AnchorPoint = CCPoint.AnchorMiddle;
             startLabelMenu.Position = new CCPoint(
@@ -201,6 +227,22 @@ namespace Simsip.LineRunner.Scenes.Hud
                 0.2f * headerContentSize.Width,
                 0.6f * headerContentSize.Height);
             this._headerLayer.AddChild(trackballImage);
+            var trackballDummyLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._trackballItem = new CCMenuItemLabel(trackballDummyLabel);
+            this._trackballItem.ContentSize = new CCSize(
+                0.4f * headerContentSize.Width,
+                headerContentSize.Height);
+            var trackballMenu = new CCMenu(
+               new CCMenuItem[] 
+                    {
+                        this._trackballItem
+                    });
+            trackballMenu.AnchorPoint = CCPoint.AnchorMiddle;
+            trackballMenu.Position = new CCPoint(
+                0.2f * this._headerLayer.ContentSize.Width,
+                0.5f * this._headerLayer.ContentSize.Height);
+            this._headerLayer.AddChild(trackballMenu);
+
             var trackballText = string.Empty;
 #if ANDROID
             trackballText = Program.SharedProgram.Resources.GetString(Resource.String.HudTrackball);
@@ -318,56 +360,61 @@ namespace Simsip.LineRunner.Scenes.Hud
                 new CCSequence(new CCFiniteTimeAction[] { footerLayerStartPlacementAction, footerLayerMoveInAction })
             );
             var footerLayerMoveOutAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, footerLayerStartPosition);
-            this._footerLayerActionOut = new CCEaseBackIn(headerLayerMoveOutAction);
+            this._footerLayerActionOut = new CCEaseBackIn(footerLayerMoveOutAction);
 
-            // Joystick
+            // Joystick (note: start with enumaration not moving)
+            this._joystickMoveDirection = MoveDirection.None;
+            this._joystickLeftItem = new CCMenuItemImage(
+                "Images/Icons/JoystickLeftNormal.png",
+                "Images/Icons/JoystickLeftSelected.png",
+                (obj) => { this._inputManager.HudOnJoystick(MoveDirection.Left); });
             var joystickLeftMenu = new CCMenu(
                 new CCMenuItem[] 
                     {
-                        new CCMenuItemImage(
-                            "Images/Icons/JoystickLeftNormal.png",
-                            "Images/Icons/JoystickLeftSelected.png",
-                            (obj) => { this.IncreaseVelocity(); })
-                        });
+                        this._joystickLeftItem
+                    });
             joystickLeftMenu.AnchorPoint = CCPoint.AnchorMiddle;
             joystickLeftMenu.Position = new CCPoint(
                 0.05f * footerContentSize.Width,
                 0.5f * footerContentSize.Height);
             this._footerLayer.AddChild(joystickLeftMenu);
+            this._joystickRightItem = new CCMenuItemImage(
+                "Images/Icons/JoystickRightNormal.png",
+                "Images/Icons/JoystickRightSelected.png",
+                (obj) => { this._inputManager.HudOnJoystick(MoveDirection.Right); });
             var joystickRightMenu = new CCMenu(
                 new CCMenuItem[] 
                     {
-                        new CCMenuItemImage(
-                            "Images/Icons/JoystickRightNormal.png",
-                            "Images/Icons/JoystickRightSelected.png",
-                            (obj) => { this.IncreaseVelocity(); })
-                        });
+                        this._joystickRightItem
+                    });
             joystickRightMenu.AnchorPoint = CCPoint.AnchorMiddle;
             joystickRightMenu.Position = new CCPoint(
                 0.35f * footerContentSize.Width,
                 0.5f  * footerContentSize.Height);
             this._footerLayer.AddChild(joystickRightMenu);
+            this._joystickUpItem = new CCMenuItemImage(
+                "Images/Icons/JoystickUpNormal.png",
+                "Images/Icons/JoystickUpSelected.png",
+                (obj) => { this._inputManager.HudOnJoystick(MoveDirection.Up); });
             var joystickUpMenu = new CCMenu(
                 new CCMenuItem[] 
                     {
-                        new CCMenuItemImage(
-                            "Images/Icons/JoystickUpNormal.png",
-                            "Images/Icons/JoystickUpSelected.png",
-                            (obj) => { this.IncreaseVelocity(); })
-                        });
+                        this._joystickUpItem
+                    });
             joystickUpMenu.AnchorPoint = CCPoint.AnchorMiddle;
             joystickUpMenu.Position = new CCPoint(
                 0.2f  * footerContentSize.Width,
                 0.75f * footerContentSize.Height);
             this._footerLayer.AddChild(joystickUpMenu);
+            this._joystickDownItem = new CCMenuItemImage(
+                "Images/Icons/JoystickDownNormal.png",
+                "Images/Icons/JoystickDownSelected.png",
+                (obj) => { this._inputManager.HudOnJoystick(MoveDirection.Down); });
             var joystickDownMenu = new CCMenu(
                 new CCMenuItem[] 
                     {
-                        new CCMenuItemImage(
-                            "Images/Icons/JoystickDownNormal.png",
-                            "Images/Icons/JoystickDownSelected.png",
-                            (obj) => { this.IncreaseVelocity(); })
-                        });
+                        this._joystickDownItem
+                    });
             joystickDownMenu.AnchorPoint = CCPoint.AnchorMiddle;
             joystickDownMenu.Position = new CCPoint(
                 0.2f  * footerContentSize.Width,
@@ -387,6 +434,7 @@ namespace Simsip.LineRunner.Scenes.Hud
                 0.2f * footerContentSize.Width,
                 0.5f * footerContentSize.Height);
             this._footerLayer.AddChild(joystickLabel);
+
 
             // Footer divider
             var footerDivider = new CCSprite("Images/Misc/MenuDivider.png");
@@ -574,7 +622,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             this.TouchEnabled = false;
 
             // Enable support for gestures
-            TouchPanel.EnabledGestures = GestureType.FreeDrag;
+            TouchPanel.EnabledGestures = GestureType.FreeDrag | GestureType.DragComplete | GestureType.DoubleTap | GestureType.Hold;
             CCApplication.SharedApplication.OnGesture += this.HudOnGesture;
 
             // Box out positioning around hero
@@ -617,6 +665,19 @@ namespace Simsip.LineRunner.Scenes.Hud
         public override void Update(float dt)
         {
             this._timerLabel.Text = this._timerLabelText;
+
+            if (this._joystickMoveDirection != MoveDirection.None)
+            {
+                TouchCollection touchCollection = TouchPanel.GetState();
+                if (touchCollection.Count == 0)
+                {
+                    this._joystickMoveDirection = MoveDirection.None;
+                }
+                else
+                {
+                    this._inputManager.HudOnJoystick(this._joystickMoveDirection);
+                }
+            }
         }
 
         public override void OnExit()
@@ -702,9 +763,93 @@ namespace Simsip.LineRunner.Scenes.Hud
 
         private void HudOnGesture(CCGesture g)
         {
-            if (g.GestureType == GestureType.FreeDrag)
+            switch (g.GestureType)
             {
-                this._inputManager.HudOnGesture(g);
+                case GestureType.FreeDrag:
+                    {
+                        switch (this._dragging)
+                        {
+                            case Dragging.None:
+                                {
+                                    // IMPORTANT: Gesture position differs from Touch position
+                                    //            in that we have to invert the y value.
+                                    var p = CCDirector.SharedDirector.ConvertToUi(g.Position);
+                                    var sb = this._startButtonItem.WorldBoundingBox;
+                                    var tb = this._trackballItem.WorldBoundingBox;
+                                    if (CCRect.ContainsPoint(ref sb, ref p))
+                                    {
+                                        this._dragging = Dragging.Offset;
+                                        this._inputManager.HudOnGestureOffset(g);
+                                    }
+                                    else if (CCRect.ContainsPoint(ref tb, ref p))
+                                    {
+                                        this._dragging = Dragging.Orbit;
+                                        this._inputManager.HudOnGestureOrbit(g);
+                                    }
+                                    
+                                    break;
+                                }
+                            case Dragging.Offset:
+                                {
+                                    this._inputManager.HudOnGestureOffset(g);
+                                    break;
+                                }
+                           case Dragging.Orbit:
+                                {
+                                    this._inputManager.HudOnGestureOrbit(g);
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case GestureType.DragComplete:
+                    {
+                        this._dragging = Dragging.None;
+                        break;
+                    }
+                case GestureType.DoubleTap:
+                    {
+                        var p = CCDirector.SharedDirector.ConvertToUi(g.Position);
+                        var tb = this._trackballItem.WorldBoundingBox;
+                        if (CCRect.ContainsPoint(ref tb, ref p))
+                        {
+                            this._inputManager.HudOnGestureReset();
+                        }
+
+                        break;
+                    }
+                case GestureType.Hold:
+                    {
+                        var p = CCDirector.SharedDirector.ConvertToUi(g.Position);
+                        var jl = this._joystickLeftItem.WorldBoundingBox;
+                        var jr = this._joystickRightItem.WorldBoundingBox;
+                        var ju = this._joystickUpItem.WorldBoundingBox;
+                        var jd = this._joystickDownItem.WorldBoundingBox;
+                        
+                        if (CCRect.ContainsPoint(ref jl, ref p))
+                        {
+                            this._joystickMoveDirection = MoveDirection.Left;
+                            this._inputManager.HudOnJoystick(this._joystickMoveDirection);
+                        }
+                        else if (CCRect.ContainsPoint(ref jr, ref p))
+                        {
+                            this._joystickMoveDirection = MoveDirection.Right;
+                            this._inputManager.HudOnJoystick(this._joystickMoveDirection);
+                        }
+                        else if (CCRect.ContainsPoint(ref ju, ref p))
+                        {
+                            this._joystickMoveDirection = MoveDirection.Up;
+                            this._inputManager.HudOnJoystick(this._joystickMoveDirection);
+                        }
+                        else if (CCRect.ContainsPoint(ref jd, ref p))
+                        {
+                            this._joystickMoveDirection = MoveDirection.Down;
+                            this._inputManager.HudOnJoystick(this._joystickMoveDirection);
+                        }
+
+                        break;
+                    }
+
             }
         }
 
@@ -760,6 +905,12 @@ namespace Simsip.LineRunner.Scenes.Hud
 
         private void StartPressed()
         {
+            // Short-circuit if dragging
+            if (this._dragging != Dragging.None)
+            {
+                return;
+            }
+
             // Base layer off
             this._baseLayer.Visible = false;
 
@@ -769,6 +920,12 @@ namespace Simsip.LineRunner.Scenes.Hud
 
         private void PauseTogglePressed()
         {
+            // Short-circuit if dragging
+            if (this._dragging != Dragging.None)
+            {
+                return;
+            }
+
             if (this._paused)
             {
                 this._paused = false;
@@ -803,6 +960,12 @@ namespace Simsip.LineRunner.Scenes.Hud
 
         private void DecreaseVelocity()
         {
+            // Short-circuit if dragging
+            if (this._dragging != Dragging.None)
+            {
+                return;
+            }
+
             // Attempt to decrease velocity then determine an appropriate status text
             // based on if we have hit our lower velocity limit or not
             var statusText = string.Empty;
@@ -843,6 +1006,12 @@ namespace Simsip.LineRunner.Scenes.Hud
 
         private void IncreaseVelocity()
         {
+            // Short-circuit if dragging
+            if (this._dragging != Dragging.None)
+            {
+                return;
+            }
+
             this._characterCache.IncreaseVelocity();
 
             var statusText = string.Empty;
@@ -870,6 +1039,12 @@ namespace Simsip.LineRunner.Scenes.Hud
 
         private void NavigateAdmin()
         {
+            // Short-circuit if dragging
+            if (this._dragging != Dragging.None)
+            {
+                return;
+            }
+
             if (!this._paused)
             {
                 this.PauseTogglePressed();

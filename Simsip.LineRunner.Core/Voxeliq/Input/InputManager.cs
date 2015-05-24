@@ -36,6 +36,8 @@ namespace Engine.Input
         Backward,
         Left,
         Right,
+        Up,
+        Down
     }
 
     /// <summary>
@@ -207,21 +209,80 @@ namespace Engine.Input
             this._currentGameState = gameState;
         }
 
-        public void HudOnGesture(CCGesture g)
+        public void HudOnGestureOffset(CCGesture g)
         {
-            if (g.GestureType == GestureType.FreeDrag)
+            // 1. want a full swipe to equate to 45 degrees
+            var xRadiansForSwipe = (g.Delta.X / TheGame.SharedGame.Window.ClientBounds.Width)  * (Microsoft.Xna.Framework.MathHelper.PiOver4);
+            var yRadiansForSwipe = (g.Delta.Y / TheGame.SharedGame.Window.ClientBounds.Height) * (Microsoft.Xna.Framework.MathHelper.PiOver4);
+
+            // 2. account for if we have rotated completely around
+            this.HudCameraOffsetYaw = (this.HudCameraOffsetYaw + xRadiansForSwipe) % Microsoft.Xna.Framework.MathHelper.TwoPi;
+            this.HudCameraOffsetPitch = (this.HudCameraOffsetPitch + yRadiansForSwipe) % Microsoft.Xna.Framework.MathHelper.TwoPi;
+
+            // 3. Save for when we start up again
+            UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_YAW, this.HudCameraOffsetYaw);
+            UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_PITCH, this.HudCameraOffsetPitch);
+        }
+        public void HudOnGestureOrbit(CCGesture g)
+        {
+            // 1. want a full swipe to equate to 45 degrees
+            var xRadiansForSwipe = (g.Delta.X / TheGame.SharedGame.Window.ClientBounds.Width) * (Microsoft.Xna.Framework.MathHelper.PiOver4);
+            var yRadiansForSwipe = (g.Delta.Y / TheGame.SharedGame.Window.ClientBounds.Height) * (Microsoft.Xna.Framework.MathHelper.PiOver4);
+
+            // 2. account for if we have rotated completely around
+            this.HudCameraOrbitYaw = (this.HudCameraOrbitYaw + xRadiansForSwipe) % Microsoft.Xna.Framework.MathHelper.TwoPi;
+            this.HudCameraOrbitPitch = (this.HudCameraOrbitPitch + yRadiansForSwipe) % Microsoft.Xna.Framework.MathHelper.TwoPi;
+
+            // 3. Save for when we start up again
+            UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_ORBIT_YAW, this.HudCameraOrbitYaw);
+            UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_ORBIT_PITCH, this.HudCameraOrbitPitch);
+        }
+
+        public void HudOnGestureReset()
+        {
+            this.HudCameraOffsetX = GameConstants.USER_DEFAULT_INITIAL_HUD_OFFSET_X;
+            this.HudCameraOffsetY = GameConstants.USER_DEFAULT_INITIAL_HUD_OFFSET_Y;
+            this.HudCameraOffsetYaw = GameConstants.USER_DEFAULT_INITIAL_HUD_OFFSET_YAW;
+            this.HudCameraOffsetPitch = GameConstants.USER_DEFAULT_INITIAL_HUD_OFFSET_PITCH;
+            this.HudCameraOrbitYaw = GameConstants.USER_DEFAULT_INITIAL_HUD_ORBIT_YAW;
+            this.HudCameraOrbitPitch = GameConstants.USER_DEFAULT_INITIAL_HUD_ORBIT_PITCH;
+
+            UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_X, this.HudCameraOffsetX);
+            UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_Y, this.HudCameraOffsetY);
+            UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_YAW, this.HudCameraOffsetYaw);
+            UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_PITCH, this.HudCameraOffsetPitch);
+            UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_ORBIT_YAW, this.HudCameraOrbitYaw);
+            UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_ORBIT_PITCH, this.HudCameraOrbitPitch);
+        }
+
+        public void HudOnJoystick(MoveDirection moveDirection)
+        {
+            switch(moveDirection)
             {
-                // 1. want a full swipe to equate to 45 degrees
-                var xRadiansForSwipe = (g.Delta.X / TheGame.SharedGame.Window.ClientBounds.Width)  * (Microsoft.Xna.Framework.MathHelper.PiOver4);
-                var yRadiansForSwipe = (g.Delta.Y / TheGame.SharedGame.Window.ClientBounds.Height) * (Microsoft.Xna.Framework.MathHelper.PiOver4);
-
-                // 2. account for if we have rotated completely around
-                this.HudCameraOffsetYaw = (this.HudCameraOffsetYaw + xRadiansForSwipe) % Microsoft.Xna.Framework.MathHelper.TwoPi;
-                this.HudCameraOffsetPitch = (this.HudCameraOffsetPitch + yRadiansForSwipe) % Microsoft.Xna.Framework.MathHelper.TwoPi;
-
-                // 3. Save for when we start up again
-                UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_YAW, this.HudCameraOffsetYaw);
-                UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_PITCH, this.HudCameraOffsetPitch);
+                case MoveDirection.Left:
+                    {
+                        this.HudCameraOffsetX -= this._joystickDelta;
+                        UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_X, this.HudCameraOffsetX);
+                        break;
+                    }
+                case MoveDirection.Right:
+                    {
+                        this.HudCameraOffsetX += this._joystickDelta;
+                        UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_X, this.HudCameraOffsetX);
+                        break;
+                    }
+                case MoveDirection.Up:
+                    {
+                        this.HudCameraOffsetY += this._joystickDelta;
+                        UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_Y, this.HudCameraOffsetY);
+                        break;
+                    }
+               case MoveDirection.Down:
+                    {
+                        this.HudCameraOffsetY -= this._joystickDelta;
+                        UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_Y, this.HudCameraOffsetY);
+                        break;
+                    }
             }
         }
 
