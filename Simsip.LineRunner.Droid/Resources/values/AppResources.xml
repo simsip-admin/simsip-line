@@ -110,4 +110,5 @@
   <string name="HudTrackball">trackball</string>
   <string name="HudTopScore">top score</string>
   <string name="HudIn">in</string>
+  <string name="HudHome">home</string>
 </resources>

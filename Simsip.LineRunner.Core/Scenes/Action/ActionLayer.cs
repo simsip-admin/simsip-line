@@ -38,6 +38,7 @@ using BEPUphysics.CollisionTests;
 using Engine.Blocks;
 using Engine.Audio;
 using System.Diagnostics;
+using Simsip.LineRunner.GameObjects;
 
 
 namespace Simsip.LineRunner.Scenes.Action
@@ -349,19 +350,14 @@ namespace Simsip.LineRunner.Scenes.Action
                     }
                 case GameState.MovingToStart:
                     {
-                        // TODO: Not beting useed - keeping it simple now, will consider animation later.
-                        // If so, see HudLayer.Draw for how to keep ui positioned correctly
-
-                        /* TODO: Analyze this
                         // Set state
                         this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
                         this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        GameManager.SharedGameManager.CurrentScore = GameManager.SharedGameManager.AdminStartScore;
 
                         // Update score/page/line number in hud
                         this._hudLayer.DisplayScore(GameManager.SharedGameManager.AdminStartScore);
-                        this._hudLayer.DisplayPageNumber(this._currentPageNumber);
-                        this._hudLayer.DisplayLineNumber(this._currentLineNumber);
-                        */
+                        this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
 
                         break;
                     }
@@ -384,10 +380,6 @@ namespace Simsip.LineRunner.Scenes.Action
                         // Update score/page/line number in hud
                         this._hudLayer.DisplayScore(GameManager.SharedGameManager.AdminStartScore);
                         this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
-                        /*
-                        this._hudLayer.DisplayPageNumber(this._currentPageNumber);
-                        this._hudLayer.DisplayLineNumber(this._currentLineNumber);
-                        */
 
                         break;
                     }
@@ -416,6 +408,24 @@ namespace Simsip.LineRunner.Scenes.Action
         #endregion
 
         #region Event handlers
+
+
+        // We hook this up upon handling kills so we can maintain state appropriately after
+        // reloading for start.
+        private void LoadContentAsyncFinishedHandler(object sender, LoadContentAsyncFinishedEventArgs args)
+        {
+            // We only want to react to a refresh event
+            if (args.TheLoadContentAsyncType == LoadContentAsyncType.Initialize)
+            {
+                // Unhook so we are a one-shot event handler
+                this._characterCache.LoadContentAsyncFinished -= this.LoadContentAsyncFinishedHandler;
+
+                this._handlingKill = false;
+
+                // We can now let the hud layer's ui resume
+                this._hudLayer.RestoreStart();
+            }
+        }
 
         private void OnSwitchingUI(object sender, SwitchUIEventArgs e)
         {
@@ -1053,6 +1063,11 @@ namespace Simsip.LineRunner.Scenes.Action
         // where to navigate to next
         public void HandleMoveToFinish()
         {
+            // Hook up an event handler for end of content loading caused by
+            // moving to start kicking off background load
+            this._characterCache.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
+
+            // Now go for the async load
             this.SwitchState(GameState.MovingToStart);
 
             // Did we get a new high score?
@@ -1065,12 +1080,6 @@ namespace Simsip.LineRunner.Scenes.Action
             {
                 // Record new high score and give them a chance to post
                 this._parent.Navigate(LayerTags.FinishLayer);
-            }
-            else
-            {
-                // Just let them start again
-                this._parent.AdjustNavigationStackToStart();
-                this._parent.GoBack();
             }
         }
 

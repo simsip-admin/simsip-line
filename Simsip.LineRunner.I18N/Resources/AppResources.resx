@@ -449,4 +449,7 @@
   <data name="HudIn" xml:space="preserve">
     <value>in</value>
   </data>
+  <data name="HudHome" xml:space="preserve">
+    <value>home</value>
+  </data>
 </root>

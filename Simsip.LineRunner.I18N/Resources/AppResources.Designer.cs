@@ -575,6 +575,15 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to home.
+        /// </summary>
+        public static string HudHome {
+            get {
+                return ResourceManager.GetString("HudHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to in.
         /// </summary>
         public static string HudIn {

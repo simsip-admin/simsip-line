@@ -194,7 +194,6 @@ namespace Simsip.LineRunner.Scenes.Finish
         private void GoBack()
         {
             // Clean-up navigation stack and then go back to start
-            this._parent.AdjustNavigationStackToStart();
             this._parent.GoBack();
         }
 

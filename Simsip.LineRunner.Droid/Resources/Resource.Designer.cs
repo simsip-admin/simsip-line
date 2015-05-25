@@ -2085,6 +2085,9 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060078
 			public const int HudFreeFlight = 2131099768;
 			
+			// aapt resource value: 0x7f0600aa
+			public const int HudHome = 2131099818;
+			
 			// aapt resource value: 0x7f0600a9
 			public const int HudIn = 2131099817;
 			

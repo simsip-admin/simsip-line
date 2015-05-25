@@ -112,5 +112,6 @@
         public static string HudTrackball = "HudTrackball";
         public static string HudTopScore = "HudTopScore";
         public static string HudIn = "HudIn";
+        public static string HudHome = "HudHome";
     }
 }

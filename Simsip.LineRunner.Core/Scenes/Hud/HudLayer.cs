@@ -19,6 +19,7 @@ using Windows.System.Threading;
 #else
 using System.Threading;
 using System.Diagnostics;
+using Simsip.LineRunner.GameObjects;
 #endif
 #if IOS
 using Foundation;
@@ -49,14 +50,22 @@ namespace Simsip.LineRunner.Scenes.Hud
         private GameLayer _baseLayer;
 
         // Header layer
-        private UILayer _headerLayer;
+        private GameLayer _headerLayer;
+        private UILayer _headerLeftLayer;
+        private UILayer _headerRightLayer;
         private CCAction _headerLayerActionIn;
         private CCAction _headerLayerActionOut;
+        private CCAction _hideHeaderAnim;
+        private CCAction _restoreHeaderAnim;
 
         // Footer pane/layer
-        private UILayer _footerLayer;
+        private GameLayer _footerLayer;
+        private UILayer _footerLeftLayer;
+        private UILayer _footerRightLayer;
         private CCAction _footerLayerActionIn;
         private CCAction _footerLayerActionOut;
+        private CCAction _hideFooterAnim;
+        private CCAction _restoreFooterAnim;
         
         // Trackball
         private CCMenuItemLabel _trackballItem;
@@ -129,14 +138,26 @@ namespace Simsip.LineRunner.Scenes.Hud
                 screenSize.Width,
                 screenSize.Height);
             var baseContentSize = new CCSize(   // IMPORTANT: Needs to be full size for proper placement of hero, see OnEnter()
-                screenSize.Width,
-                screenSize.Height);
-            var headerContentSize = new CCSize(
-                0.96f * screenSize.Width,
-                0.2f  * screenSize.Height);
-            var footerContentSize = new CCSize(
-                0.96f * screenSize.Width,
-                0.2f * screenSize.Height);
+                this.ContentSize.Width,
+                this.ContentSize.Height);
+            var headerSize = new CCSize(
+                0.96f * this.ContentSize.Width,
+                0.2f * this.ContentSize.Height);
+            var headerLeftSize = new CCSize(
+                0.78f * headerSize.Width,
+                headerSize.Height);
+            var headerRightSize = new CCSize(
+                0.2f * headerSize.Width,
+                headerSize.Height);
+            var footerSize = new CCSize(
+                0.96f * this.ContentSize.Width,
+                0.2f * this.ContentSize.Height);
+            var footerLeftSize = new CCSize(
+                0.78f * footerSize.Width,
+                footerSize.Height);
+            var footerRightSize = new CCSize(
+                0.2f * footerSize.Width,
+                footerSize.Height);
 
             // Base layer
             this._baseLayer = new GameLayer();
@@ -197,21 +218,28 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._startTapDescription2.Color = CCColor3B.Green;
             this._baseLayer.AddChild(this._startTapDescription2);
 
-            // Header pane transition in/out
+            // Header layers
+            this._headerLayer = new GameLayer();
+            this._headerLayer.ContentSize = headerSize;
             var headerLayerEndPosition = new CCPoint(
                 0.02f * screenSize.Width,
                 0.78f * screenSize.Height);
             var headerLayerStartPosition = new CCPoint(
-                headerLayerEndPosition.X, 
+                headerLayerEndPosition.X,
                 screenSize.Height);
-
-            // Header layer
-            this._headerLayer = new UILayer();
-            this._headerLayer.ContentSize = headerContentSize;
             this._headerLayer.Position = headerLayerEndPosition;
             this.AddChild(this._headerLayer);
+            this._headerLeftLayer = new UILayer();
+            this._headerLeftLayer.ContentSize = headerLeftSize;
+            this._headerLayer.AddChild(this._headerLeftLayer);
+            this._headerRightLayer = new UILayer();
+            this._headerRightLayer.ContentSize = headerRightSize;
+            this._headerRightLayer.Position = new CCPoint(
+                0.8f * this._headerLayer.ContentSize.Width,
+                0);
+            this._headerLayer.AddChild(this._headerRightLayer);
 
-            // Header layer transition in/out
+            // Header animations
             var headerLayerStartPlacementAction = new CCPlace(headerLayerStartPosition);
             var headerLayerMoveInAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, headerLayerEndPosition);
             this._headerLayerActionIn = new CCEaseBackOut(
@@ -219,53 +247,8 @@ namespace Simsip.LineRunner.Scenes.Hud
             );
             var headerLayerMoveOutAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, headerLayerStartPosition);
             this._headerLayerActionOut = new CCEaseBackIn(headerLayerMoveOutAction);
-
-            // Trackball
-            var trackballImage = new CCSprite("Images/Misc/Trackball.png");
-            trackballImage.AnchorPoint = CCPoint.AnchorMiddle;
-            trackballImage.Position = new CCPoint(
-                0.2f * headerContentSize.Width,
-                0.6f * headerContentSize.Height);
-            this._headerLayer.AddChild(trackballImage);
-            var trackballDummyLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._trackballItem = new CCMenuItemLabel(trackballDummyLabel);
-            this._trackballItem.ContentSize = new CCSize(
-                0.4f * headerContentSize.Width,
-                headerContentSize.Height);
-            var trackballMenu = new CCMenu(
-               new CCMenuItem[] 
-                    {
-                        this._trackballItem
-                    });
-            trackballMenu.AnchorPoint = CCPoint.AnchorMiddle;
-            trackballMenu.Position = new CCPoint(
-                0.2f * this._headerLayer.ContentSize.Width,
-                0.5f * this._headerLayer.ContentSize.Height);
-            this._headerLayer.AddChild(trackballMenu);
-
-            var trackballText = string.Empty;
-#if ANDROID
-            trackballText = Program.SharedProgram.Resources.GetString(Resource.String.HudTrackball);
-#elif IOS
-            trackballText = NSBundle.MainBundle.LocalizedString(Strings.HudTrackball, Strings.HudTrackball);
-#else
-            trackballText = AppResources.HudTrackball;
-#endif
-            var trackballLabel = new CCLabelTTF(trackballText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            trackballLabel.AnchorPoint = CCPoint.AnchorMiddle;
-            trackballLabel.Position = new CCPoint(
-                0.2f * headerContentSize.Width,
-                0.2f * headerContentSize.Height);
-            this._headerLayer.AddChild(trackballLabel);
-
-            // Header divider left
-            var headerDividerLeft = new CCSprite("Images/Misc/MenuDivider.png");
-            headerDividerLeft.AnchorPoint = CCPoint.AnchorMiddle;
-            headerDividerLeft.Opacity = 128;
-            headerDividerLeft.Position = new CCPoint(
-                0.4f * headerContentSize.Width,
-                0.5f * headerContentSize.Height);
-            this._headerLayer.AddChild(headerDividerLeft);
+            this._hideHeaderAnim = new CCScaleTo(GameConstants.DURATION_LAYER_TRANSITION, 0f);
+            this._restoreHeaderAnim = new CCEaseBackOut(new CCScaleTo(GameConstants.DURATION_LAYER_TRANSITION, 1f));
 
             // Top score
             var topScoreHeaderText = string.Empty;
@@ -279,211 +262,53 @@ namespace Simsip.LineRunner.Scenes.Hud
             var topScoreHeaderLabel = new CCLabelTTF(topScoreHeaderText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             topScoreHeaderLabel.AnchorPoint = CCPoint.AnchorMiddle;
             topScoreHeaderLabel.Position = new CCPoint(
-                0.58f * headerContentSize.Width,
-                0.8f  * headerContentSize.Height);
-            this._headerLayer.AddChild(topScoreHeaderLabel);
+                0.25f * headerLeftSize.Width,
+                0.8f  * headerLeftSize.Height);
+            this._headerLeftLayer.AddChild(topScoreHeaderLabel);
             this._topScoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             this._topScoreLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._topScoreLabel.Position = new CCPoint(
-                0.58f * headerContentSize.Width,
-                0.6f  * headerContentSize.Height);
-            this._headerLayer.AddChild(this._topScoreLabel);
+                0.25f * headerLeftSize.Width,
+                0.6f  * headerLeftSize.Height);
+            this._headerLeftLayer.AddChild(this._topScoreLabel);
 
             // Status
             this._statusLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             this._statusLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._statusLabel.Position = new CCPoint(
-                0.58f * headerContentSize.Width,
-                0.2f  * headerContentSize.Height);
-            this._headerLayer.AddChild(this._statusLabel);
+                0.25f * headerLeftSize.Width,
+                0.4f  * headerLeftSize.Height);
+            this._headerLeftLayer.AddChild(this._statusLabel);
 
-            // Header divider right
-            var headerDividerRight = new CCSprite("Images/Misc/MenuDivider.png");
-            headerDividerRight.AnchorPoint = CCPoint.AnchorMiddle;
-            headerDividerRight.Opacity = 128;
-            headerDividerRight.Position = new CCPoint(
-                0.76f * headerContentSize.Width,
-                0.5f  * headerContentSize.Height);
-            this._headerLayer.AddChild(headerDividerRight);
+            // Status action
+            var scaleStartStatus = new CCScaleTo(0f, 0f);
+            var scaleUpStatus = new CCScaleTo(0.5f, 1.2f);
+            var scaleBackStatus = new CCScaleTo(0.1f, 1.0f);
+            this._statusLabelAction = new CCSequence(new CCFiniteTimeAction[] { scaleStartStatus, scaleUpStatus, scaleBackStatus });
 
-            // Score label
-            this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_EXTRA_LARGE);
-            this._scoreLabel.Color = CCColor3B.Green;
-            this._statusLabel.AnchorPoint = CCPoint.AnchorMiddle;
-            this._scoreLabel.Position = new CCPoint(
-                0.88f * headerContentSize.Width, 
-                0.7f  * headerContentSize.Height);
-            this._headerLayer.AddChild(this._scoreLabel);
-
-            // Score label action
-            var scaleStartScore = new CCScaleTo(0f, 0f);
-            var scaleUpScore = new CCScaleTo(0.5f, 1.2f);
-            var scaleBackScore = new CCScaleTo(0.1f, 1.0f);
-            this._scoreLabelAction = new CCSequence(new CCFiniteTimeAction[] { scaleStartScore, scaleUpScore, scaleBackScore });
-
-            // Page number label action
-            var scaleStartPageNumber = new CCScaleTo(0f, 0f);
-            var scaleUpPageNumber = new CCScaleTo(0.5f, 1.2f);
-            var scaleBackPageNumber = new CCScaleTo(0.1f, 1.0f);
-            this._statusLabelAction = new CCSequence(new CCFiniteTimeAction[] { scaleStartPageNumber, scaleUpPageNumber, scaleBackPageNumber });
-
-            // Timer
-            this._timerLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._timerLabel.AnchorPoint = CCPoint.AnchorMiddle;
-            this._timerLabel.Position = new CCPoint(
-                0.88f * headerContentSize.Width,
-                0.4f  * headerContentSize.Height);
-            this._timerLabelText = string.Empty;
-            this._headerLayer.AddChild(_timerLabel);
-#if !NETFX_CORE
-            this._timer = new Timer(TimerCallback);
-#endif
-
-            // Footer pane model
-            var footerLayerEndPosition = new CCPoint(
-                0.02f * screenSize.Width,
-                0.02f * screenSize.Height);
-            var footerLayerStartPosition = new CCPoint(
-                footerLayerEndPosition.X,
-                -footerContentSize.Height);
-
-            // Footer layer
-            this._footerLayer = new UILayer();
-            this._footerLayer.ContentSize = footerContentSize;
-            this._footerLayer.Position = footerLayerEndPosition;
-            this.AddChild(this._footerLayer);
-
-            // Footer layer transition in/out
-            var footerLayerStartPlacementAction = new CCPlace(footerLayerStartPosition);
-            var footerLayerMoveInAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, footerLayerEndPosition);
-            this._footerLayerActionIn = new CCEaseBackOut(
-                new CCSequence(new CCFiniteTimeAction[] { footerLayerStartPlacementAction, footerLayerMoveInAction })
-            );
-            var footerLayerMoveOutAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, footerLayerStartPosition);
-            this._footerLayerActionOut = new CCEaseBackIn(footerLayerMoveOutAction);
-
-            // Joystick (note: start with enumaration not moving)
-            this._joystickMoveDirection = MoveDirection.None;
-            this._joystickLeftItem = new CCMenuItemImage(
-                "Images/Icons/JoystickLeftNormal.png",
-                "Images/Icons/JoystickLeftSelected.png",
-                (obj) => { this._inputManager.HudOnJoystick(MoveDirection.Left); });
-            var joystickLeftMenu = new CCMenu(
-                new CCMenuItem[] 
-                    {
-                        this._joystickLeftItem
-                    });
-            joystickLeftMenu.AnchorPoint = CCPoint.AnchorMiddle;
-            joystickLeftMenu.Position = new CCPoint(
-                0.05f * footerContentSize.Width,
-                0.5f * footerContentSize.Height);
-            this._footerLayer.AddChild(joystickLeftMenu);
-            this._joystickRightItem = new CCMenuItemImage(
-                "Images/Icons/JoystickRightNormal.png",
-                "Images/Icons/JoystickRightSelected.png",
-                (obj) => { this._inputManager.HudOnJoystick(MoveDirection.Right); });
-            var joystickRightMenu = new CCMenu(
-                new CCMenuItem[] 
-                    {
-                        this._joystickRightItem
-                    });
-            joystickRightMenu.AnchorPoint = CCPoint.AnchorMiddle;
-            joystickRightMenu.Position = new CCPoint(
-                0.35f * footerContentSize.Width,
-                0.5f  * footerContentSize.Height);
-            this._footerLayer.AddChild(joystickRightMenu);
-            this._joystickUpItem = new CCMenuItemImage(
-                "Images/Icons/JoystickUpNormal.png",
-                "Images/Icons/JoystickUpSelected.png",
-                (obj) => { this._inputManager.HudOnJoystick(MoveDirection.Up); });
-            var joystickUpMenu = new CCMenu(
-                new CCMenuItem[] 
-                    {
-                        this._joystickUpItem
-                    });
-            joystickUpMenu.AnchorPoint = CCPoint.AnchorMiddle;
-            joystickUpMenu.Position = new CCPoint(
-                0.2f  * footerContentSize.Width,
-                0.75f * footerContentSize.Height);
-            this._footerLayer.AddChild(joystickUpMenu);
-            this._joystickDownItem = new CCMenuItemImage(
-                "Images/Icons/JoystickDownNormal.png",
-                "Images/Icons/JoystickDownSelected.png",
-                (obj) => { this._inputManager.HudOnJoystick(MoveDirection.Down); });
-            var joystickDownMenu = new CCMenu(
-                new CCMenuItem[] 
-                    {
-                        this._joystickDownItem
-                    });
-            joystickDownMenu.AnchorPoint = CCPoint.AnchorMiddle;
-            joystickDownMenu.Position = new CCPoint(
-                0.2f  * footerContentSize.Width,
-                0.25f * footerContentSize.Height);
-            this._footerLayer.AddChild(joystickDownMenu);
-            var joystickText = string.Empty;
+            // Home
+            var homeText = string.Empty;
 #if ANDROID
-            joystickText = Program.SharedProgram.Resources.GetString(Resource.String.HudJoystick);
+            homeText = Program.SharedProgram.Resources.GetString(Resource.String.HudHome);
 #elif IOS
-            joystickText = NSBundle.MainBundle.LocalizedString(Strings.HudJoystick, Strings.HudJoystick);
+            homeText = NSBundle.MainBundle.LocalizedString(Strings.HudHome, Strings.HudHome);
 #else
-            joystickText = AppResources.HudJoystick;
+            homeText = AppResources.HudHome;
 #endif
-            var joystickLabel = new CCLabelTTF(joystickText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            joystickLabel.AnchorPoint = CCPoint.AnchorMiddle;
-            joystickLabel.Position = new CCPoint(
-                0.2f * footerContentSize.Width,
-                0.5f * footerContentSize.Height);
-            this._footerLayer.AddChild(joystickLabel);
-
-
-            // Footer divider
-            var footerDivider = new CCSprite("Images/Misc/MenuDivider.png");
-            footerDivider.AnchorPoint = CCPoint.AnchorMiddle;
-            footerDivider.Opacity = 128;
-            footerDivider.Position = new CCPoint(
-                0.42f * headerContentSize.Width,
-                0.5f  * headerContentSize.Height);
-            this._footerLayer.AddChild(footerDivider);
-
-            // Pause toggle
-            CCMenuItemImage pauseToggleOn =
-                new CCMenuItemImage("Images/Icons/PauseButtonNormal.png",
-                                    "Images/Icons/ResumeButtonNormal.png");
-            CCMenuItemImage pauseToggleOff =
-                new CCMenuItemImage("Images/Icons/ResumeButtonNormal.png",
-                                    "Images/Icons/PauseButtonNormal.png");
-            CCMenuItemToggle pauseToggle =
-                new CCMenuItemToggle((obj) => PauseTogglePressed(),
-                new CCMenuItem[] { pauseToggleOn, pauseToggleOff });
-            var pauseMenu = new CCMenu(
-                new CCMenuItem[] 
-                    {
-                        pauseToggle,
-                    });
-            pauseMenu.Position = new CCPoint(
-                0.53f * footerContentSize.Width,
-                0.6f  * footerContentSize.Height);
-            this._footerLayer.AddChild(pauseMenu);
-            this._pauseText = string.Empty;
-#if ANDROID
-            this._pauseText = Program.SharedProgram.Resources.GetString(Resource.String.HudPause);
-#elif IOS
-            this._pauseText = NSBundle.MainBundle.LocalizedString(Strings.HudPause, Strings.HudPause);
-#else
-            this._pauseText = AppResources.HudPause;
-#endif
-            var pauseLabel = new CCLabelTTF(this._pauseText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            var pauseItem = new CCMenuItemLabel(pauseLabel,
-                (obj) => { this.PauseTogglePressed(); });
-            var pauseLabelMenu = new CCMenu(
+            var homeLabel = new CCLabelTTF(homeText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            homeLabel.Color = CCColor3B.Green;
+            var homeItem = new CCMenuItemLabel(homeLabel,
+                (obj) => { this._parent.GoBack(); });
+            var homeLabelMenu = new CCMenu(
                new CCMenuItem[] 
                     {
-                        pauseItem
+                        homeItem
                     });
-            pauseLabelMenu.Position = new CCPoint(
-                0.53f  * footerContentSize.Width,
-                0.25f * footerContentSize.Height);
-            this._footerLayer.AddChild(pauseLabelMenu);
+            homeLabelMenu.AnchorPoint = CCPoint.AnchorMiddle;
+            homeLabelMenu.Position = new CCPoint(
+                0.25f * headerLeftSize.Width,
+                0.2f  * headerLeftSize.Height);
+            this._headerLeftLayer.AddChild(homeLabelMenu);
 
             // Speed
             var decreaseButtonNormal = new CCSprite("Images/Icons/DecreaseButtonNormal.png");
@@ -505,12 +330,12 @@ namespace Simsip.LineRunner.Scenes.Hud
                         increaseButton,
                     });
             speedMenu.AlignItemsHorizontallyWithPadding(
-                0.05f * footerContentSize.Width);
+                0.05f * headerLeftSize.Width);
             speedMenu.AnchorPoint = CCPoint.AnchorMiddle;
             speedMenu.Position = new CCPoint(
-                0.82f * footerContentSize.Width,
-                0.6f  * footerContentSize.Height);
-            this._footerLayer.AddChild(speedMenu);
+                0.75f * headerLeftSize.Width,
+                0.6f  * headerLeftSize.Height);
+            this._headerLeftLayer.AddChild(speedMenu);
 
             var speedText = string.Empty;
 #if ANDROID
@@ -521,10 +346,221 @@ namespace Simsip.LineRunner.Scenes.Hud
             speedText = AppResources.HudSpeed;
 #endif
             var speedLabel = new CCLabelTTF(speedText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            speedLabel.AnchorPoint = CCPoint.AnchorMiddle;
             speedLabel.Position = new CCPoint(
-                0.82f * footerContentSize.Width,
-                0.25f * footerContentSize.Height);
-            this._footerLayer.AddChild(speedLabel);
+                0.75f  * headerLeftSize.Width,
+                0.2f * headerLeftSize.Height);
+            this._headerLeftLayer.AddChild(speedLabel);
+
+            // Score label
+            this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_EXTRA_LARGE);
+            this._scoreLabel.Color = CCColor3B.Green;
+            this._statusLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            this._scoreLabel.Position = new CCPoint(
+                0.5f * headerRightSize.Width, 
+                0.6f * headerRightSize.Height);
+            this._headerRightLayer.AddChild(this._scoreLabel);
+
+            // Score label action
+            var scaleStartScore = new CCScaleTo(0f, 0f);
+            var scaleUpScore = new CCScaleTo(0.5f, 1.2f);
+            var scaleBackScore = new CCScaleTo(0.1f, 1.0f);
+            this._scoreLabelAction = new CCSequence(new CCFiniteTimeAction[] { scaleStartScore, scaleUpScore, scaleBackScore });
+
+            // Timer
+            this._timerLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._timerLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            this._timerLabel.Position = new CCPoint(
+                0.5f * headerRightSize.Width,
+                0.2f * headerRightSize.Height);
+            this._timerLabelText = string.Empty;
+            this._headerRightLayer.AddChild(_timerLabel);
+#if !NETFX_CORE
+            this._timer = new Timer(TimerCallback);
+#endif
+
+            // Footer layers
+            this._footerLayer = new GameLayer();
+            this._footerLayer.ContentSize = footerSize;
+            var footerLayerEndPosition = new CCPoint(
+                0.02f * screenSize.Width,
+                0.02f * screenSize.Height);
+            var footerLayerStartPosition = new CCPoint(
+                footerLayerEndPosition.X,
+                -footerSize.Height);
+            this._footerLayer.Position = footerLayerEndPosition;
+            this.AddChild(this._footerLayer);
+            this._footerLeftLayer = new UILayer();
+            this._footerLeftLayer.ContentSize = footerLeftSize;
+            this._footerLayer.AddChild(this._footerLeftLayer);
+            this._footerRightLayer = new UILayer();
+            this._footerRightLayer.ContentSize = footerRightSize;
+            this._footerRightLayer.Position = new CCPoint(
+                0.8f * this._footerLayer.ContentSize.Width,
+                0);
+            this._footerLayer.AddChild(this._footerRightLayer);
+
+            // Footer animations
+            var footerLayerStartPlacementAction = new CCPlace(footerLayerStartPosition);
+            var footerLayerMoveInAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, footerLayerEndPosition);
+            this._footerLayerActionIn = new CCEaseBackOut(
+                new CCSequence(new CCFiniteTimeAction[] { footerLayerStartPlacementAction, footerLayerMoveInAction })
+            );
+            var footerLayerMoveOutAction = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, footerLayerStartPosition);
+            this._footerLayerActionOut = new CCEaseBackIn(footerLayerMoveOutAction);
+            this._hideFooterAnim = new CCScaleTo(GameConstants.DURATION_LAYER_TRANSITION, 0f);
+            this._restoreFooterAnim = new CCEaseBackOut(new CCScaleTo(GameConstants.DURATION_LAYER_TRANSITION, 1f));
+
+            // Joystick (note: start with enumaration not moving)
+            this._joystickMoveDirection = MoveDirection.None;
+            this._joystickLeftItem = new CCMenuItemImage(
+                "Images/Icons/JoystickLeftNormal.png",
+                "Images/Icons/JoystickLeftSelected.png",
+                (obj) => { this._inputManager.HudOnJoystick(MoveDirection.Left); });
+            var joystickLeftMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        this._joystickLeftItem
+                    });
+            joystickLeftMenu.AnchorPoint = CCPoint.AnchorMiddle;
+            joystickLeftMenu.Position = new CCPoint(
+                0.1f * footerLeftSize.Width,
+                0.5f * footerLeftSize.Height);
+            this._footerLeftLayer.AddChild(joystickLeftMenu);
+            this._joystickRightItem = new CCMenuItemImage(
+                "Images/Icons/JoystickRightNormal.png",
+                "Images/Icons/JoystickRightSelected.png",
+                (obj) => { this._inputManager.HudOnJoystick(MoveDirection.Right); });
+            var joystickRightMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        this._joystickRightItem
+                    });
+            joystickRightMenu.AnchorPoint = CCPoint.AnchorMiddle;
+            joystickRightMenu.Position = new CCPoint(
+                0.5f * footerLeftSize.Width,
+                0.5f  * footerLeftSize.Height);
+            this._footerLeftLayer.AddChild(joystickRightMenu);
+            this._joystickUpItem = new CCMenuItemImage(
+                "Images/Icons/JoystickUpNormal.png",
+                "Images/Icons/JoystickUpSelected.png",
+                (obj) => { this._inputManager.HudOnJoystick(MoveDirection.Up); });
+            var joystickUpMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        this._joystickUpItem
+                    });
+            joystickUpMenu.AnchorPoint = CCPoint.AnchorMiddle;
+            joystickUpMenu.Position = new CCPoint(
+                0.3f * footerLeftSize.Width,
+                0.8f * footerLeftSize.Height);
+            this._footerLeftLayer.AddChild(joystickUpMenu);
+            this._joystickDownItem = new CCMenuItemImage(
+                "Images/Icons/JoystickDownNormal.png",
+                "Images/Icons/JoystickDownSelected.png",
+                (obj) => { this._inputManager.HudOnJoystick(MoveDirection.Down); });
+            var joystickDownMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        this._joystickDownItem
+                    });
+            joystickDownMenu.AnchorPoint = CCPoint.AnchorMiddle;
+            joystickDownMenu.Position = new CCPoint(
+                0.3f * footerLeftSize.Width,
+                0.2f * footerLeftSize.Height);
+            this._footerLeftLayer.AddChild(joystickDownMenu);
+            var joystickText = string.Empty;
+#if ANDROID
+            joystickText = Program.SharedProgram.Resources.GetString(Resource.String.HudJoystick);
+#elif IOS
+            joystickText = NSBundle.MainBundle.LocalizedString(Strings.HudJoystick, Strings.HudJoystick);
+#else
+            joystickText = AppResources.HudJoystick;
+#endif
+            var joystickLabel = new CCLabelTTF(joystickText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            joystickLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            joystickLabel.Position = new CCPoint(
+                0.3f * footerLeftSize.Width,
+                0.5f * footerLeftSize.Height);
+            this._footerLeftLayer.AddChild(joystickLabel);
+
+            // Trackball
+            var trackballImage = new CCSprite("Images/Misc/Trackball.png");
+            trackballImage.AnchorPoint = CCPoint.AnchorMiddle;
+            trackballImage.Position = new CCPoint(
+                0.8f * footerLeftSize.Width,
+                0.6f * footerLeftSize.Height);
+            this._footerLeftLayer.AddChild(trackballImage);
+            var trackballDummyLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._trackballItem = new CCMenuItemLabel(trackballDummyLabel);
+            this._trackballItem.ContentSize = new CCSize(
+                0.4f * footerLeftSize.Width,
+                footerLeftSize.Height);
+            var trackballMenu = new CCMenu(
+               new CCMenuItem[] 
+                    {
+                        this._trackballItem
+                    });
+            trackballMenu.AnchorPoint = CCPoint.AnchorMiddle;
+            trackballMenu.Position = new CCPoint(
+                0.8f * footerLeftSize.Width,
+                0.5f * footerLeftSize.Height);
+            this._footerLeftLayer.AddChild(trackballMenu);
+
+            var trackballText = string.Empty;
+#if ANDROID
+            trackballText = Program.SharedProgram.Resources.GetString(Resource.String.HudTrackball);
+#elif IOS
+            trackballText = NSBundle.MainBundle.LocalizedString(Strings.HudTrackball, Strings.HudTrackball);
+#else
+            trackballText = AppResources.HudTrackball;
+#endif
+            var trackballLabel = new CCLabelTTF(trackballText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            trackballLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            trackballLabel.Position = new CCPoint(
+                0.8f * footerLeftSize.Width,
+                0.2f * footerLeftSize.Height);
+            this._footerLeftLayer.AddChild(trackballLabel);
+
+            // Pause toggle
+            CCMenuItemImage pauseToggleOn =
+                new CCMenuItemImage("Images/Icons/PauseButtonNormal.png",
+                                    "Images/Icons/ResumeButtonNormal.png");
+            CCMenuItemImage pauseToggleOff =
+                new CCMenuItemImage("Images/Icons/ResumeButtonNormal.png",
+                                    "Images/Icons/PauseButtonNormal.png");
+            CCMenuItemToggle pauseToggle =
+                new CCMenuItemToggle((obj) => PauseTogglePressed(),
+                new CCMenuItem[] { pauseToggleOn, pauseToggleOff });
+            var pauseMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        pauseToggle,
+                    });
+            pauseMenu.Position = new CCPoint(
+                0.5f * footerRightSize.Width,
+                0.6f * footerRightSize.Height);
+            this._footerRightLayer.AddChild(pauseMenu);
+            this._pauseText = string.Empty;
+#if ANDROID
+            this._pauseText = Program.SharedProgram.Resources.GetString(Resource.String.HudPause);
+#elif IOS
+            this._pauseText = NSBundle.MainBundle.LocalizedString(Strings.HudPause, Strings.HudPause);
+#else
+            this._pauseText = AppResources.HudPause;
+#endif
+            var pauseLabel = new CCLabelTTF(this._pauseText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var pauseItem = new CCMenuItemLabel(pauseLabel,
+                (obj) => { this.PauseTogglePressed(); });
+            var pauseLabelMenu = new CCMenu(
+               new CCMenuItem[] 
+                    {
+                        pauseItem
+                    });
+            pauseLabelMenu.Position = new CCPoint(
+                0.5f * footerRightSize.Width,
+                0.2f * footerRightSize.Height);
+            this._footerRightLayer.AddChild(pauseLabelMenu);
 
             // Admin
 #if DEBUG
@@ -550,30 +586,6 @@ namespace Simsip.LineRunner.Scenes.Hud
             this.AddChild(adminLabelMenu);
 #endif
 
-
-            // TODO: Add in when Worlds are ready
-            /*
-            var freeFlightText = string.Empty;
-#if ANDROID
-            freeFlightText = Program.SharedProgram.Resources.GetString(Resource.String.HudFreeFlight);
-#elif IOS
-            freeFlightText = NSBundle.MainBundle.LocalizedString(Strings.HudFreeFlight, Strings.HudFreeFlight);
-#else
-            freeFlightText = AppResources.HudFreeFlight;
-#endif
-            this._flightLabel = new CCLabelTTF(freeFlightText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-            var flightButton = new CCMenuItemLabel(this._flightLabel,
-                                                 (obj) => { this.ToggleWorld(); });
-            this._flightMenu = new CCMenu(
-               new CCMenuItem[] 
-                    {
-                        flightButton
-                    });
-            this._flightMenu.Position = new CCPoint(
-                0.5f * headerContentSize.Width,
-                0.15f * headerContentSize.Height);
-            this._headerLayer.AddChild(this._flightMenu);
-            */
         }
 
         #region Cocos2D overrides
@@ -684,6 +696,12 @@ namespace Simsip.LineRunner.Scenes.Hud
         {
             base.OnExit();
 
+            // Restore scaling of secondary layers
+            this._headerLeftLayer.ScaleX = 1f;
+            this._headerLeftLayer.ScaleY = 1f;
+            this._footerLeftLayer.ScaleX = 1f;
+            this._footerLeftLayer.ScaleY = 1f;
+
             // Turn off timer display
 #if NETFX_CORE
             this._timer.Cancel();
@@ -699,6 +717,15 @@ namespace Simsip.LineRunner.Scenes.Hud
         #endregion
 
         #region Api
+
+        public void RestoreStart()
+        {
+            // Base layer on
+            this._baseLayer.Visible = true;
+
+            // Restore secondary layers
+            this.RestoreSecondaryLayers();
+        }
 
         public void DisplayScore(int score)
         {
@@ -853,55 +880,21 @@ namespace Simsip.LineRunner.Scenes.Hud
             }
         }
 
-        private void HudStickStartEndEvent(object sender, EventCustom e)
-        {
-            this._inputManager.HudStickStartEndEvent(sender, e);
-        }
-
-        private void HudButtonStartEndEvent(object sender, EventCustom e)
-        {
-            var sneakyButtonEventResponse = e.UserData as SneakyButtonEventResponse;
-            var sneakyButtonStatus = sneakyButtonEventResponse.ResponseType;
-            var sneakyButtonId = sneakyButtonEventResponse.ID;
-
-            if (sneakyButtonStatus != SneakyButtonStatus.Press)
-            {
-                return;
-            }
-
-            var requiresStatus = false;
-            MoveDirection moveDirection = (MoveDirection)sneakyButtonId;
-            this._inputManager.HudButtonStartEndEvent(sender, e);
-
-            if (requiresStatus)
-            {
-                var statusText = string.Empty;
-#if ANDROID
-                statusText = Program.SharedProgram.Resources.GetString(Resource.String.HudJoystickLimit);
-#elif IOS
-                statusText = NSBundle.MainBundle.LocalizedString(Strings.HudJoystickLimit, Strings.HudJoystickLimit);
-#else
-                statusText = AppResources.HudJoystickLimit;
-#endif
-                this._statusLabel.Text = statusText; ;
-
-                // Clear out any previous activity for status label
-                this._statusLabel.ActionManager.RemoveAllActionsFromTarget(this);
-
-                // Construct and run an action to display the status for only a short duration
-                var statusLabelAction = new CCSequence(new CCFiniteTimeAction[]
-                {
-                    new CCDelayTime(GameConstants.DURATION_STATUS_LABEL),
-                    new CCCallFunc(() => this._statusLabel.Text = string.Empty)
-                }
-                );
-                this._statusLabel.RunAction(statusLabelAction);
-            }
-        }
-
         #endregion
 
         #region Helper methods
+
+        private void HideSecondaryLayers()
+        {
+            this._headerLeftLayer.RunAction(this._hideHeaderAnim);
+            this._footerLeftLayer.RunAction(this._hideFooterAnim);
+        }
+
+        private void RestoreSecondaryLayers()
+        {
+            this._headerLeftLayer.RunAction(this._restoreHeaderAnim);
+            this._footerLeftLayer.RunAction(this._restoreFooterAnim);
+        }
 
         private void StartPressed()
         {
@@ -913,6 +906,9 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             // Base layer off
             this._baseLayer.Visible = false;
+
+            // Hide secondary layers
+            this.HideSecondaryLayers();
 
             // Get game going
             this._parent.TheActionLayer.SwitchState(GameState.Moving);
@@ -936,6 +932,9 @@ namespace Simsip.LineRunner.Scenes.Hud
                 this._statusLabel.ActionManager.RemoveAllActionsFromTarget(this);
                 this._statusLabel.Color = CCColor3B.White;
                 this._statusLabel.Text = string.Empty;
+
+                // Hide secondary layers
+                this.HideSecondaryLayers();
             }
             else
             {
@@ -955,6 +954,9 @@ namespace Simsip.LineRunner.Scenes.Hud
                 this._statusLabel.ActionManager.RemoveAllActionsFromTarget(this);
                 this._statusLabel.Color = CCColor3B.Red;
                 this._statusLabel.Text = statusText;
+
+                // Restore secondary layers
+                this.RestoreSecondaryLayers();
             }
         }
 

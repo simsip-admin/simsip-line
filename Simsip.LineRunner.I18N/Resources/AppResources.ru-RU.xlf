@@ -132,6 +132,10 @@
           <source>in</source>
           <target state="new">in</target>
         </trans-unit>
+        <trans-unit id="Resx/HudHome" translate="yes" xml:space="preserve">
+          <source>home</source>
+          <target state="new">home</target>
+        </trans-unit>
         <trans-unit id="Resx/HudJoystick" translate="yes" xml:space="preserve">
           <source>joystick</source>
           <target state="new">joystick</target>
