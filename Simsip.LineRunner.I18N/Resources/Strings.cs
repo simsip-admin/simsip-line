@@ -7,12 +7,6 @@
         public static string ApplicationTitle = "ApplicationTitle";
         public static string AppBarButtonText = "AppBarButtonText";
         public static string AppBarMenuItemText = "AppBarMenuItemText";
-        public static string CommonPage1Of4 = "CommonPage1Of4";
-        public static string CommonPage2Of4 = "CommonPage2Of4";
-        public static string CommonPage3Of4 = "CommonPage3Of4";
-        public static string CommonPage4Of4 = "CommonPage4Of4";
-        public static string CommonPage1Of3 = "CommonPage1Of3";
-        public static string CommonPage2Of3 = "CommonPage2Of3";
         public static string CommonVersion = "CommonVersion";
         public static string HelpFreeFlight = "HelpFreeFlight";
         public static string HelpfreeFlightDescription1 = "HelpfreeFlightDescription1";
@@ -87,7 +81,6 @@
         public static string WorldsSwitchingWorlds = "WorldsSwitchingWorlds";
         public static string WorldsUseThisWorld = "WorldsUseThisWorld";
         public static string WorldsWorlds = "WorldsWorlds";
-        public static string CommonPage3Of3 = "CommonPage3Of3";
         public static string OptionsPracticeModeOff = "OptionsPracticeModeOff";
         public static string OptionsPracticeModeOn = "OptionsPracticeModeOn";
         public static string CommonLater = "CommonLater";
@@ -101,8 +94,7 @@
         public static string MainOptions = "MainOptions";
         public static string MainPlay = "MainPlay";
         public static string MainRate = "MainRate";
-        public static string CommonPage1Of2 = "CommonPage1Of2";
-        public static string CommonPage2Of2 = "CommonPage2Of2";
+        public static string CommonPage = "CommonPage";
         public static string HudPause = "HudPause";
         public static string HudSpeed = "HudSpeed";
         public static string HudCannotGoSlowerThan = "HudCannotGoSlowerThan";

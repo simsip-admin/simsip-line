@@ -16,13 +16,13 @@
     foreach(EnvDTE.Project project in dte.Solution.Projects)
     {
         string projectName = project.Name.ToLower();
-        if(projectName.Contains(".ios"))
+        if(projectName.Contains("simsip.linerunner.ios"))
         {
             iosTemplate = new Resx2iOSTemplate();
             iosTemplate.Output.Project = project.FullName;
             iosTemplate.Output.ItemType = "Content";
         }
-        else if(projectName.Contains(".droid"))
+        else if(projectName.Contains("simsip.linerunner.droid"))
         {
             androidTemplate = new Resx2AndroidTemplate();
             androidTemplate.Output.Project = project.FullName;

@@ -9,12 +9,12 @@ using Foundation;
 
 namespace Simsip.LineRunner.Scenes.Help
 {
-    public class HelpPage4Layer : GameLayer
+    public class HelpPage6Layer : GameLayer
     {
         private CoreScene _parent;
         private HelpMasterLayer _masterLayer;
 
-        public HelpPage4Layer(CoreScene parent, HelpMasterLayer masterLayer)
+        public HelpPage6Layer(CoreScene parent, HelpMasterLayer masterLayer)
         {
             this._parent = parent;
             this._masterLayer = masterLayer;

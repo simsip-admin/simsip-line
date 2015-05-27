@@ -53,13 +53,13 @@ namespace Simsip.LineRunner.Scenes.Options
             // Page number
             var pageNumberText = string.Empty;
 #if ANDROID
-            pageNumberText = Program.SharedProgram.Resources.GetString(Resource.String.CommonPage1Of3);
+            pageNumberText = Program.SharedProgram.Resources.GetString(Resource.String.CommonPage);
 #elif IOS
-            pageNumberText = NSBundle.MainBundle.LocalizedString(Strings.CommonPage1Of3, Strings.CommonPage1Of3);
+            pageNumberText = NSBundle.MainBundle.LocalizedString(Strings.CommonPage, Strings.CommonPage);
 #else
-            pageNumberText = AppResources.CommonPage1Of3;
+            pageNumberText = AppResources.CommonPage;
 #endif
-            var pageNumberHeader = new CCLabelTTF(pageNumberText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var pageNumberHeader = new CCLabelTTF(pageNumberText + " 1", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             pageNumberHeader.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,

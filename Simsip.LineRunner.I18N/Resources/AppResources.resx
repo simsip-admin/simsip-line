@@ -134,24 +134,6 @@
   <data name="AppBarMenuItemText" xml:space="preserve">
     <value>Menu Item</value>
   </data>
-  <data name="CommonPage1Of4" xml:space="preserve">
-    <value>page 1 of 4</value>
-  </data>
-  <data name="CommonPage2Of4" xml:space="preserve">
-    <value>page 2 of 4</value>
-  </data>
-  <data name="CommonPage3Of4" xml:space="preserve">
-    <value>page 3 of 4</value>
-  </data>
-  <data name="CommonPage4Of4" xml:space="preserve">
-    <value>page 4 of 4</value>
-  </data>
-  <data name="CommonPage1Of3" xml:space="preserve">
-    <value>page 1 of 3</value>
-  </data>
-  <data name="CommonPage2Of3" xml:space="preserve">
-    <value>page 2 of 3</value>
-  </data>
   <data name="CommonVersion" xml:space="preserve">
     <value>version</value>
   </data>
@@ -374,9 +356,6 @@
   <data name="WorldsWorlds" xml:space="preserve">
     <value>worlds</value>
   </data>
-  <data name="CommonPage3Of3" xml:space="preserve">
-    <value>page 3 of 3</value>
-  </data>
   <data name="OptionsPracticeModeOff" xml:space="preserve">
     <value>practice mode off</value>
   </data>
@@ -416,11 +395,8 @@
   <data name="MainRate" xml:space="preserve">
     <value>rate</value>
   </data>
-  <data name="CommonPage1Of2" xml:space="preserve">
-    <value>page 1 of 2</value>
-  </data>
-  <data name="CommonPage2Of2" xml:space="preserve">
-    <value>page 2 of 2</value>
+  <data name="CommonPage" xml:space="preserve">
+    <value>page</value>
   </data>
   <data name="HudPause" xml:space="preserve">
     <value>pause</value>

@@ -22,7 +22,6 @@ using Microsoft.Xna.Framework.Input;
 using Simsip.LineRunner;
 using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.Physics;
-using Simsip.LineRunner.SneakyJoystick;
 using Simsip.LineRunner.Utils;
 using Microsoft.Xna.Framework.Input.Touch;
 
@@ -60,16 +59,7 @@ namespace Engine.Input
 
         private GameState _currentGameState;
 
-        private CCPoint _previousStickDirection;
-        private SneakyJoystickMovementStatus _previousJoystickMovementStatus;
-
-        private int _previousButtonId;
-        private SneakyButtonStatus _previousButtonStatus;
-
         private float _joystickDelta;
-
-        private DateTime _previousDateTime;
-
 
         // properties.
         public bool CaptureMouse { get; private set; } // Should the game capture mouse?
@@ -153,12 +143,6 @@ namespace Engine.Input
             // get current mouse & keyboard states.
             this._previousKeyboardState = Keyboard.GetState();
             this._previousMouseState = Mouse.GetState();
-
-            this._previousJoystickMovementStatus = SneakyJoystickMovementStatus.End;
-            this._previousStickDirection = new CCPoint();
-            this._previousButtonId = -1;
-            this._previousButtonStatus = SneakyButtonStatus.None;
-            this._previousDateTime = DateTime.Now;
 
             this.HudCameraOffsetX = UserDefaults.SharedUserDefault.GetFloatForKey(
                 GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_X,
@@ -281,150 +265,6 @@ namespace Engine.Input
                     {
                         this.HudCameraOffsetY -= this._joystickDelta;
                         UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_Y, this.HudCameraOffsetY);
-                        break;
-                    }
-            }
-        }
-
-        public void HudButtonStartEndEvent(object sender, EventCustom e) 
-        {
-            var sneakyButtonEventResponse = e.UserData as SneakyButtonEventResponse;
-            var sneakyButtonStatus = sneakyButtonEventResponse.ResponseType;
-            var sneakyButtonId = sneakyButtonEventResponse.ID;
-
-            if (sneakyButtonStatus != SneakyButtonStatus.Press)
-            {
-                return;
-            }
-
-            MoveDirection moveDirection = (MoveDirection)sneakyButtonId;
-            switch (moveDirection)
-            {
-                case MoveDirection.Forward:
-                    {
-                        this.HudCameraOffsetY += this._joystickDelta;
-                        break;
-                    }
-                case MoveDirection.Backward:
-                    {
-                        this.HudCameraOffsetY -= this._joystickDelta;
-                        break;
-                    }
-                case MoveDirection.Left:
-                    {
-                        this.HudCameraOffsetX -= this._joystickDelta;
-                        break;
-                    }
-                case MoveDirection.Right:
-                    {
-                        this.HudCameraOffsetX += this._joystickDelta;
-                        break;
-                    }
-            }
-
-            // movement keys.
-            /*
-            var moveDirection = MoveDirection.None;
-            if (sneakyButtonId == (int)MoveDirection.Forward ||
-                sneakyButtonId == (int)MoveDirection.Backward ||
-                sneakyButtonId == (int)MoveDirection.Left ||
-                sneakyButtonId == (int)MoveDirection.Right)
-            {
-                moveDirection = (MoveDirection)sneakyButtonId;
-            }
-            */
-
-            // TODO: How to jump - 2nd joystick?
-            /*
-            if (_previousKeyboardState.IsKeyUp(Keys.Space) && currentState.IsKeyDown(Keys.Space))
-            {
-                _playerCamera.Jump();
-            }
-            */
-
-            /* TODO: Leaving in until we know what we want to do here
-            var newGameTime = new GameTime();
-            var currentDateTime = DateTime.Now;
-            newGameTime.ElapsedGameTime = currentDateTime - this._previousDateTime;
-            this._previousButtonStatus = sneakyButtonStatus;
-            this._previousButtonId = sneakyButtonId;
-            this._previousDateTime = currentDateTime;
-            */
-
-            /* TODO: Leaving in until we know what we want to do here
-            switch(this._currentGameState)
-            {
-                case GameState.Moving:
-                    {
-                        // TODO
-                        // this.TheLineRunnerControllerInput.Move(newGameTime, moveDirection);
-
-                        break;
-                    }
-                case GameState.World:
-                    {
-                        // TODO
-                        // this.ThePlayerControllerInput.Move(newGameTime, moveDirection);
-
-                        break;
-                    }
-            }
-            */
-        }
-
-        public void HudStickStartEndEvent(object sender, EventCustom e)
-        {
-            var stickDirection = (CCPoint)e.UserData;
-
-            if (stickDirection == null ||
-                stickDirection == this._previousStickDirection)
-            {
-                return;
-            }
-
-            float rotation = stickDirection.X - Core.Engine.Instance.Configuration.Graphics.Width / 2;
-            float elevation = stickDirection.Y - Core.Engine.Instance.Configuration.Graphics.Height / 2;
-
-            // TODO: When we pull in ui
-            /*
-            if (stickDirection.LeftButton == ButtonState.Pressed && _previousMouseState.LeftButton == ButtonState.Released)
-                this._player.Weapon.Use();
-            if (stickDirection.RightButton == ButtonState.Pressed && _previousMouseState.RightButton == ButtonState.Released)
-                this._player.Weapon.SecondaryUse();
-            */
-
-            this._previousStickDirection = stickDirection;
-
-            switch (this._currentGameState)
-            {
-                case GameState.Moving:
-                    {
-                        if (rotation != 0)
-                        {
-                            // TODO
-                            // this.TheLineRunnerControllerInput.RotateCamera(rotation);
-                        }
-                        if (elevation != 0)
-                        {
-                            // TODO
-                            // this.TheLineRunnerControllerInput.ElevateCamera(elevation);
-                        }
-
-                        break;
-                    }
-                case GameState.World:
-                    {
-                        if (rotation != 0)
-                        {
-                            // TODO
-                            // this.ThePlayerControllerInput.RotateCamera(rotation);
-                        }
-                        if (elevation != 0)
-                        {
-                            // TODO
-                            // this.ThePlayerControllerInput.ElevateCamera(elevation);
-                        }
-
                         break;
                     }
             }

@@ -18,7 +18,6 @@ using Engine.Universe;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Simsip.LineRunner.GameFramework;
-using Simsip.LineRunner.SneakyJoystick;
 using BEPUphysicsDemos;
 using BEPUphysicsDemos.AlternateMovement;
 
@@ -47,10 +46,6 @@ namespace Engine.Input
         void HudOnGestureReset();
 
         void HudOnJoystick(MoveDirection moveDirection);
-
-        void HudButtonStartEndEvent(object sender, EventCustom e);
-
-        void HudStickStartEndEvent(object sender, EventCustom e);
 
         float HudCameraOffsetX { get; }
         float HudCameraOffsetY { get; }

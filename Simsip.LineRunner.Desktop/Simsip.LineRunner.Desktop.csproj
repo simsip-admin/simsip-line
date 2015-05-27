@@ -2611,6 +2611,18 @@
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Help\HelpPage4Layer.cs">
       <Link>Scenes\Help\HelpPage4Layer.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Help\HelpPage5Layer.cs">
+      <Link>Scenes\Help\HelpPage5Layer.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Help\HelpPage6Layer.cs">
+      <Link>Scenes\Help\HelpPage6Layer.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Help\HelpPage7Layer.cs">
+      <Link>Scenes\Help\HelpPage7Layer.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Help\HelpPage8Layer.cs">
+      <Link>Scenes\Help\HelpPage8Layer.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Hud\HudLayer.cs">
       <Link>Scenes\Hud\HudLayer.cs</Link>
     </Compile>
@@ -2832,30 +2844,6 @@
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Settings\Readers\GraphicsSettings.cs">
       <Link>Settings\Readers\GraphicsSettings.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\SneakyJoystick\ColoredCircleSprite.cs">
-      <Link>SneakyJoystick\ColoredCircleSprite.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\SneakyJoystick\Event.cs">
-      <Link>SneakyJoystick\Event.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\SneakyJoystick\EventCustom.cs">
-      <Link>SneakyJoystick\EventCustom.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\SneakyJoystick\SneakyButtonControl.cs">
-      <Link>SneakyJoystick\SneakyButtonControl.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\SneakyJoystick\SneakyButtonControlSkinnedBase.cs">
-      <Link>SneakyJoystick\SneakyButtonControlSkinnedBase.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\SneakyJoystick\SneakyJoystickControl.cs">
-      <Link>SneakyJoystick\SneakyJoystickControl.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\SneakyJoystick\SneakyJoystickControlSkinnedBase.cs">
-      <Link>SneakyJoystick\SneakyJoystickControlSkinnedBase.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\SneakyJoystick\SneakyPanelControl.cs">
-      <Link>SneakyJoystick\SneakyPanelControl.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Utils\BezierPath.cs">
       <Link>Utils\BezierPath.cs</Link>
@@ -3417,102 +3405,6 @@
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\MenuHeader.xnb">
       <Link>Content\Images\Misc\MenuHeader.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode1.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode1.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode10.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode10.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode11.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode11.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode12.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode12.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode13.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode13.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode14.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode14.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode15.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode15.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode16.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode16.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode17.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode17.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode18.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode18.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode19.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode19.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode2.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode2.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode20.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode20.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode3.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode3.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode4.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode4.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode5.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode5.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode6.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode6.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode7.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode7.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode8.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode8.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsPracticeMode9.xnb">
-      <Link>Content\Images\Misc\OptionsPracticeMode9.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsResourcePack1.xnb">
-      <Link>Content\Images\Misc\OptionsResourcePack1.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsResourcePack2.xnb">
-      <Link>Content\Images\Misc\OptionsResourcePack2.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsResourcePack3.xnb">
-      <Link>Content\Images\Misc\OptionsResourcePack3.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\OptionsResourcePack4.xnb">
-      <Link>Content\Images\Misc\OptionsResourcePack4.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\ProgressBackground.xnb">

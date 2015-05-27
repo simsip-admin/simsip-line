@@ -233,83 +233,11 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to page 1 of 2.
+        ///   Looks up a localized string similar to page.
         /// </summary>
-        public static string CommonPage1Of2 {
+        public static string CommonPage {
             get {
-                return ResourceManager.GetString("CommonPage1Of2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to page 1 of 3.
-        /// </summary>
-        public static string CommonPage1Of3 {
-            get {
-                return ResourceManager.GetString("CommonPage1Of3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to page 1 of 4.
-        /// </summary>
-        public static string CommonPage1Of4 {
-            get {
-                return ResourceManager.GetString("CommonPage1Of4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to page 2 of 2.
-        /// </summary>
-        public static string CommonPage2Of2 {
-            get {
-                return ResourceManager.GetString("CommonPage2Of2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to page 2 of 3.
-        /// </summary>
-        public static string CommonPage2Of3 {
-            get {
-                return ResourceManager.GetString("CommonPage2Of3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to page 2 of 4.
-        /// </summary>
-        public static string CommonPage2Of4 {
-            get {
-                return ResourceManager.GetString("CommonPage2Of4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to page 3 of 3.
-        /// </summary>
-        public static string CommonPage3Of3 {
-            get {
-                return ResourceManager.GetString("CommonPage3Of3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to page 3 of 4.
-        /// </summary>
-        public static string CommonPage3Of4 {
-            get {
-                return ResourceManager.GetString("CommonPage3Of4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to page 4 of 4.
-        /// </summary>
-        public static string CommonPage4Of4 {
-            get {
-                return ResourceManager.GetString("CommonPage4Of4", resourceCulture);
+                return ResourceManager.GetString("CommonPage", resourceCulture);
             }
         }
         

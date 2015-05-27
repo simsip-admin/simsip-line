@@ -5,12 +5,6 @@
   <string name="ApplicationTitle">MY APPLICATION</string>
   <string name="AppBarButtonText">add</string>
   <string name="AppBarMenuItemText">Menu Item</string>
-  <string name="CommonPage1Of4">page 1 of 4</string>
-  <string name="CommonPage2Of4">page 2 of 4</string>
-  <string name="CommonPage3Of4">page 3 of 4</string>
-  <string name="CommonPage4Of4">page 4 of 4</string>
-  <string name="CommonPage1Of3">page 1 of 3</string>
-  <string name="CommonPage2Of3">page 2 of 3</string>
   <string name="CommonVersion">version</string>
   <string name="HelpFreeFlight">free flight</string>
   <string name="HelpfreeFlightDescription1">tap free flight to explore your world</string>
@@ -85,7 +79,6 @@
   <string name="WorldsSwitchingWorlds">switching worlds</string>
   <string name="WorldsUseThisWorld">use this world when starting</string>
   <string name="WorldsWorlds">worlds</string>
-  <string name="CommonPage3Of3">page 3 of 3</string>
   <string name="OptionsPracticeModeOff">practice mode off</string>
   <string name="OptionsPracticeModeOn">practice mode on</string>
   <string name="CommonLater">later</string>
@@ -99,8 +92,7 @@
   <string name="MainOptions">options</string>
   <string name="MainPlay">play</string>
   <string name="MainRate">rate</string>
-  <string name="CommonPage1Of2">page 1 of 2</string>
-  <string name="CommonPage2Of2">page 2 of 2</string>
+  <string name="CommonPage">page</string>
   <string name="HudPause">pause</string>
   <string name="HudSpeed">speed</string>
   <string name="HudCannotGoSlowerThan">cannot go slower than</string>
