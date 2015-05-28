@@ -13,7 +13,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>7.1</string>
+	<string></string>
 	<key>CFBundleDisplayName</key>
 	<string>LineRunner</string>
 	<key>CFBundleIdentifier</key>
