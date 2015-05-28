@@ -62,29 +62,11 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to average global score.
-        /// </summary>
-        public static string AchievementsAverageGlobalScore {
-            get {
-                return ResourceManager.GetString("AchievementsAverageGlobalScore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to leaderboards.
         /// </summary>
         public static string AchievementsLeaderboards {
             get {
                 return ResourceManager.GetString("AchievementsLeaderboards", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to top global scores.
-        /// </summary>
-        public static string AchievementsTopGlobalScores {
-            get {
-                return ResourceManager.GetString("AchievementsTopGlobalScores", resourceCulture);
             }
         }
         
@@ -134,6 +116,24 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to start line.
+        /// </summary>
+        public static string AdminStartLine {
+            get {
+                return ResourceManager.GetString("AdminStartLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to enter line to start on (1-17).
+        /// </summary>
+        public static string AdminStartLineDescription {
+            get {
+                return ResourceManager.GetString("AdminStartLineDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to start page.
         /// </summary>
         public static string AdminStartPage {
@@ -152,29 +152,11 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to add.
+        ///   Looks up a localized string similar to admin.
         /// </summary>
-        public static string AppBarButtonText {
+        public static string CommonAdmin {
             get {
-                return ResourceManager.GetString("AppBarButtonText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Menu Item.
-        /// </summary>
-        public static string AppBarMenuItemText {
-            get {
-                return ResourceManager.GetString("AppBarMenuItemText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to MY APPLICATION.
-        /// </summary>
-        public static string ApplicationTitle {
-            get {
-                return ResourceManager.GetString("ApplicationTitle", resourceCulture);
+                return ResourceManager.GetString("CommonAdmin", resourceCulture);
             }
         }
         
@@ -206,11 +188,29 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to in.
+        /// </summary>
+        public static string CommonIn {
+            get {
+                return ResourceManager.GetString("CommonIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to later.
         /// </summary>
         public static string CommonLater {
             get {
                 return ResourceManager.GetString("CommonLater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to license.
+        /// </summary>
+        public static string CommonLicense {
+            get {
+                return ResourceManager.GetString("CommonLicense", resourceCulture);
             }
         }
         
@@ -238,6 +238,15 @@ namespace Simsip.LineRunner.Resources {
         public static string CommonPage {
             get {
                 return ResourceManager.GetString("CommonPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to double tap trackball to reset view.
+        /// </summary>
+        public static string CommonReset {
+            get {
+                return ResourceManager.GetString("CommonReset", resourceCulture);
             }
         }
         
@@ -278,24 +287,6 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to frameworks.
-        /// </summary>
-        public static string CreditsFrameworks {
-            get {
-                return ResourceManager.GetString("CreditsFrameworks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to resource packs.
-        /// </summary>
-        public static string CreditsResourcePacks {
-            get {
-                return ResourceManager.GetString("CreditsResourcePacks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to credits.
         /// </summary>
         public static string CreditsTitle {
@@ -314,74 +305,11 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to post.
-        /// </summary>
-        public static string FinishPost {
-            get {
-                return ResourceManager.GetString("FinishPost", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to score.
-        /// </summary>
-        public static string FinishScore {
-            get {
-                return ResourceManager.GetString("FinishScore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to top scores.
-        /// </summary>
-        public static string FinishTopScoresFor {
-            get {
-                return ResourceManager.GetString("FinishTopScoresFor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to free flight.
-        /// </summary>
-        public static string HelpFreeFlight {
-            get {
-                return ResourceManager.GetString("HelpFreeFlight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to tap free flight to explore your world.
-        /// </summary>
-        public static string HelpfreeFlightDescription1 {
-            get {
-                return ResourceManager.GetString("HelpfreeFlightDescription1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to use joystick to navigate your world.
-        /// </summary>
-        public static string HelpfreeFlightDescription2 {
-            get {
-                return ResourceManager.GetString("HelpfreeFlightDescription2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to help screen.
         /// </summary>
         public static string HelpHelpDescription {
             get {
                 return ResourceManager.GetString("HelpHelpDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to how to play.
-        /// </summary>
-        public static string HelpHowToPlay {
-            get {
-                return ResourceManager.GetString("HelpHowToPlay", resourceCulture);
             }
         }
         
@@ -395,11 +323,11 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to use joystick to adjust your view.
+        ///   Looks up a localized string similar to increase or decrease speed.
         /// </summary>
-        public static string HelpHowToPlayDescription2 {
+        public static string HelpIncreaseDecrease {
             get {
-                return ResourceManager.GetString("HelpHowToPlayDescription2", resourceCulture);
+                return ResourceManager.GetString("HelpIncreaseDecrease", resourceCulture);
             }
         }
         
@@ -431,11 +359,29 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to drag from trackball to orbit view.
+        /// </summary>
+        public static string HelpOrbit {
+            get {
+                return ResourceManager.GetString("HelpOrbit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to change the pad you play on.
         /// </summary>
         public static string HelpPads {
             get {
                 return ResourceManager.GetString("HelpPads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pause or resume the game.
+        /// </summary>
+        public static string HelpPauseResume {
+            get {
+                return ResourceManager.GetString("HelpPauseResume", resourceCulture);
             }
         }
         
@@ -449,11 +395,20 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to set resource pack for world.
+        ///   Looks up a localized string similar to drag from middle to rotate view.
         /// </summary>
-        public static string HelpResourcePacks {
+        public static string HelpRotate {
             get {
-                return ResourceManager.GetString("HelpResourcePacks", resourceCulture);
+                return ResourceManager.GetString("HelpRotate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to scroll view vertically or horizontally.
+        /// </summary>
+        public static string HelpScroll {
+            get {
+                return ResourceManager.GetString("HelpScroll", resourceCulture);
             }
         }
         
@@ -476,29 +431,11 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to create and manage your worlds.
-        /// </summary>
-        public static string HelpWorlds {
-            get {
-                return ResourceManager.GetString("HelpWorlds", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to cannot go slower than.
         /// </summary>
         public static string HudCannotGoSlowerThan {
             get {
                 return ResourceManager.GetString("HudCannotGoSlowerThan", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to free flight.
-        /// </summary>
-        public static string HudFreeFlight {
-            get {
-                return ResourceManager.GetString("HudFreeFlight", resourceCulture);
             }
         }
         
@@ -512,15 +449,6 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to in.
-        /// </summary>
-        public static string HudIn {
-            get {
-                return ResourceManager.GetString("HudIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to joystick.
         /// </summary>
         public static string HudJoystick {
@@ -530,11 +458,11 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to can&apos;t move joystick further.
+        ///   Looks up a localized string similar to orbit view.
         /// </summary>
-        public static string HudJoystickLimit {
+        public static string HudOrbit {
             get {
-                return ResourceManager.GetString("HudJoystickLimit", resourceCulture);
+                return ResourceManager.GetString("HudOrbit", resourceCulture);
             }
         }
         
@@ -575,11 +503,38 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to rotate view.
+        /// </summary>
+        public static string HudRotate {
+            get {
+                return ResourceManager.GetString("HudRotate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to scroll view.
+        /// </summary>
+        public static string HudScroll {
+            get {
+                return ResourceManager.GetString("HudScroll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to speed.
         /// </summary>
         public static string HudSpeed {
             get {
                 return ResourceManager.GetString("HudSpeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tap.
+        /// </summary>
+        public static string HudTap {
+            get {
+                return ResourceManager.GetString("HudTap", resourceCulture);
             }
         }
         
@@ -598,24 +553,6 @@ namespace Simsip.LineRunner.Resources {
         public static string HudTrackball {
             get {
                 return ResourceManager.GetString("HudTrackball", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to generating terrain.
-        /// </summary>
-        public static string IntroGeneratingTerrain {
-            get {
-                return ResourceManager.GetString("IntroGeneratingTerrain", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to loading models.
-        /// </summary>
-        public static string IntroLoadingModels {
-            get {
-                return ResourceManager.GetString("IntroLoadingModels", resourceCulture);
             }
         }
         
@@ -737,33 +674,6 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to practice mode off.
-        /// </summary>
-        public static string OptionsPracticeModeOff {
-            get {
-                return ResourceManager.GetString("OptionsPracticeModeOff", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to practice mode on.
-        /// </summary>
-        public static string OptionsPracticeModeOn {
-            get {
-                return ResourceManager.GetString("OptionsPracticeModeOn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to resource packs.
-        /// </summary>
-        public static string OptionsResourcePacks {
-            get {
-                return ResourceManager.GetString("OptionsResourcePacks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to sound off.
         /// </summary>
         public static string OptionsSoundOff {
@@ -782,38 +692,11 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to time.
-        /// </summary>
-        public static string OptionsTime {
-            get {
-                return ResourceManager.GetString("OptionsTime", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to enter time (1 = 1 AM, 14 = 2 PM, etc.).
-        /// </summary>
-        public static string OptionsTimeDescription {
-            get {
-                return ResourceManager.GetString("OptionsTimeDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to options.
         /// </summary>
         public static string OptionsTitle {
             get {
                 return ResourceManager.GetString("OptionsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to worlds.
-        /// </summary>
-        public static string OptionsWorlds {
-            get {
-                return ResourceManager.GetString("OptionsWorlds", resourceCulture);
             }
         }
         
@@ -868,24 +751,6 @@ namespace Simsip.LineRunner.Resources {
         public static string ResourcePacksSwitchingResourcePacks {
             get {
                 return ResourceManager.GetString("ResourcePacksSwitchingResourcePacks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to admin.
-        /// </summary>
-        public static string StartAdmin {
-            get {
-                return ResourceManager.GetString("StartAdmin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to tap.
-        /// </summary>
-        public static string StartTap {
-            get {
-                return ResourceManager.GetString("StartTap", resourceCulture);
             }
         }
         

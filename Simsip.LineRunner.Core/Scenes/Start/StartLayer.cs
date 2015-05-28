@@ -189,11 +189,11 @@ namespace Simsip.LineRunner.Scenes.Start
 #if DEBUG
             var adminText = string.Empty;
 #if ANDROID
-            adminText = Program.SharedProgram.Resources.GetString(Resource.String.StartAdmin);
+            adminText = Program.SharedProgram.Resources.GetString(Resource.String.CommonAdmin);
 #elif IOS
-            adminText = NSBundle.MainBundle.LocalizedString(Strings.StartAdmin, Strings.StartAdmin);
+            adminText = NSBundle.MainBundle.LocalizedString(Strings.CommonAdmin, Strings.CommonAdmin);
 #else
-            adminText = AppResources.StartAdmin;
+            adminText = AppResources.CommonAdmin;
 #endif
             var adminLabel = new CCLabelTTF(adminText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             var adminItem = new CCMenuItemLabel(adminLabel,

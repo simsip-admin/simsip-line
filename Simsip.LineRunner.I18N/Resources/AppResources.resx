@@ -125,38 +125,14 @@
     <value>en-US</value>
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
   </data>
-  <data name="ApplicationTitle" xml:space="preserve">
-    <value>MY APPLICATION</value>
-  </data>
-  <data name="AppBarButtonText" xml:space="preserve">
-    <value>add</value>
-  </data>
-  <data name="AppBarMenuItemText" xml:space="preserve">
-    <value>Menu Item</value>
-  </data>
   <data name="CommonVersion" xml:space="preserve">
     <value>version</value>
-  </data>
-  <data name="HelpFreeFlight" xml:space="preserve">
-    <value>free flight</value>
-  </data>
-  <data name="HelpfreeFlightDescription1" xml:space="preserve">
-    <value>tap free flight to explore your world</value>
-  </data>
-  <data name="HelpfreeFlightDescription2" xml:space="preserve">
-    <value>use joystick to navigate your world</value>
   </data>
   <data name="HelpHelpDescription" xml:space="preserve">
     <value>help screen</value>
   </data>
-  <data name="HelpHowToPlay" xml:space="preserve">
-    <value>how to play</value>
-  </data>
   <data name="HelpHowToPlayDescription1" xml:space="preserve">
     <value>tap to avoid lines and obstacles</value>
-  </data>
-  <data name="HelpHowToPlayDescription2" xml:space="preserve">
-    <value>use joystick to adjust your view</value>
   </data>
   <data name="HelpLines" xml:space="preserve">
     <value>change the line for the pad</value>
@@ -173,17 +149,11 @@
   <data name="HelpRatingsDescription" xml:space="preserve">
     <value>rate us</value>
   </data>
-  <data name="HelpResourcePacks" xml:space="preserve">
-    <value>set resource pack for world</value>
-  </data>
   <data name="HelpStartDescription" xml:space="preserve">
     <value>play game</value>
   </data>
   <data name="HelpTitle" xml:space="preserve">
     <value>help</value>
-  </data>
-  <data name="HelpWorlds" xml:space="preserve">
-    <value>create and manage your worlds</value>
   </data>
   <data name="OptionsCredits" xml:space="preserve">
     <value>credits</value>
@@ -197,32 +167,17 @@
   <data name="OptionsPads" xml:space="preserve">
     <value>pads</value>
   </data>
-  <data name="OptionsResourcePacks" xml:space="preserve">
-    <value>resource packs</value>
-  </data>
   <data name="OptionsSoundOff" xml:space="preserve">
     <value>sound off</value>
   </data>
   <data name="OptionsSoundOn" xml:space="preserve">
     <value>sound on</value>
   </data>
-  <data name="OptionsTime" xml:space="preserve">
-    <value>time</value>
-  </data>
   <data name="OptionsTitle" xml:space="preserve">
     <value>options</value>
   </data>
-  <data name="OptionsWorlds" xml:space="preserve">
-    <value>worlds</value>
-  </data>
-  <data name="AchievementsAverageGlobalScore" xml:space="preserve">
-    <value>average global score</value>
-  </data>
   <data name="AchievementsLeaderboards" xml:space="preserve">
     <value>leaderboards</value>
-  </data>
-  <data name="AchievementsTopGlobalScores" xml:space="preserve">
-    <value>top global scores</value>
   </data>
   <data name="AchievementsTopScoresFor" xml:space="preserve">
     <value>top scores</value>
@@ -272,29 +227,11 @@
   <data name="FinishNewHighScore" xml:space="preserve">
     <value>new high score</value>
   </data>
-  <data name="FinishPost" xml:space="preserve">
-    <value>post</value>
-  </data>
-  <data name="FinishScore" xml:space="preserve">
-    <value>score</value>
-  </data>
-  <data name="FinishTopScoresFor" xml:space="preserve">
-    <value>top scores</value>
-  </data>
-  <data name="HudFreeFlight" xml:space="preserve">
-    <value>free flight</value>
-  </data>
   <data name="HudPageLine" xml:space="preserve">
     <value>page/line</value>
   </data>
   <data name="HudResume" xml:space="preserve">
     <value>resume</value>
-  </data>
-  <data name="IntroGeneratingTerrain" xml:space="preserve">
-    <value>generating terrain</value>
-  </data>
-  <data name="IntroLoadingModels" xml:space="preserve">
-    <value>loading models</value>
   </data>
   <data name="LinesSwitchingLines" xml:space="preserve">
     <value>switching lines</value>
@@ -311,16 +248,13 @@
   <data name="LoginUserNameDescription" xml:space="preserve">
     <value>enter a unique user name</value>
   </data>
-  <data name="OptionsTimeDescription" xml:space="preserve">
-    <value>enter time (1 = 1 AM, 14 = 2 PM, etc.)</value>
-  </data>
   <data name="PadsSwitchingPads" xml:space="preserve">
     <value>switching pads</value>
   </data>
   <data name="ResourcePacksSwitchingResourcePacks" xml:space="preserve">
     <value>switching resource packs</value>
   </data>
-  <data name="StartAdmin" xml:space="preserve">
+  <data name="CommonAdmin" xml:space="preserve">
     <value>admin</value>
   </data>
   <data name="WorldsDefault" xml:space="preserve">
@@ -356,12 +290,6 @@
   <data name="WorldsWorlds" xml:space="preserve">
     <value>worlds</value>
   </data>
-  <data name="OptionsPracticeModeOff" xml:space="preserve">
-    <value>practice mode off</value>
-  </data>
-  <data name="OptionsPracticeModeOn" xml:space="preserve">
-    <value>practice mode on</value>
-  </data>
   <data name="CommonLater" xml:space="preserve">
     <value>later</value>
   </data>
@@ -371,14 +299,8 @@
   <data name="RatingsRateUs" xml:space="preserve">
     <value>rate us!</value>
   </data>
-  <data name="StartTap" xml:space="preserve">
+  <data name="HudTap" xml:space="preserve">
     <value>tap</value>
-  </data>
-  <data name="CreditsFrameworks" xml:space="preserve">
-    <value>frameworks</value>
-  </data>
-  <data name="CreditsResourcePacks" xml:space="preserve">
-    <value>resource packs</value>
   </data>
   <data name="CreditsTitle" xml:space="preserve">
     <value>credits</value>
@@ -410,9 +332,6 @@
   <data name="HudPaused" xml:space="preserve">
     <value>paused</value>
   </data>
-  <data name="HudJoystickLimit" xml:space="preserve">
-    <value>can't move joystick further</value>
-  </data>
   <data name="HudJoystick" xml:space="preserve">
     <value>joystick</value>
   </data>
@@ -422,10 +341,46 @@
   <data name="HudTopScore" xml:space="preserve">
     <value>top score</value>
   </data>
-  <data name="HudIn" xml:space="preserve">
+  <data name="CommonIn" xml:space="preserve">
     <value>in</value>
   </data>
   <data name="HudHome" xml:space="preserve">
     <value>home</value>
+  </data>
+  <data name="AdminStartLine" xml:space="preserve">
+    <value>start line</value>
+  </data>
+  <data name="AdminStartLineDescription" xml:space="preserve">
+    <value>enter line to start on (1-17)</value>
+  </data>
+  <data name="CommonLicense" xml:space="preserve">
+    <value>license</value>
+  </data>
+  <data name="CommonReset" xml:space="preserve">
+    <value>double tap trackball to reset view</value>
+  </data>
+  <data name="HelpIncreaseDecrease" xml:space="preserve">
+    <value>increase or decrease speed</value>
+  </data>
+  <data name="HelpOrbit" xml:space="preserve">
+    <value>drag from trackball to orbit view</value>
+  </data>
+  <data name="HelpPauseResume" xml:space="preserve">
+    <value>pause or resume the game</value>
+  </data>
+  <data name="HelpRotate" xml:space="preserve">
+    <value>drag from middle to rotate view</value>
+  </data>
+  <data name="HelpScroll" xml:space="preserve">
+    <value>scroll view vertically or horizontally</value>
+  </data>
+  <data name="HudOrbit" xml:space="preserve">
+    <value>orbit view</value>
+  </data>
+  <data name="HudRotate" xml:space="preserve">
+    <value>rotate view</value>
+  </data>
+  <data name="HudScroll" xml:space="preserve">
+    <value>scroll view</value>
   </data>
 </root>

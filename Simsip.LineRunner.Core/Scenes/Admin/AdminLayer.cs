@@ -87,7 +87,14 @@ namespace Simsip.LineRunner.Scenes.Admin
             AddChild(this._startPageTextField);
 
             // Start line
-            var startLineText = "Starting line:";
+            var startLineText = string.Empty;
+#if ANDROID
+            startLineText = Program.SharedProgram.Resources.GetString(Resource.String.AdminStartLine);
+#elif IOS
+            startLineText = NSBundle.MainBundle.LocalizedString(Strings.AdminStartLine, Strings.AdminStartLine);
+#else
+            startLineText = AppResources.AdminStartLine;
+#endif
             var startLineLabel = new CCLabelTTF(startLineText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             startLineLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
@@ -99,7 +106,15 @@ namespace Simsip.LineRunner.Scenes.Admin
                 0.7f * this.ContentSize.Height);
             this._startLineTextField.AutoEdit = true;
             this._startLineTextField.EditTitle = startLineText;
-            var startLineDescriptionText = "Enter line to start on (1-17).";
+
+            var startLineDescriptionText = string.Empty;
+#if ANDROID
+            startLineDescriptionText = Program.SharedProgram.Resources.GetString(Resource.String.AdminStartLineDescription);
+#elif IOS
+            startLineDescriptionText = NSBundle.MainBundle.LocalizedString(Strings.AdminStartLineDescription, Strings.AdminStartLineDescription);
+#else
+            startLineDescriptionText = AppResources.AdminStartLineDescription;
+#endif
             this._startLineTextField.EditDescription = startLineDescriptionText;
             this._startLineTextField.ContentSize = new CCSize(      // Makes it easier to touch
                 4f * this._startLineTextField.ContentSize.Width,

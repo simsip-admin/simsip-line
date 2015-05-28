@@ -16,25 +16,9 @@
           <target state="translated">ja-JP</target>
           <note from="MultilingualBuild" annotates="source" priority="2">Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</note>
           </trans-unit>
-        <trans-unit id="Resx/ApplicationTitle" translate="yes" xml:space="preserve">
-          <source>MY APPLICATION</source>
-          <target state="new">MY APPLICATION</target>
-        </trans-unit>
-        <trans-unit id="Resx/AppBarButtonText" translate="yes" xml:space="preserve">
-          <source>add</source>
-          <target state="new">add</target>
-        </trans-unit>
-        <trans-unit id="Resx/AppBarMenuItemText" translate="yes" xml:space="preserve">
-          <source>Menu Item</source>
-          <target state="new">Menu Item</target>
-        </trans-unit>
         <trans-unit id="Resx/HelpStartDescription" translate="yes" xml:space="preserve">
           <source>play game</source>
           <target state="new">play game</target>
-        </trans-unit>
-        <trans-unit id="Resx/OptionsWorlds" translate="yes" xml:space="preserve">
-          <source>worlds</source>
-          <target state="new">worlds</target>
         </trans-unit>
         <trans-unit id="Resx/AchievementsTopScoresFor" translate="yes" xml:space="preserve">
           <source>top scores</source>
@@ -68,10 +52,6 @@
           <source>cancel</source>
           <target state="new">cancel</target>
         </trans-unit>
-        <trans-unit id="Resx/FinishTopScoresFor" translate="yes" xml:space="preserve">
-          <source>top scores</source>
-          <target state="new">top scores</target>
-        </trans-unit>
         <trans-unit id="Resx/HudResume" translate="yes" xml:space="preserve">
           <source>resume</source>
           <target state="new">resume</target>
@@ -80,15 +60,11 @@
           <source>worlds</source>
           <target state="new">worlds</target>
         </trans-unit>
-        <trans-unit id="Resx/OptionsPracticeModeOn" translate="yes" xml:space="preserve">
-          <source>practice mode on</source>
-          <target state="new">practice mode on</target>
-        </trans-unit>
         <trans-unit id="Resx/RatingsRateUs" translate="yes" xml:space="preserve">
           <source>rate us!</source>
           <target state="new">rate us!</target>
         </trans-unit>
-        <trans-unit id="Resx/StartTap" translate="yes" xml:space="preserve">
+        <trans-unit id="Resx/HudTap" translate="yes" xml:space="preserve">
           <source>tap</source>
           <target state="new">tap</target>
         </trans-unit>
@@ -116,10 +92,6 @@
           <source>paused</source>
           <target state="new">paused</target>
         </trans-unit>
-        <trans-unit id="Resx/HudJoystickLimit" translate="yes" xml:space="preserve">
-          <source>can't move joystick further</source>
-          <target state="new">can't move joystick further</target>
-        </trans-unit>
         <trans-unit id="Resx/HudTrackball" translate="yes" xml:space="preserve">
           <source>trackball</source>
           <target state="new">trackball</target>
@@ -128,13 +100,61 @@
           <source>top score</source>
           <target state="new">top score</target>
         </trans-unit>
-        <trans-unit id="Resx/HudIn" translate="yes" xml:space="preserve">
+        <trans-unit id="Resx/CommonIn" translate="yes" xml:space="preserve">
           <source>in</source>
           <target state="new">in</target>
         </trans-unit>
         <trans-unit id="Resx/HudHome" translate="yes" xml:space="preserve">
           <source>home</source>
           <target state="new">home</target>
+        </trans-unit>
+        <trans-unit id="Resx/AdminStartLineDescription" translate="yes" xml:space="preserve">
+          <source>enter line to start on (1-17)</source>
+          <target state="new">enter line to start on (1-17)</target>
+        </trans-unit>
+        <trans-unit id="Resx/HudScroll" translate="yes" xml:space="preserve">
+          <source>scroll view</source>
+          <target state="new">scroll view</target>
+        </trans-unit>
+        <trans-unit id="Resx/HudRotate" translate="yes" xml:space="preserve">
+          <source>rotate view</source>
+          <target state="new">rotate view</target>
+        </trans-unit>
+        <trans-unit id="Resx/HudOrbit" translate="yes" xml:space="preserve">
+          <source>orbit view</source>
+          <target state="new">orbit view</target>
+        </trans-unit>
+        <trans-unit id="Resx/HelpScroll" translate="yes" xml:space="preserve">
+          <source>scroll view vertically or horizontally</source>
+          <target state="new">scroll view vertically or horizontally</target>
+        </trans-unit>
+        <trans-unit id="Resx/HelpRotate" translate="yes" xml:space="preserve">
+          <source>drag from middle to rotate view</source>
+          <target state="new">drag from middle to rotate view</target>
+        </trans-unit>
+        <trans-unit id="Resx/HelpPauseResume" translate="yes" xml:space="preserve">
+          <source>pause or resume the game</source>
+          <target state="new">pause or resume the game</target>
+        </trans-unit>
+        <trans-unit id="Resx/HelpOrbit" translate="yes" xml:space="preserve">
+          <source>drag from trackball to orbit view</source>
+          <target state="new">drag from trackball to orbit view</target>
+        </trans-unit>
+        <trans-unit id="Resx/HelpIncreaseDecrease" translate="yes" xml:space="preserve">
+          <source>increase or decrease speed</source>
+          <target state="new">increase or decrease speed</target>
+        </trans-unit>
+        <trans-unit id="Resx/CommonReset" translate="yes" xml:space="preserve">
+          <source>double tap trackball to reset view</source>
+          <target state="new">double tap trackball to reset view</target>
+        </trans-unit>
+        <trans-unit id="Resx/CommonLicense" translate="yes" xml:space="preserve">
+          <source>license</source>
+          <target state="new">license</target>
+        </trans-unit>
+        <trans-unit id="Resx/AdminStartLine" translate="yes" xml:space="preserve">
+          <source>start line</source>
+          <target state="new">start line</target>
         </trans-unit>
         <trans-unit id="Resx/HudJoystick" translate="yes" xml:space="preserve">
           <source>joystick</source>
@@ -156,14 +176,6 @@
           <source>help</source>
           <target state="new">help</target>
         </trans-unit>
-        <trans-unit id="Resx/CreditsResourcePacks" translate="yes" xml:space="preserve">
-          <source>resource packs</source>
-          <target state="new">resource packs</target>
-        </trans-unit>
-        <trans-unit id="Resx/CreditsFrameworks" translate="yes" xml:space="preserve">
-          <source>frameworks</source>
-          <target state="new">frameworks</target>
-        </trans-unit>
         <trans-unit id="Resx/RatingsDescription" translate="yes" xml:space="preserve">
           <source>It seems that you love LineRunner as much as we do. Care to give us a few stars?</source>
           <target state="new">It seems that you love LineRunner as much as we do. Care to give us a few stars?</target>
@@ -171,10 +183,6 @@
         <trans-unit id="Resx/CommonLater" translate="yes" xml:space="preserve">
           <source>later</source>
           <target state="new">later</target>
-        </trans-unit>
-        <trans-unit id="Resx/OptionsPracticeModeOff" translate="yes" xml:space="preserve">
-          <source>practice mode off</source>
-          <target state="new">practice mode off</target>
         </trans-unit>
         <trans-unit id="Resx/WorldsUseThisWorld" translate="yes" xml:space="preserve">
           <source>use this world when starting</source>
@@ -216,21 +224,17 @@
           <source>default</source>
           <target state="new">default</target>
         </trans-unit>
-        <trans-unit id="Resx/StartAdmin" translate="yes" xml:space="preserve">
-          <source>admin</source>
-          <target state="new">admin</target>
-        </trans-unit>
         <trans-unit id="Resx/ResourcePacksSwitchingResourcePacks" translate="yes" xml:space="preserve">
           <source>switching resource packs</source>
           <target state="new">switching resource packs</target>
         </trans-unit>
+        <trans-unit id="Resx/CommonAdmin" translate="yes" xml:space="preserve">
+          <source>admin</source>
+          <target state="new">admin</target>
+        </trans-unit>
         <trans-unit id="Resx/PadsSwitchingPads" translate="yes" xml:space="preserve">
           <source>switching pads</source>
           <target state="new">switching pads</target>
-        </trans-unit>
-        <trans-unit id="Resx/OptionsTimeDescription" translate="yes" xml:space="preserve">
-          <source>enter time (1 = 1 AM, 14 = 2 PM, etc.)</source>
-          <target state="new">enter time (1 = 1 AM, 14 = 2 PM, etc.)</target>
         </trans-unit>
         <trans-unit id="Resx/LoginUserNameDescription" translate="yes" xml:space="preserve">
           <source>enter a unique user name</source>
@@ -252,29 +256,9 @@
           <source>switching lines</source>
           <target state="new">switching lines</target>
         </trans-unit>
-        <trans-unit id="Resx/IntroLoadingModels" translate="yes" xml:space="preserve">
-          <source>loading models</source>
-          <target state="new">loading models</target>
-        </trans-unit>
-        <trans-unit id="Resx/IntroGeneratingTerrain" translate="yes" xml:space="preserve">
-          <source>generating terrain</source>
-          <target state="new">generating terrain</target>
-        </trans-unit>
-        <trans-unit id="Resx/HudFreeFlight" translate="yes" xml:space="preserve">
-          <source>free flight</source>
-          <target state="new">free flight</target>
-        </trans-unit>
         <trans-unit id="Resx/HudPageLine" translate="yes" xml:space="preserve">
           <source>page/line</source>
           <target state="new">page/line</target>
-        </trans-unit>
-        <trans-unit id="Resx/FinishScore" translate="yes" xml:space="preserve">
-          <source>score</source>
-          <target state="new">score</target>
-        </trans-unit>
-        <trans-unit id="Resx/FinishPost" translate="yes" xml:space="preserve">
-          <source>post</source>
-          <target state="new">post</target>
         </trans-unit>
         <trans-unit id="Resx/FinishNewHighScore" translate="yes" xml:space="preserve">
           <source>new high score</source>
@@ -308,25 +292,13 @@
           <source>kill off</source>
           <target state="new">kill off</target>
         </trans-unit>
-        <trans-unit id="Resx/AchievementsTopGlobalScores" translate="yes" xml:space="preserve">
-          <source>top global scores</source>
-          <target state="new">top global scores</target>
-        </trans-unit>
         <trans-unit id="Resx/AchievementsLeaderboards" translate="yes" xml:space="preserve">
           <source>leaderboards</source>
           <target state="new">leaderboards</target>
         </trans-unit>
-        <trans-unit id="Resx/AchievementsAverageGlobalScore" translate="yes" xml:space="preserve">
-          <source>average global score</source>
-          <target state="new">average global score</target>
-        </trans-unit>
         <trans-unit id="Resx/OptionsTitle" translate="yes" xml:space="preserve">
           <source>options</source>
           <target state="new">options</target>
-        </trans-unit>
-        <trans-unit id="Resx/OptionsTime" translate="yes" xml:space="preserve">
-          <source>time</source>
-          <target state="new">time</target>
         </trans-unit>
         <trans-unit id="Resx/OptionsSoundOn" translate="yes" xml:space="preserve">
           <source>sound on</source>
@@ -335,10 +307,6 @@
         <trans-unit id="Resx/OptionsSoundOff" translate="yes" xml:space="preserve">
           <source>sound off</source>
           <target state="new">sound off</target>
-        </trans-unit>
-        <trans-unit id="Resx/OptionsResourcePacks" translate="yes" xml:space="preserve">
-          <source>resource packs</source>
-          <target state="new">resource packs</target>
         </trans-unit>
         <trans-unit id="Resx/OptionsPads" translate="yes" xml:space="preserve">
           <source>pads</source>
@@ -356,10 +324,6 @@
           <source>credits</source>
           <target state="new">credits</target>
         </trans-unit>
-        <trans-unit id="Resx/HelpWorlds" translate="yes" xml:space="preserve">
-          <source>create and manage your worlds</source>
-          <target state="new">create and manage your worlds</target>
-        </trans-unit>
         <trans-unit id="Resx/HelpTitle" translate="yes" xml:space="preserve">
           <source>help</source>
           <target state="new">help</target>
@@ -367,10 +331,6 @@
         <trans-unit id="Resx/HelpRatingsDescription" translate="yes" xml:space="preserve">
           <source>rate us</source>
           <target state="new">rate us</target>
-        </trans-unit>
-        <trans-unit id="Resx/HelpResourcePacks" translate="yes" xml:space="preserve">
-          <source>set resource pack for world</source>
-          <target state="new">set resource pack for world</target>
         </trans-unit>
         <trans-unit id="Resx/HelpOptionsDescription" translate="yes" xml:space="preserve">
           <source>game options</source>
@@ -392,29 +352,9 @@
           <source>change the line for the pad</source>
           <target state="new">change the line for the pad</target>
         </trans-unit>
-        <trans-unit id="Resx/HelpHowToPlayDescription2" translate="yes" xml:space="preserve">
-          <source>use joystick to adjust your view</source>
-          <target state="new">use joystick to adjust your view</target>
-        </trans-unit>
         <trans-unit id="Resx/HelpHowToPlayDescription1" translate="yes" xml:space="preserve">
           <source>tap to avoid lines and obstacles</source>
           <target state="new">tap to avoid lines and obstacles</target>
-        </trans-unit>
-        <trans-unit id="Resx/HelpHowToPlay" translate="yes" xml:space="preserve">
-          <source>how to play</source>
-          <target state="new">how to play</target>
-        </trans-unit>
-        <trans-unit id="Resx/HelpfreeFlightDescription2" translate="yes" xml:space="preserve">
-          <source>use joystick to navigate your world</source>
-          <target state="new">use joystick to navigate your world</target>
-        </trans-unit>
-        <trans-unit id="Resx/HelpfreeFlightDescription1" translate="yes" xml:space="preserve">
-          <source>tap free flight to explore your world</source>
-          <target state="new">tap free flight to explore your world</target>
-        </trans-unit>
-        <trans-unit id="Resx/HelpFreeFlight" translate="yes" xml:space="preserve">
-          <source>free flight</source>
-          <target state="new">free flight</target>
         </trans-unit>
         <trans-unit id="Resx/CommonVersion" translate="yes" xml:space="preserve">
           <source>version</source>

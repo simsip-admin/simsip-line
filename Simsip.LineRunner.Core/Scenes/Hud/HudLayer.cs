@@ -112,18 +112,13 @@ namespace Simsip.LineRunner.Scenes.Hud
         }
         private Dragging _dragging;
 
-        // Free flight/resume
-        private bool _inFlight;
-        private CCLabelTTF _flightLabel;
-        private CCMenu _flightMenu;
-        
         private GameState _currentGameState;
 
         public HudLayer(CoreScene parent)
         {
             this._parent = parent;
 
-            // Not draffing anything at start
+            // Not dragging anything at start
             this._dragging = Dragging.None;
 
             // Grab rerences to services we'll need
@@ -202,11 +197,11 @@ namespace Simsip.LineRunner.Scenes.Hud
             // Tap text
             var startTapText = string.Empty;
 #if ANDROID
-            startTapText = Program.SharedProgram.Resources.GetString(Resource.String.StartTap);
+            startTapText = Program.SharedProgram.Resources.GetString(Resource.String.HudTap);
 #elif IOS
-            startTapText = NSBundle.MainBundle.LocalizedString(Strings.StartTap, Strings.StartTap);
+            startTapText = NSBundle.MainBundle.LocalizedString(Strings.HudTap, Strings.HudTap);
 #else
-            startTapText = AppResources.StartTap;
+            startTapText = AppResources.HudTap;
 #endif
             this._startTapDescription1 = new CCLabelTTF(startTapText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             this._startTapDescription1.AnchorPoint = CCPoint.AnchorMiddleRight;
@@ -565,11 +560,11 @@ namespace Simsip.LineRunner.Scenes.Hud
 #if DEBUG
             var adminText = string.Empty;
 #if ANDROID
-            adminText = Program.SharedProgram.Resources.GetString(Resource.String.StartAdmin);
+            adminText = Program.SharedProgram.Resources.GetString(Resource.String.CommonAdmin);
 #elif IOS
-            adminText = NSBundle.MainBundle.LocalizedString(Strings.StartAdmin, Strings.StartAdmin);
+            adminText = NSBundle.MainBundle.LocalizedString(Strings.CommonAdmin, Strings.CommonAdmin);
 #else
-            adminText = AppResources.StartAdmin;
+            adminText = AppResources.CommonAdmin;
 #endif
             var adminLabel = new CCLabelTTF(adminText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             var adminItem = new CCMenuItemLabel(adminLabel,
@@ -604,11 +599,11 @@ namespace Simsip.LineRunner.Scenes.Hud
             {
                 var inText = string.Empty;
 #if ANDROID
-                inText = Program.SharedProgram.Resources.GetString(Resource.String.HudIn);
+                inText = Program.SharedProgram.Resources.GetString(Resource.String.CommonIn);
 #elif IOS
-                inText = NSBundle.MainBundle.LocalizedString(Strings.HudIn, Strings.HudIn);
+                inText = NSBundle.MainBundle.LocalizedString(Strings.CommonIn, Strings.CommonIn);
 #else
-                inText = AppResources.HudIn;
+                inText = AppResources.CommonIn;
 #endif
                 this._topScoreLabel.Text = 
                     topScore.Score.ToString()  + " " + 
@@ -750,23 +745,6 @@ namespace Simsip.LineRunner.Scenes.Hud
                 pageLineText + " " + pageNumber.ToString() + "/" + lineNumber.ToString();
             this._statusLabel.Color = CCColor3B.White;
             this._statusLabel.RunAction(this._statusLabelAction);
-        }
-
-        public void SwitchState(GameState gameState)
-        {
-            this._currentGameState = gameState;
-
-            /* TODO Add in when world is ready
-            if (this._currentGameState == GameState.Moving ||
-                this._currentGameState == GameState.World)
-            {
-                this._flightMenu.Enabled = true;
-            }
-            else
-            {
-                this._flightMenu.Enabled = false;
-            }
-            */
         }
 
         public void StopTimer()
@@ -1052,54 +1030,6 @@ namespace Simsip.LineRunner.Scenes.Hud
             }
 
             this._parent.Navigate(LayerTags.AdminLayer);
-        }
-
-        private void ToggleWorld()
-        {
-            // TODO: Move to better setup
-            // this._deferredShadowMapping.CaptureSnapshots();
-
-            // Are we "resuming" from a free flight?
-            if (this._inFlight)
-            {
-                // Update state
-                this._inFlight = false;
-
-                // Update ui
-                var freeFlightText = string.Empty;
-#if ANDROID
-            freeFlightText = Program.SharedProgram.Resources.GetString(Resource.String.HudFreeFlight);
-#elif IOS
-            freeFlightText = NSBundle.MainBundle.LocalizedString(Strings.HudFreeFlight, Strings.HudFreeFlight);
-#else
-                freeFlightText = AppResources.HudFreeFlight;
-#endif
-                this._flightLabel.Text = freeFlightText;
-
-                // Switch state so we resume from flight
-                this._parent.TheActionLayer.ResumeFromWorld();
-            }
-            else
-            {
-                // Ok, we are starting a free flight
-                
-                // Update state
-                this._inFlight = true;
-
-                // Update ui
-                var resumeText = string.Empty;
-#if ANDROID
-                resumeText = Program.SharedProgram.Resources.GetString(Resource.String.HudResume);
-#elif IOS
-                resumeText = NSBundle.MainBundle.LocalizedString(Strings.HudResume, Strings.HudResume);
-#else
-                resumeText = AppResources.HudResume;
-#endif
-                this._flightLabel.Text = resumeText;
-                
-                // Switch state to flight
-                this._parent.TheActionLayer.StartWorld();
-            }
         }
 
 #if NETFX_CORE

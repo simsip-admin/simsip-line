@@ -386,8 +386,6 @@ namespace Simsip.LineRunner.Scenes.Action
             }
 
             this.SwitchServicesState(gameState);
-
-            this._hudLayer.SwitchState(gameState);
         }
 
         public void Refresh()
