@@ -31,7 +31,11 @@ namespace Simsip.LineRunner.Scenes.Help
         private HelpPage1Layer _helpPage1Layer;
         private HelpPage2Layer _helpPage2Layer;
         private HelpPage3Layer _helpPage3Layer;
-        // private HelpPage4Layer _helpPage4Layer;
+        private HelpPage4Layer _helpPage4Layer;
+        private HelpPage5Layer _helpPage5Layer;
+        private HelpPage6Layer _helpPage6Layer;
+        private HelpPage7Layer _helpPage7Layer;
+        private HelpPage8Layer _helpPage8Layer;
 
         // Page actions
         private CCAction _pageActionInFromLeft;
@@ -159,20 +163,11 @@ namespace Simsip.LineRunner.Scenes.Help
                 0.8f  * this.ContentSize.Height);
             this.AddChild(versionHeader);
 
-            // Pages
+            // 1 page create up front, rest created on-demand, see GetHelpPage() below
             this._helpPage1Layer = new HelpPage1Layer(this._parent, this);
-            this._helpPage2Layer = new HelpPage2Layer(this._parent, this);
-            this._helpPage3Layer = new HelpPage3Layer(this._parent, this);
-            // this._helpPage4Layer = new HelpPage4Layer(this._parent, this);
             this.AddChild(this._helpPage1Layer);
-            this.AddChild(this._helpPage2Layer);
-            this.AddChild(this._helpPage3Layer);
-            // this.AddChild(this._helpPage4Layer);
-            this._helpPage2Layer.Visible = false;
-            this._helpPage3Layer.Visible = false;
-            // this._helpPage4Layer.Visible = false;
             this._currentPage = 1;
-            this._totalPages = 3;
+            this._totalPages = 8;
 
             // Previous
             var previousNormal = new CCSprite("Images/Icons/PreviousButtonNormal.png");
@@ -256,6 +251,105 @@ namespace Simsip.LineRunner.Scenes.Help
 
         #region Helper methods
 
+        private GameLayer GetHelpPage(int pageNumber)
+        {
+            GameLayer returnHelpPage = null;
+
+            switch (pageNumber)
+                {
+                    case 1:
+                    {
+                        if (this._helpPage1Layer == null)
+                        {
+                            this._helpPage1Layer = new HelpPage1Layer(this._parent, this);
+                            this.AddChild(this._helpPage1Layer);
+                        }
+                        returnHelpPage = this._helpPage1Layer;
+
+                        break;
+                    }
+                    case 2:
+                    {
+                        if (this._helpPage2Layer == null)
+                        {
+                            this._helpPage2Layer = new HelpPage2Layer(this._parent, this);
+                            this.AddChild(this._helpPage2Layer);
+                        }
+                        returnHelpPage = this._helpPage2Layer;
+
+                        break;
+                    }
+                    case 3:
+                    {
+                        if (this._helpPage3Layer == null)
+                        {
+                            this._helpPage3Layer = new HelpPage3Layer(this._parent, this);
+                            this.AddChild(this._helpPage3Layer);
+                        }
+                        returnHelpPage = this._helpPage3Layer;
+
+                        break;
+                    }
+                    case 4:
+                    {
+                        if (this._helpPage4Layer == null)
+                        {
+                            this._helpPage4Layer = new HelpPage4Layer(this._parent, this);
+                            this.AddChild(this._helpPage4Layer);
+                        }
+                        returnHelpPage = this._helpPage4Layer;
+
+                        break;
+                    }
+                    case 5:
+                    {
+                        if (this._helpPage5Layer == null)
+                        {
+                            this._helpPage5Layer = new HelpPage5Layer(this._parent, this);
+                            this.AddChild(this._helpPage5Layer);
+                        }
+                        returnHelpPage = this._helpPage5Layer;
+
+                        break;
+                    }
+                    case 6:
+                    {
+                        if (this._helpPage6Layer == null)
+                        {
+                            this._helpPage6Layer = new HelpPage6Layer(this._parent, this);
+                            this.AddChild(this._helpPage6Layer);
+                        }
+                        returnHelpPage = this._helpPage6Layer;
+
+                        break;
+                    }
+                    case 7:
+                    {
+                        if (this._helpPage7Layer == null)
+                        {
+                            this._helpPage7Layer = new HelpPage7Layer(this._parent, this);
+                            this.AddChild(this._helpPage7Layer);
+                        }
+                        returnHelpPage = this._helpPage7Layer;
+
+                        break;
+                    }
+                    case 8:
+                    {
+                        if (this._helpPage8Layer == null)
+                        {
+                            this._helpPage8Layer = new HelpPage8Layer(this._parent, this);
+                            this.AddChild(this._helpPage8Layer);
+                        }
+                        returnHelpPage = this._helpPage8Layer;
+
+                        break;
+                    }
+                }
+
+                return returnHelpPage;
+        }
+
         private void Previous()
         {
             // Update state
@@ -275,24 +369,46 @@ namespace Simsip.LineRunner.Scenes.Help
             {
                 case 1:
                     {
-                        exitingLayer = this._helpPage2Layer;
-                        incomingLayer = this._helpPage1Layer;
+                        exitingLayer = this.GetHelpPage(2);
+                        incomingLayer = this.GetHelpPage(1);
                         break;
                     }
                 case 2:
                     {
-                        exitingLayer = this._helpPage3Layer;
-                        incomingLayer = this._helpPage2Layer;
+                        exitingLayer = this.GetHelpPage(3);
+                        incomingLayer = this.GetHelpPage(2);
                         break;
                     }
-                    /*
                 case 3:
                     {
-                        exitingLayer = this._helpPage4Layer;
-                        incomingLayer = this._helpPage3Layer;
+                        exitingLayer = this.GetHelpPage(4);
+                        incomingLayer = this.GetHelpPage(3);
                         break;
                     }
-                    */
+                case 4:
+                    {
+                        exitingLayer = this.GetHelpPage(5);
+                        incomingLayer = this.GetHelpPage(4);
+                        break;
+                    }
+                case 5:
+                    {
+                        exitingLayer = this.GetHelpPage(6);
+                        incomingLayer = this.GetHelpPage(5);
+                        break;
+                    }
+                case 6:
+                    {
+                        exitingLayer = this.GetHelpPage(7);
+                        incomingLayer = this.GetHelpPage(6);
+                        break;
+                    }
+                case 7:
+                    {
+                        exitingLayer = this.GetHelpPage(8);
+                        incomingLayer = this.GetHelpPage(7);
+                        break;
+                    }
             }
 
             // Animate page transition
@@ -323,24 +439,46 @@ namespace Simsip.LineRunner.Scenes.Help
             {
                 case 2:
                     {
-                        exitingLayer = this._helpPage1Layer;
-                        incomingLayer = this._helpPage2Layer;
+                        exitingLayer = this.GetHelpPage(1);
+                        incomingLayer = this.GetHelpPage(2);
                         break;
                     }
                 case 3:
                     {
-                        exitingLayer = this._helpPage2Layer;
-                        incomingLayer = this._helpPage3Layer;
+                        exitingLayer = this.GetHelpPage(2);
+                        incomingLayer = this.GetHelpPage(3);
                         break;
                     }
-                    /*
                 case 4:
                     {
-                        exitingLayer = this._helpPage3Layer;
-                        incomingLayer = this._helpPage4Layer;
+                        exitingLayer = this.GetHelpPage(3);
+                        incomingLayer = this.GetHelpPage(4);
                         break;
                     }
-                    */
+                case 5:
+                    {
+                        exitingLayer = this.GetHelpPage(4);
+                        incomingLayer = this.GetHelpPage(5);
+                        break;
+                    }
+                case 6:
+                    {
+                        exitingLayer = this.GetHelpPage(5);
+                        incomingLayer = this.GetHelpPage(6);
+                        break;
+                    }
+                case 7:
+                    {
+                        exitingLayer = this.GetHelpPage(6);
+                        incomingLayer = this.GetHelpPage(7);
+                        break;
+                    }
+                case 8:
+                    {
+                        exitingLayer = this.GetHelpPage(7);
+                        incomingLayer = this.GetHelpPage(8);
+                        break;
+                    }
             }
 
             // Animate page transition
