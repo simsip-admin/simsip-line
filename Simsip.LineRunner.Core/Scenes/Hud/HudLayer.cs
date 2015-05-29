@@ -127,7 +127,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._characterCache = (ICharacterCache)TheGame.SharedGame.Services.GetService(typeof(ICharacterCache));
 
             // Get these set up for relative positioning below
-            var screenSize = CCDirector.SharedDirector.WinSize;
+            var screenSize = CCDirector.SharedDirector.VisibleSize;
             this.ContentSize = new CCSize(
                 screenSize.Width,
                 screenSize.Height);
@@ -156,9 +156,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             // Base layer
             this._baseLayer = new GameLayer();
             this._baseLayer.ContentSize = baseContentSize;
-            this._baseLayer.Position = new CCPoint(
-                0,
-                0);
+            this._baseLayer.Position = CCDirector.SharedDirector.VisibleOrigin;
             this.AddChild(this._baseLayer);
 
             // Start button
@@ -215,7 +213,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             // Header layers
             this._headerLayer = new GameLayer();
             this._headerLayer.ContentSize = headerSize;
-            var headerLayerEndPosition = new CCPoint(
+            var headerLayerEndPosition = CCDirector.SharedDirector.VisibleOrigin + new CCPoint(
                 0.02f * screenSize.Width,
                 0.78f * screenSize.Height);
             var headerLayerStartPosition = new CCPoint(
@@ -376,7 +374,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             // Footer layers
             this._footerLayer = new GameLayer();
             this._footerLayer.ContentSize = footerSize;
-            var footerLayerEndPosition = new CCPoint(
+            var footerLayerEndPosition = CCDirector.SharedDirector.VisibleOrigin + new CCPoint(
                 0.02f * screenSize.Width,
                 0.02f * screenSize.Height);
             var footerLayerStartPosition = new CCPoint(

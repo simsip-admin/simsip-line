@@ -55,13 +55,13 @@ namespace Simsip.LineRunner.Scenes.Start
             this._parent = parent;
 
             // Get these set up for relative positioning below
-            var screenSize = CCDirector.SharedDirector.WinSize;
+            var screenSize = CCDirector.SharedDirector.VisibleSize;
             this.ContentSize = new CCSize(
                 0.96f * screenSize.Width,
                 0.4f * screenSize.Height);
 
             // Layer transition in/out
-             var layerEndPosition = new CCPoint(
+             var layerEndPosition = CCDirector.SharedDirector.VisibleOrigin + new CCPoint(
                 0.02f * screenSize.Width,
                 0.05f * screenSize.Height);
             var  layerStartPosition = new CCPoint(
