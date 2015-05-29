@@ -6,6 +6,7 @@ using Simsip.LineRunner.Scenes;
 using UIKit;
 using GoogleAdMobAds;
 using CoreGraphics;
+using Foundation;
 
 
 namespace Simsip.LineRunner
@@ -48,8 +49,11 @@ namespace Simsip.LineRunner
         /// </returns>
         public override bool ApplicationDidFinishLaunching()
         {
-            // Construct our add banner
+            // Construct our ad banner
+            var mainWindow = (UIWindow)TheGame.SharedGame.Services.GetService(typeof(UIWindow));
             var iosGameViewController = (UIViewController)TheGame.SharedGame.Services.GetService(typeof(UIViewController));
+
+            /* TODO: New commenting out
             this._adView = new GADBannerView(
                 size: GADAdSizeCons.Banner,
                 origin: new CGPoint(0, 0))
@@ -57,6 +61,7 @@ namespace Simsip.LineRunner
                 AdUnitID = AdmobID,
                 RootViewController = iosGameViewController
             };
+            */
 
             /* Add in test devices for add banner
             // See: https://developers.google.com/mobile-ads-sdk/docs/admob/ios/targeting
@@ -75,8 +80,34 @@ namespace Simsip.LineRunner
             };
             */
 
+            
+            var controller = new UIViewController();
+            this._adView = new GADBannerView(
+                size: GADAdSizeCons.Banner,
+                origin: new CGPoint(0, 0))
+            {
+                AdUnitID = AdmobID,
+                RootViewController = controller
+            };
+
+            iosGameViewController.View.RemoveFromSuperview();
+
+            var originalFrame = iosGameViewController.View.Frame;
+            iosGameViewController.View.Frame = new CoreGraphics.CGRect(
+                0, 
+                originalFrame.Y + this._adView.AdSize.Size.Height, 
+                originalFrame.Width,
+                originalFrame.Height - this._adView.AdSize.Size.Height);
+
+            controller.View.AddSubview(this._adView);
+            controller.View.AddSubview(iosGameViewController.View);
+
+            mainWindow.Add(controller.View);
+
+            // TODO: New comment
             // Inject our add banner
-            iosGameViewController.View.AddSubview(this._adView);
+            // iosGameViewController.View.AddSubview(this._adView);
+
             this._adView.LoadRequest(GADRequest.Request);
 
             // Initialize director
