@@ -4035,6 +4035,14 @@
       <Link>Content\Images\Misc\MenuDivider.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Misc\HelpRotate.xnb">
+      <Link>Content\Images\Misc\HelpRotate.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Misc\FingerPress.xnb">
+      <Link>Content\Images\Misc\FingerPress.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Simsip.LineRunner.Store_TemporaryKey.pfx" />
   </ItemGroup>

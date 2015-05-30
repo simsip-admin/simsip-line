@@ -53,33 +53,6 @@ namespace Simsip.LineRunner.Scenes.Help
                 0.75f * this.ContentSize.Height);
             this.AddChild(optionsSubtitle);
 
-            // TODO: Resource packs
-            /*
-            var resourcePacksImage = new CCSprite("Images/Misc/HelpResourcePacks");
-            Cocos2DUtils.ResizeSprite(resourcePacksImage,
-                0.08f * this.ContentSize.Width,
-                0.08f * this.ContentSize.Height);
-            resourcePacksImage.AnchorPoint = CCPoint.AnchorMiddleRight;
-            resourcePacksImage.Position = new CCPoint(
-                0.2f * this.ContentSize.Width,
-                0.6f * this.ContentSize.Height);
-            this.AddChild(resourcePacksImage);
-            var resourcePacksText = string.Empty;
-#if ANDROID
-            resourcePacksText = Program.SharedProgram.Resources.GetString(Resource.String.HelpResourcePacks);
-#elif IOS
-            resourcePacksText = NSBundle.MainBundle.LocalizedString(Strings.HelpResourcePacks, Strings.HelpResourcePacks);
-#else
-            resourcePacksText = AppResources.HelpResourcePacks;
-#endif
-            var resourcePacksDescription = new CCLabelTTF(resourcePacksText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-            resourcePacksDescription.AnchorPoint = CCPoint.AnchorMiddleLeft;
-            resourcePacksDescription.Position = new CCPoint(
-                0.25f * this.ContentSize.Width,
-                0.6f * this.ContentSize.Height);
-            this.AddChild(resourcePacksDescription);
-            */
-
             // Pads
             var padsImage = new CCSprite("Images/Misc/HelpPads");
             padsImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
@@ -121,43 +94,6 @@ namespace Simsip.LineRunner.Scenes.Help
                 0.5f  * this.ContentSize.Width,
                 0.25f * this.ContentSize.Height);
             this.AddChild(linesDescription);
-
-            // TODO: Worlds
-            /*
-            var worldsImage = new CCSprite("Images/Misc/HelpWorlds");
-            Cocos2DUtils.ResizeSprite(worldsImage,
-                0.08f * this.ContentSize.Width,
-                0.08f * this.ContentSize.Height);
-            worldsImage.AnchorPoint = CCPoint.AnchorMiddleRight;
-            worldsImage.Position = new CCPoint(
-                0.2f * this.ContentSize.Width,
-                0.3f * this.ContentSize.Height);
-            this.AddChild(worldsImage);
-            var worldsText = string.Empty;
-#if ANDROID
-            worldsText = Program.SharedProgram.Resources.GetString(Resource.String.HelpWorlds);
-#elif IOS
-            worldsText = NSBundle.MainBundle.LocalizedString(Strings.HelpWorlds, Strings.HelpWorlds);
-#else
-            worldsText = AppResources.HelpWorlds;
-#endif
-            var worldsDescription = new CCLabelTTF(worldsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-            worldsDescription.AnchorPoint = CCPoint.AnchorMiddleLeft;
-            worldsDescription.Position = new CCPoint(
-                0.25f * this.ContentSize.Width,
-                0.3f * this.ContentSize.Height);
-            this.AddChild(worldsDescription);
-            */
-
-            // TODO: Options footer
-            /* 
-            var optionsFooter = new CCLabelTTF("plus sound, time and more", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-            optionsFooter.AnchorPoint = CCPoint.AnchorMiddleLeft;
-            optionsFooter.Position = new CCPoint(
-                0.25f * this.ContentSize.Width,
-                0.2f * this.ContentSize.Height);
-            this.AddChild(optionsFooter);
-            */
         }
     }
 }

@@ -31,71 +31,68 @@ namespace Simsip.LineRunner.Scenes.Help
 #else
             pageNumberText = AppResources.CommonPage;
 #endif
-            var pageNumberHeader = new CCLabelTTF(pageNumberText + " 2", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var pageNumberHeader = new CCLabelTTF(pageNumberText + " 3", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             pageNumberHeader.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,
                 0.9f * this.ContentSize.Height);
             this.AddChild(pageNumberHeader);
 
-            // TODO: Just going with description 1 for now
-            // How to play sub-title
-            /*
-            var howToPlayText = string.Empty;
+            // Pause/resume
+            var pauseImage = new CCSprite("Images/Icons/PauseButtonNormal.png");
+            pauseImage.AnchorPoint = CCPoint.AnchorMiddle;
+            pauseImage.Position = new CCPoint(
+                0.3f * this.ContentSize.Width,
+                0.8f * this.ContentSize.Height);
+            this.AddChild(pauseImage);
+            var resumeImage = new CCSprite("Images/Icons/ResumeButtonNormal.png");
+            resumeImage.AnchorPoint = CCPoint.AnchorMiddle;
+            resumeImage.Position = new CCPoint(
+                0.7f * this.ContentSize.Width,
+                0.8f * this.ContentSize.Height);
+            this.AddChild(pauseImage);
+            var pauseResumeText = string.Empty;
 #if ANDROID
-            howToPlayText = Program.SharedProgram.Resources.GetString(Resource.String.HelpHowToPlay);
+            pauseResumeText = Program.SharedProgram.Resources.GetString(Resource.String.HelpPauseResume);
 #elif IOS
-            howToPlayText = NSBundle.MainBundle.LocalizedString(Strings.HelpHowToPlay, Strings.HelpHowToPlay);
+            pauseResumeText = NSBundle.MainBundle.LocalizedString(Strings.HelpPauseResume, Strings.HelpPauseResume);
 #else
-            howToPlayText = AppResources.HelpHowToPlay;
+            pauseResumeText = AppResources.HelpPauseResume;
 #endif
-            var howToSubtitle = new CCLabelTTF(howToPlayText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            howToSubtitle.Position = new CCPoint(
+            var pauseResumeLabel = new CCLabelTTF(pauseResumeText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            pauseResumeLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            pauseResumeLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.7f * this.ContentSize.Height);
-            this.AddChild(howToSubtitle);
-            */
+            this.AddChild(pauseResumeLabel);
 
-            // How to play description 1
-            var howToPlayDescription1Text = string.Empty;
+            // Speed
+            var decreaseImage = new CCSprite("Images/Icons/DecreaseButtonNormal.png");
+            decreaseImage.AnchorPoint = CCPoint.AnchorMiddle;
+            decreaseImage.Position = new CCPoint(
+                0.3f * this.ContentSize.Width,
+                0.4f * this.ContentSize.Height);
+            this.AddChild(decreaseImage);
+            var increaseImage = new CCSprite("Images/Icons/IncreaseButtonNormal.png");
+            increaseImage.AnchorPoint = CCPoint.AnchorMiddle;
+            increaseImage.Position = new CCPoint(
+                0.7f * this.ContentSize.Width,
+                0.4f * this.ContentSize.Height);
+            this.AddChild(increaseImage);
+            var increaseDecreaseText = string.Empty;
 #if ANDROID
-            howToPlayDescription1Text = Program.SharedProgram.Resources.GetString(Resource.String.HelpHowToPlayDescription1);
+            increaseDecreaseText = Program.SharedProgram.Resources.GetString(Resource.String.HelpIncreaseDecrease);
 #elif IOS
-            howToPlayDescription1Text = NSBundle.MainBundle.LocalizedString(Strings.HelpHowToPlayDescription1, Strings.HelpHowToPlayDescription1);
+            increaseDecreaseText = NSBundle.MainBundle.LocalizedString(Strings.HelpIncreaseDecrease, Strings.HelpIncreaseDecrease);
 #else
-            howToPlayDescription1Text = AppResources.HelpHowToPlayDescription1;
+            increaseDecreaseText = AppResources.HelpIncreaseDecrease;
 #endif
-            var howToDescription1 = new CCLabelTTF(howToPlayDescription1Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            howToDescription1.Position = new CCPoint(
-                0.5f  * this.ContentSize.Width,
-                0.75f * this.ContentSize.Height);
-            this.AddChild(howToDescription1);
-
-            // Phone
-            var phoneImage = new CCSprite("Images/Misc/HelpPhone");
-            phoneImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
-            phoneImage.Position = new CCPoint(
-                0.5f  * this.ContentSize.Width,
-                0.2f * this.ContentSize.Height);
-            this.AddChild(phoneImage);
-
-            // TODO: Just going with description 1 for now
-            // How to play description 2
-            /*
-            var howToPlayDescription2Text = string.Empty;
-#if ANDROID
-            howToPlayDescription2Text = Program.SharedProgram.Resources.GetString(Resource.String.HelpHowToPlayDescription2);
-#elif IOS
-            howToPlayDescription2Text = NSBundle.MainBundle.LocalizedString(Strings.HelpHowToPlayDescription2, Strings.HelpHowToPlayDescription2);
-#else
-            howToPlayDescription2Text = AppResources.HelpHowToPlayDescription2;
-#endif
-            var howToDescription2 = new CCLabelTTF(howToPlayDescription2Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-            howToDescription2.Position = new CCPoint(
+            var increaseDecreaseLabel = new CCLabelTTF(increaseDecreaseText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            increaseDecreaseLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            increaseDecreaseLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
-                0.2f * this.ContentSize.Height);
-            this.AddChild(howToDescription2);
-            */
+                0.3f * this.ContentSize.Height);
+            this.AddChild(increaseDecreaseLabel);
         }
     }
 }

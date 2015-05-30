@@ -53,7 +53,6 @@ namespace Simsip.LineRunner
             var mainWindow = (UIWindow)TheGame.SharedGame.Services.GetService(typeof(UIWindow));
             var iosGameViewController = (UIViewController)TheGame.SharedGame.Services.GetService(typeof(UIViewController));
 
-            /* TODO: New commenting out
             this._adView = new GADBannerView(
                 size: GADAdSizeCons.Banner,
                 origin: new CGPoint(0, 0))
@@ -61,13 +60,27 @@ namespace Simsip.LineRunner
                 AdUnitID = AdmobID,
                 RootViewController = iosGameViewController
             };
-            */
+
+            var originalFrame = iosGameViewController.View.Frame;
+
+            iosGameViewController.View.Frame = new CoreGraphics.CGRect(
+                0,
+                originalFrame.Y + this._adView.AdSize.Size.Height,
+                originalFrame.Width,
+                originalFrame.Height - this._adView.AdSize.Size.Height);
+
+            // Inject our add banner
+            iosGameViewController.View.AddSubview(this._adView);
+
+            this._adView.LoadRequest(GADRequest.Request);
 
             /* Add in test devices for add banner
             // See: https://developers.google.com/mobile-ads-sdk/docs/admob/ios/targeting
             GADRequest adRequest = new GADRequest();
             adRequest.TestDevices = 
             */
+
+            // TODO: Leaving below in until we have ads/game view stabilized
 
             /* TODO: Should we use this, doesn't seem to work on simulator?
             adView.AdReceived += (sender, args) =>
@@ -80,7 +93,7 @@ namespace Simsip.LineRunner
             };
             */
 
-            
+            /*
             var controller = new UIViewController();
             this._adView = new GADBannerView(
                 size: GADAdSizeCons.Banner,
@@ -89,26 +102,33 @@ namespace Simsip.LineRunner
                 AdUnitID = AdmobID,
                 RootViewController = controller
             };
+            controller.View.AddSubview(this._adView);
 
+
+            // https://developer.apple.com/library/ios/featuredarticles/ViewControllerPGforiPhoneOS/CreatingCustomContainerViewControllers/CreatingCustomContainerViewControllers.html
+            iosGameViewController.WillMoveToParentViewController(null);
             iosGameViewController.View.RemoveFromSuperview();
+            iosGameViewController.RemoveFromParentViewController();
+            
+            
+            controller.AddChildViewController(iosGameViewController);
 
             var originalFrame = iosGameViewController.View.Frame;
+
             iosGameViewController.View.Frame = new CoreGraphics.CGRect(
-                0, 
-                originalFrame.Y + this._adView.AdSize.Size.Height, 
+                0,
+                originalFrame.Y + this._adView.AdSize.Size.Height,
                 originalFrame.Width,
                 originalFrame.Height - this._adView.AdSize.Size.Height);
 
-            controller.View.AddSubview(this._adView);
             controller.View.AddSubview(iosGameViewController.View);
 
-            mainWindow.Add(controller.View);
+            iosGameViewController.DidMoveToParentViewController(controller);
 
-            // TODO: New comment
-            // Inject our add banner
-            // iosGameViewController.View.AddSubview(this._adView);
-
-            this._adView.LoadRequest(GADRequest.Request);
+            
+            mainWindow.RootViewController = controller;
+            // mainWindow.Add(controller.View);
+            */
 
             // Initialize director
             CCDirector pDirector = CCDirector.SharedDirector;

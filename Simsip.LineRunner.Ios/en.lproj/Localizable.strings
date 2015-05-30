@@ -76,3 +76,13 @@
 "HudHome"="home";
 "AdminStartLine"="start line";
 "AdminStartLineDescription"="enter line to start on (1-17)";
+"CommonLicense"="license";
+"CommonReset"="double tap trackball to reset view";
+"HelpIncreaseDecrease"="increase or decrease speed";
+"HelpOrbit"="drag from trackball to orbit view";
+"HelpPauseResume"="pause or resume the game";
+"HelpRotate"="drag from middle to rotate view";
+"HelpScroll"="scroll view vertically or horizontally";
+"HudOrbit"="orbit view";
+"HudRotate"="rotate view";
+"HudScroll"="scroll view";

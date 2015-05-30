@@ -986,6 +986,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <BundleResource Include="Resources\Default-568h%402x.png" />
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Misc\HelpRotate.xnb">
+      <Link>Content\Images\Misc\HelpRotate.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Misc\FingerPress.xnb">
+      <Link>Content\Images\Misc\FingerPress.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
       <Link>Mercury\EffectLibrary\BasicExplosion.xml</Link>
     </None>

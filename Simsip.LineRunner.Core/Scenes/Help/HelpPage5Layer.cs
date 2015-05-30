@@ -14,6 +14,10 @@ namespace Simsip.LineRunner.Scenes.Help
         private CoreScene _parent;
         private HelpMasterLayer _masterLayer;
 
+        // Finger press
+        private CCSprite _fingerPressImage;
+        private CCAction _fingerPressAction;
+
         public HelpPage5Layer(CoreScene parent, HelpMasterLayer masterLayer)
         {
             this._parent = parent;
@@ -38,64 +42,105 @@ namespace Simsip.LineRunner.Scenes.Help
                 0.9f * this.ContentSize.Height);
             this.AddChild(pageNumberHeader);
 
-            // TODO: Just going with description 1 for now
-            // How to play sub-title
-            /*
-            var howToPlayText = string.Empty;
+            // Scroll text
+            var scrollText = string.Empty;
 #if ANDROID
-            howToPlayText = Program.SharedProgram.Resources.GetString(Resource.String.HelpHowToPlay);
+            scrollText = Program.SharedProgram.Resources.GetString(Resource.String.HelpScroll);
 #elif IOS
-            howToPlayText = NSBundle.MainBundle.LocalizedString(Strings.HelpHowToPlay, Strings.HelpHowToPlay);
+            scrollText = NSBundle.MainBundle.LocalizedString(Strings.HelpScroll, Strings.HelpScroll);
 #else
-            howToPlayText = AppResources.HelpHowToPlay;
+            scrollText = AppResources.HelpScroll;
 #endif
-            var howToSubtitle = new CCLabelTTF(howToPlayText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            howToSubtitle.Position = new CCPoint(
+            var scrollLabel = new CCLabelTTF(scrollText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            scrollLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            scrollLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
-                0.7f * this.ContentSize.Height);
-            this.AddChild(howToSubtitle);
-            */
+                0.8f * this.ContentSize.Height);
+            this.AddChild(scrollLabel);
 
-            // How to play description 1
-            var howToPlayDescription1Text = string.Empty;
-#if ANDROID
-            howToPlayDescription1Text = Program.SharedProgram.Resources.GetString(Resource.String.HelpHowToPlayDescription1);
-#elif IOS
-            howToPlayDescription1Text = NSBundle.MainBundle.LocalizedString(Strings.HelpHowToPlayDescription1, Strings.HelpHowToPlayDescription1);
-#else
-            howToPlayDescription1Text = AppResources.HelpHowToPlayDescription1;
-#endif
-            var howToDescription1 = new CCLabelTTF(howToPlayDescription1Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            howToDescription1.Position = new CCPoint(
-                0.5f  * this.ContentSize.Width,
-                0.75f * this.ContentSize.Height);
-            this.AddChild(howToDescription1);
-
-            // Phone
-            var phoneImage = new CCSprite("Images/Misc/HelpPhone");
-            phoneImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
-            phoneImage.Position = new CCPoint(
-                0.5f  * this.ContentSize.Width,
-                0.2f * this.ContentSize.Height);
-            this.AddChild(phoneImage);
-
-            // TODO: Just going with description 1 for now
-            // How to play description 2
-            /*
-            var howToPlayDescription2Text = string.Empty;
-#if ANDROID
-            howToPlayDescription2Text = Program.SharedProgram.Resources.GetString(Resource.String.HelpHowToPlayDescription2);
-#elif IOS
-            howToPlayDescription2Text = NSBundle.MainBundle.LocalizedString(Strings.HelpHowToPlayDescription2, Strings.HelpHowToPlayDescription2);
-#else
-            howToPlayDescription2Text = AppResources.HelpHowToPlayDescription2;
-#endif
-            var howToDescription2 = new CCLabelTTF(howToPlayDescription2Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-            howToDescription2.Position = new CCPoint(
+            // Scroll image
+            var joystickLeftImage = new CCSprite("Images/Icons/JoystickLeftNormal.png");
+            joystickLeftImage.AnchorPoint = CCPoint.AnchorMiddle;
+            joystickLeftImage.Position = new CCPoint(
+                0.3f * this.ContentSize.Width,
+                0.5f * this.ContentSize.Height);
+            this.AddChild(joystickLeftImage);
+            var joystickRightImage = new CCSprite("Images/Icons/JoystickRightNormal.png");
+            joystickRightImage.AnchorPoint = CCPoint.AnchorMiddle;
+            joystickRightImage.Position = new CCPoint(
+                0.7f * this.ContentSize.Width,
+                0.5f * this.ContentSize.Height);
+            this.AddChild(joystickRightImage);
+            var joystickUpImage = new CCSprite("Images/Icons/JoystickUpNormal.png");
+            joystickUpImage.AnchorPoint = CCPoint.AnchorMiddle;
+            joystickUpImage.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
-                0.2f * this.ContentSize.Height);
-            this.AddChild(howToDescription2);
-            */
+                0.6f * this.ContentSize.Height);
+            this.AddChild(joystickUpImage);
+            var joystickDownImage = new CCSprite("Images/Icons/JoystickDownNormal.png");
+            joystickDownImage.AnchorPoint = CCPoint.AnchorMiddle;
+            joystickDownImage.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.4f * this.ContentSize.Height);
+            this.AddChild(joystickUpImage);
+            var joystickText = string.Empty;
+#if ANDROID
+            joystickText = Program.SharedProgram.Resources.GetString(Resource.String.HudJoystick);
+#elif IOS
+            joystickText = NSBundle.MainBundle.LocalizedString(Strings.HudJoystick, Strings.HudJoystick);
+#else
+            joystickText = AppResources.HudJoystick;
+#endif
+            var joystickLabel = new CCLabelTTF(joystickText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            joystickLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            joystickLabel.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.5f * this.ContentSize.Height);
+            this.AddChild(joystickLabel);
+
+            // Finger press
+            this._fingerPressImage = new CCSprite("Images/Misc/FingerPress.png");
+            this._fingerPressImage.AnchorPoint = CCPoint.AnchorMiddle;
+            this.AddChild(this._fingerPressImage);
+            this._fingerPressAction = new CCRepeatForever(new CCSequence(new CCFiniteTimeAction[] 
+                { 
+                    new CCPlace(new CCPoint(
+                        0.7f * this.ContentSize.Width,
+                        0.5f * this.ContentSize.Height)),
+                    new CCShow(),
+                    new CCDelayTime(GameConstants.DURATION_LAYER_TRANSITION),
+                    new CCHide(),
+                    new CCDelayTime(GameConstants.DURATION_LAYER_TRANSITION),
+                    new CCPlace(new CCPoint(
+                        0.5f * this.ContentSize.Width,
+                        0.6f * this.ContentSize.Height)),
+                    new CCShow(),
+                    new CCDelayTime(GameConstants.DURATION_LAYER_TRANSITION),
+                    new CCHide()
+                }));
+
+            // Double tap text
+            var doubleTapText = string.Empty;
+#if ANDROID
+            doubleTapText = Program.SharedProgram.Resources.GetString(Resource.String.CommonReset);
+#elif IOS
+            doubleTapText = NSBundle.MainBundle.LocalizedString(Strings.CommonReset, Strings.CommonReset);
+#else
+            doubleTapText = AppResources.CommonReset;
+#endif
+            var doubleTapLabel = new CCLabelTTF(doubleTapText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            doubleTapLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            doubleTapLabel.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.3f * this.ContentSize.Height);
+            this.AddChild(doubleTapLabel);
+        }
+
+        public override void OnEnter()
+        {
+            base.OnEnter();
+
+            this._fingerPressImage.RunAction(this._fingerPressAction);
         }
     }
 }

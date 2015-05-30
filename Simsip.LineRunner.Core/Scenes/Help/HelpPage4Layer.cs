@@ -14,6 +14,10 @@ namespace Simsip.LineRunner.Scenes.Help
         private CoreScene _parent;
         private HelpMasterLayer _masterLayer;
 
+        // Finger press
+        private CCSprite _fingerPressImage;
+        private CCAction _fingerPressAction;
+
         public HelpPage4Layer(CoreScene parent, HelpMasterLayer masterLayer)
         {
             this._parent = parent;
@@ -38,64 +42,95 @@ namespace Simsip.LineRunner.Scenes.Help
                 0.9f * this.ContentSize.Height);
             this.AddChild(pageNumberHeader);
 
-            // TODO: Just going with description 1 for now
-            // How to play sub-title
-            /*
-            var howToPlayText = string.Empty;
+            // Rotate text
+            var rotateText = string.Empty;
 #if ANDROID
-            howToPlayText = Program.SharedProgram.Resources.GetString(Resource.String.HelpHowToPlay);
+            rotateText = Program.SharedProgram.Resources.GetString(Resource.String.HelpRotate);
 #elif IOS
-            howToPlayText = NSBundle.MainBundle.LocalizedString(Strings.HelpHowToPlay, Strings.HelpHowToPlay);
+            rotateText = NSBundle.MainBundle.LocalizedString(Strings.HelpRotate, Strings.HelpRotate);
 #else
-            howToPlayText = AppResources.HelpHowToPlay;
+            rotateText = AppResources.HelpRotate;
 #endif
-            var howToSubtitle = new CCLabelTTF(howToPlayText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            howToSubtitle.Position = new CCPoint(
+            var rotateLabel = new CCLabelTTF(rotateText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            rotateLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            rotateLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
-                0.7f * this.ContentSize.Height);
-            this.AddChild(howToSubtitle);
-            */
+                0.8f * this.ContentSize.Height);
+            this.AddChild(rotateLabel);
 
-            // How to play description 1
-            var howToPlayDescription1Text = string.Empty;
-#if ANDROID
-            howToPlayDescription1Text = Program.SharedProgram.Resources.GetString(Resource.String.HelpHowToPlayDescription1);
-#elif IOS
-            howToPlayDescription1Text = NSBundle.MainBundle.LocalizedString(Strings.HelpHowToPlayDescription1, Strings.HelpHowToPlayDescription1);
-#else
-            howToPlayDescription1Text = AppResources.HelpHowToPlayDescription1;
-#endif
-            var howToDescription1 = new CCLabelTTF(howToPlayDescription1Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            howToDescription1.Position = new CCPoint(
-                0.5f  * this.ContentSize.Width,
-                0.75f * this.ContentSize.Height);
-            this.AddChild(howToDescription1);
-
-            // Phone
-            var phoneImage = new CCSprite("Images/Misc/HelpPhone");
-            phoneImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
-            phoneImage.Position = new CCPoint(
-                0.5f  * this.ContentSize.Width,
-                0.2f * this.ContentSize.Height);
-            this.AddChild(phoneImage);
-
-            // TODO: Just going with description 1 for now
-            // How to play description 2
-            /*
-            var howToPlayDescription2Text = string.Empty;
-#if ANDROID
-            howToPlayDescription2Text = Program.SharedProgram.Resources.GetString(Resource.String.HelpHowToPlayDescription2);
-#elif IOS
-            howToPlayDescription2Text = NSBundle.MainBundle.LocalizedString(Strings.HelpHowToPlayDescription2, Strings.HelpHowToPlayDescription2);
-#else
-            howToPlayDescription2Text = AppResources.HelpHowToPlayDescription2;
-#endif
-            var howToDescription2 = new CCLabelTTF(howToPlayDescription2Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-            howToDescription2.Position = new CCPoint(
+            // Rotate image
+            var rotateImage = new CCSprite("Images/Misc/HelpRotate.png");
+            rotateImage.AnchorPoint = CCPoint.AnchorMiddle;
+            rotateImage.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
-                0.2f * this.ContentSize.Height);
-            this.AddChild(howToDescription2);
-            */
+                0.5f * this.ContentSize.Height);
+            this.AddChild(rotateImage);
+
+            // Finger press
+            this._fingerPressImage = new CCSprite("Images/Misc/FingerPress.png");
+            this._fingerPressImage.AnchorPoint = CCPoint.AnchorMiddle;
+            this.AddChild(this._fingerPressImage);
+            var dragStartPlacementAction = new CCPlace(new CCPoint(
+                0.6f * this.ContentSize.Width,
+                0.4f * this.ContentSize.Height));
+            var dragConfig1 = new CCBezierConfig()
+                {
+                    ControlPoint1 = new CCPoint(
+                        0.2f * this.ContentSize.Width,
+                        0.5f * this.ContentSize.Height),
+                    ControlPoint2 = new CCPoint(
+                        0.2f * this.ContentSize.Width,
+                        0.6f * this.ContentSize.Height),
+                    EndPosition = new CCPoint(
+                        0.4f * this.ContentSize.Width,
+                        0.7f * this.ContentSize.Height)
+                };
+            var dragTo1 = new CCBezierTo(GameConstants.DURATION_LAYER_TRANSITION, dragConfig1);
+            var dragConfig2 = new CCBezierConfig()
+            {
+                ControlPoint1 = new CCPoint(
+                    0.8f * this.ContentSize.Width,
+                    0.6f * this.ContentSize.Height),
+                ControlPoint2 = new CCPoint(
+                    0.8f * this.ContentSize.Width,
+                    0.5f * this.ContentSize.Height),
+                EndPosition = new CCPoint(
+                    0.6f * this.ContentSize.Width,
+                    0.4f * this.ContentSize.Height)
+            };
+            var dragTo2 = new CCBezierTo(GameConstants.DURATION_LAYER_TRANSITION, dragConfig2);
+            this._fingerPressAction =  new CCRepeatForever(new CCSequence(new CCFiniteTimeAction[] 
+                { 
+                    new CCShow(),
+                    dragTo1,
+                    dragTo2,
+                    new CCHide(),
+                    new CCDelayTime(GameConstants.DURATION_LAYER_TRANSITION)
+                }));
+            
+            // Double tap text
+            var doubleTapText = string.Empty;
+#if ANDROID
+            doubleTapText = Program.SharedProgram.Resources.GetString(Resource.String.CommonReset);
+#elif IOS
+            doubleTapText = NSBundle.MainBundle.LocalizedString(Strings.CommonReset, Strings.CommonReset);
+#else
+            doubleTapText = AppResources.CommonReset;
+#endif
+            var doubleTapLabel = new CCLabelTTF(doubleTapText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            doubleTapLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            doubleTapLabel.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.3f * this.ContentSize.Height);
+            this.AddChild(doubleTapLabel);
+
+        }
+
+        public override void OnEnter()
+        {
+            base.OnEnter();
+
+            this._fingerPressImage.RunAction(this._fingerPressAction);
         }
     }
 }

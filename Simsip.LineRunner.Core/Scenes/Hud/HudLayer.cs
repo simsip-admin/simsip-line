@@ -73,8 +73,10 @@ namespace Simsip.LineRunner.Scenes.Hud
         private CCLabelTTF _topScoreLabel;
 
         // Status label
-        private CCLabelTTF _statusLabel;
-        private CCAction _statusLabelAction;
+        private CCLabelTTF _status1Label;
+        private CCAction _status1LabelAction;
+        private CCLabelTTF _status2Label;
+        private CCAction _status2LabelAction;
 
         // Score label
         private CCLabelTTF _scoreLabel;
@@ -152,6 +154,26 @@ namespace Simsip.LineRunner.Scenes.Hud
             var footerRightSize = new CCSize(
                 0.2f * footerSize.Width,
                 footerSize.Height);
+
+            // Status 1
+            this._status1Label = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._status1Label.Color = CCColor3B.Red;
+            this._status1Label.AnchorPoint = CCPoint.AnchorMiddle;
+            this._status1Label.Position = new CCPoint(
+                0.5f  * this.ContentSize.Width,
+                0.75f * this.ContentSize.Height);
+            this.AddChild(this._status1Label);
+
+            // Status 1 action
+            this._status1LabelAction = new CCSequence(new CCFiniteTimeAction[] 
+                { 
+                    new CCShow(),
+                    new CCScaleTo(0f, 0f), 
+                    new CCScaleTo(0.5f, 1.2f),
+                    new CCScaleTo(0.1f, 1.0f),
+                    new CCDelayTime(GameConstants.DURATION_STATUS_LABEL),
+                    new CCHide()
+                });
 
             // Base layer
             this._baseLayer = new GameLayer();
@@ -264,19 +286,22 @@ namespace Simsip.LineRunner.Scenes.Hud
                 0.6f  * headerLeftSize.Height);
             this._headerLeftLayer.AddChild(this._topScoreLabel);
 
-            // Status
-            this._statusLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._statusLabel.AnchorPoint = CCPoint.AnchorMiddle;
-            this._statusLabel.Position = new CCPoint(
+            // Status 2
+            this._status2Label = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._status2Label.Color = CCColor3B.Red;
+            this._status2Label.AnchorPoint = CCPoint.AnchorMiddle;
+            this._status2Label.Position = new CCPoint(
                 0.25f * headerLeftSize.Width,
                 0.4f  * headerLeftSize.Height);
-            this._headerLeftLayer.AddChild(this._statusLabel);
+            this._headerLeftLayer.AddChild(this._status2Label);
 
-            // Status action
-            var scaleStartStatus = new CCScaleTo(0f, 0f);
-            var scaleUpStatus = new CCScaleTo(0.5f, 1.2f);
-            var scaleBackStatus = new CCScaleTo(0.1f, 1.0f);
-            this._statusLabelAction = new CCSequence(new CCFiniteTimeAction[] { scaleStartStatus, scaleUpStatus, scaleBackStatus });
+            // Status 2 action
+            this._status2LabelAction = new CCSequence(new CCFiniteTimeAction[] 
+            { 
+                new CCScaleTo(0f, 0f), 
+                new CCScaleTo(0.5f, 1.2f),
+                new CCScaleTo(0.1f, 1.0f),
+            });
 
             // Home
             var homeText = string.Empty;
@@ -347,7 +372,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             // Score label
             this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_EXTRA_LARGE);
             this._scoreLabel.Color = CCColor3B.Green;
-            this._statusLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            this._status1Label.AnchorPoint = CCPoint.AnchorMiddle;
             this._scoreLabel.Position = new CCPoint(
                 0.5f * headerRightSize.Width, 
                 0.6f * headerRightSize.Height);
@@ -730,7 +755,7 @@ namespace Simsip.LineRunner.Scenes.Hud
         public void DisplayPageLineNumber(int pageNumber, int lineNumber)
         {
             // Animate display of new page number
-            this._statusLabel.StopAllActions();
+            this._status1Label.StopAllActions();
             var pageLineText = string.Empty;
 #if ANDROID
             pageLineText = Program.SharedProgram.Resources.GetString(Resource.String.HudPageLine);
@@ -739,10 +764,9 @@ namespace Simsip.LineRunner.Scenes.Hud
 #else
             pageLineText = AppResources.HudPageLine;
 #endif
-            this._statusLabel.Text = 
+            this._status1Label.Text = 
                 pageLineText + " " + pageNumber.ToString() + "/" + lineNumber.ToString();
-            this._statusLabel.Color = CCColor3B.White;
-            this._statusLabel.RunAction(this._statusLabelAction);
+            this._status1Label.RunAction(this._status1LabelAction);
         }
 
         public void StopTimer()
@@ -773,6 +797,19 @@ namespace Simsip.LineRunner.Scenes.Hud
                         {
                             case Dragging.None:
                                 {
+                                    // Animate display of double tap help text
+                                    this._status1Label.StopAllActions();
+                                    var doubleTapText = string.Empty;
+#if ANDROID
+                                    doubleTapText = Program.SharedProgram.Resources.GetString(Resource.String.CommonReset);
+#elif IOS
+                                    doubleTapText = NSBundle.MainBundle.LocalizedString(Strings.CommonReset, Strings.CommonReset);
+#else
+                                    doubleTapText = AppResources.CommonReset;
+#endif
+                                    this._status1Label.Text = doubleTapText;
+                                    this._status1Label.RunAction(this._status1LabelAction);
+
                                     // IMPORTANT: Gesture position differs from Touch position
                                     //            in that we have to invert the y value.
                                     var p = CCDirector.SharedDirector.ConvertToUi(g.Position);
@@ -822,6 +859,19 @@ namespace Simsip.LineRunner.Scenes.Hud
                     }
                 case GestureType.Hold:
                     {
+                        // Animate display of double tap help text
+                        this._status1Label.StopAllActions();
+                        var doubleTapText = string.Empty;
+#if ANDROID
+                        doubleTapText = Program.SharedProgram.Resources.GetString(Resource.String.CommonReset);
+#elif IOS
+                        doubleTapText = NSBundle.MainBundle.LocalizedString(Strings.CommonReset, Strings.CommonReset);
+#else
+                        doubleTapText = AppResources.CommonReset;
+#endif
+                        this._status1Label.Text = doubleTapText;
+                        this._status1Label.RunAction(this._status1LabelAction);
+
                         var p = CCDirector.SharedDirector.ConvertToUi(g.Position);
                         var jl = this._joystickLeftItem.WorldBoundingBox;
                         var jr = this._joystickRightItem.WorldBoundingBox;
@@ -904,9 +954,8 @@ namespace Simsip.LineRunner.Scenes.Hud
 
                 // Clear out any previous activity for status label
                 // and clear out the label itself
-                this._statusLabel.ActionManager.RemoveAllActionsFromTarget(this);
-                this._statusLabel.Color = CCColor3B.White;
-                this._statusLabel.Text = string.Empty;
+                this._status2Label.ActionManager.RemoveAllActionsFromTarget(this);
+                this._status2Label.Text = string.Empty;
 
                 // Hide secondary layers
                 this.HideSecondaryLayers();
@@ -916,19 +965,19 @@ namespace Simsip.LineRunner.Scenes.Hud
                 this._paused = true;
                 this._characterCache.Pause(true);
 
-                var statusText = string.Empty;
-#if ANDROID
-                statusText = Program.SharedProgram.Resources.GetString(Resource.String.HudPaused);
-#elif IOS
-                statusText = NSBundle.MainBundle.LocalizedString(Strings.HudPaused, Strings.HudPaused);
-#else
-                statusText = AppResources.HudPaused;
-#endif
-                // Clear out any previous activity for status label
+                // Clear out any previous activity for paused status label
                 // and set new text
-                this._statusLabel.ActionManager.RemoveAllActionsFromTarget(this);
-                this._statusLabel.Color = CCColor3B.Red;
-                this._statusLabel.Text = statusText;
+                var pausedText = string.Empty;
+#if ANDROID
+                pausedText = Program.SharedProgram.Resources.GetString(Resource.String.HudPaused);
+#elif IOS
+                pausedText = NSBundle.MainBundle.LocalizedString(Strings.HudPaused, Strings.HudPaused);
+#else
+                pausedText = AppResources.HudPaused;
+#endif
+                this._status2Label.ActionManager.RemoveAllActionsFromTarget(this);
+                this._status2Label.Text = pausedText;
+                this._status2Label.RunAction(this._status2LabelAction);
 
                 // Restore secondary layers
                 this.RestoreSecondaryLayers();
@@ -966,19 +1015,9 @@ namespace Simsip.LineRunner.Scenes.Hud
                     statusText = AppResources.HudCannotGoSlowerThan; 
                 #endif
             }
-            this._statusLabel.Text = statusText + " " + (this._characterCache.GetLinearVelocityX() * 100);
-
-            // Clear out any previous activity for status label
-            this._statusLabel.ActionManager.RemoveAllActionsFromTarget(this);
-
-            // Construct and run an action to display the status for only a short duration
-            var statusLabelAction = new CCSequence(new CCFiniteTimeAction[]
-                    {
-                        new CCDelayTime(GameConstants.DURATION_STATUS_LABEL),
-                        new CCCallFunc(() => this._statusLabel.Text = string.Empty)
-                    }
-                );
-            this._statusLabel.RunAction(statusLabelAction);
+            this._status1Label.Text = statusText + " " + (this._characterCache.GetLinearVelocityX() * 100);
+            this._status1Label.ActionManager.RemoveAllActionsFromTarget(this);
+            this._status1Label.RunAction(this._status1LabelAction);
         }
 
         private void IncreaseVelocity()
@@ -999,19 +1038,9 @@ namespace Simsip.LineRunner.Scenes.Hud
 #else
             statusText = AppResources.HudSpeed; 
 #endif
-            this._statusLabel.Text = statusText + " " + (this._characterCache.GetLinearVelocityX() * 100);
-
-            // Clear out any previous activity for status label
-            this._statusLabel.ActionManager.RemoveAllActionsFromTarget(this);
-
-            // Construct and run an action to display the status for only a short duration
-            var statusLabelAction = new CCSequence(new CCFiniteTimeAction[]
-                {
-                    new CCDelayTime(GameConstants.DURATION_STATUS_LABEL),
-                    new CCCallFunc(() => this._statusLabel.Text = string.Empty)
-                }
-            );
-            this._statusLabel.RunAction(statusLabelAction);
+            this._status1Label.Text = statusText + " " + (this._characterCache.GetLinearVelocityX() * 100);
+            this._status1Label.ActionManager.RemoveAllActionsFromTarget(this);
+            this._status1Label.RunAction(this._status1LabelAction);
         }
 
         private void NavigateAdmin()
