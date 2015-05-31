@@ -116,6 +116,18 @@
           <source>scroll view</source>
           <target state="new">scroll view</target>
         </trans-unit>
+        <trans-unit id="Resx/HelpHud" translate="yes" xml:space="preserve">
+          <source>hud</source>
+          <target state="new">hud</target>
+        </trans-unit>
+        <trans-unit id="Resx/HelpSound" translate="yes" xml:space="preserve">
+          <source>turn sound off and on</source>
+          <target state="new">turn sound off and on</target>
+        </trans-unit>
+        <trans-unit id="Resx/HelpLeaderboards" translate="yes" xml:space="preserve">
+          <source>see your top scores</source>
+          <target state="new">see your top scores</target>
+        </trans-unit>
         <trans-unit id="Resx/HudRotate" translate="yes" xml:space="preserve">
           <source>rotate view</source>
           <target state="new">rotate view</target>
@@ -125,8 +137,8 @@
           <target state="new">orbit view</target>
         </trans-unit>
         <trans-unit id="Resx/HelpScroll" translate="yes" xml:space="preserve">
-          <source>scroll view vertically or horizontally</source>
-          <target state="new">scroll view vertically or horizontally</target>
+          <source>tap or hold to scroll view</source>
+          <target state="new">tap or hold to scroll view</target>
         </trans-unit>
         <trans-unit id="Resx/HelpRotate" translate="yes" xml:space="preserve">
           <source>drag from middle to rotate view</source>

@@ -5511,7 +5511,7 @@
 /processorParam:TextureFormat=Color
 /build:Content/Images/Misc/HelpRotate.png
 
-#begin Content/Images/Misc/FingerPress.png
+#begin Content/Images/Misc/FingerPressLarge.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -5520,5 +5520,27 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
-/build:Content/Images/Misc/FingerPress.png
+/build:Content/Images/Misc/FingerPressLarge.png
+
+#begin Content/Images/Misc/FingerPressMedium.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Content/Images/Misc/FingerPressMedium.png
+
+#begin Content/Images/Misc/FingerPressSmall.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Content/Images/Misc/FingerPressSmall.png
 

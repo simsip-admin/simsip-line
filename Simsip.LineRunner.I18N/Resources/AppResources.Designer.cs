@@ -323,11 +323,29 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to hud.
+        /// </summary>
+        public static string HelpHud {
+            get {
+                return ResourceManager.GetString("HelpHud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to increase or decrease speed.
         /// </summary>
         public static string HelpIncreaseDecrease {
             get {
                 return ResourceManager.GetString("HelpIncreaseDecrease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to see your top scores.
+        /// </summary>
+        public static string HelpLeaderboards {
+            get {
+                return ResourceManager.GetString("HelpLeaderboards", resourceCulture);
             }
         }
         
@@ -404,11 +422,20 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to scroll view vertically or horizontally.
+        ///   Looks up a localized string similar to tap or hold to scroll view.
         /// </summary>
         public static string HelpScroll {
             get {
                 return ResourceManager.GetString("HelpScroll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to turn sound off and on.
+        /// </summary>
+        public static string HelpSound {
+            get {
+                return ResourceManager.GetString("HelpSound", resourceCulture);
             }
         }
         

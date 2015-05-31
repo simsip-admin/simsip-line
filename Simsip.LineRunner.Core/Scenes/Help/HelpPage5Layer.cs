@@ -35,12 +35,27 @@ namespace Simsip.LineRunner.Scenes.Help
 #else
             pageNumberText = AppResources.CommonPage;
 #endif
-            var pageNumberHeader = new CCLabelTTF(pageNumberText + " 2", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var pageNumberHeader = new CCLabelTTF(pageNumberText + " 5", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             pageNumberHeader.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,
                 0.9f * this.ContentSize.Height);
             this.AddChild(pageNumberHeader);
+
+            // Hud sub-title
+            var hudText = string.Empty;
+#if ANDROID
+            hudText = Program.SharedProgram.Resources.GetString(Resource.String.HelpHud);
+#elif IOS
+            hudText = NSBundle.MainBundle.LocalizedString(Strings.HelpHud, Strings.HelpHud);
+#else
+            hudText = AppResources.HelpHud;
+#endif
+            var hudSubtitle = new CCLabelTTF(hudText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            hudSubtitle.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.75f * this.ContentSize.Height);
+            this.AddChild(hudSubtitle);
 
             // Scroll text
             var scrollText = string.Empty;
@@ -54,35 +69,35 @@ namespace Simsip.LineRunner.Scenes.Help
             var scrollLabel = new CCLabelTTF(scrollText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             scrollLabel.AnchorPoint = CCPoint.AnchorMiddle;
             scrollLabel.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.8f * this.ContentSize.Height);
+                0.5f  * this.ContentSize.Width,
+                0.65f * this.ContentSize.Height);
             this.AddChild(scrollLabel);
 
             // Scroll image
             var joystickLeftImage = new CCSprite("Images/Icons/JoystickLeftNormal.png");
             joystickLeftImage.AnchorPoint = CCPoint.AnchorMiddle;
             joystickLeftImage.Position = new CCPoint(
-                0.3f * this.ContentSize.Width,
-                0.5f * this.ContentSize.Height);
+                0.3f  * this.ContentSize.Width,
+                0.45f * this.ContentSize.Height);
             this.AddChild(joystickLeftImage);
             var joystickRightImage = new CCSprite("Images/Icons/JoystickRightNormal.png");
             joystickRightImage.AnchorPoint = CCPoint.AnchorMiddle;
             joystickRightImage.Position = new CCPoint(
-                0.7f * this.ContentSize.Width,
-                0.5f * this.ContentSize.Height);
+                0.7f  * this.ContentSize.Width,
+                0.45f * this.ContentSize.Height);
             this.AddChild(joystickRightImage);
             var joystickUpImage = new CCSprite("Images/Icons/JoystickUpNormal.png");
             joystickUpImage.AnchorPoint = CCPoint.AnchorMiddle;
             joystickUpImage.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.6f * this.ContentSize.Height);
+                0.5f  * this.ContentSize.Width,
+                0.55f * this.ContentSize.Height);
             this.AddChild(joystickUpImage);
             var joystickDownImage = new CCSprite("Images/Icons/JoystickDownNormal.png");
             joystickDownImage.AnchorPoint = CCPoint.AnchorMiddle;
             joystickDownImage.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.4f * this.ContentSize.Height);
-            this.AddChild(joystickUpImage);
+                0.5f  * this.ContentSize.Width,
+                0.35f * this.ContentSize.Height);
+            this.AddChild(joystickDownImage);
             var joystickText = string.Empty;
 #if ANDROID
             joystickText = Program.SharedProgram.Resources.GetString(Resource.String.HudJoystick);
@@ -94,26 +109,26 @@ namespace Simsip.LineRunner.Scenes.Help
             var joystickLabel = new CCLabelTTF(joystickText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             joystickLabel.AnchorPoint = CCPoint.AnchorMiddle;
             joystickLabel.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.5f * this.ContentSize.Height);
+                0.5f  * this.ContentSize.Width,
+                0.45f * this.ContentSize.Height);
             this.AddChild(joystickLabel);
 
             // Finger press
-            this._fingerPressImage = new CCSprite("Images/Misc/FingerPress.png");
+            this._fingerPressImage = new CCSprite("Images/Misc/FingerPressMedium.png");
             this._fingerPressImage.AnchorPoint = CCPoint.AnchorMiddle;
             this.AddChild(this._fingerPressImage);
             this._fingerPressAction = new CCRepeatForever(new CCSequence(new CCFiniteTimeAction[] 
                 { 
                     new CCPlace(new CCPoint(
-                        0.7f * this.ContentSize.Width,
-                        0.5f * this.ContentSize.Height)),
+                        0.7f  * this.ContentSize.Width,
+                        0.45f * this.ContentSize.Height)),
                     new CCShow(),
                     new CCDelayTime(GameConstants.DURATION_LAYER_TRANSITION),
                     new CCHide(),
                     new CCDelayTime(GameConstants.DURATION_LAYER_TRANSITION),
                     new CCPlace(new CCPoint(
-                        0.5f * this.ContentSize.Width,
-                        0.6f * this.ContentSize.Height)),
+                        0.5f  * this.ContentSize.Width,
+                        0.55f * this.ContentSize.Height)),
                     new CCShow(),
                     new CCDelayTime(GameConstants.DURATION_LAYER_TRANSITION),
                     new CCHide()
@@ -131,8 +146,8 @@ namespace Simsip.LineRunner.Scenes.Help
             var doubleTapLabel = new CCLabelTTF(doubleTapText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             doubleTapLabel.AnchorPoint = CCPoint.AnchorMiddle;
             doubleTapLabel.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.3f * this.ContentSize.Height);
+                0.5f  * this.ContentSize.Width,
+                0.25f * this.ContentSize.Height);
             this.AddChild(doubleTapLabel);
         }
 

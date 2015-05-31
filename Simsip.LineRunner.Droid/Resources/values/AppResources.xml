@@ -84,8 +84,11 @@
   <string name="HelpOrbit">drag from trackball to orbit view</string>
   <string name="HelpPauseResume">pause or resume the game</string>
   <string name="HelpRotate">drag from middle to rotate view</string>
-  <string name="HelpScroll">scroll view vertically or horizontally</string>
+  <string name="HelpScroll">tap or hold to scroll view</string>
   <string name="HudOrbit">orbit view</string>
   <string name="HudRotate">rotate view</string>
   <string name="HudScroll">scroll view</string>
+  <string name="HelpHud">hud</string>
+  <string name="HelpLeaderboards">see your top scores</string>
+  <string name="HelpSound">turn sound off and on</string>
 </resources>

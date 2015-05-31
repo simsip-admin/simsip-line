@@ -90,5 +90,8 @@
         public static string HudOrbit = "HudOrbit";
         public static string HudRotate = "HudRotate";
         public static string HudScroll = "HudScroll";
+        public static string HelpHud = "HelpHud";
+        public static string HelpLeaderboards = "HelpLeaderboards";
+        public static string HelpSound = "HelpSound";
     }
 }

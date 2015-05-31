@@ -35,12 +35,27 @@ namespace Simsip.LineRunner.Scenes.Help
 #else
             pageNumberText = AppResources.CommonPage;
 #endif
-            var pageNumberHeader = new CCLabelTTF(pageNumberText + " 2", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var pageNumberHeader = new CCLabelTTF(pageNumberText + " 6", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             pageNumberHeader.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,
                 0.9f * this.ContentSize.Height);
             this.AddChild(pageNumberHeader);
+
+            // Hud sub-title
+            var hudText = string.Empty;
+#if ANDROID
+            hudText = Program.SharedProgram.Resources.GetString(Resource.String.HelpHud);
+#elif IOS
+            hudText = NSBundle.MainBundle.LocalizedString(Strings.HelpHud, Strings.HelpHud);
+#else
+            hudText = AppResources.HelpHud;
+#endif
+            var hudSubtitle = new CCLabelTTF(hudText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            hudSubtitle.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.75f * this.ContentSize.Height);
+            this.AddChild(hudSubtitle);
 
             // Orbit text
             var orbitText = string.Empty;
@@ -54,53 +69,34 @@ namespace Simsip.LineRunner.Scenes.Help
             var orbitLabel = new CCLabelTTF(orbitText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             orbitLabel.AnchorPoint = CCPoint.AnchorMiddle;
             orbitLabel.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.8f * this.ContentSize.Height);
+                0.5f  * this.ContentSize.Width,
+                0.65f * this.ContentSize.Height);
             this.AddChild(orbitLabel);
 
             // Orbit image
             var orbitImage = new CCSprite("Images/Misc/Trackball.png");
             orbitImage.AnchorPoint = CCPoint.AnchorMiddle;
             orbitImage.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.5f * this.ContentSize.Height);
+                0.5f  * this.ContentSize.Width,
+                0.45f * this.ContentSize.Height);
             this.AddChild(orbitImage);
 
             // Finger press
-            this._fingerPressImage = new CCSprite("Images/Misc/FingerPress.png");
+            this._fingerPressImage = new CCSprite("Images/Misc/FingerPressMedium.png");
             this._fingerPressImage.AnchorPoint = CCPoint.AnchorMiddle;
             this.AddChild(this._fingerPressImage);
             var dragStartPlacementAction = new CCPlace(new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.5f * this.ContentSize.Height));
-            var dragConfig1 = new CCBezierConfig()
-            {
-                ControlPoint1 = new CCPoint(
-                    0.2f * this.ContentSize.Width,
-                    0.6f * this.ContentSize.Height),
-                ControlPoint2 = new CCPoint(
-                    0.2f * this.ContentSize.Width,
-                    0.7f * this.ContentSize.Height),
-                EndPosition = new CCPoint(
-                    0.4f * this.ContentSize.Width,
-                    0.8f * this.ContentSize.Height)
-            };
-            var dragTo1 = new CCBezierTo(GameConstants.DURATION_LAYER_TRANSITION, dragConfig1);
-            var dragConfig2 = new CCBezierConfig()
-            {
-                ControlPoint1 = new CCPoint(
-                    0.8f * this.ContentSize.Width,
-                    0.7f * this.ContentSize.Height),
-                ControlPoint2 = new CCPoint(
-                    0.8f * this.ContentSize.Width,
-                    0.6f * this.ContentSize.Height),
-                EndPosition = new CCPoint(
-                    0.5f * this.ContentSize.Width,
-                    0.5f * this.ContentSize.Height)
-            };
-            var dragTo2 = new CCBezierTo(GameConstants.DURATION_LAYER_TRANSITION, dragConfig2);
+                0.5f  * this.ContentSize.Width,
+                0.45f * this.ContentSize.Height));
+            var dragTo1 = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, new CCPoint(
+                0.4f  * this.ContentSize.Width,
+                0.55f * this.ContentSize.Height));
+            var dragTo2 = new CCMoveTo(GameConstants.DURATION_LAYER_TRANSITION, new CCPoint(
+                0.6f * this.ContentSize.Width,
+                0.6f * this.ContentSize.Height));
             this._fingerPressAction = new CCRepeatForever(new CCSequence(new CCFiniteTimeAction[] 
                 { 
+                    dragStartPlacementAction,
                     new CCShow(),
                     dragTo1,
                     dragTo2,
@@ -120,8 +116,8 @@ namespace Simsip.LineRunner.Scenes.Help
             var doubleTapLabel = new CCLabelTTF(doubleTapText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             doubleTapLabel.AnchorPoint = CCPoint.AnchorMiddle;
             doubleTapLabel.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.3f * this.ContentSize.Height);
+                0.5f  * this.ContentSize.Width,
+                0.25f * this.ContentSize.Height);
             this.AddChild(doubleTapLabel);
         }
 

@@ -4039,8 +4039,16 @@
       <Link>Content\Images\Misc\HelpRotate.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Misc\FingerPress.xnb">
-      <Link>Content\Images\Misc\FingerPress.xnb</Link>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Misc\FingerPressLarge.xnb">
+      <Link>Content\Images\Misc\FingerPressLarge.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Misc\FingerPressMedium.xnb">
+      <Link>Content\Images\Misc\FingerPressMedium.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Misc\FingerPressSmall.xnb">
+      <Link>Content\Images\Misc\FingerPressSmall.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />

@@ -4071,8 +4071,16 @@
       <Link>Assets\Content\Images\Misc\HelpRotate.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Misc\FingerPress.xnb">
-      <Link>Assets\Content\Images\Misc\FingerPress.xnb</Link>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Misc\FingerPressLarge.xnb">
+      <Link>Assets\Content\Images\Misc\FingerPressLarge.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Misc\FingerPressMedium.xnb">
+      <Link>Assets\Content\Images\Misc\FingerPressMedium.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Misc\FingerPressSmall.xnb">
+      <Link>Assets\Content\Images\Misc\FingerPressSmall.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
     <None Include="packages.config" />

@@ -38,19 +38,34 @@ namespace Simsip.LineRunner.Scenes.Help
                 0.9f * this.ContentSize.Height);
             this.AddChild(pageNumberHeader);
 
+            // Hud sub-title
+            var hudText = string.Empty;
+#if ANDROID
+            hudText = Program.SharedProgram.Resources.GetString(Resource.String.HelpHud);
+#elif IOS
+            hudText = NSBundle.MainBundle.LocalizedString(Strings.HelpHud, Strings.HelpHud);
+#else
+            hudText = AppResources.HelpHud;
+#endif
+            var hudSubtitle = new CCLabelTTF(hudText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            hudSubtitle.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.75f * this.ContentSize.Height);
+            this.AddChild(hudSubtitle);
+
             // Pause/resume
             var pauseImage = new CCSprite("Images/Icons/PauseButtonNormal.png");
-            pauseImage.AnchorPoint = CCPoint.AnchorMiddle;
+            pauseImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
             pauseImage.Position = new CCPoint(
-                0.3f * this.ContentSize.Width,
-                0.8f * this.ContentSize.Height);
+                0.4f * this.ContentSize.Width,
+                0.55f * this.ContentSize.Height);
             this.AddChild(pauseImage);
             var resumeImage = new CCSprite("Images/Icons/ResumeButtonNormal.png");
-            resumeImage.AnchorPoint = CCPoint.AnchorMiddle;
+            resumeImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
             resumeImage.Position = new CCPoint(
-                0.7f * this.ContentSize.Width,
-                0.8f * this.ContentSize.Height);
-            this.AddChild(pauseImage);
+                0.6f  * this.ContentSize.Width,
+                0.55f * this.ContentSize.Height);
+            this.AddChild(resumeImage);
             var pauseResumeText = string.Empty;
 #if ANDROID
             pauseResumeText = Program.SharedProgram.Resources.GetString(Resource.String.HelpPauseResume);
@@ -63,21 +78,21 @@ namespace Simsip.LineRunner.Scenes.Help
             pauseResumeLabel.AnchorPoint = CCPoint.AnchorMiddle;
             pauseResumeLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
-                0.7f * this.ContentSize.Height);
+                0.5f * this.ContentSize.Height);
             this.AddChild(pauseResumeLabel);
 
             // Speed
             var decreaseImage = new CCSprite("Images/Icons/DecreaseButtonNormal.png");
-            decreaseImage.AnchorPoint = CCPoint.AnchorMiddle;
+            decreaseImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
             decreaseImage.Position = new CCPoint(
-                0.3f * this.ContentSize.Width,
-                0.4f * this.ContentSize.Height);
+                0.4f * this.ContentSize.Width,
+                0.3f * this.ContentSize.Height);
             this.AddChild(decreaseImage);
             var increaseImage = new CCSprite("Images/Icons/IncreaseButtonNormal.png");
-            increaseImage.AnchorPoint = CCPoint.AnchorMiddle;
+            increaseImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
             increaseImage.Position = new CCPoint(
-                0.7f * this.ContentSize.Width,
-                0.4f * this.ContentSize.Height);
+                0.6f * this.ContentSize.Width,
+                0.3f * this.ContentSize.Height);
             this.AddChild(increaseImage);
             var increaseDecreaseText = string.Empty;
 #if ANDROID
@@ -90,8 +105,8 @@ namespace Simsip.LineRunner.Scenes.Help
             var increaseDecreaseLabel = new CCLabelTTF(increaseDecreaseText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             increaseDecreaseLabel.AnchorPoint = CCPoint.AnchorMiddle;
             increaseDecreaseLabel.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.3f * this.ContentSize.Height);
+                0.5f  * this.ContentSize.Width,
+                0.25f * this.ContentSize.Height);
             this.AddChild(increaseDecreaseLabel);
         }
     }

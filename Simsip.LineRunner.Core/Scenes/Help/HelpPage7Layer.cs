@@ -31,7 +31,7 @@ namespace Simsip.LineRunner.Scenes.Help
 #else
             pageNumberText = AppResources.CommonPage;
 #endif
-            var pageNumberHeader = new CCLabelTTF(pageNumberText + " 3", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var pageNumberHeader = new CCLabelTTF(pageNumberText + " 7", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             pageNumberHeader.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,
@@ -54,7 +54,7 @@ namespace Simsip.LineRunner.Scenes.Help
             this.AddChild(optionsSubtitle);
 
             // Pads
-            var padsImage = new CCSprite("Images/Misc/HelpPads");
+            var padsImage = new CCSprite("Images/Misc/HelpPads.png");
             padsImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
             padsImage.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
@@ -75,7 +75,7 @@ namespace Simsip.LineRunner.Scenes.Help
             this.AddChild(padsDescription);
 
             // Lines
-            var linesImage = new CCSprite("Images/Misc/HelpLines");
+            var linesImage = new CCSprite("Images/Misc/HelpLines.png");
             linesImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
             linesImage.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,

@@ -82,7 +82,10 @@
 "HelpOrbit"="drag from trackball to orbit view";
 "HelpPauseResume"="pause or resume the game";
 "HelpRotate"="drag from middle to rotate view";
-"HelpScroll"="scroll view vertically or horizontally";
+"HelpScroll"="tap or hold to scroll view";
 "HudOrbit"="orbit view";
 "HudRotate"="rotate view";
 "HudScroll"="scroll view";
+"HelpHud"="hud";
+"HelpLeaderboards"="see your top scores";
+"HelpSound"="turn sound off and on";

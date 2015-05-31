@@ -372,7 +372,7 @@
     <value>drag from middle to rotate view</value>
   </data>
   <data name="HelpScroll" xml:space="preserve">
-    <value>scroll view vertically or horizontally</value>
+    <value>tap or hold to scroll view</value>
   </data>
   <data name="HudOrbit" xml:space="preserve">
     <value>orbit view</value>
@@ -382,5 +382,14 @@
   </data>
   <data name="HudScroll" xml:space="preserve">
     <value>scroll view</value>
+  </data>
+  <data name="HelpHud" xml:space="preserve">
+    <value>hud</value>
+  </data>
+  <data name="HelpLeaderboards" xml:space="preserve">
+    <value>see your top scores</value>
+  </data>
+  <data name="HelpSound" xml:space="preserve">
+    <value>turn sound off and on</value>
   </data>
 </root>

@@ -2001,8 +2001,14 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060040
 			public const int HelpHowToPlayDescription1 = 2131099712;
 			
+			// aapt resource value: 0x7f060094
+			public const int HelpHud = 2131099796;
+			
 			// aapt resource value: 0x7f06008c
 			public const int HelpIncreaseDecrease = 2131099788;
+			
+			// aapt resource value: 0x7f060095
+			public const int HelpLeaderboards = 2131099797;
 			
 			// aapt resource value: 0x7f060041
 			public const int HelpLines = 2131099713;
@@ -2030,6 +2036,9 @@ namespace Simsip.LineRunner
 			
 			// aapt resource value: 0x7f060090
 			public const int HelpScroll = 2131099792;
+			
+			// aapt resource value: 0x7f060096
+			public const int HelpSound = 2131099798;
 			
 			// aapt resource value: 0x7f060046
 			public const int HelpStartDescription = 2131099718;

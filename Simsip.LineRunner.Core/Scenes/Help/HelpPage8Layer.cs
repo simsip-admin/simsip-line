@@ -31,7 +31,7 @@ namespace Simsip.LineRunner.Scenes.Help
 #else
             pageNumberText = AppResources.CommonPage;
 #endif
-            var pageNumberHeader = new CCLabelTTF(pageNumberText + " 3", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var pageNumberHeader = new CCLabelTTF(pageNumberText + " 8", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             pageNumberHeader.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,
@@ -53,47 +53,47 @@ namespace Simsip.LineRunner.Scenes.Help
                 0.75f * this.ContentSize.Height);
             this.AddChild(optionsSubtitle);
 
-            // Pads
-            var padsImage = new CCSprite("Images/Misc/HelpPads");
-            padsImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
-            padsImage.Position = new CCPoint(
-                0.5f  * this.ContentSize.Width,
+            // Sound
+            var soundImage = new CCSprite("Images/Icons/SoundButtonOn.png");
+            soundImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
+            soundImage.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
                 0.55f * this.ContentSize.Height);
-            this.AddChild(padsImage);
-            var padsText = string.Empty;
+            this.AddChild(soundImage);
+            var soundText = string.Empty;
 #if ANDROID
-            padsText = Program.SharedProgram.Resources.GetString(Resource.String.HelpPads);
+            soundText = Program.SharedProgram.Resources.GetString(Resource.String.HelpSound);
 #elif IOS
-            padsText = NSBundle.MainBundle.LocalizedString(Strings.HelpPads, Strings.HelpPads);
+            soundText = NSBundle.MainBundle.LocalizedString(Strings.HelpSound, Strings.HelpSound);
 #else
-            padsText = AppResources.HelpPads;
+            soundText = AppResources.HelpSound;
 #endif
-            var padsDescription = new CCLabelTTF(padsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            padsDescription.Position = new CCPoint(
+            var soundDescription = new CCLabelTTF(soundText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            soundDescription.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.5f * this.ContentSize.Height);
-            this.AddChild(padsDescription);
+            this.AddChild(soundDescription);
 
-            // Lines
-            var linesImage = new CCSprite("Images/Misc/HelpLines");
-            linesImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
-            linesImage.Position = new CCPoint(
+            // Leaderboards
+            var leaderboardsImage = new CCSprite("Images/Icons/AchievementsButtonNormal.pn");
+            leaderboardsImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
+            leaderboardsImage.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.3f * this.ContentSize.Height);
-            this.AddChild(linesImage);
-            var linesText = string.Empty;
+            this.AddChild(leaderboardsImage);
+            var leaderboardsText = string.Empty;
 #if ANDROID
-            linesText = Program.SharedProgram.Resources.GetString(Resource.String.HelpLines);
+            leaderboardsText = Program.SharedProgram.Resources.GetString(Resource.String.HelpLeaderboards);
 #elif IOS
-            linesText = NSBundle.MainBundle.LocalizedString(Strings.HelpLines, Strings.HelpLines);
+            leaderboardsText = NSBundle.MainBundle.LocalizedString(Strings.HelpLeaderboards, Strings.HelpLeaderboards);
 #else
-            linesText = AppResources.HelpLines;
+            leaderboardsText = AppResources.HelpLeaderboards;
 #endif
-            var linesDescription = new CCLabelTTF(linesText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            linesDescription.Position = new CCPoint(
-                0.5f  * this.ContentSize.Width,
+            var leaderboardsDescription = new CCLabelTTF(leaderboardsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            leaderboardsDescription.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
                 0.25f * this.ContentSize.Height);
-            this.AddChild(linesDescription);
+            this.AddChild(leaderboardsDescription);
         }
     }
 }
