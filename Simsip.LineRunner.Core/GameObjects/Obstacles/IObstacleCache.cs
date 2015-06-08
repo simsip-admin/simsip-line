@@ -24,6 +24,12 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         IList<ObstacleModel> ObstacleModels { get; }
 
         /// <summary>
+        /// Our current collection of content managers that control loading/unloading
+        /// of XNA resources.
+        /// </summary>
+        IDictionary<int, CustomContentManager> ContentManagers { get; }
+
+        /// <summary>
         /// Called from our b2ContactListener whenever we hit an obstacle.
         /// 
         /// Depending on debug flags, we may signal that hero is to be killed.

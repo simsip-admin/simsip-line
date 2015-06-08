@@ -15,6 +15,7 @@ using Simsip.LineRunner.Effects.Deferred;
 using Simsip.LineRunner.GameObjects.Pages;
 using Simsip.LineRunner.GameObjects.ParticleEffects;
 using Simsip.LineRunner.Effects.Stock;
+using Microsoft.Xna.Framework.Content;
 
 
 namespace Simsip.LineRunner.GameObjects.Lines
@@ -26,21 +27,27 @@ namespace Simsip.LineRunner.GameObjects.Lines
 
         // Allows us to control if we will allow a cached version of this model
         // to be retrieved from AssetManager
-        private CustomContentManager _customContentManager;
         private bool _allowCached;
 
-        public LineModel(LineEntity lineEntity, PageLinesEntity pageLinesEntity, CustomContentManager customContentManager=null, bool allowCached=true)
+        public LineModel(LineEntity lineEntity, PageLinesEntity pageLinesEntity, CustomContentManager customContentManager, bool allowCached=true)
         {
             this.TheLineEntity = lineEntity;
             this.ThePageLinesEntity = pageLinesEntity;
 
-            this._customContentManager = customContentManager;
+            this.TheCustomContentManager = customContentManager;
+
             this._allowCached = allowCached;
 
             Initialize();
         }
 
         #region Properties
+
+        /// <summary>
+        /// Controls loading and unloading of XNA resources for this line and the obstacles
+        /// contained by this line.
+        /// </summary>
+        public CustomContentManager TheCustomContentManager { get; private set; }
 
         /// <summary>
         /// The addtional database entries that define this line type.
@@ -122,7 +129,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         XnaModel = _assetManager.GetModel(
                             modelNameToLoad, 
                             ModelType.Line,
-                            this._customContentManager,
+                            this.TheCustomContentManager,
                             this._allowCached);
                         break;
                     }
@@ -140,20 +147,19 @@ namespace Simsip.LineRunner.GameObjects.Lines
             // IMPORTANT: Note if we are not allowing a cached version of this model
             //            to be used (e.g, displaying on options page), then we
             //            allways pull a new set of effects.
-            if (this._customContentManager == null ||
-                this._allowCached)
+            if (this._allowCached)
             {
-                if (!GameModel._originalEffectsDictionary.ContainsKey(TheLineEntity.ModelName))
+                if (!this.TheCustomContentManager.OriginalEffectsDictionary.ContainsKey(TheLineEntity.ModelName))
                 {
                     // Ok, let's get the original effects stored away for this model name
-                    GameModel._originalEffectsDictionary[TheLineEntity.ModelName] =
+                    this.TheCustomContentManager.OriginalEffectsDictionary[TheLineEntity.ModelName] =
                         XNAUtils.GetOriginalEffects(this.XnaModel);
                 }
                 
                 // Safe to proceed and grab the original effects based on the model name, 
                 // critical for referencing original texture, etc.
                 this._originalEffects =
-                    GameModel._originalEffectsDictionary[TheLineEntity.ModelName];
+                    this.TheCustomContentManager.OriginalEffectsDictionary[TheLineEntity.ModelName];
             }
             else
             {
@@ -166,7 +172,11 @@ namespace Simsip.LineRunner.GameObjects.Lines
             var textureEntities = textureRepository.GetTextures(TheModelEntity.ModelName);
             foreach (var textureEntity in textureEntities)
             {
-                var texture = this._assetManager.GetModelTexture(TheModelEntity.ModelName, ModelType.Line, textureEntity.TextureName);
+                var texture = this._assetManager.GetModelTexture(
+                    TheModelEntity.ModelName, 
+                    ModelType.Line, 
+                    textureEntity.TextureName,
+                    this.TheCustomContentManager);
                 this._textureOverrides.Add(texture);
             }
 

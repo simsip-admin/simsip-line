@@ -52,7 +52,7 @@ namespace Simsip.LineRunner.Scenes.Options
                 0.9f * this.ContentSize.Height);
             this.AddChild(pageNumberHeader);
 
-            // Lines (cell 1/4)
+            // Lines
             this._linesImage = new CCSprite("Models/Lines/Line-thumbnail");
             this._linesImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
             this._linesImage.Position = new CCPoint(

@@ -40,7 +40,9 @@ namespace Simsip.LineRunner.Scenes.Finish
         private List<CCLabelTTF> _userTop5Date;
 
         // Particle effects
+        private CustomContentManager _customerContentManager;
         private IParticleEffectCache _particleEffectCache;
+
 
         public FinishLayer(CoreScene parent)
         {
@@ -154,9 +156,11 @@ namespace Simsip.LineRunner.Scenes.Finish
                 0.15f * this.ContentSize.Height);
             this.AddChild(backMenu);
 
+            // Particle effects
+            this._customerContentManager = new CustomContentManager(
+                TheGame.SharedGame.Services,
+                TheGame.SharedGame.Content.RootDirectory);
             this._particleEffectCache = (IParticleEffectCache)TheGame.SharedGame.Services.GetService(typeof(IParticleEffectCache));
-
-
         }
 
         #region Cocos2D overrides
@@ -187,6 +191,13 @@ namespace Simsip.LineRunner.Scenes.Finish
             // this.DisplayTopScores();
         }
 
+        public override void OnExit()
+        {
+            base.OnExit();
+
+            this._particleEffectCache.TerminateAllFinishEffects();
+            this._customerContentManager.Unload();
+        }
         #endregion
 
         #region Helper methods
@@ -222,7 +233,7 @@ namespace Simsip.LineRunner.Scenes.Finish
             {
                 finishParticleDesc.ParticleEffectIndex = i++;
             }
-            this._particleEffectCache.AddFinishParticleEffect(finishParticleDescs);
+            this._particleEffectCache.AddFinishParticleEffect(finishParticleDescs, this._customerContentManager);
 
             /* TODO: Add back in when facebook support is in place
             var postText = string.Empty;

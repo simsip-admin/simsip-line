@@ -130,6 +130,18 @@
     <Compile Include="..\Simsip.LineRunner.Core\Bepu\Cameras\FreeCameraControlScheme.cs">
       <Link>Bepu\Cameras\FreeCameraControlScheme.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Data\InApp\IInAppPurchaseRepository.cs">
+      <Link>Data\InApp\IInAppPurchaseRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Data\InApp\IInAppSkuRepository.cs">
+      <Link>Data\InApp\IInAppSkuRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Data\InApp\InAppPurchaseRepository.cs">
+      <Link>Data\InApp\InAppPurchaseRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Data\InApp\InAppSkuRepository.cs">
+      <Link>Data\InApp\InAppSkuRepository.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Data\LineRunner\IRandomObstaclesRepository.cs">
       <Link>Data\LineRunner\IRandomObstaclesRepository.cs</Link>
     </Compile>
@@ -159,6 +171,12 @@
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Effects\Stock\StockBasicEffect.cs">
       <Link>Effects\Stock\StockBasicEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Entities\InApp\InAppPurchaseEntity.cs">
+      <Link>Entities\InApp\InAppPurchaseEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Entities\InApp\InAppSkuEntity.cs">
+      <Link>Entities\InApp\InAppSkuEntity.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Entities\LineRunner\RandomObstaclesEntity.cs">
       <Link>Entities\LineRunner\RandomObstaclesEntity.cs</Link>
@@ -223,11 +241,26 @@
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Help\HelpPage8Layer.cs">
       <Link>Scenes\Help\HelpPage8Layer.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Options\OptionsPracticeLayer.cs">
+      <Link>Scenes\Options\OptionsPracticeLayer.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Start\StartLayer.cs">
       <Link>Scenes\Start\StartLayer.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\UILayer.cs">
       <Link>Scenes\UILayer.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Upgrades\UpgradesMasterLayer.cs">
+      <Link>Scenes\Upgrades\UpgradesMasterLayer.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Upgrades\UpgradesPage1Layer.cs">
+      <Link>Scenes\Upgrades\UpgradesPage1Layer.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Services\Inapp\IInappService.cs">
+      <Link>Services\Inapp\IInappService.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Services\Inapp\InappService.cs">
+      <Link>Services\Inapp\InappService.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\ViewModels\BaseViewModel.cs">
       <Link>ViewModels\BaseViewModel.cs</Link>
@@ -4172,11 +4205,12 @@
   <ItemGroup>
     <XamarinComponentReference Include="googleadmob">
       <Visible>False</Visible>
-      <Version>7.1.0</Version>
+      <Version>7.2.2</Version>
+      <InstallationInProgress>True</InstallationInProgress>
     </XamarinComponentReference>
     <XamarinComponentReference Include="hockeyappios">
       <Visible>False</Visible>
-      <Version>3.6.2.0</Version>
+      <Version>3.6.4.0</Version>
     </XamarinComponentReference>
     <XamarinComponentReference Include="irate">
       <Visible>False</Visible>

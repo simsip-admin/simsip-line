@@ -85,6 +85,11 @@ namespace Simsip.LineRunner.GameObjects.Characters
         }
         private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadResults;
 
+        // Used for controlling loading/unloading of hero resources.
+        // IMPORTANT: As more characters are added, additional custom content
+        //            managers can be added to control level loading, etc.
+        private CustomContentManager _heroCustomContentManager;
+
         // Logging-facility
         private static readonly Logger Logger = LogManager.CreateLogger();
 
@@ -121,6 +126,10 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
             // Initialize our drawing filter
             this._ocTreeRoot = new OcTreeNode(new Vector3(0, 0, 0), OcTreeNode.DefaultSize);
+
+            this._heroCustomContentManager = new CustomContentManager(
+               TheGame.SharedGame.Services,
+               TheGame.SharedGame.Content.RootDirectory);
 
             base.Initialize();
         }
@@ -653,7 +662,10 @@ namespace Simsip.LineRunner.GameObjects.Characters
                     characterEntity = this._characterRepository.GetCharacter(pageCharactersEntity.ModelName);
                     // this.TheHeroModel = new HeroModel(characterEntity, pageCharactersEntity);
                     // characterModel = this.TheHeroModel;   // Just to scale across multiple character types
-                    characterModel = new HeroModel(characterEntity, pageCharactersEntity);
+                    characterModel = new HeroModel(
+                        characterEntity, 
+                        pageCharactersEntity,
+                        this._heroCustomContentManager);
                 }
                 else
                 {

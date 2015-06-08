@@ -35,7 +35,6 @@ namespace Engine.Assets
     public class AssetManager : GameComponent, IAssetManager
     {
         // Dictionaries of resources
-        private Dictionary<string, Texture2D> _thumbnails;
         private ConcurrentDictionary<string, Effect> _effects;
         private Dictionary<string, string> _sounds;
         private Dictionary<string, SpriteFont> _fonts;
@@ -59,8 +58,6 @@ namespace Engine.Assets
         {
 #endif
             // Initialize resource dictionaries
-            this._thumbnails = new Dictionary<string, Texture2D>();
-            // this._effects = new Dictionary<string, Effect>();
             this._effects = new ConcurrentDictionary<string, Effect>();
             this._sounds = new Dictionary<string, string>();
             this._fonts = new Dictionary<string, SpriteFont>();
@@ -136,7 +133,10 @@ namespace Engine.Assets
             }
         }
 
-        public Model GetModel(string modelName, ModelType modelType, CustomContentManager customContentManager=null, bool allowCached=true)
+        public Model GetModel(string modelName, 
+                              ModelType modelType, 
+                              CustomContentManager customContentManager, 
+                              bool allowCached=true)
         {
             // Determine where to load from
             var path = string.Empty;
@@ -176,39 +176,36 @@ namespace Engine.Assets
 
             Model model;
             var modelPath = path + modelName + "-model";
-            if (customContentManager == null)
+
+            //
+            // CustomContentManager allows us to request non-cached versions
+            // of an asset by exposing the protected ReadAsset(). 
+            // This is important when we want to show an asset w/o
+            // tampering with a core game asset (e.g., Options - pads, lines, etc.)
+            // 
+            // Also, CustomContentManager's can control lifetime of a set of assets
+            // (e.g., inifinite streaming world).
+            //
+
+            // Ok to pull new or cached version?
+            if (allowCached)
             {
-                // Default behavior - load new or cached version
-                model = Game.Content.Load<Model>(modelPath);
+                model = customContentManager.Load<Model>(modelPath);
             }
             else
             {
-                //
-                // CustomContentManager allows us to request non-cached versions
-                // of an asset by exposing the protected ReadAsset(). 
-                // This is important when we want to show an asset w/o
-                // tampering with a core game asset (e.g., Options - pads, lines, etc.)
-                // 
-                // Also, CustomContentManager's can control lifetime of a set of assets
-                // (e.g., inifinite streaming world).
-                //
-
-                // Ok to pull new or cached version?
-                if (allowCached)
-                {
-                    model = customContentManager.Load<Model>(modelPath);
-                }
-                else
-                {
-                    // Ok, we only want a fresh version
-                    model = customContentManager.ReadAsset<Model>(modelPath);
-                }
+                // Ok, we only want a fresh version
+                model = customContentManager.ReadAsset<Model>(modelPath);
             }
 
             return model;
         }
 
-        public Texture2D GetModelTexture(string modelName, ModelType modelType, string textureName, CustomContentManager customContentManager=null, bool allowCached=true)
+        public Texture2D GetModelTexture(string modelName, 
+                                         ModelType modelType, 
+                                         string textureName, 
+                                         CustomContentManager customContentManager, 
+                                         bool allowCached=true)
         {
             // Determine where to load from
             var path = string.Empty;
@@ -248,33 +245,26 @@ namespace Engine.Assets
 
             Texture2D modelTexture;
             var modelTexturePath = path + textureName;
-            if (customContentManager == null)
+
+            //
+            // CustomContentManager allows us to request non-cached versions
+            // of an asset by exposing the protected ReadAsset(). 
+            // This is important when we want to show an asset w/o
+            // tampering with a core game asset (e.g., Options - pads, lines, etc.)
+            // 
+            // Also, CustomContentManager's can control lifetime of a set of assets
+            // (e.g., inifinite streaming world).
+            //
+
+            // Ok to pull new or cached version?
+            if (allowCached)
             {
-                // Default behavior - load new or cached version
-                modelTexture = Game.Content.Load<Texture2D>(modelTexturePath);
+                modelTexture = customContentManager.Load<Texture2D>(modelTexturePath);
             }
             else
             {
-                //
-                // CustomContentManager allows us to request non-cached versions
-                // of an asset by exposing the protected ReadAsset(). 
-                // This is important when we want to show an asset w/o
-                // tampering with a core game asset (e.g., Options - pads, lines, etc.)
-                // 
-                // Also, CustomContentManager's can control lifetime of a set of assets
-                // (e.g., inifinite streaming world).
-                //
-
-                // Ok to pull new or cached version?
-                if (allowCached)
-                {
-                    modelTexture = customContentManager.Load<Texture2D>(modelTexturePath);
-                }
-                else
-                {
-                    // Ok, we only want a fresh version
-                    modelTexture = customContentManager.ReadAsset<Texture2D>(modelTexturePath);
-                }
+                // Ok, we only want a fresh version
+                modelTexture = customContentManager.ReadAsset<Texture2D>(modelTexturePath);
             }
 
             return modelTexture;
@@ -296,52 +286,44 @@ namespace Engine.Assets
             return soundFilename;
         }
 
-        public Texture2D GetTexture(string texturePath, CustomContentManager customContentManager=null, bool allowCached=true)
+        public Texture2D GetTexture(string texturePath, 
+                                    CustomContentManager customContentManager, 
+                                    bool allowCached=true)
         {
             // IMPORTANT: Note how texture name is the location of the texture without
             // the "Content" director prefix
 
             Texture2D texture;
-            if (customContentManager == null)
+
+            //
+            // CustomContentManager allows us to request non-cached versions
+            // of an asset by exposing the protected ReadAsset(). 
+            // This is important when we want to show an asset w/o
+            // tampering with a core game asset (e.g., Options - pads, lines, etc.)
+            // 
+            // Also, CustomContentManager's can control lifetime of a set of assets
+            // (e.g., inifinite streaming world).
+            //
+
+            // Ok to pull new or cached version?
+            if (allowCached)
             {
-                // Default behavior - load new or cached version
-                texture = Game.Content.Load<Texture2D>(texturePath);
+                texture = customContentManager.Load<Texture2D>(texturePath);
             }
             else
             {
-                //
-                // CustomContentManager allows us to request non-cached versions
-                // of an asset by exposing the protected ReadAsset(). 
-                // This is important when we want to show an asset w/o
-                // tampering with a core game asset (e.g., Options - pads, lines, etc.)
-                // 
-                // Also, CustomContentManager's can control lifetime of a set of assets
-                // (e.g., inifinite streaming world).
-                //
-
-                // Ok to pull new or cached version?
-                if (allowCached)
-                {
-                    texture = customContentManager.Load<Texture2D>(texturePath);
-                }
-                else
-                {
-                    // Ok, we only want a fresh version
-                    texture = customContentManager.ReadAsset<Texture2D>(texturePath);
-                }
+                // Ok, we only want a fresh version
+                texture = customContentManager.ReadAsset<Texture2D>(texturePath);
             }
 
             return texture;
         }
 
-        public Texture2D GetThumbnail(string modelName, ModelType modelType)
+        public Texture2D GetThumbnail(string modelName, 
+                                      ModelType modelType,
+                                      CustomContentManager customContentManager,
+                                      bool allowCached=true)
         {
-            // Do we have a cached version?
-            if (_thumbnails.ContainsKey(modelName))
-            {
-                return _thumbnails[modelName];
-            }
-
             // Ok, not in cache, let's create, store in cacha and return it
             var path = string.Empty;
             switch (modelType)
@@ -378,8 +360,29 @@ namespace Engine.Assets
                     }
             }
 
-            var thumbnail = Game.Content.Load<Texture2D>(path + modelName + "-thumbnail");
-            this._thumbnails.Add(modelName, thumbnail);
+            Texture2D thumbnail;
+            var thumbnailPath = path + modelName + "-thumbnail";
+
+            //
+            // CustomContentManager allows us to request non-cached versions
+            // of an asset by exposing the protected ReadAsset(). 
+            // This is important when we want to show an asset w/o
+            // tampering with a core game asset (e.g., Options - pads, lines, etc.)
+            // 
+            // Also, CustomContentManager's can control lifetime of a set of assets
+            // (e.g., inifinite streaming world).
+            //
+
+            // Ok to pull new or cached version?
+            if (allowCached)
+            {
+                thumbnail = customContentManager.Load<Texture2D>(thumbnailPath);
+            }
+            else
+            {
+                // Ok, we only want a fresh version
+                thumbnail = customContentManager.ReadAsset<Texture2D>(thumbnailPath);
+            }
 
             return thumbnail;
         }
@@ -396,7 +399,8 @@ namespace Engine.Assets
                             GameConstants.USER_DEFAULT_KEY_CURRENT_RESOURCE_PACK,
                             GameConstants.USER_DEFAULT_INITIAL_CURRENT_RESOURCE_PACK);
                         Asset.BlockTextureAtlas = @"ResourcePacks/" + currentResourcePack + @"/Terrain";
-                        var forceLoad = this.GetTexture(Asset.BlockTextureAtlas);
+                        var forceLoad = this.GetTexture(Asset.BlockTextureAtlas, 
+                                                        Engine.Core.Engine.Instance.TheCustomContentManager);
 
                         break;
                     }
@@ -438,12 +442,6 @@ namespace Engine.Assets
             // will be needed right away
             //
 
-            // Models
-            var pad1Model = this.GetModel("Pad1", ModelType.Pad);
-            var ledge1Model = this.GetModel("Line1", ModelType.Line);
-            var heroModel = this.GetModel("Hero", ModelType.Character);
-            var paneModel = this.GetModel("Pane1", ModelType.Pane);
-
             // Effects
             var deferred1SceneEffect = this.GetEffect(Asset.Deferred1SceneEffect);
             var deferred2LightsEffect = this.GetEffect(Asset.Deferred2LightsEffect);
@@ -451,10 +449,6 @@ namespace Engine.Assets
             var shadowMapEffect = this.GetEffect(Asset.ShadowMapEffect);
             var skyDomeEffect = this.GetEffect(Asset.SkyDomeEffect);
             var perlinNoiseEffect = this.GetEffect(Asset.PerlinNoiseEffect);
-
-            // Textures
-            var blockTextureAtlas = this.GetTexture(Asset.BlockTextureAtlas);
-            var cloudTexture = this.GetTexture(Asset.CloudTexture);
 
             // Sounds
             SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundHeroDieing));
@@ -492,12 +486,6 @@ namespace Engine.Assets
             // will be needed right away
             //
 
-            // Models
-            var pad1Model = this.GetModel("Pad1", ModelType.Pad);
-            var ledge1Model = this.GetModel("Line1", ModelType.Line);
-            var heroModel = this.GetModel("Hero", ModelType.Character);
-            var paneModel = this.GetModel("Pane1", ModelType.Pane);
-
             // Effects
             var deferred1SceneEffect = await this.GetEffectAsync(Asset.Deferred1SceneEffect);
             var deferred2LightsEffect = await this.GetEffectAsync(Asset.Deferred2LightsEffect);
@@ -505,10 +493,6 @@ namespace Engine.Assets
             var shadowMapEffect = await this.GetEffectAsync(Asset.ShadowMapEffect);
             var skyDomeEffect = await this.GetEffectAsync(Asset.SkyDomeEffect);
             var perlinNoiseEffect = await this.GetEffectAsync(Asset.PerlinNoiseEffect);
-
-            // Textures
-            var blockTextureAtlas = this.GetTexture(Asset.BlockTextureAtlas);
-            var cloudTexture = this.GetTexture(Asset.CloudTexture);
 
             // Sounds
             SoundUtils.PreloadSoundEffect(this.GetSound(Asset.SoundHeroDieing));

@@ -20,8 +20,6 @@ namespace Simsip.LineRunner.GameObjects
     public class GameModel : GameObject
     {
         protected IList<BasicEffect> _originalEffects;
-        protected static Dictionary<string, IList<BasicEffect>> _originalEffectsDictionary =
-            new Dictionary<string, IList<BasicEffect>>();
         protected IList<Texture2D> _textureOverrides;
 
         protected Matrix[] _modelTransforms;
@@ -45,15 +43,6 @@ namespace Simsip.LineRunner.GameObjects
         }
 
         #region Properties
-
-        /// <summary>
-        /// Allows us to remove a set of original effects for when we are
-        /// refreshing.
-        /// </summary>
-        public static Dictionary<string, IList<BasicEffect>> OriginalEffectsDictionary
-        {
-            get { return _originalEffectsDictionary; }
-        }
 
         /// <summary>
         /// An ID used to uniquely identify a model within a model category (e.g., character, hero, pad, line, obstacle, etc.)

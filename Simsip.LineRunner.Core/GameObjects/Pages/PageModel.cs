@@ -23,14 +23,13 @@ namespace Simsip.LineRunner.GameObjects.Pages
 
         // Allows us to control if we will allow a cached version of this model
         // to be retrieved from AssetManager
-        private CustomContentManager _customContentManager;
         private bool _allowCached;
 
-        public PageModel(PadEntity padEntity, CustomContentManager customContentManager=null, bool allowCached=true)
+        public PageModel(PadEntity padEntity, CustomContentManager customContentManager, bool allowCached=true)
         {
             this.ThePadEntity = padEntity;
 
-            this._customContentManager = customContentManager;
+            this.TheCustomContentManager = customContentManager;
             this._allowCached = allowCached;
 
             Initialize();
@@ -38,14 +37,11 @@ namespace Simsip.LineRunner.GameObjects.Pages
 
         #region Properties
 
-        public CustomContentManager TheCustomContentManager 
-        {
-            get
-            {
-                return _customContentManager;
-            }
-        }
-
+        /// <summary>
+        /// Controls loading and unloading of XNA resources for this page model.
+        /// </summary>
+        public CustomContentManager TheCustomContentManager { get; private set; }
+        
         /// <summary>
         /// Holds additional database entries that define this page.
         /// </summary>
@@ -130,7 +126,7 @@ namespace Simsip.LineRunner.GameObjects.Pages
             XnaModel = _assetManager.GetModel(
                 modelNameToLoad, 
                 ModelType.Pad, 
-                this._customContentManager, 
+                this.TheCustomContentManager, 
                 this._allowCached);
 
             // Now that we have our model, we can initialize model transforms
@@ -141,20 +137,19 @@ namespace Simsip.LineRunner.GameObjects.Pages
             // IMPORTANT: Note if we are not allowing a cached version of this model
             //            to be used (e.g, displaying on options page), then we
             //            allways pull a new set of effects.
-            if (this._customContentManager == null ||
-                this._allowCached)
+            if (this._allowCached)
             {
-                if (!GameModel._originalEffectsDictionary.ContainsKey(ThePadEntity.ModelName))
+                if (!this.TheCustomContentManager.OriginalEffectsDictionary.ContainsKey(ThePadEntity.ModelName))
                 {
                     // Ok, let's get the original effects stored away for this model name
-                    GameModel._originalEffectsDictionary[ThePadEntity.ModelName] =
+                    this.TheCustomContentManager.OriginalEffectsDictionary[ThePadEntity.ModelName] =
                         XNAUtils.GetOriginalEffects(this.XnaModel);
                 }
 
                 // Safe to proceed and grab the original effects based on the model name, 
                 // critical for referencing original texture, etc.
                 this._originalEffects =
-                    GameModel._originalEffectsDictionary[ThePadEntity.ModelName];
+                    this.TheCustomContentManager.OriginalEffectsDictionary[ThePadEntity.ModelName];
             }
             else
             {
@@ -167,7 +162,11 @@ namespace Simsip.LineRunner.GameObjects.Pages
             var textureEntities = textureRepository.GetTextures(TheModelEntity.ModelName);
             foreach (var textureEntity in textureEntities)
             {
-                var texture = this._assetManager.GetModelTexture(TheModelEntity.ModelName, ModelType.Pad, textureEntity.TextureName);
+                var texture = this._assetManager.GetModelTexture(
+                    TheModelEntity.ModelName, 
+                    ModelType.Pad, 
+                    textureEntity.TextureName,
+                    this.TheCustomContentManager);
                 this._textureOverrides.Add(texture);
             }
         }

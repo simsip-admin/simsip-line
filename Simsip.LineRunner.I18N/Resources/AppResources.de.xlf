@@ -124,6 +124,22 @@
           <source>turn sound off and on</source>
           <target state="new">turn sound off and on</target>
         </trans-unit>
+        <trans-unit id="Resx/UpgradesTitle" translate="yes" xml:space="preserve">
+          <source>upgrades</source>
+          <target state="new">upgrades</target>
+        </trans-unit>
+        <trans-unit id="Resx/UpgradesPracticeDesc2" translate="yes" xml:space="preserve">
+          <source>turn kills off</source>
+          <target state="new">turn kills off</target>
+        </trans-unit>
+        <trans-unit id="Resx/UpgradesPracticeDesc1" translate="yes" xml:space="preserve">
+          <source>jump to any page and line</source>
+          <target state="new">jump to any page and line</target>
+        </trans-unit>
+        <trans-unit id="Resx/UpgradesPractice" translate="yes" xml:space="preserve">
+          <source>practice mode</source>
+          <target state="new">practice mode</target>
+        </trans-unit>
         <trans-unit id="Resx/HelpLeaderboards" translate="yes" xml:space="preserve">
           <source>see your top scores</source>
           <target state="new">see your top scores</target>

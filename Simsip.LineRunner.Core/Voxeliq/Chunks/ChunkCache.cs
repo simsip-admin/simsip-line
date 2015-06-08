@@ -217,7 +217,9 @@ namespace Engine.Chunks
                 {
                     // Currently the only parameter that can be user changed is the resource pack
                     // which the get on the Asset.BlockTextureAtlas will correctly resolve for us.
-                    this._blockTextureAtlas = this._assetManager.GetTexture(Asset.BlockTextureAtlas);
+                    this._blockTextureAtlas = this._assetManager.GetTexture(
+                        Asset.BlockTextureAtlas,
+                        Engine.Core.Engine.Instance.TheCustomContentManager);
 
                     break;
                 }
@@ -270,8 +272,12 @@ namespace Engine.Chunks
         protected override void LoadContent()
         {
             // this._blockEffect = this._assetManager.GetEffect(Asset.BlockEffect);
-            this._blockTextureAtlas = this._assetManager.GetTexture(Asset.BlockTextureAtlas);
-            this._crackTextureAtlas = this._assetManager.GetTexture(Asset.CrackTextureAtlas);
+            this._blockTextureAtlas = this._assetManager.GetTexture(
+                Asset.BlockTextureAtlas,
+                Engine.Core.Engine.Instance.TheCustomContentManager);
+            this._crackTextureAtlas = this._assetManager.GetTexture(
+                Asset.CrackTextureAtlas,
+                Engine.Core.Engine.Instance.TheCustomContentManager);
 
             _basicEffect = new BasicEffect(Game.GraphicsDevice);
             _basicEffect.LightingEnabled = false;

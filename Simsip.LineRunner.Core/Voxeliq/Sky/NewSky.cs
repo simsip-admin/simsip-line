@@ -146,7 +146,9 @@ namespace Engine.Sky
 
         private void InitializeOnMainThread()
         {
-            var colors = TextureTo2DArray(_assetManager.GetTexture(Asset.CloudTexture));
+            var colors = TextureTo2DArray(_assetManager.GetTexture(
+                Asset.CloudTexture,
+                Engine.Core.Engine.Instance.TheCustomContentManager));
 
             for (int x = 0; x < size; x++)
             {
@@ -163,7 +165,9 @@ namespace Engine.Sky
         protected override void LoadContent()
         {
             // this._blockEffect = this._assetManager.GetEffect(Asset.BlockEffect);
-            this._blockTextureAtlas = this._assetManager.GetTexture(Asset.BlockTextureAtlas);
+            this._blockTextureAtlas = this._assetManager.GetTexture(
+                Asset.BlockTextureAtlas,
+                Engine.Core.Engine.Instance.TheCustomContentManager);
 
             this._basicEffect = new BasicEffect(Game.GraphicsDevice);
             _basicEffect.LightingEnabled = false;

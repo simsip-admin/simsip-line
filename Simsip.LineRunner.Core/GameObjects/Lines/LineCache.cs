@@ -60,9 +60,6 @@ namespace Simsip.LineRunner.GameObjects.Lines
         // Determines what gets asked to be drawn
         private OcTreeNode _ocTreeRoot;
 
-        // Custom content manager so we can reload a line model with different textures
-        private CustomContentManager _customContentManager;
-
         // Support for staging the results of asynchronous loads and then signaling
         // we need the results processed on the next update cycle
         private class LoadContentThreadArgs
@@ -112,12 +109,6 @@ namespace Simsip.LineRunner.GameObjects.Lines
 
             // Initialize our drawing filter
             this._ocTreeRoot = new OcTreeNode(new Vector3(0, 0, 0), OcTreeNode.DefaultSize);
-
-            // We use our own CustomContentManager scoped to this cache so that
-            // we can reload a line model with different textures
-            this._customContentManager = new CustomContentManager(
-                TheGame.SharedGame.Services,
-                TheGame.SharedGame.Content.RootDirectory);
 
             base.Initialize();
         }
@@ -230,7 +221,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         this.LoadContentAsync(LoadContentAsyncType.Next, state);
 
                         // Propogate state change
-                        this._obstacleCache.SwitchState(state);
+                        // this._obstacleCache.SwitchState(state);
 
                         break;
                     }
@@ -248,7 +239,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         this.LoadContentAsync(LoadContentAsyncType.Next, state);
 
                         // Propogate state change
-                        this._obstacleCache.SwitchState(state);
+                        // this._obstacleCache.SwitchState(state);
 
                         break;
                     }
@@ -317,15 +308,16 @@ namespace Simsip.LineRunner.GameObjects.Lines
         {
             this.LoadContentAsyncFinished -= this.LoadContentAsyncFinishedHandler;
 
-
+            /*
             if (args.TheLoadContentAsyncType == LoadContentAsyncType.Initialize ||
                 args.TheLoadContentAsyncType == LoadContentAsyncType.Refresh)
             {
+            */
                 this.ProcessNextLine();
 
                 // Propogate state change
                 this._obstacleCache.SwitchState(args.TheGameState);
-            }
+            // }
         }
 
         #endregion
@@ -398,15 +390,11 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         this._physicsManager.TheSpace.Remove(lineModel.PhysicsEntity);
                     }
 
-                    // Clear out any previous line model textures
-                    GameModel.OriginalEffectsDictionary.Remove(lineModel.TheLineEntity.ModelName);
+                    lineModel.TheCustomContentManager.Unload();
                 }
 
                 // And finally clear out the full set of previous models
                 this.LineModels.Clear();
-
-                // Now we are safe to call call Unload on our custom ContentManager.
-                this._customContentManager.Unload();
             }
 
 #if NETFX_CORE
@@ -446,12 +434,14 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         GameConstants.USER_DEFAULT_INITIAL_CURRENT_LINE);
                     var lineEntity = this._lineRepository.GetLine(currentLine);
 
-                    // Load a fresh or cached version of our page model
+                    // Load a fresh or cached version of our line model
+                    var customContentManager = new CustomContentManager(
+                       TheGame.SharedGame.Services,
+                       TheGame.SharedGame.Content.RootDirectory);
                     var lineModel = new LineModel(
-                        lineEntity: lineEntity,
-                        pageLinesEntity: pageLinesEntities[0],
-                        customContentManager: this._customContentManager,
-                        allowCached: true);
+                        lineEntity,
+                        pageLinesEntities[0],
+                        customContentManager);
 
                     // Scale the line model to be the width of the page
                     var scale = this._pageCache.CurrentPageModel.ModelToWorldRatio;
@@ -523,24 +513,65 @@ namespace Simsip.LineRunner.GameObjects.Lines
         // Migrate staged collection in args to public collection
         private void ProcessLoadContentAsync(LoadContentThreadArgs loadContentThreadArgs)
         {
-            // If we are moving to first/next page, clear out previous page
-            if (this._currentLineNumber == 1)
+            switch (loadContentThreadArgs.TheLoadContentAsyncType)
             {
-                // Remove all previous models from our drawing filter
-                // and physics from our physics simulation
-                foreach (var lineModel in this.LineModels.ToList())
-                {
-                    this._ocTreeRoot.RemoveModel(lineModel.ModelID);
-
-                    if (lineModel.PhysicsEntity != null &&
-                        lineModel.PhysicsEntity.Space != null)
+                case LoadContentAsyncType.Initialize:
+                case LoadContentAsyncType.Refresh:
                     {
-                        this._physicsManager.TheSpace.Remove(lineModel.PhysicsEntity);
-                    }
-                }
 
-                // And clear out the full set of previous models
-                this.LineModels.Clear();
+                        // Remove all previous models from our drawing filter
+                        // and physics from our physics simulation
+                        foreach (var lineModel in this.LineModels.ToList())
+                        {
+                            this._ocTreeRoot.RemoveModel(lineModel.ModelID);
+
+                            if (lineModel.PhysicsEntity != null &&
+                                lineModel.PhysicsEntity.Space != null)
+                            {
+                                this._physicsManager.TheSpace.Remove(lineModel.PhysicsEntity);
+                            }
+
+                            // Remove all previous animations for this model
+                            lineModel.ModelActionManager.RemoveAllActionsFromTarget(lineModel);
+
+                            // Dispose of all XNA resources
+                            lineModel.TheCustomContentManager.Unload();
+                            lineModel.TheCustomContentManager.Dispose();
+                        }
+
+                        // And clear out the full set of previous models
+                        this.LineModels.Clear();
+
+                        break;
+                    }
+                case LoadContentAsyncType.Next:
+                    {
+                        // Remove all previous obstacle models from our drawing filter
+                        // and remove all previous obstacle physics
+                        var lineToRemove = this._currentLineNumber - 2;
+                        if (lineToRemove > 0)
+                        {
+                            var lineModel = this.LineModels[0];
+                            this._ocTreeRoot.RemoveModel(lineModel.ModelID);
+
+                            if (lineModel.PhysicsEntity != null &&
+                                lineModel.PhysicsEntity.Space != null)
+                            {
+                                this._physicsManager.TheSpace.Remove(lineModel.PhysicsEntity);
+                            }
+
+                            // Remove all previous animations for this model
+                            lineModel.ModelActionManager.RemoveAllActionsFromTarget(lineModel);
+
+                            this.LineModels.Remove(lineModel);
+
+                            // Dispose of all XNA resources
+                            lineModel.TheCustomContentManager.Unload();
+                            lineModel.TheCustomContentManager.Dispose();
+                        }
+
+                        break;
+                    }
             }
 
             // Populate our public model/physics collections from our staged collections

@@ -24,6 +24,8 @@ using Engine.Universe;
 using Engine.Water;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Simsip.LineRunner.GameFramework;
+using Simsip.LineRunner;
 
 namespace Engine.Core
 {
@@ -79,6 +81,11 @@ namespace Engine.Core
         public void Run()
         {
             this.AddComponents();
+
+            this.TheCustomContentManager = new CustomContentManager(
+                   TheGame.SharedGame.Services,
+                   TheGame.SharedGame.Content.RootDirectory);
+
             this.NotifyEngineStart(EventArgs.Empty);
         }
 
@@ -189,6 +196,8 @@ namespace Engine.Core
         {
             get { return _instance; }
         }
+
+        public CustomContentManager TheCustomContentManager { get; private set; }
 
         #region de-ctor
 

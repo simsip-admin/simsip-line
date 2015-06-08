@@ -16,9 +16,6 @@ using Foundation;
 
 namespace Simsip.LineRunner.Scenes.Options
 {
-    /// <summary>
-    /// IMPORTANT: Implementation is for only 2 pages right now, but we have 3 pages coded for future expansion.
-    /// </summary>
     public class OptionsMasterLayer : UILayer
     {
         private CoreScene _parent;
@@ -49,9 +46,6 @@ namespace Simsip.LineRunner.Scenes.Options
         public OptionsMasterLayer(CoreScene parent)
         {
             this._parent = parent;
-
-            // We want touches so we can handle selection of resource pack/pad images
-            this.TouchEnabled = true;
 
             // Get these set up for relative positioning below
             var screenSize = CCDirector.SharedDirector.WinSize;

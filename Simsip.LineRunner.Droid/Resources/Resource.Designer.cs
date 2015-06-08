@@ -39,6 +39,7 @@ namespace Simsip.LineRunner
 			global::AuditApp.Android.Resource.Style.intercept_suggestion_idstyle = global::Simsip.LineRunner.Resource.Style.intercept_suggestion_idstyle;
 			global::SQLite.Resource.String.ApplicationName = global::Simsip.LineRunner.Resource.String.ApplicationName;
 			global::SQLite.Resource.String.Hello = global::Simsip.LineRunner.Resource.String.Hello;
+			global::Xamarin.InAppBilling.Resource.String.library_name = global::Simsip.LineRunner.Resource.String.library_name;
 		}
 		
 		public partial class Animation
@@ -1938,8 +1939,8 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060056
 			public const int AdminStartPageDescription = 2131099734;
 			
-			// aapt resource value: 0x7f06003a
-			public const int ApplicationName = 2131099706;
+			// aapt resource value: 0x7f06003b
+			public const int ApplicationName = 2131099707;
 			
 			// aapt resource value: 0x7f060069
 			public const int CommonAdmin = 2131099753;
@@ -1992,8 +1993,8 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f06005f
 			public const int FinishNewHighScore = 2131099743;
 			
-			// aapt resource value: 0x7f060039
-			public const int Hello = 2131099705;
+			// aapt resource value: 0x7f06003a
+			public const int Hello = 2131099706;
 			
 			// aapt resource value: 0x7f06003f
 			public const int HelpHelpDescription = 2131099711;
@@ -2153,6 +2154,18 @@ namespace Simsip.LineRunner
 			
 			// aapt resource value: 0x7f060068
 			public const int ResourcePacksSwitchingResourcePacks = 2131099752;
+			
+			// aapt resource value: 0x7f060098
+			public const int UpgradesPractice = 2131099800;
+			
+			// aapt resource value: 0x7f060099
+			public const int UpgradesPracticeDesc1 = 2131099801;
+			
+			// aapt resource value: 0x7f06009a
+			public const int UpgradesPracticeDesc2 = 2131099802;
+			
+			// aapt resource value: 0x7f060097
+			public const int UpgradesTitle = 2131099799;
 			
 			// aapt resource value: 0x7f06006a
 			public const int WorldsDefault = 2131099754;
@@ -2331,8 +2344,8 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060019
 			public const int decline = 2131099673;
 			
-			// aapt resource value: 0x7f06003b
-			public const int library_name = 2131099707;
+			// aapt resource value: 0x7f060039
+			public const int library_name = 2131099705;
 			
 			// aapt resource value: 0x7f060000
 			public const int mr_media_route_button_content_description = 2131099648;

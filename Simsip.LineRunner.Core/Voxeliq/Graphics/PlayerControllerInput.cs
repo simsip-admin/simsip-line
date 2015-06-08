@@ -104,7 +104,9 @@ namespace Engine.Graphics
             // TODO: This is a .x model that is not compiling with the new Pipeline tool
             // this._aimedBlockModel = this._assetManager.GetModel(Asset.AimedBlockModel, ModelType.Voxeliq);
             this._aimedBlockEffect = new BasicEffect(TheGame.SharedGame.GraphicsDevice);
-            this._aimedBlockTexture = this._assetManager.GetTexture(Asset.AimedBlockTexture);
+            this._aimedBlockTexture = this._assetManager.GetTexture(
+                Asset.AimedBlockTexture,
+                Engine.Core.Engine.Instance.TheCustomContentManager);
         }
 
         public void Update(GameTime gameTime)

@@ -398,9 +398,6 @@ namespace Simsip.LineRunner.GameObjects.Pages
                     this._physicsManager.TheSpace.Remove(this.CurrentPageModel.PhysicsEntity);
                 }
 
-                // Clear out any previous line model textures
-                GameModel.OriginalEffectsDictionary.Remove(this.CurrentPageModel.ThePadEntity.ModelName);
-
                 // Now we are safe to call call Unload on our custom ContentManager.
                 this.CurrentPageModel.TheCustomContentManager.Unload();
             }
@@ -435,10 +432,7 @@ namespace Simsip.LineRunner.GameObjects.Pages
             var customContentManager = new CustomContentManager(
                TheGame.SharedGame.Services,
                TheGame.SharedGame.Content.RootDirectory);
-            loadContentThreadArgs.PageModelAsync = new PageModel(
-                padEntity: padEntity,
-                customContentManager: customContentManager,
-                allowCached: true);
+            loadContentThreadArgs.PageModelAsync = new PageModel(padEntity, customContentManager);
 
             // We only have 1 pad at a time to worry about
             loadContentThreadArgs.PageModelAsync.ModelID = 1;
@@ -472,13 +466,10 @@ namespace Simsip.LineRunner.GameObjects.Pages
             // Load a fresh or cached version of our page model
             // We use our own CustomContentManager scoped to this cache so that
             // we can reload a page model with different textures
-             var customContentManager = new CustomContentManager(
+            var customContentManager = new CustomContentManager(
                 TheGame.SharedGame.Services,
                 TheGame.SharedGame.Content.RootDirectory);
-            this.CurrentPageModel = new PageModel(
-                padEntity: padEntity,
-                customContentManager: customContentManager,
-                allowCached: true);
+            this.CurrentPageModel = new PageModel(padEntity, customContentManager);
 
             // We only have 1 pad at a time to worry about
             this.CurrentPageModel.ModelID = 1;  

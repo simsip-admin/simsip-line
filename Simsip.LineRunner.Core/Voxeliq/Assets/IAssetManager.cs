@@ -11,11 +11,23 @@ namespace Engine.Assets
 
         Effect GetEffect(string effectPath);
         SpriteFont GetFont(string fontPath);
-        Model GetModel(string modelName, ModelType modelType, CustomContentManager customContentManager=null, bool allowCached=true);
-        Texture2D GetModelTexture(string modelName, ModelType modelType, string textureName, CustomContentManager customContentManager=null, bool allowCached=true);
+        Model GetModel(string modelName, 
+                       ModelType modelType, 
+                       CustomContentManager customContentManager, 
+                       bool allowCached=true);
+        Texture2D GetModelTexture(string modelName, 
+                                  ModelType modelType, 
+                                  string textureName, 
+                                  CustomContentManager customContentManager, 
+                                  bool allowCached=true);
         string GetSound(string soundFilename);
-        Texture2D GetTexture(string texturePath, CustomContentManager customContentManager=null, bool allowCached=true);
-        Texture2D GetThumbnail(string modelName, ModelType modelType);
+        Texture2D GetTexture(string texturePath, 
+                             CustomContentManager customContentManager, 
+                             bool allowCached=true);
+        Texture2D GetThumbnail(string modelName, 
+                               ModelType modelType,
+                               CustomContentManager customContentManager,
+                               bool allowCached = true);
 
         void SwitchState(GameState gameState);
     }

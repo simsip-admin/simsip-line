@@ -21,6 +21,7 @@ using Simsip.LineRunner.Effects.Deferred;
 using Simsip.LineRunner.Scenes.MessageBox;
 using Simsip.LineRunner.GameObjects;
 using Microsoft.Xna.Framework.Graphics;
+using Simsip.LineRunner.Services.Inapp;
 #if IOS
 using AVFoundation;
 using Foundation;
@@ -427,6 +428,9 @@ namespace Simsip.LineRunner.Scenes.Start
 #endif
 
             // Construct all simsip services
+            var inappService = new InappService(TheGame.SharedGame);
+            inappService.Enabled = false;
+
             var physicsManager = new PhysicsManager(TheGame.SharedGame);
             physicsManager.Enabled = false;
 #if STOPWATCH
@@ -593,6 +597,8 @@ namespace Simsip.LineRunner.Scenes.Start
 #endif
 
             // Initialize all simsip services
+            inappService.Initialize();
+
             physicsManager.Initialize();
 #if STOPWATCH
             Program.TheStopwatch.Stop();

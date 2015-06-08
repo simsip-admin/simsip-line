@@ -16,9 +16,6 @@ using Foundation;
 
 namespace Simsip.LineRunner.Scenes.Help
 {
-    /// <summary>
-    /// IMPORTANT: Implementation is currently for 3 pages, but we have a 4th page commented out when we need to add it in.
-    /// </summary>
     public class HelpMasterLayer : UILayer
     {
         private CoreScene _parent;

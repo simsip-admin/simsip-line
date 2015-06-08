@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Simsip.LineRunner.Utils;
 using Simsip.LineRunner.Scenes.Lines;
+using Simsip.LineRunner.Scenes.Upgrades;
 
 
 namespace Simsip.LineRunner.Scenes
@@ -48,7 +49,7 @@ namespace Simsip.LineRunner.Scenes
             this._navigationStack = new Stack<LayerTags>();
 
             // Get our start and action layers displayed as quickly as possible
-            this.AddChild(this.TheStartPage1Layer, SceneZOrder.UILayer);
+            this.AddChild(this.TheStartLayer, SceneZOrder.UILayer);
             this.AddChild(this.TheActionLayer, SceneZOrder.ActionLayer);
 
             // Since we bypassed our navigation service above for the start layer, we need
@@ -235,7 +236,7 @@ namespace Simsip.LineRunner.Scenes
         /// <summary>
         /// UI layer that allows user to set a variety of options.
         /// </summary>
-        public OptionsMasterLayer TheOptionsLayer
+        public OptionsMasterLayer TheOptionsMasterLayer
         {
             get
             {
@@ -299,21 +300,39 @@ namespace Simsip.LineRunner.Scenes
             }
         }
 
-        private StartLayer _theStartPage1Layer;
+        private StartLayer _theStartLayer;
         /// <summary>
         /// The UI layer that allows players to start the game or navigate
         /// to the options screen.
         /// </summary>
-        public StartLayer TheStartPage1Layer
+        public StartLayer TheStartLayer
         {
             get
             {
-                if (_theStartPage1Layer == null)
+                if (_theStartLayer == null)
                 {
-                    _theStartPage1Layer = new StartLayer(this);
-                    _theStartPage1Layer.Tag = (int)LayerTags.StartLayer;
+                    _theStartLayer = new StartLayer(this);
+                    _theStartLayer.Tag = (int)LayerTags.StartLayer;
                 }
-                return _theStartPage1Layer;
+                return _theStartLayer;
+            }
+        }
+
+        private UpgradesMasterLayer _theUpgradesMasterLayer;
+        /// <summary>
+        /// The UI layer that allows players to start the game or navigate
+        /// to the options screen.
+        /// </summary>
+        public UpgradesMasterLayer TheUpgradesMasterLayer
+        {
+            get
+            {
+                if (_theUpgradesMasterLayer == null)
+                {
+                    _theUpgradesMasterLayer = new UpgradesMasterLayer(this);
+                    _theUpgradesMasterLayer.Tag = (int)LayerTags.UpgradesMasterLayer;
+                }
+                return _theUpgradesMasterLayer;
             }
         }
 
@@ -485,7 +504,7 @@ namespace Simsip.LineRunner.Scenes
                     }
                 case LayerTags.OptionsMasterLayer:
                     {
-                        return TheOptionsLayer;
+                        return TheOptionsMasterLayer;
                     }
                 case LayerTags.PadsLayer:
                     {
@@ -501,7 +520,11 @@ namespace Simsip.LineRunner.Scenes
                     }
                 case LayerTags.StartLayer:
                     {
-                        return TheStartPage1Layer;
+                        return TheStartLayer;
+                    }
+                case LayerTags.UpgradesMasterLayer:
+                    {
+                        return TheUpgradesMasterLayer;
                     }
                 case LayerTags.WorldsLayer:
                     {

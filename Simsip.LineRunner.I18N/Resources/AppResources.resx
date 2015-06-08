@@ -392,4 +392,16 @@
   <data name="HelpSound" xml:space="preserve">
     <value>turn sound off and on</value>
   </data>
+  <data name="UpgradesTitle" xml:space="preserve">
+    <value>upgrades</value>
+  </data>
+  <data name="UpgradesPractice" xml:space="preserve">
+    <value>practice mode</value>
+  </data>
+  <data name="UpgradesPracticeDesc1" xml:space="preserve">
+    <value>jump to any page and line</value>
+  </data>
+  <data name="UpgradesPracticeDesc2" xml:space="preserve">
+    <value>turn kills off</value>
+  </data>
 </root>

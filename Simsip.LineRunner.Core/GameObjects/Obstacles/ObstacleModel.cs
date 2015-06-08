@@ -26,15 +26,32 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         // Services we'll need
         private IPageCache _pageCache;
 
-        public ObstacleModel(ObstacleEntity obstacleEntity, PageObstaclesEntity pageObstaclesEntity)
+        // Allows us to control if we will allow a cached version of this model
+        // to be retrieved from AssetManager
+        private bool _allowCached;
+
+        public ObstacleModel(ObstacleEntity obstacleEntity, PageObstaclesEntity pageObstaclesEntity, CustomContentManager customContentManager, bool allowCached = true)
         {
             TheObstacleEntity = obstacleEntity;
             ThePageObstaclesEntity = pageObstaclesEntity;
+
+            this.TheCustomContentManager = customContentManager;
+
+            this._allowCached = allowCached;
 
             Initialize();
         }
 
         #region Properties
+
+        /// <summary>
+        /// Controls loading and unloading of XNA resources for this obstacle model.
+        /// 
+        /// IMPORTANT: In most cases the control of loading and unloading XNA resources
+        /// for this model will be controled by the obstacle's containing line model.
+        /// </summary>
+        public CustomContentManager TheCustomContentManager { get; private set; }
+
 
         public ObstacleAnimationType TheObstacleAnimationType { get; set; }
 
@@ -101,7 +118,11 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                     {
                         TheModelEntity = modelRepository.GetModel(TheObstacleEntity.ModelName);
                         var modelNameToLoad = string.IsNullOrEmpty(TheModelEntity.ModelAlias) ? TheModelEntity.ModelName : TheModelEntity.ModelAlias;
-                        XnaModel = _assetManager.GetModel(modelNameToLoad, ModelType.Obstacle);
+                        XnaModel = _assetManager.GetModel(
+                            modelNameToLoad, 
+                            ModelType.Obstacle,
+                            this.TheCustomContentManager,
+                            this._allowCached);
                         break;
                     }
                 default:
@@ -115,17 +136,27 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             XnaModel.CopyAbsoluteBoneTransformsTo(_modelTransforms);
 
             // Did we do our initial load of the original effects for this model name?
-            if (!GameModel._originalEffectsDictionary.ContainsKey(TheObstacleEntity.ModelName))
+            // IMPORTANT: Note if we are not allowing a cached version of this model
+            //            to be used (e.g, displaying on options page), then we
+            //            allways pull a new set of effects.
+            if (this._allowCached)
             {
-                // Ok, let's get the original effects stored away for this model name
-                GameModel._originalEffectsDictionary[TheObstacleEntity.ModelName] =
-                    XNAUtils.GetOriginalEffects(this.XnaModel);
-            }
+                if (!this.TheCustomContentManager.OriginalEffectsDictionary.ContainsKey(TheObstacleEntity.ModelName))
+                {
+                    // Ok, let's get the original effects stored away for this model name
+                    this.TheCustomContentManager.OriginalEffectsDictionary[TheObstacleEntity.ModelName] =
+                        XNAUtils.GetOriginalEffects(this.XnaModel);
+                }
 
-            // Safe to proceed and grab the original effects based on the model name, 
-            // critical for referencing original texture, etc.
-            this._originalEffects =
-                GameModel._originalEffectsDictionary[TheObstacleEntity.ModelName];
+                // Safe to proceed and grab the original effects based on the model name, 
+                // critical for referencing original texture, etc.
+                this._originalEffects =
+                    this.TheCustomContentManager.OriginalEffectsDictionary[TheObstacleEntity.ModelName];
+            }
+            else
+            {
+                this._originalEffects = XNAUtils.GetOriginalEffects(this.XnaModel);
+            }
 
             // Do we have any texture overrides?
             /* Trying something different for obstacles
@@ -145,7 +176,11 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 var randomNumberGenerator = new Random();
                 var pipeTextureNumber = randomNumberGenerator.Next(4, 10);
                 var pipeTextureName = "Pipe0" + pipeTextureNumber + "-texture_0";
-                var texture = this._assetManager.GetModelTexture(TheModelEntity.ModelName, ModelType.Obstacle, pipeTextureName);
+                var texture = this._assetManager.GetModelTexture(
+                    TheModelEntity.ModelName, 
+                    ModelType.Obstacle, 
+                    pipeTextureName,
+                    this.TheCustomContentManager);
                 this._textureOverrides.Add(texture);
             }
             else if (this.TheObstacleEntity.TextureFamily == "SimpleCan")
@@ -161,7 +196,11 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 {
                     canTextureName = "Can0" + canTextureNumber + "-texture";
                 }
-                var texture = this._assetManager.GetModelTexture(TheModelEntity.ModelName, ModelType.Obstacle, canTextureName);
+                var texture = this._assetManager.GetModelTexture(
+                    TheModelEntity.ModelName, 
+                    ModelType.Obstacle, 
+                    canTextureName,
+                    this.TheCustomContentManager);
                 this._textureOverrides.Add(texture);
             }
 

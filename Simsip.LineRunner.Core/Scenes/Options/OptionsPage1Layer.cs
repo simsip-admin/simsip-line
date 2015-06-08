@@ -22,14 +22,8 @@ namespace Simsip.LineRunner.Scenes.Options
         private CoreScene _parent;
         private OptionsMasterLayer _masterLayer;
 
-        // Resource pack
-        private CCSprite _resourcePackImage;
-        
         // Pads
         private CCSprite _padsImage;
-        
-        // Worlds
-        private CCSprite _worldsImage;
         
         public OptionsPage1Layer(CoreScene parent, OptionsMasterLayer masterLayer)
         {
@@ -43,6 +37,7 @@ namespace Simsip.LineRunner.Scenes.Options
             // Get this setup for relative positioning
             this.ContentSize = this._masterLayer.ContentSize;
 
+            // Pads
             this._padsImage = new CCSprite("Models/Pads/Pad1-thumbnail");
             this._padsImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
             this._padsImage.Position = new CCPoint(
@@ -66,40 +61,6 @@ namespace Simsip.LineRunner.Scenes.Options
                 0.9f * this.ContentSize.Height);
             this.AddChild(pageNumberHeader);
 
-            // TODO: Resource Packs (cell 1/4)
-            /*
-            _resourcePackImage = new CCSprite("Images/Misc/OptionsResourcePack1");
-            Cocos2DUtils.ResizeSprite(_resourcePackImage,
-                0.3f * this.ContentSize.Width,
-                0.3f * this.ContentSize.Width);
-            _resourcePackImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
-            _resourcePackImage.Position = new CCPoint(
-                0.3f * this.ContentSize.Width,
-                0.55f * this.ContentSize.Height);
-            _resourcePackImage.Visible = true;
-            this.AddChild(_resourcePackImage);
-            var resourcePacksText = string.Empty;
-#if ANDROID
-            resourcePacksText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsResourcePacks);
-#elif IOS
-            resourcePacksText = NSBundle.MainBundle.LocalizedString(Strings.OptionsResourcePacks, Strings.OptionsResourcePacks);
-#else
-            resourcePacksText = AppResources.OptionsResourcePacks;
-#endif
-            var resourcePackLabel = new CCLabelTTF(resourcePacksText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            CCMenuItemLabel resourcePackButton = new CCMenuItemLabel(resourcePackLabel,
-                                                                (obj) => { _parent.Navigate(LayerTags.ResourcePacksLayer); });
-            var resourcePacksMenu = new CCMenu(
-               new CCMenuItem[] 
-                    {
-                        resourcePackButton
-                    });
-            resourcePacksMenu.Position = new CCPoint(
-                0.3f * this.ContentSize.Width, 
-                0.5f  * this.ContentSize.Height);
-            this.AddChild(resourcePacksMenu);
-            */
-
             // Pads (cell 1/4)
             var padsText = string.Empty;
 #if ANDROID
@@ -121,54 +82,7 @@ namespace Simsip.LineRunner.Scenes.Options
                 0.85f * this.ContentSize.Width, 
                 0.5f  * this.ContentSize.Height);
             this.AddChild(padsMenu);
-
-            // TODO: Worlds (cell 4/4)
-            /*
-            this._worldsImage = new CCSprite("Images/Misc/OptionsResourcePack3");
-            Cocos2DUtils.ResizeSprite(this._worldsImage, 
-                0.3f * this.ContentSize.Width, 
-                0.3f * this.ContentSize.Width);
-            this._worldsImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
-            this._worldsImage.Position = new CCPoint(
-                0.7f  * this.ContentSize.Width,
-                0.25f * this.ContentSize.Height);
-            this.AddChild(this._worldsImage);
-            var worldsText = string.Empty;
-#if ANDROID
-            worldsText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsWorlds);
-#elif IOS
-            worldsText = NSBundle.MainBundle.LocalizedString(Strings.OptionsWorlds, Strings.OptionsWorlds);
-#else
-            worldsText = AppResources.OptionsWorlds;
-#endif
-            var worldsLabel = new CCLabelTTF(worldsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            CCMenuItemLabel worldsButton = new CCMenuItemLabel(worldsLabel,
-                                                               (obj) => { _parent.Navigate(LayerTags.WorldsLayer); });
-            var worldsMenu = new CCMenu(
-               new CCMenuItem[] 
-                    {
-                        worldsButton
-                    });
-            worldsMenu.Position = new CCPoint(
-                0.7f * this.ContentSize.Width,
-                0.2f * this.ContentSize.Height);
-            this.AddChild(worldsMenu);
-            */
         }
-
-        #region Cocos2D overrides
-
-        public override void OnEnter()
-        {
-            base.OnEnter();
-        }
-
-        public override void Draw()
-        {
-            base.Draw();
-        }
-
-        #endregion
 
         #region Touch Implementation
 
@@ -201,16 +115,6 @@ namespace Simsip.LineRunner.Scenes.Options
         {
             var location = touch.Location;
 
-            // TODO: Did we touch a resource pack image?
-            /*
-            var resourcePackBoundingBox = _resourcePackImage.WorldBoundingBox;
-            if (CCRect.ContainsPoint(ref resourcePackBoundingBox, ref location) )
-            {
-                _parent.Navigate(LayerTags.ResourcePacksLayer);
-                return true;
-            }
-            */
-
             // Ok, did we touch the area containing the pads image?
             var padsBoundingBox = _padsImage.WorldBoundingBox;
             if (CCRect.ContainsPoint(ref padsBoundingBox, ref location) )
@@ -218,16 +122,6 @@ namespace Simsip.LineRunner.Scenes.Options
                 _parent.Navigate(LayerTags.PadsLayer);
                 return true;
             }
-
-            // TODO: And finally, did we touch the area containing the worlds image?
-            /*
-            var worldsBoundingBox = this._worldsImage.WorldBoundingBox;
-            if (CCRect.ContainsPoint(ref worldsBoundingBox, ref location))
-            {
-                _parent.Navigate(LayerTags.WorldsLayer);
-                return true;
-            }
-            */
 
             return true;
         }

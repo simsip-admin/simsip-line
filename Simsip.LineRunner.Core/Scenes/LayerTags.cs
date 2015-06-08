@@ -21,6 +21,7 @@ namespace Simsip.LineRunner.Scenes
         RatingsLayer,
         ResourcePacksLayer,
         StartLayer,
+        UpgradesMasterLayer,
         WorldsLayer
     }
 }

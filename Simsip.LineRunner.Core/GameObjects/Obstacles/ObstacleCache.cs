@@ -76,9 +76,11 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             public GameState TheGameState;
             public int PageNumber;
             public int[] LineNumbers;
+            public IDictionary<int, CustomContentManager> ContentManagersAsync;
             public IList<ObstacleModel> ObstacleModelsAsync;
         }
         private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadResults;
+        private IList<LoadContentThreadArgs> _loadContentThreadCache;
 
         // Identifies if we are injecting a random set of obstacles
         private const string RandomPrefix = "Random";
@@ -103,6 +105,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
         public IList<ObstacleModel> ObstacleModels { get; private set; }
 
+        public IDictionary<int, CustomContentManager> ContentManagers { get; private set; }
+
         #endregion
 
         #region GameComponent Overrides
@@ -113,7 +117,9 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
             this._currentLineNumber = 1;
             this.ObstacleModels = new List<ObstacleModel>();
-            this._loadContentThreadResults = new ConcurrentQueue<LoadContentThreadArgs>(); 
+            this._loadContentThreadResults = new ConcurrentQueue<LoadContentThreadArgs>();
+            this._loadContentThreadCache = new List<LoadContentThreadArgs>();
+            this.ContentManagers = new Dictionary<int, CustomContentManager>();
             this._obstacleHitList = new List<ObstacleModel>();
             this.InitializeRandomObstacles();
 
@@ -344,10 +350,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             if (args.TheLoadContentAsyncType == LoadContentAsyncType.Initialize ||
                 args.TheLoadContentAsyncType == LoadContentAsyncType.Refresh)
             {
-                //
-                // IMPORTANT: This needs to be on Update() thread as we will be
-                // removing/adding physics objects in ProcessNextLine/ProcessObstaclePhysics
-                //
+                // 1. Remove previous line physics/animations
+                // 2. Assign current line physcis/animations
                 this.ProcessNextLine();
 
                 // Propogate state change
@@ -401,6 +405,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 TheGameState = gameState,
                 PageNumber = pageNumber,
                 LineNumbers = lineNumbers,
+                ContentManagersAsync = new Dictionary<int, CustomContentManager>(),
                 ObstacleModelsAsync = new List<ObstacleModel>(),
             };
 
@@ -423,210 +428,319 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             var loadContentAsyncType = loadContentThreadArgs.TheLoadContentAsyncType;
             var pageNumber = loadContentThreadArgs.PageNumber;
             var lineNumbers = loadContentThreadArgs.LineNumbers;
+            var contentManagers = loadContentThreadArgs.ContentManagersAsync;
             var obstacleModels = loadContentThreadArgs.ObstacleModelsAsync;
 
-            // Ok, let's grab the collection of obstacles for our current page using our helper
-            // function that knows how to inject entries coded for random sets
-            var pageObstaclesEntities = this.HydrateLineObstacles(pageNumber, lineNumbers);
-            foreach (var pageObstaclesEntity in pageObstaclesEntities)
+            // Grab from cache if available, prime cache if not
+            if (loadContentAsyncType == LoadContentAsyncType.Initialize ||
+                loadContentAsyncType == LoadContentAsyncType.Refresh)
             {
-                // Get an initial model constructed
-                var obstacleEntity = this._obstacleRepository.GetObstacle(pageObstaclesEntity.ModelName);
-                var obstacleModel = new ObstacleModel(obstacleEntity, pageObstaclesEntity);
-
-                // Construct our scale matrix based on how we scaled page.
-                // IMPORTANT: Note how we take into account an additional optional scaling that
-                // can be applied to the model to make it bigger or smaller than its default size.
-                var scale = this._pageCache.CurrentPageModel.ModelToWorldRatio;
-                if (pageObstaclesEntity.LogicalScaleScaledTo100 != 0)
+                if (this._loadContentThreadCache.Count > 0)
                 {
-                    scale *= pageObstaclesEntity.LogicalScaleScaledTo100 / 100;
+                    var cachedArgs = this._loadContentThreadCache[0];
+                    this._loadContentThreadCache.RemoveAt(0);
+                    this._loadContentThreadResults.Enqueue(cachedArgs);
                 }
-                var scaleMatrix = Matrix.CreateScale(scale);
-
-                // Now get our new world dimensions
-                obstacleModel.ModelToWorldRatio = scale;
-                obstacleModel.WorldWidth = obstacleModel.TheModelEntity.ModelWidth * scale;
-                obstacleModel.WorldHeight = obstacleModel.TheModelEntity.ModelHeight * scale;
-                obstacleModel.WorldDepth = obstacleModel.TheModelEntity.ModelDepth * scale;
-
-                // We'll need the corresponding line model for placement
-                var lineModel = this._lineCache.GetLineModel(pageObstaclesEntity.LineNumber);
-
-                // Now construct our placement values
-                var worldLogicalX = lineModel.WorldWidth *                                      // Start with the world width of the line,
-                                    (pageObstaclesEntity.LogicalXScaledTo100 / 100);            // then scale it by our logical X in the range [0,100]
-                var worldLogicalHeight = obstacleModel.WorldHeight *                            // Start with the world height of the obstacle,
-                                         (pageObstaclesEntity.LogicalHeightScaledTo100 / 100);  // then scale it by logical height in the range [0,100] for truncated obstacles
-                // or greater than 100 to float in middle of line
-
-                // Based on our world logical height, what should our Y position be to represent this obstacle?
-                float worldLogicalY = 0;
-                if (obstacleModel.TheObstacleType == ObstacleType.SimpleBottom)
+                else
                 {
-                    // Ok, we are jutting up from the bottom by the amount of worldLogicalHeight
-                    worldLogicalY = (lineModel.WorldOrigin.Y + lineModel.WorldHeight) -           // (see diagram) Start at the top of the bottom line
-                                    (obstacleModel.WorldHeight - worldLogicalHeight);             // then drop down by the remainder of the world height after removing the logical height
+                    var argsCopy = new LoadContentThreadArgs
+                    {
+                        TheLoadContentAsyncType = LoadContentAsyncType.Cache,
+                        TheGameState = loadContentThreadArgs.TheGameState,
+                        PageNumber = loadContentThreadArgs.PageNumber,
+                        LineNumbers = loadContentThreadArgs.LineNumbers,
+                        ContentManagersAsync = new Dictionary<int, CustomContentManager>(),
+                        ObstacleModelsAsync = new List<ObstacleModel>()
+                    };
+
+                    this.LoadContentAsyncThread(argsCopy);
+                    var cachedArgs = this._loadContentThreadCache[0];
+                    cachedArgs.TheLoadContentAsyncType = loadContentThreadArgs.TheLoadContentAsyncType;
+                    this._loadContentThreadCache.RemoveAt(0);
+                    this._loadContentThreadResults.Enqueue(cachedArgs);
                 }
-                else if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
-                {
-                    worldLogicalY = (lineModel.WorldOrigin.Y + this._pageCache.CurrentPageModel.WorldLineSpacing) +   // (see diagram) Start at the bottom of the top line
-                                    (obstacleModel.WorldHeight - worldLogicalHeight);                                 // then move up by the remainder of the world height after removing logical height
-                }
+            }
 
-                // Add in x and y adjustments if rotating (angle will be specified as 0 degrees if not rotated)
-                // Reference:
-                // http://www.mathsisfun.com/sine-cosine-tangent.html
-                // and see diagrams
-                var angleInRadians = MathHelper.ToRadians(pageObstaclesEntity.LogicalAngle);
-                if (angleInRadians != 0)
+            foreach (var lineNumber in lineNumbers)
+            {
+                var customContentManager = new CustomContentManager(
+                   TheGame.SharedGame.Services,
+                   TheGame.SharedGame.Content.RootDirectory);
+                contentManagers[lineNumber] = customContentManager;
+
+                // Ok, let's grab the collection of obstacles for our current page using our helper
+                // function that knows how to inject entries coded for random sets
+                var pageObstaclesEntities = this.HydrateLineObstacles(pageNumber, new int[] {lineNumber} );
+                foreach (var pageObstaclesEntity in pageObstaclesEntities)
                 {
+                    // We'll need the corresponding line model for placement
+                    var lineModel = this._lineCache.GetLineModel(pageObstaclesEntity.LineNumber);
+
+                    // Get an initial model constructed
+                    var obstacleEntity = this._obstacleRepository.GetObstacle(pageObstaclesEntity.ModelName);
+                    var obstacleModel = new ObstacleModel(
+                        obstacleEntity,
+                        pageObstaclesEntity,
+                        customContentManager);
+
+                    // Construct our scale matrix based on how we scaled page.
+                    // IMPORTANT: Note how we take into account an additional optional scaling that
+                    // can be applied to the model to make it bigger or smaller than its default size.
+                    var scale = this._pageCache.CurrentPageModel.ModelToWorldRatio;
+                    if (pageObstaclesEntity.LogicalScaleScaledTo100 != 0)
+                    {
+                        scale *= pageObstaclesEntity.LogicalScaleScaledTo100 / 100;
+                    }
+                    var scaleMatrix = Matrix.CreateScale(scale);
+
+                    // Now get our new world dimensions
+                    obstacleModel.ModelToWorldRatio = scale;
+                    obstacleModel.WorldWidth = obstacleModel.TheModelEntity.ModelWidth * scale;
+                    obstacleModel.WorldHeight = obstacleModel.TheModelEntity.ModelHeight * scale;
+                    obstacleModel.WorldDepth = obstacleModel.TheModelEntity.ModelDepth * scale;
+
+                    // Now construct our placement values
+                    var worldLogicalX = lineModel.WorldWidth *                                      // Start with the world width of the line,
+                                        (pageObstaclesEntity.LogicalXScaledTo100 / 100);            // then scale it by our logical X in the range [0,100]
+                    var worldLogicalHeight = obstacleModel.WorldHeight *                            // Start with the world height of the obstacle,
+                                             (pageObstaclesEntity.LogicalHeightScaledTo100 / 100);  // then scale it by logical height in the range [0,100] for truncated obstacles
+                    // or greater than 100 to float in middle of line
+
+                    // Based on our world logical height, what should our Y position be to represent this obstacle?
+                    float worldLogicalY = 0;
                     if (obstacleModel.TheObstacleType == ObstacleType.SimpleBottom)
                     {
-                        if (pageObstaclesEntity.LogicalAngle > 0)
-                        {
-                            var hypotenuse = obstacleModel.WorldHeight - worldLogicalHeight;
-                            var adjacent = (float)Math.Cos(angleInRadians) * hypotenuse;
-                            var opposite = (float)Math.Sin(angleInRadians) * hypotenuse;
-                            worldLogicalX += opposite;
-                            worldLogicalY = (lineModel.WorldOrigin.Y + lineModel.WorldHeight) -
-                                             adjacent;
-                        }
-                        else
-                        {
-                            var angleInRadiansAbsolute = MathHelper.ToRadians(Math.Abs(pageObstaclesEntity.LogicalAngle));
-                            var hypotenuse = obstacleModel.WorldHeight - worldLogicalHeight;
-                            var adjacent = (float)Math.Cos(angleInRadiansAbsolute) * hypotenuse;
-                            var opposite = (float)Math.Sin(angleInRadiansAbsolute) * hypotenuse;
-                            worldLogicalX -= opposite;
-                            worldLogicalY = (lineModel.WorldOrigin.Y + lineModel.WorldHeight) -
-                                            adjacent;
-                        }
+                        // Ok, we are jutting up from the bottom by the amount of worldLogicalHeight
+                        worldLogicalY = (lineModel.WorldOrigin.Y + lineModel.WorldHeight) -           // (see diagram) Start at the top of the bottom line
+                                        (obstacleModel.WorldHeight - worldLogicalHeight);             // then drop down by the remainder of the world height after removing the logical height
                     }
                     else if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
                     {
-                        if (pageObstaclesEntity.LogicalAngle > 0)
+                        worldLogicalY = (lineModel.WorldOrigin.Y + this._pageCache.CurrentPageModel.WorldLineSpacing) +   // (see diagram) Start at the bottom of the top line
+                                        (obstacleModel.WorldHeight - worldLogicalHeight);                                 // then move up by the remainder of the world height after removing logical height
+                    }
+
+                    // Add in x and y adjustments if rotating (angle will be specified as 0 degrees if not rotated)
+                    // Reference:
+                    // http://www.mathsisfun.com/sine-cosine-tangent.html
+                    // and see diagrams
+                    var angleInRadians = MathHelper.ToRadians(pageObstaclesEntity.LogicalAngle);
+                    if (angleInRadians != 0)
+                    {
+                        if (obstacleModel.TheObstacleType == ObstacleType.SimpleBottom)
                         {
-                            var hypotenuse = obstacleModel.WorldHeight - worldLogicalHeight;
-                            var adjacent = (float)Math.Cos(angleInRadians) * hypotenuse;
-                            var opposite = (float)Math.Sin(angleInRadians) * hypotenuse;
-                            worldLogicalX -= opposite;
-                            worldLogicalY = (lineModel.WorldOrigin.Y + this._pageCache.CurrentPageModel.WorldLineSpacing) +
-                                            adjacent;
+                            if (pageObstaclesEntity.LogicalAngle > 0)
+                            {
+                                var hypotenuse = obstacleModel.WorldHeight - worldLogicalHeight;
+                                var adjacent = (float)Math.Cos(angleInRadians) * hypotenuse;
+                                var opposite = (float)Math.Sin(angleInRadians) * hypotenuse;
+                                worldLogicalX += opposite;
+                                worldLogicalY = (lineModel.WorldOrigin.Y + lineModel.WorldHeight) -
+                                                 adjacent;
+                            }
+                            else
+                            {
+                                var angleInRadiansAbsolute = MathHelper.ToRadians(Math.Abs(pageObstaclesEntity.LogicalAngle));
+                                var hypotenuse = obstacleModel.WorldHeight - worldLogicalHeight;
+                                var adjacent = (float)Math.Cos(angleInRadiansAbsolute) * hypotenuse;
+                                var opposite = (float)Math.Sin(angleInRadiansAbsolute) * hypotenuse;
+                                worldLogicalX -= opposite;
+                                worldLogicalY = (lineModel.WorldOrigin.Y + lineModel.WorldHeight) -
+                                                adjacent;
+                            }
                         }
-                        else
+                        else if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
                         {
-                            var angleInRadiansAbsolute = MathHelper.ToRadians(Math.Abs(pageObstaclesEntity.LogicalAngle));
-                            var hypotenuse = obstacleModel.WorldHeight - worldLogicalHeight;
-                            var adjacent = (float)Math.Cos(angleInRadiansAbsolute) * hypotenuse;
-                            var opposite = (float)Math.Sin(angleInRadiansAbsolute) * hypotenuse;
-                            worldLogicalX += opposite;
-                            worldLogicalY = (lineModel.WorldOrigin.Y + this._pageCache.CurrentPageModel.WorldLineSpacing) +
-                                            adjacent;
+                            if (pageObstaclesEntity.LogicalAngle > 0)
+                            {
+                                var hypotenuse = obstacleModel.WorldHeight - worldLogicalHeight;
+                                var adjacent = (float)Math.Cos(angleInRadians) * hypotenuse;
+                                var opposite = (float)Math.Sin(angleInRadians) * hypotenuse;
+                                worldLogicalX -= opposite;
+                                worldLogicalY = (lineModel.WorldOrigin.Y + this._pageCache.CurrentPageModel.WorldLineSpacing) +
+                                                adjacent;
+                            }
+                            else
+                            {
+                                var angleInRadiansAbsolute = MathHelper.ToRadians(Math.Abs(pageObstaclesEntity.LogicalAngle));
+                                var hypotenuse = obstacleModel.WorldHeight - worldLogicalHeight;
+                                var adjacent = (float)Math.Cos(angleInRadiansAbsolute) * hypotenuse;
+                                var opposite = (float)Math.Sin(angleInRadiansAbsolute) * hypotenuse;
+                                worldLogicalX += opposite;
+                                worldLogicalY = (lineModel.WorldOrigin.Y + this._pageCache.CurrentPageModel.WorldLineSpacing) +
+                                                adjacent;
+                            }
                         }
                     }
-                }
 
-                // Adjust our depth such that the obstacle will be placed out of sight.
-                // Obstacled will be animated forward in ProcessNextLine()
-                var translatedZ = -this._pageCache.PageDepthFromCameraStart - (0.5f * this._pageCache.CurrentPageModel.WorldDepth);
+                    // Adjust our depth such that the obstacle will be placed out of sight.
+                    // Obstacled will be animated forward in ProcessNextLine()
+                    var translatedZ = -this._pageCache.PageDepthFromCameraStart - (0.5f * this._pageCache.CurrentPageModel.WorldDepth);
 
-                // Ok, we can now create our translation matrix
-                var translateMatrix = Matrix.CreateTranslation(new Vector3(
-                    worldLogicalX,                                      // 1. World X position with all adjustments as needed
-                    worldLogicalY,                                        // 2. World Y position with all adjustments as needed
-                    translatedZ));                                      // 3. World Z position tucked back out of sight, will be animated foward in ProcessNextLine()
+                    // Ok, we can now create our translation matrix
+                    var translateMatrix = Matrix.CreateTranslation(new Vector3(
+                        worldLogicalX,                                      // 1. World X position with all adjustments as needed
+                        worldLogicalY,                                        // 2. World Y position with all adjustments as needed
+                        translatedZ));                                      // 3. World Z position tucked back out of sight, will be animated foward in ProcessNextLine()
 
-                // Construct rotation matrix (angle will be specified as 0 degrees if not rotated)
-                if (obstacleModel.TheObstacleType == ObstacleType.SimpleBottom)
-                {
-                    obstacleModel.RotationMatrix = Matrix.CreateRotationZ(angleInRadians);
-                }
-                else if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
-                {
-                    // IMPORTANT: See diagrams to understand what is going on here
-                    // IMPORTANT: This will change the origin and affect positioning. Orign depth will now be in back instead of in front.
-                    obstacleModel.RotationMatrix = Matrix.CreateRotationZ(-angleInRadians) * Matrix.CreateRotationX(Microsoft.Xna.Framework.MathHelper.ToRadians(180));
+                    // Construct rotation matrix (angle will be specified as 0 degrees if not rotated)
+                    if (obstacleModel.TheObstacleType == ObstacleType.SimpleBottom)
+                    {
+                        obstacleModel.RotationMatrix = Matrix.CreateRotationZ(angleInRadians);
+                    }
+                    else if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
+                    {
+                        // IMPORTANT: See diagrams to understand what is going on here
+                        // IMPORTANT: This will change the origin and affect positioning. Orign depth will now be in back instead of in front.
+                        obstacleModel.RotationMatrix = Matrix.CreateRotationZ(-angleInRadians) * Matrix.CreateRotationX(Microsoft.Xna.Framework.MathHelper.ToRadians(180));
 
-                    /* Leaving this in here in case we need to return to first attempt's implementation where we moved to origin, then did flip, then translated back.:
-                    // IMPORTANT: We need to flip our model. To do this we
-                    //            1. Translate model to the origin
-                    //            2. Scale as normal
-                    //            3. Peform flip (TODO: Account for rotation)
-                    //            4. Translate model back to position before translating to origin
-                    //            5. Translate as normal
-                    // IMPORTANT: This will change the origin and affect positioning. Orign depth will now be in back instead of in front.
-                    //
-                    Matrix.CreateTranslation(
-                        -obstacleModel.TheModelEntity.ModelWidth / 2, 
-                        -obstacleModel.TheModelEntity.ModelHeight/2, 
-                        obstacleModel.TheModelEntity.ModelDepth/2) *
-                        scaleMatrix * 
-                    obstacleModel.RotationMatrix *
-                    Matrix.CreateTranslation(
-                        obstacleModel.WorldWidth / 2, 
-                        obstacleModel.WorldHeight / 2, 
-                       obstacleModel.WorldWidth / 2) *
-                   translateMatrix;
-                   */
+                        /* Leaving this in here in case we need to return to first attempt's implementation where we moved to origin, then did flip, then translated back.:
+                        // IMPORTANT: We need to flip our model. To do this we
+                        //            1. Translate model to the origin
+                        //            2. Scale as normal
+                        //            3. Peform flip (TODO: Account for rotation)
+                        //            4. Translate model back to position before translating to origin
+                        //            5. Translate as normal
+                        // IMPORTANT: This will change the origin and affect positioning. Orign depth will now be in back instead of in front.
+                        //
+                        Matrix.CreateTranslation(
+                            -obstacleModel.TheModelEntity.ModelWidth / 2, 
+                            -obstacleModel.TheModelEntity.ModelHeight/2, 
+                            obstacleModel.TheModelEntity.ModelDepth/2) *
+                            scaleMatrix * 
+                        obstacleModel.RotationMatrix *
+                        Matrix.CreateTranslation(
+                            obstacleModel.WorldWidth / 2, 
+                            obstacleModel.WorldHeight / 2, 
+                           obstacleModel.WorldWidth / 2) *
+                       translateMatrix;
+                       */
 
-                }
+                    }
 
-                // Scale, rotate and translate our model
-                obstacleModel.WorldMatrix =
-                    scaleMatrix *                   // 1. Scale
-                    obstacleModel.RotationMatrix *  // 2. Rotate
-                    translateMatrix;                // 3. Translate
+                    // Scale, rotate and translate our model
+                    obstacleModel.WorldMatrix =
+                        scaleMatrix *                   // 1. Scale
+                        obstacleModel.RotationMatrix *  // 2. Rotate
+                        translateMatrix;                // 3. Translate
 
-                // Now that we have the obstacle positioned correctly, construct an appropriate clipping plane to use
-                // if (obstacleModel.TheObstacleType == ObstacleType.SimpleBottom)
-                // {
                     // Clip everything below top of bottom line
                     var bottomDistance = lineModel.WorldOrigin.Y + lineModel.WorldHeight;
                     obstacleModel.BottomClippingPlane = new Vector4(Vector3.Up, -bottomDistance);
-                // }
-                // else if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
-                // {
+                    
                     // Clip everything above bottom of top line
                     var topDistance = lineModel.WorldOrigin.Y + this._pageCache.CurrentPageModel.WorldLineSpacing;
                     obstacleModel.TopClippingPlane = new Vector4(Vector3.Down, topDistance);
-                // }
+                    
+                    // Uniquely identify character for octree
+                    obstacleModel.ModelID = pageObstaclesEntity.ObstacleNumber;
 
-                // Uniquely identify character for octree
-                obstacleModel.ModelID = pageObstaclesEntity.ObstacleNumber;
+                    // Record to our staged collection
+                    obstacleModels.Add(obstacleModel);
 
-                // Record to our staged collection
-                obstacleModels.Add(obstacleModel);
+                    // IMPORTANT: Only add/remove physics in ProcessNextLine()/ProcessObstaclePhysics
 
-                // IMPORTANT: Only add/remove physics in ProcessNextLine()/ProcessObstaclePhysics
-
+                }
             }
 
-            this._loadContentThreadResults.Enqueue(loadContentThreadArgs);
+            if (loadContentAsyncType == LoadContentAsyncType.Cache ||
+                loadContentAsyncType == LoadContentAsyncType.Initialize ||
+                loadContentAsyncType == LoadContentAsyncType.Refresh)
+            {
+                this._loadContentThreadCache.Add(loadContentThreadArgs);
+            }
+            else
+            {
+                this._loadContentThreadResults.Enqueue(loadContentThreadArgs);
+            }
+
         }
 
         // Migrate staged collection in args to public collection
         private void ProcessLoadContentAsync(LoadContentThreadArgs loadContentThreadArgs)
         {
-            // If we are moving to first/next page, clear out previous page
-            if (this._currentLineNumber == 1)
+            switch (loadContentThreadArgs.TheLoadContentAsyncType)
             {
-                // Remove all previous obstacle models from our drawing filter
-                // and remove all previous obstacle physics
-                foreach (var obstacleModel in this.ObstacleModels.ToList())
-                {
-                    this._ocTreeRoot.RemoveModel(obstacleModel.ModelID);
-
-                    if (obstacleModel.PhysicsEntity != null &&
-                        obstacleModel.PhysicsEntity.Space != null)
+                case LoadContentAsyncType.Initialize:
+                case LoadContentAsyncType.Refresh:
                     {
-                        this._physicsManager.TheSpace.Remove(obstacleModel.PhysicsEntity);
+                        // Remove all previous obstacle models from our drawing filter
+                        // and remove all previous obstacle physics
+                        foreach (var obstacleModel in this.ObstacleModels.ToList())
+                        {
+                            this._ocTreeRoot.RemoveModel(obstacleModel.ModelID);
+
+                            if (obstacleModel.PhysicsEntity != null &&
+                                obstacleModel.PhysicsEntity.Space != null)
+                            {
+                                this._physicsManager.TheSpace.Remove(obstacleModel.PhysicsEntity);
+                            }
+
+                            // Remove all previous animations for this model
+                            obstacleModel.ModelActionManager.RemoveAllActionsFromTarget(obstacleModel);
+                        }
+
+                        // Clear out the full set of previous models
+                        this.ObstacleModels.Clear();
+
+                        // And clear out any on-going display particle effects
+                        this._particleEffectCache.TerminateAllObstacleEffects();
+
+                        // Finally, dispose of all XNA resources
+                        foreach (var key in this.ContentManagers.Keys)
+                        {
+                            this.ContentManagers[key].Unload();
+                            this.ContentManagers[key].Dispose();
+                        }
+                        this.ContentManagers.Clear();
+
+                        break;
+                    }
+                case LoadContentAsyncType.Next:
+                    {
+                        // Remove all previous obstacle models from our drawing filter
+                        // and remove all previous obstacle physics
+                        var lineToRemove = this._currentLineNumber - 2;
+                        if (lineToRemove > 0)
+                        {
+                            var obstacleModels = this.ObstacleModels
+                                                 .Where(x => x.ThePageObstaclesEntity.LineNumber == lineToRemove)
+                                                 .ToList();
+
+                            foreach (var obstacleModel in obstacleModels)
+                            {
+                                this._ocTreeRoot.RemoveModel(obstacleModel.ModelID);
+
+                                if (obstacleModel.PhysicsEntity != null &&
+                                    obstacleModel.PhysicsEntity.Space != null)
+                                {
+                                    this._physicsManager.TheSpace.Remove(obstacleModel.PhysicsEntity);
+                                }
+
+                                // Remove all previous animations for this model
+                                obstacleModel.ModelActionManager.RemoveAllActionsFromTarget(obstacleModel);
+
+                                this.ObstacleModels.Remove(obstacleModel);
+                            }
+
+                            // Clear out any on-going display particle effects
+                            this._particleEffectCache.TerminateAllObstacleEffects();
+
+                            // Finally, dispose of all XNA resources
+                            this.ContentManagers[lineToRemove].Unload();
+                            this.ContentManagers[lineToRemove].Dispose();
+                            this.ContentManagers.Remove(lineToRemove);
+                        }
+
+                        break;
                     }
 
-                }
+            }
 
-                // And clear out the full set of previous models
-                this.ObstacleModels.Clear();
+            // Populate our public content managers from our staged collection
+            foreach(var contentManagerAsync in loadContentThreadArgs.ContentManagersAsync)
+            {
+                this.ContentManagers[contentManagerAsync.Key] = contentManagerAsync.Value;
             }
 
             // Populate our public model collections from our staged collections
@@ -938,7 +1052,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             // up to 6th page where we top out at 50% frequency of assigning an animation to an obstacle
             // (Tip: Map out several current page numbers to see how this works
             // TESTING: Comment out below for testing
-            var exclusiveUpperBound  = 3;
+            var exclusiveUpperBound = 3;
             var divisor = 2;
             if (this._currentPageNumber < 7)
             {
@@ -961,7 +1075,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             if (!string.IsNullOrEmpty(currentObstacle.ThePageObstaclesEntity.DisplayParticle))
             {
                 particleAction = new CallFunc( () =>
-                      this._particleEffectCache.AddDisplayParticleEffect(currentObstacle)
+                      this._particleEffectCache.AddDisplayParticleEffect(currentObstacle, this.ContentManagers[this._currentLineNumber])
                     );
             }
 

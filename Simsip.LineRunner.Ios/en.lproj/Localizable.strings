@@ -89,3 +89,7 @@
 "HelpHud"="hud";
 "HelpLeaderboards"="see your top scores";
 "HelpSound"="turn sound off and on";
+"UpgradesTitle"="upgrades";
+"UpgradesPractice"="practice mode";
+"UpgradesPracticeDesc1"="jump to any page and line";
+"UpgradesPracticeDesc2"="turn kills off";

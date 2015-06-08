@@ -1702,6 +1702,18 @@
     <Compile Include="..\Simsip.LineRunner.Core\Data\Groupme\IGroupmeUserRepository.cs">
       <Link>Data\Groupme\IGroupmeUserRepository.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Data\InApp\IInAppPurchaseRepository.cs">
+      <Link>Data\InApp\IInAppPurchaseRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Data\InApp\IInAppSkuRepository.cs">
+      <Link>Data\InApp\IInAppSkuRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Data\InApp\InAppPurchaseRepository.cs">
+      <Link>Data\InApp\InAppPurchaseRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Data\InApp\InAppSkuRepository.cs">
+      <Link>Data\InApp\InAppSkuRepository.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Data\LineRunner\CharacterRepository.cs">
       <Link>Data\LineRunner\CharacterRepository.cs</Link>
     </Compile>
@@ -1947,6 +1959,12 @@
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Entities\Groupme\GroupmeUserEntity.cs">
       <Link>Entities\Groupme\GroupmeUserEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Entities\InApp\InAppPurchaseEntity.cs">
+      <Link>Entities\InApp\InAppPurchaseEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Entities\InApp\InAppSkuEntity.cs">
+      <Link>Entities\InApp\InAppSkuEntity.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Entities\LineRunner\CharacterEntity.cs">
       <Link>Entities\LineRunner\CharacterEntity.cs</Link>
@@ -2650,6 +2668,9 @@
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Options\OptionsPage3Layer.cs">
       <Link>Scenes\Options\OptionsPage3Layer.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Options\OptionsPracticeLayer.cs">
+      <Link>Scenes\Options\OptionsPracticeLayer.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Pads\PadsLayer.cs">
       <Link>Scenes\Pads\PadsLayer.cs</Link>
     </Compile>
@@ -2667,6 +2688,12 @@
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\UILayer.cs">
       <Link>Scenes\UILayer.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Upgrades\UpgradesMasterLayer.cs">
+      <Link>Scenes\Upgrades\UpgradesMasterLayer.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Upgrades\UpgradesPage1Layer.cs">
+      <Link>Scenes\Upgrades\UpgradesPage1Layer.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Worlds\WorldsLayer.cs">
       <Link>Scenes\Worlds\WorldsLayer.cs</Link>
@@ -2730,6 +2757,12 @@
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Services\Groupme\IGroupmeGroupService.cs">
       <Link>Services\Groupme\IGroupmeGroupService.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Services\Inapp\IInappService.cs">
+      <Link>Services\Inapp\IInappService.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Services\Inapp\InappService.cs">
+      <Link>Services\Inapp\InappService.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Services\OAuth\IOAuthService.cs">
       <Link>Services\OAuth\IOAuthService.cs</Link>

@@ -21,7 +21,7 @@ namespace Simsip.LineRunner.Physics
             : base(game)
         {
             // Register as service
-            this.Game.Services.AddService(typeof(IPhysicsManager), this); // export service.   
+            this.Game.Services.AddService(typeof(IPhysicsManager), this);
 
             // IMPORTANT: We initialize our physics space here as other service Initialize() functions
             // may depend on this already being in place (e.g., InputManager)

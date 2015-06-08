@@ -413,10 +413,11 @@ namespace Simsip.LineRunner.Scenes.Action
         private void LoadContentAsyncFinishedHandler(object sender, LoadContentAsyncFinishedEventArgs args)
         {
             // We only want to react to a refresh event
-            if (args.TheLoadContentAsyncType == LoadContentAsyncType.Initialize)
+            if (args.TheLoadContentAsyncType == LoadContentAsyncType.Cache ||
+                args.TheLoadContentAsyncType == LoadContentAsyncType.Initialize)
             {
                 // Unhook so we are a one-shot event handler
-                this._characterCache.LoadContentAsyncFinished -= this.LoadContentAsyncFinishedHandler;
+                this._obstacleCache.LoadContentAsyncFinished -= this.LoadContentAsyncFinishedHandler;
 
                 this._handlingKill = false;
 
@@ -505,7 +506,7 @@ namespace Simsip.LineRunner.Scenes.Action
                         //
                         // Currently, a complete flyby is important as it will position hero
                         // correctly for a clean start
-                        this._parent.TheStartPage1Layer.EnableStart(true);
+                        this._parent.TheStartLayer.EnableStart(true);
 
                         break;
                     }
@@ -547,7 +548,10 @@ namespace Simsip.LineRunner.Scenes.Action
             }
 
             // Play particle effect animation
-            this._particleCache.AddHitParticleEffect(e.TheObstacleModel, e.TheObstacleModel.TheContact);
+            this._particleCache.AddHitParticleEffect(
+                e.TheObstacleModel, 
+                e.TheObstacleModel.TheContact, 
+                this._obstacleCache.ContentManagers[this._currentLineNumber]);
 
             // Play glow animation
             var glowUpAction = new TintTo(GameConstants.DURATION_OBSTACLE_GLOW, Microsoft.Xna.Framework.Color.White, 0.1f);
@@ -591,7 +595,10 @@ namespace Simsip.LineRunner.Scenes.Action
             }
 
             // Play particle effect animation
-            this._particleCache.AddHitParticleEffect(e.TheLineModel, e.TheLineModel.TheContact);
+            this._particleCache.AddHitParticleEffect(
+                e.TheLineModel, 
+                e.TheLineModel.TheContact,
+                this._obstacleCache.ContentManagers[this._currentLineNumber]);
 
             // Play glow animation
             var glowUpAction = new TintTo(GameConstants.DURATION_OBSTACLE_GLOW, Microsoft.Xna.Framework.Color.White, 0.1f);
@@ -628,29 +635,6 @@ namespace Simsip.LineRunner.Scenes.Action
         #endregion
 
         #region CCLayer Framework Overrides
-
-        /*
-        public override bool Init()
-        {
-            if (!base.Init())
-            {
-                return false;
-            }
-
-            // Set state
-            this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-            this._currentLineNumber = 1;
-            this._currentGameState = GameState.None;
-
-            // Dummy up an XNA gametime for us convert Cocos2d times into
-            this._gameTime = new GameTime();
-
-            // Schedule Update/Draw to be called
-            this.ScheduleUpdate();
-
-            return true;
-        }
-        */
 
         public override void Update(float dt)
         {
@@ -1063,7 +1047,7 @@ namespace Simsip.LineRunner.Scenes.Action
         {
             // Hook up an event handler for end of content loading caused by
             // moving to start kicking off background load
-            this._characterCache.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
+            this._obstacleCache.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
 
             // Now go for the async load
             this.SwitchState(GameState.MovingToStart);

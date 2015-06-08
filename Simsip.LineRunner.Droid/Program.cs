@@ -17,6 +17,7 @@ using Simsip.LineRunner.Views;
 using Android.Runtime;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Simsip.LineRunner.Services.Inapp;
 
 namespace Simsip.LineRunner
 {
@@ -143,10 +144,28 @@ namespace Simsip.LineRunner
             }
         }
 
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+
+            // Ask the open service connection's billing handler to process this request
+            var inappService = (IInappService)TheGame.SharedGame.Services.GetService(typeof(IInappService));
+            if (inappService != null)
+            {
+                inappService.HandleActivityResult(requestCode, resultCode, data);
+            }
+        }
+
         protected override void OnDestroy()
         {
             // Destroy the AdView.
             Ad.Destroy();
+
+            // If we are attached to the Google Play Service then disconnect
+            var inappService = (IInappService)TheGame.SharedGame.Services.GetService(typeof(IInappService));
+            if (inappService != null)
+            {
+                inappService.OnDestroy();
+            }
 
             base.OnDestroy();
         }

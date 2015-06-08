@@ -62,8 +62,12 @@ namespace Engine.Interface
 
         protected override void LoadContent()
         {
-            this._crosshairNormalTexture = this._assetManager.GetTexture(Asset.CrossHairNormalTexture);
-            this._crosshairShovelTexture = this._assetManager.GetTexture(Asset.CrossHairShovelTexture);
+            this._crosshairNormalTexture = this._assetManager.GetTexture(
+                Asset.CrossHairNormalTexture,
+                Engine.Core.Engine.Instance.TheCustomContentManager);
+            this._crosshairShovelTexture = this._assetManager.GetTexture(
+                Asset.CrossHairShovelTexture,
+                Engine.Core.Engine.Instance.TheCustomContentManager);
         }
 
         public override void Draw(GameTime gameTime)

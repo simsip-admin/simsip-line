@@ -91,4 +91,8 @@
   <string name="HelpHud">hud</string>
   <string name="HelpLeaderboards">see your top scores</string>
   <string name="HelpSound">turn sound off and on</string>
+  <string name="UpgradesTitle">upgrades</string>
+  <string name="UpgradesPractice">practice mode</string>
+  <string name="UpgradesPracticeDesc1">jump to any page and line</string>
+  <string name="UpgradesPracticeDesc2">turn kills off</string>
 </resources>

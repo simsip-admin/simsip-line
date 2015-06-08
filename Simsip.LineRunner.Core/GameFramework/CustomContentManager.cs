@@ -1,6 +1,8 @@
 
 using System;
 using Microsoft.Xna.Framework.Content;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Simsip.LineRunner.GameFramework
 {
@@ -21,11 +23,19 @@ namespace Simsip.LineRunner.GameFramework
     {
         public CustomContentManager(IServiceProvider serviceProvider, string rootDirectory)
             : base(serviceProvider, rootDirectory)
-        { }
+        {
+            OriginalEffectsDictionary = new Dictionary<string, IList<BasicEffect>>();
+        }
 
         public  T ReadAsset<T>(string assetName)
         {
             return base.ReadAsset<T>(assetName, null);
         }
+
+        /// <summary>
+        /// Allows us to remove a set of original effects for when we are
+        /// refreshing.
+        /// </summary>
+        public Dictionary<string, IList<BasicEffect>> OriginalEffectsDictionary { get; private set; }
     }
 }

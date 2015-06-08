@@ -12,6 +12,7 @@ using Simsip.LineRunner.GameObjects.Pages;
 using System.Diagnostics;
 using BEPUutilities;
 using Simsip.LineRunner.GameObjects.Characters;
+using Simsip.LineRunner.GameFramework;
 
 
 namespace Simsip.LineRunner.GameObjects.ParticleEffects
@@ -166,7 +167,7 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
             return particleEffectDescs;
         }
 
-        public static ParticleEffect Create(ParticleEffectDesc particleEffectDesc)
+        public static ParticleEffect Create(ParticleEffectDesc particleEffectDesc, CustomContentManager customContentManager)
         {
             ParticleEffect particleEffect = null;
             switch(particleEffectDesc.TheParticleEffectType)
@@ -270,7 +271,8 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
                     }
             }
 
-            particleEffect.LoadContent(TheGame.SharedGame.Content);
+            particleEffect.LoadContent(customContentManager);
+
             particleEffect.Initialise();
 
             return particleEffect;

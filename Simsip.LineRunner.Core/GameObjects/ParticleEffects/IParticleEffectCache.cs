@@ -33,13 +33,25 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
         /// Depending on an admin setting, we may skip creating the particle effect.
         /// </summary>
         /// <param name="obstacleModel">The model that is to be displayed.</param>
-        void AddDisplayParticleEffect(GameModel gameModel);
+        void AddDisplayParticleEffect(GameModel gameModel, CustomContentManager customContentManager);
+
+        /// <summary>
+        /// Immediately terminate all particle effects that are running for obstacles.
+        /// 
+        /// (e.g., display and hit)
+        /// </summary>
+        void TerminateAllObstacleEffects();
+
+        /// <summary>
+        /// Immediately terminate all particle effects for the finish scene.
+        /// </summary>
+        void TerminateAllFinishEffects();
 
         /// <summary>
         /// Used to add particle effects when displaying the finish screen.
         /// </summary>
         /// <param name="particleEffectDescs"></param>
-        void AddFinishParticleEffect(IList<ParticleEffectDesc> particleEffectDescs);
+        void AddFinishParticleEffect(IList<ParticleEffectDesc> particleEffectDescs, CustomContentManager customContentManager);
 
         /// <summary>
         /// Called from our b2ContactListener whenever we hit a game object that causes
@@ -48,6 +60,6 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
         /// Depending on an admin setting, we may skip creating the particle effect.
         /// </summary>
         /// <param name="obstacleModel">The model that was hit.</param>
-        void AddHitParticleEffect(GameModel gameModel, Contact theContact);
+        void AddHitParticleEffect(GameModel gameModel, Contact theContact, CustomContentManager customContentManager);
     }
 }

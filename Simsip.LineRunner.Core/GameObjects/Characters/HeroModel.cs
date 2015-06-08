@@ -50,15 +50,29 @@ namespace Simsip.LineRunner.GameObjects.Characters
         private float ANGLE_UPPER_LIMIT = 30f;
         private float ANGLE_LOWER_LIMIT = -30f;
 
-        public HeroModel(CharacterEntity characterEntity, PageCharactersEntity pageCharactersEntity)
+        // Allows us to control if we will allow a cached version of this model
+        // to be retrieved from AssetManager
+        private bool _allowCached;
+
+        public HeroModel(CharacterEntity characterEntity, PageCharactersEntity pageCharactersEntity, CustomContentManager customContentManager, bool allowCached=true)
         {
             TheCharacterEntity = characterEntity;
             ThePageCharactersEntity = pageCharactersEntity;
+
+            this.TheCustomContentManager = customContentManager;
+
+            this._allowCached = allowCached;
 
             this.Initialize();
         }
 
         #region Properties
+
+        /// <summary>
+        /// Controls loading and unloading of XNA resources for this line and the obstacles
+        /// contained by this line.
+        /// </summary>
+        public CustomContentManager TheCustomContentManager { get; private set; }
 
         /// <summary>
         /// A value calculated upon loading our hero that will position the hero exactly
@@ -104,7 +118,11 @@ namespace Simsip.LineRunner.GameObjects.Characters
                     {
                         TheModelEntity = modelRepository.GetModel(TheCharacterEntity.ModelName);
                         var modelNameToLoad = string.IsNullOrEmpty(TheModelEntity.ModelAlias) ? TheModelEntity.ModelName : TheModelEntity.ModelAlias;
-                        XnaModel = _assetManager.GetModel(modelNameToLoad, ModelType.Character);
+                        XnaModel = _assetManager.GetModel(
+                            modelNameToLoad, 
+                            ModelType.Character,
+                            this.TheCustomContentManager,
+                            this._allowCached);
                         break;
                     }
                 default:
@@ -118,17 +136,27 @@ namespace Simsip.LineRunner.GameObjects.Characters
             XnaModel.CopyAbsoluteBoneTransformsTo(_modelTransforms);
 
             // Did we do our initial load of the original effects for this model name?
-            if (!GameModel._originalEffectsDictionary.ContainsKey(TheCharacterEntity.ModelName))
+            // IMPORTANT: Note if we are not allowing a cached version of this model
+            //            to be used (e.g, displaying on options page), then we
+            //            allways pull a new set of effects.
+            if (this._allowCached)
             {
-                // Ok, let's get the original effects stored away for this model name
-                GameModel._originalEffectsDictionary[TheCharacterEntity.ModelName] =
-                    XNAUtils.GetOriginalEffects(this.XnaModel);
-            }
+                if (!this.TheCustomContentManager.OriginalEffectsDictionary.ContainsKey(TheCharacterEntity.ModelName))
+                {
+                    // Ok, let's get the original effects stored away for this model name
+                    this.TheCustomContentManager.OriginalEffectsDictionary[TheCharacterEntity.ModelName] =
+                        XNAUtils.GetOriginalEffects(this.XnaModel);
+                }
 
-            // Safe to proceed and grab the original effects based on the model name, 
-            // critical for referencing original texture, etc.
-            this._originalEffects =
-                GameModel._originalEffectsDictionary[TheCharacterEntity.ModelName];
+                // Safe to proceed and grab the original effects based on the model name, 
+                // critical for referencing original texture, etc.
+                this._originalEffects =
+                    this.TheCustomContentManager.OriginalEffectsDictionary[TheCharacterEntity.ModelName];
+            }
+            else
+            {
+                this._originalEffects = XNAUtils.GetOriginalEffects(this.XnaModel);
+            }
 
             // Do we have any texture overrides?
             this._textureOverrides = new List<Texture2D>();
@@ -136,7 +164,11 @@ namespace Simsip.LineRunner.GameObjects.Characters
             var textureEntities = textureRepository.GetTextures(TheModelEntity.ModelName);
             foreach (var textureEntity in textureEntities)
             {
-                var texture = this._assetManager.GetModelTexture(TheModelEntity.ModelName, ModelType.Character, textureEntity.TextureName);
+                var texture = this._assetManager.GetModelTexture(
+                    TheModelEntity.ModelName, 
+                    ModelType.Character, 
+                    textureEntity.TextureName,
+                    this.TheCustomContentManager);
                 this._textureOverrides.Add(texture);
             }
 

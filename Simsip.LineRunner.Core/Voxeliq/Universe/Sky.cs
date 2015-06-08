@@ -98,7 +98,9 @@ namespace Engine.Universe
 
             // Load maps.
             // this._cloudMap = this._assetManager.GetTexture(Asset.CloudMapTexture);
-            this._starMap = this._assetManager.GetTexture(Asset.StarMapTexture);
+            this._starMap = this._assetManager.GetTexture(
+                Asset.StarMapTexture,
+                Engine.Core.Engine.Instance.TheCustomContentManager);
 
             // For gpu generated clouds.
             this._perlinNoiseEffect = this._assetManager.GetEffect(Asset.PerlinNoiseEffect);

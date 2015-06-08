@@ -782,6 +782,42 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to practice mode.
+        /// </summary>
+        public static string UpgradesPractice {
+            get {
+                return ResourceManager.GetString("UpgradesPractice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to jump to any page and line.
+        /// </summary>
+        public static string UpgradesPracticeDesc1 {
+            get {
+                return ResourceManager.GetString("UpgradesPracticeDesc1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to turn kills off.
+        /// </summary>
+        public static string UpgradesPracticeDesc2 {
+            get {
+                return ResourceManager.GetString("UpgradesPracticeDesc2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to upgrades.
+        /// </summary>
+        public static string UpgradesTitle {
+            get {
+                return ResourceManager.GetString("UpgradesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to default.
         /// </summary>
         public static string WorldsDefault {

@@ -93,5 +93,9 @@
         public static string HelpHud = "HelpHud";
         public static string HelpLeaderboards = "HelpLeaderboards";
         public static string HelpSound = "HelpSound";
+        public static string UpgradesTitle = "UpgradesTitle";
+        public static string UpgradesPractice = "UpgradesPractice";
+        public static string UpgradesPracticeDesc1 = "UpgradesPracticeDesc1";
+        public static string UpgradesPracticeDesc2 = "UpgradesPracticeDesc2";
     }
 }

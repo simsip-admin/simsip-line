@@ -104,7 +104,7 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
 
         #region IParticleCache Implementation
 
-        public void AddDisplayParticleEffect(GameModel gameModel)
+        public void AddDisplayParticleEffect(GameModel gameModel, CustomContentManager customContentManager)
         {
             // We can turn off particles via an admin setting on the Admin screen
             if (!GameManager.SharedGameManager.AdminIsParticlesAllowed)
@@ -131,7 +131,7 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
                 // Fill out the rest of the fields in the particle effect desc 
                 // for this particle effect
                 particleEffectDesc.TheGameModel = gameModel;
-                particleEffectDesc.TheParticleEffect = ParticleEffectFactory.Create(particleEffectDesc);
+                particleEffectDesc.TheParticleEffect = ParticleEffectFactory.Create(particleEffectDesc, customContentManager);
                 particleEffectDesc.TotalParticleEffectTime = 0f;
             }
 
@@ -139,7 +139,42 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
             this.DisplayParticleEffectEntries[gameModel] = particleEffectDescs;
         }
 
-        public void AddFinishParticleEffect(IList<ParticleEffectDesc> particleEffectDescs)
+        public void TerminateAllObstacleEffects()
+        {
+            var keys = this.DisplayParticleEffectEntries.Keys;
+            foreach (var key in keys)
+            {
+                foreach (var particleEffectDesc in this.DisplayParticleEffectEntries[key])
+                {
+                    particleEffectDesc.TheParticleEffect.Terminate();
+                }
+            }
+            this.DisplayParticleEffectEntries.Clear();
+
+            keys = this.HitParticleEffectEntries.Keys;
+            foreach (var key in keys)
+            {
+                foreach (var particleEffectDesc in this.HitParticleEffectEntries[key])
+                {
+                    particleEffectDesc.TheParticleEffect.Terminate();
+                }
+            }
+            this.HitParticleEffectEntries.Clear();
+        }
+
+        public void TerminateAllFinishEffects()
+        {
+            foreach (var finishParticleEffectEntry in FinishParticleEffectEntries)
+            {
+                foreach (var particleEffectDesc in finishParticleEffectEntry)
+                {
+                    particleEffectDesc.TheParticleEffect.Terminate();
+                }
+            }
+            this.FinishParticleEffectEntries.Clear();
+        }
+
+        public void AddFinishParticleEffect(IList<ParticleEffectDesc> particleEffectDescs, CustomContentManager customContentManager)
         {
             // We can turn off particles via an admin setting on the Admin screen
             if (!GameManager.SharedGameManager.AdminIsParticlesAllowed)
@@ -152,7 +187,7 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
             {
                 // Fill out the rest of the fields in the particle effect desc 
                 // for this particle effect
-                particleEffectDesc.TheParticleEffect = ParticleEffectFactory.Create(particleEffectDesc);
+                particleEffectDesc.TheParticleEffect = ParticleEffectFactory.Create(particleEffectDesc, customContentManager);
                 particleEffectDesc.TotalParticleEffectTime = 0f;
             }
 
@@ -161,7 +196,7 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
 
         }
 
-        public void AddHitParticleEffect(GameModel gameModel, Contact theContact)
+        public void AddHitParticleEffect(GameModel gameModel, Contact theContact, CustomContentManager customContentManager)
         {
             // We can turn off particles via an admin setting on the Admin screen
             if (!GameManager.SharedGameManager.AdminIsParticlesAllowed)
@@ -195,7 +230,7 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
                 // for this particle effect
                 particleEffectDesc.TheGameModel = gameModel;
                 particleEffectDesc.TheContact = theContact;
-                particleEffectDesc.TheParticleEffect = ParticleEffectFactory.Create(particleEffectDesc);
+                particleEffectDesc.TheParticleEffect = ParticleEffectFactory.Create(particleEffectDesc, customContentManager);
                 particleEffectDesc.TotalParticleEffectTime = 0f;
             }
 
