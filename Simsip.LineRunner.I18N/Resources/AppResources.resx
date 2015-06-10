@@ -404,4 +404,46 @@
   <data name="UpgradesPracticeDesc2" xml:space="preserve">
     <value>turn kills off</value>
   </data>
+  <data name="HelpUpgrades" xml:space="preserve">
+    <value>upgrades</value>
+  </data>
+  <data name="HelpUpgradesPractice" xml:space="preserve">
+    <value>practice mode</value>
+  </data>
+  <data name="HelpUpgradesPracticeDesc1" xml:space="preserve">
+    <value>jump to any page and line</value>
+  </data>
+  <data name="HelpUpgradesPracticeDesc2" xml:space="preserve">
+    <value>turn kills off</value>
+  </data>
+  <data name="UpgradesBuy" xml:space="preserve">
+    <value>buy</value>
+  </data>
+  <data name="UpgradesPrice" xml:space="preserve">
+    <value>price</value>
+  </data>
+  <data name="UpgradesPurchasedOn" xml:space="preserve">
+    <value>purchased on</value>
+  </data>
+  <data name="UpgradesRestore" xml:space="preserve">
+    <value>restore</value>
+  </data>
+  <data name="OptionsPracticeKillsOff" xml:space="preserve">
+    <value>kills off</value>
+  </data>
+  <data name="OptionsPracticeKillsOn" xml:space="preserve">
+    <value>kills on</value>
+  </data>
+  <data name="OptionsPracticeStartLine" xml:space="preserve">
+    <value>starting line</value>
+  </data>
+  <data name="OptionsPracticeStartLineDesc" xml:space="preserve">
+    <value>enter line to start on (1-17)</value>
+  </data>
+  <data name="OptionsPracticeStartPage" xml:space="preserve">
+    <value>starting page</value>
+  </data>
+  <data name="OptionsPracticeStartPageDesc" xml:space="preserve">
+    <value>enter page to start on (1-6)</value>
+  </data>
 </root>

@@ -93,3 +93,17 @@
 "UpgradesPractice"="practice mode";
 "UpgradesPracticeDesc1"="jump to any page and line";
 "UpgradesPracticeDesc2"="turn kills off";
+"HelpUpgrades"="upgrades";
+"HelpUpgradesPractice"="practice mode";
+"HelpUpgradesPracticeDesc1"="jump to any page and line";
+"HelpUpgradesPracticeDesc2"="turn kills off";
+"UpgradesBuy"="buy";
+"UpgradesPrice"="price";
+"UpgradesPurchasedOn"="purchased on";
+"UpgradesRestore"="restore";
+"OptionsPracticeKillsOff"="kills off";
+"OptionsPracticeKillsOn"="kills on";
+"OptionsPracticeStartLine"="starting line";
+"OptionsPracticeStartLineDesc"="enter line to start on (1-17)";
+"OptionsPracticeStartPage"="starting page";
+"OptionsPracticeStartPageDesc"="enter page to start on (1-6)";

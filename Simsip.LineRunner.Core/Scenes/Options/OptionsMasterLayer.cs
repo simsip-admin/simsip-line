@@ -2,6 +2,7 @@ using Cocos2D;
 using Microsoft.Xna.Framework;
 using Simsip.LineRunner.Actions;
 using Simsip.LineRunner.Data;
+using Simsip.LineRunner.Data.InApp;
 using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.GameObjects.Pages;
 using Simsip.LineRunner.Resources;
@@ -25,9 +26,8 @@ namespace Simsip.LineRunner.Scenes.Options
         private CCAction _layerActionOut;
 
         // Options pages
-        private OptionsPage1Layer _optionsPage1Layer;
-        private OptionsPage2Layer _optionsPage2Layer;
-        private OptionsPage3Layer _optionsPage3Layer;
+        private IList<CCLayer> _optionsPages;
+        private OptionsPracticeLayer _practicePage;
 
         // Page actions
         private CCAction _pageActionInFromLeft;
@@ -43,9 +43,15 @@ namespace Simsip.LineRunner.Scenes.Options
         private int _currentPage;
         private int _totalPages;
 
+        // Services we'll need
+        private IInAppPurchaseRepository _inAppPurchaseRepository;
+
         public OptionsMasterLayer(CoreScene parent)
         {
             this._parent = parent;
+
+            // Services we'll need
+            this._inAppPurchaseRepository = new InAppPurchaseRepository();
 
             // Get these set up for relative positioning below
             var screenSize = CCDirector.SharedDirector.WinSize;
@@ -157,16 +163,18 @@ namespace Simsip.LineRunner.Scenes.Options
             this.AddChild(versionHeader);
 
             // Pages
-            this._optionsPage1Layer = new OptionsPage1Layer(this._parent, this);
-            this._optionsPage2Layer = new OptionsPage2Layer(this._parent, this);
-            this._optionsPage3Layer = new OptionsPage3Layer(this._parent, this);
-            this.AddChild(this._optionsPage1Layer);
-            this.AddChild(this._optionsPage2Layer);
-            this.AddChild(this._optionsPage3Layer);
-            this._optionsPage2Layer.Visible = false;
-            this._optionsPage3Layer.Visible = false;
+            this._optionsPages = new List<CCLayer>();
+            this._optionsPages.Add(new OptionsPage1Layer(this._parent, this));
+            this._optionsPages.Add(new OptionsPage2Layer(this._parent, this));
+            this._optionsPages.Add(new OptionsPage3Layer(this._parent, this));
+            foreach (var page in this._optionsPages)
+            {
+                this.AddChild(page);
+                page.Visible = false;
+            }
+            this._optionsPages[0].Visible = true;
             this._currentPage = 1;
-            this._totalPages = 3;
+            this._totalPages = this._optionsPages.Count;
 
             // Previous
             var previousNormal = new CCSprite("Images/Icons/PreviousButtonNormal.png");
@@ -241,6 +249,22 @@ namespace Simsip.LineRunner.Scenes.Options
             // Animate layer
             this.RunAction(this._layerActionIn);
 
+            this._currentPage = 1;
+
+            // Determine if upgrade practice mode was purchased
+            var practicePurchase =
+                this._inAppPurchaseRepository.GetPurchaseByProductId(this._inAppPurchaseRepository.PracticeModeProductId);
+            if (practicePurchase != null)
+            {
+                // OK, we have the purchase, do we need to insert into our pages?
+                if (this._practicePage == null)
+                {
+                    this._practicePage = new OptionsPracticeLayer(this._parent, this);
+                    this._optionsPages.Insert(0, this._practicePage);
+                    this._totalPages = this._optionsPages.Count;
+                }
+            }
+
             // Determine which navigation ui to show
             // Note: Page visibility is handled in previous/next event handlers below
             UpdatePageNavigationUI();
@@ -263,31 +287,12 @@ namespace Simsip.LineRunner.Scenes.Options
             this.UpdatePageNavigationUI();
 
             // Determine exiting/incoming layers
-            CCLayer exitingLayer = null;
-            CCLayer incomingLayer = null;
-            switch (this._currentPage)
-            {
-                case 1:
-                    {
-                        exitingLayer = this._optionsPage2Layer;
-                        incomingLayer = this._optionsPage1Layer;
-                        break;
-                    }
-                case 2:
-                    {
-                        exitingLayer = this._optionsPage3Layer;
-                        incomingLayer = this._optionsPage2Layer;
-                        break;
-                    }
-            }
+            var exitingLayer = this._optionsPages[this._currentPage];
+            var incomingLayer = this._optionsPages[this._currentPage - 1];
 
             // Animate page transition
-            if (exitingLayer != null &&
-                incomingLayer != null)
-            {
-                exitingLayer.RunAction(this._pageActionOutToRight);
-                incomingLayer.RunAction(this._pageActionInFromLeft);
-            }
+            exitingLayer.RunAction(this._pageActionOutToRight);
+            incomingLayer.RunAction(this._pageActionInFromLeft);
         }
 
         private void Next()
@@ -303,31 +308,12 @@ namespace Simsip.LineRunner.Scenes.Options
             this.UpdatePageNavigationUI();
 
             // Determine exiting/incoming layers
-            CCLayer exitingLayer = null;
-            CCLayer incomingLayer = null;
-            switch (this._currentPage)
-            {
-                case 2:
-                    {
-                        exitingLayer = this._optionsPage1Layer;
-                        incomingLayer = this._optionsPage2Layer;
-                        break;
-                    }
-                case 3:
-                    {
-                        exitingLayer = this._optionsPage2Layer;
-                        incomingLayer = this._optionsPage3Layer;
-                        break;
-                    }
-            }
+            var exitingLayer = this._optionsPages[this._currentPage];
+            var incomingLayer = this._optionsPages[this._currentPage + 1];
 
             // Animate page transition
-            if (exitingLayer != null &&
-                incomingLayer != null)
-            {
-                exitingLayer.RunAction(this._pageActionOutToLeft);
-                incomingLayer.RunAction(this._pageActionInFromRight);
-            }
+            exitingLayer.RunAction(this._pageActionOutToLeft);
+            incomingLayer.RunAction(this._pageActionInFromRight);
         }
 
         private void UpdatePageNavigationUI()

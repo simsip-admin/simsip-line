@@ -16,9 +16,6 @@ using Foundation;
 
 namespace Simsip.LineRunner.Scenes.Upgrades
 {
-    /// <summary>
-    /// IMPORTANT: Implementation is for only 2 pages right now, but we have 3 pages coded for future expansion.
-    /// </summary>
     public class UpgradesMasterLayer : UILayer
     {
         private CoreScene _parent;

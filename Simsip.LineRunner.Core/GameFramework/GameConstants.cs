@@ -183,5 +183,11 @@ namespace Simsip.LineRunner.GameFramework
         /// How long we display a status message for 
         /// </summary>
         public const float DURATION_STATUS_LABEL = 2.0f;
+
+        /// <summary>
+        /// How long we display an image for an upgrade on an upgrades page, before fading to the next image for the upgrade.
+        /// </summary>
+        public const float DURATION_UPGRADE_IMAGE = 4.0f;
+
     }
 }

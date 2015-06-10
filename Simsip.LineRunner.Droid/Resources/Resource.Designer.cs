@@ -2047,6 +2047,18 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060047
 			public const int HelpTitle = 2131099719;
 			
+			// aapt resource value: 0x7f06009b
+			public const int HelpUpgrades = 2131099803;
+			
+			// aapt resource value: 0x7f06009c
+			public const int HelpUpgradesPractice = 2131099804;
+			
+			// aapt resource value: 0x7f06009d
+			public const int HelpUpgradesPracticeDesc1 = 2131099805;
+			
+			// aapt resource value: 0x7f06009e
+			public const int HelpUpgradesPracticeDesc2 = 2131099806;
+			
 			// aapt resource value: 0x7f060081
 			public const int HudCannotGoSlowerThan = 2131099777;
 			
@@ -2128,6 +2140,24 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f06004b
 			public const int OptionsPads = 2131099723;
 			
+			// aapt resource value: 0x7f0600a3
+			public const int OptionsPracticeKillsOff = 2131099811;
+			
+			// aapt resource value: 0x7f0600a4
+			public const int OptionsPracticeKillsOn = 2131099812;
+			
+			// aapt resource value: 0x7f0600a5
+			public const int OptionsPracticeStartLine = 2131099813;
+			
+			// aapt resource value: 0x7f0600a6
+			public const int OptionsPracticeStartLineDesc = 2131099814;
+			
+			// aapt resource value: 0x7f0600a7
+			public const int OptionsPracticeStartPage = 2131099815;
+			
+			// aapt resource value: 0x7f0600a8
+			public const int OptionsPracticeStartPageDesc = 2131099816;
+			
 			// aapt resource value: 0x7f06004c
 			public const int OptionsSoundOff = 2131099724;
 			
@@ -2155,6 +2185,9 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060068
 			public const int ResourcePacksSwitchingResourcePacks = 2131099752;
 			
+			// aapt resource value: 0x7f06009f
+			public const int UpgradesBuy = 2131099807;
+			
 			// aapt resource value: 0x7f060098
 			public const int UpgradesPractice = 2131099800;
 			
@@ -2163,6 +2196,15 @@ namespace Simsip.LineRunner
 			
 			// aapt resource value: 0x7f06009a
 			public const int UpgradesPracticeDesc2 = 2131099802;
+			
+			// aapt resource value: 0x7f0600a0
+			public const int UpgradesPrice = 2131099808;
+			
+			// aapt resource value: 0x7f0600a1
+			public const int UpgradesPurchasedOn = 2131099809;
+			
+			// aapt resource value: 0x7f0600a2
+			public const int UpgradesRestore = 2131099810;
 			
 			// aapt resource value: 0x7f060097
 			public const int UpgradesTitle = 2131099799;

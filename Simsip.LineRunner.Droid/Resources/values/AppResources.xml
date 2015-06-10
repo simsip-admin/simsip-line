@@ -95,4 +95,18 @@
   <string name="UpgradesPractice">practice mode</string>
   <string name="UpgradesPracticeDesc1">jump to any page and line</string>
   <string name="UpgradesPracticeDesc2">turn kills off</string>
+  <string name="HelpUpgrades">upgrades</string>
+  <string name="HelpUpgradesPractice">practice mode</string>
+  <string name="HelpUpgradesPracticeDesc1">jump to any page and line</string>
+  <string name="HelpUpgradesPracticeDesc2">turn kills off</string>
+  <string name="UpgradesBuy">buy</string>
+  <string name="UpgradesPrice">price</string>
+  <string name="UpgradesPurchasedOn">purchased on</string>
+  <string name="UpgradesRestore">restore</string>
+  <string name="OptionsPracticeKillsOff">kills off</string>
+  <string name="OptionsPracticeKillsOn">kills on</string>
+  <string name="OptionsPracticeStartLine">starting line</string>
+  <string name="OptionsPracticeStartLineDesc">enter line to start on (1-17)</string>
+  <string name="OptionsPracticeStartPage">starting page</string>
+  <string name="OptionsPracticeStartPageDesc">enter page to start on (1-6)</string>
 </resources>

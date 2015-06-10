@@ -8,6 +8,8 @@ namespace Simsip.LineRunner.Data.InApp
 {
     public class InAppPurchaseRepository : IInAppPurchaseRepository
     {
+        public string PracticeModeProductId { get { return "com.simsip.linerunner.practicemode";  } }
+
         public void Create(InAppPurchaseEntity purchase)
         {
             // Make sure we have required object/fields
@@ -44,6 +46,21 @@ namespace Simsip.LineRunner.Data.InApp
                 {
                     var result = (connection.Table<InAppPurchaseEntity>()
                                  .Where(x => x.OrderId == orderId))
+                                 .FirstOrDefault<InAppPurchaseEntity>();
+
+                    return result;
+                }
+            }
+        }
+
+        public InAppPurchaseEntity GetPurchaseByProductId(string productId)
+        {
+            lock (Database.DATABASE_LOCK)
+            {
+                using (var connection = new SQLiteConnection(Database.DatabasePath()))
+                {
+                    var result = (connection.Table<InAppPurchaseEntity>()
+                                 .Where(x => x.ProductId == productId))
                                  .FirstOrDefault<InAppPurchaseEntity>();
 
                     return result;

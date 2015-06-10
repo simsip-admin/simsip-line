@@ -96,6 +96,7 @@ namespace Simsip.LineRunner.Scenes.Start
             ratingsButton.NormalImage = ratingsButtonNormal;
             ratingsButton.SelectedImage = ratingsButtonSelected;
 
+            /*
             var optionsButtonNormal = new CCSprite("Images/Icons/OptionsButtonNormal.png");
             var optionsButtonSelected = new CCSprite("Images/Icons/OptionsButtonSelected.png");
             var optionsButton = new CCMenuItemImage((obj) => { this.NavigateBase(LayerTags.OptionsMasterLayer); });
@@ -107,17 +108,18 @@ namespace Simsip.LineRunner.Scenes.Start
             var helpButton = new CCMenuItemImage((obj) => { this.NavigateBase(LayerTags.HelpMasterLayer); });
             helpButton.NormalImage = helpButtonNormal;
             helpButton.SelectedImage = helpButtonSelected;
+            */
             
             var mainImageMenu = new CCMenu(
                 new CCMenuItem[] 
                     {
                         startButton,
                         ratingsButton,
-                        optionsButton,
-                        helpButton
+                        // optionsButton,
+                        // helpButton
                     });
             mainImageMenu.AlignItemsHorizontallyWithPadding(
-                0.1f * this.ContentSize.Width);
+                0.2f * this.ContentSize.Width);
             mainImageMenu.AnchorPoint = CCPoint.AnchorMiddle;
             mainImageMenu.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
@@ -148,6 +150,7 @@ namespace Simsip.LineRunner.Scenes.Start
             var rateItem = new CCMenuItemLabel(rateLabel,
                 (obj) => { this.Rate(); });
 
+            /*
             var optionsText = string.Empty;
 #if ANDROID
             optionsText = Program.SharedProgram.Resources.GetString(Resource.String.MainOptions);
@@ -171,20 +174,21 @@ namespace Simsip.LineRunner.Scenes.Start
             var helpLabel = new CCLabelTTF(helpText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             var helpItem = new CCMenuItemLabel(helpLabel,
                 (obj) => { this.NavigateBase(LayerTags.HelpMasterLayer); });
+*/
             
             var mainLabelMenu = new CCMenu(
                new CCMenuItem[] 
                     {
                         playItem,
                         rateItem,
-                        optionsItem,
-                        helpItem
+                        // optionsItem,
+                        // helpItem
                     });
             mainLabelMenu.Position = new CCPoint(
                  0.5f * this.ContentSize.Width,
                  0.1f * this.ContentSize.Height);
             mainLabelMenu.AlignItemsHorizontallyWithPadding(
-                0.1f * this.ContentSize.Width);
+                0.2f * this.ContentSize.Width);
             this.AddChild(mainLabelMenu);
 
 #if DEBUG

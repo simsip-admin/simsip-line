@@ -2678,6 +2678,9 @@
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Help\HelpPage8Layer.cs">
       <Link>Scenes\Help\HelpPage8Layer.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Help\HelpPage9Layer.cs">
+      <Link>Scenes\Help\HelpPage9Layer.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Hud\HudLayer.cs">
       <Link>Scenes\Hud\HudLayer.cs</Link>
     </Compile>

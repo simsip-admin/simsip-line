@@ -33,6 +33,7 @@ namespace Simsip.LineRunner.Scenes.Help
         private HelpPage6Layer _helpPage6Layer;
         private HelpPage7Layer _helpPage7Layer;
         private HelpPage8Layer _helpPage8Layer;
+        private HelpPage9Layer _helpPage9Layer;
 
         // Page actions
         private CCAction _pageActionInFromLeft;
@@ -342,6 +343,18 @@ namespace Simsip.LineRunner.Scenes.Help
 
                         break;
                     }
+                    case 9:
+                    {
+                        if (this._helpPage9Layer == null)
+                        {
+                            this._helpPage9Layer = new HelpPage9Layer(this._parent, this);
+                            this.AddChild(this._helpPage9Layer);
+                        }
+                        returnHelpPage = this._helpPage9Layer;
+
+                        break;
+                    }
+
                 }
 
                 return returnHelpPage;
@@ -360,53 +373,8 @@ namespace Simsip.LineRunner.Scenes.Help
             this.UpdatePageNavigationUI();
 
             // Determine exiting/incoming layers
-            CCLayer exitingLayer = null;
-            CCLayer incomingLayer = null;
-            switch(this._currentPage)
-            {
-                case 1:
-                    {
-                        exitingLayer = this.GetHelpPage(2);
-                        incomingLayer = this.GetHelpPage(1);
-                        break;
-                    }
-                case 2:
-                    {
-                        exitingLayer = this.GetHelpPage(3);
-                        incomingLayer = this.GetHelpPage(2);
-                        break;
-                    }
-                case 3:
-                    {
-                        exitingLayer = this.GetHelpPage(4);
-                        incomingLayer = this.GetHelpPage(3);
-                        break;
-                    }
-                case 4:
-                    {
-                        exitingLayer = this.GetHelpPage(5);
-                        incomingLayer = this.GetHelpPage(4);
-                        break;
-                    }
-                case 5:
-                    {
-                        exitingLayer = this.GetHelpPage(6);
-                        incomingLayer = this.GetHelpPage(5);
-                        break;
-                    }
-                case 6:
-                    {
-                        exitingLayer = this.GetHelpPage(7);
-                        incomingLayer = this.GetHelpPage(6);
-                        break;
-                    }
-                case 7:
-                    {
-                        exitingLayer = this.GetHelpPage(8);
-                        incomingLayer = this.GetHelpPage(7);
-                        break;
-                    }
-            }
+            var exitingLayer = this.GetHelpPage(this._currentPage + 1);
+            var incomingLayer = this.GetHelpPage(this._currentPage);
 
             // Animate page transition
             if (exitingLayer != null &&
@@ -430,53 +398,8 @@ namespace Simsip.LineRunner.Scenes.Help
             this.UpdatePageNavigationUI();
 
             // Determine exiting/incoming layers
-            CCLayer exitingLayer = null;
-            CCLayer incomingLayer = null;
-            switch (this._currentPage)
-            {
-                case 2:
-                    {
-                        exitingLayer = this.GetHelpPage(1);
-                        incomingLayer = this.GetHelpPage(2);
-                        break;
-                    }
-                case 3:
-                    {
-                        exitingLayer = this.GetHelpPage(2);
-                        incomingLayer = this.GetHelpPage(3);
-                        break;
-                    }
-                case 4:
-                    {
-                        exitingLayer = this.GetHelpPage(3);
-                        incomingLayer = this.GetHelpPage(4);
-                        break;
-                    }
-                case 5:
-                    {
-                        exitingLayer = this.GetHelpPage(4);
-                        incomingLayer = this.GetHelpPage(5);
-                        break;
-                    }
-                case 6:
-                    {
-                        exitingLayer = this.GetHelpPage(5);
-                        incomingLayer = this.GetHelpPage(6);
-                        break;
-                    }
-                case 7:
-                    {
-                        exitingLayer = this.GetHelpPage(6);
-                        incomingLayer = this.GetHelpPage(7);
-                        break;
-                    }
-                case 8:
-                    {
-                        exitingLayer = this.GetHelpPage(7);
-                        incomingLayer = this.GetHelpPage(8);
-                        break;
-                    }
-            }
+            var exitingLayer = this.GetHelpPage(this._currentPage - 1);
+            var incomingLayer = this.GetHelpPage(this._currentPage);
 
             // Animate page transition
             if (exitingLayer != null &&

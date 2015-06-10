@@ -22,28 +22,17 @@ namespace Simsip.LineRunner.Scenes.Options
         private CoreScene _parent;
         private OptionsMasterLayer _masterLayer;
 
-        // Pads
-        private CCSprite _padsImage;
+        // Start page/line
+        private CCTextFieldTTF _startPageTextField;
+        private CCTextFieldTTF _startLineTextField;
         
         public OptionsPracticeLayer(CoreScene parent, OptionsMasterLayer masterLayer)
         {
             this._parent = parent;
             this._masterLayer = masterLayer;
 
-            // We want touches so we can handle selection of pad image
-            this.TouchEnabled = true;
-            this.TouchMode = CCTouchMode.OneByOne;
-
             // Get this setup for relative positioning
             this.ContentSize = this._masterLayer.ContentSize;
-
-            // Pads
-            this._padsImage = new CCSprite("Models/Pads/Pad1-thumbnail");
-            this._padsImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
-            this._padsImage.Position = new CCPoint(
-                0.6f * this.ContentSize.Width,
-                0.1f * this.ContentSize.Height);
-            this.AddChild(this._padsImage);
 
             // Page number
             var pageNumberText = string.Empty;
@@ -61,71 +50,126 @@ namespace Simsip.LineRunner.Scenes.Options
                 0.9f * this.ContentSize.Height);
             this.AddChild(pageNumberHeader);
 
-            // Pads (cell 1/4)
-            var padsText = string.Empty;
+
+            // Start page
+            var startPageText = string.Empty;
 #if ANDROID
-            padsText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsPads);
+            startPageText = Program.SharedProgram.Resources.GetString(Resource.String.AdminStartPage);
 #elif IOS
-            padsText = NSBundle.MainBundle.LocalizedString(Strings.OptionsPads, Strings.OptionsPads);
+            startPageText = NSBundle.MainBundle.LocalizedString(Strings.AdminStartPage, Strings.AdminStartPage);
 #else
-            padsText = AppResources.OptionsPads;
+            startPageText = AppResources.AdminStartPage;
 #endif
-            var padsLabel = new CCLabelTTF(padsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            var padsButton = new CCMenuItemLabel(padsLabel,
-                                                 (obj) => { _parent.Navigate(LayerTags.PadsLayer); });
-            var padsMenu = new CCMenu(
-               new CCMenuItem[] 
-                    {
-                        padsButton
-                    });
-            padsMenu.Position = new CCPoint(
-                0.85f * this.ContentSize.Width, 
-                0.5f  * this.ContentSize.Height);
-            this.AddChild(padsMenu);
-        }
+            var startPageLabel = new CCLabelTTF(startPageText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            startPageLabel.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.8f * this.ContentSize.Height);
+            this.AddChild(startPageLabel);
+            this._startPageTextField = new CCTextFieldTTF(GameManager.SharedGameManager.AdminStartPageNumber.ToString(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._startPageTextField.Position = new CCPoint(
+                0.9f * this.ContentSize.Width,
+                0.8f * this.ContentSize.Height);
+            this._startPageTextField.AutoEdit = true;
+            this._startPageTextField.EditTitle = startPageText;
+            var startPageDescriptionText = string.Empty;
+#if ANDROID
+            startPageDescriptionText = Program.SharedProgram.Resources.GetString(Resource.String.AdminStartPageDescription);
+#elif IOS
+            startPageDescriptionText = NSBundle.MainBundle.LocalizedString(Strings.AdminStartPageDescription, Strings.AdminStartPageDescription);
+#else
+            startPageDescriptionText = AppResources.AdminStartPageDescription;
+#endif
+            this._startPageTextField.EditDescription = startPageDescriptionText;
+            this._startPageTextField.ContentSize = new CCSize(      // Makes it easier to touch
+                4f * this._startPageTextField.ContentSize.Width,
+                1f * this._startPageTextField.ContentSize.Height);
+            AddChild(this._startPageTextField);
 
-        #region Touch Implementation
+            // Start line
+            var startLineText = string.Empty;
+#if ANDROID
+            startLineText = Program.SharedProgram.Resources.GetString(Resource.String.AdminStartLine);
+#elif IOS
+            startLineText = NSBundle.MainBundle.LocalizedString(Strings.AdminStartLine, Strings.AdminStartLine);
+#else
+            startLineText = AppResources.AdminStartLine;
+#endif
+            var startLineLabel = new CCLabelTTF(startLineText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            startLineLabel.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.7f * this.ContentSize.Height);
+            this.AddChild(startLineLabel);
+            this._startLineTextField = new CCTextFieldTTF(GameManager.SharedGameManager.AdminStartLineNumber.ToString(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._startLineTextField.Position = new CCPoint(
+                0.9f * this.ContentSize.Width,
+                0.7f * this.ContentSize.Height);
+            this._startLineTextField.AutoEdit = true;
+            this._startLineTextField.EditTitle = startLineText;
 
-        /*
-        http://www.cocos2d-iphone.org/forums/topic/tutorials-dont-mention-cctouchdispatcherremovedelegate/
-         
-        Setting self.isTouchEnabled to YES in a CCLayer causes RegisterWithTouchDispatcher 
-        to be called in onEnter, and CCDirector.SharedDirector.TouchDispatcher.RemoveDelegate(this)
-        to be called in onExit.
+            var startLineDescriptionText = string.Empty;
+#if ANDROID
+            startLineDescriptionText = Program.SharedProgram.Resources.GetString(Resource.String.AdminStartLineDescription);
+#elif IOS
+            startLineDescriptionText = NSBundle.MainBundle.LocalizedString(Strings.AdminStartLineDescription, Strings.AdminStartLineDescription);
+#else
+            startLineDescriptionText = AppResources.AdminStartLineDescription;
+#endif
+            this._startLineTextField.EditDescription = startLineDescriptionText;
+            this._startLineTextField.ContentSize = new CCSize(      // Makes it easier to touch
+                4f * this._startLineTextField.ContentSize.Width,
+                1f * this._startLineTextField.ContentSize.Height);
+            AddChild(this._startLineTextField);
 
-        RegisterWithTouchDispatcher in CCLayer registers as a Standard touch delegate. 
-        So you only need to override it if you want the Targeted touch messages.
-            
-        Note if you don't set CCTouchMode it will default to CCTouchMode.AllAtOnce, which means
-        override TouchesBegan. Otherwise set CCTouchMode to CCTouchMode.OneByOne and override
-        TouchBegan.
-         
-        In TouchBegan, If you return true then ccTouchEnded will called. 
-        If you return false then ccTouchEnded will not be called, and the event 
-        will go the parent layer
-        */
-
-        /// <summary>
-        /// If you return true then ccTouchEnded will called. 
-        /// If you return false then ccTouchEnded will not be called, and the event will go the parent layer
-        /// </summary>
-        /// <param name="touch"></param>
-        /// <returns></returns>
-        public override bool TouchBegan(CCTouch touch)
-        {
-            var location = touch.Location;
-
-            // Ok, did we touch the area containing the pads image?
-            var padsBoundingBox = _padsImage.WorldBoundingBox;
-            if (CCRect.ContainsPoint(ref padsBoundingBox, ref location) )
+            // Are kills on?
+            var killOnText = string.Empty;
+#if ANDROID
+            killOnText = Program.SharedProgram.Resources.GetString(Resource.String.AdminKillOn);
+#elif IOS
+            killOnText = NSBundle.MainBundle.LocalizedString(Strings.AdminKillOn, Strings.AdminKillOn);
+#else
+            killOnText = AppResources.AdminKillOn;
+#endif
+            var killsOnLabel = new CCLabelTTF(killOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var killsOnItem = new CCMenuItemLabel(killsOnLabel);
+            var killOffText = string.Empty;
+#if ANDROID
+            killOffText = Program.SharedProgram.Resources.GetString(Resource.String.AdminKillOff);
+#elif IOS
+            killOffText = NSBundle.MainBundle.LocalizedString(Strings.AdminKillOff, Strings.AdminKillOff);
+#else
+            killOffText = AppResources.AdminKillOff;
+#endif
+            var killsOffLabel = new CCLabelTTF(killOffText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var killsOffItem = new CCMenuItemLabel(killsOffLabel);
+            CCMenuItemToggle killToggle =
+                new CCMenuItemToggle((obj) => KillTogglePressed(),
+                new CCMenuItem[] { killsOnItem, killsOffItem });
+            if (GameManager.SharedGameManager.AdminIsKillAllowed == false)
             {
-                _parent.Navigate(LayerTags.PadsLayer);
-                return true;
+                killToggle.SelectedIndex = 1; // Kills are OFF
             }
-
-            return true;
+            var killMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        killToggle,
+                    });
+            killMenu.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.6f * this.ContentSize.Height);
+            this.AddChild(killMenu);
         }
 
-        #endregion
+        private void KillTogglePressed()
+        {
+            if (GameManager.SharedGameManager.AdminIsKillAllowed)
+            {
+                GameManager.SharedGameManager.AdminIsKillAllowed = false;
+            }
+            else
+            {
+                GameManager.SharedGameManager.AdminIsKillAllowed = true;
+            }
+        }
+
     }
 }

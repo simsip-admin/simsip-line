@@ -70,7 +70,7 @@ namespace Simsip.LineRunner.Scenes.Hud
         private CCMenuItemLabel _trackballItem;
 
         // Top score
-        private CCLabelTTF _topScoreLabel;
+        private CCLabelTTF _topScoreHeaderLabel;
 
         // Status label
         private CCLabelTTF _status1Label;
@@ -175,6 +175,23 @@ namespace Simsip.LineRunner.Scenes.Hud
                     new CCHide()
                 });
 
+            // Status 2
+            this._status2Label = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._status2Label.Color = CCColor3B.Red;
+            this._status2Label.AnchorPoint = CCPoint.AnchorMiddle;
+            this._status2Label.Position = new CCPoint(
+                0.5f  * this.ContentSize.Width,
+                0.65f * this.ContentSize.Height);
+            this.AddChild(this._status2Label);
+
+            // Status 2 action
+            this._status2LabelAction = new CCSequence(new CCFiniteTimeAction[] 
+            { 
+                new CCScaleTo(0f, 0f), 
+                new CCScaleTo(0.5f, 1.2f),
+                new CCScaleTo(0.1f, 1.0f),
+            });
+
             // Base layer
             this._baseLayer = new GameLayer();
             this._baseLayer.ContentSize = baseContentSize;
@@ -265,45 +282,14 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._restoreHeaderAnim = new CCEaseBackOut(new CCScaleTo(GameConstants.DURATION_LAYER_TRANSITION, 1f));
 
             // Top score
-            var topScoreHeaderText = string.Empty;
-#if ANDROID
-            topScoreHeaderText = Program.SharedProgram.Resources.GetString(Resource.String.HudTopScore);
-#elif IOS
-            topScoreHeaderText = NSBundle.MainBundle.LocalizedString(Strings.HudTopScore, Strings.HudTopScore);
-#else
-            topScoreHeaderText = AppResources.HudTopScore;
-#endif
-            var topScoreHeaderLabel = new CCLabelTTF(topScoreHeaderText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            topScoreHeaderLabel.AnchorPoint = CCPoint.AnchorMiddle;
-            topScoreHeaderLabel.Position = new CCPoint(
-                0.25f * headerLeftSize.Width,
-                0.8f  * headerLeftSize.Height);
-            this._headerLeftLayer.AddChild(topScoreHeaderLabel);
-            this._topScoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._topScoreLabel.AnchorPoint = CCPoint.AnchorMiddle;
-            this._topScoreLabel.Position = new CCPoint(
-                0.25f * headerLeftSize.Width,
-                0.6f  * headerLeftSize.Height);
-            this._headerLeftLayer.AddChild(this._topScoreLabel);
+            this._topScoreHeaderLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._topScoreHeaderLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            this._topScoreHeaderLabel.Position = new CCPoint(
+                0.6f * headerLeftSize.Width,
+                0.8f * headerLeftSize.Height);
+            this._headerLeftLayer.AddChild(this._topScoreHeaderLabel);
 
-            // Status 2
-            this._status2Label = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._status2Label.Color = CCColor3B.Red;
-            this._status2Label.AnchorPoint = CCPoint.AnchorMiddle;
-            this._status2Label.Position = new CCPoint(
-                0.25f * headerLeftSize.Width,
-                0.4f  * headerLeftSize.Height);
-            this._headerLeftLayer.AddChild(this._status2Label);
-
-            // Status 2 action
-            this._status2LabelAction = new CCSequence(new CCFiniteTimeAction[] 
-            { 
-                new CCScaleTo(0f, 0f), 
-                new CCScaleTo(0.5f, 1.2f),
-                new CCScaleTo(0.1f, 1.0f),
-            });
-
-            // Home
+            // Hud menu
             var homeText = string.Empty;
 #if ANDROID
             homeText = Program.SharedProgram.Resources.GetString(Resource.String.HudHome);
@@ -316,16 +302,55 @@ namespace Simsip.LineRunner.Scenes.Hud
             homeLabel.Color = CCColor3B.Green;
             var homeItem = new CCMenuItemLabel(homeLabel,
                 (obj) => { this._parent.GoBack(); });
-            var homeLabelMenu = new CCMenu(
+            var upgradesText = string.Empty;
+#if ANDROID
+            upgradesText = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesTitle);
+#elif IOS
+            upgradesText = NSBundle.MainBundle.LocalizedString(Strings.UpgradesTitle, Strings.UpgradesTitle);
+#else
+            upgradesText = AppResources.UpgradesTitle;
+#endif
+            var upgradesLabel = new CCLabelTTF(upgradesText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            upgradesLabel.Color = CCColor3B.Blue;
+            var upgradesItem = new CCMenuItemLabel(upgradesLabel,
+                (obj) => { this.NavigateBase(LayerTags.UpgradesMasterLayer); });
+            var optionsText = string.Empty;
+#if ANDROID
+            optionsText = Program.SharedProgram.Resources.GetString(Resource.String.MainOptions);
+#elif IOS
+            optionsText = NSBundle.MainBundle.LocalizedString(Strings.MainOptions, Strings.MainOptions);
+#else
+            optionsText = AppResources.MainOptions;
+#endif
+            var optionsLabel = new CCLabelTTF(optionsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            optionsLabel.Color = CCColor3B.Green;
+            var optionsItem = new CCMenuItemLabel(optionsLabel,
+                (obj) => { this.NavigateBase(LayerTags.OptionsMasterLayer); });
+            var helpText = string.Empty;
+#if ANDROID
+            helpText = Program.SharedProgram.Resources.GetString(Resource.String.MainHelp);
+#elif IOS
+            helpText = NSBundle.MainBundle.LocalizedString(Strings.MainHelp, Strings.MainHelp);
+#else
+            helpText = AppResources.MainHelp;
+#endif
+            var helpLabel = new CCLabelTTF(helpText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            helpLabel.Color = CCColor3B.Green;
+            var helpItem = new CCMenuItemLabel(helpLabel,
+                (obj) => { this.NavigateBase(LayerTags.HelpMasterLayer); });
+            var hudMenu = new CCMenu(
                new CCMenuItem[] 
                     {
-                        homeItem
+                        homeItem,
+                        upgradesItem,
+                        optionsItem,
+                        helpItem
                     });
-            homeLabelMenu.AnchorPoint = CCPoint.AnchorMiddle;
-            homeLabelMenu.Position = new CCPoint(
-                0.25f * headerLeftSize.Width,
-                0.2f  * headerLeftSize.Height);
-            this._headerLeftLayer.AddChild(homeLabelMenu);
+            hudMenu.AlignItemsVertically();
+            hudMenu.Position = new CCPoint(
+                 0.25f * headerLeftSize.Width,
+                 0.5f  * headerLeftSize.Height);
+            this._headerLeftLayer.AddChild(hudMenu);
 
             // Speed
             var decreaseButtonNormal = new CCSprite("Images/Icons/DecreaseButtonNormal.png");
@@ -341,7 +366,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             increaseButton.SelectedImage = increaseButtonSelected;
 
             var speedMenu = new CCMenu(
-    new CCMenuItem[] 
+            new CCMenuItem[] 
                     {
                         decreaseButton,
                         increaseButton,
@@ -371,11 +396,11 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             // Score label
             this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_EXTRA_LARGE);
-            this._scoreLabel.Color = CCColor3B.Green;
+            this._scoreLabel.Color = CCColor3B.Yellow;
             this._status1Label.AnchorPoint = CCPoint.AnchorMiddle;
             this._scoreLabel.Position = new CCPoint(
                 0.5f * headerRightSize.Width, 
-                0.6f * headerRightSize.Height);
+                0.7f * headerRightSize.Height);
             this._headerRightLayer.AddChild(this._scoreLabel);
 
             // Score label action
@@ -389,7 +414,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._timerLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._timerLabel.Position = new CCPoint(
                 0.5f * headerRightSize.Width,
-                0.2f * headerRightSize.Height);
+                0.3f * headerRightSize.Height);
             this._timerLabelText = string.Empty;
             this._headerRightLayer.AddChild(_timerLabel);
 #if !NETFX_CORE
@@ -591,7 +616,7 @@ namespace Simsip.LineRunner.Scenes.Hud
 #endif
             var adminLabel = new CCLabelTTF(adminText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             var adminItem = new CCMenuItemLabel(adminLabel,
-                (obj) => { this.NavigateAdmin(); });
+                (obj) => { this.NavigateBase(LayerTags.AdminLayer); });
             var adminLabelMenu = new CCMenu(
                new CCMenuItem[] 
                     {
@@ -620,6 +645,15 @@ namespace Simsip.LineRunner.Scenes.Hud
             var topScore = scoreRepository.GetTopScoreForPlayer();
             if (topScore != null)
             {
+                var topScoreHeaderText = string.Empty;
+#if ANDROID
+                topScoreHeaderText = Program.SharedProgram.Resources.GetString(Resource.String.HudTopScore);
+#elif IOS
+                topScoreHeaderText = NSBundle.MainBundle.LocalizedString(Strings.HudTopScore, Strings.HudTopScore);
+#else
+                topScoreHeaderText = AppResources.HudTopScore;
+#endif
+
                 var inText = string.Empty;
 #if ANDROID
                 inText = Program.SharedProgram.Resources.GetString(Resource.String.CommonIn);
@@ -628,7 +662,7 @@ namespace Simsip.LineRunner.Scenes.Hud
 #else
                 inText = AppResources.CommonIn;
 #endif
-                this._topScoreLabel.Text = 
+                this._topScoreHeaderLabel.Text = topScoreHeaderText + " " +
                     topScore.Score.ToString()  + " " + 
                     inText + " " + 
                     topScore.ScoreTime.ToString(@"h\:mm\:ss");
@@ -1043,7 +1077,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._status1Label.RunAction(this._status1LabelAction);
         }
 
-        private void NavigateAdmin()
+        private void NavigateBase(LayerTags layer)
         {
             // Short-circuit if dragging
             if (this._dragging != Dragging.None)
@@ -1051,12 +1085,7 @@ namespace Simsip.LineRunner.Scenes.Hud
                 return;
             }
 
-            if (!this._paused)
-            {
-                this.PauseTogglePressed();
-            }
-
-            this._parent.Navigate(LayerTags.AdminLayer);
+            this._parent.Navigate(layer);
         }
 
 #if NETFX_CORE

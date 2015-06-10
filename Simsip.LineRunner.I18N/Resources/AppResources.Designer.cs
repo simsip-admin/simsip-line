@@ -458,6 +458,42 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to upgrades.
+        /// </summary>
+        public static string HelpUpgrades {
+            get {
+                return ResourceManager.GetString("HelpUpgrades", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to practice mode.
+        /// </summary>
+        public static string HelpUpgradesPractice {
+            get {
+                return ResourceManager.GetString("HelpUpgradesPractice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to jump to any page and line.
+        /// </summary>
+        public static string HelpUpgradesPracticeDesc1 {
+            get {
+                return ResourceManager.GetString("HelpUpgradesPracticeDesc1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to turn kills off.
+        /// </summary>
+        public static string HelpUpgradesPracticeDesc2 {
+            get {
+                return ResourceManager.GetString("HelpUpgradesPracticeDesc2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to cannot go slower than.
         /// </summary>
         public static string HudCannotGoSlowerThan {
@@ -701,6 +737,60 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to kills off.
+        /// </summary>
+        public static string OptionsPracticeKillsOff {
+            get {
+                return ResourceManager.GetString("OptionsPracticeKillsOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kills on.
+        /// </summary>
+        public static string OptionsPracticeKillsOn {
+            get {
+                return ResourceManager.GetString("OptionsPracticeKillsOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to starting line.
+        /// </summary>
+        public static string OptionsPracticeStartLine {
+            get {
+                return ResourceManager.GetString("OptionsPracticeStartLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to enter line to start on (1-17).
+        /// </summary>
+        public static string OptionsPracticeStartLineDesc {
+            get {
+                return ResourceManager.GetString("OptionsPracticeStartLineDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to starting page.
+        /// </summary>
+        public static string OptionsPracticeStartPage {
+            get {
+                return ResourceManager.GetString("OptionsPracticeStartPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to enter page to start on (1-6).
+        /// </summary>
+        public static string OptionsPracticeStartPageDesc {
+            get {
+                return ResourceManager.GetString("OptionsPracticeStartPageDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to sound off.
         /// </summary>
         public static string OptionsSoundOff {
@@ -782,6 +872,15 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to buy.
+        /// </summary>
+        public static string UpgradesBuy {
+            get {
+                return ResourceManager.GetString("UpgradesBuy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to practice mode.
         /// </summary>
         public static string UpgradesPractice {
@@ -805,6 +904,33 @@ namespace Simsip.LineRunner.Resources {
         public static string UpgradesPracticeDesc2 {
             get {
                 return ResourceManager.GetString("UpgradesPracticeDesc2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to price.
+        /// </summary>
+        public static string UpgradesPrice {
+            get {
+                return ResourceManager.GetString("UpgradesPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to purchased on.
+        /// </summary>
+        public static string UpgradesPurchasedOn {
+            get {
+                return ResourceManager.GetString("UpgradesPurchasedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to restore.
+        /// </summary>
+        public static string UpgradesRestore {
+            get {
+                return ResourceManager.GetString("UpgradesRestore", resourceCulture);
             }
         }
         

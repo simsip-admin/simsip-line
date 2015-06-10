@@ -97,5 +97,19 @@
         public static string UpgradesPractice = "UpgradesPractice";
         public static string UpgradesPracticeDesc1 = "UpgradesPracticeDesc1";
         public static string UpgradesPracticeDesc2 = "UpgradesPracticeDesc2";
+        public static string HelpUpgrades = "HelpUpgrades";
+        public static string HelpUpgradesPractice = "HelpUpgradesPractice";
+        public static string HelpUpgradesPracticeDesc1 = "HelpUpgradesPracticeDesc1";
+        public static string HelpUpgradesPracticeDesc2 = "HelpUpgradesPracticeDesc2";
+        public static string UpgradesBuy = "UpgradesBuy";
+        public static string UpgradesPrice = "UpgradesPrice";
+        public static string UpgradesPurchasedOn = "UpgradesPurchasedOn";
+        public static string UpgradesRestore = "UpgradesRestore";
+        public static string OptionsPracticeKillsOff = "OptionsPracticeKillsOff";
+        public static string OptionsPracticeKillsOn = "OptionsPracticeKillsOn";
+        public static string OptionsPracticeStartLine = "OptionsPracticeStartLine";
+        public static string OptionsPracticeStartLineDesc = "OptionsPracticeStartLineDesc";
+        public static string OptionsPracticeStartPage = "OptionsPracticeStartPage";
+        public static string OptionsPracticeStartPageDesc = "OptionsPracticeStartPageDesc";
     }
 }
