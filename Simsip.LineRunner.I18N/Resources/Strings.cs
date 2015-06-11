@@ -111,5 +111,11 @@
         public static string OptionsPracticeStartLineDesc = "OptionsPracticeStartLineDesc";
         public static string OptionsPracticeStartPage = "OptionsPracticeStartPage";
         public static string OptionsPracticeStartPageDesc = "OptionsPracticeStartPageDesc";
+        public static string UpgradesPracticeSwitchingLine = "UpgradesPracticeSwitchingLine";
+        public static string UpgradesPracticeSwitchingPage = "UpgradesPracticeSwitchingPage";
+        public static string UpgradesPracticeKillsOff = "UpgradesPracticeKillsOff";
+        public static string UpgradesPracticeKillsOn = "UpgradesPracticeKillsOn";
+        public static string UpgradesPracticeSelectLine = "UpgradesPracticeSelectLine";
+        public static string UpgradesPracticeSelectPage = "UpgradesPracticeSelectPage";
     }
 }

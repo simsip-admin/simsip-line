@@ -2197,6 +2197,24 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f06009a
 			public const int UpgradesPracticeDesc2 = 2131099802;
 			
+			// aapt resource value: 0x7f0600ab
+			public const int UpgradesPracticeKillsOff = 2131099819;
+			
+			// aapt resource value: 0x7f0600ac
+			public const int UpgradesPracticeKillsOn = 2131099820;
+			
+			// aapt resource value: 0x7f0600ad
+			public const int UpgradesPracticeSelectLine = 2131099821;
+			
+			// aapt resource value: 0x7f0600ae
+			public const int UpgradesPracticeSelectPage = 2131099822;
+			
+			// aapt resource value: 0x7f0600a9
+			public const int UpgradesPracticeSwitchingLine = 2131099817;
+			
+			// aapt resource value: 0x7f0600aa
+			public const int UpgradesPracticeSwitchingPage = 2131099818;
+			
 			// aapt resource value: 0x7f0600a0
 			public const int UpgradesPrice = 2131099808;
 			

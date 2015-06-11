@@ -96,27 +96,11 @@ namespace Simsip.LineRunner.Scenes.Start
             ratingsButton.NormalImage = ratingsButtonNormal;
             ratingsButton.SelectedImage = ratingsButtonSelected;
 
-            /*
-            var optionsButtonNormal = new CCSprite("Images/Icons/OptionsButtonNormal.png");
-            var optionsButtonSelected = new CCSprite("Images/Icons/OptionsButtonSelected.png");
-            var optionsButton = new CCMenuItemImage((obj) => { this.NavigateBase(LayerTags.OptionsMasterLayer); });
-            optionsButton.NormalImage = optionsButtonNormal;
-            optionsButton.SelectedImage = optionsButtonSelected;
-
-            var helpButtonNormal = new CCSprite("Images/Icons/HelpButtonNormal.png");
-            var helpButtonSelected = new CCSprite("Images/Icons/HelpButtonSelected.png");
-            var helpButton = new CCMenuItemImage((obj) => { this.NavigateBase(LayerTags.HelpMasterLayer); });
-            helpButton.NormalImage = helpButtonNormal;
-            helpButton.SelectedImage = helpButtonSelected;
-            */
-            
             var mainImageMenu = new CCMenu(
                 new CCMenuItem[] 
                     {
                         startButton,
                         ratingsButton,
-                        // optionsButton,
-                        // helpButton
                     });
             mainImageMenu.AlignItemsHorizontallyWithPadding(
                 0.2f * this.ContentSize.Width);
@@ -150,45 +134,18 @@ namespace Simsip.LineRunner.Scenes.Start
             var rateItem = new CCMenuItemLabel(rateLabel,
                 (obj) => { this.Rate(); });
 
-            /*
-            var optionsText = string.Empty;
-#if ANDROID
-            optionsText = Program.SharedProgram.Resources.GetString(Resource.String.MainOptions);
-#elif IOS
-            optionsText = NSBundle.MainBundle.LocalizedString(Strings.MainOptions, Strings.MainOptions);
-#else
-            optionsText = AppResources.MainOptions;
-#endif
-            var optionsLabel = new CCLabelTTF(optionsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            var optionsItem = new CCMenuItemLabel(optionsLabel,
-                (obj) => { this.NavigateBase(LayerTags.OptionsMasterLayer); });
-
-            var helpText = string.Empty;
-#if ANDROID
-            helpText = Program.SharedProgram.Resources.GetString(Resource.String.MainHelp);
-#elif IOS
-            helpText = NSBundle.MainBundle.LocalizedString(Strings.MainHelp, Strings.MainHelp);
-#else
-            helpText = AppResources.MainHelp;
-#endif
-            var helpLabel = new CCLabelTTF(helpText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            var helpItem = new CCMenuItemLabel(helpLabel,
-                (obj) => { this.NavigateBase(LayerTags.HelpMasterLayer); });
-*/
-            
             var mainLabelMenu = new CCMenu(
                new CCMenuItem[] 
                     {
                         playItem,
                         rateItem,
-                        // optionsItem,
-                        // helpItem
                     });
+            mainLabelMenu.AlignItemsHorizontallyWithPadding(
+                0.2f * this.ContentSize.Width);
+            mainLabelMenu.AnchorPoint = CCPoint.AnchorMiddle;
             mainLabelMenu.Position = new CCPoint(
                  0.5f * this.ContentSize.Width,
                  0.1f * this.ContentSize.Height);
-            mainLabelMenu.AlignItemsHorizontallyWithPadding(
-                0.2f * this.ContentSize.Width);
             this.AddChild(mainLabelMenu);
 
 #if DEBUG

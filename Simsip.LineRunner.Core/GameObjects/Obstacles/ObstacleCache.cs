@@ -374,8 +374,10 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 case LoadContentAsyncType.Initialize:
                 case LoadContentAsyncType.Refresh:
                     {
-                        pageNumber = 1;
-                        lineNumbers = new int[] { 1, 2 };
+                        pageNumber = this._currentPageNumber;
+                        lineNumbers = new int[] { 
+                            this._currentLineNumber, 
+                            this._currentLineNumber + 1};
                         break;
                     }
                 case LoadContentAsyncType.Next:

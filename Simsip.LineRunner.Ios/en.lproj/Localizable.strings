@@ -107,3 +107,9 @@
 "OptionsPracticeStartLineDesc"="enter line to start on (1-17)";
 "OptionsPracticeStartPage"="starting page";
 "OptionsPracticeStartPageDesc"="enter page to start on (1-6)";
+"UpgradesPracticeSwitchingLine"="switching starting line to";
+"UpgradesPracticeSwitchingPage"="switching starting page to";
+"UpgradesPracticeKillsOff"="kills off";
+"UpgradesPracticeKillsOn"="kills on";
+"UpgradesPracticeSelectLine"="select starting line";
+"UpgradesPracticeSelectPage"="select starting page";

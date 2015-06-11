@@ -1038,6 +1038,38 @@
       <Link>Content\Images\Misc\FingerPressSmall.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\BuyButtonNormal.xnb">
+      <Link>Content\Images\Icons\BuyButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\BuyButtonSelected.xnb">
+      <Link>Content\Images\Icons\BuyButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\JumpToLineButtonNormal.xnb">
+      <Link>Content\Images\Icons\JumpToLineButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\JumpToLineButtonSelected.xnb">
+      <Link>Content\Images\Icons\JumpToLineButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\JumpToPageButtonNormal.xnb">
+      <Link>Content\Images\Icons\JumpToPageButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\JumpToPageButtonSelected.xnb">
+      <Link>Content\Images\Icons\JumpToPageButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\RestoreButtonNormal.xnb">
+      <Link>Content\Images\Icons\RestoreButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\RestoreButtonSelected.xnb">
+      <Link>Content\Images\Icons\RestoreButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
       <Link>Mercury\EffectLibrary\BasicExplosion.xml</Link>
     </None>

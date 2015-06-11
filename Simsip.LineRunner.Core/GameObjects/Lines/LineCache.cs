@@ -336,8 +336,11 @@ namespace Simsip.LineRunner.GameObjects.Lines
                 case LoadContentAsyncType.Initialize:
                 case LoadContentAsyncType.Refresh:
                     {
-                        pageNumber = 1;
-                        lineNumbers = new int[] { 0, 1, 2 };
+                        pageNumber = this._currentPageNumber;
+                        lineNumbers = new int[] { 
+                            this._currentLineNumber - 1, 
+                            this._currentLineNumber, 
+                            this._currentLineNumber + 1 };
                         break;
                     }
                 case LoadContentAsyncType.Next:
@@ -592,7 +595,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
         private void ProcessNextLine()
         {
             // First line also animates in the header line
-            if (this._currentLineNumber == 1)
+            if (this._currentLineNumber == GameManager.SharedGameManager.AdminStartLineNumber)
             {
                 var headerLine = this.GetLineModel(0);
                  

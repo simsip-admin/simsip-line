@@ -70,7 +70,7 @@ namespace Simsip.LineRunner.Scenes.Help
                     new CCCallFunc(() =>
                         {
                             this._practiceModeImages[this._currentPracticeModeImage].RunAction(new CCFadeOut(GameConstants.DURATION_UPGRADE_IMAGE));
-                            if (this._currentPracticeModeImage == this._practiceModeImages.Count)
+                            if (this._currentPracticeModeImage == this._practiceModeImages.Count - 1)
                             {
                                 this._currentPracticeModeImage = 0;
                             }
@@ -92,6 +92,7 @@ namespace Simsip.LineRunner.Scenes.Help
             upgradesText = AppResources.HelpUpgrades;
 #endif
             var upgradesSubtitle = new CCLabelTTF(upgradesText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            upgradesSubtitle.Color = CCColor3B.Blue;
             upgradesSubtitle.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.75f * this.ContentSize.Height);
@@ -106,10 +107,10 @@ namespace Simsip.LineRunner.Scenes.Help
 #else
             practiceText = AppResources.HelpUpgradesPractice;
 #endif
-            var practiceTitle = new CCLabelTTF(practiceText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var practiceTitle = new CCLabelTTF(practiceText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
             practiceTitle.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.5f * this.ContentSize.Height);
+                0.5f  * this.ContentSize.Width,
+                0.68f * this.ContentSize.Height);
             this.AddChild(practiceTitle);
 
             var practiceDesc1Text = string.Empty;
@@ -123,7 +124,7 @@ namespace Simsip.LineRunner.Scenes.Help
             var practiceDesc1 = new CCLabelTTF(practiceDesc1Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             practiceDesc1.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
-                0.4f * this.ContentSize.Height);
+                0.6f * this.ContentSize.Height);
             this.AddChild(practiceDesc1);
 
             var practiceDesc2Text = string.Empty;
@@ -136,8 +137,8 @@ namespace Simsip.LineRunner.Scenes.Help
 #endif
             var practiceDesc2 = new CCLabelTTF(practiceDesc2Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             practiceDesc2.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.3f * this.ContentSize.Height);
+                0.5f  * this.ContentSize.Width,
+                0.25f * this.ContentSize.Height);
             this.AddChild(practiceDesc2);
 
         }

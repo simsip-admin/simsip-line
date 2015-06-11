@@ -148,6 +148,14 @@
           <source>enter page to start on (1-6)</source>
           <target state="new">enter page to start on (1-6)</target>
         </trans-unit>
+        <trans-unit id="Resx/UpgradesPracticeSwitchingPage" translate="yes" xml:space="preserve">
+          <source>switching starting page to</source>
+          <target state="new">switching starting page to</target>
+        </trans-unit>
+        <trans-unit id="Resx/UpgradesPracticeSwitchingLine" translate="yes" xml:space="preserve">
+          <source>switching starting line to</source>
+          <target state="new">switching starting line to</target>
+        </trans-unit>
         <trans-unit id="Resx/OptionsPracticeStartPage" translate="yes" xml:space="preserve">
           <source>starting page</source>
           <target state="new">starting page</target>

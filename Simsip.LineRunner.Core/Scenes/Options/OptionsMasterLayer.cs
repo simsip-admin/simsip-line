@@ -308,8 +308,8 @@ namespace Simsip.LineRunner.Scenes.Options
             this.UpdatePageNavigationUI();
 
             // Determine exiting/incoming layers
-            var exitingLayer = this._optionsPages[this._currentPage];
-            var incomingLayer = this._optionsPages[this._currentPage + 1];
+            var exitingLayer = this._optionsPages[this._currentPage - 2];
+            var incomingLayer = this._optionsPages[this._currentPage - 1];
 
             // Animate page transition
             exitingLayer.RunAction(this._pageActionOutToLeft);

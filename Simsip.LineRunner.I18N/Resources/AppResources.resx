@@ -446,4 +446,22 @@
   <data name="OptionsPracticeStartPageDesc" xml:space="preserve">
     <value>enter page to start on (1-6)</value>
   </data>
+  <data name="UpgradesPracticeSwitchingLine" xml:space="preserve">
+    <value>switching starting line to</value>
+  </data>
+  <data name="UpgradesPracticeSwitchingPage" xml:space="preserve">
+    <value>switching starting page to</value>
+  </data>
+  <data name="UpgradesPracticeKillsOff" xml:space="preserve">
+    <value>kills off</value>
+  </data>
+  <data name="UpgradesPracticeKillsOn" xml:space="preserve">
+    <value>kills on</value>
+  </data>
+  <data name="UpgradesPracticeSelectLine" xml:space="preserve">
+    <value>select starting line</value>
+  </data>
+  <data name="UpgradesPracticeSelectPage" xml:space="preserve">
+    <value>select starting page</value>
+  </data>
 </root>

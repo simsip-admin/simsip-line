@@ -10,6 +10,7 @@ using Android.Content;
 using Android.OS;
 using Xamarin.InAppBilling;
 using Xamarin.InAppBilling.Utilities;
+using Simsip.LineRunner.Entities.InApp;
 #elif IOS
 using StoreKit;
 using Foundation;
@@ -72,29 +73,82 @@ namespace Simsip.LineRunner.Services.Inapp
             _serviceConnection.OnConnected += () =>
             {
                 // Attach to the various error handlers to report issues
-                _serviceConnection.BillingHandler.OnGetProductsError += (int responseCode, Bundle ownedItems) =>
+                this._serviceConnection.BillingHandler.BuyProductError += (int responseCode, string sku) =>
                 {
-                    System.Diagnostics.Debug.WriteLine("Error getting products");
+                    if (this.BuyProductError != null)
+                    {
+                        this.BuyProductError(responseCode, sku);
+                    }
                 };
-
-                _serviceConnection.BillingHandler.OnInvalidOwnedItemsBundleReturned += (Bundle ownedItems) =>
+                this._serviceConnection.BillingHandler.InAppBillingProcesingError += (string message) =>
                 {
-                    System.Diagnostics.Debug.WriteLine("Invalid owned items bundle returned");
+                    if (this.InAppBillingProcesingError != null)
+                    {
+                        this.InAppBillingProcesingError(message);
+                    }
                 };
-
-                _serviceConnection.BillingHandler.OnProductPurchasedError += (int responseCode, string sku) =>
+                this._serviceConnection.BillingHandler.OnGetProductsError += (int responseCode, Bundle ownedItems) =>
                 {
-                    System.Diagnostics.Debug.WriteLine("Error purchasing item {0}", sku);
+                    if (this.OnGetProductsError != null)
+                    {
+                        this.OnGetProductsError(responseCode, null);
+                    }
                 };
-
-                _serviceConnection.BillingHandler.OnPurchaseConsumedError += (int responseCode, string token) =>
+                this._serviceConnection.BillingHandler.OnInvalidOwnedItemsBundleReturned += (Bundle ownedItems) =>
                 {
-                    System.Diagnostics.Debug.WriteLine("Error consuming previous purchase");
+                    if (this.OnInvalidOwnedItemsBundleReturned != null)
+                    {
+                        this.OnInvalidOwnedItemsBundleReturned(null);
+                    }
                 };
-
-                _serviceConnection.BillingHandler.InAppBillingProcesingError += (message) =>
+                this._serviceConnection.BillingHandler.OnProductPurchased += (int response, Purchase purchase, string purchaseData, string purchaseSignature) =>
                 {
-                    System.Diagnostics.Debug.WriteLine("In app billing processing error {0}", message);
+                    if (this.OnProductPurchased != null)
+                    {
+                        this.OnProductPurchased(response, null, purchaseData, purchaseSignature);
+                    }
+                };
+                this._serviceConnection.BillingHandler.OnProductPurchasedError += (int responseCode, string sku) =>
+                {
+                    if (this.OnProductPurchasedError != null)
+                    {
+                        this.OnProductPurchasedError(responseCode, sku);
+                    }
+                };
+                this._serviceConnection.BillingHandler.OnPurchaseConsumed += (string token) =>
+                {
+                    if (this.OnPurchaseConsumed != null)
+                    {
+                        this.OnPurchaseConsumed(token);
+                    }
+                };
+                this._serviceConnection.BillingHandler.OnPurchaseConsumedError += (int responseCode, string token) =>
+                {
+                    if (this.OnPurchaseConsumedError != null)
+                    {
+                        this.OnPurchaseConsumedError(responseCode, token);
+                    }
+                };
+                this._serviceConnection.BillingHandler.OnPurchaseFailedValidation += (Purchase purchase, string purchaseData, string purchaseSignature) =>
+                {
+                    if (this.OnPurchaseFailedValidation != null)
+                    {
+                        this.OnPurchaseFailedValidation(null, purchaseData, purchaseSignature);
+                    }
+                };
+                this._serviceConnection.BillingHandler.OnUserCanceled += () =>
+                {
+                    if (this.OnUserCanceled != null)
+                    {
+                        this.OnUserCanceled();
+                    }
+                };
+                this._serviceConnection.BillingHandler.QueryInventoryError += (int responseCode, Bundle skuDetails) =>
+                {
+                    if (this.QueryInventoryError != null)
+                    {
+                        this.QueryInventoryError(responseCode, null);
+                    }
                 };
 
                 // Load inventory or available products
@@ -129,6 +183,68 @@ namespace Simsip.LineRunner.Services.Inapp
             //TODO: Use a call back to update the purchased items
             UpdatePurchasedItems();
         }
+
+        public void BuyProduct(InAppSkuEntity product)
+        {
+            this._serviceConnection.BillingHandler.BuyProduct(null);
+        }
+
+        public void BuyProduct(InAppSkuEntity product, string payload)
+        {
+            this._serviceConnection.BillingHandler.BuyProduct(null, payload);
+        }
+
+        public void BuyProduct(string sku, string itemType, string payload)
+        {
+            this._serviceConnection.BillingHandler.BuyProduct(sku, itemType, payload);
+        }
+
+        public bool ConsumePurchase(InAppPurchaseEntity purchase)
+        {
+            // return this._serviceConnection.BillingHandler.ConsumePurchase(null);
+            return true;
+        }
+
+        public bool ConsumePurchase(string token)
+        {
+            return this._serviceConnection.BillingHandler.ConsumePurchase(token);
+        }
+
+        public IList<InAppPurchaseEntity> GetPurchases(string itemType)
+        {
+            this._serviceConnection.BillingHandler.GetPurchases(itemType);
+
+            return null;
+        }
+
+        public Task<IList<InAppSkuEntity>> QueryInventoryAsync(IList<string> skuList, string itemType)
+        {
+            this._serviceConnection.BillingHandler.QueryInventoryAsync(skuList, itemType);
+
+            return null;
+        }
+
+        public event BuyProductErrorDelegate BuyProductError;
+
+        public event InAppBillingProcessingErrorDelegate InAppBillingProcesingError;
+
+        public event OnGetProductsErrorDelegate OnGetProductsError;
+
+        public event OnInvalidOwnedItemsBundleReturnedDelegate OnInvalidOwnedItemsBundleReturned;
+
+        public event OnProductPurchasedDelegate OnProductPurchased;
+
+        public event OnProductPurchaseErrorDelegate OnProductPurchasedError;
+
+        public event OnPurchaseConsumedDelegate OnPurchaseConsumed;
+
+        public event OnPurchaseConsumedErrorDelegate OnPurchaseConsumedError;
+
+        public event OnPurchaseFailedValidationDelegate OnPurchaseFailedValidation;
+
+        public event OnUserCanceledDelegate OnUserCanceled;
+
+        public event QueryInventoryErrorDelegate QueryInventoryError;
 
         #endregion
 

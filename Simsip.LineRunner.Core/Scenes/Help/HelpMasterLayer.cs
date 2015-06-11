@@ -165,7 +165,7 @@ namespace Simsip.LineRunner.Scenes.Help
             this._helpPage1Layer = new HelpPage1Layer(this._parent, this);
             this.AddChild(this._helpPage1Layer);
             this._currentPage = 1;
-            this._totalPages = 8;
+            this._totalPages = 9;
 
             // Previous
             var previousNormal = new CCSprite("Images/Icons/PreviousButtonNormal.png");

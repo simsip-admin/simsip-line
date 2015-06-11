@@ -109,4 +109,10 @@
   <string name="OptionsPracticeStartLineDesc">enter line to start on (1-17)</string>
   <string name="OptionsPracticeStartPage">starting page</string>
   <string name="OptionsPracticeStartPageDesc">enter page to start on (1-6)</string>
+  <string name="UpgradesPracticeSwitchingLine">switching starting line to</string>
+  <string name="UpgradesPracticeSwitchingPage">switching starting page to</string>
+  <string name="UpgradesPracticeKillsOff">kills off</string>
+  <string name="UpgradesPracticeKillsOn">kills on</string>
+  <string name="UpgradesPracticeSelectLine">select starting line</string>
+  <string name="UpgradesPracticeSelectPage">select starting page</string>
 </resources>

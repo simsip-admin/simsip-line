@@ -4122,6 +4122,38 @@
       <Link>Assets\Content\Images\Misc\FingerPressSmall.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\BuyButtonNormal.xnb">
+      <Link>Assets\Content\Images\Icons\BuyButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\BuyButtonSelected.xnb">
+      <Link>Assets\Content\Images\Icons\BuyButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\JumpToLineButtonNormal.xnb">
+      <Link>Assets\Content\Images\Icons\JumpToLineButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\JumpToLineButtonSelected.xnb">
+      <Link>Assets\Content\Images\Icons\JumpToLineButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\JumpToPageButtonNormal.xnb">
+      <Link>Assets\Content\Images\Icons\JumpToPageButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\JumpToPageButtonSelected.xnb">
+      <Link>Assets\Content\Images\Icons\JumpToPageButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\RestoreButtonNormal.xnb">
+      <Link>Assets\Content\Images\Icons\RestoreButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\RestoreButtonSelected.xnb">
+      <Link>Assets\Content\Images\Icons\RestoreButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <AndroidResource Include="Resources\layout\View_OAuth.axml" />

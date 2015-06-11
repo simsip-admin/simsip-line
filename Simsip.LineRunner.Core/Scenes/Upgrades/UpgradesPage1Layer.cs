@@ -99,7 +99,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                     new CCCallFunc(() =>
                         {
                             this._practiceModeImages[this._currentPracticeModeImage].RunAction(new CCFadeOut(GameConstants.DURATION_UPGRADE_IMAGE));
-                            if (this._currentPracticeModeImage == this._practiceModeImages.Count)
+                            if (this._currentPracticeModeImage == this._practiceModeImages.Count - 1)
                             {
                                 this._currentPracticeModeImage = 0;
                             }
@@ -120,10 +120,11 @@ namespace Simsip.LineRunner.Scenes.Upgrades
 #else
             practiceText = AppResources.UpgradesPractice;
 #endif
-            var practiceTitle = new CCLabelTTF(practiceText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var practiceTitle = new CCLabelTTF(practiceText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            practiceTitle.Color = CCColor3B.Blue;
             practiceTitle.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.8f * this.ContentSize.Height);
+                0.5f  * this.ContentSize.Width,
+                0.78f * this.ContentSize.Height);
             this.AddChild(practiceTitle);
 
             // Practice desc1
@@ -152,14 +153,14 @@ namespace Simsip.LineRunner.Scenes.Upgrades
 #endif
             var practiceDesc2 = new CCLabelTTF(practiceDesc2Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             practiceDesc2.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.6f * this.ContentSize.Height);
+                0.5f  * this.ContentSize.Width,
+                0.65f * this.ContentSize.Height);
             this.AddChild(practiceDesc2);
 
             // Restore
             CCMenuItemImage restoreButton =
-                new CCMenuItemImage("Images/Icons/BackButtonNormal.png",
-                                    "Images/Icons/BackButtonSelected.png",
+                new CCMenuItemImage("Images/Icons/RestoreButtonNormal.png",
+                                    "Images/Icons/RestoreButtonSelected.png",
                                     (obj) => { _parent.GoBack(); });
             this._restoreMenu = new CCMenu(
                 new CCMenuItem[] 
@@ -167,8 +168,8 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                         restoreButton, 
                     });
             this._restoreMenu.Position = new CCPoint(
-                0.25f * this.ContentSize.Width,
-                0.1f  * this.ContentSize.Height);
+                0.2f * this.ContentSize.Width,
+                0.2f  * this.ContentSize.Height);
             this.AddChild(this._restoreMenu);
             var restoreText = string.Empty;
 #if ANDROID
@@ -187,8 +188,8 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                         restoreItem,
                     });
             this._restoreLabelMenu.Position = new CCPoint(
-                 0.25f * this.ContentSize.Width,
-                 0.05f * this.ContentSize.Height);
+                 0.2f * this.ContentSize.Width,
+                 0.1f * this.ContentSize.Height);
             this.AddChild(this._restoreLabelMenu);
 
             // Price
@@ -203,7 +204,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             this._priceLabel = new CCLabelTTF(priceText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             this._priceLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
-                0.2f * this.ContentSize.Height);
+                0.3f * this.ContentSize.Height);
             this.AddChild(this._priceLabel);
 
             // Purchased on
@@ -218,13 +219,13 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             this._purchasedOnLabel = new CCLabelTTF(this._purchasedOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             this._purchasedOnLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
-                0.2f * this.ContentSize.Height);
+                0.3f * this.ContentSize.Height);
             this.AddChild(this._purchasedOnLabel);
 
             // Buy
             CCMenuItemImage buyButton =
-                new CCMenuItemImage("Images/Icons/BackButtonNormal.png",
-                                    "Images/Icons/BackButtonSelected.png",
+                new CCMenuItemImage("Images/Icons/BuyButtonNormal.png",
+                                    "Images/Icons/BuyButtonSelected.png",
                         (obj) => { _parent.GoBack(); });
             this._buyMenu = new CCMenu(
                 new CCMenuItem[] 
@@ -232,8 +233,8 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                         buyButton, 
                     });
             this._buyMenu.Position = new CCPoint(
-                0.75f * this.ContentSize.Width,
-                0.1f * this.ContentSize.Height);
+                0.8f * this.ContentSize.Width,
+                0.2f * this.ContentSize.Height);
             this.AddChild(this._buyMenu);
             var buyText = string.Empty;
 #if ANDROID
@@ -252,8 +253,8 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                         buyItem,
                     });
             this._buyLabelMenu.Position = new CCPoint(
-                 0.75f * this.ContentSize.Width,
-                 0.05f * this.ContentSize.Height);
+                 0.8f * this.ContentSize.Width,
+                 0.1f * this.ContentSize.Height);
             this.AddChild(this._buyLabelMenu);
         }
 

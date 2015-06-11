@@ -908,6 +908,60 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to kills off.
+        /// </summary>
+        public static string UpgradesPracticeKillsOff {
+            get {
+                return ResourceManager.GetString("UpgradesPracticeKillsOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kills on.
+        /// </summary>
+        public static string UpgradesPracticeKillsOn {
+            get {
+                return ResourceManager.GetString("UpgradesPracticeKillsOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select starting line.
+        /// </summary>
+        public static string UpgradesPracticeSelectLine {
+            get {
+                return ResourceManager.GetString("UpgradesPracticeSelectLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select starting page.
+        /// </summary>
+        public static string UpgradesPracticeSelectPage {
+            get {
+                return ResourceManager.GetString("UpgradesPracticeSelectPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to switching starting line to.
+        /// </summary>
+        public static string UpgradesPracticeSwitchingLine {
+            get {
+                return ResourceManager.GetString("UpgradesPracticeSwitchingLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to switching starting page to.
+        /// </summary>
+        public static string UpgradesPracticeSwitchingPage {
+            get {
+                return ResourceManager.GetString("UpgradesPracticeSwitchingPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to price.
         /// </summary>
         public static string UpgradesPrice {
