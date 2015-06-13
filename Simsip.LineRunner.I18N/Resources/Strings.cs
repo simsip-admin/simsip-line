@@ -23,8 +23,8 @@
         public static string OptionsTitle = "OptionsTitle";
         public static string AchievementsLeaderboards = "AchievementsLeaderboards";
         public static string AchievementsTopScoresFor = "AchievementsTopScoresFor";
-        public static string AdminKillOff = "AdminKillOff";
-        public static string AdminKillOn = "AdminKillOn";
+        public static string AdminKillsOff = "AdminKillsOff";
+        public static string AdminKillsOn = "AdminKillsOn";
         public static string AdminParticlesOff = "AdminParticlesOff";
         public static string AdminParticlesOn = "AdminParticlesOn";
         public static string AdminStartPage = "AdminStartPage";
@@ -108,14 +108,11 @@
         public static string OptionsPracticeKillsOff = "OptionsPracticeKillsOff";
         public static string OptionsPracticeKillsOn = "OptionsPracticeKillsOn";
         public static string OptionsPracticeStartLine = "OptionsPracticeStartLine";
-        public static string OptionsPracticeStartLineDesc = "OptionsPracticeStartLineDesc";
         public static string OptionsPracticeStartPage = "OptionsPracticeStartPage";
-        public static string OptionsPracticeStartPageDesc = "OptionsPracticeStartPageDesc";
-        public static string UpgradesPracticeSwitchingLine = "UpgradesPracticeSwitchingLine";
-        public static string UpgradesPracticeSwitchingPage = "UpgradesPracticeSwitchingPage";
-        public static string UpgradesPracticeKillsOff = "UpgradesPracticeKillsOff";
-        public static string UpgradesPracticeKillsOn = "UpgradesPracticeKillsOn";
-        public static string UpgradesPracticeSelectLine = "UpgradesPracticeSelectLine";
-        public static string UpgradesPracticeSelectPage = "UpgradesPracticeSelectPage";
+        public static string OptionsPracticeSwitchingLine = "OptionsPracticeSwitchingLine";
+        public static string OptionsPracticeSwitchingPage = "OptionsPracticeSwitchingPage";
+        public static string AdminUpgradesOff = "AdminUpgradesOff";
+        public static string AdminUpgradesOn = "AdminUpgradesOn";
+        public static string OptionsPractice = "OptionsPractice";
     }
 }

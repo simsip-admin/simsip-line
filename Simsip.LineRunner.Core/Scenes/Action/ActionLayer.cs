@@ -567,7 +567,7 @@ namespace Simsip.LineRunner.Scenes.Action
 
             // Are we allowing kills
             // AND we are not already handling a previous kill?
-            if (GameManager.SharedGameManager.AdminIsKillAllowed &&
+            if (GameManager.SharedGameManager.AdminAreKillsAllowed &&
                 !this._handlingKill)
             {
                 // Make sure we only handle one kill at at a time
@@ -613,7 +613,7 @@ namespace Simsip.LineRunner.Scenes.Action
             e.TheLineModel.ModelRunAction(glowAction);
 
             // Are we allowing kills?
-            if (GameManager.SharedGameManager.AdminIsKillAllowed &&
+            if (GameManager.SharedGameManager.AdminAreKillsAllowed &&
                 !this._handlingKill)
             {
                 // Make sure we only handle one kill at at a time
@@ -990,6 +990,10 @@ namespace Simsip.LineRunner.Scenes.Action
 
             var heroPosition = this._characterCache.TheHeroModel.WorldOrigin;
             var lineModel = this._lineCache.GetLineModel(this._currentLineNumber);
+            if (lineModel == null)
+            {
+                return;
+            }
             var lineSpacing = this._pageCache.CurrentPageModel.WorldLineSpacing;
             var centerLineWorldHeight = lineModel.WorldOrigin.Y +
                                         (0.5f * lineSpacing);

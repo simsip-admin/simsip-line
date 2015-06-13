@@ -3311,6 +3311,7 @@
     <Compile Include="TheGame.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\LicenseView.cs" />
     <Compile Include="Views\OAuthView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -4152,6 +4153,22 @@
     </AndroidAsset>
     <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\RestoreButtonSelected.xnb">
       <Link>Assets\Content\Images\Icons\RestoreButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\JumpToLineButtonActive.xnb">
+      <Link>Assets\Content\Images\Icons\JumpToLineButtonActive.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\JumpToPageButtonActive.xnb">
+      <Link>Assets\Content\Images\Icons\JumpToPageButtonActive.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\KillsButtonOff.xnb">
+      <Link>Assets\Content\Images\Icons\KillsButtonOff.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\KillsButtonOn.xnb">
+      <Link>Assets\Content\Images\Icons\KillsButtonOn.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
     <None Include="packages.config" />

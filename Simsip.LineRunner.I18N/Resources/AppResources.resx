@@ -182,11 +182,11 @@
   <data name="AchievementsTopScoresFor" xml:space="preserve">
     <value>top scores</value>
   </data>
-  <data name="AdminKillOff" xml:space="preserve">
-    <value>kill off</value>
+  <data name="AdminKillsOff" xml:space="preserve">
+    <value>kills off</value>
   </data>
-  <data name="AdminKillOn" xml:space="preserve">
-    <value>kill on</value>
+  <data name="AdminKillsOn" xml:space="preserve">
+    <value>kills on</value>
   </data>
   <data name="AdminParticlesOff" xml:space="preserve">
     <value>particles off</value>
@@ -437,31 +437,22 @@
   <data name="OptionsPracticeStartLine" xml:space="preserve">
     <value>starting line</value>
   </data>
-  <data name="OptionsPracticeStartLineDesc" xml:space="preserve">
-    <value>enter line to start on (1-17)</value>
-  </data>
   <data name="OptionsPracticeStartPage" xml:space="preserve">
     <value>starting page</value>
   </data>
-  <data name="OptionsPracticeStartPageDesc" xml:space="preserve">
-    <value>enter page to start on (1-6)</value>
-  </data>
-  <data name="UpgradesPracticeSwitchingLine" xml:space="preserve">
+  <data name="OptionsPracticeSwitchingLine" xml:space="preserve">
     <value>switching starting line to</value>
   </data>
-  <data name="UpgradesPracticeSwitchingPage" xml:space="preserve">
+  <data name="OptionsPracticeSwitchingPage" xml:space="preserve">
     <value>switching starting page to</value>
   </data>
-  <data name="UpgradesPracticeKillsOff" xml:space="preserve">
-    <value>kills off</value>
+  <data name="AdminUpgradesOff" xml:space="preserve">
+    <value>upgrades off</value>
   </data>
-  <data name="UpgradesPracticeKillsOn" xml:space="preserve">
-    <value>kills on</value>
+  <data name="AdminUpgradesOn" xml:space="preserve">
+    <value>upgrades on</value>
   </data>
-  <data name="UpgradesPracticeSelectLine" xml:space="preserve">
-    <value>select starting line</value>
-  </data>
-  <data name="UpgradesPracticeSelectPage" xml:space="preserve">
-    <value>select starting page</value>
+  <data name="OptionsPractice" xml:space="preserve">
+    <value>practice mode</value>
   </data>
 </root>

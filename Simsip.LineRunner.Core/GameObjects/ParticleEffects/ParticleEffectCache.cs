@@ -107,7 +107,7 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
         public void AddDisplayParticleEffect(GameModel gameModel, CustomContentManager customContentManager)
         {
             // We can turn off particles via an admin setting on the Admin screen
-            if (!GameManager.SharedGameManager.AdminIsParticlesAllowed)
+            if (!GameManager.SharedGameManager.AdminAreParticlesAllowed)
             {
                 return;
             }
@@ -177,7 +177,7 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
         public void AddFinishParticleEffect(IList<ParticleEffectDesc> particleEffectDescs, CustomContentManager customContentManager)
         {
             // We can turn off particles via an admin setting on the Admin screen
-            if (!GameManager.SharedGameManager.AdminIsParticlesAllowed)
+            if (!GameManager.SharedGameManager.AdminAreParticlesAllowed)
             {
                 return;
             }
@@ -199,7 +199,7 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
         public void AddHitParticleEffect(GameModel gameModel, Contact theContact, CustomContentManager customContentManager)
         {
             // We can turn off particles via an admin setting on the Admin screen
-            if (!GameManager.SharedGameManager.AdminIsParticlesAllowed)
+            if (!GameManager.SharedGameManager.AdminAreParticlesAllowed)
             {
                 return;
             }

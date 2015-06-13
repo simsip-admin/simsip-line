@@ -19,8 +19,8 @@ namespace Simsip.LineRunner.GameFramework
             this.AdminStartPageNumber = 1;
             this.AdminStartLineNumber = 1;
             this.AdminStartScore = 0;
-            this.AdminIsKillAllowed = true;
-            this.AdminIsParticlesAllowed = true;
+            this.AdminAreKillsAllowed = true;
+            this.AdminAreParticlesAllowed = true;
         }
 
         #region Properties
@@ -51,15 +51,15 @@ namespace Simsip.LineRunner.GameFramework
         /// 
         /// Debug screen has an option to toggle this flag.
         /// </summary>
-        public bool AdminIsKillAllowed { get; set; }
+        public bool AdminAreKillsAllowed { get; set; }
 
         /// <summary>
         /// Controls whether particles are displayed.
         /// (e.g., colliding with obstacles, lines, etc.).
         /// 
-        /// Debug screen has an option to toggle this flag.
+        /// Admin screen has an option to toggle this flag.
         /// </summary>
-        public bool AdminIsParticlesAllowed { get; set; }
+        public bool AdminAreParticlesAllowed { get; set; }
                     
         /// <summary>
         /// Allow admins to set page to start on via the Admin screen.
@@ -70,6 +70,13 @@ namespace Simsip.LineRunner.GameFramework
         /// Allow admins to set line to start on via the Admin screen.
         /// </summary>
         public int AdminStartLineNumber { get; set; }
+
+        /// <summary>
+        /// Controls whether upgrade pages are displayed.
+        /// 
+        /// Admin screen has an option to toggle this flag.
+        /// </summary>
+        public bool AdminAreUpgradesAllowed { get; set; }
 
         /// <summary>
         /// Centralized access to current score.

@@ -17,6 +17,7 @@ namespace Simsip.LineRunner
         private UINavigationController nav;
         private UIViewController vc;
         private OAuthViewController oauth;
+        private LicenseViewController license;
 
         public static Program SharedProgram { get; private set; }
 
@@ -69,6 +70,12 @@ namespace Simsip.LineRunner
             _allowRating = true;
             iRate.SharedInstance.PromptIfNetworkAvailable();
             _allowRating = false;
+        }
+
+        public void LaunchLicense()
+        {
+            license = new LicenseViewController();
+            nav.PushViewController(license, false);
         }
 
         public void LaunchOAuth()

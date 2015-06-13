@@ -80,20 +80,20 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to kill off.
+        ///   Looks up a localized string similar to kills off.
         /// </summary>
-        public static string AdminKillOff {
+        public static string AdminKillsOff {
             get {
-                return ResourceManager.GetString("AdminKillOff", resourceCulture);
+                return ResourceManager.GetString("AdminKillsOff", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to kill on.
+        ///   Looks up a localized string similar to kills on.
         /// </summary>
-        public static string AdminKillOn {
+        public static string AdminKillsOn {
             get {
-                return ResourceManager.GetString("AdminKillOn", resourceCulture);
+                return ResourceManager.GetString("AdminKillsOn", resourceCulture);
             }
         }
         
@@ -148,6 +148,24 @@ namespace Simsip.LineRunner.Resources {
         public static string AdminStartPageDescription {
             get {
                 return ResourceManager.GetString("AdminStartPageDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to upgrades off.
+        /// </summary>
+        public static string AdminUpgradesOff {
+            get {
+                return ResourceManager.GetString("AdminUpgradesOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to upgrades on.
+        /// </summary>
+        public static string AdminUpgradesOn {
+            get {
+                return ResourceManager.GetString("AdminUpgradesOn", resourceCulture);
             }
         }
         
@@ -737,6 +755,15 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to practice mode.
+        /// </summary>
+        public static string OptionsPractice {
+            get {
+                return ResourceManager.GetString("OptionsPractice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to kills off.
         /// </summary>
         public static string OptionsPracticeKillsOff {
@@ -764,15 +791,6 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to enter line to start on (1-17).
-        /// </summary>
-        public static string OptionsPracticeStartLineDesc {
-            get {
-                return ResourceManager.GetString("OptionsPracticeStartLineDesc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to starting page.
         /// </summary>
         public static string OptionsPracticeStartPage {
@@ -782,11 +800,20 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to enter page to start on (1-6).
+        ///   Looks up a localized string similar to switching starting line to.
         /// </summary>
-        public static string OptionsPracticeStartPageDesc {
+        public static string OptionsPracticeSwitchingLine {
             get {
-                return ResourceManager.GetString("OptionsPracticeStartPageDesc", resourceCulture);
+                return ResourceManager.GetString("OptionsPracticeSwitchingLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to switching starting page to.
+        /// </summary>
+        public static string OptionsPracticeSwitchingPage {
+            get {
+                return ResourceManager.GetString("OptionsPracticeSwitchingPage", resourceCulture);
             }
         }
         
@@ -904,60 +931,6 @@ namespace Simsip.LineRunner.Resources {
         public static string UpgradesPracticeDesc2 {
             get {
                 return ResourceManager.GetString("UpgradesPracticeDesc2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to kills off.
-        /// </summary>
-        public static string UpgradesPracticeKillsOff {
-            get {
-                return ResourceManager.GetString("UpgradesPracticeKillsOff", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to kills on.
-        /// </summary>
-        public static string UpgradesPracticeKillsOn {
-            get {
-                return ResourceManager.GetString("UpgradesPracticeKillsOn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to select starting line.
-        /// </summary>
-        public static string UpgradesPracticeSelectLine {
-            get {
-                return ResourceManager.GetString("UpgradesPracticeSelectLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to select starting page.
-        /// </summary>
-        public static string UpgradesPracticeSelectPage {
-            get {
-                return ResourceManager.GetString("UpgradesPracticeSelectPage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to switching starting line to.
-        /// </summary>
-        public static string UpgradesPracticeSwitchingLine {
-            get {
-                return ResourceManager.GetString("UpgradesPracticeSwitchingLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to switching starting page to.
-        /// </summary>
-        public static string UpgradesPracticeSwitchingPage {
-            get {
-                return ResourceManager.GetString("UpgradesPracticeSwitchingPage", resourceCulture);
             }
         }
         

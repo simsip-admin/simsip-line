@@ -19,6 +19,12 @@ namespace Simsip.LineRunner
             marketplaceReviewTask.Show();
         }
 
+        public void LaunchLicense()
+        {
+            (App.Current.RootVisual as PhoneApplicationFrame).
+                Navigate(new Uri("/Views/LicenseView.xaml", UriKind.Relative));
+        }
+
         public void LaunchOAuth()
         {
             (App.Current.RootVisual as PhoneApplicationFrame).

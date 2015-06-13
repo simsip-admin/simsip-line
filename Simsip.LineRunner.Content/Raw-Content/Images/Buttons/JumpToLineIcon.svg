@@ -20,9 +20,9 @@
    xml:space="preserve"
    inkscape:version="0.48.5 r10040"
    sodipodi:docname="JumpToLineIcon.svg"
-   inkscape:export-filename="C:\dev3\simsip-line\Simsip.LineRunner.Content\Content\Images\Icons\JumpToLineIconNormal.png"
-   inkscape:export-xdpi="138.47485"
-   inkscape:export-ydpi="138.47485"><metadata
+   inkscape:export-filename="C:\dev3\simsip-line\Simsip.LineRunner.Content\Content\Images\Icons\JumpToLineButtonNormal.png"
+   inkscape:export-xdpi="86.546783"
+   inkscape:export-ydpi="86.546783"><metadata
    id="metadata45"><rdf:RDF><cc:Work
        rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
          rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
@@ -35,8 +35,8 @@
    guidetolerance="10"
    inkscape:pageopacity="0"
    inkscape:pageshadow="2"
-   inkscape:window-width="2048"
-   inkscape:window-height="1129"
+   inkscape:window-width="1680"
+   inkscape:window-height="1027"
    id="namedview41"
    showgrid="false"
    inkscape:zoom="4.5388981"

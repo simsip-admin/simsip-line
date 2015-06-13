@@ -35,6 +35,10 @@ namespace Simsip.LineRunner.Scenes.Options
         private CCAction _pageActionOutToLeft;
         private CCAction _pageActionOutToRight;
 
+        // Page number header
+        private string _pageNumberText;
+        private CCLabelTTF _pageNumberHeader;
+
         // Previous/next buttons
         private CCMenu _previousMenu;
         private CCMenu _nextMenu;
@@ -56,13 +60,13 @@ namespace Simsip.LineRunner.Scenes.Options
             // Get these set up for relative positioning below
             var screenSize = CCDirector.SharedDirector.WinSize;
             this.ContentSize = new CCSize(
-                0.8f * screenSize.Width,
-                0.8f * screenSize.Height);
+                0.9f * screenSize.Width,
+                0.9f * screenSize.Height);
 
             // Layer transition in/out
             var layerEndPosition = new CCPoint(
-                0.1f * screenSize.Width,
-                0.1f * screenSize.Height);
+                0.05f * screenSize.Width,
+                0.05f * screenSize.Height);
             var layerStartPosition = new CCPoint(
                 layerEndPosition.X,
                 screenSize.Height);
@@ -135,6 +139,22 @@ namespace Simsip.LineRunner.Scenes.Options
                 0.9f * this.ContentSize.Height);
             this.AddChild(optionsTitle);
 
+            // Page number
+            this._pageNumberText = string.Empty;
+#if ANDROID
+            this._pageNumberText = Program.SharedProgram.Resources.GetString(Resource.String.CommonPage);
+#elif IOS
+            this._pageNumberText = NSBundle.MainBundle.LocalizedString(Strings.CommonPage, Strings.CommonPage);
+#else
+            this._pageNumberText = AppResources.CommonPage;
+#endif
+            this._pageNumberHeader = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
+            this._pageNumberHeader.Position = new CCPoint(
+                0.95f * this.ContentSize.Width,
+                0.9f * this.ContentSize.Height);
+            this.AddChild(this._pageNumberHeader);
+
             // Header line
             var headerLineImage = new CCSprite("Images/Misc/HeaderLine");
             Cocos2DUtils.ResizeSprite(headerLineImage,
@@ -144,23 +164,6 @@ namespace Simsip.LineRunner.Scenes.Options
                 0.5f * this.ContentSize.Width,
                 0.85f * this.ContentSize.Height);
             this.AddChild(headerLineImage);
-
-            // Version
-            var versionText = string.Empty;
-#if ANDROID
-            versionText = Program.SharedProgram.Resources.GetString(Resource.String.CommonVersion);
-#elif IOS
-            versionText = NSBundle.MainBundle.LocalizedString(Strings.CommonVersion, Strings.CommonVersion);
-#else
-            versionText = AppResources.CommonVersion;
-#endif
-            // TODO: Not sure why a space instead of dash here will cause the version number not to show on Android
-            var versionHeader = new CCLabelTTF(versionText + "-" + FileUtils.GetVersion(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-            versionHeader.AnchorPoint = CCPoint.AnchorMiddleLeft;
-            versionHeader.Position = new CCPoint(
-                0.05f * this.ContentSize.Width,
-                0.8f * this.ContentSize.Height);
-            this.AddChild(versionHeader);
 
             // Pages
             this._optionsPages = new List<CCLayer>();
@@ -240,6 +243,12 @@ namespace Simsip.LineRunner.Scenes.Options
             this.AddChild(backMenu);
         }
 
+        #region Properties
+        
+        public int UpgradeCount { get; private set; }
+        
+        #endregion
+
         #region Cocos2D overrides
 
         public override void OnEnter()
@@ -249,21 +258,32 @@ namespace Simsip.LineRunner.Scenes.Options
             // Animate layer
             this.RunAction(this._layerActionIn);
 
+            // Reset state
             this._currentPage = 1;
+            foreach(var optionPage in this._optionsPages)
+            {
+                optionPage.Visible = false;
+            }
 
             // Determine if upgrade practice mode was purchased
+            // Note: Override available from admin screen
             var practicePurchase =
                 this._inAppPurchaseRepository.GetPurchaseByProductId(this._inAppPurchaseRepository.PracticeModeProductId);
-            if (practicePurchase != null)
+            if (practicePurchase != null ||
+                GameManager.SharedGameManager.AdminAreUpgradesAllowed)
             {
                 // OK, we have the purchase, do we need to insert into our pages?
                 if (this._practicePage == null)
                 {
                     this._practicePage = new OptionsPracticeLayer(this._parent, this);
+                    this.AddChild(this._practicePage);
                     this._optionsPages.Insert(0, this._practicePage);
                     this._totalPages = this._optionsPages.Count;
                 }
             }
+
+            // Flip on the resulting first options page
+            this._optionsPages[0].Visible = true;
 
             // Determine which navigation ui to show
             // Note: Page visibility is handled in previous/next event handlers below
@@ -318,6 +338,10 @@ namespace Simsip.LineRunner.Scenes.Options
 
         private void UpdatePageNavigationUI()
         {
+            // Page number
+            this._pageNumberHeader.Text = this._pageNumberText + " " + this._currentPage;
+
+            // Previous/next arrows
             if (this._currentPage == 1)
             {
                 this._previousMenu.Visible = false;

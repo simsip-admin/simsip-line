@@ -4099,6 +4099,22 @@
       <Link>Content\Images\Icons\RestoreButtonSelected.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Icons\JumpToLineButtonActive.xnb">
+      <Link>Content\Images\Icons\JumpToLineButtonActive.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Icons\JumpToPageButtonActive.xnb">
+      <Link>Content\Images\Icons\JumpToPageButtonActive.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Icons\KillsButtonOff.xnb">
+      <Link>Content\Images\Icons\KillsButtonOff.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Icons\KillsButtonOn.xnb">
+      <Link>Content\Images\Icons\KillsButtonOn.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
       <Link>Mercury\EffectLibrary\BasicExplosion.xml</Link>
     </None>

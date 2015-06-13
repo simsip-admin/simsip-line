@@ -385,12 +385,12 @@ namespace Simsip.LineRunner.Scenes.MessageBox
                             this.Opacity = DEFAULT_OPACITY;
 
                             this.ContentSize = new CCSize(
-                                0.8f * screenSize.Width,
-                                0.4f * screenSize.Height);
+                                0.9f * screenSize.Width,
+                                0.3f * screenSize.Height);
 
                             var layerEndPosition = new CCPoint(
-                                    0.1f * screenSize.Width,
-                                    0.3f * screenSize.Height);
+                                    0.05f * screenSize.Width,
+                                    0.35f * screenSize.Height);
                             var layerStartPosition = new CCPoint(
                                 layerEndPosition.X,
                                 screenSize.Height);

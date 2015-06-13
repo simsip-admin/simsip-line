@@ -283,6 +283,7 @@
     <Compile Include="..\Simsip.LineRunner.Core\Voxeliq\Input\IInputManager.cs">
       <Link>Voxeliq\Input\IInputManager.cs</Link>
     </Compile>
+    <Compile Include="Views\LicenseViewController.cs" />
     <Compile Include="Views\OAuthViewController.cs" />
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Fonts\arial-12.xnb">
       <Link>Content\Fonts\arial-12.xnb</Link>
@@ -1068,6 +1069,22 @@
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\RestoreButtonSelected.xnb">
       <Link>Content\Images\Icons\RestoreButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\JumpToLineButtonActive.xnb">
+      <Link>Content\Images\Icons\JumpToLineButtonActive.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\JumpToPageButtonActive.xnb">
+      <Link>Content\Images\Icons\JumpToPageButtonActive.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\KillsButtonOff.xnb">
+      <Link>Content\Images\Icons\KillsButtonOff.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\KillsButtonOn.xnb">
+      <Link>Content\Images\Icons\KillsButtonOn.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">

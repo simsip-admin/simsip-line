@@ -1916,10 +1916,10 @@ namespace Simsip.LineRunner
 			public const int AchievementsTopScoresFor = 2131099728;
 			
 			// aapt resource value: 0x7f060051
-			public const int AdminKillOff = 2131099729;
+			public const int AdminKillsOff = 2131099729;
 			
 			// aapt resource value: 0x7f060052
-			public const int AdminKillOn = 2131099730;
+			public const int AdminKillsOn = 2131099730;
 			
 			// aapt resource value: 0x7f060053
 			public const int AdminParticlesOff = 2131099731;
@@ -1938,6 +1938,12 @@ namespace Simsip.LineRunner
 			
 			// aapt resource value: 0x7f060056
 			public const int AdminStartPageDescription = 2131099734;
+			
+			// aapt resource value: 0x7f0600a9
+			public const int AdminUpgradesOff = 2131099817;
+			
+			// aapt resource value: 0x7f0600aa
+			public const int AdminUpgradesOn = 2131099818;
 			
 			// aapt resource value: 0x7f06003b
 			public const int ApplicationName = 2131099707;
@@ -2140,6 +2146,9 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f06004b
 			public const int OptionsPads = 2131099723;
 			
+			// aapt resource value: 0x7f0600ab
+			public const int OptionsPractice = 2131099819;
+			
 			// aapt resource value: 0x7f0600a3
 			public const int OptionsPracticeKillsOff = 2131099811;
 			
@@ -2150,13 +2159,13 @@ namespace Simsip.LineRunner
 			public const int OptionsPracticeStartLine = 2131099813;
 			
 			// aapt resource value: 0x7f0600a6
-			public const int OptionsPracticeStartLineDesc = 2131099814;
+			public const int OptionsPracticeStartPage = 2131099814;
 			
 			// aapt resource value: 0x7f0600a7
-			public const int OptionsPracticeStartPage = 2131099815;
+			public const int OptionsPracticeSwitchingLine = 2131099815;
 			
 			// aapt resource value: 0x7f0600a8
-			public const int OptionsPracticeStartPageDesc = 2131099816;
+			public const int OptionsPracticeSwitchingPage = 2131099816;
 			
 			// aapt resource value: 0x7f06004c
 			public const int OptionsSoundOff = 2131099724;
@@ -2196,24 +2205,6 @@ namespace Simsip.LineRunner
 			
 			// aapt resource value: 0x7f06009a
 			public const int UpgradesPracticeDesc2 = 2131099802;
-			
-			// aapt resource value: 0x7f0600ab
-			public const int UpgradesPracticeKillsOff = 2131099819;
-			
-			// aapt resource value: 0x7f0600ac
-			public const int UpgradesPracticeKillsOn = 2131099820;
-			
-			// aapt resource value: 0x7f0600ad
-			public const int UpgradesPracticeSelectLine = 2131099821;
-			
-			// aapt resource value: 0x7f0600ae
-			public const int UpgradesPracticeSelectPage = 2131099822;
-			
-			// aapt resource value: 0x7f0600a9
-			public const int UpgradesPracticeSwitchingLine = 2131099817;
-			
-			// aapt resource value: 0x7f0600aa
-			public const int UpgradesPracticeSwitchingPage = 2131099818;
 			
 			// aapt resource value: 0x7f0600a0
 			public const int UpgradesPrice = 2131099808;

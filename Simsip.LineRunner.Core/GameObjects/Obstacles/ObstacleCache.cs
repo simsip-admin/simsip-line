@@ -434,6 +434,10 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             var obstacleModels = loadContentThreadArgs.ObstacleModelsAsync;
 
             // Grab from cache if available, prime cache if not
+            if (loadContentAsyncType == LoadContentAsyncType.Refresh)
+            {
+                this._loadContentThreadCache.Clear();
+            }
             if (loadContentAsyncType == LoadContentAsyncType.Initialize ||
                 loadContentAsyncType == LoadContentAsyncType.Refresh)
             {
@@ -441,6 +445,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 {
                     var cachedArgs = this._loadContentThreadCache[0];
                     this._loadContentThreadCache.RemoveAt(0);
+                    cachedArgs.TheLoadContentAsyncType = loadContentAsyncType;
                     this._loadContentThreadResults.Enqueue(cachedArgs);
                 }
                 else

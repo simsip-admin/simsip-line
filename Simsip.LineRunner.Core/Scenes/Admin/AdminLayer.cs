@@ -124,28 +124,28 @@ namespace Simsip.LineRunner.Scenes.Admin
             // Are kills on?
             var killOnText = string.Empty;
 #if ANDROID
-            killOnText = Program.SharedProgram.Resources.GetString(Resource.String.AdminKillOn);
+            killOnText = Program.SharedProgram.Resources.GetString(Resource.String.AdminKillsOn);
 #elif IOS
-            killOnText = NSBundle.MainBundle.LocalizedString(Strings.AdminKillOn, Strings.AdminKillOn);
+            killOnText = NSBundle.MainBundle.LocalizedString(Strings.AdminKillsOn, Strings.AdminKillsOn);
 #else
-            killOnText = AppResources.AdminKillOn;
+            killOnText = AppResources.AdminKillsOn;
 #endif
             var killsOnLabel = new CCLabelTTF(killOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             var killsOnItem = new CCMenuItemLabel(killsOnLabel);
             var killOffText = string.Empty;
 #if ANDROID
-            killOffText = Program.SharedProgram.Resources.GetString(Resource.String.AdminKillOff);
+            killOffText = Program.SharedProgram.Resources.GetString(Resource.String.AdminKillsOff);
 #elif IOS
-            killOffText = NSBundle.MainBundle.LocalizedString(Strings.AdminKillOff, Strings.AdminKillOff);
+            killOffText = NSBundle.MainBundle.LocalizedString(Strings.AdminKillsOff, Strings.AdminKillsOff);
 #else
-            killOffText = AppResources.AdminKillOff;
+            killOffText = AppResources.AdminKillsOff;
 #endif
             var killsOffLabel = new CCLabelTTF(killOffText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             var killsOffItem = new CCMenuItemLabel(killsOffLabel);
             CCMenuItemToggle killToggle =
-                new CCMenuItemToggle((obj) => KillTogglePressed(),
+                new CCMenuItemToggle((obj) => KillsTogglePressed(),
                 new CCMenuItem[] { killsOnItem, killsOffItem });
-            if (GameManager.SharedGameManager.AdminIsKillAllowed == false)
+            if (GameManager.SharedGameManager.AdminAreKillsAllowed == false)
             {
                 killToggle.SelectedIndex = 1; // Kills are OFF
             }
@@ -184,7 +184,7 @@ namespace Simsip.LineRunner.Scenes.Admin
             CCMenuItemToggle particlesToggle =
                 new CCMenuItemToggle((obj) => ParticlesTogglePressed(),
                 new CCMenuItem[] { particlesOnItem, particlesOffItem });
-            if (GameManager.SharedGameManager.AdminIsParticlesAllowed == false)
+            if (GameManager.SharedGameManager.AdminAreParticlesAllowed == false)
             {
                 particlesToggle.SelectedIndex = 1; // Particles are OFF
             }
@@ -195,8 +195,46 @@ namespace Simsip.LineRunner.Scenes.Admin
                     });
             particlesMenu.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
-                0.4f * this.ContentSize.Height);
+                0.5f * this.ContentSize.Height);
             this.AddChild(particlesMenu);
+
+            // Are upgrades on?
+            var upgradesOnText = string.Empty;
+#if ANDROID
+            upgradesOnText = Program.SharedProgram.Resources.GetString(Resource.String.AdminUpgradesOn);
+#elif IOS
+            upgradesOnText = NSBundle.MainBundle.LocalizedString(Strings.AdminUpgradesOn, Strings.AdminUpgradesOn);
+#else
+            upgradesOnText = AppResources.AdminUpgradesOn;
+#endif
+            var upgradesOnLabel = new CCLabelTTF(upgradesOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var upgradesOnItem = new CCMenuItemLabel(upgradesOnLabel);
+            var upgradesOffText = string.Empty;
+#if ANDROID
+            upgradesOffText = Program.SharedProgram.Resources.GetString(Resource.String.AdminUpgradesOff);
+#elif IOS
+            upgradesOffText = NSBundle.MainBundle.LocalizedString(Strings.AdminUpgradesOff, Strings.AdminUpgradesOff);
+#else
+            upgradesOffText = AppResources.AdminUpgradesOff;
+#endif
+            var upgradesOffLabel = new CCLabelTTF(upgradesOffText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var upgradesOffItem = new CCMenuItemLabel(upgradesOffLabel);
+            CCMenuItemToggle upgradesToggle =
+                new CCMenuItemToggle((obj) => UpgradesTogglePressed((obj as CCMenuItemToggle).SelectedIndex),
+                new CCMenuItem[] { upgradesOnItem, upgradesOffItem });
+            if (GameManager.SharedGameManager.AdminAreUpgradesAllowed == false)
+            {
+                upgradesToggle.SelectedIndex = 1; // Upgrades are OFF
+            }
+            var upgradesMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        upgradesToggle,
+                    });
+            upgradesMenu.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.4f * this.ContentSize.Height);
+            this.AddChild(upgradesMenu);
 
             // Back
             CCMenuItemImage backButton =
@@ -233,27 +271,39 @@ namespace Simsip.LineRunner.Scenes.Admin
 
         #region Helper methods
 
-        private void KillTogglePressed()
+        private void KillsTogglePressed()
         {
-            if (GameManager.SharedGameManager.AdminIsKillAllowed)
+            if (GameManager.SharedGameManager.AdminAreKillsAllowed)
             {
-                GameManager.SharedGameManager.AdminIsKillAllowed = false;
+                GameManager.SharedGameManager.AdminAreKillsAllowed = false;
             }
             else
             {
-                GameManager.SharedGameManager.AdminIsKillAllowed = true;
+                GameManager.SharedGameManager.AdminAreKillsAllowed = true;
             }
         }
 
         private void ParticlesTogglePressed()
         {
-            if (GameManager.SharedGameManager.AdminIsParticlesAllowed)
+            if (GameManager.SharedGameManager.AdminAreParticlesAllowed)
             {
-                GameManager.SharedGameManager.AdminIsParticlesAllowed = false;
+                GameManager.SharedGameManager.AdminAreParticlesAllowed = false;
             }
             else
             {
-                GameManager.SharedGameManager.AdminIsParticlesAllowed = true;
+                GameManager.SharedGameManager.AdminAreParticlesAllowed = true;
+            }
+        }
+
+        private void UpgradesTogglePressed(int selectedIndex)
+        {
+            if (selectedIndex == 0)
+            {
+                GameManager.SharedGameManager.AdminAreUpgradesAllowed = true;
+            }
+            else
+            {
+                GameManager.SharedGameManager.AdminAreUpgradesAllowed = false;
             }
         }
 

@@ -194,6 +194,12 @@ namespace Simsip.LineRunner
             _allowRating = false;
         }
 
+        public void LaunchLicense()
+        {
+            var intent = new Intent(this, typeof(LicenseView));
+            StartActivity(intent);
+        }
+
         public void LaunchOAuth()
         {
             var intent = new Intent(this, typeof(OAuthView));

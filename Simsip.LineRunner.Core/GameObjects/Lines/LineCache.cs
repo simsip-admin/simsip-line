@@ -36,6 +36,7 @@ using System.Threading;
 using Simsip.LineRunner.Concurrent;
 #else
 using System.Collections.Concurrent;
+using Simsip.LineRunner.Entities.LineRunner;
 #endif
 
 
@@ -297,7 +298,10 @@ namespace Simsip.LineRunner.GameObjects.Lines
 
         public LineModel GetLineModel(int lineNumber)
         {
-            return this.LineModels[lineNumber];
+            var lineModel = this.LineModels
+                            .Where(x => x.ThePageLinesEntity.LineNumber == lineNumber)
+                            .FirstOrDefault();
+            return lineModel;
         }
 
         #endregion
@@ -437,13 +441,22 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         GameConstants.USER_DEFAULT_INITIAL_CURRENT_LINE);
                     var lineEntity = this._lineRepository.GetLine(currentLine);
 
+                    // Create a PageLinesEntity to represent this model
+                    var pageLinesEntity = new PageLinesEntity
+                        {
+                            PageNumber = pageLinesEntities[0].PageNumber,
+                            LineNumber = lineNumbers[i],
+                            ModelName = pageLinesEntities[0].ModelName,
+                            LineType = pageLinesEntities[0].LineType
+                        };
+
                     // Load a fresh or cached version of our line model
                     var customContentManager = new CustomContentManager(
                        TheGame.SharedGame.Services,
                        TheGame.SharedGame.Content.RootDirectory);
                     var lineModel = new LineModel(
                         lineEntity,
-                        pageLinesEntities[0],
+                        pageLinesEntity,
                         customContentManager);
 
                     // Scale the line model to be the width of the page
@@ -597,7 +610,8 @@ namespace Simsip.LineRunner.GameObjects.Lines
             // First line also animates in the header line
             if (this._currentLineNumber == GameManager.SharedGameManager.AdminStartLineNumber)
             {
-                var headerLine = this.GetLineModel(0);
+                var headerLineNumber = GameManager.SharedGameManager.AdminStartLineNumber - 1;
+                var headerLine = this.GetLineModel(headerLineNumber);
                  
                 // IMPORTANT: Note the adjustment in depth as we have staged this line tucked behind page.
                 //            See ProcessNextPage() for staging

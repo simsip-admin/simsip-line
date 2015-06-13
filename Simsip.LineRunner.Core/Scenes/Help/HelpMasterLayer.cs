@@ -161,6 +161,29 @@ namespace Simsip.LineRunner.Scenes.Help
                 0.8f  * this.ContentSize.Height);
             this.AddChild(versionHeader);
 
+            // License
+            var licenseText = string.Empty;
+#if ANDROID
+            licenseText = Program.SharedProgram.Resources.GetString(Resource.String.CommonLicense);
+#elif IOS
+            licenseText = NSBundle.MainBundle.LocalizedString(Strings.CommonLicense, Strings.CommonLicense);
+#else
+            licenseText = AppResources.CommonLicense;
+#endif
+            var licenseLabel = new CCLabelTTF(licenseText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            var licenseItem = new CCMenuItemLabel(licenseLabel,
+                (obj) => { this.LaunchLicense(); });
+            var licenseMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        licenseItem,
+                    });
+            licenseMenu.AnchorPoint = CCPoint.AnchorMiddleLeft;
+            licenseMenu.Position = new CCPoint(
+                 0.95f * this.ContentSize.Width,
+                 0.8f  * this.ContentSize.Height);
+            this.AddChild(licenseMenu);
+
             // 1 page create up front, rest created on-demand, see GetHelpPage() below
             this._helpPage1Layer = new HelpPage1Layer(this._parent, this);
             this.AddChild(this._helpPage1Layer);
@@ -428,6 +451,24 @@ namespace Simsip.LineRunner.Scenes.Help
                 this._previousMenu.Visible = true;
                 this._nextMenu.Visible = true;
             }
+        }
+
+        private void LaunchLicense()
+        {
+#if ANDROID
+            // Ok, we need to login first
+            Program.SharedProgram.LaunchLicense();
+#elif IOS
+            // Ok, we need to login first
+            Program.SharedProgram.LaunchLicense();
+#elif WINDOWS_PHONE
+            // Ok, we need to login first
+            Program.SharedProgram.LaunchLicense();
+#elif NETFX_CORE
+            // Ok, we need to login first
+            var app = App.Current as App;
+            app.LaunchLicense();
+#endif
         }
 
         #endregion
