@@ -80,7 +80,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             public IList<ObstacleModel> ObstacleModelsAsync;
         }
         private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadResults;
-        private IList<LoadContentThreadArgs> _loadContentThreadCache;
+        private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadCache;
 
         // Identifies if we are injecting a random set of obstacles
         private const string RandomPrefix = "Random";
@@ -118,7 +118,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             this._currentLineNumber = 1;
             this.ObstacleModels = new List<ObstacleModel>();
             this._loadContentThreadResults = new ConcurrentQueue<LoadContentThreadArgs>();
-            this._loadContentThreadCache = new List<LoadContentThreadArgs>();
+            this._loadContentThreadCache = new ConcurrentQueue<LoadContentThreadArgs>();
             this.ContentManagers = new Dictionary<int, CustomContentManager>();
             this._obstacleHitList = new List<ObstacleModel>();
             this.InitializeRandomObstacles();
@@ -433,40 +433,60 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             var contentManagers = loadContentThreadArgs.ContentManagersAsync;
             var obstacleModels = loadContentThreadArgs.ObstacleModelsAsync;
 
-            // Grab from cache if available, prime cache if not
+            // IMPORTANT: If we are coming from a Refresh we may have to clear out any
+            //            cached stagings (e.g., the page/line number has changed and
+            //            a cached representation of the obstacles would be incorrect)
             if (loadContentAsyncType == LoadContentAsyncType.Refresh)
             {
-                this._loadContentThreadCache.Clear();
+                this._loadContentThreadCache = new ConcurrentQueue<LoadContentThreadArgs>();
             }
+
+
+            // Grab from cache if available, prime cache if not
             if (loadContentAsyncType == LoadContentAsyncType.Initialize ||
                 loadContentAsyncType == LoadContentAsyncType.Refresh)
             {
-                if (this._loadContentThreadCache.Count > 0)
+                LoadContentThreadArgs cachedArgs;
+                if (this._loadContentThreadCache.TryDequeue(out cachedArgs))
                 {
-                    var cachedArgs = this._loadContentThreadCache[0];
-                    this._loadContentThreadCache.RemoveAt(0);
+                    // IMPORTANT: Make sure we are in synch with the LoadContentAsyncType.
+                    // (e.g., we could be coming from a Refresh which needs to be reflected)
                     cachedArgs.TheLoadContentAsyncType = loadContentAsyncType;
+
+                    // Immediately queue up our cached args for processing in Update()
                     this._loadContentThreadResults.Enqueue(cachedArgs);
                 }
                 else
                 {
+                    // OK, let's prime the cache
                     var argsCopy = new LoadContentThreadArgs
                     {
-                        TheLoadContentAsyncType = LoadContentAsyncType.Cache,
+                        TheLoadContentAsyncType = LoadContentAsyncType.Cache,   // IMPORTANT: Note how we have a new type here so as to not get into a recursive loop
                         TheGameState = loadContentThreadArgs.TheGameState,
                         PageNumber = loadContentThreadArgs.PageNumber,
                         LineNumbers = loadContentThreadArgs.LineNumbers,
                         ContentManagersAsync = new Dictionary<int, CustomContentManager>(),
                         ObstacleModelsAsync = new List<ObstacleModel>()
                     };
-
                     this.LoadContentAsyncThread(argsCopy);
-                    var cachedArgs = this._loadContentThreadCache[0];
-                    cachedArgs.TheLoadContentAsyncType = loadContentThreadArgs.TheLoadContentAsyncType;
-                    this._loadContentThreadCache.RemoveAt(0);
-                    this._loadContentThreadResults.Enqueue(cachedArgs);
+
+                    // Now grab what we just primed
+                    LoadContentThreadArgs primedCacheArgs;
+                    this._loadContentThreadCache.TryDequeue(out primedCacheArgs);
+
+                    // IMPORTANT: Restore the LoadContentAsyncType so it will notify properly through the rest of it's lifecycle
+                    primedCacheArgs.TheLoadContentAsyncType = loadContentThreadArgs.TheLoadContentAsyncType;
+
+                    // Immediately queue up our primed cache args for processing in Update()
+                    this._loadContentThreadResults.Enqueue(primedCacheArgs);
                 }
             }
+
+            //
+            // IMPORTANT: We will now proceed with normal processing to build out a LoadContentThreadArgs.
+            //            Note at the end how, depending on the LoadContentAsyncType, we queue up the args
+            //            into our cache for next round or immediately queue it up for processing in Update()
+            //
 
             foreach (var lineNumber in lineNumbers)
             {
@@ -650,11 +670,16 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 }
             }
 
+            //
+            // IMPORTANT: Note how, depending on the LoadContentAsyncType, we queue up the args
+            //            into our cache for next round or immediately queue it up for processing in Update()
+            //
+
             if (loadContentAsyncType == LoadContentAsyncType.Cache ||
                 loadContentAsyncType == LoadContentAsyncType.Initialize ||
                 loadContentAsyncType == LoadContentAsyncType.Refresh)
             {
-                this._loadContentThreadCache.Add(loadContentThreadArgs);
+                this._loadContentThreadCache.Enqueue(loadContentThreadArgs);
             }
             else
             {
@@ -1081,8 +1106,11 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             CallFunc particleAction = null;
             if (!string.IsNullOrEmpty(currentObstacle.ThePageObstaclesEntity.DisplayParticle))
             {
+                // IMPORTANT: We need the line number at this point in time as this._currentLineNumber will change
+                // as we move through game states
+                var currentLineNumber = this._currentLineNumber;
                 particleAction = new CallFunc( () =>
-                      this._particleEffectCache.AddDisplayParticleEffect(currentObstacle, this.ContentManagers[this._currentLineNumber])
+                      this._particleEffectCache.AddDisplayParticleEffect(currentObstacle, this.ContentManagers[currentLineNumber])
                     );
             }
 
