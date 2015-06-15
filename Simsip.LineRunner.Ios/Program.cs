@@ -4,6 +4,7 @@ using UIKit;
 
 using MTiRate;
 using Simsip.LineRunner.Views;
+using Simsip.LineRunner.Services.Inapp;
 using CoreGraphics;
 
 namespace Simsip.LineRunner
@@ -82,6 +83,14 @@ namespace Simsip.LineRunner
         {
             oauth = new OAuthViewController();
             nav.PushViewController(oauth, false);
+        }
+
+        public override void WillTerminate(UIApplication application)
+        {
+            var inAppService = (IInappService)TheGame.SharedGame.Services.GetService(typeof(IInappService));
+            inAppService.WillTerminate();
+
+            base.WillTerminate(application);
         }
     }
 

@@ -2,6 +2,7 @@ using Cocos2D;
 using CocosDenshion;
 using Microsoft.Xna.Framework;
 using Simsip.LineRunner.Scenes;
+using Simsip.LineRunner.Services.Inapp;
 using System.Diagnostics;
 
 
@@ -69,6 +70,10 @@ namespace Simsip.LineRunner
             CCDrawManager.SetDesignResolutionSize(DESIGN_WIDTH, 
                                                   DESIGN_HEIGHT, 
                                                   CCResolutionPolicy.NoBorder);
+
+            // Load inapp service on main thread
+            var inAppService = new InappService();
+            inAppService.Initialize();
 
             // Get initial loading screen displayed
             var scene = new CoreScene();

@@ -7,6 +7,7 @@ using UIKit;
 using GoogleAdMobAds;
 using CoreGraphics;
 using Foundation;
+using Simsip.LineRunner.Services.Inapp;
 
 
 namespace Simsip.LineRunner
@@ -152,6 +153,10 @@ namespace Simsip.LineRunner
             CCDrawManager.SetDesignResolutionSize(DESIGN_WIDTH,
                                                   DESIGN_HEIGHT,
                                                   CCResolutionPolicy.NoBorder);
+
+            // Load inapp service on main thread
+            var inAppService = new InappService();
+            inAppService.Initialize();
 
             // Get initial loading screen displayed
             var scene = new CoreScene();

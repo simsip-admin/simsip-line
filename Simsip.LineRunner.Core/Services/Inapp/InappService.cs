@@ -15,6 +15,9 @@ using Simsip.LineRunner.Entities.InApp;
 using StoreKit;
 using Foundation;
 using MonoTouch;
+using System;
+using Simsip.LineRunner.Data.InApp;
+using Simsip.LineRunner.Entities.InApp;
 #endif
 
 
@@ -22,39 +25,21 @@ namespace Simsip.LineRunner.Services.Inapp
 {
 #if ANDROID
 
-    public class InappService : GameComponent, IInappService
+    public class InappService : IInappService
     {
         private InAppBillingServiceConnection _serviceConnection;
-        private Product _selectedProduct;
-        private IList<Product> _products;
 
-        public InappService(Game game)
-            : base(game)
+        public InappService()
         {
             // Register as service
-            game.Services.AddService(typeof(IInappService), this);
+            TheGame.SharedGame.Services.AddService(typeof(IInappService), this);
         }
-
-        #region GameComponent Overrides
-
-        /// <summary>
-        /// Initializes the in app service.
-        /// </summary>
-        public override void Initialize()
-        {
-            // Initialize the list of available items
-            this._products = new List<Product>();
-        }
-
-        #endregion
-
+        
         #region IInappService implementation
 
-        /// <summary>
-        /// Starts the setup of this Android application by connection to the Google Play Service
-        /// to handle In-App purchases.
-        /// </summary>
-        public void StartSetup()
+        public string PracticeModeProductId { get { return "com.simsip.linerunner.practicemode"; } }
+
+        public void Initialize()
         {
             // A Licensing and In-App Billing public key is required before an app can communicate with
             // Google Play, however you DON'T want to store the key in plain text with the application.
@@ -72,26 +57,32 @@ namespace Simsip.LineRunner.Services.Inapp
             _serviceConnection = new InAppBillingServiceConnection(Program.SharedProgram, value);
             _serviceConnection.OnConnected += () =>
             {
-                // Attach to the various error handlers to report issues
+                this._serviceConnection.BillingHandler.OnProductPurchased += (int response, Purchase purchase, string purchaseData, string purchaseSignature) =>
+                {
+                    if (this.OnPurchaseProduct != null)
+                    {
+                        this.OnPurchaseProduct(response, null, purchaseData, purchaseSignature);
+                    }
+                };
+                this._serviceConnection.BillingHandler.QueryInventoryError += (int responseCode, Bundle skuDetails) =>
+                {
+                    if (this.OnQueryInventoryError != null)
+                    {
+                        this.OnQueryInventoryError(responseCode, null);
+                    }
+                };
                 this._serviceConnection.BillingHandler.BuyProductError += (int responseCode, string sku) =>
                 {
-                    if (this.BuyProductError != null)
+                    if (this.OnPurchaseProductError != null)
                     {
-                        this.BuyProductError(responseCode, sku);
+                        this.OnPurchaseProductError(responseCode, sku);
                     }
                 };
                 this._serviceConnection.BillingHandler.InAppBillingProcesingError += (string message) =>
                 {
-                    if (this.InAppBillingProcesingError != null)
+                    if (this.OnInAppBillingProcesingError != null)
                     {
-                        this.InAppBillingProcesingError(message);
-                    }
-                };
-                this._serviceConnection.BillingHandler.OnGetProductsError += (int responseCode, Bundle ownedItems) =>
-                {
-                    if (this.OnGetProductsError != null)
-                    {
-                        this.OnGetProductsError(responseCode, null);
+                        this.OnInAppBillingProcesingError(message);
                     }
                 };
                 this._serviceConnection.BillingHandler.OnInvalidOwnedItemsBundleReturned += (Bundle ownedItems) =>
@@ -101,32 +92,11 @@ namespace Simsip.LineRunner.Services.Inapp
                         this.OnInvalidOwnedItemsBundleReturned(null);
                     }
                 };
-                this._serviceConnection.BillingHandler.OnProductPurchased += (int response, Purchase purchase, string purchaseData, string purchaseSignature) =>
-                {
-                    if (this.OnProductPurchased != null)
-                    {
-                        this.OnProductPurchased(response, null, purchaseData, purchaseSignature);
-                    }
-                };
                 this._serviceConnection.BillingHandler.OnProductPurchasedError += (int responseCode, string sku) =>
                 {
-                    if (this.OnProductPurchasedError != null)
+                    if (this.OnPurchaseProductError != null)
                     {
-                        this.OnProductPurchasedError(responseCode, sku);
-                    }
-                };
-                this._serviceConnection.BillingHandler.OnPurchaseConsumed += (string token) =>
-                {
-                    if (this.OnPurchaseConsumed != null)
-                    {
-                        this.OnPurchaseConsumed(token);
-                    }
-                };
-                this._serviceConnection.BillingHandler.OnPurchaseConsumedError += (int responseCode, string token) =>
-                {
-                    if (this.OnPurchaseConsumedError != null)
-                    {
-                        this.OnPurchaseConsumedError(responseCode, token);
+                        this.OnPurchaseProductError(responseCode, sku);
                     }
                 };
                 this._serviceConnection.BillingHandler.OnPurchaseFailedValidation += (Purchase purchase, string purchaseData, string purchaseSignature) =>
@@ -143,19 +113,9 @@ namespace Simsip.LineRunner.Services.Inapp
                         this.OnUserCanceled();
                     }
                 };
-                this._serviceConnection.BillingHandler.QueryInventoryError += (int responseCode, Bundle skuDetails) =>
-                {
-                    if (this.QueryInventoryError != null)
-                    {
-                        this.QueryInventoryError(responseCode, null);
-                    }
-                };
 
                 // Load inventory or available products
-                GetInventory();
-
-                // Load any items already purchased
-                LoadPurchasedItems();
+                this.QueryInventory();
             };
 
             // Attempt to connect to the service
@@ -163,9 +123,48 @@ namespace Simsip.LineRunner.Services.Inapp
 
         }
 
-        /// <summary>
-        /// Perform any final cleanup before an activity is destroyed.
-        /// </summary>
+        public void HandleActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            this._serviceConnection.BillingHandler.HandleActivityResult(requestCode, resultCode, data);
+        }
+
+        public void QueryInventory()
+        {
+            this._serviceConnection.BillingHandler.QueryInventoryAsync(
+                new List<string>() { this.PracticeModeProductId }, 
+                "inapp")
+                .ContinueWith((products) =>
+                {
+                    if (this.OnQueryInventory != null)
+                    {
+                        this.OnQueryInventory(null);
+                    }
+                });
+
+            /*
+            // Ask the open connection's billing handler to return a list of avilable products for the 
+            // given list of items.
+            // NOTE: We are asking for the Reserved Test Product IDs that allow you to test In-App
+            // Billing without actually making a purchase.
+            _products = await _serviceConnection.BillingHandler.QueryInventoryAsync(new List<string> {
+                "appra_01_test",
+                "appra_02_sub",
+                ReservedTestProductIDs.Purchased
+            }, ItemType.Product);
+            */
+
+        }
+
+        public void PurchaseProduct(string productId)
+        {
+            this._serviceConnection.BillingHandler.BuyProduct(null);
+        }
+
+        public void RestoreProducts()
+        {
+            var purchases = this._serviceConnection.BillingHandler.GetPurchases("inapp");
+        }
+
         public void OnDestroy()
         {
             // Are we attached to the Google Play Service?
@@ -176,179 +175,220 @@ namespace Simsip.LineRunner.Services.Inapp
             }
         }
 
-        public void HandleActivityResult(int requestCode, Result resultCode, Intent data)
-        {
-            this._serviceConnection.BillingHandler.HandleActivityResult(requestCode, resultCode, data);
+        public event OnQueryInventoryDelegate OnQueryInventory;
 
-            //TODO: Use a call back to update the purchased items
-            UpdatePurchasedItems();
-        }
+        public event OnPurchaseProductDelegate OnPurchaseProduct;
 
-        public void BuyProduct(InAppSkuEntity product)
-        {
-            this._serviceConnection.BillingHandler.BuyProduct(null);
-        }
+        public event OnRestoreProductsDelegate OnRestoreProducts;
 
-        public void BuyProduct(InAppSkuEntity product, string payload)
-        {
-            this._serviceConnection.BillingHandler.BuyProduct(null, payload);
-        }
+        public event OnQueryInventoryErrorDelegate OnQueryInventoryError;
 
-        public void BuyProduct(string sku, string itemType, string payload)
-        {
-            this._serviceConnection.BillingHandler.BuyProduct(sku, itemType, payload);
-        }
+        public event OnPurchaseProductErrorDelegate OnPurchaseProductError;
 
-        public bool ConsumePurchase(InAppPurchaseEntity purchase)
-        {
-            // return this._serviceConnection.BillingHandler.ConsumePurchase(null);
-            return true;
-        }
-
-        public bool ConsumePurchase(string token)
-        {
-            return this._serviceConnection.BillingHandler.ConsumePurchase(token);
-        }
-
-        public IList<InAppPurchaseEntity> GetPurchases(string itemType)
-        {
-            this._serviceConnection.BillingHandler.GetPurchases(itemType);
-
-            return null;
-        }
-
-        public Task<IList<InAppSkuEntity>> QueryInventoryAsync(IList<string> skuList, string itemType)
-        {
-            this._serviceConnection.BillingHandler.QueryInventoryAsync(skuList, itemType);
-
-            return null;
-        }
-
-        public event BuyProductErrorDelegate BuyProductError;
-
-        public event InAppBillingProcessingErrorDelegate InAppBillingProcesingError;
-
-        public event OnGetProductsErrorDelegate OnGetProductsError;
-
-        public event OnInvalidOwnedItemsBundleReturnedDelegate OnInvalidOwnedItemsBundleReturned;
-
-        public event OnProductPurchasedDelegate OnProductPurchased;
-
-        public event OnProductPurchaseErrorDelegate OnProductPurchasedError;
-
-        public event OnPurchaseConsumedDelegate OnPurchaseConsumed;
-
-        public event OnPurchaseConsumedErrorDelegate OnPurchaseConsumedError;
-
-        public event OnPurchaseFailedValidationDelegate OnPurchaseFailedValidation;
+        public event OnRestoreProductsErrorDelegate OnRestoreProductsError;
 
         public event OnUserCanceledDelegate OnUserCanceled;
 
-        public event QueryInventoryErrorDelegate QueryInventoryError;
+        public event OnInAppBillingProcessingErrorDelegate OnInAppBillingProcesingError;
+
+        public event OnInvalidOwnedItemsBundleReturnedDelegate OnInvalidOwnedItemsBundleReturned;
+
+        public event OnPurchaseFailedValidationDelegate OnPurchaseFailedValidation;
 
         #endregion
 
-        #region Helper methods
-
-        /// <summary>
-        /// Loads the purchased items.
-        /// </summary>
-        private void LoadPurchasedItems()
-        {
-            // Ask the open connection's billing handler to get any purchases
-            var purchases = _serviceConnection.BillingHandler.GetPurchases(ItemType.Product);
-        }
-
-        /// <summary>
-        /// Updates the purchased items.
-        /// </summary>
-        private void UpdatePurchasedItems()
-        {
-            // Ask the open connection's billing handler to get any purchases
-            var purchases = _serviceConnection.BillingHandler.GetPurchases(ItemType.Product);
-        }
-
-        /// <summary>
-        /// Connects to the Google Play Service and gets a list of products that are available
-        /// for purchase.
-        /// </summary>
-        /// <returns>The inventory.</returns>
-        private async Task GetInventory()
-        {
-            // Ask the open connection's billing handler to return a list of avilable products for the 
-            // given list of items.
-            // NOTE: We are asking for the Reserved Test Product IDs that allow you to test In-App
-            // Billing without actually making a purchase.
-            _products = await _serviceConnection.BillingHandler.QueryInventoryAsync(new List<string> {
-				"appra_01_test",
-				"appra_02_sub",
-				ReservedTestProductIDs.Purchased
-			}, ItemType.Product);
-
-            // Were any products returned?
-            if (_products == null)
-            {
-                // No, abort
-                return;
-            }
-
-            // Populate list of available products
-            var items = _products.Select(p => p.Title).ToList();
-        }
-
-        #endregion
     }
 
 #elif IOS
 
     public class InappService : SKProductsRequestDelegate, IInappService
     {
-        public static NSString InAppPurchaseManagerProductsFetchedNotification = new NSString("InAppPurchaseManagerProductsFetchedNotification");
-		public static NSString InAppPurchaseManagerTransactionFailedNotification = new NSString("InAppPurchaseManagerTransactionFailedNotification");
-		public static NSString InAppPurchaseManagerTransactionSucceededNotification = new NSString("InAppPurchaseManagerTransactionSucceededNotification");
-		public static NSString InAppPurchaseManagerRequestFailedNotification = new NSString("InAppPurchaseManagerRequestFailedNotification");
+        private CustomPaymentObserver _customPaymentObserver;
 
-		SKProductsRequest productsRequest;
-		CustomPaymentObserver theObserver;
+        public static NSString InAppQueryInventoryNotification = new NSString("InAppQueryInventoryNotification");
+        public static NSString InAppQueryInventoryErrorNotification = new NSString("InAppQueryInventoryErrorNotification");
+        public static NSString InAppPurchaseProductNotification = new NSString("InAppPurchaseProductNotification");
+        public static NSString InAppPurchaseProductErrorNotification = new NSString("InAppPurchaseProductErrorNotification");
+        public static NSString InAppRestoreProductsNotification = new NSString("InAppRestoreProductsNotification");
+        public static NSString InAppRestoreProductsErrorNotification = new NSString("InAppRestoreProductsErrorNotification");
 
-        public InappService(Game game)
+        private NSObject _queryInventoryObserver;
+        private NSObject _queryInventoryErrorObserver;
+        private NSObject _purchaseProductObserver;
+        private NSObject _purchaseProductErrorObserver;
+        private NSObject _restoreProductsObserver;
+        private NSObject _restoreProductsErrorObserver;
+
+        private SKProductsRequest _productsRequest;
+
+        public InappService()
         {
             // Register as service
-            game.Services.AddService(typeof(IInappService), this);  
+            TheGame.SharedGame.Services.AddService(typeof(IInappService), this);  
         }
 
-    #region Properties
 
-        // Faking a GameComponent property for IOS
-        public bool Enabled { get; set; }
+        #region Events
 
-        // TODO
-        // public static NSAction Done { get; set; }
+        public event OnQueryInventoryDelegate OnQueryInventory;
+
+        public event OnPurchaseProductDelegate OnPurchaseProduct;
+
+        public event OnRestoreProductsDelegate OnRestoreProducts;
+
+        public event OnQueryInventoryErrorDelegate OnQueryInventoryError;
+
+        public event OnPurchaseProductErrorDelegate OnPurchaseProductError;
+
+        public event OnRestoreProductsErrorDelegate OnRestoreProductsError;
+
+        public event OnUserCanceledDelegate OnUserCanceled;
+
+        public event OnInAppBillingProcessingErrorDelegate OnInAppBillingProcesingError;
+
+        public event OnInvalidOwnedItemsBundleReturnedDelegate OnInvalidOwnedItemsBundleReturned;
+
+        public event OnPurchaseFailedValidationDelegate OnPurchaseFailedValidation;
 
         #endregion
 
-    #region GameComponent Overrides
+        #region GameComponent Overrides
 
         /// <summary>
         /// Initializes the in app service.
         /// </summary>
         public void Initialize()
         {
-            theObserver = new CustomPaymentObserver(this);
-            SKPaymentQueue.DefaultQueue.AddTransactionObserver(theObserver);
+            this._customPaymentObserver = new CustomPaymentObserver(this);
+            SKPaymentQueue.DefaultQueue.AddTransactionObserver(this._customPaymentObserver);
+
+            this._queryInventoryObserver = NSNotificationCenter.DefaultCenter.AddObserver(InappService.InAppQueryInventoryNotification,
+                (notification) =>
+                {
+                    // Will be populated with the inventory
+                    var inventoryItems = new List<InAppSkuEntity>();
+
+                    var info = notification.UserInfo;
+                    var practiceModeProductId = new NSString(this.PracticeModeProductId);
+
+                    var product = (SKProduct)info.ObjectForKey(practiceModeProductId);
+
+                    // Update inventory
+                    var inAppSkuRepository = new InAppSkuRepository();
+                    var existingProduct = inAppSkuRepository.GetSkuByProductId(this.PracticeModeProductId);
+                    if (existingProduct != null)
+                    {
+                        existingProduct.Type = "inapp";
+                        existingProduct.Price = this.LocalizedPrice(product);
+                        existingProduct.Title = product.LocalizedTitle;
+                        existingProduct.Description = product.LocalizedDescription;
+
+                        inAppSkuRepository.Update(existingProduct);
+
+                        inventoryItems.Add(existingProduct);
+                    }
+                    else
+                    {
+                        var newProduct = new InAppSkuEntity();
+                        newProduct.ProductId = this.PracticeModeProductId;
+                        newProduct.Type = "inapp";
+                        newProduct.Price = this.LocalizedPrice(product);
+                        newProduct.Title = product.LocalizedTitle;
+                        newProduct.Description = product.LocalizedDescription;
+
+                        inAppSkuRepository.Create(newProduct);
+
+                        inventoryItems.Add(newProduct);
+                    }
+
+                    // If we have any purchases for the inventory, update the purchases
+                    var inAppPurchaseRepository = new InAppPurchaseRepository();
+                    var existingPurchase = inAppPurchaseRepository.GetPurchaseByProductId(this.PracticeModeProductId);
+                    if (existingPurchase != null)
+                    {
+                        // Nothing to do for now
+                    }
+
+                    // Notify anyone who needed to know that our inventory is in
+                    if (this.OnQueryInventory != null)
+                    {
+                        this.OnQueryInventory(inventoryItems);
+                    }
+                });
+            
+            this._queryInventoryErrorObserver = NSNotificationCenter.DefaultCenter.AddObserver(InappService.InAppQueryInventoryErrorNotification,
+                (notification) =>
+                {
+                    // Notify anyone who needed to know that there was a query inventory error
+                    if (this.OnQueryInventoryError != null)
+                    {
+                        this.OnQueryInventoryError(0, null);
+                    }
+                });
+
+            this._purchaseProductObserver = NSNotificationCenter.DefaultCenter.AddObserver(InappService.InAppPurchaseProductNotification,
+                (notification) =>
+                {
+                    // Notify anyone who needed to know that product was purchased
+                    if (this.OnPurchaseProduct != null)
+                    {
+                        this.OnPurchaseProduct(0, null, string.Empty, string.Empty);
+                    }
+
+                });
+
+            this._purchaseProductErrorObserver = NSNotificationCenter.DefaultCenter.AddObserver(InappService.InAppPurchaseProductErrorNotification,
+                (notification) =>
+                {
+                    // Notify anyone who needed to know that there was a product purchase error
+                    if (this.OnPurchaseProductError != null)
+                    {
+                        this.OnPurchaseProductError(0, string.Empty);
+                    }
+                });
+
+            this._restoreProductsObserver = NSNotificationCenter.DefaultCenter.AddObserver(InappService.InAppRestoreProductsNotification,
+                (notification) =>
+                {
+                    // Notify anyone who needed to know that products were restored
+                    if (this.OnRestoreProducts != null)
+                    {
+                        this.OnRestoreProducts(null);
+                    }
+
+                });
+
+            this._restoreProductsErrorObserver = NSNotificationCenter.DefaultCenter.AddObserver(InappService.InAppRestoreProductsErrorNotification,
+                (notification) =>
+                {
+                    // Notify anyone who needed to know that there was an error in restoring products
+                    if (this.OnRestoreProductsError != null)
+                    {
+                        this.OnRestoreProductsError(0, null);
+                    }
+                });
+
+            if (this.CanMakePayments())
+            {
+                // Async request 
+                // StoreKit -> App Store -> ReceivedResponse (see below)
+                this.QueryInventory();
+            }
+
         }
 
-         #endregion
+        #endregion
 
-    #region SKProductsRequestDelegate overrides
+        #region SKProductsRequestDelegate overrides
 
-        // received response to RequestProductData - with price,title,description info
+        // Received response to RequestProductData - with price,title,description info
 		public override void ReceivedResponse (SKProductsRequest request, SKProductsResponse response)
 		{
 			SKProduct[] products = response.Products;
 
 			NSDictionary userInfo = null;
-			if (products.Length > 0) {
+			if (products.Length > 0) 
+            {
 				NSObject[] productIdsArray = new NSObject[response.Products.Length];
 				NSObject[] productsArray = new NSObject[response.Products.Length];
 				for (int i = 0; i < response.Products.Length; i++) {
@@ -357,9 +397,13 @@ namespace Simsip.LineRunner.Services.Inapp
 				}
 				userInfo = NSDictionary.FromObjectsAndKeys (productsArray, productIdsArray);
 			}
-			NSNotificationCenter.DefaultCenter.PostNotificationName(InAppPurchaseManagerProductsFetchedNotification,this,userInfo);
+			NSNotificationCenter.DefaultCenter.PostNotificationName(
+                InAppQueryInventoryNotification,
+                this,
+                userInfo);
 
-			foreach (string invalidProductId in response.InvalidProducts) {
+			foreach (string invalidProductId in response.InvalidProducts) 
+            {
 				Debug.WriteLine("Invalid product id: " + invalidProductId );
 			}
 		}
@@ -374,13 +418,50 @@ namespace Simsip.LineRunner.Services.Inapp
             {
                 NSDictionary userInfo = NSDictionary.FromObjectsAndKeys(new NSObject[] { error }, new NSObject[] { new NSString("error") });
                 // send out a notification for the failed transaction
-                NSNotificationCenter.DefaultCenter.PostNotificationName(InAppPurchaseManagerRequestFailedNotification, this, userInfo);
+                NSNotificationCenter.DefaultCenter.PostNotificationName(InAppQueryInventoryErrorNotification, this, userInfo);
             }
         }
 
         #endregion
 
-    #region IInappService implementation
+        #region IInappService implementation
+
+        public string PracticeModeProductId { get { return "com.simsip.linerunner.practicemode"; } }
+
+        public void QueryInventory()
+        {
+            var array = new NSString[1];
+            array[0] = new NSString(this.PracticeModeProductId);
+            NSSet productIdentifiers = NSSet.MakeNSObjectSet<NSString>(array);
+
+            // Set up product request for in-app purchase to be handled in
+            // SKProductsRequestDelegate.ReceivedResponse (see above)
+            this._productsRequest = new SKProductsRequest(productIdentifiers);
+            this._productsRequest.Delegate = this; 
+            this._productsRequest.Start();
+        }
+
+        public void PurchaseProduct(string productId)
+        {
+            // Construct a payment request
+            var payment = SKPayment.PaymentWithProduct(productId);
+
+            // Queue the payment request up
+            // Will be handled in:
+            // CustomPaymentObserver.UpdatedTransactions -> InAppService.PurchaseTransaction - InAppService.FinishTransaction
+            SKPaymentQueue.DefaultQueue.AddPayment(payment);
+        }
+
+        /// <summary>
+        /// RestoreProducts any transactions that occurred for this Apple ID, either on 
+        /// this device or any other logged in with that account.
+        /// </summary>
+        public void RestoreProducts()
+        {
+            Debug.WriteLine(" ** InAppPurchaseManager Restore()");
+            // theObserver will be notified of when the restored transactions start arriving <- AppStore
+            SKPaymentQueue.DefaultQueue.RestoreCompletedTransactions();
+        }
 
         // Verify that the iTunes account can make this purchase for this application
         public bool CanMakePayments()
@@ -388,131 +469,174 @@ namespace Simsip.LineRunner.Services.Inapp
             return SKPaymentQueue.CanMakePayments;
         }
 
-        // request multiple products at once
-        public void RequestProductData(List<string> productIds)
+        public void WillTerminate()
         {
-            var array = new NSString[productIds.Count];
-            for (var i = 0; i < productIds.Count; i++)
-            {
-                array[i] = new NSString(productIds[i]);
-            }
-            NSSet productIdentifiers = NSSet.MakeNSObjectSet<NSString>(array);
-
-            //set up product request for in-app purchase
-            productsRequest = new SKProductsRequest(productIdentifiers);
-            productsRequest.Delegate = this; // SKProductsRequestDelegate.ReceivedResponse
-            productsRequest.Start();
+            // Remove the observer when the app exits
+            NSNotificationCenter.DefaultCenter.RemoveObserver(this._queryInventoryObserver);
+            NSNotificationCenter.DefaultCenter.RemoveObserver(this._purchaseProductErrorObserver);
         }
 
-        public void PurchaseProduct(string appStoreProductId)
-        {
-            Debug.WriteLine("PurchaseProduct " + appStoreProductId);
-            SKPayment payment = SKPayment.PaymentWithProduct(appStoreProductId);
-            SKPaymentQueue.DefaultQueue.AddPayment(payment);
-        }
+        #endregion
 
-        public void CompleteTransaction(SKPaymentTransaction transaction)
+        #region Api
+
+        public void PurchaseTransaction(SKPaymentTransaction transaction)
         {
-            Debug.WriteLine("CompleteTransaction " + transaction.TransactionIdentifier);
             var productId = transaction.Payment.ProductIdentifier;
+
             // Register the purchase, so it is remembered for next time
-            // PhotoFilterManager.Purchase(productId);
-            FinishTransaction(transaction, true);
-            /* Was commented out in sample as well
-                        if (ReceiptValidation.VerificationController.SharedInstance.VerifyPurchase (transaction)) {
-                            Console.WriteLine ("Verified!");
-                            // Register the purchase, so it is remembered for next time
-                            PhotoFilterManager.Purchase(productId);
-                            FinishTransaction (transaction, true);
-                        } else {
-                            Console.WriteLine ("NOT Verified :(");
-                            FinishTransaction (transaction, false);
-                        }
-            */
+            var inAppPurchaseRepository = new InAppPurchaseRepository();
+            var existingPurchase = inAppPurchaseRepository.GetPurchaseByProductId(productId);
+            if (existingPurchase == null)
+            {
+                var newPurchase = new InAppPurchaseEntity
+                    {
+                        OrderId = transaction.TransactionIdentifier,
+                        ProductId = transaction.Payment.ProductIdentifier,
+                        PurchaseTime = NSDateToDateTime(transaction.TransactionDate)
+                    };
+
+                inAppPurchaseRepository.Create(newPurchase);
+            }
+            else
+            {
+                existingPurchase.OrderId = transaction.TransactionIdentifier;
+                existingPurchase.ProductId = transaction.Payment.ProductIdentifier;
+                existingPurchase.PurchaseTime = NSDateToDateTime(transaction.TransactionDate);
+
+                inAppPurchaseRepository.Update(existingPurchase);
+            }
+
+            // Remove the transaction from the payment queue.
+            // IMPORTANT: Let's ios know we're done
+            SKPaymentQueue.DefaultQueue.FinishTransaction(transaction);
+
+            // Send out a notification that we’ve finished the transaction
+            using (var pool = new NSAutoreleasePool())
+            {
+                NSDictionary userInfo = NSDictionary.FromObjectsAndKeys(new NSObject[] { transaction }, new NSObject[] { new NSString("transaction") });
+                NSNotificationCenter.DefaultCenter.PostNotificationName(InAppPurchaseProductNotification, this, userInfo);
+            }
         }
 
         public void RestoreTransaction(SKPaymentTransaction transaction)
         {
             // Restored Transactions always have an 'original transaction' attached
-            Debug.WriteLine("RestoreTransaction " + transaction.TransactionIdentifier + "; OriginalTransaction " + transaction.OriginalTransaction.TransactionIdentifier);
             var productId = transaction.OriginalTransaction.Payment.ProductIdentifier;
+
             // Register the purchase, so it is remembered for next time
-            // PhotoFilterManager.Purchase(productId); // it's as though it was purchased again
-            FinishTransaction(transaction, true);
+            var inAppPurchaseRepository = new InAppPurchaseRepository();
+            var existingPurchase = inAppPurchaseRepository.GetPurchaseByProductId(productId);
+            if (existingPurchase == null)
+            {
+                var newPurchase = new InAppPurchaseEntity
+                {
+                    OrderId = transaction.OriginalTransaction.TransactionIdentifier,
+                    ProductId = transaction.OriginalTransaction.Payment.ProductIdentifier,
+                    PurchaseTime = NSDateToDateTime(transaction.OriginalTransaction.TransactionDate)
+                };
+
+                inAppPurchaseRepository.Create(newPurchase);
+            }
+            else
+            {
+                existingPurchase.OrderId = transaction.OriginalTransaction.TransactionIdentifier;
+                existingPurchase.ProductId = transaction.OriginalTransaction.Payment.ProductIdentifier;
+                existingPurchase.PurchaseTime = NSDateToDateTime(transaction.OriginalTransaction.TransactionDate);
+
+                inAppPurchaseRepository.Update(existingPurchase);
+            }
+
+            // Remove the transaction from the payment queue.
+            // IMPORTANT: Let's ios know we're done
+            SKPaymentQueue.DefaultQueue.FinishTransaction(transaction);
+
+            // Send out a notification that we’ve finished the transaction
+            using (var pool = new NSAutoreleasePool())
+            {
+                NSDictionary userInfo = NSDictionary.FromObjectsAndKeys(new NSObject[] { transaction }, new NSObject[] { new NSString("transaction") });
+                NSNotificationCenter.DefaultCenter.PostNotificationName(InAppRestoreProductsNotification, this, userInfo);
+            }
         }
 
         public void FailedTransaction(SKPaymentTransaction transaction)
         {
             //SKErrorPaymentCancelled == 2
             if (transaction.Error.Code == 2) // user cancelled
+            {
                 Debug.WriteLine("User CANCELLED FailedTransaction Code=" + transaction.Error.Code + " " + transaction.Error.LocalizedDescription);
+            }
             else // error!
+            {
                 Debug.WriteLine("FailedTransaction Code=" + transaction.Error.Code + " " + transaction.Error.LocalizedDescription);
+            }
 
-            FinishTransaction(transaction, false);
-        }
-
-        public void FinishTransaction(SKPaymentTransaction transaction, bool wasSuccessful)
-        {
-            Debug.WriteLine("FinishTransaction " + wasSuccessful);
-            // remove the transaction from the payment queue.
-            SKPaymentQueue.DefaultQueue.FinishTransaction(transaction);		// THIS IS IMPORTANT - LET'S APPLE KNOW WE'RE DONE !!!!
-
+            // Remove the transaction from the payment queue.
+            // IMPORTANT: Let's ios know we're done
+            SKPaymentQueue.DefaultQueue.FinishTransaction(transaction);
+            
+            // Send out a notification for the failed transaction
             using (var pool = new NSAutoreleasePool())
             {
                 NSDictionary userInfo = NSDictionary.FromObjectsAndKeys(new NSObject[] { transaction }, new NSObject[] { new NSString("transaction") });
-                if (wasSuccessful)
-                {
-                    // send out a notification that we’ve finished the transaction
-                    NSNotificationCenter.DefaultCenter.PostNotificationName(InAppPurchaseManagerTransactionSucceededNotification, this, userInfo);
-                }
-                else
-                {
-                    // send out a notification for the failed transaction
-                    NSNotificationCenter.DefaultCenter.PostNotificationName(InAppPurchaseManagerTransactionFailedNotification, this, userInfo);
-                }
+                NSNotificationCenter.DefaultCenter.PostNotificationName(InAppPurchaseProductErrorNotification, this, userInfo);
             }
         }
 
-        /// <summary>
-        /// Restore any transactions that occurred for this Apple ID, either on 
-        /// this device or any other logged in with that account.
-        /// </summary>
-        public void Restore()
+        #endregion
+
+        #region Helper methods
+
+        private string LocalizedPrice(SKProduct product)
         {
-            Debug.WriteLine(" ** InAppPurchaseManager Restore()");
-            // theObserver will be notified of when the restored transactions start arriving <- AppStore
-            SKPaymentQueue.DefaultQueue.RestoreCompletedTransactions();
+            var formatter = new NSNumberFormatter();
+            formatter.FormatterBehavior = NSNumberFormatterBehavior.Version_10_4;
+            formatter.NumberStyle = NSNumberFormatterStyle.Currency;
+            formatter.Locale = product.PriceLocale;
+            var formattedString = formatter.StringFromNumber(product.Price);
+            return formattedString;
+        }
+
+        private DateTime NSDateToDateTime(NSDate date)
+        {
+            // NSDate has a wider range than DateTime, so clip
+            // the converted date to DateTime.Min|MaxValue.
+            double secs = date.SecondsSinceReferenceDate;
+            if (secs < -63113904000)
+                return DateTime.MinValue;
+            if (secs > 252423993599)
+                return DateTime.MaxValue;
+            return (DateTime)date;
         }
 
         #endregion
 
     }
+
     internal class CustomPaymentObserver : SKPaymentTransactionObserver
     {
-        private IInappService theManager;
+        private InappService _inAppService;
 
-        public CustomPaymentObserver(InappService manager)
+        public CustomPaymentObserver(InappService inAppService)
         {
-            theManager = manager;
+            _inAppService = inAppService;
         }
 
-        // called when the transaction status is updated
+        // Called when the transaction status is updated
         public override void UpdatedTransactions(SKPaymentQueue queue, SKPaymentTransaction[] transactions)
         {
-            Debug.WriteLine("UpdatedTransactions");
             foreach (SKPaymentTransaction transaction in transactions)
             {
                 switch (transaction.TransactionState)
                 {
                     case SKPaymentTransactionState.Purchased:
-                        theManager.CompleteTransaction(transaction);
+                        this._inAppService.PurchaseTransaction(transaction);
                         break;
                     case SKPaymentTransactionState.Failed:
-                        theManager.FailedTransaction(transaction);
+                        this._inAppService.FailedTransaction(transaction);
                         break;
                     case SKPaymentTransactionState.Restored:
-                        theManager.RestoreTransaction(transaction);
+                        this._inAppService.RestoreTransaction(transaction);
                         break;
                     default:
                         break;
@@ -522,48 +646,15 @@ namespace Simsip.LineRunner.Services.Inapp
 
         public override void PaymentQueueRestoreCompletedTransactionsFinished(SKPaymentQueue queue)
         {
-            // Restore succeeded
+            // RestoreProducts succeeded
             Debug.WriteLine(" ** RESTORE PaymentQueueRestoreCompletedTransactionsFinished ");
         }
 
         public override void RestoreCompletedTransactionsFailedWithError(SKPaymentQueue queue, NSError error)
         {
-            // Restore failed somewhere...
+            // RestoreProducts failed somewhere...
             Debug.WriteLine(" ** RESTORE RestoreCompletedTransactionsFailedWithError " + error.LocalizedDescription);
         }
-    }
-
-#elif DESKTOP
-    
-    public class InappService : GameComponent, IInappService
-    {
-        public InappService(Game game)
-            : base(game)
-        {
-        }
-
-    }
-
-#elif WINDOWS_PHONE
-
-    public class InappService : GameComponent, IInappService
-    {
-        public InappService(Game game)
-            : base(game)
-        {
-        }
-
-    }
-
-#elif NETFX_CORE
-
-    public class InappService : GameComponent, IInappService
-    {
-        public InappService(Game game)
-            : base(game)
-        {
-        }
-
     }
 
 #endif

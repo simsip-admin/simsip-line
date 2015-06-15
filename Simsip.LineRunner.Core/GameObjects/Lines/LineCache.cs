@@ -26,6 +26,7 @@ using Simsip.LineRunner.Effects.Stock;
 using Simsip.LineRunner.GameObjects.Obstacles;
 using System.Diagnostics;
 using BEPUphysics;
+using Simsip.LineRunner.Entities.LineRunner;
 #if NETFX_CORE
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -36,7 +37,6 @@ using System.Threading;
 using Simsip.LineRunner.Concurrent;
 #else
 using System.Collections.Concurrent;
-using Simsip.LineRunner.Entities.LineRunner;
 #endif
 
 
@@ -72,6 +72,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
             public IList<LineModel> LineModelsAsync;
         }
         private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadResults;
+        private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadCache;
 
         // Logging-facility
         private static readonly Logger Logger = LogManager.CreateLogger();
@@ -97,7 +98,8 @@ namespace Simsip.LineRunner.GameObjects.Lines
             this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
             this._currentLineNumber = 1;
             this.LineModels = new List<LineModel>();
-            this._loadContentThreadResults = new ConcurrentQueue<LoadContentThreadArgs>(); 
+            this._loadContentThreadResults = new ConcurrentQueue<LoadContentThreadArgs>();
+            this._loadContentThreadCache = new ConcurrentQueue<LoadContentThreadArgs>();
             this._lineHitList = new List<LineModel>();
 
             // Import required services.
@@ -425,6 +427,59 @@ namespace Simsip.LineRunner.GameObjects.Lines
             var lineNumbers = loadContentThreadArgs.LineNumbers;
             var lineModels = loadContentThreadArgs.LineModelsAsync;
 
+            // IMPORTANT: If we are coming from a Refresh we may have to clear out any
+            //            cached stagings (e.g., the page/line number has changed and
+            //            a cached representation of the line(s) would be incorrect)
+            if (loadContentAsyncType == LoadContentAsyncType.Refresh)
+            {
+                this._loadContentThreadCache = new ConcurrentQueue<LoadContentThreadArgs>();
+            }
+
+            // Grab from cache if available, prime cache if not
+            if (loadContentAsyncType == LoadContentAsyncType.Initialize ||
+                loadContentAsyncType == LoadContentAsyncType.Refresh)
+            {
+                LoadContentThreadArgs cachedArgs;
+                if (this._loadContentThreadCache.TryDequeue(out cachedArgs))
+                {
+                    // IMPORTANT: Make sure we are in synch with the LoadContentAsyncType.
+                    // (e.g., we could be coming from a Refresh which needs to be reflected)
+                    cachedArgs.TheLoadContentAsyncType = loadContentAsyncType;
+
+                    // Immediately queue up our cached args for processing in Update()
+                    this._loadContentThreadResults.Enqueue(cachedArgs);
+                }
+                else
+                {
+                    // OK, let's prime the cache
+                    var argsCopy = new LoadContentThreadArgs
+                    {
+                        TheLoadContentAsyncType = LoadContentAsyncType.Cache,   // IMPORTANT: Note how we have a new type here so as to not get into a recursive loop
+                        TheGameState = loadContentThreadArgs.TheGameState,
+                        PageNumber = loadContentThreadArgs.PageNumber,
+                        LineNumbers = loadContentThreadArgs.LineNumbers,
+                        LineModelsAsync = new List<LineModel>()
+                    };
+                    this.LoadContentAsyncThread(argsCopy);
+
+                    // Now grab what we just primed
+                    LoadContentThreadArgs primedCacheArgs;
+                    this._loadContentThreadCache.TryDequeue(out primedCacheArgs);
+
+                    // IMPORTANT: RestoreProducts the LoadContentAsyncType so it will notify properly through the rest of it's lifecycle
+                    primedCacheArgs.TheLoadContentAsyncType = loadContentThreadArgs.TheLoadContentAsyncType;
+
+                    // Immediately queue up our primed cache args for processing in Update()
+                    this._loadContentThreadResults.Enqueue(primedCacheArgs);
+                }
+            }
+
+            //
+            // IMPORTANT: We will now proceed with normal processing to build out a LoadContentThreadArgs.
+            //            Note at the end how, depending on the LoadContentAsyncType, we queue up the args
+            //            into our cache for next round or immediately queue it up for processing in Update()
+            //
+
             // Line construction logic will vary based on if we have
             // 1 line definition or more than 1 line definition for the current page
             var pageLinesEntities = this._pageLinesRepository.GetLines(this._currentPageNumber); 
@@ -433,7 +488,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
                 // Ok, we have one line definition that is the same for all
                 // lines on this page
                 var padEntity = this._pageCache.CurrentPageModel.ThePadEntity;
-                for (int i = 0; i < lineNumbers.Count(); i++)
+                foreach (var lineNumber in lineNumbers)
                 {
                     // Get an initial model constructed
                     var currentLine = UserDefaults.SharedUserDefault.GetStringForKey(
@@ -445,7 +500,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
                     var pageLinesEntity = new PageLinesEntity
                         {
                             PageNumber = pageLinesEntities[0].PageNumber,
-                            LineNumber = lineNumbers[i],
+                            LineNumber = lineNumber,
                             ModelName = pageLinesEntities[0].ModelName,
                             LineType = pageLinesEntities[0].LineType
                         };
@@ -470,7 +525,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
                     lineModel.WorldDepth = lineModel.TheModelEntity.ModelDepth * scale;
 
                     // To determine origin of line model:
-                    var lineSpacingMultiplier = padEntity.LineCount - lineNumbers[i];
+                    var lineSpacingMultiplier = padEntity.LineCount - lineNumber;
                     var translatePosition = this._pageCache.CurrentPageModel.WorldOrigin +                                          // Start at world orgin for pad
                                             new Vector3(0, 0, -0.5f * this._pageCache.CurrentPageModel.WorldDepth) +                // Tuck it out of sight
                                             new Vector3(0, this._pageCache.CurrentPageModel.WorldFooterMargin, 0) +                 // Add in footer margin
@@ -485,7 +540,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
                     lineModel.WorldMatrix = flattenMatrix * scaleMatrix * translateMatrix;
 
                     // Uniquely identify line for octree
-                    lineModel.ModelID = lineNumbers[i];
+                    lineModel.ModelID = lineNumber;
 
                     // Record to our staging collection
                     lineModels.Add(lineModel);
@@ -523,7 +578,21 @@ namespace Simsip.LineRunner.GameObjects.Lines
                 // TODO: Ok, we have each line for this page individually defined
             }
 
-            this._loadContentThreadResults.Enqueue(loadContentThreadArgs);
+            //
+            // IMPORTANT: Note how, depending on the LoadContentAsyncType, we queue up the args
+            //            into our cache for next round or immediately queue it up for processing in Update()
+            //
+
+            if (loadContentAsyncType == LoadContentAsyncType.Cache ||
+                loadContentAsyncType == LoadContentAsyncType.Initialize ||
+                loadContentAsyncType == LoadContentAsyncType.Refresh)
+            {
+                this._loadContentThreadCache.Enqueue(loadContentThreadArgs);
+            }
+            else
+            {
+                this._loadContentThreadResults.Enqueue(loadContentThreadArgs);
+            }
         }
 
         // Migrate staged collection in args to public collection
