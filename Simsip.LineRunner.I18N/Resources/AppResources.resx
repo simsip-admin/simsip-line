@@ -455,4 +455,19 @@
   <data name="OptionsPractice" xml:space="preserve">
     <value>practice mode</value>
   </data>
+  <data name="UpgradesPracticeDesc3" xml:space="preserve">
+    <value>tap options for practice mode</value>
+  </data>
+  <data name="UpgradesPurchaseError" xml:space="preserve">
+    <value>error purchasing upgrade</value>
+  </data>
+  <data name="UpgradesPurchaseStatus" xml:space="preserve">
+    <value>purchasing upgrade</value>
+  </data>
+  <data name="UpgradesRestoreError" xml:space="preserve">
+    <value>error restoring upgrade</value>
+  </data>
+  <data name="UpgradesRestoreStatus" xml:space="preserve">
+    <value>restoring upgrade</value>
+  </data>
 </root>

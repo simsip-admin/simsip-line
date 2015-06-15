@@ -310,10 +310,14 @@ namespace Simsip.LineRunner.Scenes.Hud
 #else
             upgradesText = AppResources.UpgradesTitle;
 #endif
+
+#if ANDROID || IOS
             var upgradesLabel = new CCLabelTTF(upgradesText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             upgradesLabel.Color = CCColor3B.Blue;
             var upgradesItem = new CCMenuItemLabel(upgradesLabel,
                 (obj) => { this.NavigateBase(LayerTags.UpgradesMasterLayer); });
+#endif
+
             var optionsText = string.Empty;
 #if ANDROID
             optionsText = Program.SharedProgram.Resources.GetString(Resource.String.MainOptions);
@@ -342,7 +346,9 @@ namespace Simsip.LineRunner.Scenes.Hud
                new CCMenuItem[] 
                     {
                         homeItem,
+#if ANDROID || IOS
                         upgradesItem,
+#endif
                         optionsItem,
                         helpItem
                     });

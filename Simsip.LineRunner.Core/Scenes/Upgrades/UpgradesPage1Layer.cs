@@ -3,10 +3,12 @@ using Microsoft.Xna.Framework;
 using Simsip.LineRunner.Actions;
 using Simsip.LineRunner.Data.InApp;
 using Simsip.LineRunner.Data.LineRunner;
+using Simsip.LineRunner.Entities.InApp;
 using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.GameObjects.Lines;
 using Simsip.LineRunner.GameObjects.Pages;
 using Simsip.LineRunner.Resources;
+using Simsip.LineRunner.Services.Inapp;
 using Simsip.LineRunner.Utils;
 using System;
 using System.Collections.Generic;
@@ -44,6 +46,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
         private CCLabelTTF _purchasedOnLabel;
 
         // Services we'll need
+        private IInappService _inAppService;
         private IInAppPurchaseRepository _inAppPurchaseRepository;
 
         public UpgradesPage1Layer(CoreScene parent, UpgradesMasterLayer masterLayer)
@@ -51,7 +54,12 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             this._parent = parent;
             this._masterLayer = masterLayer;
 
-            // Services we'll need
+            // Services and event handlers we'll need
+            this._inAppService = (IInappService)TheGame.SharedGame.Services.GetService(typeof(IInappService));
+            this._inAppService.OnPurchaseProduct += OnPurchaseProduct;
+            this._inAppService.OnPurchaseProductError += OnPurchaseProductError;
+            this._inAppService.OnRestoreProducts += OnRestoreProducts;
+            this._inAppService.OnRestoreProductsError += OnRestoreProductsError;
             this._inAppPurchaseRepository = new InAppPurchaseRepository();
 
             // Get this setup for relative positioning
@@ -161,7 +169,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             CCMenuItemImage restoreButton =
                 new CCMenuItemImage("Images/Icons/RestoreButtonNormal.png",
                                     "Images/Icons/RestoreButtonSelected.png",
-                                    (obj) => { _parent.GoBack(); });
+                                    (obj) => { this._inAppService.RestoreProducts(); });
             this._restoreMenu = new CCMenu(
                 new CCMenuItem[] 
                     {
@@ -246,7 +254,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
 #endif
             var buyLabel = new CCLabelTTF(buyText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             var buyItem = new CCMenuItemLabel(buyLabel,
-                (obj) => { this._parent.GoBack(); });
+                (obj) => { this._inAppService.PurchaseProduct(this._inAppService.PracticeModeProductId); });
             this._buyLabelMenu = new CCMenu(
                            new CCMenuItem[] 
                     {
@@ -258,6 +266,8 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             this.AddChild(this._buyLabelMenu);
         }
 
+        #region Overrides
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -265,8 +275,56 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             this._currentPracticeModeImage = 0;
             this.RunAction(this._practiceModeAction);
 
+            this.UpdateUI();
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+
+            this.ActionManager.RemoveAction(this._practiceModeAction);
+        }
+
+        #endregion
+
+        #region Event handlers
+
+        private void PurchaseProduct()
+        {
+
+        }
+
+        private void OnPurchaseProduct()
+        {
+            this.UpdateUI();
+        }
+
+        private void OnPurchaseProductError(int responseCode, string sku)
+        {
+
+        }
+
+        private void RestoreProducts()
+        {
+
+        }
+
+        private void OnRestoreProducts()
+        {
+            this.UpdateUI();
+        }
+
+        private void OnRestoreProductsError(int responseCode, IDictionary<string, object> skuDetails)
+        {
+
+        }
+
+        #endregion
+
+        private void UpdateUI()
+        {
             // Determine if purchased
-            var practicePurchase = 
+            var practicePurchase =
                 this._inAppPurchaseRepository.GetPurchaseByProductId(this._inAppPurchaseRepository.PracticeModeProductId);
             if (practicePurchase == null)
             {
@@ -287,13 +345,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                 this._buyMenu.Visible = false;
                 this._buyLabelMenu.Visible = false;
             }
-        }
 
-        public override void OnExit()
-        {
-            base.OnExit();
-
-            this.ActionManager.RemoveAction(this._practiceModeAction);
         }
     }
 }

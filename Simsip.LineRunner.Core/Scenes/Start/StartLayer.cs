@@ -21,7 +21,6 @@ using Simsip.LineRunner.Effects.Deferred;
 using Simsip.LineRunner.Scenes.MessageBox;
 using Simsip.LineRunner.GameObjects;
 using Microsoft.Xna.Framework.Graphics;
-using Simsip.LineRunner.Services.Inapp;
 #if IOS
 using AVFoundation;
 using Foundation;

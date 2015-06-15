@@ -112,4 +112,9 @@
   <string name="AdminUpgradesOff">upgrades off</string>
   <string name="AdminUpgradesOn">upgrades on</string>
   <string name="OptionsPractice">practice mode</string>
+  <string name="UpgradesPracticeDesc3">tap options for practice mode</string>
+  <string name="UpgradesPurchaseError">error purchasing upgrade</string>
+  <string name="UpgradesPurchaseStatus">purchasing upgrade</string>
+  <string name="UpgradesRestoreError">error restoring upgrade</string>
+  <string name="UpgradesRestoreStatus">restoring upgrade</string>
 </resources>

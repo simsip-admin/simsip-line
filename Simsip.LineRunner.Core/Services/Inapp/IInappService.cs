@@ -14,11 +14,11 @@ namespace Simsip.LineRunner.Services.Inapp
 {
 #if ANDROID || IOS
 
-    public delegate void OnQueryInventoryDelegate(IList<InAppSkuEntity> inventoryItems);
+    public delegate void OnQueryInventoryDelegate();
 
-    public delegate void OnPurchaseProductDelegate(int response, InAppPurchaseEntity purchase, string purchaseData, string purchaseSignature);
+    public delegate void OnPurchaseProductDelegate();
 
-    public delegate void OnRestoreProductsDelegate(IList<InAppPurchaseEntity> restoredItems);
+    public delegate void OnRestoreProductsDelegate();
 
     public delegate void OnQueryInventoryErrorDelegate(int responseCode, IDictionary<string, object> skuDetails);
 

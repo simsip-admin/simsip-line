@@ -110,3 +110,8 @@
 "AdminUpgradesOff"="upgrades off";
 "AdminUpgradesOn"="upgrades on";
 "OptionsPractice"="practice mode";
+"UpgradesPracticeDesc3"="tap options for practice mode";
+"UpgradesPurchaseError"="error purchasing upgrade";
+"UpgradesPurchaseStatus"="purchasing upgrade";
+"UpgradesRestoreError"="error restoring upgrade";
+"UpgradesRestoreStatus"="restoring upgrade";

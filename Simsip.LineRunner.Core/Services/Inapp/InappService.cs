@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Diagnostics;
+using Simsip.LineRunner.Data.InApp;
+using Simsip.LineRunner.Entities.InApp;
 
 #if ANDROID
 using Android.App;
@@ -10,14 +12,12 @@ using Android.Content;
 using Android.OS;
 using Xamarin.InAppBilling;
 using Xamarin.InAppBilling.Utilities;
-using Simsip.LineRunner.Entities.InApp;
+using System;
 #elif IOS
 using StoreKit;
 using Foundation;
 using MonoTouch;
 using System;
-using Simsip.LineRunner.Data.InApp;
-using Simsip.LineRunner.Entities.InApp;
 #endif
 
 
@@ -59,9 +59,37 @@ namespace Simsip.LineRunner.Services.Inapp
             {
                 this._serviceConnection.BillingHandler.OnProductPurchased += (int response, Purchase purchase, string purchaseData, string purchaseSignature) =>
                 {
+                    // Record what we purchased
+                    var inAppPurchaseRepository = new InAppPurchaseRepository();
+                    var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                    var purchaseTime = epoch.AddMilliseconds(purchase.PurchaseTime);
+
+                    var existingPurchase = inAppPurchaseRepository.GetPurchaseByProductId(purchase.ProductId);
+
+                    if (existingPurchase == null)
+                    {
+                        var newPurchase = new InAppPurchaseEntity
+                        {
+                            OrderId = purchase.OrderId,
+                            ProductId = purchase.ProductId,
+                            PurchaseTime = purchaseTime
+                        };
+
+                        inAppPurchaseRepository.Create(newPurchase);
+                    }
+                    else
+                    {
+                        existingPurchase.OrderId = purchase.OrderId;
+                        existingPurchase.ProductId = purchase.ProductId;
+                        existingPurchase.PurchaseTime = purchaseTime;
+
+                        inAppPurchaseRepository.Update(existingPurchase);
+                    }
+
+                    // Let anyone know who is interested that purchase has completed
                     if (this.OnPurchaseProduct != null)
                     {
-                        this.OnPurchaseProduct(response, null, purchaseData, purchaseSignature);
+                        this.OnPurchaseProduct();
                     }
                 };
                 this._serviceConnection.BillingHandler.QueryInventoryError += (int responseCode, Bundle skuDetails) =>
@@ -128,20 +156,57 @@ namespace Simsip.LineRunner.Services.Inapp
             this._serviceConnection.BillingHandler.HandleActivityResult(requestCode, resultCode, data);
         }
 
-        public void QueryInventory()
+        public async void QueryInventory()
         {
-            this._serviceConnection.BillingHandler.QueryInventoryAsync(
-                new List<string>() { this.PracticeModeProductId }, 
-                "inapp")
-                .ContinueWith((products) =>
-                {
-                    if (this.OnQueryInventory != null)
-                    {
-                        this.OnQueryInventory(null);
-                    }
-                });
+            var products = await this._serviceConnection.BillingHandler.QueryInventoryAsync(
+                                new List<string>() { this.PracticeModeProductId }, "inapp");
 
-            /*
+            // Update inventory
+            var inAppSkuRepository = new InAppSkuRepository();
+            foreach (var product in products)
+            {
+                var existingProduct = inAppSkuRepository.GetSkuByProductId(product.ProductId);
+                if (existingProduct != null)
+                {
+                    existingProduct.Type = "inapp";
+                    existingProduct.Price = product.Price;
+                    existingProduct.Title = product.Title;
+                    existingProduct.Description = product.Description;
+                    existingProduct.PriceCurrencyCode = product.Price_Currency_Code;
+
+                    inAppSkuRepository.Update(existingProduct);
+                }
+                else
+                {
+                    var newProduct = new InAppSkuEntity();
+                    newProduct.ProductId = product.ProductId;
+                    newProduct.Type = "inapp";
+                    newProduct.Price = product.Price;
+                    newProduct.Title = product.Title;
+                    newProduct.Description = product.Description;
+                    newProduct.PriceCurrencyCode = product.Price_Currency_Code;
+
+                    inAppSkuRepository.Create(newProduct);
+                }
+            }
+
+            // If we have any purchases for the inventory, update the purchases
+            var inAppPurchaseRepository = new InAppPurchaseRepository();
+            foreach (var product in products)
+            {
+                var existingPurchase = inAppPurchaseRepository.GetPurchaseByProductId(product.ProductId);
+                if (existingPurchase != null)
+                {
+                    // Nothing to do for now
+                }
+            }
+
+            if (this.OnQueryInventory != null)
+            {
+                this.OnQueryInventory();
+            }
+            
+            /* Example:
             // Ask the open connection's billing handler to return a list of avilable products for the 
             // given list of items.
             // NOTE: We are asking for the Reserved Test Product IDs that allow you to test In-App
@@ -152,17 +217,54 @@ namespace Simsip.LineRunner.Services.Inapp
                 ReservedTestProductIDs.Purchased
             }, ItemType.Product);
             */
-
         }
 
         public void PurchaseProduct(string productId)
         {
+            // See Initialize() for where we hook up event handler for this
             this._serviceConnection.BillingHandler.BuyProduct(null);
         }
 
         public void RestoreProducts()
         {
             var purchases = this._serviceConnection.BillingHandler.GetPurchases("inapp");
+
+
+            // Record what we restored
+            var inAppPurchaseRepository = new InAppPurchaseRepository();
+            foreach (var purchase in purchases)
+            {
+                var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                var purchaseTime = epoch.AddMilliseconds(purchase.PurchaseTime);
+
+                var existingPurchase = inAppPurchaseRepository.GetPurchaseByProductId(purchase.ProductId);
+
+                if (existingPurchase == null)
+                {
+                    var newPurchase = new InAppPurchaseEntity
+                    {
+                        OrderId = purchase.OrderId,
+                        ProductId = purchase.ProductId,
+                        PurchaseTime = purchaseTime
+                    };
+
+                    inAppPurchaseRepository.Create(newPurchase);
+                }
+                else
+                {
+                    existingPurchase.OrderId = purchase.OrderId;
+                    existingPurchase.ProductId = purchase.ProductId;
+                    existingPurchase.PurchaseTime = purchaseTime;
+
+                    inAppPurchaseRepository.Update(existingPurchase);
+                }
+            }
+
+            // Notifiy anyone who needs to know products were restored
+            if (this.OnRestoreProducts != null)
+            {
+                this.OnRestoreProducts();
+            }
         }
 
         public void OnDestroy()
@@ -265,9 +367,6 @@ namespace Simsip.LineRunner.Services.Inapp
             this._queryInventoryObserver = NSNotificationCenter.DefaultCenter.AddObserver(InappService.InAppQueryInventoryNotification,
                 (notification) =>
                 {
-                    // Will be populated with the inventory
-                    var inventoryItems = new List<InAppSkuEntity>();
-
                     var info = notification.UserInfo;
                     var practiceModeProductId = new NSString(this.PracticeModeProductId);
 
@@ -284,8 +383,6 @@ namespace Simsip.LineRunner.Services.Inapp
                         existingProduct.Description = product.LocalizedDescription;
 
                         inAppSkuRepository.Update(existingProduct);
-
-                        inventoryItems.Add(existingProduct);
                     }
                     else
                     {
@@ -297,8 +394,6 @@ namespace Simsip.LineRunner.Services.Inapp
                         newProduct.Description = product.LocalizedDescription;
 
                         inAppSkuRepository.Create(newProduct);
-
-                        inventoryItems.Add(newProduct);
                     }
 
                     // If we have any purchases for the inventory, update the purchases
@@ -312,7 +407,7 @@ namespace Simsip.LineRunner.Services.Inapp
                     // Notify anyone who needed to know that our inventory is in
                     if (this.OnQueryInventory != null)
                     {
-                        this.OnQueryInventory(inventoryItems);
+                        this.OnQueryInventory();
                     }
                 });
             
@@ -332,7 +427,7 @@ namespace Simsip.LineRunner.Services.Inapp
                     // Notify anyone who needed to know that product was purchased
                     if (this.OnPurchaseProduct != null)
                     {
-                        this.OnPurchaseProduct(0, null, string.Empty, string.Empty);
+                        this.OnPurchaseProduct();
                     }
 
                 });
@@ -353,7 +448,7 @@ namespace Simsip.LineRunner.Services.Inapp
                     // Notify anyone who needed to know that products were restored
                     if (this.OnRestoreProducts != null)
                     {
-                        this.OnRestoreProducts(null);
+                        this.OnRestoreProducts();
                     }
 
                 });

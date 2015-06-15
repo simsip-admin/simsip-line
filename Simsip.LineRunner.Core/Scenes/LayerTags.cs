@@ -21,7 +21,9 @@ namespace Simsip.LineRunner.Scenes
         RatingsLayer,
         ResourcePacksLayer,
         StartLayer,
+#if ANDROID || IOS
         UpgradesMasterLayer,
+#endif
         WorldsLayer
     }
 }

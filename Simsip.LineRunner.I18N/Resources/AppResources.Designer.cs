@@ -935,6 +935,15 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to tap options for practice mode.
+        /// </summary>
+        public static string UpgradesPracticeDesc3 {
+            get {
+                return ResourceManager.GetString("UpgradesPracticeDesc3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to price.
         /// </summary>
         public static string UpgradesPrice {
@@ -953,11 +962,47 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to error purchasing upgrade.
+        /// </summary>
+        public static string UpgradesPurchaseError {
+            get {
+                return ResourceManager.GetString("UpgradesPurchaseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to purchasing upgrade.
+        /// </summary>
+        public static string UpgradesPurchaseStatus {
+            get {
+                return ResourceManager.GetString("UpgradesPurchaseStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to restore.
         /// </summary>
         public static string UpgradesRestore {
             get {
                 return ResourceManager.GetString("UpgradesRestore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to error restoring upgrade.
+        /// </summary>
+        public static string UpgradesRestoreError {
+            get {
+                return ResourceManager.GetString("UpgradesRestoreError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to restoring upgrade.
+        /// </summary>
+        public static string UpgradesRestoreStatus {
+            get {
+                return ResourceManager.GetString("UpgradesRestoreStatus", resourceCulture);
             }
         }
         

@@ -114,5 +114,10 @@
         public static string AdminUpgradesOff = "AdminUpgradesOff";
         public static string AdminUpgradesOn = "AdminUpgradesOn";
         public static string OptionsPractice = "OptionsPractice";
+        public static string UpgradesPracticeDesc3 = "UpgradesPracticeDesc3";
+        public static string UpgradesPurchaseError = "UpgradesPurchaseError";
+        public static string UpgradesPurchaseStatus = "UpgradesPurchaseStatus";
+        public static string UpgradesRestoreError = "UpgradesRestoreError";
+        public static string UpgradesRestoreStatus = "UpgradesRestoreStatus";
     }
 }

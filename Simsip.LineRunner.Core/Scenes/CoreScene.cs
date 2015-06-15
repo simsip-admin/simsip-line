@@ -23,7 +23,9 @@ using System;
 using System.Collections.Generic;
 using Simsip.LineRunner.Utils;
 using Simsip.LineRunner.Scenes.Lines;
+#if ANDROID || IOS
 using Simsip.LineRunner.Scenes.Upgrades;
+#endif
 
 
 namespace Simsip.LineRunner.Scenes
@@ -318,6 +320,7 @@ namespace Simsip.LineRunner.Scenes
             }
         }
 
+#if ANDROID || IOS
         private UpgradesMasterLayer _theUpgradesMasterLayer;
         /// <summary>
         /// The UI layer that allows players to start the game or navigate
@@ -335,6 +338,7 @@ namespace Simsip.LineRunner.Scenes
                 return _theUpgradesMasterLayer;
             }
         }
+#endif
 
         private WorldsLayer _theWorldsLayer;
         /// <summary>
@@ -522,10 +526,12 @@ namespace Simsip.LineRunner.Scenes
                     {
                         return TheStartLayer;
                     }
+#if ANDROID || IOS
                 case LayerTags.UpgradesMasterLayer:
                     {
                         return TheUpgradesMasterLayer;
                     }
+#endif
                 case LayerTags.WorldsLayer:
                     {
                         return TheWorldsLayer;

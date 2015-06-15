@@ -160,6 +160,26 @@
           <source>practice mode</source>
           <target state="new">practice mode</target>
         </trans-unit>
+        <trans-unit id="Resx/UpgradesRestoreStatus" translate="yes" xml:space="preserve">
+          <source>restoring upgrade</source>
+          <target state="new">restoring upgrade</target>
+        </trans-unit>
+        <trans-unit id="Resx/UpgradesRestoreError" translate="yes" xml:space="preserve">
+          <source>error restoring upgrade</source>
+          <target state="new">error restoring upgrade</target>
+        </trans-unit>
+        <trans-unit id="Resx/UpgradesPurchaseStatus" translate="yes" xml:space="preserve">
+          <source>purchasing upgrade</source>
+          <target state="new">purchasing upgrade</target>
+        </trans-unit>
+        <trans-unit id="Resx/UpgradesPurchaseError" translate="yes" xml:space="preserve">
+          <source>error purchasing upgrade</source>
+          <target state="new">error purchasing upgrade</target>
+        </trans-unit>
+        <trans-unit id="Resx/UpgradesPracticeDesc3" translate="yes" xml:space="preserve">
+          <source>tap options for practice mode</source>
+          <target state="new">tap options for practice mode</target>
+        </trans-unit>
         <trans-unit id="Resx/AdminUpgradesOff" translate="yes" xml:space="preserve">
           <source>upgrades off</source>
           <target state="new">upgrades off</target>
