@@ -8,6 +8,7 @@ using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.GameObjects.Lines;
 using Simsip.LineRunner.GameObjects.Pages;
 using Simsip.LineRunner.Resources;
+using Simsip.LineRunner.Scenes.MessageBox;
 using Simsip.LineRunner.Services.Inapp;
 using Simsip.LineRunner.Utils;
 using System;
@@ -30,6 +31,15 @@ namespace Simsip.LineRunner.Scenes.Upgrades
         private int _currentPracticeModeImage;
         private CCAction _practiceModeAction;
         
+        // Description lines
+        private string _practiceDesc1Text;
+        private string _practiceDesc2Text;
+        private CCLabelTTF _practiceDesc1Label;
+        private CCLabelTTF _practiceDesc2Label;
+
+        // Status line
+        private CCLabelTTF _statusLabel;
+
         // Restore
         private CCMenu _restoreMenu;
         private CCMenu _restoreLabelMenu;
@@ -44,6 +54,17 @@ namespace Simsip.LineRunner.Scenes.Upgrades
         // Purchased on
         private string _purchasedOnText;
         private CCLabelTTF _purchasedOnLabel;
+
+        // Message box messages
+        private string _purchasingUpgradeText;
+        private string _restoringUpgradeText;
+
+        // Error messages
+        private string _purchaseErrorText;
+        private string _restoreErrorText;
+
+        // How to text to display after purchase
+        private string _howToText;
 
         // Services we'll need
         private IInappService _inAppService;
@@ -136,40 +157,48 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             this.AddChild(practiceTitle);
 
             // Practice desc1
-            var practiceDesc1Text = string.Empty;
+            this._practiceDesc1Text = string.Empty;
 #if ANDROID
-            practiceDesc1Text = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPracticeDesc1);
+            this._practiceDesc1Text = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPracticeDesc1);
 #elif IOS
-            practiceDesc1Text = NSBundle.MainBundle.LocalizedString(Strings.UpgradesPracticeDesc1, Strings.UpgradesPracticeDesc1);
+            this._practiceDesc1Text = NSBundle.MainBundle.LocalizedString(Strings.UpgradesPracticeDesc1, Strings.UpgradesPracticeDesc1);
 #else
-            practiceDesc1Text = AppResources.UpgradesPracticeDesc1;
+            this._practiceDesc1Text = AppResources.UpgradesPracticeDesc1;
 #endif
-            var practiceDesc1 = new CCLabelTTF(practiceDesc1Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            practiceDesc1.Position = new CCPoint(
+            this._practiceDesc1Label = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._practiceDesc1Label.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.7f * this.ContentSize.Height);
-            this.AddChild(practiceDesc1);
+            this.AddChild(this._practiceDesc1Label);
+
+            // Status line
+            this._statusLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._statusLabel.Color = CCColor3B.Red;
+            this._statusLabel.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.6f * this.ContentSize.Height);
+            this.AddChild(this._statusLabel);
 
             // Practice desc2
-            var practiceDesc2Text = string.Empty;
+            this._practiceDesc2Text = string.Empty;
 #if ANDROID
-            practiceDesc2Text = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPracticeDesc2);
+            this._practiceDesc2Text = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPracticeDesc2);
 #elif IOS
-            practiceDesc2Text = NSBundle.MainBundle.LocalizedString(Strings.UpgradesPracticeDesc2, Strings.UpgradesPracticeDesc2);
+            this._practiceDesc2Text = NSBundle.MainBundle.LocalizedString(Strings.UpgradesPracticeDesc2, Strings.UpgradesPracticeDesc2);
 #else
-            practiceDesc2Text = AppResources.UpgradesPracticeDesc2;
+            this._practiceDesc2Text = AppResources.UpgradesPracticeDesc2;
 #endif
-            var practiceDesc2 = new CCLabelTTF(practiceDesc2Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            practiceDesc2.Position = new CCPoint(
+            var practiceDesc2 = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._practiceDesc2Label.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.65f * this.ContentSize.Height);
-            this.AddChild(practiceDesc2);
+            this.AddChild(this._practiceDesc2Label);
 
             // Restore
             CCMenuItemImage restoreButton =
                 new CCMenuItemImage("Images/Icons/RestoreButtonNormal.png",
                                     "Images/Icons/RestoreButtonSelected.png",
-                                    (obj) => { this._inAppService.RestoreProducts(); });
+                                    (obj) => { this.RestoreProducts(); });
             this._restoreMenu = new CCMenu(
                 new CCMenuItem[] 
                     {
@@ -234,7 +263,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             CCMenuItemImage buyButton =
                 new CCMenuItemImage("Images/Icons/BuyButtonNormal.png",
                                     "Images/Icons/BuyButtonSelected.png",
-                        (obj) => { _parent.GoBack(); });
+                        (obj) => { this.PurchaseProduct(); });
             this._buyMenu = new CCMenu(
                 new CCMenuItem[] 
                     {
@@ -264,6 +293,52 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                  0.8f * this.ContentSize.Width,
                  0.1f * this.ContentSize.Height);
             this.AddChild(this._buyLabelMenu);
+
+            // Message box messages
+            this._purchasingUpgradeText = string.Empty;
+#if ANDROID
+            this._purchasingUpgradeText = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPurchaseStatus);
+#elif IOS
+            this._purchasingUpgradeText = NSBundle.MainBundle.LocalizedString(Strings.UpgradesPurchaseStatus, Strings.UpgradesPurchaseStatus);
+#else
+            this._purchasingUpgradeText = AppResources.UpgradesPurchaseStatus;
+#endif
+            this._restoringUpgradeText = string.Empty;
+#if ANDROID
+            this._restoringUpgradeText = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesRestoreStatus);
+#elif IOS
+            this._restoringUpgradeText = NSBundle.MainBundle.LocalizedString(Strings.UpgradesRestoreStatus, Strings.UpgradesRestoreStatus);
+#else
+            this._restoringUpgradeText = AppResources.UpgradesRestoreStatus;
+#endif
+
+            // Error messages
+            this._purchaseErrorText = string.Empty;
+#if ANDROID
+            this._purchaseErrorText = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPurchaseError);
+#elif IOS
+            this._purchaseErrorText = NSBundle.MainBundle.LocalizedString(Strings.UpgradesPurchaseError, Strings.UpgradesPurchaseError);
+#else
+            this._purchaseErrorText = AppResources.UpgradesPurchaseError;
+#endif
+            this._restoreErrorText = string.Empty;
+#if ANDROID
+            this._restoreErrorText = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesRestoreError);
+#elif IOS
+            this._restoreErrorText = NSBundle.MainBundle.LocalizedString(Strings.UpgradesRestoreError, Strings.UpgradesRestoreError);
+#else
+            this._restoreErrorText = AppResources.UpgradesRestoreError;
+#endif
+
+            // How to text to display after purchase
+            this._howToText = string.Empty;
+#if ANDROID
+            this._howToText = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPracticeDesc3);
+#elif IOS
+            this._howToText = NSBundle.MainBundle.LocalizedString(Strings.UpgradesPracticeDesc3, Strings.UpgradesPracticeDesc3);
+#else
+            this._howToText = AppResources.UpgradesPracticeDesc3;
+#endif
         }
 
         #region Overrides
@@ -291,43 +366,67 @@ namespace Simsip.LineRunner.Scenes.Upgrades
 
         private void PurchaseProduct()
         {
+            // Provide immediate feedback
+            this._parent.TheMessageBoxLayer.Show(
+                this._purchasingUpgradeText,
+                string.Empty,
+                MessageBoxType.MB_PROGRESS);
 
+            // Go for the purchase
+            this._inAppService.PurchaseProduct(this._inAppService.PracticeModeProductId);
         }
 
         private void OnPurchaseProduct()
         {
+            this._parent.TheMessageBoxLayer.Hide();
+
             this.UpdateUI();
         }
 
         private void OnPurchaseProductError(int responseCode, string sku)
         {
+            this._parent.TheMessageBoxLayer.Hide();
 
+            this.UpdateUI(this._restoreErrorText);
         }
 
         private void RestoreProducts()
         {
+            // Provide immediate feedback
+            this._parent.TheMessageBoxLayer.Show(
+                this._restoringUpgradeText,
+                string.Empty,
+                MessageBoxType.MB_PROGRESS);
 
+            // Go for the restore
+            this._inAppService.RestoreProducts();
         }
 
         private void OnRestoreProducts()
         {
+            this._parent.TheMessageBoxLayer.Hide();
+
             this.UpdateUI();
         }
 
         private void OnRestoreProductsError(int responseCode, IDictionary<string, object> skuDetails)
         {
+            this._parent.TheMessageBoxLayer.Hide();
 
+            this.UpdateUI(this._restoreErrorText);
         }
 
         #endregion
 
-        private void UpdateUI()
+        private void UpdateUI(string statusLine="")
         {
             // Determine if purchased
             var practicePurchase =
                 this._inAppPurchaseRepository.GetPurchaseByProductId(this._inAppPurchaseRepository.PracticeModeProductId);
             if (practicePurchase == null)
             {
+                this._practiceDesc1Label.Text = this._practiceDesc1Text;
+                this._practiceDesc2Label.Text = this._practiceDesc2Text;
                 this._restoreMenu.Visible = true;
                 this._restoreLabelMenu.Visible = true;
                 this._priceLabel.Visible = true;
@@ -337,6 +436,8 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             }
             else
             {
+                this._practiceDesc1Label.Text = this._howToText;
+                this._practiceDesc2Label.Text = string.Empty;
                 this._restoreMenu.Visible = false;
                 this._restoreLabelMenu.Visible = false;
                 this._priceLabel.Visible = false;
@@ -346,6 +447,15 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                 this._buyLabelMenu.Visible = false;
             }
 
+            // Did we request a status line
+            if (!string.IsNullOrEmpty(statusLine))
+            {
+                this._statusLabel.Text = statusLine;
+            }
+            else
+            {
+                this._statusLabel.Text = string.Empty;
+            }
         }
     }
 }

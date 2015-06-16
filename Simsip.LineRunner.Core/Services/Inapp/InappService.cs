@@ -329,36 +329,53 @@ namespace Simsip.LineRunner.Services.Inapp
             TheGame.SharedGame.Services.AddService(typeof(IInappService), this);  
         }
 
+        #region SKProductsRequestDelegate overrides
 
-        #region Events
+        // Received response to RequestProductData - with price, title, description info
+		public override void ReceivedResponse (SKProductsRequest request, SKProductsResponse response)
+		{
+			SKProduct[] products = response.Products;
 
-        public event OnQueryInventoryDelegate OnQueryInventory;
+			NSDictionary userInfo = null;
+			if (products.Length > 0) 
+            {
+				NSObject[] productIdsArray = new NSObject[response.Products.Length];
+				NSObject[] productsArray = new NSObject[response.Products.Length];
+				for (int i = 0; i < response.Products.Length; i++) {
+					productIdsArray[i] = new NSString(response.Products[i].ProductIdentifier);
+					productsArray[i] = response.Products[i];
+				}
+				userInfo = NSDictionary.FromObjectsAndKeys (productsArray, productIdsArray);
+			}
+			NSNotificationCenter.DefaultCenter.PostNotificationName(
+                InAppQueryInventoryNotification,
+                this,
+                userInfo);
 
-        public event OnPurchaseProductDelegate OnPurchaseProduct;
+			foreach (string invalidProductId in response.InvalidProducts) 
+            {
+				Debug.WriteLine("Invalid product id: " + invalidProductId );
+			}
+		}
 
-        public event OnRestoreProductsDelegate OnRestoreProducts;
-
-        public event OnQueryInventoryErrorDelegate OnQueryInventoryError;
-
-        public event OnPurchaseProductErrorDelegate OnPurchaseProductError;
-
-        public event OnRestoreProductsErrorDelegate OnRestoreProductsError;
-
-        public event OnUserCanceledDelegate OnUserCanceled;
-
-        public event OnInAppBillingProcessingErrorDelegate OnInAppBillingProcesingError;
-
-        public event OnInvalidOwnedItemsBundleReturnedDelegate OnInvalidOwnedItemsBundleReturned;
-
-        public event OnPurchaseFailedValidationDelegate OnPurchaseFailedValidation;
+        // Probably could not connect to the App Store (network unavailable?)
+        public override void RequestFailed(SKRequest request, NSError error)
+        {
+            Debug.WriteLine(" ** InAppPurchaseManager RequestFailed() " + error.LocalizedDescription);
+            using (var pool = new NSAutoreleasePool())
+            {
+                NSDictionary userInfo = NSDictionary.FromObjectsAndKeys(new NSObject[] { error }, new NSObject[] { new NSString("error") });
+                // send out a notification for the failed transaction
+                NSNotificationCenter.DefaultCenter.PostNotificationName(InAppQueryInventoryErrorNotification, this, userInfo);
+            }
+        }
 
         #endregion
 
-        #region GameComponent Overrides
+        #region IInappService implementation
 
-        /// <summary>
-        /// Initializes the in app service.
-        /// </summary>
+        public string PracticeModeProductId { get { return "com.simsip.linerunner.practicemode"; } }
+
         public void Initialize()
         {
             this._customPaymentObserver = new CustomPaymentObserver(this);
@@ -410,7 +427,7 @@ namespace Simsip.LineRunner.Services.Inapp
                         this.OnQueryInventory();
                     }
                 });
-            
+
             this._queryInventoryErrorObserver = NSNotificationCenter.DefaultCenter.AddObserver(InappService.InAppQueryInventoryErrorNotification,
                 (notification) =>
                 {
@@ -472,57 +489,6 @@ namespace Simsip.LineRunner.Services.Inapp
 
         }
 
-        #endregion
-
-        #region SKProductsRequestDelegate overrides
-
-        // Received response to RequestProductData - with price,title,description info
-		public override void ReceivedResponse (SKProductsRequest request, SKProductsResponse response)
-		{
-			SKProduct[] products = response.Products;
-
-			NSDictionary userInfo = null;
-			if (products.Length > 0) 
-            {
-				NSObject[] productIdsArray = new NSObject[response.Products.Length];
-				NSObject[] productsArray = new NSObject[response.Products.Length];
-				for (int i = 0; i < response.Products.Length; i++) {
-					productIdsArray[i] = new NSString(response.Products[i].ProductIdentifier);
-					productsArray[i] = response.Products[i];
-				}
-				userInfo = NSDictionary.FromObjectsAndKeys (productsArray, productIdsArray);
-			}
-			NSNotificationCenter.DefaultCenter.PostNotificationName(
-                InAppQueryInventoryNotification,
-                this,
-                userInfo);
-
-			foreach (string invalidProductId in response.InvalidProducts) 
-            {
-				Debug.WriteLine("Invalid product id: " + invalidProductId );
-			}
-		}
-
-        /// <summary>
-        /// Probably could not connect to the App Store (network unavailable?)
-        /// </summary>
-        public override void RequestFailed(SKRequest request, NSError error)
-        {
-            Debug.WriteLine(" ** InAppPurchaseManager RequestFailed() " + error.LocalizedDescription);
-            using (var pool = new NSAutoreleasePool())
-            {
-                NSDictionary userInfo = NSDictionary.FromObjectsAndKeys(new NSObject[] { error }, new NSObject[] { new NSString("error") });
-                // send out a notification for the failed transaction
-                NSNotificationCenter.DefaultCenter.PostNotificationName(InAppQueryInventoryErrorNotification, this, userInfo);
-            }
-        }
-
-        #endregion
-
-        #region IInappService implementation
-
-        public string PracticeModeProductId { get { return "com.simsip.linerunner.practicemode"; } }
-
         public void QueryInventory()
         {
             var array = new NSString[1];
@@ -558,7 +524,6 @@ namespace Simsip.LineRunner.Services.Inapp
             SKPaymentQueue.DefaultQueue.RestoreCompletedTransactions();
         }
 
-        // Verify that the iTunes account can make this purchase for this application
         public bool CanMakePayments()
         {
             return SKPaymentQueue.CanMakePayments;
@@ -568,8 +533,32 @@ namespace Simsip.LineRunner.Services.Inapp
         {
             // Remove the observer when the app exits
             NSNotificationCenter.DefaultCenter.RemoveObserver(this._queryInventoryObserver);
+            NSNotificationCenter.DefaultCenter.RemoveObserver(this._queryInventoryErrorObserver);
+            NSNotificationCenter.DefaultCenter.RemoveObserver(this._purchaseProductObserver);
             NSNotificationCenter.DefaultCenter.RemoveObserver(this._purchaseProductErrorObserver);
+            NSNotificationCenter.DefaultCenter.RemoveObserver(this._restoreProductsObserver);
+            NSNotificationCenter.DefaultCenter.RemoveObserver(this._restoreProductsErrorObserver);
         }
+
+        public event OnQueryInventoryDelegate OnQueryInventory;
+
+        public event OnPurchaseProductDelegate OnPurchaseProduct;
+
+        public event OnRestoreProductsDelegate OnRestoreProducts;
+
+        public event OnQueryInventoryErrorDelegate OnQueryInventoryError;
+
+        public event OnPurchaseProductErrorDelegate OnPurchaseProductError;
+
+        public event OnRestoreProductsErrorDelegate OnRestoreProductsError;
+
+        public event OnUserCanceledDelegate OnUserCanceled;
+
+        public event OnInAppBillingProcessingErrorDelegate OnInAppBillingProcesingError;
+
+        public event OnInvalidOwnedItemsBundleReturnedDelegate OnInvalidOwnedItemsBundleReturned;
+
+        public event OnPurchaseFailedValidationDelegate OnPurchaseFailedValidation;
 
         #endregion
 
@@ -579,7 +568,7 @@ namespace Simsip.LineRunner.Services.Inapp
         {
             var productId = transaction.Payment.ProductIdentifier;
 
-            // Register the purchase, so it is remembered for next time
+            // Record the purchase
             var inAppPurchaseRepository = new InAppPurchaseRepository();
             var existingPurchase = inAppPurchaseRepository.GetPurchaseByProductId(productId);
             if (existingPurchase == null)
@@ -619,7 +608,7 @@ namespace Simsip.LineRunner.Services.Inapp
             // Restored Transactions always have an 'original transaction' attached
             var productId = transaction.OriginalTransaction.Payment.ProductIdentifier;
 
-            // Register the purchase, so it is remembered for next time
+            // Record the restore
             var inAppPurchaseRepository = new InAppPurchaseRepository();
             var existingPurchase = inAppPurchaseRepository.GetPurchaseByProductId(productId);
             if (existingPurchase == null)
@@ -717,7 +706,6 @@ namespace Simsip.LineRunner.Services.Inapp
             _inAppService = inAppService;
         }
 
-        // Called when the transaction status is updated
         public override void UpdatedTransactions(SKPaymentQueue queue, SKPaymentTransaction[] transactions)
         {
             foreach (SKPaymentTransaction transaction in transactions)

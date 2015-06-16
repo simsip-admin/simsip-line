@@ -134,6 +134,10 @@ namespace Simsip.LineRunner.Services.Inapp
 
 #elif IOS
 
+        /// <summary>
+        /// Verify that the iTunes account can make this purchase for this application
+        /// </summary>
+        /// <returns></returns>
         bool CanMakePayments();
 
         void WillTerminate();
