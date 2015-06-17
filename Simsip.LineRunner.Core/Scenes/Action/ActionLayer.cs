@@ -105,7 +105,7 @@ namespace Simsip.LineRunner.Scenes.Action
             _parent.SwitchedUI += OnSwitchingUI;
 
             // Set state
-            this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
+            this._currentPageNumber = 1;
             this._currentLineNumber = 1;
             this._currentGameState = GameState.None;
 
@@ -159,9 +159,9 @@ namespace Simsip.LineRunner.Scenes.Action
                         this.TouchEnabled = false;
 
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
-                        GameManager.SharedGameManager.CurrentScore = GameManager.SharedGameManager.AdminStartScore;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
+                        GameManager.SharedGameManager.CurrentScore = GameManager.SharedGameManager.GameStartScore;
 
                         // Update page/line number in hud
                         this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
@@ -351,12 +351,12 @@ namespace Simsip.LineRunner.Scenes.Action
                 case GameState.MovingToStart:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
-                        GameManager.SharedGameManager.CurrentScore = GameManager.SharedGameManager.AdminStartScore;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
+                        GameManager.SharedGameManager.CurrentScore = GameManager.SharedGameManager.GameStartScore;
 
                         // Update score/page/line number in hud
-                        this._hudLayer.DisplayScore(GameManager.SharedGameManager.AdminStartScore);
+                        this._hudLayer.DisplayScore(GameManager.SharedGameManager.GameStartScore);
                         this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
 
                         break;
@@ -373,12 +373,12 @@ namespace Simsip.LineRunner.Scenes.Action
                         this.TouchEnabled = false;
 
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
-                        GameManager.SharedGameManager.CurrentScore = GameManager.SharedGameManager.AdminStartScore;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
+                        GameManager.SharedGameManager.CurrentScore = GameManager.SharedGameManager.GameStartScore;
 
                         // Update score/page/line number in hud
-                        this._hudLayer.DisplayScore(GameManager.SharedGameManager.AdminStartScore);
+                        this._hudLayer.DisplayScore(GameManager.SharedGameManager.GameStartScore);
                         this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
 
                         break;
@@ -567,7 +567,7 @@ namespace Simsip.LineRunner.Scenes.Action
 
             // Are we allowing kills
             // AND we are not already handling a previous kill?
-            if (GameManager.SharedGameManager.AdminAreKillsAllowed &&
+            if (GameManager.SharedGameManager.GameAreKillsAllowed &&
                 !this._handlingKill)
             {
                 // Make sure we only handle one kill at at a time
@@ -613,7 +613,7 @@ namespace Simsip.LineRunner.Scenes.Action
             e.TheLineModel.ModelRunAction(glowAction);
 
             // Are we allowing kills?
-            if (GameManager.SharedGameManager.AdminAreKillsAllowed &&
+            if (GameManager.SharedGameManager.GameAreKillsAllowed &&
                 !this._handlingKill)
             {
                 // Make sure we only handle one kill at at a time

@@ -1,26 +1,43 @@
 using Cocos2D;
 using Simsip.LineRunner.Actions;
+using Simsip.LineRunner.Data.LineRunner;
 using Simsip.LineRunner.Utils;
+using System;
+using System.Diagnostics;
+using System.Linq;
 
 
 namespace Simsip.LineRunner.GameFramework
 {
     public class GameManager
     {
+        private int _gameStartPageNumber;
+        private int _gameStartLineNumber;
+        private int _gameStartScore;
+        private bool _gameKillsAllowed;
+
         //
         // Singleton implementation/defaults
         //
         private static GameManager _sharedGameManager = new GameManager();
+
         private GameManager()
         {
-            this.CurrentScore = 0;
-            this.TheActionManager = new ActionManager();
+                this.TheActionManager = new ActionManager();
 
-            this.AdminStartPageNumber = 1;
-            this.AdminStartLineNumber = 1;
-            this.AdminStartScore = 0;
-            this.AdminAreKillsAllowed = true;
-            this.AdminAreParticlesAllowed = true;
+                this.GameStartPageNumber = UserDefaults.SharedUserDefault.GetIntegerForKey(
+                        GameConstants.USER_DEFAULT_KEY_START_PAGE,
+                        GameConstants.USER_DEFAULT_INITIAL_START_PAGE);
+                this.GameStartLineNumber = UserDefaults.SharedUserDefault.GetIntegerForKey(
+                        GameConstants.USER_DEFAULT_KEY_START_LINE,
+                        GameConstants.USER_DEFAULT_INITIAL_START_LINE);
+                this.GameAreKillsAllowed = UserDefaults.SharedUserDefault.GetBoolForKey(
+                        GameConstants.USER_DEFAULT_KEY_KILLS_ALLOWED,
+                        GameConstants.USER_DEFAULT_INITIAL_KILLS_ALLOWED);
+
+                this.CurrentScore = this.GameStartScore;
+
+                this.AdminAreParticlesAllowed = true;
         }
 
         #region Properties
@@ -51,7 +68,20 @@ namespace Simsip.LineRunner.GameFramework
         /// 
         /// Debug screen has an option to toggle this flag.
         /// </summary>
-        public bool AdminAreKillsAllowed { get; set; }
+        public bool GameAreKillsAllowed 
+        {
+            get
+            {
+                return this._gameKillsAllowed;
+            }
+            set
+            {
+                this._gameKillsAllowed = value;
+                UserDefaults.SharedUserDefault.SetBoolForKey(
+                    GameConstants.USER_DEFAULT_KEY_KILLS_ALLOWED,
+                    this._gameKillsAllowed);
+            }
+        }
 
         /// <summary>
         /// Controls whether particles are displayed.
@@ -64,12 +94,43 @@ namespace Simsip.LineRunner.GameFramework
         /// <summary>
         /// Allow admins to set page to start on via the Admin screen.
         /// </summary>
-        public int AdminStartPageNumber { get; set; }
+        public int GameStartPageNumber 
+        { 
+            get
+            {
+                return this._gameStartPageNumber;
+            }
+            set
+            {
+                this._gameStartPageNumber = value;
+                UserDefaults.SharedUserDefault.SetIntegerForKey(
+                    GameConstants.USER_DEFAULT_KEY_START_PAGE,
+                    this._gameStartPageNumber);
+
+                this.SetStartScore();
+            }
+        }
 
         /// <summary>
         /// Allow admins to set line to start on via the Admin screen.
         /// </summary>
-        public int AdminStartLineNumber { get; set; }
+        public int GameStartLineNumber
+        {
+            get
+            {
+                return this._gameStartLineNumber;
+            }
+            set
+            {
+                this._gameStartLineNumber = value;
+                UserDefaults.SharedUserDefault.SetIntegerForKey(
+                    GameConstants.USER_DEFAULT_KEY_START_LINE,
+                    this._gameStartLineNumber);
+
+                this.SetStartScore();
+            }
+
+        }
 
         /// <summary>
         /// Controls whether upgrade pages are displayed.
@@ -87,7 +148,30 @@ namespace Simsip.LineRunner.GameFramework
         /// When admins set page to start, we will also update score to represent what
         /// player should have when getting to that page.
         /// </summary>
-        public int AdminStartScore { get; set; }
+        public int GameStartScore 
+        {
+            get
+            {
+                return this._gameStartScore;
+            }
+        }
+
+        #endregion
+
+        #region Helper methods
+
+        private void SetStartScore()
+        {
+            var pageObstaclesRepository = new PageObstaclesRepository();
+            var obstacles = pageObstaclesRepository.GetObstacles();
+            var startScore = obstacles
+                .Where(x => x.IsGoal == true &&
+                            x.PageNumber < (this.GameStartPageNumber + 1) &&
+                            x.LineNumber < this.GameStartLineNumber)
+                .Count();
+
+            this._gameStartScore = startScore;
+        }
 
         #endregion
 

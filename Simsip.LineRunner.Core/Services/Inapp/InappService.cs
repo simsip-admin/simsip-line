@@ -32,12 +32,15 @@ namespace Simsip.LineRunner.Services.Inapp
         public InappService()
         {
             // Register as service
-            TheGame.SharedGame.Services.AddService(typeof(IInappService), this);
+            // TheGame.SharedGame.Services.AddService(typeof(IInappService), this);
         }
         
         #region IInappService implementation
 
-        public string PracticeModeProductId { get { return "com.simsip.linerunner.practicemode"; } }
+
+        // public string PracticeModeProductId { get { return "com.simsip.linerunner.practicemode"; } }
+        // Testing
+        public string PracticeModeProductId { get { return ReservedTestProductIDs.Purchased; } }
 
         public void Initialize()
         {
@@ -47,14 +50,15 @@ namespace Simsip.LineRunner.Services.Inapp
             // or more parts, specifying the order to reassemlbe those parts and optionally providing
             // a set of key/value pairs to replace in the final string. 
             string value = Security.Unify(
-                new string[] { "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtpopeFYhDOOsufNhYe2PY97azBQBJoqGSP/XxsgzQgj3M0MQQ0WE0WDwPKoxlo/MIuoadVR5q2ZRs3rTl", 
-					"UsH9vYUPr/z0/O8kn5anQHshQkHkeHsA8wbyJGGmwcXqvZr1fnzFOFyHL46s47vOJBLc5x30oieJ02dNxdBcy0oFEJtJS5Ng5sm6YUv9ifgxYOqMr/K61HNw6tP0j", 
-					"vi6vLv2ro/KXO0ADVxcDxEg+Pk16xVNKgnei8M09PJCgA9bWNyeSsD+85Jj9+OZGsS/DN7O7nrGuKx8oAg/lE6a2eCQHh9lXxSPlAFAMH2FB8aNxUeJxkByW+6l/S", 
-					"yqvVlOeYxAwIDAQAB" },
+                new string[] { 
+                    "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhKyKc37WFTHmYoBQkxCRcKz6RfDXTNV59OqAYhATPUdZ4Y2at3X2dECM+G6wCMfnM+Z7TayYGHeuctWFh",
+                    "SJzZR3CkGL2ueXuoKKdViJX1ti8btY8Htu9n4t841F9wJVE+YW+A7VJ49cyj+7oc1t6q/6uFDrEdZU+FuAweTQuFjR12RNxxckf2w6HhLQwzNOWdv8agaWI2sK8kaF",
+                    "rA5kX6kAtjAflyWdDOnk0dAxXFji4qADmsquL668tYVFryk8XXn7EnE4kjxrWeWf6GBPNbfRZulUgvs4RBQ0mj8WFD+cDw36TbrQCAk0JePskFwWxtnA0pEL63+duO",
+                    "HPZ7ndRZQIDAQAB" },
                 new int[] { 0, 1, 2, 3 });
 
             // Create a new connection to the Google Play Service
-            _serviceConnection = new InAppBillingServiceConnection(Program.SharedProgram, value);
+            _serviceConnection = new InAppBillingServiceConnection(Program.SharedProgram /*TheGame.Activity*/, value);
             _serviceConnection.OnConnected += () =>
             {
                 this._serviceConnection.BillingHandler.OnProductPurchased += (int response, Purchase purchase, string purchaseData, string purchaseSignature) =>
@@ -101,6 +105,8 @@ namespace Simsip.LineRunner.Services.Inapp
                 };
                 this._serviceConnection.BillingHandler.BuyProductError += (int responseCode, string sku) =>
                 {
+                    // Note, BillingResult.ItemAlreadyOwned, etc. can be used to determine error
+
                     if (this.OnPurchaseProductError != null)
                     {
                         this.OnPurchaseProductError(responseCode, sku);
@@ -159,7 +165,12 @@ namespace Simsip.LineRunner.Services.Inapp
         public async void QueryInventory()
         {
             var products = await this._serviceConnection.BillingHandler.QueryInventoryAsync(
-                                new List<string>() { this.PracticeModeProductId }, "inapp");
+                                new List<string>() 
+                                    { 
+                                        this.PracticeModeProductId
+                                        // ReservedTestProductIDs.Canceled
+                                    }, 
+                                    ItemType.Product);
 
             // Update inventory
             var inAppSkuRepository = new InAppSkuRepository();
@@ -168,7 +179,7 @@ namespace Simsip.LineRunner.Services.Inapp
                 var existingProduct = inAppSkuRepository.GetSkuByProductId(product.ProductId);
                 if (existingProduct != null)
                 {
-                    existingProduct.Type = "inapp";
+                    existingProduct.Type = ItemType.Product;
                     existingProduct.Price = product.Price;
                     existingProduct.Title = product.Title;
                     existingProduct.Description = product.Description;
@@ -180,7 +191,7 @@ namespace Simsip.LineRunner.Services.Inapp
                 {
                     var newProduct = new InAppSkuEntity();
                     newProduct.ProductId = product.ProductId;
-                    newProduct.Type = "inapp";
+                    newProduct.Type = ItemType.Product;
                     newProduct.Price = product.Price;
                     newProduct.Title = product.Title;
                     newProduct.Description = product.Description;
@@ -222,13 +233,12 @@ namespace Simsip.LineRunner.Services.Inapp
         public void PurchaseProduct(string productId)
         {
             // See Initialize() for where we hook up event handler for this
-            this._serviceConnection.BillingHandler.BuyProduct(null);
+            this._serviceConnection.BillingHandler.BuyProduct(productId, ItemType.Product, "test");
         }
 
         public void RestoreProducts()
         {
-            var purchases = this._serviceConnection.BillingHandler.GetPurchases("inapp");
-
+            var purchases = this._serviceConnection.BillingHandler.GetPurchases(ItemType.Product);
 
             // Record what we restored
             var inAppPurchaseRepository = new InAppPurchaseRepository();
@@ -265,6 +275,13 @@ namespace Simsip.LineRunner.Services.Inapp
             {
                 this.OnRestoreProducts();
             }
+        }
+
+        public void RefundProduct()
+        {
+            var purchases = this._serviceConnection.BillingHandler.GetPurchases(ItemType.Product);
+
+            this._serviceConnection.BillingHandler.ConsumePurchase(purchases[0].PurchaseToken);
         }
 
         public void OnDestroy()

@@ -111,7 +111,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
         public override void Initialize()
         {
             // Initialize state
-            this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
+            this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
             this._currentLineNumber = 1;
             this.CharacterModels = new List<CharacterModel>();
             this._loadContentThreadResults = new ConcurrentQueue<LoadContentThreadArgs>(); 
@@ -263,8 +263,8 @@ namespace Simsip.LineRunner.GameObjects.Characters
                 case GameState.Intro:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // In background/event handler when finished:
                         // 1. Get initial characters constructed for first page
@@ -347,8 +347,8 @@ namespace Simsip.LineRunner.GameObjects.Characters
                 case GameState.MovingToStart:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // In background load up initial characters for first page
                         // See HandleKill() for additional steps taken for this state
@@ -365,8 +365,8 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         this._currentGameState = state;
 
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // Get characters constructed for first page
                         // this.ProcessNextPage();
@@ -395,8 +395,8 @@ namespace Simsip.LineRunner.GameObjects.Characters
                 case GameState.Start:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // Attempt to suspend physics as best as possible
                         this.SuspendHeroPhysics();
@@ -980,7 +980,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
             this.TheHeroModel.PhysicsEntity.Orientation = ConversionHelper.MathConverter.Convert(physicsRotation);
 
             // Do we need to adjust for admin setting of line number?
-            var adminLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+            var adminLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
             if (adminLineNumber > 1)
             {
                 heroStartOrigin -= new Vector3(

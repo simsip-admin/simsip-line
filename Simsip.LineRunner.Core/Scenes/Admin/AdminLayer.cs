@@ -4,6 +4,7 @@ using Simsip.LineRunner.Data.LineRunner;
 using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.GameObjects.Pages;
 using Simsip.LineRunner.Resources;
+using Simsip.LineRunner.Services.Inapp;
 using Simsip.LineRunner.Utils;
 using System;
 using System.Linq;
@@ -26,9 +27,15 @@ namespace Simsip.LineRunner.Scenes.Admin
         private CCTextFieldTTF _startPageTextField;
         private CCTextFieldTTF _startLineTextField;
 
+        // Services we'll need
+        private IInappService _inAppService;
+
         public AdminLayer(CoreScene parent)
         {
             this._parent = parent;
+
+            // Services we'll need
+            this._inAppService = (IInappService)TheGame.SharedGame.Services.GetService(typeof(IInappService));
 
             // Get these set up for relative positioning below
             var screenSize = CCDirector.SharedDirector.WinSize;
@@ -66,7 +73,7 @@ namespace Simsip.LineRunner.Scenes.Admin
                 0.5f * this.ContentSize.Width, 
                 0.8f * this.ContentSize.Height);
             this.AddChild(startPageLabel);
-            this._startPageTextField = new CCTextFieldTTF(GameManager.SharedGameManager.AdminStartPageNumber.ToString(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._startPageTextField = new CCTextFieldTTF(GameManager.SharedGameManager.GameStartPageNumber.ToString(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             this._startPageTextField.Position = new CCPoint(
                 0.9f * this.ContentSize.Width, 
                 0.8f * this.ContentSize.Height);
@@ -100,7 +107,7 @@ namespace Simsip.LineRunner.Scenes.Admin
                 0.5f * this.ContentSize.Width,
                 0.7f * this.ContentSize.Height);
             this.AddChild(startLineLabel);
-            this._startLineTextField = new CCTextFieldTTF(GameManager.SharedGameManager.AdminStartLineNumber.ToString(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._startLineTextField = new CCTextFieldTTF(GameManager.SharedGameManager.GameStartLineNumber.ToString(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             this._startLineTextField.Position = new CCPoint(
                 0.9f * this.ContentSize.Width,
                 0.7f * this.ContentSize.Height);
@@ -145,7 +152,7 @@ namespace Simsip.LineRunner.Scenes.Admin
             CCMenuItemToggle killToggle =
                 new CCMenuItemToggle((obj) => KillsTogglePressed(),
                 new CCMenuItem[] { killsOnItem, killsOffItem });
-            if (GameManager.SharedGameManager.AdminAreKillsAllowed == false)
+            if (GameManager.SharedGameManager.GameAreKillsAllowed == false)
             {
                 killToggle.SelectedIndex = 1; // Kills are OFF
             }
@@ -236,6 +243,21 @@ namespace Simsip.LineRunner.Scenes.Admin
                 0.4f * this.ContentSize.Height);
             this.AddChild(upgradesMenu);
 
+            // Refund
+            var refundText = "refund";
+            var refundLabel = new CCLabelTTF(refundText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var refundItem = new CCMenuItemLabel(refundLabel,
+                (obj) => { this.Refund(); });
+            var refundMenu = new CCMenu(
+               new CCMenuItem[] 
+                    {
+                        refundItem,
+                    });
+            refundMenu.Position = new CCPoint(
+                 0.5f * this.ContentSize.Width,
+                 0.3f * this.ContentSize.Height);
+            this.AddChild(refundMenu);
+
             // Back
             CCMenuItemImage backButton =
                 new CCMenuItemImage(
@@ -263,8 +285,8 @@ namespace Simsip.LineRunner.Scenes.Admin
             this.RunAction(this._layerActionIn);
 
             // Allow admins to set page/line we will start on
-            this._startPageTextField.Text = GameManager.SharedGameManager.AdminStartPageNumber.ToString();
-            this._startLineTextField.Text = GameManager.SharedGameManager.AdminStartLineNumber.ToString();
+            this._startPageTextField.Text = GameManager.SharedGameManager.GameStartPageNumber.ToString();
+            this._startLineTextField.Text = GameManager.SharedGameManager.GameStartLineNumber.ToString();
         }
 
         #endregion
@@ -273,13 +295,13 @@ namespace Simsip.LineRunner.Scenes.Admin
 
         private void KillsTogglePressed()
         {
-            if (GameManager.SharedGameManager.AdminAreKillsAllowed)
+            if (GameManager.SharedGameManager.GameAreKillsAllowed)
             {
-                GameManager.SharedGameManager.AdminAreKillsAllowed = false;
+                GameManager.SharedGameManager.GameAreKillsAllowed = false;
             }
             else
             {
-                GameManager.SharedGameManager.AdminAreKillsAllowed = true;
+                GameManager.SharedGameManager.GameAreKillsAllowed = true;
             }
         }
 
@@ -307,6 +329,11 @@ namespace Simsip.LineRunner.Scenes.Admin
             }
         }
 
+        private void Refund()
+        {
+            this._inAppService.RefundProduct();
+        }
+
         private void GoBack()
         {
             // Will animate our exit
@@ -319,39 +346,20 @@ namespace Simsip.LineRunner.Scenes.Admin
 
             // Did we change the start page?
             var startPage = Int32.Parse(this._startPageTextField.Text);
-            if (startPage != GameManager.SharedGameManager.AdminStartPageNumber)
+            if (startPage != GameManager.SharedGameManager.GameStartPageNumber)
             {
                 // Ok, first update our global state for the start page
-                GameManager.SharedGameManager.AdminStartPageNumber = startPage;
-
-                // Then update what we should have as a starting score for this page
-                var pageObstaclesRepository = new PageObstaclesRepository();
-                var obstacles = pageObstaclesRepository.GetObstacles();
-                var startScore = obstacles
-                    .Where(x => x.IsGoal == true &&
-                                x.PageNumber < startPage)
-                    .Count();
-                GameManager.SharedGameManager.AdminStartScore = startScore;
+                GameManager.SharedGameManager.GameStartPageNumber = startPage;
 
                 signalForRefresh = true;
             }
 
             // Did we change the start line?
             var startLine = Int32.Parse(this._startLineTextField.Text);
-            if (startLine != GameManager.SharedGameManager.AdminStartLineNumber)
+            if (startLine != GameManager.SharedGameManager.GameStartLineNumber)
             {
                 // Ok, first update our global state for the start page
-                GameManager.SharedGameManager.AdminStartLineNumber = startLine;
-
-                // Then update what we should have as a starting score for this page
-                var pageObstaclesRepository = new PageObstaclesRepository();
-                var obstacles = pageObstaclesRepository.GetObstacles();
-                var startScore = obstacles
-                    .Where(x => x.IsGoal == true &&
-                                x.PageNumber < (startPage + 1) &&
-                                x.LineNumber < startLine)
-                    .Count();
-                GameManager.SharedGameManager.AdminStartScore = startScore;
+                GameManager.SharedGameManager.GameStartLineNumber = startLine;
 
                 signalForRefresh = true;
             }

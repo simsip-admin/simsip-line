@@ -27,7 +27,8 @@ namespace Simsip.LineRunner
         , Icon = "@drawable/icon"
         // , Theme = "@style/Theme.Splash"
         , AlwaysRetainTaskState = true
-        , LaunchMode = Android.Content.PM.LaunchMode.SingleInstance
+        // IMPORTANT: Had to change this from - Android.Content.PM.LaunchMode.SingleInstance
+        , LaunchMode = Android.Content.PM.LaunchMode.SingleTop
         // , ScreenOrientation = ScreenOrientation.SensorPortrait had to remove and now done programatically as there is a generated typo introduced
         // into the AndroidManaifest.xml
         , ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.Keyboard | ConfigChanges.KeyboardHidden)]
@@ -54,6 +55,10 @@ namespace Simsip.LineRunner
                 System.Diagnostics.Debug.WriteLine("Program.OnCreate: 0");
                 Program.TheStopwatch.Start();
 #endif
+                Program.SharedProgram = this;
+
+                this.TheInAppService = new InappService();
+                this.TheInAppService.Initialize();
 
                 base.OnCreate(bundle);
 
@@ -122,8 +127,6 @@ namespace Simsip.LineRunner
                 TaskScheduler.UnobservedTaskException +=
                     (sender, args) => HockeyApp.TraceWriter.WriteTrace(args.Exception);
 
-                Program.SharedProgram = this;
-
                 // TODO: What is this?
                 // PlatformManager.Startup(game);
 
@@ -153,6 +156,13 @@ namespace Simsip.LineRunner
             {
                 inappService.HandleActivityResult(requestCode, resultCode, data);
             }
+        }
+
+        public void BuyProduct(object state)
+        {
+            var productId = state as string;
+            var inappService = (IInappService)TheGame.SharedGame.Services.GetService(typeof(IInappService));
+            inappService.PurchaseProduct(productId);
         }
 
         protected override void OnDestroy()
@@ -205,6 +215,9 @@ namespace Simsip.LineRunner
             var intent = new Intent(this, typeof(OAuthView));
             StartActivity(intent);
         }
+
+        public IInappService TheInAppService { get; private set; }
+
     }
 }
 

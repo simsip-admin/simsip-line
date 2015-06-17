@@ -114,7 +114,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         public override void Initialize()
         {
             // Iniitialize state
-            this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
+            this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
             this._currentLineNumber = 1;
             this.ObstacleModels = new List<ObstacleModel>();
             this._loadContentThreadResults = new ConcurrentQueue<LoadContentThreadArgs>();
@@ -217,8 +217,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 case GameState.Intro:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // Get initial obstacles constructed for first page in background.
                         // this.ProcessNextLine() will be called in event handler when
@@ -282,8 +282,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 case GameState.MovingToStart:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // In background, get initial obstacles constructed for first page.
                         // this.ProcessNextLine() will be called in event handler when 
@@ -299,8 +299,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 case GameState.Refresh:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // In background get initial obstacles constructed for first page.
                         // this.ProcessNextLine() will be called in event handler when
@@ -316,8 +316,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 case GameState.Start:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // Propogate state change
                         this._characterCache.SwitchState(state);

@@ -82,8 +82,8 @@ namespace Simsip.LineRunner.GameObjects.Pages
         public override void Initialize()
         {
             // Initialize state
-            this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-            this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+            this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+            this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
             this._loadContentThreadResults = new ConcurrentQueue<LoadContentThreadArgs>(); 
             
             // Import required services.
@@ -271,8 +271,8 @@ namespace Simsip.LineRunner.GameObjects.Pages
                 case GameState.Intro:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // IMPORTANT: No background loading but we do propogate the state to the next
                         // dependent game object
@@ -311,8 +311,8 @@ namespace Simsip.LineRunner.GameObjects.Pages
                 case GameState.MovingToStart:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // Propogate state change
                         this._lineCache.SwitchState(state);
@@ -322,8 +322,8 @@ namespace Simsip.LineRunner.GameObjects.Pages
                 case GameState.Refresh:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // Remaining refresh logic centralized in helper
                         // this.Refresh();
@@ -338,8 +338,8 @@ namespace Simsip.LineRunner.GameObjects.Pages
                 case GameState.Start:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // Propogate state change
                         this._lineCache.SwitchState(state);

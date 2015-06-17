@@ -72,8 +72,11 @@ namespace Simsip.LineRunner
                                                   CCResolutionPolicy.NoBorder);
 
             // Load inapp service on main thread
+            /*
             var inAppService = new InappService();
             inAppService.Initialize();
+            */
+            TheGame.SharedGame.Services.AddService(typeof(IInappService), Program.SharedProgram.TheInAppService);
 
             // Get initial loading screen displayed
             var scene = new CoreScene();
@@ -99,11 +102,13 @@ namespace Simsip.LineRunner
             // If you use SimpleAudioEngine, your music must be paused
             CCSimpleAudioEngine.SharedEngine.PauseBackgroundMusic();
 
+            // IMPORTANT: Previously we had to kill the app when entering background - see commented out code below.
+            //            Current code-set appears to be stable though.
             // On Android, entering the background and returning leads to 
             // all sorts of issues, hence we force stop for this platform.
             // Reference:
             // http://www.pencelgames.com/blog/porting-android-monogame-textures-and-spritesheets
-            Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
+            // Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
         }
 
         /// <summary>

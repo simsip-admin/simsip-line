@@ -76,7 +76,7 @@ namespace Simsip.LineRunner.GameObjects.Sensors
             Logger.Trace("init()");
 
             // Initialize state
-            this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
+            this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
             this._currentLineNumber = 1;
             this._sensorModels = new List<SensorModel>();
             this._sensorHitList = new List<SensorModel>();
@@ -133,8 +133,8 @@ namespace Simsip.LineRunner.GameObjects.Sensors
                 case GameState.Intro:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // Set up first page's first line's sensors
                         this.ProcessNextLine();
@@ -170,8 +170,8 @@ namespace Simsip.LineRunner.GameObjects.Sensors
                 case GameState.MovingToStart:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // Set up first page's first line's sensors
                         this.ProcessNextLine();
@@ -181,8 +181,8 @@ namespace Simsip.LineRunner.GameObjects.Sensors
                 case GameState.Refresh:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // Set up first page's first line's sensors
                         this.ProcessNextLine();
@@ -192,8 +192,8 @@ namespace Simsip.LineRunner.GameObjects.Sensors
                 case GameState.Start:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         break;
                     }

@@ -6,10 +6,12 @@ using Simsip.LineRunner.Data.InApp;
 using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.GameObjects.Pages;
 using Simsip.LineRunner.Resources;
+using Simsip.LineRunner.Services.Inapp;
 using Simsip.LineRunner.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Xamarin.InAppBilling;
 #if IOS
 using Foundation;
 #endif
@@ -48,13 +50,15 @@ namespace Simsip.LineRunner.Scenes.Options
         private int _totalPages;
 
         // Services we'll need
+        private IInappService _inAppService;
         private IInAppPurchaseRepository _inAppPurchaseRepository;
 
         public OptionsMasterLayer(CoreScene parent)
         {
             this._parent = parent;
 
-            // Services we'll need
+            // Grab references to services we'll need
+            this._inAppService = (IInappService)TheGame.SharedGame.Services.GetService(typeof(IInappService)); 
             this._inAppPurchaseRepository = new InAppPurchaseRepository();
 
             // Get these set up for relative positioning below
@@ -268,7 +272,7 @@ namespace Simsip.LineRunner.Scenes.Options
             // Determine if upgrade practice mode was purchased
             // Note: Override available from admin screen
             var practicePurchase =
-                this._inAppPurchaseRepository.GetPurchaseByProductId(this._inAppPurchaseRepository.PracticeModeProductId);
+                this._inAppPurchaseRepository.GetPurchaseByProductId(this._inAppService.PracticeModeProductId);
             if (practicePurchase != null ||
                 GameManager.SharedGameManager.AdminAreUpgradesAllowed)
             {

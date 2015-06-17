@@ -216,7 +216,7 @@ namespace Simsip.LineRunner.Scenes.Options
             var killsToggle =
                 new CCMenuItemToggle((obj) => KillsTogglePressed((obj as CCMenuItemToggle).SelectedIndex),
                 new CCMenuItem[] { killsToggleOn, killsToggleOff });
-            if (!GameManager.SharedGameManager.AdminAreKillsAllowed)
+            if (!GameManager.SharedGameManager.GameAreKillsAllowed)
             {
                 killsToggle.SelectedIndex = 1;
             }
@@ -250,7 +250,7 @@ namespace Simsip.LineRunner.Scenes.Options
                 0.15f * this.ContentSize.Width,
                 0.42f * this.ContentSize.Height);
             this.AddChild(this._killsLabel);
-            if (GameManager.SharedGameManager.AdminAreKillsAllowed)
+            if (GameManager.SharedGameManager.GameAreKillsAllowed)
             {
                 this._killsLabel.Text = this._killsOn;
             }
@@ -267,13 +267,13 @@ namespace Simsip.LineRunner.Scenes.Options
             base.OnEnter();
 
             // Highlight current starting page/line
-            var startPageToggle = this._pageToggles[GameManager.SharedGameManager.AdminStartPageNumber - 1];
+            var startPageToggle = this._pageToggles[GameManager.SharedGameManager.GameStartPageNumber - 1];
             startPageToggle.SelectedIndex = 0;
-            var startPageLabel = this._pageLabels[GameManager.SharedGameManager.AdminStartPageNumber - 1];
+            var startPageLabel = this._pageLabels[GameManager.SharedGameManager.GameStartPageNumber - 1];
             startPageLabel.Color = CCColor3B.Blue;
-            var startLineToggle = this._lineToggles[GameManager.SharedGameManager.AdminStartLineNumber - 1];
+            var startLineToggle = this._lineToggles[GameManager.SharedGameManager.GameStartLineNumber - 1];
             startLineToggle.SelectedIndex = 0;
-            var startLineLabel = this._lineLabels[GameManager.SharedGameManager.AdminStartLineNumber - 1];
+            var startLineLabel = this._lineLabels[GameManager.SharedGameManager.GameStartLineNumber - 1];
             startLineLabel.Color = CCColor3B.Blue;
         }
 
@@ -310,16 +310,7 @@ namespace Simsip.LineRunner.Scenes.Options
             this._pageLabels[pageNumber - 1].Color = CCColor3B.Blue;
 
             // Record what was selected
-            GameManager.SharedGameManager.AdminStartPageNumber = pageNumber;
-
-            // Then update what we should have as a starting score for this page
-            var pageObstaclesRepository = new PageObstaclesRepository();
-            var obstacles = pageObstaclesRepository.GetObstacles();
-            var startScore = obstacles
-                .Where(x => x.IsGoal == true &&
-                            x.PageNumber < pageNumber)
-                .Count();
-            GameManager.SharedGameManager.AdminStartScore = startScore;
+            GameManager.SharedGameManager.GameStartPageNumber = pageNumber;
 
             // Hook up an event handler for end of content loading caused by
             // refresh kicking off background load
@@ -359,18 +350,7 @@ namespace Simsip.LineRunner.Scenes.Options
             this._lineLabels[lineNumber - 1].Color = CCColor3B.Blue;
 
             // Record what was selected
-            GameManager.SharedGameManager.AdminStartLineNumber = lineNumber;
-
-            // Then update what we should have as a starting score for this page
-            // Then update what we should have as a starting score for this page
-            var pageObstaclesRepository = new PageObstaclesRepository();
-            var obstacles = pageObstaclesRepository.GetObstacles();
-            var startScore = obstacles
-                .Where(x => x.IsGoal == true &&
-                            x.PageNumber < (GameManager.SharedGameManager.AdminStartLineNumber + 1) &&
-                            x.LineNumber < lineNumber)
-                .Count();
-            GameManager.SharedGameManager.AdminStartScore = startScore;
+            GameManager.SharedGameManager.GameStartLineNumber = lineNumber;
 
             // Hook up an event handler for end of content loading caused by
             // refresh kicking off background load
@@ -398,12 +378,12 @@ namespace Simsip.LineRunner.Scenes.Options
         {
             if (selected == 0)
             {
-                GameManager.SharedGameManager.AdminAreKillsAllowed = true;
+                GameManager.SharedGameManager.GameAreKillsAllowed = true;
                 this._killsLabel.Text = this._killsOn;
             }
             else
             {
-                GameManager.SharedGameManager.AdminAreKillsAllowed = false;
+                GameManager.SharedGameManager.GameAreKillsAllowed = false;
                 this._killsLabel.Text = this._killsOff;
             }
         }

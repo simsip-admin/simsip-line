@@ -95,7 +95,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
         public override void Initialize()
         {
             // Initialize state
-            this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
+            this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
             this._currentLineNumber = 1;
             this.LineModels = new List<LineModel>();
             this._loadContentThreadResults = new ConcurrentQueue<LoadContentThreadArgs>();
@@ -193,8 +193,8 @@ namespace Simsip.LineRunner.GameObjects.Lines
                 case GameState.Intro:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // In background get initial lines constructed for first page.
                         // this.ProcessNextLine() will be called in event handler when 
@@ -249,8 +249,8 @@ namespace Simsip.LineRunner.GameObjects.Lines
                 case GameState.MovingToStart:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // In background get initial lines constructed for first page.
                         // this.ProcessNextLine() will be called in event handler when
@@ -263,8 +263,8 @@ namespace Simsip.LineRunner.GameObjects.Lines
                 case GameState.Refresh:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // In background get initial lines constructed for first page.
                         // this.ProcessNextLine() will be called in event handler when
@@ -277,8 +277,8 @@ namespace Simsip.LineRunner.GameObjects.Lines
                 case GameState.Start:
                     {
                         // Set state
-                        this._currentPageNumber = GameManager.SharedGameManager.AdminStartPageNumber;
-                        this._currentLineNumber = GameManager.SharedGameManager.AdminStartLineNumber;
+                        this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
+                        this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // Propogate state change
                         this._obstacleCache.SwitchState(state);
@@ -677,9 +677,9 @@ namespace Simsip.LineRunner.GameObjects.Lines
         private void ProcessNextLine()
         {
             // First line also animates in the header line
-            if (this._currentLineNumber == GameManager.SharedGameManager.AdminStartLineNumber)
+            if (this._currentLineNumber == GameManager.SharedGameManager.GameStartLineNumber)
             {
-                var headerLineNumber = GameManager.SharedGameManager.AdminStartLineNumber - 1;
+                var headerLineNumber = GameManager.SharedGameManager.GameStartLineNumber - 1;
                 var headerLine = this.GetLineModel(headerLineNumber);
                  
                 // IMPORTANT: Note the adjustment in depth as we have staged this line tucked behind page.

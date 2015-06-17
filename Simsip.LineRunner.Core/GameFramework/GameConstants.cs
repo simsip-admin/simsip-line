@@ -14,11 +14,12 @@ namespace Simsip.LineRunner.GameFramework
         public const string FOLDER_SHADER_PACKS = "shaderpacks";
 
         // Font settings
-        public const string FONT_FAMILY_NORMAL = "Schwarzwald Regular";
+        // public const string FONT_FAMILY_NORMAL = "Schwarzwald Regular";
+        public const string FONT_FAMILY_NORMAL = "arial";
         public const float FONT_SIZE_SMALL = 18f;
         public const float FONT_SIZE_NORMAL = 26f;
-        public const float FONT_SIZE_LARGE = 36f;
-        public const float FONT_SIZE_EXTRA_LARGE = 48f;
+        public const float FONT_SIZE_LARGE = 38f;
+        public const float FONT_SIZE_EXTRA_LARGE = 50f;
         
         // Worlds
         public const string WORLD_DEFAULT = "default";
@@ -58,6 +59,14 @@ namespace Simsip.LineRunner.GameFramework
         public const float USER_DEFAULT_INITIAL_HUD_ORBIT_YAW = 0f;
         public const string USER_DEFAULT_KEY_HUD_ORBIT_PITCH = "HudOrbitPitch";
         public const float USER_DEFAULT_INITIAL_HUD_ORBIT_PITCH = 0f;
+
+        // Upgrades
+        public const string USER_DEFAULT_KEY_START_PAGE = "StartPage";
+        public const int USER_DEFAULT_INITIAL_START_PAGE = 1;
+        public const string USER_DEFAULT_KEY_START_LINE = "StartLine";
+        public const int USER_DEFAULT_INITIAL_START_LINE = 1;
+        public const string USER_DEFAULT_KEY_KILLS_ALLOWED = "KillsAllowed";
+        public const bool USER_DEFAULT_INITIAL_KILLS_ALLOWED = true;
 
         // Limits
         public const float VELOCITY_LOWER_LIMIT_X = 0.01f;

@@ -1,3 +1,4 @@
+using Android.App;
 using Cocos2D;
 using Microsoft.Xna.Framework;
 using Simsip.LineRunner.Actions;
@@ -14,6 +15,7 @@ using Simsip.LineRunner.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Xamarin.InAppBilling;
 #if IOS
 using Foundation;
 #endif
@@ -49,6 +51,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
         private CCMenu _buyLabelMenu;
 
         // Price
+        private string _priceText;
         private CCLabelTTF _priceLabel;
 
         // Purchased on
@@ -68,6 +71,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
 
         // Services we'll need
         private IInappService _inAppService;
+        private IInAppSkuRepository _inAppSkuRepository;
         private IInAppPurchaseRepository _inAppPurchaseRepository;
 
         public UpgradesPage1Layer(CoreScene parent, UpgradesMasterLayer masterLayer)
@@ -81,6 +85,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             this._inAppService.OnPurchaseProductError += OnPurchaseProductError;
             this._inAppService.OnRestoreProducts += OnRestoreProducts;
             this._inAppService.OnRestoreProductsError += OnRestoreProductsError;
+            this._inAppSkuRepository = new InAppSkuRepository();
             this._inAppPurchaseRepository = new InAppPurchaseRepository();
 
             // Get this setup for relative positioning
@@ -156,7 +161,8 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                 0.78f * this.ContentSize.Height);
             this.AddChild(practiceTitle);
 
-            // Practice desc1
+            // Practice desc1 - See UpdatePracticeDesc1()
+
             this._practiceDesc1Text = string.Empty;
 #if ANDROID
             this._practiceDesc1Text = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPracticeDesc1);
@@ -165,21 +171,10 @@ namespace Simsip.LineRunner.Scenes.Upgrades
 #else
             this._practiceDesc1Text = AppResources.UpgradesPracticeDesc1;
 #endif
-            this._practiceDesc1Label = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._practiceDesc1Label.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.7f * this.ContentSize.Height);
-            this.AddChild(this._practiceDesc1Label);
 
-            // Status line
-            this._statusLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._statusLabel.Color = CCColor3B.Red;
-            this._statusLabel.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.6f * this.ContentSize.Height);
-            this.AddChild(this._statusLabel);
+            // Status line - See UpdateStatusLabel
 
-            // Practice desc2
+            // Practice desc2 - See UpdatePracticeDesc2
             this._practiceDesc2Text = string.Empty;
 #if ANDROID
             this._practiceDesc2Text = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPracticeDesc2);
@@ -188,11 +183,6 @@ namespace Simsip.LineRunner.Scenes.Upgrades
 #else
             this._practiceDesc2Text = AppResources.UpgradesPracticeDesc2;
 #endif
-            var practiceDesc2 = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._practiceDesc2Label.Position = new CCPoint(
-                0.5f  * this.ContentSize.Width,
-                0.65f * this.ContentSize.Height);
-            this.AddChild(this._practiceDesc2Label);
 
             // Restore
             CCMenuItemImage restoreButton =
@@ -218,7 +208,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
 #endif
             var restoreLabel = new CCLabelTTF(restoreText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             var restoreItem = new CCMenuItemLabel(restoreLabel,
-                (obj) => { this._parent.GoBack(); });
+                (obj) => { this.RestoreProducts(); });
             this._restoreLabelMenu = new CCMenu(
                            new CCMenuItem[] 
                     {
@@ -229,22 +219,17 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                  0.1f * this.ContentSize.Height);
             this.AddChild(this._restoreLabelMenu);
 
-            // Price
-            var priceText = string.Empty;
+            // Price - See UpdatePriceLabel()
+            this._priceText = string.Empty;
 #if ANDROID
-            priceText = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPrice);
+            this._priceText = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPrice);
 #elif IOS
-            priceText = NSBundle.MainBundle.LocalizedString(Strings.UpgradesPrice, Strings.UpgradesPrice);
+            this._priceText = NSBundle.MainBundle.LocalizedString(Strings.UpgradesPrice, Strings.UpgradesPrice);
 #else
-            priceText = AppResources.UpgradesPrice;
+            this._priceText = AppResources.UpgradesPrice;
 #endif
-            this._priceLabel = new CCLabelTTF(priceText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._priceLabel.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.3f * this.ContentSize.Height);
-            this.AddChild(this._priceLabel);
 
-            // Purchased on
+            // Purchased on - see UpdatePurchaseOn()
             this._purchasedOnText = string.Empty;
 #if ANDROID
             this._purchasedOnText = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPurchasedOn);
@@ -253,11 +238,6 @@ namespace Simsip.LineRunner.Scenes.Upgrades
 #else
             this._purchasedOnText = AppResources.UpgradesPurchasedOn;
 #endif
-            this._purchasedOnLabel = new CCLabelTTF(this._purchasedOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._purchasedOnLabel.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.3f * this.ContentSize.Height);
-            this.AddChild(this._purchasedOnLabel);
 
             // Buy
             CCMenuItemImage buyButton =
@@ -283,7 +263,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
 #endif
             var buyLabel = new CCLabelTTF(buyText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             var buyItem = new CCMenuItemLabel(buyLabel,
-                (obj) => { this._inAppService.PurchaseProduct(this._inAppService.PracticeModeProductId); });
+                (obj) => { this.PurchaseProduct(); });
             this._buyLabelMenu = new CCMenu(
                            new CCMenuItem[] 
                     {
@@ -373,7 +353,12 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                 MessageBoxType.MB_PROGRESS);
 
             // Go for the purchase
+#if ANDROID
+            // IMPORTANT: Call to BuyProduct must be called from MainActivity on its main thread
+            Application.SynchronizationContext.Post(Program.SharedProgram.BuyProduct, this._inAppService.PracticeModeProductId);
+#elif IOS
             this._inAppService.PurchaseProduct(this._inAppService.PracticeModeProductId);
+#endif
         }
 
         private void OnPurchaseProduct()
@@ -420,42 +405,132 @@ namespace Simsip.LineRunner.Scenes.Upgrades
 
         private void UpdateUI(string statusLine="")
         {
+            // Get latest price
+            var price = string.Empty;
+            var practiceProduct =
+                this._inAppSkuRepository.GetSkuByProductId(this._inAppService.PracticeModeProductId);
+            if (practiceProduct != null)
+            {
+                price = practiceProduct.Price;
+            }
+            
             // Determine if purchased
             var practicePurchase =
-                this._inAppPurchaseRepository.GetPurchaseByProductId(this._inAppPurchaseRepository.PracticeModeProductId);
-            if (practicePurchase == null)
+                this._inAppPurchaseRepository.GetPurchaseByProductId(this._inAppService.PracticeModeProductId);
+            if (practicePurchase != null ||
+                GameManager.SharedGameManager.AdminAreUpgradesAllowed)
             {
-                this._practiceDesc1Label.Text = this._practiceDesc1Text;
-                this._practiceDesc2Label.Text = this._practiceDesc2Text;
-                this._restoreMenu.Visible = true;
-                this._restoreLabelMenu.Visible = true;
-                this._priceLabel.Visible = true;
-                this._purchasedOnLabel.Visible = false;
-                this._buyMenu.Visible = true;
-                this._buyLabelMenu.Visible = true;
+                // UI for purchased upgrade
+                this.UpdateDesc1Label(this._howToText);
+                this.UpdateDesc2Label(string.Empty);
+
+                this._restoreMenu.Visible = false;
+                this._restoreLabelMenu.Visible = false;
+
+                this.UpdatePriceLabel(string.Empty);
+                
+                this.UpdatePurchasedOnLabel(this._purchasedOnText + " " + practicePurchase.PurchaseTime.ToString("g"));
+
+                this._buyMenu.Visible = false;
+                this._buyLabelMenu.Visible = false;
             }
             else
             {
-                this._practiceDesc1Label.Text = this._howToText;
-                this._practiceDesc2Label.Text = string.Empty;
-                this._restoreMenu.Visible = false;
-                this._restoreLabelMenu.Visible = false;
-                this._priceLabel.Visible = false;
-                this._purchasedOnLabel.Visible = true;
-                this._purchasedOnLabel.Text = this._purchasedOnText + " " + practicePurchase.PurchaseTime.ToString("g");
-                this._buyMenu.Visible = false;
-                this._buyLabelMenu.Visible = false;
+                // UI for non-purchased upgrade
+                this.UpdateDesc1Label(this._practiceDesc1Text);
+                this.UpdateDesc2Label(this._practiceDesc2Text);
+
+                this._restoreMenu.Visible = true;
+                this._restoreLabelMenu.Visible = true;
+
+                this.UpdatePriceLabel(this._priceText + " " + price);
+
+                this.UpdatePurchasedOnLabel(string.Empty);
+
+                this._buyMenu.Visible = true;
+                this._buyLabelMenu.Visible = true;
             }
 
             // Did we request a status line
             if (!string.IsNullOrEmpty(statusLine))
             {
-                this._statusLabel.Text = statusLine;
+                this.UpdateStatusLabel(statusLine);
             }
             else
             {
-                this._statusLabel.Text = string.Empty;
+                this.UpdateStatusLabel(string.Empty);
             }
+        }
+
+        private void UpdateDesc1Label(string text)
+        {
+            if (this._practiceDesc1Label != null)
+            {
+                this.RemoveChild(this._practiceDesc1Label);
+            }
+
+            this._practiceDesc1Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._practiceDesc1Label.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.7f * this.ContentSize.Height);
+            this.AddChild(this._practiceDesc1Label);
+        }
+
+        private void UpdateDesc2Label(string text)
+        {
+            if (this._practiceDesc2Label != null)
+            {
+                this.RemoveChild(this._practiceDesc2Label);
+            }
+
+            this._practiceDesc2Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._practiceDesc2Label.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.65f * this.ContentSize.Height);
+            this.AddChild(this._practiceDesc2Label);
+        }
+
+        private void UpdateStatusLabel(string text)
+        {
+            if (this._statusLabel != null)
+            {
+                this.RemoveChild(this._statusLabel);
+            }
+
+            this._statusLabel = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._statusLabel.Color = CCColor3B.Red;
+            this._statusLabel.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.6f * this.ContentSize.Height);
+            this.AddChild(this._statusLabel);
+        }
+
+        private void UpdatePriceLabel(string text)
+        {
+            if (this._priceLabel != null)
+            {
+                this.RemoveChild(this._priceLabel);
+            }
+
+            this._priceLabel = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._priceLabel.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.3f * this.ContentSize.Height);
+            this.AddChild(this._priceLabel);
+        }
+
+        private void UpdatePurchasedOnLabel(string text)
+        {
+            if (this._purchasedOnLabel != null)
+            {
+                this.RemoveChild(this._purchasedOnLabel);
+            }
+
+            this._purchasedOnLabel = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._purchasedOnLabel.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.3f * this.ContentSize.Height);
+            this.AddChild(this._purchasedOnLabel);
         }
     }
 }

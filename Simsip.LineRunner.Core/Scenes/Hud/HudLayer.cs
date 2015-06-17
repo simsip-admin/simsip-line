@@ -156,13 +156,6 @@ namespace Simsip.LineRunner.Scenes.Hud
                 footerSize.Height);
 
             // Status 1
-            this._status1Label = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._status1Label.Color = CCColor3B.Red;
-            this._status1Label.AnchorPoint = CCPoint.AnchorMiddle;
-            this._status1Label.Position = new CCPoint(
-                0.5f  * this.ContentSize.Width,
-                0.75f * this.ContentSize.Height);
-            this.AddChild(this._status1Label);
 
             // Status 1 action
             this._status1LabelAction = new CCSequence(new CCFiniteTimeAction[] 
@@ -176,7 +169,7 @@ namespace Simsip.LineRunner.Scenes.Hud
                 });
 
             // Status 2
-            this._status2Label = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._status2Label = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
             this._status2Label.Color = CCColor3B.Red;
             this._status2Label.AnchorPoint = CCPoint.AnchorMiddle;
             this._status2Label.Position = new CCPoint(
@@ -403,7 +396,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             // Score label
             this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_EXTRA_LARGE);
             this._scoreLabel.Color = CCColor3B.Yellow;
-            this._status1Label.AnchorPoint = CCPoint.AnchorMiddle;
+            this._scoreLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._scoreLabel.Position = new CCPoint(
                 0.5f * headerRightSize.Width, 
                 0.7f * headerRightSize.Height);
@@ -795,7 +788,7 @@ namespace Simsip.LineRunner.Scenes.Hud
         public void DisplayPageLineNumber(int pageNumber, int lineNumber)
         {
             // Animate display of new page number
-            this._status1Label.StopAllActions();
+            // this._status1Label.StopAllActions();
             var pageLineText = string.Empty;
 #if ANDROID
             pageLineText = Program.SharedProgram.Resources.GetString(Resource.String.HudPageLine);
@@ -804,8 +797,27 @@ namespace Simsip.LineRunner.Scenes.Hud
 #else
             pageLineText = AppResources.HudPageLine;
 #endif
-            this._status1Label.Text = 
-                pageLineText + " " + pageNumber.ToString() + "/" + lineNumber.ToString();
+            var text = pageLineText + " " + pageNumber + "/" + lineNumber;
+
+            this.UpdateStatus1(text);
+        }
+
+        private void UpdateStatus1(string text)
+        {
+            if (this._status1Label != null)
+            {
+                this.ActionManager.RemoveAllActionsFromTarget(this._status1Label);
+                this.RemoveChild(this._status1Label);
+            }
+
+            this._status1Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            this._status1Label.Color = CCColor3B.Red;
+            this._status1Label.AnchorPoint = CCPoint.AnchorMiddle;
+            this._status1Label.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.75f * this.ContentSize.Height);
+            this.AddChild(this._status1Label);
+
             this._status1Label.RunAction(this._status1LabelAction);
         }
 

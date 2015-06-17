@@ -67,6 +67,11 @@ namespace Simsip.LineRunner.Services.Inapp
         void RestoreProducts();
 
         /// <summary>
+        /// For testing purposes only.
+        /// </summary>
+        void RefundProduct();
+
+        /// <summary>
         /// Occurs when a query inventory transactions completes successfully with Google Play Services.
         /// </summary>
         event OnQueryInventoryDelegate OnQueryInventory;

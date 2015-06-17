@@ -8,8 +8,6 @@ namespace Simsip.LineRunner.Data.InApp
 {
     public class InAppPurchaseRepository : IInAppPurchaseRepository
     {
-        public string PracticeModeProductId { get { return "com.simsip.linerunner.practicemode";  } }
-
         public void Create(InAppPurchaseEntity purchase)
         {
             // Make sure we have required object/fields
