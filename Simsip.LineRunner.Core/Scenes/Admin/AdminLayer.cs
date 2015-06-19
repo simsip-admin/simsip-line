@@ -4,11 +4,14 @@ using Simsip.LineRunner.Data.LineRunner;
 using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.GameObjects.Pages;
 using Simsip.LineRunner.Resources;
-using Simsip.LineRunner.Services.Inapp;
 using Simsip.LineRunner.Utils;
 using System;
 using System.Linq;
+#if ANDROID
+using Simsip.LineRunner.Services.Inapp;
+#endif
 #if IOS
+using Simsip.LineRunner.Services.Inapp;
 using Foundation;
 #endif
 
@@ -27,15 +30,19 @@ namespace Simsip.LineRunner.Scenes.Admin
         private CCTextFieldTTF _startPageTextField;
         private CCTextFieldTTF _startLineTextField;
 
+#if ANDROID || IOS
         // Services we'll need
         private IInappService _inAppService;
+#endif
 
         public AdminLayer(CoreScene parent)
         {
             this._parent = parent;
 
+#if ANDROID || IOS
             // Services we'll need
             this._inAppService = (IInappService)TheGame.SharedGame.Services.GetService(typeof(IInappService));
+#endif
 
             // Get these set up for relative positioning below
             var screenSize = CCDirector.SharedDirector.WinSize;
@@ -243,6 +250,7 @@ namespace Simsip.LineRunner.Scenes.Admin
                 0.4f * this.ContentSize.Height);
             this.AddChild(upgradesMenu);
 
+#if ANDROID || IOS
             // Refund
             var refundText = "refund";
             var refundLabel = new CCLabelTTF(refundText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
@@ -257,6 +265,7 @@ namespace Simsip.LineRunner.Scenes.Admin
                  0.5f * this.ContentSize.Width,
                  0.3f * this.ContentSize.Height);
             this.AddChild(refundMenu);
+#endif
 
             // Back
             CCMenuItemImage backButton =
@@ -329,10 +338,12 @@ namespace Simsip.LineRunner.Scenes.Admin
             }
         }
 
+#if ANDROID || IOS
         private void Refund()
         {
             this._inAppService.RefundProduct();
         }
+#endif
 
         private void GoBack()
         {

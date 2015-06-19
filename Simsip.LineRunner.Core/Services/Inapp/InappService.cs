@@ -541,6 +541,12 @@ namespace Simsip.LineRunner.Services.Inapp
             SKPaymentQueue.DefaultQueue.RestoreCompletedTransactions();
         }
 
+        // TODO
+        public void RefundProduct()
+        {
+
+        }
+
         public bool CanMakePayments()
         {
             return SKPaymentQueue.CanMakePayments;

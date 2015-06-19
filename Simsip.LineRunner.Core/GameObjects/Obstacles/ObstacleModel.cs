@@ -50,7 +50,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         /// IMPORTANT: In most cases the control of loading and unloading XNA resources
         /// for this model will be controled by the obstacle's containing line model.
         /// </summary>
-        public CustomContentManager TheCustomContentManager { get; private set; }
+        public CustomContentManager TheCustomContentManager { get; set; }
 
 
         public ObstacleAnimationType TheObstacleAnimationType { get; set; }
@@ -170,6 +170,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             }
             */
 
+            
             this._textureOverrides = new List<Texture2D>();
             if (this.TheObstacleEntity.TextureFamily == "SimplePipe")
             {
@@ -203,7 +204,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                     this.TheCustomContentManager);
                 this._textureOverrides.Add(texture);
             }
-
+            
             // Do we have any particle effects?
             this.DisplayParticleEffectDescs = ParticleEffectFactory.CreateObstacleDisplayParticles(this);
             this.HitParticleEffectDescs = ParticleEffectFactory.CreateObstacleHitParticles(this);

@@ -54,7 +54,7 @@ namespace Simsip.LineRunner.GameObjects
         /// <summary>
         /// The imported fbx representation for this model.
         /// </summary>
-        public Model XnaModel { get; protected set; }
+        public Model XnaModel { get; set; }
 
         /// <summary>
         /// The physics representation for this model.

@@ -22,7 +22,7 @@ using Simsip.LineRunner.Services.Inapp;
 namespace Simsip.LineRunner
 {
 
-    [Activity(Label = "Line Runner"
+    [Activity(Label = "Linerunner 3D"
         , MainLauncher = true
         , Icon = "@drawable/icon"
         // , Theme = "@style/Theme.Splash"

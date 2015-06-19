@@ -79,6 +79,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             public IDictionary<int, CustomContentManager> ContentManagersAsync;
             public IList<ObstacleModel> ObstacleModelsAsync;
         }
+        private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadPurge;
         private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadResults;
         private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadCache;
 
@@ -117,6 +118,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
             this._currentLineNumber = 1;
             this.ObstacleModels = new List<ObstacleModel>();
+            this._loadContentThreadPurge = new ConcurrentQueue<LoadContentThreadArgs>();
             this._loadContentThreadResults = new ConcurrentQueue<LoadContentThreadArgs>();
             this._loadContentThreadCache = new ConcurrentQueue<LoadContentThreadArgs>();
             this.ContentManagers = new Dictionary<int, CustomContentManager>();
@@ -170,6 +172,17 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
             // Clear obstacle hit list after finishing loop
             this._obstacleHitList.Clear();
+
+            // Did we signal we need an async content purge processed?
+            if (this._loadContentThreadPurge.Count > 0)
+            {
+                LoadContentThreadArgs loadContentThreadArgs = null;
+                if (this._loadContentThreadPurge.TryDequeue(out loadContentThreadArgs))
+                {
+                    // Load in new content from staged collection in args
+                    ProcessPurgeContentAsync(loadContentThreadArgs);
+                }
+            }
 
             // Did we signal we need an async content load processed?
             if (this._loadContentThreadResults.Count > 0)
@@ -428,23 +441,44 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         {
             var loadContentThreadArgs = args as LoadContentThreadArgs;
             var loadContentAsyncType = loadContentThreadArgs.TheLoadContentAsyncType;
+            var gameState = loadContentThreadArgs.TheGameState;
             var pageNumber = loadContentThreadArgs.PageNumber;
             var lineNumbers = loadContentThreadArgs.LineNumbers;
             var contentManagers = loadContentThreadArgs.ContentManagersAsync;
             var obstacleModels = loadContentThreadArgs.ObstacleModelsAsync;
+
+            // Purge
+            var loadContentThreadPurge = new LoadContentThreadArgs()
+            {
+                TheLoadContentAsyncType = loadContentAsyncType,
+                TheGameState = gameState,
+                PageNumber = pageNumber,
+                LineNumbers = lineNumbers
+            };
+            this._loadContentThreadPurge.Enqueue(loadContentThreadPurge);
 
             // IMPORTANT: If we are coming from a Refresh we may have to clear out any
             //            cached stagings (e.g., the page/line number has changed and
             //            a cached representation of the obstacles would be incorrect)
             if (loadContentAsyncType == LoadContentAsyncType.Refresh)
             {
+                foreach (var entry in this._loadContentThreadCache)
+                {
+                    foreach (var key in entry.ContentManagersAsync.Keys)
+                    {
+                        entry.ContentManagersAsync[key].Unload();
+                        entry.ContentManagersAsync[key].Dispose();
+                    }
+                    entry.ContentManagersAsync.Clear();
+                    entry.ObstacleModelsAsync.Clear();
+                }
+
                 this._loadContentThreadCache = new ConcurrentQueue<LoadContentThreadArgs>();
             }
 
-
             // Grab from cache if available, prime cache if not
-            if (loadContentAsyncType == LoadContentAsyncType.Initialize ||
-                loadContentAsyncType == LoadContentAsyncType.Refresh)
+            if (loadContentAsyncType == LoadContentAsyncType.Initialize)
+                // loadContentAsyncType == LoadContentAsyncType.Refresh)
             {
                 LoadContentThreadArgs cachedArgs;
                 if (this._loadContentThreadCache.TryDequeue(out cachedArgs))
@@ -493,6 +527,9 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 var customContentManager = new CustomContentManager(
                    TheGame.SharedGame.Services,
                    TheGame.SharedGame.Content.RootDirectory);
+                   /* Debug
+                   "ObstacleCache (" + lineNumber + ")");
+                   */
                 contentManagers[lineNumber] = customContentManager;
 
                 // Ok, let's grab the collection of obstacles for our current page using our helper
@@ -674,10 +711,9 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             // IMPORTANT: Note how, depending on the LoadContentAsyncType, we queue up the args
             //            into our cache for next round or immediately queue it up for processing in Update()
             //
-
             if (loadContentAsyncType == LoadContentAsyncType.Cache ||
-                loadContentAsyncType == LoadContentAsyncType.Initialize ||
-                loadContentAsyncType == LoadContentAsyncType.Refresh)
+                loadContentAsyncType == LoadContentAsyncType.Initialize)
+                // loadContentAsyncType == LoadContentAsyncType.Refresh)
             {
                 this._loadContentThreadCache.Enqueue(loadContentThreadArgs);
             }
@@ -685,11 +721,10 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             {
                 this._loadContentThreadResults.Enqueue(loadContentThreadArgs);
             }
-
+            // this._loadContentThreadResults.Enqueue(loadContentThreadArgs);
         }
 
-        // Migrate staged collection in args to public collection
-        private void ProcessLoadContentAsync(LoadContentThreadArgs loadContentThreadArgs)
+        private void ProcessPurgeContentAsync(LoadContentThreadArgs loadContentThreadArgs)
         {
             switch (loadContentThreadArgs.TheLoadContentAsyncType)
             {
@@ -706,10 +741,16 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                                 obstacleModel.PhysicsEntity.Space != null)
                             {
                                 this._physicsManager.TheSpace.Remove(obstacleModel.PhysicsEntity);
+                                obstacleModel.PhysicsEntity.Tag = null;
+                                obstacleModel.PhysicsEntity = null;
                             }
 
                             // Remove all previous animations for this model
                             obstacleModel.ModelActionManager.RemoveAllActionsFromTarget(obstacleModel);
+
+                            obstacleModel.TheCustomContentManager.OriginalEffectsDictionary.Remove(obstacleModel.TheObstacleEntity.ModelName);
+                            obstacleModel.TheCustomContentManager = null;
+                            obstacleModel.XnaModel = null;
                         }
 
                         // Clear out the full set of previous models
@@ -768,12 +809,103 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                     }
 
             }
+        }
+
+        // Migrate staged collection in args to public collection
+        private void ProcessLoadContentAsync(LoadContentThreadArgs loadContentThreadArgs)
+        {
+            /*
+            switch (loadContentThreadArgs.TheLoadContentAsyncType)
+            {
+                case LoadContentAsyncType.Initialize:
+                case LoadContentAsyncType.Refresh:
+                    {
+                        // Remove all previous obstacle models from our drawing filter
+                        // and remove all previous obstacle physics
+                        foreach (var obstacleModel in this.ObstacleModels.ToList())
+                        {
+                            this._ocTreeRoot.RemoveModel(obstacleModel.ModelID);
+
+                            if (obstacleModel.PhysicsEntity != null &&
+                                obstacleModel.PhysicsEntity.Space != null)
+                            {
+                                this._physicsManager.TheSpace.Remove(obstacleModel.PhysicsEntity);
+                                obstacleModel.PhysicsEntity.Tag = null;
+                                obstacleModel.PhysicsEntity = null;
+                            }
+
+                            // Remove all previous animations for this model
+                            obstacleModel.ModelActionManager.RemoveAllActionsFromTarget(obstacleModel);
+
+                            obstacleModel.TheCustomContentManager.OriginalEffectsDictionary.Remove(obstacleModel.TheObstacleEntity.ModelName);
+                            obstacleModel.TheCustomContentManager = null;
+                            obstacleModel.XnaModel = null;
+                        }
+
+                        // Clear out the full set of previous models
+                        this.ObstacleModels.Clear();
+
+                        // And clear out any on-going display particle effects
+                        this._particleEffectCache.TerminateAllObstacleEffects();
+
+                        // Finally, dispose of all XNA resources
+                        foreach (var key in this.ContentManagers.Keys)
+                        {
+                            this.ContentManagers[key].Unload();
+                            this.ContentManagers[key].Dispose();
+                        }
+                        this.ContentManagers.Clear();
+
+                        break;
+                    }
+                case LoadContentAsyncType.Next:
+                    {
+                        // Remove all previous obstacle models from our drawing filter
+                        // and remove all previous obstacle physics
+                        var lineToRemove = this._currentLineNumber - 2;
+                        if (lineToRemove > 0)
+                        {
+                            var obstacleModels = this.ObstacleModels
+                                                 .Where(x => x.ThePageObstaclesEntity.LineNumber == lineToRemove)
+                                                 .ToList();
+
+                            foreach (var obstacleModel in obstacleModels)
+                            {
+                                this._ocTreeRoot.RemoveModel(obstacleModel.ModelID);
+
+                                if (obstacleModel.PhysicsEntity != null &&
+                                    obstacleModel.PhysicsEntity.Space != null)
+                                {
+                                    this._physicsManager.TheSpace.Remove(obstacleModel.PhysicsEntity);
+                                }
+
+                                // Remove all previous animations for this model
+                                obstacleModel.ModelActionManager.RemoveAllActionsFromTarget(obstacleModel);
+
+                                this.ObstacleModels.Remove(obstacleModel);
+                            }
+
+                            // Clear out any on-going display particle effects
+                            this._particleEffectCache.TerminateAllObstacleEffects();
+
+                            // Finally, dispose of all XNA resources
+                            this.ContentManagers[lineToRemove].Unload();
+                            this.ContentManagers[lineToRemove].Dispose();
+                            this.ContentManagers.Remove(lineToRemove);
+                        }
+
+                        break;
+                    }
+
+            }
+            */
 
             // Populate our public content managers from our staged collection
             foreach(var contentManagerAsync in loadContentThreadArgs.ContentManagersAsync)
             {
                 this.ContentManagers[contentManagerAsync.Key] = contentManagerAsync.Value;
             }
+
 
             // Populate our public model collections from our staged collections
             foreach (var obstacleModel in loadContentThreadArgs.ObstacleModelsAsync)
@@ -788,6 +920,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             // IMPORTANT: Physics is handled in ProcessNextLine/ProcessObstaclePhysics
             //
         }
+
 
         private List<PageObstaclesEntity> HydrateLineObstacles(int pageNumber, int[] lineNumbers)
         {

@@ -1,4 +1,3 @@
-using Android.App;
 using Cocos2D;
 using Microsoft.Xna.Framework;
 using Simsip.LineRunner.Actions;
@@ -15,7 +14,10 @@ using Simsip.LineRunner.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+#if ANDROID
+using Android.App;
 using Xamarin.InAppBilling;
+#endif
 #if IOS
 using Foundation;
 #endif

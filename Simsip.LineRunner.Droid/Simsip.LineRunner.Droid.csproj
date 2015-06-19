@@ -3695,10 +3695,6 @@
       <Link>Assets\Content\Models\Pads\Pad2-thumbnail.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Models\Panes\Pane1-model.xnb">
-      <Link>Assets\Content\Models\Panes\Pane1-model.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
     <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Models\Voxeliq\SkyDomeTexture.xnb">
       <Link>Assets\Content\Models\Voxeliq\SkyDomeTexture.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -130,6 +130,9 @@ namespace Simsip.LineRunner.GameObjects.Characters
             this._heroCustomContentManager = new CustomContentManager(
                TheGame.SharedGame.Services,
                TheGame.SharedGame.Content.RootDirectory);
+               /* Debug
+               "Hero");
+               */
 
             base.Initialize();
         }

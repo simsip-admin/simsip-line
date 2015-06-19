@@ -424,6 +424,10 @@ namespace Simsip.LineRunner.Scenes.Action
                 // We can now let the hud layer's ui resume
                 this._hudLayer.RestoreStart();
             }
+            else
+            {
+                Debug.WriteLine("This should never happen:");
+            }
         }
 
         private void OnSwitchingUI(object sender, SwitchUIEventArgs e)
@@ -444,9 +448,9 @@ namespace Simsip.LineRunner.Scenes.Action
 
                         break;
                     }
-                case LayerTags.AchievementsLayer:
-                case LayerTags.CreditsMasterLayer:
-                case LayerTags.OptionsMasterLayer:
+                // case LayerTags.AchievementsLayer:
+                // case LayerTags.CreditsMasterLayer:
+                // case LayerTags.OptionsMasterLayer:
                 case LayerTags.StartLayer:
                     {
                         // TODO: Previous, leaving here until stable
@@ -457,6 +461,7 @@ namespace Simsip.LineRunner.Scenes.Action
 
                         break;
                     }
+                    /*
                 case LayerTags.FinishLayer:
                     {
                         // TODO: Keeping it simple now, will consider animation later
@@ -465,6 +470,7 @@ namespace Simsip.LineRunner.Scenes.Action
 
                         break;
                     }
+                    */
             }
         }
 

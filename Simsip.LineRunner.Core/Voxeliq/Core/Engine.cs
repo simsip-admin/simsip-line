@@ -85,6 +85,9 @@ namespace Engine.Core
             this.TheCustomContentManager = new CustomContentManager(
                    TheGame.SharedGame.Services,
                    TheGame.SharedGame.Content.RootDirectory);
+                    /* Debug
+                   "Engine");
+                    */
 
             this.NotifyEngineStart(EventArgs.Empty);
         }

@@ -154,7 +154,7 @@
 
 #begin Content/Models/Characters/Hero-model.fbx
 /importer:FbxImporter
-/processor:ModelVerticesProcessor
+/processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
 /processorParam:DefaultEffect=BasicEffect
@@ -230,25 +230,6 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
 /build:Content/Models/Pads/Pad1-thumbnail.png
-
-#begin Content/Models/Panes/Pane1-model.fbx
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=DxtCompressed
-/build:Content/Models/Panes/Pane1-model.fbx
 
 #begin Content/ResourcePacks/GoodMorningPack/Terrain.png
 /importer:TextureImporter
@@ -1126,7 +1107,7 @@
 
 #begin Content/Models/Obstacles/Can01-model.fbx
 /importer:FbxImporter
-/processor:ModelVerticesProcessor
+/processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
 /processorParam:DefaultEffect=BasicEffect
@@ -1145,7 +1126,7 @@
 
 #begin Content/Models/Obstacles/Gramophone01-model.fbx
 /importer:FbxImporter
-/processor:ModelVerticesProcessor
+/processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
 /processorParam:DefaultEffect=BasicEffect
@@ -1164,7 +1145,7 @@
 
 #begin Content/Models/Obstacles/Pipe01-model.fbx
 /importer:FbxImporter
-/processor:ModelVerticesProcessor
+/processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
 /processorParam:DefaultEffect=BasicEffect
@@ -1183,7 +1164,7 @@
 
 #begin Content/Models/Obstacles/Pipe02-model.fbx
 /importer:FbxImporter
-/processor:ModelVerticesProcessor
+/processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
 /processorParam:DefaultEffect=BasicEffect
@@ -1202,7 +1183,7 @@
 
 #begin Content/Models/Obstacles/Pipe03-model.fbx
 /importer:FbxImporter
-/processor:ModelVerticesProcessor
+/processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
 /processorParam:DefaultEffect=BasicEffect
@@ -1221,7 +1202,7 @@
 
 #begin Content/Models/Obstacles/Pipe04-model.fbx
 /importer:FbxImporter
-/processor:ModelVerticesProcessor
+/processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
 /processorParam:DefaultEffect=BasicEffect
@@ -1240,7 +1221,7 @@
 
 #begin Content/Models/Obstacles/Pipe05-model.fbx
 /importer:FbxImporter
-/processor:ModelVerticesProcessor
+/processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
 /processorParam:DefaultEffect=BasicEffect
@@ -1259,7 +1240,7 @@
 
 #begin Content/Models/Obstacles/Pipe06-model.fbx
 /importer:FbxImporter
-/processor:ModelVerticesProcessor
+/processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
 /processorParam:DefaultEffect=BasicEffect
@@ -1278,7 +1259,7 @@
 
 #begin Content/Models/Obstacles/Pipe07-model.fbx
 /importer:FbxImporter
-/processor:ModelVerticesProcessor
+/processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
 /processorParam:DefaultEffect=BasicEffect
@@ -1297,7 +1278,7 @@
 
 #begin Content/Models/Obstacles/Pipe08-model.fbx
 /importer:FbxImporter
-/processor:ModelVerticesProcessor
+/processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
 /processorParam:DefaultEffect=BasicEffect
@@ -1316,7 +1297,7 @@
 
 #begin Content/Models/Obstacles/Pipe09-model.fbx
 /importer:FbxImporter
-/processor:ModelVerticesProcessor
+/processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
 /processorParam:DefaultEffect=BasicEffect
@@ -1335,7 +1316,7 @@
 
 #begin Content/Models/Obstacles/Pipe10-model.fbx
 /importer:FbxImporter
-/processor:ModelVerticesProcessor
+/processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
 /processorParam:DefaultEffect=BasicEffect
@@ -1354,7 +1335,7 @@
 
 #begin Content/Models/Obstacles/Stove01-model.fbx
 /importer:FbxImporter
-/processor:ModelVerticesProcessor
+/processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
 /processorParam:DefaultEffect=BasicEffect

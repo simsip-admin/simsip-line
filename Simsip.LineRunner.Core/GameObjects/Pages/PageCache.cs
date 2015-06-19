@@ -65,6 +65,7 @@ namespace Simsip.LineRunner.GameObjects.Pages
             public int PageNumber;
             public PageModel PageModelAsync;
         }
+        private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadPurge;
         private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadResults;
 
         // Logging-facility
@@ -84,6 +85,7 @@ namespace Simsip.LineRunner.GameObjects.Pages
             // Initialize state
             this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
             this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
+            this._loadContentThreadPurge = new ConcurrentQueue<LoadContentThreadArgs>();
             this._loadContentThreadResults = new ConcurrentQueue<LoadContentThreadArgs>(); 
             
             // Import required services.
@@ -106,6 +108,17 @@ namespace Simsip.LineRunner.GameObjects.Pages
 
         public override void Update(GameTime gameTime)
         {
+            // Did we signal we need an async content purge processed?
+            if (this._loadContentThreadPurge.Count > 0)
+            {
+                LoadContentThreadArgs loadContentThreadArgs = null;
+                if (this._loadContentThreadPurge.TryDequeue(out loadContentThreadArgs))
+                {
+                    // Load in new content from staged collection in args
+                    ProcessPurgeContentAsync(loadContentThreadArgs);
+                }
+            }
+
             // Did we signal we need an async content load processed?
             if (this._loadContentThreadResults.Count > 0)
             {
@@ -386,6 +399,7 @@ namespace Simsip.LineRunner.GameObjects.Pages
             //
             // Since this will cause Dispose to be called on our XNA models, we need to carefully
             // clear out our entire set of models, physics and textures for this scenario.
+            /*
             if (loadContentAsyncType == LoadContentAsyncType.Refresh)
             {
                 // Remove all previous models from our drawing filter
@@ -401,7 +415,7 @@ namespace Simsip.LineRunner.GameObjects.Pages
                 // Now we are safe to call call Unload on our custom ContentManager.
                 this.CurrentPageModel.TheCustomContentManager.Unload();
             }
-
+            */
 #if NETFX_CORE
 
             IAsyncAction asyncAction = 
@@ -420,7 +434,17 @@ namespace Simsip.LineRunner.GameObjects.Pages
         {
             var loadContentThreadArgs = args as LoadContentThreadArgs;
             var loadContentAsyncType = loadContentThreadArgs.TheLoadContentAsyncType;
+            var gameState = loadContentThreadArgs.TheGameState;
             var pageNumber = loadContentThreadArgs.PageNumber;
+
+            // Purge
+            var loadContentThreadPurge = new LoadContentThreadArgs()
+            {
+                TheLoadContentAsyncType = loadContentAsyncType,
+                TheGameState = gameState,
+                PageNumber = pageNumber,
+            };
+            this._loadContentThreadPurge.Enqueue(loadContentThreadPurge);
 
             // Get our current page definition ready, will be needed for positioning camera
             var currentPad = UserDefaults.SharedUserDefault.GetStringForKey(
@@ -432,6 +456,9 @@ namespace Simsip.LineRunner.GameObjects.Pages
             var customContentManager = new CustomContentManager(
                TheGame.SharedGame.Services,
                TheGame.SharedGame.Content.RootDirectory);
+               /*
+               "PageCache.LoadContentAsyncThread");
+               */
             loadContentThreadArgs.PageModelAsync = new PageModel(padEntity, customContentManager);
 
             // We only have 1 pad at a time to worry about
@@ -441,9 +468,42 @@ namespace Simsip.LineRunner.GameObjects.Pages
             this._loadContentThreadResults.Enqueue(loadContentThreadArgs);
         }
 
+        private void ProcessPurgeContentAsync(LoadContentThreadArgs loadContentThreadArgs)
+        {
+            this._ocTreeRoot.RemoveModel(this.CurrentPageModel.ModelID);
+
+            if (this.CurrentPageModel.PhysicsEntity != null &&
+                this.CurrentPageModel.PhysicsEntity.Space != null)
+            {
+                this._physicsManager.TheSpace.Remove(this.CurrentPageModel.PhysicsEntity);
+            }
+
+            // Remove all previous animations for this model
+            this.CurrentPageModel.ModelActionManager.RemoveAllActionsFromTarget(this.CurrentPageModel);
+
+            this.CurrentPageModel.TheCustomContentManager.Unload();
+            this.CurrentPageModel.TheCustomContentManager.Dispose();
+        }
+
         // Migrate staged collection in args to public collection
         private void ProcessLoadContentAsync(LoadContentThreadArgs loadContentThreadArgs)
         {
+            /*
+            this._ocTreeRoot.RemoveModel(this.CurrentPageModel.ModelID);
+
+            if (this.CurrentPageModel.PhysicsEntity != null &&
+                this.CurrentPageModel.PhysicsEntity.Space != null)
+            {
+                this._physicsManager.TheSpace.Remove(this.CurrentPageModel.PhysicsEntity);
+            }
+
+            // Remove all previous animations for this model
+            this.CurrentPageModel.ModelActionManager.RemoveAllActionsFromTarget(this.CurrentPageModel);
+
+            this.CurrentPageModel.TheCustomContentManager.Unload();
+            this.CurrentPageModel.TheCustomContentManager.Dispose();
+            */
+
             this.CurrentPageModel = loadContentThreadArgs.PageModelAsync;
 
             this._ocTreeRoot.AddModel(this.CurrentPageModel);
@@ -469,6 +529,9 @@ namespace Simsip.LineRunner.GameObjects.Pages
             var customContentManager = new CustomContentManager(
                 TheGame.SharedGame.Services,
                 TheGame.SharedGame.Content.RootDirectory);
+                /*
+                "PageCache.InitCurrentPageModel");
+                */
             this.CurrentPageModel = new PageModel(padEntity, customContentManager);
 
             // We only have 1 pad at a time to worry about

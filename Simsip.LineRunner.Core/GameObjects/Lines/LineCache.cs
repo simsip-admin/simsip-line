@@ -71,6 +71,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
             public int[] LineNumbers;
             public IList<LineModel> LineModelsAsync;
         }
+        private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadPurge;
         private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadResults;
         private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadCache;
 
@@ -98,6 +99,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
             this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
             this._currentLineNumber = 1;
             this.LineModels = new List<LineModel>();
+            this._loadContentThreadPurge = new ConcurrentQueue<LoadContentThreadArgs>();
             this._loadContentThreadResults = new ConcurrentQueue<LoadContentThreadArgs>();
             this._loadContentThreadCache = new ConcurrentQueue<LoadContentThreadArgs>();
             this._lineHitList = new List<LineModel>();
@@ -131,6 +133,17 @@ namespace Simsip.LineRunner.GameObjects.Lines
 
             // Clear line hit list after finishing loop
             this._lineHitList.Clear();
+
+            // Did we signal we need an async content purge processed?
+            if (this._loadContentThreadPurge.Count > 0)
+            {
+                LoadContentThreadArgs loadContentThreadArgs = null;
+                if (this._loadContentThreadPurge.TryDequeue(out loadContentThreadArgs))
+                {
+                    // Load in new content from staged collection in args
+                    ProcessPurgeContentAsync(loadContentThreadArgs);
+                }
+            }
 
             // Did we signal we need an async content load processed?
             if (this._loadContentThreadResults.Count > 0)
@@ -385,6 +398,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
             //
             // Since this will cause Dispose to be called on our XNA models, we need to carefully
             // clear out our entire set of models, physics and textures for this scenario.
+            /*
             if (loadContentAsyncType == LoadContentAsyncType.Refresh)
             {
                 // Remove all previous models from our drawing filter
@@ -405,7 +419,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
                 // And finally clear out the full set of previous models
                 this.LineModels.Clear();
             }
-
+            */
 #if NETFX_CORE
 
             IAsyncAction asyncAction = 
@@ -423,21 +437,42 @@ namespace Simsip.LineRunner.GameObjects.Lines
         {
             var loadContentThreadArgs = args as LoadContentThreadArgs;
             var loadContentAsyncType = loadContentThreadArgs.TheLoadContentAsyncType;
+            var gameState = loadContentThreadArgs.TheGameState;
             var pageNumber = loadContentThreadArgs.PageNumber;
             var lineNumbers = loadContentThreadArgs.LineNumbers;
             var lineModels = loadContentThreadArgs.LineModelsAsync;
+
+            // Purge
+            var loadContentThreadPurge = new LoadContentThreadArgs()
+            {
+                TheLoadContentAsyncType = loadContentAsyncType,
+                TheGameState = gameState,
+                PageNumber = pageNumber,
+                LineNumbers = lineNumbers
+            };
+            this._loadContentThreadPurge.Enqueue(loadContentThreadPurge);
 
             // IMPORTANT: If we are coming from a Refresh we may have to clear out any
             //            cached stagings (e.g., the page/line number has changed and
             //            a cached representation of the line(s) would be incorrect)
             if (loadContentAsyncType == LoadContentAsyncType.Refresh)
             {
+                foreach (var entry in this._loadContentThreadCache)
+                {
+                    foreach (var lineModel in entry.LineModelsAsync)
+                    {
+                        lineModel.TheCustomContentManager.Unload();
+                        lineModel.TheCustomContentManager.Dispose();
+                    }
+                    entry.LineModelsAsync.Clear();
+                }
+
                 this._loadContentThreadCache = new ConcurrentQueue<LoadContentThreadArgs>();
             }
 
             // Grab from cache if available, prime cache if not
-            if (loadContentAsyncType == LoadContentAsyncType.Initialize ||
-                loadContentAsyncType == LoadContentAsyncType.Refresh)
+            if (loadContentAsyncType == LoadContentAsyncType.Initialize)
+                // loadContentAsyncType == LoadContentAsyncType.Refresh)
             {
                 LoadContentThreadArgs cachedArgs;
                 if (this._loadContentThreadCache.TryDequeue(out cachedArgs))
@@ -509,6 +544,9 @@ namespace Simsip.LineRunner.GameObjects.Lines
                     var customContentManager = new CustomContentManager(
                        TheGame.SharedGame.Services,
                        TheGame.SharedGame.Content.RootDirectory);
+                       /* Debug
+                       "LineCache (" + lineNumber + ")");
+                       */
                     var lineModel = new LineModel(
                         lineEntity,
                         pageLinesEntity,
@@ -582,10 +620,9 @@ namespace Simsip.LineRunner.GameObjects.Lines
             // IMPORTANT: Note how, depending on the LoadContentAsyncType, we queue up the args
             //            into our cache for next round or immediately queue it up for processing in Update()
             //
-
             if (loadContentAsyncType == LoadContentAsyncType.Cache ||
-                loadContentAsyncType == LoadContentAsyncType.Initialize ||
-                loadContentAsyncType == LoadContentAsyncType.Refresh)
+                loadContentAsyncType == LoadContentAsyncType.Initialize)
+                // loadContentAsyncType == LoadContentAsyncType.Refresh)
             {
                 this._loadContentThreadCache.Enqueue(loadContentThreadArgs);
             }
@@ -593,10 +630,10 @@ namespace Simsip.LineRunner.GameObjects.Lines
             {
                 this._loadContentThreadResults.Enqueue(loadContentThreadArgs);
             }
+            // this._loadContentThreadResults.Enqueue(loadContentThreadArgs);
         }
 
-        // Migrate staged collection in args to public collection
-        private void ProcessLoadContentAsync(LoadContentThreadArgs loadContentThreadArgs)
+        private void ProcessPurgeContentAsync(LoadContentThreadArgs loadContentThreadArgs)
         {
             switch (loadContentThreadArgs.TheLoadContentAsyncType)
             {
@@ -658,6 +695,73 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         break;
                     }
             }
+        }
+
+        // Migrate staged collection in args to public collection
+        private void ProcessLoadContentAsync(LoadContentThreadArgs loadContentThreadArgs)
+        {
+            /*
+            switch (loadContentThreadArgs.TheLoadContentAsyncType)
+            {
+                case LoadContentAsyncType.Initialize:
+                case LoadContentAsyncType.Refresh:
+                    {
+
+                        // Remove all previous models from our drawing filter
+                        // and physics from our physics simulation
+                        foreach (var lineModel in this.LineModels.ToList())
+                        {
+                            this._ocTreeRoot.RemoveModel(lineModel.ModelID);
+
+                            if (lineModel.PhysicsEntity != null &&
+                                lineModel.PhysicsEntity.Space != null)
+                            {
+                                this._physicsManager.TheSpace.Remove(lineModel.PhysicsEntity);
+                            }
+
+                            // Remove all previous animations for this model
+                            lineModel.ModelActionManager.RemoveAllActionsFromTarget(lineModel);
+
+                            // Dispose of all XNA resources
+                            lineModel.TheCustomContentManager.Unload();
+                            lineModel.TheCustomContentManager.Dispose();
+                        }
+
+                        // And clear out the full set of previous models
+                        this.LineModels.Clear();
+
+                        break;
+                    }
+                case LoadContentAsyncType.Next:
+                    {
+                        // Remove all previous obstacle models from our drawing filter
+                        // and remove all previous obstacle physics
+                        var lineToRemove = this._currentLineNumber - 2;
+                        if (lineToRemove > 0)
+                        {
+                            var lineModel = this.LineModels[0];
+                            this._ocTreeRoot.RemoveModel(lineModel.ModelID);
+
+                            if (lineModel.PhysicsEntity != null &&
+                                lineModel.PhysicsEntity.Space != null)
+                            {
+                                this._physicsManager.TheSpace.Remove(lineModel.PhysicsEntity);
+                            }
+
+                            // Remove all previous animations for this model
+                            lineModel.ModelActionManager.RemoveAllActionsFromTarget(lineModel);
+
+                            this.LineModels.Remove(lineModel);
+
+                            // Dispose of all XNA resources
+                            lineModel.TheCustomContentManager.Unload();
+                            lineModel.TheCustomContentManager.Dispose();
+                        }
+
+                        break;
+                    }
+            }
+            */
 
             // Populate our public model/physics collections from our staged collections
             foreach (var lineModel in loadContentThreadArgs.LineModelsAsync)

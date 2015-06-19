@@ -6,13 +6,16 @@ using Simsip.LineRunner.Data.InApp;
 using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.GameObjects.Pages;
 using Simsip.LineRunner.Resources;
-using Simsip.LineRunner.Services.Inapp;
 using Simsip.LineRunner.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+#if ANDROID
+using Simsip.LineRunner.Services.Inapp;
 using Xamarin.InAppBilling;
+#endif
 #if IOS
+using Simsip.LineRunner.Services.Inapp;
 using Foundation;
 #endif
 
@@ -49,17 +52,21 @@ namespace Simsip.LineRunner.Scenes.Options
         private int _currentPage;
         private int _totalPages;
 
+#if ANDROID || IOS
         // Services we'll need
         private IInappService _inAppService;
         private IInAppPurchaseRepository _inAppPurchaseRepository;
+#endif
 
         public OptionsMasterLayer(CoreScene parent)
         {
             this._parent = parent;
 
+#if ANDROID || IOS
             // Grab references to services we'll need
             this._inAppService = (IInappService)TheGame.SharedGame.Services.GetService(typeof(IInappService)); 
             this._inAppPurchaseRepository = new InAppPurchaseRepository();
+#endif
 
             // Get these set up for relative positioning below
             var screenSize = CCDirector.SharedDirector.WinSize;
@@ -269,6 +276,7 @@ namespace Simsip.LineRunner.Scenes.Options
                 optionPage.Visible = false;
             }
 
+#if ANDROID || IOS
             // Determine if upgrade practice mode was purchased
             // Note: Override available from admin screen
             var practicePurchase =
@@ -285,6 +293,7 @@ namespace Simsip.LineRunner.Scenes.Options
                     this._totalPages = this._optionsPages.Count;
                 }
             }
+#endif
 
             // Flip on the resulting first options page
             this._optionsPages[0].Visible = true;

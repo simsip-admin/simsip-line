@@ -3,6 +3,7 @@ using System;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics;
 
 namespace Simsip.LineRunner.GameFramework
 {
@@ -21,11 +22,33 @@ namespace Simsip.LineRunner.GameFramework
     /// </summary>
     public class CustomContentManager : ContentManager
     {
-        public CustomContentManager(IServiceProvider serviceProvider, string rootDirectory)
+        private string _tag;
+
+        public CustomContentManager(IServiceProvider serviceProvider, string rootDirectory /*Debug: , string tag*/ )
             : base(serviceProvider, rootDirectory)
         {
+            /* Debug
+            this._tag = tag;
+            Debug.WriteLine("Creating: " + tag);
+            */
+
             OriginalEffectsDictionary = new Dictionary<string, IList<BasicEffect>>();
         }
+
+        /* Debug
+        public void Unload()
+        {
+            Debug.WriteLine("Unloading: " + this._tag);
+
+            base.Unload();
+        }
+        public void Dispose()
+        {
+            Debug.WriteLine("Disposing: " + this._tag);
+
+            base.Dispose();
+        }
+        */
 
         public  T ReadAsset<T>(string assetName)
         {

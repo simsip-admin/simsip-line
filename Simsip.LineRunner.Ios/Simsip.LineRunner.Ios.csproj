@@ -669,10 +669,6 @@
       <Link>Content\Models\Pads\Pad2-thumbnail.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Panes\Pane1-model.xnb">
-      <Link>Content\Models\Panes\Pane1-model.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Voxeliq\SkyDomeTexture.xnb">
       <Link>Content\Models\Voxeliq\SkyDomeTexture.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

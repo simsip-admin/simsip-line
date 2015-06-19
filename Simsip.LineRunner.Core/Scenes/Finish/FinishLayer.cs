@@ -160,6 +160,9 @@ namespace Simsip.LineRunner.Scenes.Finish
             this._customerContentManager = new CustomContentManager(
                 TheGame.SharedGame.Services,
                 TheGame.SharedGame.Content.RootDirectory);
+                /* Debug
+                "Finish");
+                */
             this._particleEffectCache = (IParticleEffectCache)TheGame.SharedGame.Services.GetService(typeof(IParticleEffectCache));
         }
 
