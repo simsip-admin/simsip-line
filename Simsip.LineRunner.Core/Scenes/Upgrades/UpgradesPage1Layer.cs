@@ -430,8 +430,16 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                 this._restoreLabelMenu.Visible = false;
 
                 this.UpdatePriceLabel(string.Empty);
-                
-                this.UpdatePurchasedOnLabel(this._purchasedOnText + " " + practicePurchase.PurchaseTime.ToString("g"));
+
+                // Note, need to do this because of AdminAreUpgradesAllowed gating above
+                if (practicePurchase != null)
+                {
+                    this.UpdatePurchasedOnLabel(this._purchasedOnText + " " + practicePurchase.PurchaseTime.ToString("g"));
+                }
+                else
+                {
+                    this.UpdatePurchasedOnLabel(this._purchasedOnText + " " + DateTime.Now.ToString("g"));
+                }
 
                 this._buyMenu.Visible = false;
                 this._buyLabelMenu.Visible = false;

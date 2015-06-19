@@ -38,10 +38,12 @@ namespace Simsip.LineRunner.Scenes.Options
 
             // Lines
             this._linesImage = new CCSprite("Models/Lines/Line-thumbnail");
-            this._linesImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
+            Cocos2DUtils.ResizeSprite(this._linesImage,      // Assuming 2 : 1 ratiosquare
+                this.ContentSize.Width,
+                0.5f * this.ContentSize.Width);
             this._linesImage.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
-                0.25f * this.ContentSize.Height);
+                0.5f * this.ContentSize.Height);
             this.AddChild(this._linesImage);
             var linesText = string.Empty;
 #if ANDROID
@@ -61,7 +63,7 @@ namespace Simsip.LineRunner.Scenes.Options
                     });
             linesMenu.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
-                0.3f * this.ContentSize.Height);
+                0.5f * this.ContentSize.Height);
             this.AddChild(linesMenu);
 
 

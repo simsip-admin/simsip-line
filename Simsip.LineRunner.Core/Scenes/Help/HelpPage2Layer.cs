@@ -22,22 +22,6 @@ namespace Simsip.LineRunner.Scenes.Help
             // Get this setup for relative positioning
             this.ContentSize = this._masterLayer.ContentSize;
 
-            // Page number
-            var pageNumberText = string.Empty;
-#if ANDROID
-            pageNumberText = Program.SharedProgram.Resources.GetString(Resource.String.CommonPage);
-#elif IOS
-            pageNumberText = NSBundle.MainBundle.LocalizedString(Strings.CommonPage, Strings.CommonPage);
-#else
-            pageNumberText = AppResources.CommonPage;
-#endif
-            var pageNumberHeader = new CCLabelTTF(pageNumberText + " 2", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
-            pageNumberHeader.Position = new CCPoint(
-                0.95f * this.ContentSize.Width,
-                0.9f * this.ContentSize.Height);
-            this.AddChild(pageNumberHeader);
-
             // TODO: Just going with description 1 for now
             // How to play sub-title
             /*

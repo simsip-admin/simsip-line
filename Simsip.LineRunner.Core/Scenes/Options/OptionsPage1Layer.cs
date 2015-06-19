@@ -40,9 +40,12 @@ namespace Simsip.LineRunner.Scenes.Options
             // Pads image
             this._padsImage = new CCSprite("Models/Pads/Pad1-thumbnail");
             this._padsImage.AnchorPoint = CCPoint.AnchorMiddleBottom;
+            Cocos2DUtils.ResizeSprite(this._padsImage,      // Assuming square
+                this.ContentSize.Width,
+                this.ContentSize.Width);
             this._padsImage.Position = new CCPoint(
-                0.6f * this.ContentSize.Width,
-                0.1f * this.ContentSize.Height);
+                0.6f  * this.ContentSize.Width,
+                0.15f * this.ContentSize.Height);
             this.AddChild(this._padsImage);
 
             // Pads
@@ -63,7 +66,7 @@ namespace Simsip.LineRunner.Scenes.Options
                         padsButton
                     });
             padsMenu.Position = new CCPoint(
-                0.85f * this.ContentSize.Width, 
+                0.5f * this.ContentSize.Width, 
                 0.5f  * this.ContentSize.Height);
             this.AddChild(padsMenu);
         }

@@ -143,7 +143,7 @@ namespace Simsip.LineRunner.Scenes.Options
 #else
             optionsText = AppResources.OptionsTitle;
 #endif
-            var optionsTitle = new CCLabelTTF(optionsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            var optionsTitle = new CCLabelTTF(optionsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             optionsTitle.AnchorPoint = CCPoint.AnchorMiddleLeft;
             optionsTitle.Position = new CCPoint(
                 0.05f * this.ContentSize.Width,
@@ -270,7 +270,6 @@ namespace Simsip.LineRunner.Scenes.Options
             this.RunAction(this._layerActionIn);
 
             // Reset state
-            this._currentPage = 1;
             foreach(var optionPage in this._optionsPages)
             {
                 optionPage.Visible = false;
@@ -295,8 +294,13 @@ namespace Simsip.LineRunner.Scenes.Options
             }
 #endif
 
-            // Flip on the resulting first options page
-            this._optionsPages[0].Visible = true;
+            // Flip on the last options page that was active
+            // before leaving options and make sure it is 
+            // repositioned correctly
+            this._optionsPages[this._currentPage-1].Visible = true;
+            this._optionsPages[this._currentPage-1].Position = new CCPoint(
+                0f,
+                0f);
 
             // Determine which navigation ui to show
             // Note: Page visibility is handled in previous/next event handlers below

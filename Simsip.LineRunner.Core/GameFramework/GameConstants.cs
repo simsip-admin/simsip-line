@@ -17,8 +17,8 @@ namespace Simsip.LineRunner.GameFramework
         public const string FONT_FAMILY_NORMAL = "arial";
         public const string FONT_FAMILY_EXOTIC = "Schwarzwald Regular";
         public const float FONT_SIZE_SMALL = 18f;
-        public const float FONT_SIZE_NORMAL = 26f;
-        public const float FONT_SIZE_LARGE = 38f;
+        public const float FONT_SIZE_NORMAL = 24f;
+        public const float FONT_SIZE_LARGE = 32f;   // Note: Sized 34 and 38 do not seem to work
         public const float FONT_SIZE_X_LARGE = 50f;
         public const float FONT_SIZE_2X_LARGE = 64f;
         

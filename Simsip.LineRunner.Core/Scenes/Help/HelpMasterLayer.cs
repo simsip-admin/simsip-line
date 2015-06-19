@@ -41,6 +41,10 @@ namespace Simsip.LineRunner.Scenes.Help
         private CCAction _pageActionOutToLeft;
         private CCAction _pageActionOutToRight;
 
+        // Page number header
+        private string _pageNumberText;
+        private CCLabelTTF _pageNumberHeader;
+
         // Previous/next buttons
         private CCMenu _previousMenu;
         private CCMenu _nextMenu;
@@ -128,12 +132,28 @@ namespace Simsip.LineRunner.Scenes.Help
 #else
             helpText = AppResources.HelpTitle;
 #endif
-            var helpTitle = new CCLabelTTF(helpText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            var helpTitle = new CCLabelTTF(helpText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             helpTitle.AnchorPoint = CCPoint.AnchorMiddleLeft;
             helpTitle.Position = new CCPoint(
                 0.05f * this.ContentSize.Width,
                 0.9f  * this.ContentSize.Height);
             this.AddChild(helpTitle);
+
+            // Page number
+            this._pageNumberText = string.Empty;
+#if ANDROID
+            this._pageNumberText = Program.SharedProgram.Resources.GetString(Resource.String.CommonPage);
+#elif IOS
+            this._pageNumberText = NSBundle.MainBundle.LocalizedString(Strings.CommonPage, Strings.CommonPage);
+#else
+            this._pageNumberText = AppResources.CommonPage;
+#endif
+            this._pageNumberHeader = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
+            this._pageNumberHeader.Position = new CCPoint(
+                0.95f * this.ContentSize.Width,
+                0.9f * this.ContentSize.Height);
+            this.AddChild(this._pageNumberHeader);
 
             // Header line
             var headerLineImage = new CCSprite("Images/Misc/HeaderLine");
@@ -154,7 +174,7 @@ namespace Simsip.LineRunner.Scenes.Help
 #else
             versionText = AppResources.CommonVersion;
 #endif
-            var versionHeader = new CCLabelTTF(versionText + "-" + FileUtils.GetVersion(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            var versionHeader = new CCLabelTTF(versionText + " " + FileUtils.GetVersion(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
             versionHeader.AnchorPoint = CCPoint.AnchorMiddleLeft;
             versionHeader.Position = new CCPoint(
                 0.05f * this.ContentSize.Width, 
@@ -178,7 +198,7 @@ namespace Simsip.LineRunner.Scenes.Help
                     {
                         licenseItem,
                     });
-            licenseMenu.AnchorPoint = CCPoint.AnchorMiddleLeft;
+            licenseMenu.AnchorPoint = CCPoint.AnchorMiddleRight;
             licenseMenu.Position = new CCPoint(
                  0.95f * this.ContentSize.Width,
                  0.8f  * this.ContentSize.Height);
@@ -435,6 +455,9 @@ namespace Simsip.LineRunner.Scenes.Help
 
         private void UpdatePageNavigationUI()
         {
+            // Page number
+            this._pageNumberHeader.Text = this._pageNumberText + " " + this._currentPage;
+
             if (this._currentPage == 1)
             {
                 this._previousMenu.Visible = false;

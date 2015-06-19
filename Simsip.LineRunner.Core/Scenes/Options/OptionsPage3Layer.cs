@@ -21,6 +21,10 @@ namespace Simsip.LineRunner.Scenes.Options
         private CoreScene _parent;
         private OptionsMasterLayer _masterLayer;
 
+        // Sound
+        private CCMenuItemToggle _soundToggle;
+        private CCMenuItemToggle _soundLabelToggle;
+
         public OptionsPage3Layer(CoreScene parent, OptionsMasterLayer masterLayer)
         {
             this._parent = parent;
@@ -36,57 +40,60 @@ namespace Simsip.LineRunner.Scenes.Options
             CCMenuItemImage soundToggleOff =
                 new CCMenuItemImage("Images/Icons/SoundButtonOff.png",
                                     "Images/Icons/SoundButtonOn.png");
-            CCMenuItemToggle soundToggle =
-                new CCMenuItemToggle((obj) => SoundTogglePressed(),
+            this._soundToggle =
+                new CCMenuItemToggle((obj) => SoundTogglePressed((obj as CCMenuItemToggle).SelectedIndex),
                 new CCMenuItem[] { soundToggleOn, soundToggleOff });
             if (UserDefaults.SharedUserDefault.GetBoolForKey(
                     GameConstants.USER_DEFAULT_KEY_SOUND,
                     GameConstants.USER_DEFAULT_INITIAL_SOUND) == false)
             {
-                soundToggle.SelectedIndex = 1; // SFX are OFF
+                this._soundToggle.SelectedIndex = 1; // SFX are OFF
             }
             var soundMenu = new CCMenu(
                 new CCMenuItem[] 
                     {
-                        soundToggle,
+                        this._soundToggle,
                     });
             soundMenu.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.7f * this.ContentSize.Height);
             this.AddChild(soundMenu);
-            CCLabelTTF soundLabel = null;
+
+            var soundOnText = string.Empty;
+#if ANDROID
+            soundOnText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsSoundOn);
+#elif IOS
+            soundOnText = NSBundle.MainBundle.LocalizedString(Strings.OptionsSoundOn, Strings.OptionsSoundOn);
+#else
+            soundOnText = AppResources.OptionsSoundOn;
+#endif
+            var soundOnLabel = new CCLabelTTF(soundOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            var soundOnItem = new CCMenuItemLabel(soundOnLabel);
+
+            var soundOffText = string.Empty;
+#if ANDROID
+            soundOffText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsSoundOff);
+#elif IOS
+            soundOffText = NSBundle.MainBundle.LocalizedString(Strings.OptionsSoundOff, Strings.OptionsSoundOff);
+#else
+            soundOffText = AppResources.OptionsSoundOff;
+#endif
+            var soundOffLabel = new CCLabelTTF(soundOffText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            var soundOffItem = new CCMenuItemLabel(soundOffLabel);
+
+            this._soundLabelToggle =
+                new CCMenuItemToggle((obj) => SoundTogglePressed((obj as CCMenuItemToggle).SelectedIndex),
+                new CCMenuItem[] { soundOnItem, soundOffItem });
             if (UserDefaults.SharedUserDefault.GetBoolForKey(
                     GameConstants.USER_DEFAULT_KEY_SOUND,
-                    GameConstants.USER_DEFAULT_INITIAL_SOUND) == true)
+                    GameConstants.USER_DEFAULT_INITIAL_SOUND) == false)
             {
-                var soundOnText = string.Empty;
-#if ANDROID
-                soundOnText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsSoundOn);
-#elif IOS
-                soundOnText = NSBundle.MainBundle.LocalizedString(Strings.OptionsSoundOn, Strings.OptionsSoundOn);
-#else
-                soundOnText = AppResources.OptionsSoundOn;
-#endif
-                soundLabel = new CCLabelTTF(soundOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+                this._soundLabelToggle.SelectedIndex = 1; // Sound off
             }
-            else
-            {
-                var soundOffText = string.Empty;
-#if ANDROID
-                soundOffText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsSoundOff);
-#elif IOS
-                soundOffText = NSBundle.MainBundle.LocalizedString(Strings.OptionsSoundOff, Strings.OptionsSoundOff);
-#else
-                soundOffText = AppResources.OptionsSoundOff;
-#endif
-                soundLabel = new CCLabelTTF(soundOffText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            }
-            var soundItem = new CCMenuItemLabel(soundLabel,
-                                        (obj) => { this.SoundTogglePressed(); });
             var soundLabelMenu = new CCMenu(
-               new CCMenuItem[] 
+                new CCMenuItem[] 
                     {
-                        soundItem
+                        this._soundLabelToggle,
                     });
             soundLabelMenu.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
@@ -95,9 +102,10 @@ namespace Simsip.LineRunner.Scenes.Options
 
             // Leaderboards
             var leaderboardButton =
-    new CCMenuItemImage("Images/Icons/AchievementsButtonNormal.png",
-                        "Images/Icons/AchievementsButtonSelected.png",
-                        (obj) => { _parent.Navigate(LayerTags.AchievementsLayer); });
+                new CCMenuItemImage(
+                    "Images/Icons/AchievementsButtonNormal.png",
+                    "Images/Icons/AchievementsButtonSelected.png",
+                    (obj) => { _parent.Navigate(LayerTags.AchievementsLayer); });
             var leaderboardButtonMenu = new CCMenu(
                 new CCMenuItem[] 
                     {
@@ -166,21 +174,24 @@ namespace Simsip.LineRunner.Scenes.Options
 
         #region Helper methods
 
-        private void SoundTogglePressed()
+        private void SoundTogglePressed(int selectedIndex)
         {
-            if (UserDefaults.SharedUserDefault.GetBoolForKey(
-                    GameConstants.USER_DEFAULT_KEY_SOUND,
-                    GameConstants.USER_DEFAULT_INITIAL_SOUND))
+            // Update ui
+            this._soundToggle.SelectedIndex = selectedIndex;
+            this._soundLabelToggle.SelectedIndex = selectedIndex;
+
+            // Update state
+            if (selectedIndex == 0)
             {
                 UserDefaults.SharedUserDefault.SetBoolForKey(
                     GameConstants.USER_DEFAULT_KEY_SOUND,
-                    false);
+                    true);
             }
             else
             {
                 UserDefaults.SharedUserDefault.SetBoolForKey(
                     GameConstants.USER_DEFAULT_KEY_SOUND,
-                    true);
+                    false);
             }
         }
 

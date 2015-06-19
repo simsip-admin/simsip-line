@@ -28,22 +28,6 @@ namespace Simsip.LineRunner.Scenes.Help
             // Get this setup for relative positioning
             this.ContentSize = this._masterLayer.ContentSize;
 
-            // Page number
-            var pageNumberText = string.Empty;
-#if ANDROID
-            pageNumberText = Program.SharedProgram.Resources.GetString(Resource.String.CommonPage);
-#elif IOS
-            pageNumberText = NSBundle.MainBundle.LocalizedString(Strings.CommonPage, Strings.CommonPage);
-#else
-            pageNumberText = AppResources.CommonPage;
-#endif
-            var pageNumberHeader = new CCLabelTTF(pageNumberText + " 9", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
-            pageNumberHeader.Position = new CCPoint(
-                0.95f * this.ContentSize.Width,
-                0.9f * this.ContentSize.Height);
-            this.AddChild(pageNumberHeader);
-
             // Practice images (note: placing this first so text is on top of images)
             var practiceModeImage1 = new CCSprite("Models/Pads/Pad1-thumbnail");
             var practiceModeImage2 = new CCSprite("Models/Pads/Pad1-thumbnail");
