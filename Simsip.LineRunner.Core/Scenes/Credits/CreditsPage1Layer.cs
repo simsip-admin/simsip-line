@@ -68,7 +68,7 @@ namespace Simsip.LineRunner.Scenes.Credits
 #else
             createdBySimsipText = AppResources.CreditsCreatedBySimsip;
 #endif
-            var createdDescription = new CCLabelTTF(createdBySimsipText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_EXTRA_LARGE);
+            var createdDescription = new CCLabelTTF(createdBySimsipText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
             createdDescription.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.5f * this.ContentSize.Height);

@@ -82,7 +82,7 @@ namespace Simsip.LineRunner.Scenes.Achievements
             leaderboardsText = AppResources.AchievementsLeaderboards;
 #endif
 
-            var leaderboardTitle = new CCLabelTTF(leaderboardsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_EXTRA_LARGE);
+            var leaderboardTitle = new CCLabelTTF(leaderboardsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
             leaderboardTitle.Position = new CCPoint(
                 0.5f * this.ContentSize.Width, 
                 0.9f * this.ContentSize.Height);

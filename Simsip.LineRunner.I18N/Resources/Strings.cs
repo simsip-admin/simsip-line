@@ -64,10 +64,10 @@
         public static string RatingsRateUs = "RatingsRateUs";
         public static string HudTap = "HudTap";
         public static string CreditsTitle = "CreditsTitle";
-        public static string MainHelp = "MainHelp";
-        public static string MainOptions = "MainOptions";
-        public static string MainPlay = "MainPlay";
-        public static string MainRate = "MainRate";
+        public static string HudHelp = "HudHelp";
+        public static string HudOptions = "HudOptions";
+        public static string StartPlay = "StartPlay";
+        public static string StartRate = "StartRate";
         public static string CommonPage = "CommonPage";
         public static string HudPause = "HudPause";
         public static string HudSpeed = "HudSpeed";

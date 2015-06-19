@@ -62,10 +62,10 @@
   <string name="RatingsRateUs">rate us!</string>
   <string name="HudTap">tap</string>
   <string name="CreditsTitle">credits</string>
-  <string name="MainHelp">help</string>
-  <string name="MainOptions">options</string>
-  <string name="MainPlay">play</string>
-  <string name="MainRate">rate</string>
+  <string name="HudHelp">help</string>
+  <string name="HudOptions">options</string>
+  <string name="StartPlay">play</string>
+  <string name="StartRate">rate</string>
   <string name="CommonPage">page</string>
   <string name="HudPause">pause</string>
   <string name="HudSpeed">speed</string>

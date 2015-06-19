@@ -14,12 +14,13 @@ namespace Simsip.LineRunner.GameFramework
         public const string FOLDER_SHADER_PACKS = "shaderpacks";
 
         // Font settings
-        // public const string FONT_FAMILY_NORMAL = "Schwarzwald Regular";
         public const string FONT_FAMILY_NORMAL = "arial";
+        public const string FONT_FAMILY_EXOTIC = "Schwarzwald Regular";
         public const float FONT_SIZE_SMALL = 18f;
         public const float FONT_SIZE_NORMAL = 26f;
         public const float FONT_SIZE_LARGE = 38f;
-        public const float FONT_SIZE_EXTRA_LARGE = 50f;
+        public const float FONT_SIZE_X_LARGE = 50f;
+        public const float FONT_SIZE_2X_LARGE = 64f;
         
         // Worlds
         public const string WORLD_DEFAULT = "default";

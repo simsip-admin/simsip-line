@@ -521,6 +521,15 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to help.
+        /// </summary>
+        public static string HudHelp {
+            get {
+                return ResourceManager.GetString("HudHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to home.
         /// </summary>
         public static string HudHome {
@@ -535,6 +544,15 @@ namespace Simsip.LineRunner.Resources {
         public static string HudJoystick {
             get {
                 return ResourceManager.GetString("HudJoystick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to options.
+        /// </summary>
+        public static string HudOptions {
+            get {
+                return ResourceManager.GetString("HudOptions", resourceCulture);
             }
         }
         
@@ -679,42 +697,6 @@ namespace Simsip.LineRunner.Resources {
         public static string LoginUserNameDescription {
             get {
                 return ResourceManager.GetString("LoginUserNameDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to help.
-        /// </summary>
-        public static string MainHelp {
-            get {
-                return ResourceManager.GetString("MainHelp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to options.
-        /// </summary>
-        public static string MainOptions {
-            get {
-                return ResourceManager.GetString("MainOptions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to play.
-        /// </summary>
-        public static string MainPlay {
-            get {
-                return ResourceManager.GetString("MainPlay", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to rate.
-        /// </summary>
-        public static string MainRate {
-            get {
-                return ResourceManager.GetString("MainRate", resourceCulture);
             }
         }
         
@@ -895,6 +877,24 @@ namespace Simsip.LineRunner.Resources {
         public static string ResourcePacksSwitchingResourcePacks {
             get {
                 return ResourceManager.GetString("ResourcePacksSwitchingResourcePacks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to play.
+        /// </summary>
+        public static string StartPlay {
+            get {
+                return ResourceManager.GetString("StartPlay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to rate.
+        /// </summary>
+        public static string StartRate {
+            get {
+                return ResourceManager.GetString("StartRate", resourceCulture);
             }
         }
         

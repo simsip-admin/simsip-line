@@ -2068,11 +2068,17 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060081
 			public const int HudCannotGoSlowerThan = 2131099777;
 			
+			// aapt resource value: 0x7f06007a
+			public const int HudHelp = 2131099770;
+			
 			// aapt resource value: 0x7f060087
 			public const int HudHome = 2131099783;
 			
 			// aapt resource value: 0x7f060083
 			public const int HudJoystick = 2131099779;
+			
+			// aapt resource value: 0x7f06007b
+			public const int HudOptions = 2131099771;
 			
 			// aapt resource value: 0x7f060091
 			public const int HudOrbit = 2131099793;
@@ -2121,18 +2127,6 @@ namespace Simsip.LineRunner
 			
 			// aapt resource value: 0x7f060066
 			public const int LoginUserNameDescription = 2131099750;
-			
-			// aapt resource value: 0x7f06007a
-			public const int MainHelp = 2131099770;
-			
-			// aapt resource value: 0x7f06007b
-			public const int MainOptions = 2131099771;
-			
-			// aapt resource value: 0x7f06007c
-			public const int MainPlay = 2131099772;
-			
-			// aapt resource value: 0x7f06007d
-			public const int MainRate = 2131099773;
 			
 			// aapt resource value: 0x7f060048
 			public const int OptionsCredits = 2131099720;
@@ -2193,6 +2187,12 @@ namespace Simsip.LineRunner
 			
 			// aapt resource value: 0x7f060068
 			public const int ResourcePacksSwitchingResourcePacks = 2131099752;
+			
+			// aapt resource value: 0x7f06007c
+			public const int StartPlay = 2131099772;
+			
+			// aapt resource value: 0x7f06007d
+			public const int StartRate = 2131099773;
 			
 			// aapt resource value: 0x7f06009f
 			public const int UpgradesBuy = 2131099807;

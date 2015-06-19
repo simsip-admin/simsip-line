@@ -41,6 +41,10 @@ namespace Simsip.LineRunner.Scenes.Start
         private CCAction _layerActionIn;
         private CCFiniteTimeAction _layerActionOut;
 
+        // Animated 3D text
+        private CCSprite _3DImage;
+        private CCAction _3DImageAction;
+
         // Flag so we only kick off services once
         private bool _servicesStarted;
 
@@ -76,11 +80,28 @@ namespace Simsip.LineRunner.Scenes.Start
 
             // Logo
             var logo = new CCSprite("Images/Misc/Logo1.png");
+            Cocos2DUtils.ResizeSprite(logo,     // Makes sure logo isn't clipped
+                this.ContentSize.Width,
+                logo.ContentSize.Height);
             logo.Position = new CCPoint(
                 0.5f * this.ContentSize.Width, 
                 0.7f * this.ContentSize.Height);
             this.AddChild(logo);
 
+            // 3D animated text
+            this._3DImage = new CCSprite("Images/Misc/Logo3D.png");
+            this._3DImage.Rotation = -30;
+            this._3DImage.Position = new CCPoint(
+                0.9f * this.ContentSize.Width,
+                0.45f * this.ContentSize.Height);
+            this._3DImageAction = new CCSequence(new CCFiniteTimeAction[] 
+            { 
+                new CCScaleTo(0f, 0f), 
+                new CCScaleTo(0.8f, 2.0f),
+                new CCScaleTo(0.2f, 1.0f),
+            });
+            this.AddChild(this._3DImage);
+            
             // Start menu
             this._isStartEnabled = false;
             var startButtonNormal = new CCSprite("Images/Icons/StartButtonNormal.png");
@@ -111,11 +132,11 @@ namespace Simsip.LineRunner.Scenes.Start
 
             var playText = string.Empty;
 #if ANDROID
-            playText = Program.SharedProgram.Resources.GetString(Resource.String.MainPlay);
+            playText = Program.SharedProgram.Resources.GetString(Resource.String.StartPlay);
 #elif IOS
-            playText = NSBundle.MainBundle.LocalizedString(Strings.MainPlay, Strings.MainPlay);
+            playText = NSBundle.MainBundle.LocalizedString(Strings.StartPlay, Strings.StartPlay);
 #else
-            playText = AppResources.MainPlay;
+            playText = AppResources.StartPlay;
 #endif
             var playLabel = new CCLabelTTF(playText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             var playItem = new CCMenuItemLabel(playLabel,
@@ -123,11 +144,11 @@ namespace Simsip.LineRunner.Scenes.Start
             
             var rateText = string.Empty;
 #if ANDROID
-            rateText = Program.SharedProgram.Resources.GetString(Resource.String.MainRate);
+            rateText = Program.SharedProgram.Resources.GetString(Resource.String.StartRate);
 #elif IOS
-            rateText = NSBundle.MainBundle.LocalizedString(Strings.MainRate, Strings.MainRate);
+            rateText = NSBundle.MainBundle.LocalizedString(Strings.StartRate, Strings.StartRate);
 #else
-            rateText = AppResources.MainRate;
+            rateText = AppResources.StartRate;
 #endif
             var rateLabel = new CCLabelTTF(rateText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             var rateItem = new CCMenuItemLabel(rateLabel,
@@ -181,8 +202,9 @@ namespace Simsip.LineRunner.Scenes.Start
         {
             base.OnEnter();
 
-            // Animate layer
+            // Animate layer and 3D text
             this.RunAction(this._layerActionIn);
+            this._3DImage.RunAction(this._3DImageAction);
 
             // If we meet the ratings prompt criteria, display ratings prompt
             CheckForRatingsPrompt();

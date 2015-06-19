@@ -60,10 +60,10 @@
 "RatingsRateUs"="rate us!";
 "HudTap"="tap";
 "CreditsTitle"="credits";
-"MainHelp"="help";
-"MainOptions"="options";
-"MainPlay"="play";
-"MainRate"="rate";
+"HudHelp"="help";
+"HudOptions"="options";
+"StartPlay"="play";
+"StartRate"="rate";
 "CommonPage"="page";
 "HudPause"="pause";
 "HudSpeed"="speed";

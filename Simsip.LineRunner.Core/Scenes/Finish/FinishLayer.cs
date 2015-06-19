@@ -88,7 +88,7 @@ namespace Simsip.LineRunner.Scenes.Finish
             this.AddChild(newHighScoreHeader);
 
             // New top score
-            this._newTopScore = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_EXTRA_LARGE);
+            this._newTopScore = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
             this._newTopScore.Color = CCColor3B.Green;
             this._newTopScore.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,

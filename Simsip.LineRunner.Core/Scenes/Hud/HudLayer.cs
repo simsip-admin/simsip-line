@@ -313,11 +313,11 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             var optionsText = string.Empty;
 #if ANDROID
-            optionsText = Program.SharedProgram.Resources.GetString(Resource.String.MainOptions);
+            optionsText = Program.SharedProgram.Resources.GetString(Resource.String.HudOptions);
 #elif IOS
-            optionsText = NSBundle.MainBundle.LocalizedString(Strings.MainOptions, Strings.MainOptions);
+            optionsText = NSBundle.MainBundle.LocalizedString(Strings.HudOptions, Strings.HudOptions);
 #else
-            optionsText = AppResources.MainOptions;
+            optionsText = AppResources.HudOptions;
 #endif
             var optionsLabel = new CCLabelTTF(optionsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             optionsLabel.Color = CCColor3B.Green;
@@ -325,11 +325,11 @@ namespace Simsip.LineRunner.Scenes.Hud
                 (obj) => { this.NavigateBase(LayerTags.OptionsMasterLayer); });
             var helpText = string.Empty;
 #if ANDROID
-            helpText = Program.SharedProgram.Resources.GetString(Resource.String.MainHelp);
+            helpText = Program.SharedProgram.Resources.GetString(Resource.String.HudHelp);
 #elif IOS
-            helpText = NSBundle.MainBundle.LocalizedString(Strings.MainHelp, Strings.MainHelp);
+            helpText = NSBundle.MainBundle.LocalizedString(Strings.HudHelp, Strings.HudHelp);
 #else
-            helpText = AppResources.MainHelp;
+            helpText = AppResources.HudHelp;
 #endif
             var helpLabel = new CCLabelTTF(helpText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             helpLabel.Color = CCColor3B.Green;
@@ -394,7 +394,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._headerLeftLayer.AddChild(speedLabel);
 
             // Score label
-            this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_EXTRA_LARGE);
+            this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
             this._scoreLabel.Color = CCColor3B.Yellow;
             this._scoreLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._scoreLabel.Position = new CCPoint(
@@ -589,6 +589,14 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._pauseText = NSBundle.MainBundle.LocalizedString(Strings.HudPause, Strings.HudPause);
 #else
             this._pauseText = AppResources.HudPause;
+#endif
+            this._resumeText = string.Empty;
+#if ANDROID
+            this._resumeText = Program.SharedProgram.Resources.GetString(Resource.String.HudResume);
+#elif IOS
+            this._resumeText = NSBundle.MainBundle.LocalizedString(Strings.HudResume, Strings.HudResume);
+#else
+            this._resumeText = AppResources.HudResume;
 #endif
             var pauseLabel = new CCLabelTTF(this._pauseText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             var pauseItem = new CCMenuItemLabel(pauseLabel,
@@ -1019,16 +1027,8 @@ namespace Simsip.LineRunner.Scenes.Hud
 
                 // Clear out any previous activity for paused status label
                 // and set new text
-                var pausedText = string.Empty;
-#if ANDROID
-                pausedText = Program.SharedProgram.Resources.GetString(Resource.String.HudPaused);
-#elif IOS
-                pausedText = NSBundle.MainBundle.LocalizedString(Strings.HudPaused, Strings.HudPaused);
-#else
-                pausedText = AppResources.HudPaused;
-#endif
                 this._status2Label.ActionManager.RemoveAllActionsFromTarget(this);
-                this._status2Label.Text = pausedText;
+                this._status2Label.Text = this._pauseText;
                 this._status2Label.RunAction(this._status2LabelAction);
 
                 // Restore secondary layers
