@@ -32,8 +32,9 @@ namespace Simsip.LineRunner.Scenes.Finish
         private CCAction _layerActionOut;
 
         // New top score
-        private CCLabelTTF _newTopScore;
-        private CCLabelTTF _newTopTime;
+        private int _newTopScore;
+        private CCLabelTTF _newTopScoreLabel;
+        private CCLabelTTF _newTopTimeLabel;
 
         // Top 5 score/date
         private List<CCLabelTTF> _userTop5Score;
@@ -88,19 +89,19 @@ namespace Simsip.LineRunner.Scenes.Finish
             this.AddChild(newHighScoreHeader);
 
             // New top score
-            this._newTopScore = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
-            this._newTopScore.Color = CCColor3B.Green;
-            this._newTopScore.Position = new CCPoint(
+            this._newTopScoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
+            this._newTopScoreLabel.Color = CCColor3B.Green;
+            this._newTopScoreLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.6f * this.ContentSize.Height);
-            this.AddChild(this._newTopScore);
+            this.AddChild(this._newTopScoreLabel);
 
             // New top time
-            this._newTopTime = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            this._newTopTime.Position = new CCPoint(
+            this._newTopTimeLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            this._newTopTimeLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.4f * this.ContentSize.Height);
-            this.AddChild(this._newTopTime);
+            this.AddChild(this._newTopTimeLabel);
 
             /* TODO: Add back in when first version of finish layer is stablized
             // Top 5 scores
@@ -203,6 +204,15 @@ namespace Simsip.LineRunner.Scenes.Finish
         }
         #endregion
 
+        #region Api
+
+        public void SetNewTopScore(int newTopScore)
+        {
+            this._newTopScore = newTopScore;
+        }
+
+        #endregion
+
         #region Helper methods
 
         private void GoBack()
@@ -220,19 +230,19 @@ namespace Simsip.LineRunner.Scenes.Finish
             var newTopTimeSpan = this._parent.TheHudLayer.GetTime();
             var score = new FacebookScoreEntity
             {
-                Score = GameManager.SharedGameManager.CurrentScore,
+                Score = this._newTopScore,
                 ScoreTime = newTopTimeSpan,
                 CreateDate = DateTime.Now
             };
             scoreRepository.Create(score);
 
-            this._newTopScore.Text = GameManager.SharedGameManager.CurrentScore.ToString();
+            this._newTopScoreLabel.Text = this._newTopScore.ToString();
 
-            this._newTopTime.Text = newTopTimeSpan.ToString(@"h\:mm\:ss");
+            this._newTopTimeLabel.Text = newTopTimeSpan.ToString(@"h\:mm\:ss");
 
             var finishParticleDescs = ParticleEffectFactory.CreateFinishParticles(GetParticleEffectScreenPoint);
             int i = 0;
-            foreach(var finishParticleDesc in finishParticleDescs)
+            foreach (var finishParticleDesc in finishParticleDescs)
             {
                 finishParticleDesc.ParticleEffectIndex = i++;
             }
@@ -315,7 +325,7 @@ namespace Simsip.LineRunner.Scenes.Finish
                 // Then follow up by creating remote record
                 var score = new FacebookScoreEntity
                     {
-                        Score = GameManager.SharedGameManager.CurrentScore
+                        Score = this._newTopScore
                     };
                 var scoreService = new FacebookScoreService();
                 var success = await scoreService.AddScoreAsync(score);

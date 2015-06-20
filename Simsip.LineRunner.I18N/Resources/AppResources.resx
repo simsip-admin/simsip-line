@@ -341,7 +341,7 @@
   <data name="HudTopScore" xml:space="preserve">
     <value>top score</value>
   </data>
-  <data name="CommonIn" xml:space="preserve">
+  <data name="HudIn" xml:space="preserve">
     <value>in</value>
   </data>
   <data name="HudHome" xml:space="preserve">
@@ -469,5 +469,17 @@
   </data>
   <data name="UpgradesRestoreStatus" xml:space="preserve">
     <value>restoring upgrade</value>
+  </data>
+  <data name="AchievementsColumnDate" xml:space="preserve">
+    <value>date</value>
+  </data>
+  <data name="AchievementsColumnIn" xml:space="preserve">
+    <value>in</value>
+  </data>
+  <data name="AchievementsColumnScore" xml:space="preserve">
+    <value>score</value>
+  </data>
+  <data name="HudHigh" xml:space="preserve">
+    <value>high</value>
   </data>
 </root>

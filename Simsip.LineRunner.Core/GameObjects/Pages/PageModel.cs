@@ -172,22 +172,5 @@ namespace Simsip.LineRunner.GameObjects.Pages
         }
 
         #endregion
-
-        #region Api
-
-        /// <summary>
-        /// Allows drawing via Cocos2D view, projection and draw state.
-        /// </summary>
-        public void DrawViaCocos2D()
-        {
-            TheGame.SharedGame.GraphicsDevice.DepthStencilState = DepthStencilState.None;
-            TheGame.SharedGame.GraphicsDevice.BlendState = BlendState.AlphaBlend;
-            TheGame.SharedGame.GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
-            TheGame.SharedGame.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
-
-            base.Draw(CCDrawManager.ViewMatrix, CCDrawManager.ProjectionMatrix);
-        }
-
-        #endregion
     }
 }

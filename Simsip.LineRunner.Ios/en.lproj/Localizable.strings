@@ -72,7 +72,7 @@
 "HudJoystick"="joystick";
 "HudTrackball"="trackball";
 "HudTopScore"="top score";
-"CommonIn"="in";
+"HudIn"="in";
 "HudHome"="home";
 "AdminStartLine"="start line";
 "AdminStartLineDescription"="enter line to start on (1-17)";
@@ -115,3 +115,7 @@
 "UpgradesPurchaseStatus"="purchasing upgrade";
 "UpgradesRestoreError"="error restoring upgrade";
 "UpgradesRestoreStatus"="restoring upgrade";
+"AchievementsColumnDate"="date";
+"AchievementsColumnIn"="in";
+"AchievementsColumnScore"="score";
+"HudHigh"="high";

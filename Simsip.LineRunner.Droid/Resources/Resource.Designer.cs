@@ -1909,6 +1909,15 @@ namespace Simsip.LineRunner
 		public partial class String
 		{
 			
+			// aapt resource value: 0x7f0600b1
+			public const int AchievementsColumnDate = 2131099825;
+			
+			// aapt resource value: 0x7f0600b2
+			public const int AchievementsColumnIn = 2131099826;
+			
+			// aapt resource value: 0x7f0600b3
+			public const int AchievementsColumnScore = 2131099827;
+			
 			// aapt resource value: 0x7f06004f
 			public const int AchievementsLeaderboards = 2131099727;
 			
@@ -1959,9 +1968,6 @@ namespace Simsip.LineRunner
 			
 			// aapt resource value: 0x7f060059
 			public const int CommonError = 2131099737;
-			
-			// aapt resource value: 0x7f060086
-			public const int CommonIn = 2131099782;
 			
 			// aapt resource value: 0x7f060075
 			public const int CommonLater = 2131099765;
@@ -2071,8 +2077,14 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f06007a
 			public const int HudHelp = 2131099770;
 			
+			// aapt resource value: 0x7f0600b4
+			public const int HudHigh = 2131099828;
+			
 			// aapt resource value: 0x7f060087
 			public const int HudHome = 2131099783;
+			
+			// aapt resource value: 0x7f060086
+			public const int HudIn = 2131099782;
 			
 			// aapt resource value: 0x7f060083
 			public const int HudJoystick = 2131099779;

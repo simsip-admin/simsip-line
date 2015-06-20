@@ -120,7 +120,7 @@
           <source>top score</source>
           <target state="new">top score</target>
         </trans-unit>
-        <trans-unit id="Resx/CommonIn" translate="yes" xml:space="preserve">
+        <trans-unit id="Resx/HudIn" translate="yes" xml:space="preserve">
           <source>in</source>
           <target state="new">in</target>
         </trans-unit>
@@ -175,6 +175,22 @@
         <trans-unit id="Resx/UpgradesRestoreStatus" translate="yes" xml:space="preserve">
           <source>restoring upgrade</source>
           <target state="new">restoring upgrade</target>
+        </trans-unit>
+        <trans-unit id="Resx/HudHigh" translate="yes" xml:space="preserve">
+          <source>high</source>
+          <target state="new">high</target>
+        </trans-unit>
+        <trans-unit id="Resx/AchievementsColumnScore" translate="yes" xml:space="preserve">
+          <source>score</source>
+          <target state="new">score</target>
+        </trans-unit>
+        <trans-unit id="Resx/AchievementsColumnIn" translate="yes" xml:space="preserve">
+          <source>in</source>
+          <target state="new">in</target>
+        </trans-unit>
+        <trans-unit id="Resx/AchievementsColumnDate" translate="yes" xml:space="preserve">
+          <source>date</source>
+          <target state="new">date</target>
         </trans-unit>
         <trans-unit id="Resx/UpgradesRestoreError" translate="yes" xml:space="preserve">
           <source>error restoring upgrade</source>

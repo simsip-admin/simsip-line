@@ -1059,18 +1059,22 @@ namespace Simsip.LineRunner.Scenes.Action
             // moving to start kicking off background load
             this._obstacleCache.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
 
+            // IMPORTANT: grab top score HERE as it will be reset in SwitchState(MovingToStart) immediately below
+            var currentScore = GameManager.SharedGameManager.CurrentScore;
+
             // Now go for the async load
             this.SwitchState(GameState.MovingToStart);
 
             // Did we get a new high score?
             var scoreRepository = new FacebookScoreRepository();
             var previousTopScore = scoreRepository.GetTopScoresForPlayer(1);
-            if (GameManager.SharedGameManager.CurrentScore > 0  // We have a score to check
+            if (currentScore > 0  // We have a score to check
                 &&                                              // AND
                 (previousTopScore.Count == 0 ||                 // This is our first top score or we beat our previous top score
-                previousTopScore[0].Score < GameManager.SharedGameManager.CurrentScore))
+                previousTopScore[0].Score < currentScore))
             {
                 // Record new high score and give them a chance to post
+                this._parent.TheFinishLayer.SetNewTopScore(currentScore);
                 this._parent.Navigate(LayerTags.FinishLayer);
             }
         }

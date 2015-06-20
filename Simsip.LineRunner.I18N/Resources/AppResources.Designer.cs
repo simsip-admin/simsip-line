@@ -62,6 +62,33 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to date.
+        /// </summary>
+        public static string AchievementsColumnDate {
+            get {
+                return ResourceManager.GetString("AchievementsColumnDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to in.
+        /// </summary>
+        public static string AchievementsColumnIn {
+            get {
+                return ResourceManager.GetString("AchievementsColumnIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to score.
+        /// </summary>
+        public static string AchievementsColumnScore {
+            get {
+                return ResourceManager.GetString("AchievementsColumnScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to leaderboards.
         /// </summary>
         public static string AchievementsLeaderboards {
@@ -202,15 +229,6 @@ namespace Simsip.LineRunner.Resources {
         public static string CommonError {
             get {
                 return ResourceManager.GetString("CommonError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to in.
-        /// </summary>
-        public static string CommonIn {
-            get {
-                return ResourceManager.GetString("CommonIn", resourceCulture);
             }
         }
         
@@ -530,11 +548,29 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to high.
+        /// </summary>
+        public static string HudHigh {
+            get {
+                return ResourceManager.GetString("HudHigh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to home.
         /// </summary>
         public static string HudHome {
             get {
                 return ResourceManager.GetString("HudHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to in.
+        /// </summary>
+        public static string HudIn {
+            get {
+                return ResourceManager.GetString("HudIn", resourceCulture);
             }
         }
         

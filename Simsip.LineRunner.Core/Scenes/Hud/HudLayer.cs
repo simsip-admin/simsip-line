@@ -663,11 +663,11 @@ namespace Simsip.LineRunner.Scenes.Hud
 
                 var inText = string.Empty;
 #if ANDROID
-                inText = Program.SharedProgram.Resources.GetString(Resource.String.CommonIn);
+                inText = Program.SharedProgram.Resources.GetString(Resource.String.HudIn);
 #elif IOS
-                inText = NSBundle.MainBundle.LocalizedString(Strings.CommonIn, Strings.CommonIn);
+                inText = NSBundle.MainBundle.LocalizedString(Strings.HudIn, Strings.HudIn);
 #else
-                inText = AppResources.CommonIn;
+                inText = AppResources.HudIn;
 #endif
                 this._topScoreHeaderLabel.Text = topScoreHeaderText + " " +
                     topScore.Score.ToString()  + " " + 
