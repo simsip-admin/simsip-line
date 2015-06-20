@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Simsip.LineRunner.Views.LicenseView"
+    x:Class="Simsip.LineRunner.Views.BrowserView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Simsip.Store.Views"
@@ -8,6 +8,6 @@
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <WebView x:Name="webView1" Height="800"/>
+        <WebView x:Name="Browser" Height="800"/>
     </Grid>
 </Page>

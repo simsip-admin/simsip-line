@@ -465,28 +465,6 @@
 /processorParam:TextureFormat=Color
 /build:Content/Images/Icons/DoneButtonSelected.png
 
-#begin Content/Images/Icons/HelpButtonNormal.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:Content/Images/Icons/HelpButtonNormal.png
-
-#begin Content/Images/Icons/HelpButtonSelected.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:Content/Images/Icons/HelpButtonSelected.png
-
 #begin Content/Images/Icons/NextButtonNormal.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -508,28 +486,6 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
 /build:Content/Images/Icons/NextButtonSelected.png
-
-#begin Content/Images/Icons/OptionsButtonNormal.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:Content/Images/Icons/OptionsButtonNormal.png
-
-#begin Content/Images/Icons/OptionsButtonSelected.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:Content/Images/Icons/OptionsButtonSelected.png
 
 #begin Content/Images/Icons/PreviousButtonNormal.png
 /importer:TextureImporter

@@ -1972,9 +1972,6 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060075
 			public const int CommonLater = 2131099765;
 			
-			// aapt resource value: 0x7f06008a
-			public const int CommonLicense = 2131099786;
-			
 			// aapt resource value: 0x7f06005a
 			public const int CommonNo = 2131099738;
 			
@@ -2023,6 +2020,9 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060095
 			public const int HelpLeaderboards = 2131099797;
 			
+			// aapt resource value: 0x7f06008a
+			public const int HelpLicense = 2131099786;
+			
 			// aapt resource value: 0x7f060041
 			public const int HelpLines = 2131099713;
 			
@@ -2055,6 +2055,9 @@ namespace Simsip.LineRunner
 			
 			// aapt resource value: 0x7f060046
 			public const int HelpStartDescription = 2131099718;
+			
+			// aapt resource value: 0x7f0600b5
+			public const int HelpSupport = 2131099829;
 			
 			// aapt resource value: 0x7f060047
 			public const int HelpTitle = 2131099719;

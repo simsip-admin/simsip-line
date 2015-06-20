@@ -80,7 +80,7 @@
         public static string HudHome = "HudHome";
         public static string AdminStartLine = "AdminStartLine";
         public static string AdminStartLineDescription = "AdminStartLineDescription";
-        public static string CommonLicense = "CommonLicense";
+        public static string HelpLicense = "HelpLicense";
         public static string CommonReset = "CommonReset";
         public static string HelpIncreaseDecrease = "HelpIncreaseDecrease";
         public static string HelpOrbit = "HelpOrbit";
@@ -123,5 +123,6 @@
         public static string AchievementsColumnIn = "AchievementsColumnIn";
         public static string AchievementsColumnScore = "AchievementsColumnScore";
         public static string HudHigh = "HudHigh";
+        public static string HelpSupport = "HelpSupport";
     }
 }

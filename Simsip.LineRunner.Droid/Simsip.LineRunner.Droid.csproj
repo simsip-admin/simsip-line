@@ -3311,7 +3311,7 @@
     <Compile Include="TheGame.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\LicenseView.cs" />
+    <Compile Include="Views\BrowserView.cs" />
     <Compile Include="Views\OAuthView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -3403,28 +3403,12 @@
       <Link>Assets\Content\Images\Icons\DoneButtonSelected.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\HelpButtonNormal.xnb">
-      <Link>Assets\Content\Images\Icons\HelpButtonNormal.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\HelpButtonSelected.xnb">
-      <Link>Assets\Content\Images\Icons\HelpButtonSelected.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
     <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\NextButtonNormal.xnb">
       <Link>Assets\Content\Images\Icons\NextButtonNormal.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
     <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\NextButtonSelected.xnb">
       <Link>Assets\Content\Images\Icons\NextButtonSelected.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\OptionsButtonNormal.xnb">
-      <Link>Assets\Content\Images\Icons\OptionsButtonNormal.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\OptionsButtonSelected.xnb">
-      <Link>Assets\Content\Images\Icons\OptionsButtonSelected.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
     <AndroidAsset Include="..\Simsip.LineRunner.Content\bin\Android\Content\Images\Icons\PreviousButtonNormal.xnb">

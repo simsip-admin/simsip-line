@@ -23,21 +23,23 @@ namespace Simsip.LineRunner.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class LicenseView : Page
+    public sealed partial class BrowserView : Page
     {
-        public LicenseView()
+        public BrowserView()
         {
             this.InitializeComponent();
 
-            this.Loaded += LicenseView_Loaded;
+            this.Loaded += BrowserView_Loaded;
         }
 
-        private void LicenseView_Loaded(object sender, RoutedEventArgs e)
+        private void BrowserView_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
-                Uri targetUri = new Uri("http://linerunner3d.com/license");
-                webView1.Navigate(targetUri);
+                var app = App.Current as App;
+
+                Uri targetUri = new Uri(app.BrowserUrl);
+                Browser.Navigate(targetUri);
             }
             catch (Exception Error)
             {

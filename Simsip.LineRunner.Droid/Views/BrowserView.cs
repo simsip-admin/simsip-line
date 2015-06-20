@@ -7,10 +7,10 @@ using Simsip.LineRunner.ViewModels;
 
 namespace Simsip.LineRunner.Views
 {
-    [Activity(Label = "License", 
+    [Activity(Label = "Browser", 
               MainLauncher = false,
               Theme = "@android:style/Theme.NoTitleBar")]
-    public class LicenseView : Activity
+    public class BrowserView : Activity
     {
         private WebView _webView;
 
@@ -21,9 +21,9 @@ namespace Simsip.LineRunner.Views
             SetContentView(Resource.Layout.View_OAuth);
 
             _webView = FindViewById<WebView>(Resource.Id.webview);
-            _webView.SetWebViewClient(new LicenseViewClient());
+            _webView.SetWebViewClient(new BrowserViewClient());
             _webView.Settings.JavaScriptEnabled = true;
-            _webView.LoadUrl("http://linerunner3d.com/license");
+            _webView.LoadUrl(Program.SharedProgram.BrowserUrl);
         }
 
         public override bool OnKeyDown(Keycode keyCode, KeyEvent e)
@@ -37,9 +37,9 @@ namespace Simsip.LineRunner.Views
             return base.OnKeyDown(keyCode, e);
         }
 
-        public class LicenseViewClient : WebViewClient
+        public class BrowserViewClient : WebViewClient
         {
-            public LicenseViewClient()
+            public BrowserViewClient()
             {
             }
 

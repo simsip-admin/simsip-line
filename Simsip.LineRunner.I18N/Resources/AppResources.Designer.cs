@@ -242,15 +242,6 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to license.
-        /// </summary>
-        public static string CommonLicense {
-            get {
-                return ResourceManager.GetString("CommonLicense", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to no.
         /// </summary>
         public static string CommonNo {
@@ -386,6 +377,15 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to license.
+        /// </summary>
+        public static string HelpLicense {
+            get {
+                return ResourceManager.GetString("HelpLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to change the line for the pad.
         /// </summary>
         public static string HelpLines {
@@ -481,6 +481,15 @@ namespace Simsip.LineRunner.Resources {
         public static string HelpStartDescription {
             get {
                 return ResourceManager.GetString("HelpStartDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to support.
+        /// </summary>
+        public static string HelpSupport {
+            get {
+                return ResourceManager.GetString("HelpSupport", resourceCulture);
             }
         }
         

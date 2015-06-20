@@ -132,6 +132,10 @@
           <source>enter line to start on (1-17)</source>
           <target state="new">enter line to start on (1-17)</target>
         </trans-unit>
+        <trans-unit id="Resx/HelpLicense" translate="yes" xml:space="preserve">
+          <source>license</source>
+          <target state="new">license</target>
+        </trans-unit>
         <trans-unit id="Resx/HudScroll" translate="yes" xml:space="preserve">
           <source>scroll view</source>
           <target state="new">scroll view</target>
@@ -179,6 +183,10 @@
         <trans-unit id="Resx/HudHigh" translate="yes" xml:space="preserve">
           <source>high</source>
           <target state="new">high</target>
+        </trans-unit>
+        <trans-unit id="Resx/HelpSupport" translate="yes" xml:space="preserve">
+          <source>support</source>
+          <target state="new">support</target>
         </trans-unit>
         <trans-unit id="Resx/AchievementsColumnScore" translate="yes" xml:space="preserve">
           <source>score</source>
@@ -299,10 +307,6 @@
         <trans-unit id="Resx/CommonReset" translate="yes" xml:space="preserve">
           <source>double tap trackball to reset view</source>
           <target state="new">double tap trackball to reset view</target>
-        </trans-unit>
-        <trans-unit id="Resx/CommonLicense" translate="yes" xml:space="preserve">
-          <source>license</source>
-          <target state="new">license</target>
         </trans-unit>
         <trans-unit id="Resx/AdminStartLine" translate="yes" xml:space="preserve">
           <source>start line</source>

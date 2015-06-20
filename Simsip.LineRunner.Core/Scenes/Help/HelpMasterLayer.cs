@@ -53,6 +53,11 @@ namespace Simsip.LineRunner.Scenes.Help
         private int _currentPage;
         private int _totalPages;
 
+        // Urls we link to
+        private const string _licenseUrl = "http://linerunner3d.com/license";
+        private const string _supportUrl = "http://linerunner3d.com/support";
+
+
         public HelpMasterLayer(CoreScene parent)
         {
             this._parent = parent;
@@ -123,6 +128,22 @@ namespace Simsip.LineRunner.Scenes.Help
                 outToRightHide
             });
 
+            // Version
+            var versionText = string.Empty;
+#if ANDROID
+            versionText = Program.SharedProgram.Resources.GetString(Resource.String.CommonVersion);
+#elif IOS
+            versionText = NSBundle.MainBundle.LocalizedString(Strings.CommonVersion, Strings.CommonVersion);
+#else
+            versionText = AppResources.CommonVersion;
+#endif
+            var versionHeader = new CCLabelTTF(versionText + " " + FileUtils.GetVersion(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            versionHeader.Position = new CCPoint(
+                0.5f  * this.ContentSize.Width,
+                0.95f * this.ContentSize.Height);
+            this.AddChild(versionHeader);
+
+
             // Help title
             var helpText = string.Empty;
 #if ANDROID
@@ -165,30 +186,14 @@ namespace Simsip.LineRunner.Scenes.Help
                 0.85f * this.ContentSize.Height);
             this.AddChild(headerLineImage);
 
-            // Version
-            var versionText = string.Empty;
-#if ANDROID
-            versionText = Program.SharedProgram.Resources.GetString(Resource.String.CommonVersion);
-#elif IOS
-            versionText = NSBundle.MainBundle.LocalizedString(Strings.CommonVersion, Strings.CommonVersion);
-#else
-            versionText = AppResources.CommonVersion;
-#endif
-            var versionHeader = new CCLabelTTF(versionText + " " + FileUtils.GetVersion(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-            versionHeader.AnchorPoint = CCPoint.AnchorMiddleLeft;
-            versionHeader.Position = new CCPoint(
-                0.05f * this.ContentSize.Width, 
-                0.8f  * this.ContentSize.Height);
-            this.AddChild(versionHeader);
-
             // License
             var licenseText = string.Empty;
 #if ANDROID
-            licenseText = Program.SharedProgram.Resources.GetString(Resource.String.CommonLicense);
+            licenseText = Program.SharedProgram.Resources.GetString(Resource.String.HelpLicense);
 #elif IOS
-            licenseText = NSBundle.MainBundle.LocalizedString(Strings.CommonLicense, Strings.CommonLicense);
+            licenseText = NSBundle.MainBundle.LocalizedString(Strings.HelpLicense, Strings.HelpLicense);
 #else
-            licenseText = AppResources.CommonLicense;
+            licenseText = AppResources.HelpLicense;
 #endif
             var licenseLabel = new CCLabelTTF(licenseText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
             var licenseItem = new CCMenuItemLabel(licenseLabel,
@@ -198,11 +203,32 @@ namespace Simsip.LineRunner.Scenes.Help
                     {
                         licenseItem,
                     });
-            licenseMenu.AnchorPoint = CCPoint.AnchorMiddleRight;
             licenseMenu.Position = new CCPoint(
-                 0.95f * this.ContentSize.Width,
-                 0.8f  * this.ContentSize.Height);
+                 0.2f  * this.ContentSize.Width,
+                 0.8f * this.ContentSize.Height);
             this.AddChild(licenseMenu);
+
+            // Support
+            var supportText = string.Empty;
+#if ANDROID
+            supportText = Program.SharedProgram.Resources.GetString(Resource.String.HelpSupport);
+#elif IOS
+            supportText = NSBundle.MainBundle.LocalizedString(Strings.HelpSupport, Strings.HelpSupport);
+#else
+            supportText = AppResources.HelpSupport;
+#endif
+            var supportLabel = new CCLabelTTF(supportText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            var supportItem = new CCMenuItemLabel(supportLabel,
+                (obj) => { this.LaunchSupport(); });
+            var supportMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        supportItem,
+                    });
+            supportMenu.Position = new CCPoint(
+                 0.8f * this.ContentSize.Width,
+                 0.8f * this.ContentSize.Height);
+            this.AddChild(supportMenu);
 
             // 1 page create up front, rest created on-demand, see GetHelpPage() below
             this._helpPage1Layer = new HelpPage1Layer(this._parent, this);
@@ -479,18 +505,28 @@ namespace Simsip.LineRunner.Scenes.Help
         private void LaunchLicense()
         {
 #if ANDROID
-            // Ok, we need to login first
-            Program.SharedProgram.LaunchLicense();
+            Program.SharedProgram.LaunchBrowser(HelpMasterLayer._licenseUrl);
 #elif IOS
-            // Ok, we need to login first
-            Program.SharedProgram.LaunchLicense();
+            Program.SharedProgram.LaunchBrowser(HelpMasterLayer._licenseUrl);
 #elif WINDOWS_PHONE
-            // Ok, we need to login first
-            Program.SharedProgram.LaunchLicense();
+            Program.SharedProgram.LaunchBrowser(HelpMasterLayer._licenseUrl);
 #elif NETFX_CORE
-            // Ok, we need to login first
             var app = App.Current as App;
-            app.LaunchLicense();
+            app.LaunchBrowser(HelpMasterLayer._licenseUrl);
+#endif
+        }
+
+        private void LaunchSupport()
+        {
+#if ANDROID
+            Program.SharedProgram.LaunchBrowser(HelpMasterLayer._supportUrl);
+#elif IOS
+            Program.SharedProgram.LaunchBrowser(HelpMasterLayer._supportUrl);
+#elif WINDOWS_PHONE
+            Program.SharedProgram.LaunchBrowser(HelpMasterLayer._supportUrl);
+#elif NETFX_CORE
+            var app = App.Current as App;
+            app.LaunchBrowser(HelpMasterLayer._supportUrl);
 #endif
         }
 

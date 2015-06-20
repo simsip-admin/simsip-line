@@ -80,10 +80,14 @@ namespace Simsip.LineRunner
             await Launcher.LaunchUriAsync(new Uri("ms-windows-store:REVIEW?PFN=PACKAGENAME"));
         }
 
-        public void LaunchLicense()
+        public string BrowserUrl { get; private set; }
+
+        public void LaunchBrowser(string browserUrl)
         {
+            this.BrowserUrl = browserUrl;
+
             var rootFrame = Window.Current.Content as Frame;
-            rootFrame.Navigate(typeof(LicenseView));
+            rootFrame.Navigate(typeof(BrowserView));
         }
 
         public void LaunchOAuth()

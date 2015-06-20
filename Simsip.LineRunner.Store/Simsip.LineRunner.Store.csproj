@@ -3263,8 +3263,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
-    <Compile Include="Views\LicenseView.xaml.cs">
-      <DependentUpon>LicenseView.xaml</DependentUpon>
+    <Compile Include="Views\BrowserView.xaml.cs">
+      <DependentUpon>BrowserView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OAuthView.xaml.cs" />
   </ItemGroup>
@@ -3360,28 +3360,12 @@
       <Link>Content\Images\Icons\DoneButtonSelected.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Icons\HelpButtonNormal.xnb">
-      <Link>Content\Images\Icons\HelpButtonNormal.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Icons\HelpButtonSelected.xnb">
-      <Link>Content\Images\Icons\HelpButtonSelected.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Icons\NextButtonNormal.xnb">
       <Link>Content\Images\Icons\NextButtonNormal.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Icons\NextButtonSelected.xnb">
       <Link>Content\Images\Icons\NextButtonSelected.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Icons\OptionsButtonNormal.xnb">
-      <Link>Content\Images\Icons\OptionsButtonNormal.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Icons\OptionsButtonSelected.xnb">
-      <Link>Content\Images\Icons\OptionsButtonSelected.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Icons\PreviousButtonNormal.xnb">
@@ -4181,7 +4165,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\LicenseView.xaml">
+    <Page Include="Views\BrowserView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

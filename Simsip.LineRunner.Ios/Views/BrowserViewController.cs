@@ -6,15 +6,15 @@ using Simsip.LineRunner.ViewModels;
 
 namespace Simsip.LineRunner.Views
 {
-    [Foundation.Register("LicenseView")]
-    public class LicenseView : UIView
+    [Foundation.Register("BrowserView")]
+    public class BrowserView : UIView
     {
-        public LicenseView()
+        public BrowserView()
         {
             Initialize();
         }
 
-        public LicenseView(CGRect bounds)
+        public BrowserView(CGRect bounds)
             : base(bounds)
         {
             Initialize();
@@ -26,10 +26,10 @@ namespace Simsip.LineRunner.Views
         }
     }
 
-    [Foundation.Register("LicenseViewController")]
-    public class LicenseViewController : UIViewController
+    [Foundation.Register("BrowserViewController")]
+    public class BrowserViewController : UIViewController
     {
-        public LicenseViewController()
+        public BrowserViewController()
         {
         }
 
@@ -43,7 +43,7 @@ namespace Simsip.LineRunner.Views
 
         public override void ViewDidLoad()
         {
-            View = new LicenseView();
+            View = new BrowserView();
 
             base.ViewDidLoad();
 
@@ -63,7 +63,7 @@ namespace Simsip.LineRunner.Views
             string url = "http://xamarin.com";
             webView.LoadRequest(new NSUrlRequest(new NSUrl(url)));
             */
-            NSUrl url = (NSUrl)new Uri("http://linerunner3d.com/license");
+            NSUrl url = (NSUrl)new Uri(Program.SharedProgram.BrowserUrl);
             webView.LoadRequest(new NSUrlRequest(url));
         }
     }

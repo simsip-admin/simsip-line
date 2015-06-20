@@ -78,7 +78,7 @@
   <string name="HudHome">home</string>
   <string name="AdminStartLine">start line</string>
   <string name="AdminStartLineDescription">enter line to start on (1-17)</string>
-  <string name="CommonLicense">license</string>
+  <string name="HelpLicense">license</string>
   <string name="CommonReset">double tap trackball to reset view</string>
   <string name="HelpIncreaseDecrease">increase or decrease speed</string>
   <string name="HelpOrbit">drag from trackball to orbit view</string>
@@ -121,4 +121,5 @@
   <string name="AchievementsColumnIn">in</string>
   <string name="AchievementsColumnScore">score</string>
   <string name="HudHigh">high</string>
+  <string name="HelpSupport">support</string>
 </resources>

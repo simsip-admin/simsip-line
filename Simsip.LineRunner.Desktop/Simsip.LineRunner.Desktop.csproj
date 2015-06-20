@@ -3323,28 +3323,12 @@
       <Link>Content\Images\Icons\DoneButtonSelected.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Icons\HelpButtonNormal.xnb">
-      <Link>Content\Images\Icons\HelpButtonNormal.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Icons\HelpButtonSelected.xnb">
-      <Link>Content\Images\Icons\HelpButtonSelected.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Icons\NextButtonNormal.xnb">
       <Link>Content\Images\Icons\NextButtonNormal.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Icons\NextButtonSelected.xnb">
       <Link>Content\Images\Icons\NextButtonSelected.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Icons\OptionsButtonNormal.xnb">
-      <Link>Content\Images\Icons\OptionsButtonNormal.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Icons\OptionsButtonSelected.xnb">
-      <Link>Content\Images\Icons\OptionsButtonSelected.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Icons\PreviousButtonNormal.xnb">

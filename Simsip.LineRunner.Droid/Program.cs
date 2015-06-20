@@ -204,9 +204,13 @@ namespace Simsip.LineRunner
             _allowRating = false;
         }
 
-        public void LaunchLicense()
+        public string BrowserUrl { get; private set; }
+
+        public void LaunchBrowser(string browserUrl)
         {
-            var intent = new Intent(this, typeof(LicenseView));
+            this.BrowserUrl = browserUrl;
+
+            var intent = new Intent(this, typeof(BrowserView));
             StartActivity(intent);
         }
 

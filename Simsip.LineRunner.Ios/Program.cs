@@ -18,7 +18,7 @@ namespace Simsip.LineRunner
         private UINavigationController nav;
         private UIViewController vc;
         private OAuthViewController oauth;
-        private LicenseViewController license;
+        private BrowserViewController license;
 
         public static Program SharedProgram { get; private set; }
 
@@ -73,9 +73,13 @@ namespace Simsip.LineRunner
             _allowRating = false;
         }
 
-        public void LaunchLicense()
+        public string BrowserUrl { get; private set; }
+
+        public void LaunchBrowser(string browserUrl)
         {
-            license = new LicenseViewController();
+            this.BrowserUrl = browserUrl;
+
+            license = new BrowserViewController();
             nav.PushViewController(license, false);
         }
 

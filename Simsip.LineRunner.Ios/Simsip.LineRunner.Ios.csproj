@@ -283,7 +283,7 @@
     <Compile Include="..\Simsip.LineRunner.Core\Voxeliq\Input\IInputManager.cs">
       <Link>Voxeliq\Input\IInputManager.cs</Link>
     </Compile>
-    <Compile Include="Views\LicenseViewController.cs" />
+    <Compile Include="Views\BrowserViewController.cs" />
     <Compile Include="Views\OAuthViewController.cs" />
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Fonts\arial-12.xnb">
       <Link>Content\Fonts\arial-12.xnb</Link>
@@ -373,28 +373,12 @@
       <Link>Content\Images\Icons\DoneButtonSelected.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\HelpButtonNormal.xnb">
-      <Link>Content\Images\Icons\HelpButtonNormal.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\HelpButtonSelected.xnb">
-      <Link>Content\Images\Icons\HelpButtonSelected.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\NextButtonNormal.xnb">
       <Link>Content\Images\Icons\NextButtonNormal.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\NextButtonSelected.xnb">
       <Link>Content\Images\Icons\NextButtonSelected.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\OptionsButtonNormal.xnb">
-      <Link>Content\Images\Icons\OptionsButtonNormal.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\OptionsButtonSelected.xnb">
-      <Link>Content\Images\Icons\OptionsButtonSelected.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\PreviousButtonNormal.xnb">

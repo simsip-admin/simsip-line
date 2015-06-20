@@ -353,7 +353,7 @@
   <data name="AdminStartLineDescription" xml:space="preserve">
     <value>enter line to start on (1-17)</value>
   </data>
-  <data name="CommonLicense" xml:space="preserve">
+  <data name="HelpLicense" xml:space="preserve">
     <value>license</value>
   </data>
   <data name="CommonReset" xml:space="preserve">
@@ -481,5 +481,8 @@
   </data>
   <data name="HudHigh" xml:space="preserve">
     <value>high</value>
+  </data>
+  <data name="HelpSupport" xml:space="preserve">
+    <value>support</value>
   </data>
 </root>

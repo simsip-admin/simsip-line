@@ -5,9 +5,9 @@ using System;
 
 namespace Simsip.LineRunner.Views
 {
-    public partial class LicenseView : PhoneApplicationPage
+    public partial class BrowserView : PhoneApplicationPage
     {
-        public LicenseView()
+        public BrowserView()
         {
             InitializeComponent();
 
@@ -18,18 +18,18 @@ namespace Simsip.LineRunner.Views
         {
             base.OnNavigatedTo(e);
 
-            LicenseBrowser.Navigate(new Uri("http://linerunner3d.com/license"));
+            TheBrowser.Navigate(new Uri(Program.SharedProgram.BrowserUrl));
         }
 
         private void Browser_DoResize(object sender, NavigationEventArgs e)
         {
-            string html = LicenseBrowser.SaveToString();
+            string html = TheBrowser.SaveToString();
             string hackstring = "<meta name=\"viewport\" content=\"width=100%,user-scalable=yes\" />";
             html = html.Insert(html.IndexOf("<head>", 0) + 6, hackstring);
             
-            LicenseBrowser.NavigateToString(html);
+            TheBrowser.NavigateToString(html);
             
-            LicenseBrowser.LoadCompleted -= Browser_DoResize;
+            TheBrowser.LoadCompleted -= Browser_DoResize;
         }
     }
 }
