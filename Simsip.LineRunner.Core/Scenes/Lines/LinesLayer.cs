@@ -34,7 +34,6 @@ namespace Simsip.LineRunner.Scenes.Lines
         private ILineRepository _lineRepository;
         private IPageLinesRepository _pageLinesRepository;
         private IList<LineEntity> _lineEntities;
-        private IList<CCRect> _lineBoundingBoxes;
 
         // Services we'll need
         private ICharacterCache _characterCache;
@@ -43,15 +42,14 @@ namespace Simsip.LineRunner.Scenes.Lines
         {
             this._parent = parent;
 
+            // Grab reference to services we'll need
+            this._characterCache = (ICharacterCache)TheGame.SharedGame.Services.GetService(typeof(ICharacterCache));
+
             // Get these set up for relative positioning below
             var screenSize = CCDirector.SharedDirector.WinSize;
             this.ContentSize = new CCSize(
                 0.9f * screenSize.Width,
                 0.9f * screenSize.Height);
-
-            // We want touches so we can handle selection of pad models
-            this.TouchEnabled = true;
-            TouchMode = CCTouchMode.OneByOne;
 
             // Layer transition in/out
             var layerEndPosition = new CCPoint(
@@ -73,7 +71,6 @@ namespace Simsip.LineRunner.Scenes.Lines
 
             // Lines menu
             this._lineEntities = new List<LineEntity>();
-            this._lineBoundingBoxes = new List<CCRect>();
             this._lineRepository = new LineRepository();
             this._pageLinesRepository = new PageLinesRepository();
             var pageLinesEntity = this._pageLinesRepository.GetLine(1, 1);
@@ -86,19 +83,18 @@ namespace Simsip.LineRunner.Scenes.Lines
                     0.5f * this.ContentSize.Width,
                     0.2f * this.ContentSize.Width);
                 lineImage.Position = new CCPoint(
-                    0.65f * this.ContentSize.Width,
+                    0.5f * this.ContentSize.Width,
                     y + (0.01f * this.ContentSize.Height));
                 this.AddChild(lineImage);
 
-                this._lineBoundingBoxes.Add(lineImage.WorldBoundingBox);
-
                 var lineLabel = new CCLabelTTF(line.DisplayName, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                var lineEntity = line;  // Need to do this for correct lambda resolution inside a foreach loop
                 var lineButton = new CCMenuItemLabel(lineLabel,
-                                                     (obj) => { LineSelected(line); });
+                                                     (obj) => { LineSelected(lineEntity); });
 
                 var labelMenu = new CCMenu();
                 labelMenu.Position = new CCPoint(
-                    0.25f * this.ContentSize.Width,
+                    0.5f * this.ContentSize.Width,
                     y);
                 labelMenu.AddChild(lineButton);
                 this.AddChild(labelMenu);
@@ -121,9 +117,6 @@ namespace Simsip.LineRunner.Scenes.Lines
                 0.5f * this.ContentSize.Width, 
                 0.1f * this.ContentSize.Height);
             this.AddChild(backMenu);
-
-            // Grab reference to services we'll need
-            this._characterCache = (ICharacterCache)TheGame.SharedGame.Services.GetService(typeof(ICharacterCache));
         }
 
         #region Cocos2D overrides
@@ -134,53 +127,6 @@ namespace Simsip.LineRunner.Scenes.Lines
 
             // Animate layer
             this.RunAction(this._layerActionIn);
-        }
-
-        #endregion
-
-        #region Touch Implementation
-
-        /*
-        http://www.cocos2d-iphone.org/forums/topic/tutorials-dont-mention-cctouchdispatcherremovedelegate/
-         
-        Setting self.isTouchEnabled to YES in a CCLayer causes RegisterWithTouchDispatcher 
-        to be called in onEnter, and CCDirector.SharedDirector.TouchDispatcher.RemoveDelegate(this)
-        to be called in onExit.
-
-        RegisterWithTouchDispatcher in CCLayer registers as a Standard touch delegate. 
-        So you only need to override it if you want the Targeted touch messages.
-            
-        Note if you don't set CCTouchMode it will default to CCTouchMode.AllAtOnce, which means
-        override TouchesBegan. Otherwise set CCTouchMode to CCTouchMode.OneByOne and override
-        TouchBegan.
-         
-        In TouchBegan, If you return true then ccTouchEnded will called. 
-        If you return false then ccTouchEnded will not be called, and the event 
-        will go the parent layer
-        */
-
-        /// <summary>
-        /// If you return true then ccTouchEnded will called. 
-        /// If you return false then ccTouchEnded will not be called, and the event will go the parent layer
-        /// </summary>
-        /// <param name="touch"></param>
-        /// <returns></returns>
-        public override bool TouchBegan(CCTouch touch)
-        {
-            var location = touch.Location;
-
-            // Did we touch a line model?
-            for (int i = 0; i < this._lineBoundingBoxes.Count; i++)
-            {
-                var boundingBox = this._lineBoundingBoxes[i];
-                if (CCRect.ContainsPoint(ref boundingBox, ref location))
-                {
-                    LineSelected(this._lineEntities[i]);
-                    break;
-                }
-            }
-
-            return true;
         }
 
         #endregion
