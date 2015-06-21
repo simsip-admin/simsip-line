@@ -78,7 +78,7 @@ namespace Simsip.LineRunner.Scenes.MessageBox
             this.AddChild(this._title);
 
             // Description
-            this._description = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._description = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
             this._description.Tag = this._staticTag;
             this.AddChild(this._description);
 
@@ -385,11 +385,11 @@ namespace Simsip.LineRunner.Scenes.MessageBox
                             this.Opacity = DEFAULT_OPACITY;
 
                             this.ContentSize = new CCSize(
-                                0.9f * screenSize.Width,
+                                0.8f * screenSize.Width,
                                 0.3f * screenSize.Height);
 
                             var layerEndPosition = new CCPoint(
-                                    0.05f * screenSize.Width,
+                                    0.1f  * screenSize.Width,
                                     0.35f * screenSize.Height);
                             var layerStartPosition = new CCPoint(
                                 layerEndPosition.X,
@@ -409,15 +409,24 @@ namespace Simsip.LineRunner.Scenes.MessageBox
                         // Position title/description
                         this._title.Position = new CCPoint(
                             0.5f * this.ContentSize.Width,
-                            0.9f * this.ContentSize.Height);
+                            0.8f * this.ContentSize.Height);
                         this._description.Position = new CCPoint(
                             0.5f * this.ContentSize.Width,
-                            0.8f * this.ContentSize.Height);
+                            0.6f * this.ContentSize.Height);
 
                         // Create body
-                        this._progressSpinner.Position = new CCPoint(
-                            0.5f * this.ContentSize.Width,
-                            0.5f * this.ContentSize.Height);
+                        if (description == string.Empty)
+                        {
+                            this._progressSpinner.Position = new CCPoint(
+                                0.5f * this.ContentSize.Width,
+                                0.5f * this.ContentSize.Height);
+                        }
+                        else
+                        {
+                            this._progressSpinner.Position = new CCPoint(
+                                0.5f * this.ContentSize.Width,
+                                0.3f * this.ContentSize.Height);
+                        }
                         var progressAnimation = new CCRepeatForever(new CCRotateBy(2, 360));
                         this.AddChild(this._progressSpinner);
                         this._progressSpinner.RunAction(progressAnimation);
