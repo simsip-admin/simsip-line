@@ -728,14 +728,6 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._headerLayer.RunAction(this._headerLayerActionIn);
             this._footerLayer.RunAction(this._footerLayerActionIn);
 
-            // Initialize timer display
-#if NETFX_CORE
-            this._timer = ThreadPoolTimer.CreatePeriodicTimer(TimerCallback, TimeSpan.FromSeconds(1));
-#else
-            this._timer.Change(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
-#endif
-            this._timerStartTime = DateTime.Now;
-
             // IMPORTANT: We do not want touches. We will only be handling
             //            responsed from menus and free drags.
             this.TouchEnabled = false;
@@ -819,13 +811,6 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._footerLeftLayer.ScaleX = 1f;
             this._footerLeftLayer.ScaleY = 1f;
 
-            // Turn off timer display
-#if NETFX_CORE
-            this._timer.Cancel();
-#else
-            this.StopTimer();
-#endif
-
             // Disable support for gestures
             TouchPanel.EnabledGestures = GestureType.None;
             CCApplication.SharedApplication.OnGesture -= this.HudOnGesture;
@@ -890,7 +875,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._timer.Change(-1, -1);
 #endif
         }
-
+      
         public TimeSpan GetTime()
         {
             return this._elapsedTime;
@@ -1002,6 +987,17 @@ namespace Simsip.LineRunner.Scenes.Hud
 
         #region Helper methods
 
+        private void StartTimer()
+        {
+            // IMPORTANT: Get this set before starting timer so initial time calculation is correct
+            this._timerStartTime = DateTime.Now;
+#if NETFX_CORE
+            this._timer = ThreadPoolTimer.CreatePeriodicTimer(TimerCallback, TimeSpan.FromSeconds(1));
+#else
+            this._timer.Change(TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(1));
+#endif
+        }
+
         private void HideSecondaryLayers()
         {
             this._headerLeftLayer.RunAction(this._hideHeaderAnim);
@@ -1065,8 +1061,9 @@ namespace Simsip.LineRunner.Scenes.Hud
             // Hide secondary layers
             this.HideSecondaryLayers();
 
-            // Switch to display of current score
+            // Switch to display of current score and get timer going
             this.ToggleScoreLabels(displayHighScore: false);
+            this.StartTimer();
 
             // Get game going
             this._parent.TheActionLayer.SwitchState(GameState.Moving);
