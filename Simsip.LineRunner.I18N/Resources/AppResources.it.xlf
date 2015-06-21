@@ -72,10 +72,6 @@
           <source>rate us!</source>
           <target state="new">rate us!</target>
         </trans-unit>
-        <trans-unit id="Resx/HudTap" translate="yes" xml:space="preserve">
-          <source>tap</source>
-          <target state="new">tap</target>
-        </trans-unit>
         <trans-unit id="Resx/CreditsTitle" translate="yes" xml:space="preserve">
           <source>credits</source>
           <target state="new">credits</target>

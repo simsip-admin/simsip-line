@@ -299,9 +299,6 @@
   <data name="RatingsRateUs" xml:space="preserve">
     <value>rate us!</value>
   </data>
-  <data name="HudTap" xml:space="preserve">
-    <value>tap</value>
-  </data>
   <data name="CreditsTitle" xml:space="preserve">
     <value>credits</value>
   </data>

@@ -393,6 +393,59 @@ namespace Simsip.LineRunner.Scenes.Action
             this.SwitchState(GameState.Refresh);
         }
 
+        public void UpdateTrackingCamera()
+        {
+            // TODO: Get setup once and then just add in deltas
+
+            var heroPosition = this._characterCache.TheHeroModel.WorldOrigin;
+            var lineModel = this._lineCache.GetLineModel(this._currentLineNumber);
+            if (lineModel == null)
+            {
+                return;
+            }
+            var lineSpacing = this._pageCache.CurrentPageModel.WorldLineSpacing;
+            var centerLineWorldHeight = lineModel.WorldOrigin.Y +
+                                        (0.5f * lineSpacing);
+
+            // 1. Set camera target, accounting for any adjustments
+            //    made by user in xy plane
+            this._inputManager.LineRunnerCamera.Target = new Vector3(
+                heroPosition.X + this._inputManager.HudCameraOffsetX,
+                centerLineWorldHeight + this._inputManager.HudCameraOffsetY,
+                heroPosition.Z);
+
+            // 2. We now want to add any orbit adjustments made by the user. We do this by
+            //    rotating around the just set camera target
+            //    Reference: http://stackoverflow.com/questions/10372495/rotation-around-a-point
+
+            // 2a. Construct a vector representing the orbit offset (distance) 
+            //     from the camera target (what we will rotate around)
+            //     (e.g. 0, 0, this._pageCache.CharacterDepthFromCameraStart)
+            Vector3 orbitOffset = Vector3.UnitZ * this._pageCache.CharacterDepthFromCameraStart;
+
+            // Note:
+            // Not using this for now, but this will take into account initial position of camera. Be sure to set it first.
+            // Vector3 orbitOffset = this._inputManager.LineRunnerCamera.Position - this._inputManager.LineRunnerCamera.Target;       
+
+            // 2b. Now construct a rotation matrix based on what the user has set
+            Matrix orbitRotation = Matrix.CreateFromYawPitchRoll(
+                this._inputManager.HudCameraOrbitYaw,
+                this._inputManager.HudCameraOrbitPitch,
+                0f);
+
+            // 2c. Then transform our original orbit offset vector with the desired rotation
+            Vector3.Transform(ref orbitOffset, ref orbitRotation, out orbitOffset);
+
+            // 2d. This final orbit offset vector can now be added to the camera target to correctly
+            //     position our camara
+            this._inputManager.LineRunnerCamera.Position = this._inputManager.LineRunnerCamera.Target + orbitOffset;
+
+            // 3. Finally, add in any in-place yaw/pitch to the camera as defined by the user
+            this._inputManager.LineRunnerCamera.Yaw(this._inputManager.HudCameraOffsetYaw);
+            this._inputManager.LineRunnerCamera.Pitch(this._inputManager.HudCameraOffsetPitch);
+        }
+
+
         public void StartWorld()
         {
             this.SwitchState(GameState.World);
@@ -960,95 +1013,6 @@ namespace Simsip.LineRunner.Scenes.Action
 
             this._particleCache.SwitchState(gameState);
             this._deferredShadowMapping.SwitchState(gameState);
-        }
-
-        /* TODO: Taking out as we get joystick in place
-        private void UpdateStartingCamera()
-        {
-            var heroPosition = this._characterCache.TheHeroModel.WorldOrigin;
-            var lineModel = this._lineCache.GetLineModel(this._currentLineNumber);
-            var lineSpacing = this._pageCache.CurrentPageModel.WorldLineSpacing;
-            var centerLineWorldHeight = lineModel.WorldOrigin.Y +
-                                        (0.5f * lineSpacing);
-            var offset = this._characterCache.TheHeroModel.WorldWidth;
-            if (this._currentLineNumber % 2 == 0)
-            {
-                offset = -offset;
-            }
-            var originPosition = new Vector3( // Position
-                heroPosition.X + offset,
-                centerLineWorldHeight,
-                heroPosition.Z + this._pageCache.CharacterDepthFromCameraStart);
-
-            this._inputManager.LineRunnerCamera.Position = originPosition + this._inputManager.HudCameraOffset;
-            this._inputManager.LineRunnerCamera.Target =
-                new Vector3(            // Target
-                    heroPosition.X + (2f * offset),
-                    centerLineWorldHeight,
-                    heroPosition.Z
-                    );
-        }
-        */
-
-        private void UpdateTrackingCamera()
-        {
-            // TODO: Get setup once and then just add in deltas
-
-            var heroPosition = this._characterCache.TheHeroModel.WorldOrigin;
-            var lineModel = this._lineCache.GetLineModel(this._currentLineNumber);
-            if (lineModel == null)
-            {
-                return;
-            }
-            var lineSpacing = this._pageCache.CurrentPageModel.WorldLineSpacing;
-            var centerLineWorldHeight = lineModel.WorldOrigin.Y +
-                                        (0.5f * lineSpacing);
-
-            // 1. Set camera position, accounting for any adjustments
-            //    made by user in xy plane
-            /*
-            this._inputManager.LineRunnerCamera.Position = new Vector3(
-                heroPosition.X + this._inputManager.HudCameraOffsetX,
-                centerLineWorldHeight + this._inputManager.HudCameraOffsetY,
-                heroPosition.Z + this._pageCache.CharacterDepthFromCameraStart);
-            */
-
-            // 1. Set camera target, accounting for any adjustments
-            //    made by user in xy plane
-            this._inputManager.LineRunnerCamera.Target = new Vector3(
-                heroPosition.X + this._inputManager.HudCameraOffsetX,
-                centerLineWorldHeight + this._inputManager.HudCameraOffsetY,
-                heroPosition.Z);
-
-            // 2. We now want to add any orbit adjustments made by the user. We do this by
-            //    rotating around the just set camera target
-            //    Reference: http://stackoverflow.com/questions/10372495/rotation-around-a-point
-
-            // 2a. Construct a vector representing the orbit offset (distance) 
-            //     from the camera target (what we will rotate around)
-            //     (e.g. 0, 0, this._pageCache.CharacterDepthFromCameraStart)
-            Vector3 orbitOffset = Vector3.UnitZ * this._pageCache.CharacterDepthFromCameraStart;
-            
-            // Note:
-            // Not using this for now, but this will take into account initial position of camera. Be sure to set it first.
-            // Vector3 orbitOffset = this._inputManager.LineRunnerCamera.Position - this._inputManager.LineRunnerCamera.Target;       
-
-            // 2b. Now construct a rotation matrix based on what the user has set
-            Matrix orbitRotation = Matrix.CreateFromYawPitchRoll(
-                this._inputManager.HudCameraOrbitYaw,
-                this._inputManager.HudCameraOrbitPitch, 
-                0f);
-
-            // 2c. Then transform our original orbit offset vector with the desired rotation
-            Vector3.Transform(ref orbitOffset, ref orbitRotation, out orbitOffset);
-
-            // 2d. This final orbit offset vector can now be added to the camera target to correctly
-            //     position our camara
-            this._inputManager.LineRunnerCamera.Position = this._inputManager.LineRunnerCamera.Target + orbitOffset;  
-
-            // 3. Finally, add in any in-place yaw/pitch to the camera as defined by the user
-            this._inputManager.LineRunnerCamera.Yaw(this._inputManager.HudCameraOffsetYaw);
-            this._inputManager.LineRunnerCamera.Pitch(this._inputManager.HudCameraOffsetPitch);
         }
 
         // Callback used when line/obstacle hit to determine

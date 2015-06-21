@@ -38,12 +38,14 @@ namespace Simsip.LineRunner.Scenes.Hud
 
         // Start tap image/animation/button
         private CCSprite _startTapImage;
+        private float _hudCameraPreviousOffsetX;
+        private float _hudCameraPreviousOffsetY;
+        private float _hudCameraPreviousOffsetYaw;
+        private float _hudCameraPreviousOffsetPitch;
+        private float _hudCameraPreviousOrbitYaw;
+        private float _hudCameraPreviousOrbitPitch;
         private CCAction _startTapAction;
         private CCMenuItemLabel _startButtonItem;
-
-        // Tap text
-        private CCLabelTTF _startTapDescription1;
-        private CCLabelTTF _startTapDescription2;
 
         // Base layer
         private GameLayer _baseLayer;
@@ -191,8 +193,8 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._baseLayer.Position = CCDirector.SharedDirector.VisibleOrigin;
             this.AddChild(this._baseLayer);
 
-            // Start button
-            // Transparent button sized/positioned between header/footer
+            // Start button: Large transparent button sized/positioned between header/footer
+            // so that you can tap anywhere in middle of screen to get started
             var startButtonLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             this._startButtonItem = new CCMenuItemLabel(startButtonLabel,
                 (obj) => { this.StartPressed(); });
@@ -223,24 +225,12 @@ namespace Simsip.LineRunner.Scenes.Hud
                         0,
                         -0.1f * this.ContentSize.Height)),
                 }));
-
-            // Tap text
-            var startTapText = string.Empty;
-#if ANDROID
-            startTapText = Program.SharedProgram.Resources.GetString(Resource.String.HudTap);
-#elif IOS
-            startTapText = NSBundle.MainBundle.LocalizedString(Strings.HudTap, Strings.HudTap);
-#else
-            startTapText = AppResources.HudTap;
-#endif
-            this._startTapDescription1 = new CCLabelTTF(startTapText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._startTapDescription1.AnchorPoint = CCPoint.AnchorMiddleRight;
-            this._startTapDescription1.Color = CCColor3B.Green;
-            this._baseLayer.AddChild(this._startTapDescription1);
-            this._startTapDescription2 = new CCLabelTTF(startTapText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._startTapDescription2.AnchorPoint = CCPoint.AnchorMiddleLeft;
-            this._startTapDescription2.Color = CCColor3B.Green;
-            this._baseLayer.AddChild(this._startTapDescription2);
+            this._hudCameraPreviousOffsetX = -1f;
+            this._hudCameraPreviousOffsetY = -1f;
+            this._hudCameraPreviousOffsetYaw = -1f;
+            this._hudCameraPreviousOffsetPitch = -1f;
+            this._hudCameraPreviousOrbitYaw = -1f;
+            this._hudCameraPreviousOrbitPitch = -1f;
 
             // Header layers
             this._headerLayer = new GameLayer();
@@ -675,6 +665,14 @@ namespace Simsip.LineRunner.Scenes.Hud
                     topScore.ScoreTime.ToString(@"h\:mm\:ss");
             }
 
+            // Reset positioning of start image
+            this._hudCameraPreviousOffsetX = -1f;
+            this._hudCameraPreviousOffsetY = -1f;
+            this._hudCameraPreviousOffsetYaw = -1f;
+            this._hudCameraPreviousOffsetPitch = -1f;
+            this._hudCameraPreviousOrbitYaw = -1f;
+            this._hudCameraPreviousOrbitPitch = -1f;
+
             // Animate panes/layers
             this._headerLayer.RunAction(this._headerLayerActionIn);
             this._footerLayer.RunAction(this._footerLayerActionIn);
@@ -695,47 +693,20 @@ namespace Simsip.LineRunner.Scenes.Hud
             TouchPanel.EnabledGestures = GestureType.FreeDrag | GestureType.DragComplete | GestureType.DoubleTap | GestureType.Hold;
             CCApplication.SharedApplication.OnGesture += this.HudOnGesture;
 
-            // Box out positioning around hero
-            var heroStartOrigin = this._pageCache.CurrentPageModel.HeroStartOrigin;
-            var heroModel = this._characterCache.TheHeroModel;
-            var heroBottomMiddle = XNAUtils.WorldToLogical(new Vector3(
-                heroStartOrigin.X + (0.5f * heroModel.WorldWidth),
-                heroStartOrigin.Y,
-                heroStartOrigin.Z),
-                XNAUtils.CameraType.Tracking);
-            var heroMiddleLeft = XNAUtils.WorldToLogical(new Vector3(
-                heroStartOrigin.X,
-                heroStartOrigin.Y + (0.5f * heroModel.WorldHeight),
-                heroStartOrigin.Z),
-                XNAUtils.CameraType.Tracking);
-            var heroMiddleRight = XNAUtils.WorldToLogical(new Vector3(
-                heroStartOrigin.X + heroModel.WorldWidth,
-                heroStartOrigin.Y + (0.5f * heroModel.WorldHeight),
-                heroStartOrigin.Z),
-                XNAUtils.CameraType.Tracking);
+
+            // Activate tap animation
+            this._startTapImage.RunAction(this._startTapAction);
 
             // Base layer on
             this._baseLayer.Visible = true;
-
-            // Start image
-            this._startTapImage.Position = new CCPoint(
-                heroBottomMiddle.X,
-                heroBottomMiddle.Y - (0.2f * this.ContentSize.Height));
-            this._startTapImage.RunAction(this._startTapAction);
-
-            // Tap text
-            this._startTapDescription1.Position = new CCPoint(
-                heroMiddleLeft.X - (0.1f * this.ContentSize.Width),
-                heroMiddleLeft.Y);
-            this._startTapDescription2.Position = new CCPoint(
-                heroMiddleRight.X + (0.1f * this.ContentSize.Width),
-                heroMiddleRight.Y);
         }
 
         public override void Update(float dt)
         {
+            // Update timer
             this._timerLabel.Text = this._timerLabelText;
 
+            // Handle presses on joystick
             if (this._joystickMoveDirection != MoveDirection.None)
             {
                 TouchCollection touchCollection = TouchPanel.GetState();
@@ -746,6 +717,44 @@ namespace Simsip.LineRunner.Scenes.Hud
                 else
                 {
                     this._inputManager.HudOnJoystick(this._joystickMoveDirection);
+                }
+            }
+
+            // If tap image visible, follow hero
+            if (this._startTapImage.Visible)
+            {
+                // Do we need to adjust tap image?
+                if (this._hudCameraPreviousOffsetX     != this._inputManager.HudCameraOffsetX || 
+                    this._hudCameraPreviousOffsetY     != this._inputManager.HudCameraOffsetY ||
+                    this._hudCameraPreviousOffsetYaw   != this._inputManager.HudCameraOffsetYaw ||
+                    this._hudCameraPreviousOffsetPitch != this._inputManager.HudCameraOffsetPitch ||
+                    this._hudCameraPreviousOrbitYaw    != this._inputManager.HudCameraOrbitYaw ||
+                    this._hudCameraPreviousOrbitPitch  != this._inputManager.HudCameraOrbitPitch)
+                {
+                    // Make sure tracking camera is up to date
+                    this._parent.TheActionLayer.UpdateTrackingCamera();
+
+                    // Box out positioning around hero
+                    var heroModel = this._characterCache.TheHeroModel;
+                    var heroWorldOrigin = this._characterCache.TheHeroModel.WorldOrigin;
+                    var heroBottomMiddle = XNAUtils.WorldToLogical(new Vector3(
+                        heroWorldOrigin.X + (0.5f * heroModel.WorldWidth),
+                        heroWorldOrigin.Y,
+                        heroWorldOrigin.Z),
+                        XNAUtils.CameraType.Tracking);
+
+                    // Update start image to follow hero
+                    this._startTapImage.Position = new CCPoint(
+                        heroBottomMiddle.X,
+                        heroBottomMiddle.Y - (0.1f * this.ContentSize.Height));
+
+                    // Update state
+                    this._hudCameraPreviousOffsetX     = this._inputManager.HudCameraOffsetX;
+                    this._hudCameraPreviousOffsetY     = this._inputManager.HudCameraOffsetY;
+                    this._hudCameraPreviousOffsetYaw   = this._inputManager.HudCameraOffsetYaw;
+                    this._hudCameraPreviousOffsetPitch = this._inputManager.HudCameraOffsetPitch;
+                    this._hudCameraPreviousOrbitYaw    = this._inputManager.HudCameraOrbitYaw;
+                    this._hudCameraPreviousOrbitPitch  = this._inputManager.HudCameraOrbitPitch;
                 }
             }
         }
@@ -770,6 +779,9 @@ namespace Simsip.LineRunner.Scenes.Hud
             // Disable support for gestures
             TouchPanel.EnabledGestures = GestureType.None;
             CCApplication.SharedApplication.OnGesture -= this.HudOnGesture;
+
+            // Stop tap animation
+            this.ActionManager.RemoveAllActionsFromTarget(this._startTapImage);
         }
 
         #endregion

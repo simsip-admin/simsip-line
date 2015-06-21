@@ -674,15 +674,6 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to tap.
-        /// </summary>
-        public static string HudTap {
-            get {
-                return ResourceManager.GetString("HudTap", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to top score.
         /// </summary>
         public static string HudTopScore {

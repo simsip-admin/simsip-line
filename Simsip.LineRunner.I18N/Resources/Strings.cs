@@ -62,7 +62,6 @@
         public static string CommonLater = "CommonLater";
         public static string RatingsDescription = "RatingsDescription";
         public static string RatingsRateUs = "RatingsRateUs";
-        public static string HudTap = "HudTap";
         public static string CreditsTitle = "CreditsTitle";
         public static string HudHelp = "HudHelp";
         public static string HudOptions = "HudOptions";
