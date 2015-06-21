@@ -461,6 +461,11 @@ namespace Simsip.LineRunner.GameObjects.Characters
             this.TheHeroModel.ModelRunAction(heroKilledAction);
         }
 
+        public bool IsPaused()
+        {
+            return this._paused;
+        }
+
         public void Pause(bool pause)
         {
             this._paused = pause;

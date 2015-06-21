@@ -27,6 +27,8 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
         void Draw(StockBasicEffect effect = null, EffectType type=EffectType.None);
 
+        bool IsPaused();
+
         void Pause(bool pause);
 
         float GetLinearVelocityX();

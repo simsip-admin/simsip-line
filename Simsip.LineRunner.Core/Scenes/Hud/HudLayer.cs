@@ -105,7 +105,15 @@ namespace Simsip.LineRunner.Scenes.Hud
         // Pause/resume
         private bool _paused;
         private string _pauseText;
+        private string _pausedText;
         private string _resumeText;
+        private CCMenuItemToggle _pauseToggle;
+        private CCLabelTTF _pauseLabel;
+
+        // Additional text
+        private string _doubleTapResetText;
+        private string _hudSpeedText;
+        private string _hudCannotGoSlowerThan;
 
         // Dragging support
         private enum Dragging
@@ -157,9 +165,8 @@ namespace Simsip.LineRunner.Scenes.Hud
                 0.2f * footerSize.Width,
                 footerSize.Height);
 
-            // Status 1
-
             // Status 1 action
+            // IMPORTANT: Status 1 remains visible for a short duration before being removed - see UpdateStatus1()
             this._status1LabelAction = new CCSequence(new CCFiniteTimeAction[] 
                 { 
                     new CCShow(),
@@ -170,18 +177,11 @@ namespace Simsip.LineRunner.Scenes.Hud
                     new CCHide()
                 });
 
-            // Status 2
-            this._status2Label = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            this._status2Label.Color = CCColor3B.Red;
-            this._status2Label.AnchorPoint = CCPoint.AnchorMiddle;
-            this._status2Label.Position = new CCPoint(
-                0.5f  * this.ContentSize.Width,
-                0.65f * this.ContentSize.Height);
-            this.AddChild(this._status2Label);
-
             // Status 2 action
+            // IMPORTANT: Status 2 remains visible until manually taken down - see UpdateStatus2()
             this._status2LabelAction = new CCSequence(new CCFiniteTimeAction[] 
             { 
+                new CCShow(),
                 new CCScaleTo(0f, 0f), 
                 new CCScaleTo(0.5f, 1.2f),
                 new CCScaleTo(0.1f, 1.0f),
@@ -560,13 +560,13 @@ namespace Simsip.LineRunner.Scenes.Hud
             CCMenuItemImage pauseToggleOff =
                 new CCMenuItemImage("Images/Icons/ResumeButtonNormal.png",
                                     "Images/Icons/PauseButtonNormal.png");
-            CCMenuItemToggle pauseToggle =
-                new CCMenuItemToggle((obj) => PauseTogglePressed(),
+            this._pauseToggle =
+                new CCMenuItemToggle((obj) => PauseTogglePressed((obj as CCMenuItemToggle).SelectedIndex),
                 new CCMenuItem[] { pauseToggleOn, pauseToggleOff });
             var pauseMenu = new CCMenu(
                 new CCMenuItem[] 
                     {
-                        pauseToggle,
+                        this._pauseToggle,
                     });
             pauseMenu.Position = new CCPoint(
                 0.5f * footerRightSize.Width,
@@ -580,6 +580,14 @@ namespace Simsip.LineRunner.Scenes.Hud
 #else
             this._pauseText = AppResources.HudPause;
 #endif
+            this._pausedText = string.Empty;
+#if ANDROID
+            this._pausedText = Program.SharedProgram.Resources.GetString(Resource.String.HudPaused);
+#elif IOS
+            this._pausedText = NSBundle.MainBundle.LocalizedString(Strings.HudPaused, Strings.HudPaused);
+#else
+            this._pausedText = AppResources.HudPaused;
+#endif
             this._resumeText = string.Empty;
 #if ANDROID
             this._resumeText = Program.SharedProgram.Resources.GetString(Resource.String.HudResume);
@@ -588,18 +596,37 @@ namespace Simsip.LineRunner.Scenes.Hud
 #else
             this._resumeText = AppResources.HudResume;
 #endif
-            var pauseLabel = new CCLabelTTF(this._pauseText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            var pauseItem = new CCMenuItemLabel(pauseLabel,
-                (obj) => { this.PauseTogglePressed(); });
-            var pauseLabelMenu = new CCMenu(
-               new CCMenuItem[] 
-                    {
-                        pauseItem
-                    });
-            pauseLabelMenu.Position = new CCPoint(
+            this._pauseLabel = new CCLabelTTF(this._pauseText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._pauseLabel.Position = new CCPoint(
                 0.5f * footerRightSize.Width,
                 0.2f * footerRightSize.Height);
-            this._footerRightLayer.AddChild(pauseLabelMenu);
+            this._footerRightLayer.AddChild(this._pauseLabel);
+
+            // Additional text
+            this._doubleTapResetText = string.Empty;
+#if ANDROID
+            this._doubleTapResetText = Program.SharedProgram.Resources.GetString(Resource.String.CommonReset);
+#elif IOS
+            this._doubleTapResetText = NSBundle.MainBundle.LocalizedString(Strings.CommonReset, Strings.CommonReset);
+#else
+            this._doubleTapResetText = AppResources.CommonReset;
+#endif
+
+#if ANDROID
+            this._hudSpeedText = Program.SharedProgram.Resources.GetString(Resource.String.HudSpeed);
+#elif IOS
+            this._hudSpeedText = NSBundle.MainBundle.LocalizedString(Strings.HudSpeed, Strings.HudSpeed);
+#else
+            this._hudSpeedText = AppResources.HudSpeed; 
+#endif
+
+#if ANDROID
+            this._hudCannotGoSlowerThan = Program.SharedProgram.Resources.GetString(Resource.String.HudCannotGoSlowerThan);
+#elif IOS
+            this._hudCannotGoSlowerThan = NSBundle.MainBundle.LocalizedString(Strings.HudCannotGoSlowerThan, Strings.HudCannotGoSlowerThan);
+#else
+            this._hudCannotGoSlowerThan = AppResources.HudCannotGoSlowerThan; 
+#endif
 
             // Admin
 #if DEBUG
@@ -692,7 +719,6 @@ namespace Simsip.LineRunner.Scenes.Hud
             // Enable support for gestures
             TouchPanel.EnabledGestures = GestureType.FreeDrag | GestureType.DragComplete | GestureType.DoubleTap | GestureType.Hold;
             CCApplication.SharedApplication.OnGesture += this.HudOnGesture;
-
 
             // Activate tap animation
             this._startTapImage.RunAction(this._startTapAction);
@@ -795,6 +821,10 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             // Restore secondary layers
             this.RestoreSecondaryLayers();
+
+            // Reset pause toggle
+            this._pauseToggle.SelectedIndex = 0; // Paused
+            this._pauseLabel.Text = this._pauseText;
         }
 
         public void DisplayScore(int score)
@@ -820,25 +850,6 @@ namespace Simsip.LineRunner.Scenes.Hud
             var text = pageLineText + " " + pageNumber + "/" + lineNumber;
 
             this.UpdateStatus1(text);
-        }
-
-        private void UpdateStatus1(string text)
-        {
-            if (this._status1Label != null)
-            {
-                this.ActionManager.RemoveAllActionsFromTarget(this._status1Label);
-                this.RemoveChild(this._status1Label);
-            }
-
-            this._status1Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            this._status1Label.Color = CCColor3B.Red;
-            this._status1Label.AnchorPoint = CCPoint.AnchorMiddle;
-            this._status1Label.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.75f * this.ContentSize.Height);
-            this.AddChild(this._status1Label);
-
-            this._status1Label.RunAction(this._status1LabelAction);
         }
 
         public void StopTimer()
@@ -870,17 +881,7 @@ namespace Simsip.LineRunner.Scenes.Hud
                             case Dragging.None:
                                 {
                                     // Animate display of double tap help text
-                                    this._status1Label.StopAllActions();
-                                    var doubleTapText = string.Empty;
-#if ANDROID
-                                    doubleTapText = Program.SharedProgram.Resources.GetString(Resource.String.CommonReset);
-#elif IOS
-                                    doubleTapText = NSBundle.MainBundle.LocalizedString(Strings.CommonReset, Strings.CommonReset);
-#else
-                                    doubleTapText = AppResources.CommonReset;
-#endif
-                                    this._status1Label.Text = doubleTapText;
-                                    this._status1Label.RunAction(this._status1LabelAction);
+                                    this.UpdateStatus1(this._doubleTapResetText);
 
                                     // IMPORTANT: Gesture position differs from Touch position
                                     //            in that we have to invert the y value.
@@ -932,17 +933,7 @@ namespace Simsip.LineRunner.Scenes.Hud
                 case GestureType.Hold:
                     {
                         // Animate display of double tap help text
-                        this._status1Label.StopAllActions();
-                        var doubleTapText = string.Empty;
-#if ANDROID
-                        doubleTapText = Program.SharedProgram.Resources.GetString(Resource.String.CommonReset);
-#elif IOS
-                        doubleTapText = NSBundle.MainBundle.LocalizedString(Strings.CommonReset, Strings.CommonReset);
-#else
-                        doubleTapText = AppResources.CommonReset;
-#endif
-                        this._status1Label.Text = doubleTapText;
-                        this._status1Label.RunAction(this._status1LabelAction);
+                        this.UpdateStatus1(this._doubleTapResetText);
 
                         var p = CCDirector.SharedDirector.ConvertToUi(g.Position);
                         var jl = this._joystickLeftItem.WorldBoundingBox;
@@ -1001,6 +992,12 @@ namespace Simsip.LineRunner.Scenes.Hud
                 return;
             }
 
+            // Sanity check, sometimes a race condition leaves us in a paused state
+            this._paused = false;
+            this._pauseLabel.Text = this._pauseText;
+            this._pauseToggle.SelectedIndex = 0;
+            this.UpdateStatus2(string.Empty);
+
             // Base layer off
             this._baseLayer.Visible = false;
 
@@ -1009,9 +1006,15 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             // Get game going
             this._parent.TheActionLayer.SwitchState(GameState.Moving);
+
+            // Sanity check, sometimes a race condition leaves us in a paused state
+            if (this._characterCache.IsPaused())
+            {
+                this._characterCache.Pause(false);
+            }
         }
 
-        private void PauseTogglePressed()
+        private void PauseTogglePressed(int selectedIndex)
         {
             // Short-circuit if dragging
             if (this._dragging != Dragging.None)
@@ -1019,32 +1022,99 @@ namespace Simsip.LineRunner.Scenes.Hud
                 return;
             }
 
-            if (this._paused)
+            if (selectedIndex == 0) // Resume
             {
+                // Set state
                 this._paused = false;
+
+                // Get hero moving again
                 this._characterCache.Pause(false);
 
-                // Clear out any previous activity for status label
-                // and clear out the label itself
-                this._status2Label.ActionManager.RemoveAllActionsFromTarget(this);
-                this._status2Label.Text = string.Empty;
+                // Flip menu text
+                this._pauseLabel.Text = this._pauseText;
+
+                // Clear out status 2 label
+                this.UpdateStatus2(string.Empty);
 
                 // Hide secondary layers
                 this.HideSecondaryLayers();
             }
-            else
+            else                    // Pause
             {
+                // Set state
                 this._paused = true;
+
+                // Put hero in holding position
                 this._characterCache.Pause(true);
 
-                // Clear out any previous activity for paused status label
-                // and set new text
-                this._status2Label.ActionManager.RemoveAllActionsFromTarget(this);
-                this._status2Label.Text = this._pauseText;
-                this._status2Label.RunAction(this._status2LabelAction);
+                // Flip menu text
+                this._pauseLabel.Text = this._resumeText;
+
+                // Update status 2 label
+                this.UpdateStatus2(this._pausedText);
 
                 // Restore secondary layers
                 this.RestoreSecondaryLayers();
+            }
+        }
+
+        private void UpdateStatus1(string text)
+        {
+            // Lazy initialization
+            if (this._status1Label == null)
+            {
+                this._status1Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                this._status1Label.Color = CCColor3B.Red;
+                this._status1Label.AnchorPoint = CCPoint.AnchorMiddle;
+                this._status1Label.Position = new CCPoint(
+                    0.5f * this.ContentSize.Width,
+                    0.75f * this.ContentSize.Height);
+                this.AddChild(this._status1Label);
+            }
+
+            // Clear out any previous actions
+            this.ActionManager.RemoveAllActionsFromTarget(this._status1Label);
+
+            // Can't set empty strings, so just turn visibility off
+            if (text == string.Empty)
+            {
+                this._status1Label.Visible = false;
+            }
+            else
+            {
+                // Normal update of text, action will also turn visibility back on for short duration
+                this._status1Label.Text = text;
+                this._status1Label.RunAction(this._status1LabelAction);
+            }
+        }
+
+        private void UpdateStatus2(string text)
+        {
+            // Lazy initialization
+            if (this._status2Label == null)
+            {
+                this._status2Label = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                this._status2Label.Color = CCColor3B.Red;
+                this._status2Label.AnchorPoint = CCPoint.AnchorMiddle;
+                this._status2Label.Position = new CCPoint(
+                    0.5f * this.ContentSize.Width,
+                    0.65f * this.ContentSize.Height);
+                this.AddChild(this._status2Label);
+            }
+            
+            // Clear out any previous actions
+            this.ActionManager.RemoveAllActionsFromTarget(this._status2Label);
+
+            // Can't set empty strings, so just turn visibility off
+            if (text == string.Empty)
+            {
+                this._status2Label.Visible = false;
+            }
+            else
+            {
+                // Normal update of text, action will also turn visibility back on
+                this._status2Label.Text = text;
+                this._status2Label.RunAction(this._status2LabelAction);
             }
         }
 
@@ -1061,27 +1131,13 @@ namespace Simsip.LineRunner.Scenes.Hud
             var statusText = string.Empty;
             if (this._characterCache.DecreaseVelocity())
             {
-#if ANDROID
-                statusText = Program.SharedProgram.Resources.GetString(Resource.String.HudSpeed);
-#elif IOS
-                statusText = NSBundle.MainBundle.LocalizedString(Strings.HudSpeed, Strings.HudSpeed);
-#else
-                statusText = AppResources.HudSpeed; 
-#endif
+                statusText = this._hudSpeedText;
             }
             else
             {
-                #if ANDROID
-                    statusText = Program.SharedProgram.Resources.GetString(Resource.String.HudCannotGoSlowerThan);
-                #elif IOS
-                    statusText = NSBundle.MainBundle.LocalizedString(Strings.HudCannotGoSlowerThan, Strings.HudCannotGoSlowerThan);
-                #else
-                    statusText = AppResources.HudCannotGoSlowerThan; 
-                #endif
+                statusText = this._hudCannotGoSlowerThan;
             }
-            this._status1Label.Text = statusText + " " + (this._characterCache.GetLinearVelocityX() * 100);
-            this._status1Label.ActionManager.RemoveAllActionsFromTarget(this);
-            this._status1Label.RunAction(this._status1LabelAction);
+            this.UpdateStatus1(statusText + " " + (this._characterCache.GetLinearVelocityX() * 100));
         }
 
         private void IncreaseVelocity()
@@ -1094,17 +1150,7 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             this._characterCache.IncreaseVelocity();
 
-            var statusText = string.Empty;
-#if ANDROID
-            statusText = Program.SharedProgram.Resources.GetString(Resource.String.HudSpeed);
-#elif IOS
-            statusText = NSBundle.MainBundle.LocalizedString(Strings.HudSpeed, Strings.HudSpeed);
-#else
-            statusText = AppResources.HudSpeed; 
-#endif
-            this._status1Label.Text = statusText + " " + (this._characterCache.GetLinearVelocityX() * 100);
-            this._status1Label.ActionManager.RemoveAllActionsFromTarget(this);
-            this._status1Label.RunAction(this._status1LabelAction);
+            this.UpdateStatus1(this._hudSpeedText + " " + (this._characterCache.GetLinearVelocityX() * 100));
         }
 
         private void NavigateBase(LayerTags layer)
