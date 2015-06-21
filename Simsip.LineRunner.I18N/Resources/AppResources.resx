@@ -335,11 +335,8 @@
   <data name="HudTrackball" xml:space="preserve">
     <value>trackball</value>
   </data>
-  <data name="HudTopScore" xml:space="preserve">
-    <value>top score</value>
-  </data>
-  <data name="HudIn" xml:space="preserve">
-    <value>in</value>
+  <data name="HudTime" xml:space="preserve">
+    <value>time</value>
   </data>
   <data name="HudHome" xml:space="preserve">
     <value>home</value>
@@ -470,8 +467,8 @@
   <data name="AchievementsColumnDate" xml:space="preserve">
     <value>date</value>
   </data>
-  <data name="AchievementsColumnIn" xml:space="preserve">
-    <value>in</value>
+  <data name="AchievementsColumnTime" xml:space="preserve">
+    <value>time</value>
   </data>
   <data name="AchievementsColumnScore" xml:space="preserve">
     <value>score</value>

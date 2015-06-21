@@ -32,7 +32,7 @@ namespace Simsip.LineRunner.Scenes.Finish
         private CCAction _layerActionOut;
 
         // New top score
-        private int _newTopScore;
+        private int _newHighScore;
         private CCLabelTTF _newTopScoreLabel;
         private CCLabelTTF _newTopTimeLabel;
 
@@ -206,9 +206,9 @@ namespace Simsip.LineRunner.Scenes.Finish
 
         #region Api
 
-        public void SetNewTopScore(int newTopScore)
+        public void SetNewHighScore(int newHighScore)
         {
-            this._newTopScore = newTopScore;
+            this._newHighScore = newHighScore;
         }
 
         #endregion
@@ -227,19 +227,27 @@ namespace Simsip.LineRunner.Scenes.Finish
         {
             // First, update our new high score locally
             var scoreRepository = new FacebookScoreRepository();
-            var newTopTimeSpan = this._parent.TheHudLayer.GetTime();
+            var newHighTimeSpan = this._parent.TheHudLayer.GetTime();
             var score = new FacebookScoreEntity
             {
-                Score = this._newTopScore,
-                ScoreTime = newTopTimeSpan,
+                Score = this._newHighScore,
+                ScoreTime = newHighTimeSpan,
                 CreateDate = DateTime.Now
             };
             scoreRepository.Create(score);
 
-            this._newTopScoreLabel.Text = this._newTopScore.ToString();
+            // Now get text representations of our new high score
+            var newHighScoreText = this._newHighScore.ToString();
+            var newHighScoreTimeText = newHighTimeSpan.ToString(@"h\:mm\:ss");
 
-            this._newTopTimeLabel.Text = newTopTimeSpan.ToString(@"h\:mm\:ss");
+            // Then update hud layer's high score
+            this._parent.TheHudLayer.UpdateHighScore(newHighScoreText, newHighScoreTimeText);
 
+            // And the finish layer's high score
+            this._newTopScoreLabel.Text = newHighScoreText;
+            this._newTopTimeLabel.Text = newHighScoreTimeText;
+
+            // Finally, display some particle effects
             var finishParticleDescs = ParticleEffectFactory.CreateFinishParticles(GetParticleEffectScreenPoint);
             int i = 0;
             foreach (var finishParticleDesc in finishParticleDescs)
@@ -325,7 +333,7 @@ namespace Simsip.LineRunner.Scenes.Finish
                 // Then follow up by creating remote record
                 var score = new FacebookScoreEntity
                     {
-                        Score = this._newTopScore
+                        Score = this._newHighScore
                     };
                 var scoreService = new FacebookScoreService();
                 var success = await scoreService.AddScoreAsync(score);

@@ -112,13 +112,9 @@
           <source>trackball</source>
           <target state="new">trackball</target>
         </trans-unit>
-        <trans-unit id="Resx/HudTopScore" translate="yes" xml:space="preserve">
-          <source>top score</source>
-          <target state="new">top score</target>
-        </trans-unit>
-        <trans-unit id="Resx/HudIn" translate="yes" xml:space="preserve">
-          <source>in</source>
-          <target state="new">in</target>
+        <trans-unit id="Resx/HudTime" translate="yes" xml:space="preserve">
+          <source>time</source>
+          <target state="new">time</target>
         </trans-unit>
         <trans-unit id="Resx/HudHome" translate="yes" xml:space="preserve">
           <source>home</source>
@@ -188,13 +184,13 @@
           <source>score</source>
           <target state="new">score</target>
         </trans-unit>
-        <trans-unit id="Resx/AchievementsColumnIn" translate="yes" xml:space="preserve">
-          <source>in</source>
-          <target state="new">in</target>
-        </trans-unit>
         <trans-unit id="Resx/AchievementsColumnDate" translate="yes" xml:space="preserve">
           <source>date</source>
           <target state="new">date</target>
+        </trans-unit>
+        <trans-unit id="Resx/AchievementsColumnTime" translate="yes" xml:space="preserve">
+          <source>time</source>
+          <target state="new">time</target>
         </trans-unit>
         <trans-unit id="Resx/UpgradesRestoreError" translate="yes" xml:space="preserve">
           <source>error restoring upgrade</source>

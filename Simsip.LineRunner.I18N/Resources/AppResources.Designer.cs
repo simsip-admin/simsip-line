@@ -71,20 +71,20 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to in.
-        /// </summary>
-        public static string AchievementsColumnIn {
-            get {
-                return ResourceManager.GetString("AchievementsColumnIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to score.
         /// </summary>
         public static string AchievementsColumnScore {
             get {
                 return ResourceManager.GetString("AchievementsColumnScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to time.
+        /// </summary>
+        public static string AchievementsColumnTime {
+            get {
+                return ResourceManager.GetString("AchievementsColumnTime", resourceCulture);
             }
         }
         
@@ -575,15 +575,6 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to in.
-        /// </summary>
-        public static string HudIn {
-            get {
-                return ResourceManager.GetString("HudIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to joystick.
         /// </summary>
         public static string HudJoystick {
@@ -674,11 +665,11 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to top score.
+        ///   Looks up a localized string similar to time.
         /// </summary>
-        public static string HudTopScore {
+        public static string HudTime {
             get {
-                return ResourceManager.GetString("HudTopScore", resourceCulture);
+                return ResourceManager.GetString("HudTime", resourceCulture);
             }
         }
         

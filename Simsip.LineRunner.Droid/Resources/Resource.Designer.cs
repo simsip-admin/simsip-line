@@ -1909,14 +1909,14 @@ namespace Simsip.LineRunner
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f0600b0
-			public const int AchievementsColumnDate = 2131099824;
+			// aapt resource value: 0x7f0600af
+			public const int AchievementsColumnDate = 2131099823;
 			
 			// aapt resource value: 0x7f0600b1
-			public const int AchievementsColumnIn = 2131099825;
+			public const int AchievementsColumnScore = 2131099825;
 			
-			// aapt resource value: 0x7f0600b2
-			public const int AchievementsColumnScore = 2131099826;
+			// aapt resource value: 0x7f0600b0
+			public const int AchievementsColumnTime = 2131099824;
 			
 			// aapt resource value: 0x7f06004f
 			public const int AchievementsLeaderboards = 2131099727;
@@ -1936,11 +1936,11 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060054
 			public const int AdminParticlesOn = 2131099732;
 			
-			// aapt resource value: 0x7f060087
-			public const int AdminStartLine = 2131099783;
+			// aapt resource value: 0x7f060086
+			public const int AdminStartLine = 2131099782;
 			
-			// aapt resource value: 0x7f060088
-			public const int AdminStartLineDescription = 2131099784;
+			// aapt resource value: 0x7f060087
+			public const int AdminStartLineDescription = 2131099783;
 			
 			// aapt resource value: 0x7f060055
 			public const int AdminStartPage = 2131099733;
@@ -1948,11 +1948,11 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060056
 			public const int AdminStartPageDescription = 2131099734;
 			
-			// aapt resource value: 0x7f0600a8
-			public const int AdminUpgradesOff = 2131099816;
+			// aapt resource value: 0x7f0600a7
+			public const int AdminUpgradesOff = 2131099815;
 			
-			// aapt resource value: 0x7f0600a9
-			public const int AdminUpgradesOn = 2131099817;
+			// aapt resource value: 0x7f0600a8
+			public const int AdminUpgradesOn = 2131099816;
 			
 			// aapt resource value: 0x7f06003b
 			public const int ApplicationName = 2131099707;
@@ -1981,8 +1981,8 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f06007d
 			public const int CommonPage = 2131099773;
 			
-			// aapt resource value: 0x7f06008a
-			public const int CommonReset = 2131099786;
+			// aapt resource value: 0x7f060089
+			public const int CommonReset = 2131099785;
 			
 			// aapt resource value: 0x7f06003e
 			public const int CommonVersion = 2131099710;
@@ -2011,17 +2011,17 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060040
 			public const int HelpHowToPlayDescription1 = 2131099712;
 			
+			// aapt resource value: 0x7f060092
+			public const int HelpHud = 2131099794;
+			
+			// aapt resource value: 0x7f06008a
+			public const int HelpIncreaseDecrease = 2131099786;
+			
 			// aapt resource value: 0x7f060093
-			public const int HelpHud = 2131099795;
+			public const int HelpLeaderboards = 2131099795;
 			
-			// aapt resource value: 0x7f06008b
-			public const int HelpIncreaseDecrease = 2131099787;
-			
-			// aapt resource value: 0x7f060094
-			public const int HelpLeaderboards = 2131099796;
-			
-			// aapt resource value: 0x7f060089
-			public const int HelpLicense = 2131099785;
+			// aapt resource value: 0x7f060088
+			public const int HelpLicense = 2131099784;
 			
 			// aapt resource value: 0x7f060041
 			public const int HelpLines = 2131099713;
@@ -2032,47 +2032,47 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060043
 			public const int HelpOptionsDescription = 2131099715;
 			
-			// aapt resource value: 0x7f06008c
-			public const int HelpOrbit = 2131099788;
+			// aapt resource value: 0x7f06008b
+			public const int HelpOrbit = 2131099787;
 			
 			// aapt resource value: 0x7f060044
 			public const int HelpPads = 2131099716;
 			
-			// aapt resource value: 0x7f06008d
-			public const int HelpPauseResume = 2131099789;
+			// aapt resource value: 0x7f06008c
+			public const int HelpPauseResume = 2131099788;
 			
 			// aapt resource value: 0x7f060045
 			public const int HelpRatingsDescription = 2131099717;
 			
+			// aapt resource value: 0x7f06008d
+			public const int HelpRotate = 2131099789;
+			
 			// aapt resource value: 0x7f06008e
-			public const int HelpRotate = 2131099790;
+			public const int HelpScroll = 2131099790;
 			
-			// aapt resource value: 0x7f06008f
-			public const int HelpScroll = 2131099791;
-			
-			// aapt resource value: 0x7f060095
-			public const int HelpSound = 2131099797;
+			// aapt resource value: 0x7f060094
+			public const int HelpSound = 2131099796;
 			
 			// aapt resource value: 0x7f060046
 			public const int HelpStartDescription = 2131099718;
 			
-			// aapt resource value: 0x7f0600b4
-			public const int HelpSupport = 2131099828;
+			// aapt resource value: 0x7f0600b3
+			public const int HelpSupport = 2131099827;
 			
 			// aapt resource value: 0x7f060047
 			public const int HelpTitle = 2131099719;
 			
+			// aapt resource value: 0x7f060099
+			public const int HelpUpgrades = 2131099801;
+			
 			// aapt resource value: 0x7f06009a
-			public const int HelpUpgrades = 2131099802;
+			public const int HelpUpgradesPractice = 2131099802;
 			
 			// aapt resource value: 0x7f06009b
-			public const int HelpUpgradesPractice = 2131099803;
+			public const int HelpUpgradesPracticeDesc1 = 2131099803;
 			
 			// aapt resource value: 0x7f06009c
-			public const int HelpUpgradesPracticeDesc1 = 2131099804;
-			
-			// aapt resource value: 0x7f06009d
-			public const int HelpUpgradesPracticeDesc2 = 2131099805;
+			public const int HelpUpgradesPracticeDesc2 = 2131099804;
 			
 			// aapt resource value: 0x7f060080
 			public const int HudCannotGoSlowerThan = 2131099776;
@@ -2080,14 +2080,11 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060079
 			public const int HudHelp = 2131099769;
 			
-			// aapt resource value: 0x7f0600b3
-			public const int HudHigh = 2131099827;
-			
-			// aapt resource value: 0x7f060086
-			public const int HudHome = 2131099782;
+			// aapt resource value: 0x7f0600b2
+			public const int HudHigh = 2131099826;
 			
 			// aapt resource value: 0x7f060085
-			public const int HudIn = 2131099781;
+			public const int HudHome = 2131099781;
 			
 			// aapt resource value: 0x7f060082
 			public const int HudJoystick = 2131099778;
@@ -2095,8 +2092,8 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f06007a
 			public const int HudOptions = 2131099770;
 			
-			// aapt resource value: 0x7f060090
-			public const int HudOrbit = 2131099792;
+			// aapt resource value: 0x7f06008f
+			public const int HudOrbit = 2131099791;
 			
 			// aapt resource value: 0x7f060060
 			public const int HudPageLine = 2131099744;
@@ -2110,17 +2107,17 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060061
 			public const int HudResume = 2131099745;
 			
-			// aapt resource value: 0x7f060091
-			public const int HudRotate = 2131099793;
+			// aapt resource value: 0x7f060090
+			public const int HudRotate = 2131099792;
 			
-			// aapt resource value: 0x7f060092
-			public const int HudScroll = 2131099794;
+			// aapt resource value: 0x7f060091
+			public const int HudScroll = 2131099793;
 			
 			// aapt resource value: 0x7f06007f
 			public const int HudSpeed = 2131099775;
 			
 			// aapt resource value: 0x7f060084
-			public const int HudTopScore = 2131099780;
+			public const int HudTime = 2131099780;
 			
 			// aapt resource value: 0x7f060083
 			public const int HudTrackball = 2131099779;
@@ -2152,26 +2149,26 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f06004b
 			public const int OptionsPads = 2131099723;
 			
-			// aapt resource value: 0x7f0600aa
-			public const int OptionsPractice = 2131099818;
+			// aapt resource value: 0x7f0600a9
+			public const int OptionsPractice = 2131099817;
+			
+			// aapt resource value: 0x7f0600a1
+			public const int OptionsPracticeKillsOff = 2131099809;
 			
 			// aapt resource value: 0x7f0600a2
-			public const int OptionsPracticeKillsOff = 2131099810;
+			public const int OptionsPracticeKillsOn = 2131099810;
 			
 			// aapt resource value: 0x7f0600a3
-			public const int OptionsPracticeKillsOn = 2131099811;
+			public const int OptionsPracticeStartLine = 2131099811;
 			
 			// aapt resource value: 0x7f0600a4
-			public const int OptionsPracticeStartLine = 2131099812;
+			public const int OptionsPracticeStartPage = 2131099812;
 			
 			// aapt resource value: 0x7f0600a5
-			public const int OptionsPracticeStartPage = 2131099813;
+			public const int OptionsPracticeSwitchingLine = 2131099813;
 			
 			// aapt resource value: 0x7f0600a6
-			public const int OptionsPracticeSwitchingLine = 2131099814;
-			
-			// aapt resource value: 0x7f0600a7
-			public const int OptionsPracticeSwitchingPage = 2131099815;
+			public const int OptionsPracticeSwitchingPage = 2131099814;
 			
 			// aapt resource value: 0x7f06004c
 			public const int OptionsSoundOff = 2131099724;
@@ -2206,44 +2203,44 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f06007c
 			public const int StartRate = 2131099772;
 			
-			// aapt resource value: 0x7f06009e
-			public const int UpgradesBuy = 2131099806;
-			
-			// aapt resource value: 0x7f060097
-			public const int UpgradesPractice = 2131099799;
-			
-			// aapt resource value: 0x7f060098
-			public const int UpgradesPracticeDesc1 = 2131099800;
-			
-			// aapt resource value: 0x7f060099
-			public const int UpgradesPracticeDesc2 = 2131099801;
-			
-			// aapt resource value: 0x7f0600ab
-			public const int UpgradesPracticeDesc3 = 2131099819;
-			
-			// aapt resource value: 0x7f06009f
-			public const int UpgradesPrice = 2131099807;
-			
-			// aapt resource value: 0x7f0600ac
-			public const int UpgradesPurchaseError = 2131099820;
-			
-			// aapt resource value: 0x7f0600ad
-			public const int UpgradesPurchaseStatus = 2131099821;
-			
-			// aapt resource value: 0x7f0600a0
-			public const int UpgradesPurchasedOn = 2131099808;
-			
-			// aapt resource value: 0x7f0600a1
-			public const int UpgradesRestore = 2131099809;
-			
-			// aapt resource value: 0x7f0600ae
-			public const int UpgradesRestoreError = 2131099822;
-			
-			// aapt resource value: 0x7f0600af
-			public const int UpgradesRestoreStatus = 2131099823;
+			// aapt resource value: 0x7f06009d
+			public const int UpgradesBuy = 2131099805;
 			
 			// aapt resource value: 0x7f060096
-			public const int UpgradesTitle = 2131099798;
+			public const int UpgradesPractice = 2131099798;
+			
+			// aapt resource value: 0x7f060097
+			public const int UpgradesPracticeDesc1 = 2131099799;
+			
+			// aapt resource value: 0x7f060098
+			public const int UpgradesPracticeDesc2 = 2131099800;
+			
+			// aapt resource value: 0x7f0600aa
+			public const int UpgradesPracticeDesc3 = 2131099818;
+			
+			// aapt resource value: 0x7f06009e
+			public const int UpgradesPrice = 2131099806;
+			
+			// aapt resource value: 0x7f0600ab
+			public const int UpgradesPurchaseError = 2131099819;
+			
+			// aapt resource value: 0x7f0600ac
+			public const int UpgradesPurchaseStatus = 2131099820;
+			
+			// aapt resource value: 0x7f06009f
+			public const int UpgradesPurchasedOn = 2131099807;
+			
+			// aapt resource value: 0x7f0600a0
+			public const int UpgradesRestore = 2131099808;
+			
+			// aapt resource value: 0x7f0600ad
+			public const int UpgradesRestoreError = 2131099821;
+			
+			// aapt resource value: 0x7f0600ae
+			public const int UpgradesRestoreStatus = 2131099822;
+			
+			// aapt resource value: 0x7f060095
+			public const int UpgradesTitle = 2131099797;
 			
 			// aapt resource value: 0x7f06006a
 			public const int WorldsDefault = 2131099754;

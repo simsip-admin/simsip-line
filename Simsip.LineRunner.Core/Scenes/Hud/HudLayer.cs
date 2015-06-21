@@ -71,18 +71,21 @@ namespace Simsip.LineRunner.Scenes.Hud
         // Trackball
         private CCMenuItemLabel _trackballItem;
 
-        // Top score
-        private CCLabelTTF _topScoreHeaderLabel;
+        // High score
+        private CCLabelTTF _highScoreHeaderLabel;
+        private CCLabelTTF _highScoreLabel;
+        private CCLabelTTF _highScoreTimeHeaderLabel;
+        private CCLabelTTF _highScoreTimeLabel;
+
+        // Current score
+        private CCLabelTTF _scoreLabel;
+        private CCAction _scoreLabelAction;
 
         // Status label
         private CCLabelTTF _status1Label;
         private CCAction _status1LabelAction;
         private CCLabelTTF _status2Label;
         private CCAction _status2LabelAction;
-
-        // Score label
-        private CCLabelTTF _scoreLabel;
-        private CCAction _scoreLabelAction;
 
         // Timer
         private CCLabelTTF _timerLabel;
@@ -264,14 +267,6 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._hideHeaderAnim = new CCScaleTo(GameConstants.DURATION_LAYER_TRANSITION, 0f);
             this._restoreHeaderAnim = new CCEaseBackOut(new CCScaleTo(GameConstants.DURATION_LAYER_TRANSITION, 1f));
 
-            // Top score
-            this._topScoreHeaderLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._topScoreHeaderLabel.AnchorPoint = CCPoint.AnchorMiddle;
-            this._topScoreHeaderLabel.Position = new CCPoint(
-                0.6f * headerLeftSize.Width,
-                0.8f * headerLeftSize.Height);
-            this._headerLeftLayer.AddChild(this._topScoreHeaderLabel);
-
             // Hud menu
             var homeText = string.Empty;
 #if ANDROID
@@ -383,8 +378,51 @@ namespace Simsip.LineRunner.Scenes.Hud
                 0.2f * headerLeftSize.Height);
             this._headerLeftLayer.AddChild(speedLabel);
 
-            // Score label
+            // High score
+            var highScoreHeaderText = string.Empty;
+#if ANDROID
+            highScoreHeaderText = Program.SharedProgram.Resources.GetString(Resource.String.HudHigh);
+#elif IOS
+            highScoreHeaderText = NSBundle.MainBundle.LocalizedString(Strings.HudHigh, Strings.HudHigh);
+#else
+            highScoreHeaderText = AppResources.HudHigh;
+#endif
+            this._highScoreHeaderLabel = new CCLabelTTF(highScoreHeaderText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._highScoreHeaderLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            this._highScoreHeaderLabel.Position = new CCPoint(
+                0.5f * headerRightSize.Width,
+                0.8f * headerRightSize.Height);
+            this._headerRightLayer.AddChild(this._highScoreHeaderLabel);
+            this._highScoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._highScoreLabel.Color = CCColor3B.Yellow;
+            this._highScoreLabel.Position = new CCPoint(
+                0.5f * headerRightSize.Width,
+                0.6f * headerRightSize.Height);
+            this._headerRightLayer.AddChild(this._highScoreLabel);
+            var timeText = string.Empty;
+#if ANDROID
+            timeText = Program.SharedProgram.Resources.GetString(Resource.String.HudTime);
+#elif IOS
+            timeText = NSBundle.MainBundle.LocalizedString(Strings.HudTime, Strings.HudTime);
+#else
+            timeText = AppResources.HudTime;
+#endif
+            this._highScoreTimeHeaderLabel = new CCLabelTTF(timeText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._highScoreTimeHeaderLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            this._highScoreTimeHeaderLabel.Position = new CCPoint(
+                0.5f * headerRightSize.Width,
+                0.4f * headerRightSize.Height);
+            this._headerRightLayer.AddChild(this._highScoreTimeHeaderLabel);
+            this._highScoreTimeLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._highScoreTimeLabel.Position = new CCPoint(
+                0.5f * headerRightSize.Width,
+                0.2f * headerRightSize.Height);
+            this._headerRightLayer.AddChild(this._highScoreTimeLabel);
+
+            // Current score
+            // IMPORTANT: Starts off not visible
             this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
+            this._scoreLabel.Visible = false;
             this._scoreLabel.Color = CCColor3B.Yellow;
             this._scoreLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._scoreLabel.Position = new CCPoint(
@@ -399,7 +437,9 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._scoreLabelAction = new CCSequence(new CCFiniteTimeAction[] { scaleStartScore, scaleUpScore, scaleBackScore });
 
             // Timer
+            // IMPORTANT: Starts off not visible
             this._timerLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._timerLabel.Visible = false;
             this._timerLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._timerLabel.Position = new CCPoint(
                 0.5f * headerRightSize.Width,
@@ -664,32 +704,16 @@ namespace Simsip.LineRunner.Scenes.Hud
             // and it was not being enabled again when entering OnEnter()
             this.ScheduleUpdate();
 
-            // Top score display
+            // High score display
             var scoreRepository = new FacebookScoreRepository();
-            var topScore = scoreRepository.GetTopScoreForPlayer();
-            if (topScore != null)
+            var highScore = scoreRepository.GetTopScoreForPlayer();
+            if (highScore != null)
             {
-                var topScoreHeaderText = string.Empty;
-#if ANDROID
-                topScoreHeaderText = Program.SharedProgram.Resources.GetString(Resource.String.HudTopScore);
-#elif IOS
-                topScoreHeaderText = NSBundle.MainBundle.LocalizedString(Strings.HudTopScore, Strings.HudTopScore);
-#else
-                topScoreHeaderText = AppResources.HudTopScore;
-#endif
-
-                var inText = string.Empty;
-#if ANDROID
-                inText = Program.SharedProgram.Resources.GetString(Resource.String.HudIn);
-#elif IOS
-                inText = NSBundle.MainBundle.LocalizedString(Strings.HudIn, Strings.HudIn);
-#else
-                inText = AppResources.HudIn;
-#endif
-                this._topScoreHeaderLabel.Text = topScoreHeaderText + " " +
-                    topScore.Score.ToString()  + " " + 
-                    inText + " " + 
-                    topScore.ScoreTime.ToString(@"h\:mm\:ss");
+                this.UpdateHighScore(highScore.Score.ToString(), highScore.ScoreTime.ToString(@"h\:mm\:ss"));
+            }
+            else
+            {
+                this.UpdateHighScore("0", string.Empty);
             }
 
             // Reset positioning of start image
@@ -820,10 +844,10 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._baseLayer.Visible = true;
 
             // Restore secondary layers
-            this.RestoreSecondaryLayers();
+            this.RestoreSecondaryLayers(displayHighScore: true);
 
             // Reset pause toggle
-            this._pauseToggle.SelectedIndex = 0; // Paused
+            this._pauseToggle.SelectedIndex = 0; // Pause visible
             this._pauseLabel.Text = this._pauseText;
         }
 
@@ -833,6 +857,12 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._scoreLabel.StopAllActions();
             this._scoreLabel.Text =  score.ToString();
             this._scoreLabel.RunAction(this._scoreLabelAction);
+        }
+
+        public void UpdateHighScore(string newHighScore, string newHighTime)
+        {
+            this._highScoreLabel.Text = newHighScore;
+            this._highScoreTimeLabel.Text = newHighTime;
         }
 
         public void DisplayPageLineNumber(int pageNumber, int lineNumber)
@@ -978,10 +1008,41 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._footerLeftLayer.RunAction(this._hideFooterAnim);
         }
 
-        private void RestoreSecondaryLayers()
+        private void RestoreSecondaryLayers(bool displayHighScore)
         {
             this._headerLeftLayer.RunAction(this._restoreHeaderAnim);
             this._footerLeftLayer.RunAction(this._restoreFooterAnim);
+
+            this.ToggleScoreLabels(displayHighScore);
+        }
+
+        private void ToggleScoreLabels(bool displayHighScore)
+        {
+            if (displayHighScore)
+            {
+                // High score
+                this._highScoreHeaderLabel.Visible = true;
+                this._highScoreLabel.Visible = true;
+                this._highScoreTimeHeaderLabel.Visible = true;
+                this._highScoreTimeLabel.Visible = true;
+
+                // Current score
+                this._scoreLabel.Visible = false;
+                this._timerLabel.Visible = false;
+
+            }
+            else
+            {
+                // High score
+                this._highScoreHeaderLabel.Visible = false;
+                this._highScoreLabel.Visible = false;
+                this._highScoreTimeHeaderLabel.Visible = false;
+                this._highScoreTimeLabel.Visible = false;
+
+                // Current score
+                this._scoreLabel.Visible = true;
+                this._timerLabel.Visible = true;
+            }
         }
 
         private void StartPressed()
@@ -1003,6 +1064,9 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             // Hide secondary layers
             this.HideSecondaryLayers();
+
+            // Switch to display of current score
+            this.ToggleScoreLabels(displayHighScore: false);
 
             // Get game going
             this._parent.TheActionLayer.SwitchState(GameState.Moving);
@@ -1054,7 +1118,7 @@ namespace Simsip.LineRunner.Scenes.Hud
                 this.UpdateStatus2(this._pausedText);
 
                 // Restore secondary layers
-                this.RestoreSecondaryLayers();
+                this.RestoreSecondaryLayers(displayHighScore: false);
             }
         }
 

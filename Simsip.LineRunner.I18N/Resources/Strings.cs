@@ -74,8 +74,7 @@
         public static string HudPaused = "HudPaused";
         public static string HudJoystick = "HudJoystick";
         public static string HudTrackball = "HudTrackball";
-        public static string HudTopScore = "HudTopScore";
-        public static string HudIn = "HudIn";
+        public static string HudTime = "HudTime";
         public static string HudHome = "HudHome";
         public static string AdminStartLine = "AdminStartLine";
         public static string AdminStartLineDescription = "AdminStartLineDescription";
@@ -119,7 +118,7 @@
         public static string UpgradesRestoreError = "UpgradesRestoreError";
         public static string UpgradesRestoreStatus = "UpgradesRestoreStatus";
         public static string AchievementsColumnDate = "AchievementsColumnDate";
-        public static string AchievementsColumnIn = "AchievementsColumnIn";
+        public static string AchievementsColumnTime = "AchievementsColumnTime";
         public static string AchievementsColumnScore = "AchievementsColumnScore";
         public static string HudHigh = "HudHigh";
         public static string HelpSupport = "HelpSupport";

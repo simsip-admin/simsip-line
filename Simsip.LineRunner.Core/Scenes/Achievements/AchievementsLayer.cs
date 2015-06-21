@@ -118,20 +118,20 @@ namespace Simsip.LineRunner.Scenes.Achievements
                 0.25f * this.ContentSize.Width,
                 0.7f  * this.ContentSize.Height);
             this.AddChild(scoreColumnHeader);
-            var inColumnHeaderText = string.Empty;
+            var timeColumnHeaderText = string.Empty;
 #if ANDROID
-            inColumnHeaderText = Program.SharedProgram.Resources.GetString(Resource.String.AchievementsColumnIn);
+            timeColumnHeaderText = Program.SharedProgram.Resources.GetString(Resource.String.AchievementsColumnTime);
 #elif IOS
-            inColumnHeaderText = NSBundle.MainBundle.LocalizedString(Strings.AchievementsColumnIn, Strings.AchievementsColumnIn);
+            timeColumnHeaderText = NSBundle.MainBundle.LocalizedString(Strings.AchievementsColumnTime, Strings.AchievementsColumnTime);
 #else
-            inColumnHeaderText = AppResources.AchievementsColumnIn;
+            timeColumnHeaderText = AppResources.AchievementsColumnTime;
 #endif
-            var inColumnHeader = new CCLabelTTF(inColumnHeaderText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            inColumnHeader.AnchorPoint = CCPoint.AnchorMiddleLeft;
-            inColumnHeader.Position = new CCPoint(
+            var timeColumnHeader = new CCLabelTTF(timeColumnHeaderText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            timeColumnHeader.AnchorPoint = CCPoint.AnchorMiddleLeft;
+            timeColumnHeader.Position = new CCPoint(
                 0.35f * this.ContentSize.Width,
                 0.7f  * this.ContentSize.Height);
-            this.AddChild(inColumnHeader);
+            this.AddChild(timeColumnHeader);
             var dateColumnHeaderText = string.Empty;
 #if ANDROID
             dateColumnHeaderText = Program.SharedProgram.Resources.GetString(Resource.String.AchievementsColumnDate);

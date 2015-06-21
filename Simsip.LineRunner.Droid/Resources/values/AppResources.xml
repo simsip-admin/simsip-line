@@ -72,8 +72,7 @@
   <string name="HudPaused">paused</string>
   <string name="HudJoystick">joystick</string>
   <string name="HudTrackball">trackball</string>
-  <string name="HudTopScore">top score</string>
-  <string name="HudIn">in</string>
+  <string name="HudTime">time</string>
   <string name="HudHome">home</string>
   <string name="AdminStartLine">start line</string>
   <string name="AdminStartLineDescription">enter line to start on (1-17)</string>
@@ -117,7 +116,7 @@
   <string name="UpgradesRestoreError">error restoring upgrade</string>
   <string name="UpgradesRestoreStatus">restoring upgrade</string>
   <string name="AchievementsColumnDate">date</string>
-  <string name="AchievementsColumnIn">in</string>
+  <string name="AchievementsColumnTime">time</string>
   <string name="AchievementsColumnScore">score</string>
   <string name="HudHigh">high</string>
   <string name="HelpSupport">support</string>

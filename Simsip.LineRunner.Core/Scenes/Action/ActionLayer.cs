@@ -1038,7 +1038,7 @@ namespace Simsip.LineRunner.Scenes.Action
                 previousTopScore[0].Score < currentScore))
             {
                 // Record new high score and give them a chance to post
-                this._parent.TheFinishLayer.SetNewTopScore(currentScore);
+                this._parent.TheFinishLayer.SetNewHighScore(currentScore);
                 this._parent.Navigate(LayerTags.FinishLayer);
             }
         }
