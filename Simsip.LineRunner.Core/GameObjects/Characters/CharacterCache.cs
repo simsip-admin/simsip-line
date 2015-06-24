@@ -176,6 +176,12 @@ namespace Simsip.LineRunner.GameObjects.Characters
 
                         break;
                     }
+                case GameState.Refresh:
+                    {
+                        this.TheHeroModel.Update();
+
+                        break;
+                    }
                 case GameState.Start:
                     {
                         this.TheHeroModel.Update();
@@ -363,31 +369,24 @@ namespace Simsip.LineRunner.GameObjects.Characters
                     }
                 case GameState.Refresh:
                     {
-                        // We need to set this up-front as refresh is done on a background thread
-                        // and we need to know this to short-circuit draw while this is done
-                        this._currentGameState = state;
-
                         // Set state
                         this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
                         this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
-                        // Get characters constructed for first page
-                        // this.ProcessNextPage();
-
                         // Attempt to suspend physics as best as possible
-                        // this.SuspendHeroPhysics();
-                        // this.RemoveHeroPhysicsConstraints();
+                        this.SuspendHeroPhysics();
+                        this.RemoveHeroPhysicsConstraints();
 
                         // Position hero at defined start position
                         // Will include logic to handle admin setting of line number other than 1
-                        // this.InitHeroPosition();
+                        this.InitHeroPosition();
 
                         // CreateLineHitParticles holder to keep hero in start location
-                        // this.RemoveHolderForHero();
-                        // this.CreateHolderForHero();
+                        this.RemoveHolderForHero();
+                        this.CreateHolderForHero();
 
                         // Turn this on so hero falls into place
-                        // this.TheHeroModel.PhysicsEntity.IsAffectedByGravity = true;
+                        this.TheHeroModel.PhysicsEntity.IsAffectedByGravity = true;
 
                         // In background load up the line following our current line we are moving to
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
@@ -991,17 +990,25 @@ namespace Simsip.LineRunner.GameObjects.Characters
             var adminLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
             if (adminLineNumber > 1)
             {
+                // Indent on odd sides by half of first line's indent
+                float xOriginalIndent = heroStartOrigin.X - this._pageCache.CurrentPageModel.WorldOrigin.X;
+                float xOffsetOdd = 0.5f * xOriginalIndent;
+
+                // And drop down by appropriate amount to place us at new starting line number
+                float yOffset = (adminLineNumber - 1) * this._pageCache.CurrentPageModel.WorldLineSpacing;
+
                 heroStartOrigin -= new Vector3(
-                    0,
-                    (adminLineNumber - 1) * this._pageCache.CurrentPageModel.WorldLineSpacing,
+                    xOffsetOdd,
+                    yOffset,
                     0);
 
-                // Do we need to adjust for starting on an even line number?
+                // Now, do we need to adjust for starting on an even line number?
                 if (adminLineNumber % 2 == 0)
                 {
-                    // Move to other side
+                    // Move to other side with an appropriate indent for even lines
+                    float xOffsetEven = this._pageCache.CurrentPageModel.WorldWidth - xOffsetOdd;
                     heroStartOrigin += new Vector3(
-                        this._pageCache.CurrentPageModel.WorldWidth - 1,
+                        xOffsetEven,
                         0,
                         0);
 

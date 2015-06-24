@@ -105,8 +105,8 @@
   <string name="OptionsPracticeKillsOn">kills on</string>
   <string name="OptionsPracticeStartLine">starting line</string>
   <string name="OptionsPracticeStartPage">starting page</string>
-  <string name="OptionsPracticeSwitchingLine">switching starting line to</string>
-  <string name="OptionsPracticeSwitchingPage">switching starting page to</string>
+  <string name="OptionsPracticeSwitchingLine">switching line to</string>
+  <string name="OptionsPracticeSwitchingPage">switching page to</string>
   <string name="AdminUpgradesOff">upgrades off</string>
   <string name="AdminUpgradesOn">upgrades on</string>
   <string name="OptionsPractice">practice mode</string>

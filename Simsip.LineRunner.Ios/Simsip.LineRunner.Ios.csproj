@@ -130,6 +130,51 @@
     <Compile Include="..\Simsip.LineRunner.Core\Bepu\Cameras\FreeCameraControlScheme.cs">
       <Link>Bepu\Cameras\FreeCameraControlScheme.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\BodyNode.cs">
+      <Link>BlockTumbler\BodyNode.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\Constants.cs">
+      <Link>BlockTumbler\Constants.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\ContactListener.cs">
+      <Link>BlockTumbler\ContactListener.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\CustomAnimation.cs">
+      <Link>BlockTumbler\CustomAnimation.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\Enemy.cs">
+      <Link>BlockTumbler\Enemy.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\GameData.cs">
+      <Link>BlockTumbler\GameData.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\GameSounds.cs">
+      <Link>BlockTumbler\GameSounds.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\GroundPlane.cs">
+      <Link>BlockTumbler\GroundPlane.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\IntroLayer.cs">
+      <Link>BlockTumbler\IntroLayer.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\Ninja.cs">
+      <Link>BlockTumbler\Ninja.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\StackObject.cs">
+      <Link>BlockTumbler\StackObject.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\StartPlatform.cs">
+      <Link>BlockTumbler\StartPlatform.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\TheLevel.cs">
+      <Link>BlockTumbler\TheLevel.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\TheMenu.cs">
+      <Link>BlockTumbler\TheMenu.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\TheStack.cs">
+      <Link>BlockTumbler\TheStack.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Data\InApp\IInAppPurchaseRepository.cs">
       <Link>Data\InApp\IInAppPurchaseRepository.cs</Link>
     </Compile>
@@ -1069,6 +1114,14 @@
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Misc\Logo3D.xnb">
       <Link>Content\Images\Misc\Logo3D.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\PauseButtonDisabled.xnb">
+      <Link>Content\Images\Icons\PauseButtonDisabled.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\ResumeButtonDisabled.xnb">
+      <Link>Content\Images\Icons\ResumeButtonDisabled.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
@@ -4215,6 +4268,12 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\cocos2d-xna\box2d\box2d.iOS.csproj">
+      <Project>{7877d4f9-f781-465a-9c1f-d113f246a994}</Project>
+      <Name>box2d.iOS</Name>
+      <IsAppExtension>false</IsAppExtension>
+      <IsWatchApp>false</IsWatchApp>
+    </ProjectReference>
     <ProjectReference Include="..\..\cocos2d-xna\cocos2d\cocos2d.iOS.csproj">
       <Project>{a83510d8-7aed-411e-9616-dcfea180969e}</Project>
       <Name>cocos2d.iOS</Name>

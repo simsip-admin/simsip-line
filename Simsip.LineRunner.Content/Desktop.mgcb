@@ -1849,3 +1849,25 @@
 /processorParam:TextureFormat=Color
 /build:Content/Images/Misc/Logo3D.png
 
+#begin Content/Images/Icons/PauseButtonDisabled.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Content/Images/Icons/PauseButtonDisabled.png
+
+#begin Content/Images/Icons/ResumeButtonDisabled.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Content/Images/Icons/ResumeButtonDisabled.png
+

@@ -165,42 +165,52 @@ namespace Simsip.LineRunner.Scenes.Action
 
                         // Update page/line number in hud
                         this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
-                        /*
-                        this._hudLayer.DisplayPageNumber(this._currentPageNumber);
-                        this._hudLayer.DisplayLineNumber(this._currentLineNumber);
-                        */
 
                         var pageWidth = this._pageCache.CurrentPageModel.WorldWidth;
                         var pageHeight = this._pageCache.CurrentPageModel.WorldHeight;
                         var pageDepthFromCamera = this._pageCache.PageDepthFromCameraStart;
                         var cameraStartingPoint = this._inputManager.LineRunnerCamera.Position;
+                        var cameraTargetPoint = this._inputManager.LineRunnerCamera.Target;
+                        var adminLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
+                        if (adminLineNumber > 1)
+                        {
+                            cameraStartingPoint -= new Vector3(
+                                0,
+                                (adminLineNumber - 1) * this._pageCache.CurrentPageModel.WorldLineSpacing,
+                                0);
+                            cameraTargetPoint -= new Vector3(
+                                0,
+                                (adminLineNumber - 1) * this._pageCache.CurrentPageModel.WorldLineSpacing,
+                                0);
+                        }
+
                         var controlPoints = new List<Vector3>()
                         {
-                            cameraStartingPoint, // Start to right and behing pad
-                            cameraStartingPoint + new Vector3(0.25f * pageWidth, 0, 4.0f * pageDepthFromCamera), // By first control point in middle of pad in front
-                            cameraStartingPoint + new Vector3(0.75f * pageWidth, 0, 4.0f * pageDepthFromCamera), // By second control point we are way out to top left of pad
-                            cameraStartingPoint + new Vector3(1.1f * pageWidth, 0, 0)                                                           // Finish at camera position
+                            cameraStartingPoint, 
+                            cameraStartingPoint + new Vector3(0.25f * pageWidth, 0, 4.0f * pageDepthFromCamera),
+                            cameraStartingPoint + new Vector3(0.75f * pageWidth, 0, 4.0f * pageDepthFromCamera),
+                            cameraStartingPoint + new Vector3(1.1f * pageWidth, 0, 0)
                         };
                         var targetPoints = new List<Vector3>()
                         {
-                            this._inputManager.LineRunnerCamera.Target,          // Start looking back at terrain
-                            this._inputManager.LineRunnerCamera.Target,          // By first control point we still looking straight back
-                            this._inputManager.LineRunnerCamera.Target,          // Be second control point we are looking down at pad from upper left
-                            this._inputManager.LineRunnerCamera.Target          // Finish by mimicing original camera target
+                            cameraTargetPoint,
+                            cameraTargetPoint,
+                            cameraTargetPoint,
+                            cameraTargetPoint
                         };
                         var controlPointsReversed = new List<Vector3>()
                         {
-                            cameraStartingPoint + new Vector3(1.1f * pageWidth, 0, 0),                                                           // Finish at camera position
-                            cameraStartingPoint + new Vector3(0.75f * pageWidth, 0, 4.0f * pageDepthFromCamera), // By second control point we are way out to top left of pad
-                            cameraStartingPoint + new Vector3(0.25f * pageWidth, 0, 4.0f * pageDepthFromCamera), // By first control point in middle of pad in front
-                            cameraStartingPoint, // Start to right and behing pad
+                            cameraStartingPoint + new Vector3(1.1f * pageWidth, 0, 0),
+                            cameraStartingPoint + new Vector3(0.75f * pageWidth, 0, 4.0f * pageDepthFromCamera),
+                            cameraStartingPoint + new Vector3(0.25f * pageWidth, 0, 4.0f * pageDepthFromCamera),
+                            cameraStartingPoint
                         };
                         var targetPointsReversed = new List<Vector3>()
                         {
-                            this._inputManager.LineRunnerCamera.Target,          // Start looking back at terrain
-                            this._inputManager.LineRunnerCamera.Target,          // By first control point we still looking straight back
-                            this._inputManager.LineRunnerCamera.Target,          // Be second control point we are looking down at pad from upper left
-                            this._inputManager.LineRunnerCamera.Target          // Finish by mimicing original camera target
+                            cameraTargetPoint,
+                            cameraTargetPoint,
+                            cameraTargetPoint,
+                            cameraTargetPoint,
                         };
 
                         this._currentFlyBy = new FlyBy();
@@ -465,7 +475,6 @@ namespace Simsip.LineRunner.Scenes.Action
         // reloading for start.
         private void LoadContentAsyncFinishedHandler(object sender, LoadContentAsyncFinishedEventArgs args)
         {
-            // We only want to react to a refresh event
             if (args.TheLoadContentAsyncType == LoadContentAsyncType.Cache ||
                 args.TheLoadContentAsyncType == LoadContentAsyncType.Initialize)
             {
@@ -635,8 +644,8 @@ namespace Simsip.LineRunner.Scenes.Action
                 // Don't let touches sneak in
                 this.TouchEnabled = false;
 
-                // Stop timer
-                this._hudLayer.StopTimer();
+                // Adjust hud ui accordingly
+                this._hudLayer.HandleKill();
 
                 // Animate hero being killed then determine where to navigate to in callback
                 this._characterCache.HandleKill(
@@ -657,7 +666,7 @@ namespace Simsip.LineRunner.Scenes.Action
             this._particleCache.AddHitParticleEffect(
                 e.TheLineModel, 
                 e.TheLineModel.TheContact,
-                this._obstacleCache.ContentManagers[this._currentLineNumber]);
+                e.TheLineModel.TheCustomContentManager);
 
             // Play glow animation
             var glowUpAction = new TintTo(GameConstants.DURATION_OBSTACLE_GLOW, Microsoft.Xna.Framework.Color.White, 0.1f);
@@ -681,8 +690,8 @@ namespace Simsip.LineRunner.Scenes.Action
                 // Don't let touches sneak in
                 this.TouchEnabled = false;
 
-                // Stop timer
-                this._hudLayer.StopTimer();
+                // Adjust hud ui accordingly
+                this._hudLayer.HandleKill();
 
                 // Animate hero being killed then determine where to navigate to in callback
                 this._characterCache.HandleKill(
@@ -1029,10 +1038,12 @@ namespace Simsip.LineRunner.Scenes.Action
             // Now go for the async load
             this.SwitchState(GameState.MovingToStart);
 
-            // Did we get a new high score?
+            // Did we get a new high score without having "Kills On"?
             var scoreRepository = new FacebookScoreRepository();
             var previousTopScore = scoreRepository.GetTopScoresForPlayer(1);
-            if (currentScore > 0  // We have a score to check
+            if (!this._hudLayer.KillsOffEventRecorded           // We did not have "Kills Off" enabled during this game run
+                &&                                              // AND
+                currentScore > 0                                // We have a score to check
                 &&                                              // AND
                 (previousTopScore.Count == 0 ||                 // This is our first top score or we beat our previous top score
                 previousTopScore[0].Score < currentScore))
@@ -1041,6 +1052,9 @@ namespace Simsip.LineRunner.Scenes.Action
                 this._parent.TheFinishLayer.SetNewHighScore(currentScore);
                 this._parent.Navigate(LayerTags.FinishLayer);
             }
+
+            // Flip tracking of "Kills Off" for start of next game run
+            this._hudLayer.KillsOffEventRecorded = false;
         }
 
 

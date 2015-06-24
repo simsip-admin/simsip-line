@@ -217,12 +217,12 @@
           <target state="new">starting page</target>
         </trans-unit>
         <trans-unit id="Resx/OptionsPracticeSwitchingPage" translate="yes" xml:space="preserve">
-          <source>switching starting page to</source>
-          <target state="new">switching starting page to</target>
+          <source>switching page to</source>
+          <target state="new">switching page to</target>
         </trans-unit>
         <trans-unit id="Resx/OptionsPracticeSwitchingLine" translate="yes" xml:space="preserve">
-          <source>switching starting line to</source>
-          <target state="new">switching starting line to</target>
+          <source>switching line to</source>
+          <target state="new">switching line to</target>
         </trans-unit>
         <trans-unit id="Resx/OptionsPracticeStartLine" translate="yes" xml:space="preserve">
           <source>starting line</source>

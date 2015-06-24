@@ -103,8 +103,8 @@
 "OptionsPracticeKillsOn"="kills on";
 "OptionsPracticeStartLine"="starting line";
 "OptionsPracticeStartPage"="starting page";
-"OptionsPracticeSwitchingLine"="switching starting line to";
-"OptionsPracticeSwitchingPage"="switching starting page to";
+"OptionsPracticeSwitchingLine"="switching line to";
+"OptionsPracticeSwitchingPage"="switching page to";
 "AdminUpgradesOff"="upgrades off";
 "AdminUpgradesOn"="upgrades on";
 "OptionsPractice"="practice mode";

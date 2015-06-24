@@ -287,7 +287,7 @@ namespace Engine.Graphics
             var pageOriginZ = (int)this._pageCache.CurrentPageModel.WorldOrigin.Z;
 
             var clearXStart = pageOriginX - 10;
-            var clearXStop = clearXStart + 
+            var clearXStop = pageOriginX + 
                              pageWidth + 
                              10;
             

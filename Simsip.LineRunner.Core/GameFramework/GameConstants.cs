@@ -5,6 +5,9 @@ namespace Simsip.LineRunner.GameFramework
 {
     public class GameConstants
     {
+        // Special strings
+        public const string RandomPrefix = "Random";
+
         // Folders
         public const string FOLDER_CONFIG = "config";
         public const string FOLDER_DATA = "data";

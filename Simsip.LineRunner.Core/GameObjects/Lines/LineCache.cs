@@ -700,69 +700,6 @@ namespace Simsip.LineRunner.GameObjects.Lines
         // Migrate staged collection in args to public collection
         private void ProcessLoadContentAsync(LoadContentThreadArgs loadContentThreadArgs)
         {
-            /*
-            switch (loadContentThreadArgs.TheLoadContentAsyncType)
-            {
-                case LoadContentAsyncType.Initialize:
-                case LoadContentAsyncType.Refresh:
-                    {
-
-                        // Remove all previous models from our drawing filter
-                        // and physics from our physics simulation
-                        foreach (var lineModel in this.LineModels.ToList())
-                        {
-                            this._ocTreeRoot.RemoveModel(lineModel.ModelID);
-
-                            if (lineModel.PhysicsEntity != null &&
-                                lineModel.PhysicsEntity.Space != null)
-                            {
-                                this._physicsManager.TheSpace.Remove(lineModel.PhysicsEntity);
-                            }
-
-                            // Remove all previous animations for this model
-                            lineModel.ModelActionManager.RemoveAllActionsFromTarget(lineModel);
-
-                            // Dispose of all XNA resources
-                            lineModel.TheCustomContentManager.Unload();
-                            lineModel.TheCustomContentManager.Dispose();
-                        }
-
-                        // And clear out the full set of previous models
-                        this.LineModels.Clear();
-
-                        break;
-                    }
-                case LoadContentAsyncType.Next:
-                    {
-                        // Remove all previous obstacle models from our drawing filter
-                        // and remove all previous obstacle physics
-                        var lineToRemove = this._currentLineNumber - 2;
-                        if (lineToRemove > 0)
-                        {
-                            var lineModel = this.LineModels[0];
-                            this._ocTreeRoot.RemoveModel(lineModel.ModelID);
-
-                            if (lineModel.PhysicsEntity != null &&
-                                lineModel.PhysicsEntity.Space != null)
-                            {
-                                this._physicsManager.TheSpace.Remove(lineModel.PhysicsEntity);
-                            }
-
-                            // Remove all previous animations for this model
-                            lineModel.ModelActionManager.RemoveAllActionsFromTarget(lineModel);
-
-                            this.LineModels.Remove(lineModel);
-
-                            // Dispose of all XNA resources
-                            lineModel.TheCustomContentManager.Unload();
-                            lineModel.TheCustomContentManager.Dispose();
-                        }
-
-                        break;
-                    }
-            }
-            */
-
             // Populate our public model/physics collections from our staged collections
             foreach (var lineModel in loadContentThreadArgs.LineModelsAsync)
             {

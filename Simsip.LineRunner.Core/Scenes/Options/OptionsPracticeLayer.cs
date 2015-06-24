@@ -42,6 +42,10 @@ namespace Simsip.LineRunner.Scenes.Options
         private string _killsOff;
         private CCLabelTTF _killsLabel;
 
+        // Additional text
+        private string _switchingPageText;
+        private string _switchingLineText;
+
         // Services we'll need
         IObstacleCache _obstacleCache;
 
@@ -258,6 +262,25 @@ namespace Simsip.LineRunner.Scenes.Options
             {
                 this._killsLabel.Text = this._killsOff;
             }
+
+            // Additional text
+            this._switchingPageText = string.Empty;
+#if ANDROID
+            this._switchingPageText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsPracticeSwitchingPage);
+#elif IOS
+            this._switchingPageText = NSBundle.MainBundle.LocalizedString(Strings.OptionsPracticeSwitchingPage, Strings.OptionsPracticeSwitchingPage);
+#else
+            this._switchingPageText = AppResources.OptionsPracticeSwitchingPage;
+#endif
+
+            this._switchingLineText = string.Empty;
+#if ANDROID
+            this._switchingLineText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsPracticeSwitchingLine);
+#elif IOS
+            this._switchingLineText = NSBundle.MainBundle.LocalizedString(Strings.OptionsPracticeSwitchingLine, Strings.OptionsPracticeSwitchingLine);
+#else
+            this._switchingLineText = AppResources.OptionsPracticeSwitchingLine;
+#endif
         }
 
         #region Overrides
@@ -284,17 +307,9 @@ namespace Simsip.LineRunner.Scenes.Options
         private void PageTogglePressed(int pageNumber)
         {
             // Provide immediate feedback
-            var switchingPageText = string.Empty;
-#if ANDROID
-            switchingPageText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsPracticeSwitchingPage);
-#elif IOS
-            switchingPageText = NSBundle.MainBundle.LocalizedString(Strings.OptionsPracticeSwitchingPage, Strings.OptionsPracticeSwitchingPage);
-#else
-            switchingPageText = AppResources.OptionsPracticeSwitchingPage;
-#endif
             this._parent.TheMessageBoxLayer.Show(
-                switchingPageText + " " + pageNumber,
-                string.Empty,
+                this._switchingPageText,
+                pageNumber.ToString(),
                 MessageBoxType.MB_PROGRESS);
 
             // Update ui to reflect selection
@@ -324,17 +339,9 @@ namespace Simsip.LineRunner.Scenes.Options
         private void LineTogglePressed(int lineNumber)
         {
             // Provide immediate feedback
-            var switchingLineText = string.Empty;
-#if ANDROID
-            switchingLineText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsPracticeSwitchingLine);
-#elif IOS
-            switchingLineText = NSBundle.MainBundle.LocalizedString(Strings.OptionsPracticeSwitchingLine, Strings.OptionsPracticeSwitchingLine);
-#else
-            switchingLineText = AppResources.OptionsPracticeSwitchingLine;
-#endif
             this._parent.TheMessageBoxLayer.Show(
-                switchingLineText + " " + lineNumber,
-                string.Empty,
+                this._switchingLineText,
+                lineNumber.ToString(),
                 MessageBoxType.MB_PROGRESS);
 
             // Update ui to reflect selection
@@ -385,6 +392,9 @@ namespace Simsip.LineRunner.Scenes.Options
             {
                 GameManager.SharedGameManager.GameAreKillsAllowed = false;
                 this._killsLabel.Text = this._killsOff;
+
+                // Signal we have a "Kills Off" event for this game run
+                this._parent.TheHudLayer.KillsOffEventRecorded = true;
             }
         }
 

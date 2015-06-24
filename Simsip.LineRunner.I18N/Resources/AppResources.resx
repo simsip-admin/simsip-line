@@ -435,10 +435,10 @@
     <value>starting page</value>
   </data>
   <data name="OptionsPracticeSwitchingLine" xml:space="preserve">
-    <value>switching starting line to</value>
+    <value>switching line to</value>
   </data>
   <data name="OptionsPracticeSwitchingPage" xml:space="preserve">
-    <value>switching starting page to</value>
+    <value>switching page to</value>
   </data>
   <data name="AdminUpgradesOff" xml:space="preserve">
     <value>upgrades off</value>

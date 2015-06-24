@@ -809,7 +809,7 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to switching starting line to.
+        ///   Looks up a localized string similar to switching line to.
         /// </summary>
         public static string OptionsPracticeSwitchingLine {
             get {
@@ -818,7 +818,7 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to switching starting page to.
+        ///   Looks up a localized string similar to switching page to.
         /// </summary>
         public static string OptionsPracticeSwitchingPage {
             get {

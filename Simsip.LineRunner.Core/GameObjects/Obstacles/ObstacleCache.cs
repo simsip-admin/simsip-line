@@ -83,9 +83,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadResults;
         private ConcurrentQueue<LoadContentThreadArgs> _loadContentThreadCache;
 
-        // Identifies if we are injecting a random set of obstacles
-        private const string RandomPrefix = "Random";
-
         // Used to create our random selections
         private Random _randomNumberGenerator;
 
@@ -814,92 +811,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         // Migrate staged collection in args to public collection
         private void ProcessLoadContentAsync(LoadContentThreadArgs loadContentThreadArgs)
         {
-            /*
-            switch (loadContentThreadArgs.TheLoadContentAsyncType)
-            {
-                case LoadContentAsyncType.Initialize:
-                case LoadContentAsyncType.Refresh:
-                    {
-                        // Remove all previous obstacle models from our drawing filter
-                        // and remove all previous obstacle physics
-                        foreach (var obstacleModel in this.ObstacleModels.ToList())
-                        {
-                            this._ocTreeRoot.RemoveModel(obstacleModel.ModelID);
-
-                            if (obstacleModel.PhysicsEntity != null &&
-                                obstacleModel.PhysicsEntity.Space != null)
-                            {
-                                this._physicsManager.TheSpace.Remove(obstacleModel.PhysicsEntity);
-                                obstacleModel.PhysicsEntity.Tag = null;
-                                obstacleModel.PhysicsEntity = null;
-                            }
-
-                            // Remove all previous animations for this model
-                            obstacleModel.ModelActionManager.RemoveAllActionsFromTarget(obstacleModel);
-
-                            obstacleModel.TheCustomContentManager.OriginalEffectsDictionary.Remove(obstacleModel.TheObstacleEntity.ModelName);
-                            obstacleModel.TheCustomContentManager = null;
-                            obstacleModel.XnaModel = null;
-                        }
-
-                        // Clear out the full set of previous models
-                        this.ObstacleModels.Clear();
-
-                        // And clear out any on-going display particle effects
-                        this._particleEffectCache.TerminateAllObstacleEffects();
-
-                        // Finally, dispose of all XNA resources
-                        foreach (var key in this.ContentManagers.Keys)
-                        {
-                            this.ContentManagers[key].Unload();
-                            this.ContentManagers[key].Dispose();
-                        }
-                        this.ContentManagers.Clear();
-
-                        break;
-                    }
-                case LoadContentAsyncType.Next:
-                    {
-                        // Remove all previous obstacle models from our drawing filter
-                        // and remove all previous obstacle physics
-                        var lineToRemove = this._currentLineNumber - 2;
-                        if (lineToRemove > 0)
-                        {
-                            var obstacleModels = this.ObstacleModels
-                                                 .Where(x => x.ThePageObstaclesEntity.LineNumber == lineToRemove)
-                                                 .ToList();
-
-                            foreach (var obstacleModel in obstacleModels)
-                            {
-                                this._ocTreeRoot.RemoveModel(obstacleModel.ModelID);
-
-                                if (obstacleModel.PhysicsEntity != null &&
-                                    obstacleModel.PhysicsEntity.Space != null)
-                                {
-                                    this._physicsManager.TheSpace.Remove(obstacleModel.PhysicsEntity);
-                                }
-
-                                // Remove all previous animations for this model
-                                obstacleModel.ModelActionManager.RemoveAllActionsFromTarget(obstacleModel);
-
-                                this.ObstacleModels.Remove(obstacleModel);
-                            }
-
-                            // Clear out any on-going display particle effects
-                            this._particleEffectCache.TerminateAllObstacleEffects();
-
-                            // Finally, dispose of all XNA resources
-                            this.ContentManagers[lineToRemove].Unload();
-                            this.ContentManagers[lineToRemove].Dispose();
-                            this.ContentManagers.Remove(lineToRemove);
-                        }
-
-                        break;
-                    }
-
-            }
-            */
-
             // Populate our public content managers from our staged collection
             foreach(var contentManagerAsync in loadContentThreadArgs.ContentManagersAsync)
             {
@@ -917,7 +828,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             }
 
             //
-            // IMPORTANT: Physics is handled in ProcessNextLine/ProcessObstaclePhysics
+            // IMPORTANT: Physics is handled in ProcessNextLine
             //
         }
 
@@ -938,7 +849,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 var currentLogicalXScaledTo100 = pageObstaclesEntity.LogicalXScaledTo100;
 
                 // Are we injecting random obstacles?
-                if (pageObstaclesEntity.ModelName.StartsWith(RandomPrefix))
+                if (pageObstaclesEntity.ModelName.StartsWith(GameConstants.RandomPrefix))
                 {
                     // Grab the "count" this random obstacle entry
                     var count = int.Parse(pageObstaclesEntity.ModelName.Substring(6, 2));

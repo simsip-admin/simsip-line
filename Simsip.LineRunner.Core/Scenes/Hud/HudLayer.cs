@@ -421,7 +421,7 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             // Current score
             // IMPORTANT: Starts off not visible
-            this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
+            this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
             this._scoreLabel.Visible = false;
             this._scoreLabel.Color = CCColor3B.Yellow;
             this._scoreLabel.AnchorPoint = CCPoint.AnchorMiddle;
@@ -594,12 +594,15 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._footerLeftLayer.AddChild(trackballLabel);
 
             // Pause toggle
+            // IMPORTANT: Starts off disabled
             CCMenuItemImage pauseToggleOn =
                 new CCMenuItemImage("Images/Icons/PauseButtonNormal.png",
-                                    "Images/Icons/ResumeButtonNormal.png");
+                                    "Images/Icons/PauseButtonSelected.png",
+                                    "Images/Icons/PauseButtonDisabled.png");
             CCMenuItemImage pauseToggleOff =
                 new CCMenuItemImage("Images/Icons/ResumeButtonNormal.png",
-                                    "Images/Icons/PauseButtonNormal.png");
+                                    "Images/Icons/ResumeButtonSelected.png",
+                                    "Images/Icons/ResumeButtonDisabled.png");
             this._pauseToggle =
                 new CCMenuItemToggle((obj) => PauseTogglePressed((obj as CCMenuItemToggle).SelectedIndex),
                 new CCMenuItem[] { pauseToggleOn, pauseToggleOff });
@@ -641,6 +644,7 @@ namespace Simsip.LineRunner.Scenes.Hud
                 0.5f * footerRightSize.Width,
                 0.2f * footerRightSize.Height);
             this._footerRightLayer.AddChild(this._pauseLabel);
+            this.EnablePause(false);
 
             // Additional text
             this._doubleTapResetText = string.Empty;
@@ -779,8 +783,13 @@ namespace Simsip.LineRunner.Scenes.Hud
                     // Box out positioning around hero
                     var heroModel = this._characterCache.TheHeroModel;
                     var heroWorldOrigin = this._characterCache.TheHeroModel.WorldOrigin;
+                    float xOffset = 0.5f * heroModel.WorldWidth;
+                    if ((GameManager.SharedGameManager.GameStartLineNumber % 2) == 0)
+                    {
+                        xOffset = -xOffset;
+                    }
                     var heroBottomMiddle = XNAUtils.WorldToLogical(new Vector3(
-                        heroWorldOrigin.X + (0.5f * heroModel.WorldWidth),
+                        heroWorldOrigin.X + xOffset,
                         heroWorldOrigin.Y,
                         heroWorldOrigin.Z),
                         XNAUtils.CameraType.Tracking);
@@ -822,6 +831,14 @@ namespace Simsip.LineRunner.Scenes.Hud
         #endregion
 
         #region Api
+
+        public void HandleKill()
+        {
+            // Disable pause and reset pause text
+            this.EnablePause(false);
+
+            this.StopTimer();
+        }
 
         public void RestoreStart()
         {
@@ -867,19 +884,17 @@ namespace Simsip.LineRunner.Scenes.Hud
             this.UpdateStatus1(text);
         }
 
-        public void StopTimer()
-        {
-#if NETFX_CORE
-            this._timer.Cancel();
-#else
-            this._timer.Change(-1, -1);
-#endif
-        }
-      
         public TimeSpan GetTime()
         {
             return this._elapsedTime;
         }
+
+        /// <summary>
+        /// Set to true if a "Kills Off" was enabled at start of a game run or
+        /// if "Kills Off" was enabled during a game run. Set to false if a game
+        /// run was completed without "Kills Off" enabled at any point in run.
+        /// </summary>
+        public bool KillsOffEventRecorded { get; set; }
 
         #endregion
 
@@ -998,6 +1013,15 @@ namespace Simsip.LineRunner.Scenes.Hud
 #endif
         }
 
+        private void StopTimer()
+        {
+#if NETFX_CORE
+            this._timer.Cancel();
+#else
+            this._timer.Change(-1, -1);
+#endif
+        }
+
         private void HideSecondaryLayers()
         {
             this._headerLeftLayer.RunAction(this._hideHeaderAnim);
@@ -1065,6 +1089,12 @@ namespace Simsip.LineRunner.Scenes.Hud
             this.ToggleScoreLabels(displayHighScore: false);
             this.StartTimer();
 
+            // Track if "Kills Off" is enabled during this game run
+            this.KillsOffEventRecorded = !GameManager.SharedGameManager.GameAreKillsAllowed;
+
+            // Enable pause and set pause text
+            this.EnablePause(true);
+
             // Get game going
             this._parent.TheActionLayer.SwitchState(GameState.Moving);
 
@@ -1116,6 +1146,23 @@ namespace Simsip.LineRunner.Scenes.Hud
 
                 // Restore secondary layers
                 this.RestoreSecondaryLayers(displayHighScore: false);
+            }
+        }
+
+        private void EnablePause(bool enabled)
+        {
+            this._pauseToggle.SelectedIndex = 0;
+            this._pauseLabel.Text = this._pauseText;
+
+            if (enabled)
+            {
+                this._pauseToggle.Enabled = true;
+                this._pauseLabel.Color = CCColor3B.White;
+            }
+            else
+            {
+                this._pauseToggle.Enabled = false;
+                this._pauseLabel.Color = CCColor3B.Gray;
             }
         }
 

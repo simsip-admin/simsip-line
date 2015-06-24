@@ -1617,6 +1617,51 @@
     <Compile Include="..\Simsip.LineRunner.Core\Bepu\ConversionHelper\MathConverter.cs">
       <Link>Bepu\ConversionHelper\MathConverter.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\BodyNode.cs">
+      <Link>BlockTumbler\BodyNode.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\Constants.cs">
+      <Link>BlockTumbler\Constants.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\ContactListener.cs">
+      <Link>BlockTumbler\ContactListener.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\CustomAnimation.cs">
+      <Link>BlockTumbler\CustomAnimation.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\Enemy.cs">
+      <Link>BlockTumbler\Enemy.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\GameData.cs">
+      <Link>BlockTumbler\GameData.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\GameSounds.cs">
+      <Link>BlockTumbler\GameSounds.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\GroundPlane.cs">
+      <Link>BlockTumbler\GroundPlane.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\IntroLayer.cs">
+      <Link>BlockTumbler\IntroLayer.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\Ninja.cs">
+      <Link>BlockTumbler\Ninja.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\StackObject.cs">
+      <Link>BlockTumbler\StackObject.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\StartPlatform.cs">
+      <Link>BlockTumbler\StartPlatform.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\TheLevel.cs">
+      <Link>BlockTumbler\TheLevel.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\TheMenu.cs">
+      <Link>BlockTumbler\TheMenu.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\BlockTumbler\TheStack.cs">
+      <Link>BlockTumbler\TheStack.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\ContentPipeline\ModelVertices.cs">
       <Link>ContentPipeline\ModelVertices.cs</Link>
     </Compile>
@@ -4108,6 +4153,14 @@
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Misc\Logo3D.xnb">
       <Link>Content\Images\Misc\Logo3D.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Icons\PauseButtonDisabled.xnb">
+      <Link>Content\Images\Icons\PauseButtonDisabled.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Icons\ResumeButtonDisabled.xnb">
+      <Link>Content\Images\Icons\ResumeButtonDisabled.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />

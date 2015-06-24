@@ -162,13 +162,44 @@ namespace Simsip.LineRunner.GameFramework
 
         private void SetStartScore()
         {
+            // Can we short circuit on determining start score?
+            if (this.GameStartLineNumber == 0 &&
+                this.GameStartPageNumber == 0)
+            {
+                this._gameStartScore = 0;
+                return;
+            }
+
+            // Ok, we need to determine the start score
             var pageObstaclesRepository = new PageObstaclesRepository();
             var obstacles = pageObstaclesRepository.GetObstacles();
-            var startScore = obstacles
-                .Where(x => x.IsGoal == true &&
-                            x.PageNumber < (this.GameStartPageNumber + 1) &&
-                            x.LineNumber < this.GameStartLineNumber)
-                .Count();
+            var filteredObstacles = obstacles
+                                    .Where(x =>
+                                    (x.IsGoal == true ||
+                                     x.ModelName.StartsWith(GameConstants.RandomPrefix))
+                                    &&
+                                    ( 
+                                    (x.PageNumber < this.GameStartPageNumber)
+                                    ||
+                                    (x.PageNumber == this.GameStartPageNumber)
+                                    &&
+                                    x.LineNumber < this.GameStartLineNumber) 
+                                    );
+
+            int startScore = 0;
+            foreach (var obstacle in filteredObstacles)
+            {
+                if (obstacle.ModelName.StartsWith(GameConstants.RandomPrefix))
+                {
+                    // Grab the "count" of this random obstacle entry
+                    var count = int.Parse(obstacle.ModelName.Substring(6, 2));
+                    startScore += count;
+                }
+                else
+                {
+                    startScore++;
+                }
+            }
 
             this._gameStartScore = startScore;
         }
