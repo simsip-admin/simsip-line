@@ -479,4 +479,25 @@
   <data name="HelpSupport" xml:space="preserve">
     <value>support</value>
   </data>
+  <data name="FinishWinner" xml:space="preserve">
+    <value>winner!</value>
+  </data>
+  <data name="MessageBoxMovingToPage" xml:space="preserve">
+    <value>moving to page</value>
+  </data>
+  <data name="MessageBoxMovingToPage2" xml:space="preserve">
+    <value>you're awesome!</value>
+  </data>
+  <data name="MessageBoxMovingToPage3" xml:space="preserve">
+    <value>boom!</value>
+  </data>
+  <data name="MessageBoxMovingToPage4" xml:space="preserve">
+    <value>sweetness!</value>
+  </data>
+  <data name="MessageBoxMovingToPage5" xml:space="preserve">
+    <value>fire!</value>
+  </data>
+  <data name="MessageBoxMovingToPage6" xml:space="preserve">
+    <value>last page!</value>
+  </data>
 </root>

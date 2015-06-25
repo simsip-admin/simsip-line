@@ -42,7 +42,7 @@ namespace Simsip.LineRunner.Scenes.Pads
             this._parent = parent;
 
             // Get these set up for relative positioning below
-            var screenSize = CCDirector.SharedDirector.WinSize;
+            var screenSize = CCDirector.SharedDirector.VisibleSize;
             this.ContentSize = new CCSize(
                 0.8f * screenSize.Width,
                 0.8f * screenSize.Height);
@@ -52,7 +52,7 @@ namespace Simsip.LineRunner.Scenes.Pads
             TouchMode = CCTouchMode.OneByOne;
 
             // Layer transition in/out
-            var layerEndPosition = new CCPoint(
+            var layerEndPosition = CCDirector.SharedDirector.VisibleOrigin + new CCPoint(
                 0.1f * screenSize.Width,
                 0.1f * screenSize.Height);
             var layerStartPosition = new CCPoint(

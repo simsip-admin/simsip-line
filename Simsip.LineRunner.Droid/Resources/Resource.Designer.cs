@@ -2002,6 +2002,9 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f06005f
 			public const int FinishNewHighScore = 2131099743;
 			
+			// aapt resource value: 0x7f0600b4
+			public const int FinishWinner = 2131099828;
+			
 			// aapt resource value: 0x7f06003a
 			public const int Hello = 2131099706;
 			
@@ -2136,6 +2139,24 @@ namespace Simsip.LineRunner
 			
 			// aapt resource value: 0x7f060066
 			public const int LoginUserNameDescription = 2131099750;
+			
+			// aapt resource value: 0x7f0600b5
+			public const int MessageBoxMovingToPage = 2131099829;
+			
+			// aapt resource value: 0x7f0600b6
+			public const int MessageBoxMovingToPage2 = 2131099830;
+			
+			// aapt resource value: 0x7f0600b7
+			public const int MessageBoxMovingToPage3 = 2131099831;
+			
+			// aapt resource value: 0x7f0600b8
+			public const int MessageBoxMovingToPage4 = 2131099832;
+			
+			// aapt resource value: 0x7f0600b9
+			public const int MessageBoxMovingToPage5 = 2131099833;
+			
+			// aapt resource value: 0x7f0600ba
+			public const int MessageBoxMovingToPage6 = 2131099834;
 			
 			// aapt resource value: 0x7f060048
 			public const int OptionsCredits = 2131099720;

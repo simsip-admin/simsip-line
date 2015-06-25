@@ -122,5 +122,12 @@
         public static string AchievementsColumnScore = "AchievementsColumnScore";
         public static string HudHigh = "HudHigh";
         public static string HelpSupport = "HelpSupport";
+        public static string FinishWinner = "FinishWinner";
+        public static string MessageBoxMovingToPage = "MessageBoxMovingToPage";
+        public static string MessageBoxMovingToPage2 = "MessageBoxMovingToPage2";
+        public static string MessageBoxMovingToPage3 = "MessageBoxMovingToPage3";
+        public static string MessageBoxMovingToPage4 = "MessageBoxMovingToPage4";
+        public static string MessageBoxMovingToPage5 = "MessageBoxMovingToPage5";
+        public static string MessageBoxMovingToPage6 = "MessageBoxMovingToPage6";
     }
 }

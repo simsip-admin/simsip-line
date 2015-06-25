@@ -39,6 +39,11 @@ using Engine.Blocks;
 using Engine.Audio;
 using System.Diagnostics;
 using Simsip.LineRunner.GameObjects;
+using Simsip.LineRunner.Scenes.MessageBox;
+using Simsip.LineRunner.Resources;
+#if IOS
+using Foundation;
+#endif
 
 
 namespace Simsip.LineRunner.Scenes.Action
@@ -97,6 +102,15 @@ namespace Simsip.LineRunner.Scenes.Action
         // Allows us to gate kill logic so we only handle one kill at a time
         private bool _handlingKill;
 
+        // Message box text to display when moving to new page
+        string _movingToPageText;
+        string _movingToPage2Text;
+        string _movingToPage3Text;
+        string _movingToPage4Text;
+        string _movingToPage5Text;
+        string _movingToPage6Text;
+
+
         public ActionLayer(CoreScene parent)
         {
             this._parent = parent;
@@ -108,6 +122,56 @@ namespace Simsip.LineRunner.Scenes.Action
             this._currentPageNumber = 1;
             this._currentLineNumber = 1;
             this._currentGameState = GameState.None;
+
+            // Set text we may need
+            this._movingToPageText = string.Empty;
+#if ANDROID
+            this._movingToPageText = Program.SharedProgram.Resources.GetString(Resource.String.MessageBoxMovingToPage);
+#elif IOS
+            this._movingToPageText = NSBundle.MainBundle.LocalizedString(Strings.MessageBoxMovingToPage, Strings.MessageBoxMovingToPage);
+#else
+            this._movingToPageText = AppResources.MessageBoxMovingToPage;
+#endif
+            this._movingToPage2Text = string.Empty;
+#if ANDROID
+            this._movingToPage2Text = Program.SharedProgram.Resources.GetString(Resource.String.MessageBoxMovingToPage2);
+#elif IOS
+            this._movingToPage2Text = NSBundle.MainBundle.LocalizedString(Strings.MessageBoxMovingToPage2, Strings.MessageBoxMovingToPage2);
+#else
+            this._movingToPage2Text = AppResources.MessageBoxMovingToPage2;
+#endif
+            this._movingToPage3Text = string.Empty;
+#if ANDROID
+            this._movingToPage3Text = Program.SharedProgram.Resources.GetString(Resource.String.MessageBoxMovingToPage3);
+#elif IOS
+            this._movingToPage3Text = NSBundle.MainBundle.LocalizedString(Strings.MessageBoxMovingToPage3, Strings.MessageBoxMovingToPage3);
+#else
+            this._movingToPage3Text = AppResources.MessageBoxMovingToPage3;
+#endif
+            this._movingToPage4Text = string.Empty;
+#if ANDROID
+            this._movingToPage4Text = Program.SharedProgram.Resources.GetString(Resource.String.MessageBoxMovingToPage4);
+#elif IOS
+            this._movingToPage4Text = NSBundle.MainBundle.LocalizedString(Strings.MessageBoxMovingToPage4, Strings.MessageBoxMovingToPage4);
+#else
+            this._movingToPage4Text = AppResources.MessageBoxMovingToPage4;
+#endif
+            this._movingToPage5Text = string.Empty;
+#if ANDROID
+            this._movingToPage5Text = Program.SharedProgram.Resources.GetString(Resource.String.MessageBoxMovingToPage5);
+#elif IOS
+            this._movingToPage5Text = NSBundle.MainBundle.LocalizedString(Strings.MessageBoxMovingToPage5, Strings.MessageBoxMovingToPage5);
+#else
+            this._movingToPage5Text = AppResources.MessageBoxMovingToPage5;
+#endif
+            this._movingToPage6Text = string.Empty;
+#if ANDROID
+            this._movingToPage6Text = Program.SharedProgram.Resources.GetString(Resource.String.MessageBoxMovingToPage6);
+#elif IOS
+            this._movingToPage6Text = NSBundle.MainBundle.LocalizedString(Strings.MessageBoxMovingToPage6, Strings.MessageBoxMovingToPage6);
+#else
+            this._movingToPage6Text = AppResources.MessageBoxMovingToPage6;
+#endif
 
             // Dummy up an XNA gametime for us convert Cocos2d times into
             this._gameTime = new GameTime();
@@ -223,23 +287,6 @@ namespace Simsip.LineRunner.Scenes.Action
 
                         this._currentFlyBy.NextFlyBy = nextFlyBy;
 
-                        /* Legacy: remove when comfortable
-                        var controlPoints = new List<Vector3>()
-                        {
-                            cameraStartingPoint + new Vector3( 1.2f * pageWidth, -0.8f * pageHeight, -40), // Start to right and behing pad
-                            cameraStartingPoint + new Vector3( 0.5f * pageWidth, -0.5f * pageHeight,  120), // By first control point in middle of pad in front
-                            cameraStartingPoint + new Vector3(-0.2f * pageWidth,  0.2f * pageHeight,  120), // By second control point we are way out to top left of pad
-                            cameraStartingPoint                                                            // Finish at camera position
-                        };
-                        var targetPoints = new List<Vector3>()
-                        {
-                            controlPoints[0] + new Vector3(0,  0, -1),          // Start looking back at terrain
-                            controlPoints[1] + new Vector3(0,  0, -1),          // By first control point we still looking straight back
-                            controlPoints[2] + new Vector3(1, -1, -1),          // Be second control point we are looking down at pad from upper left
-                            this._inputManager.LineRunnerCamera.Target          // Finish by mimicing original camera target
-                        };
-                        */
-
                         break;
                     }
                 case GameState.Moving:
@@ -259,7 +306,6 @@ namespace Simsip.LineRunner.Scenes.Action
 
                         // Update line number in hud
                         this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
-                        // this._hudLayer.DisplayLineNumber(this._currentLineNumber);
 
                         // CreateLineHitParticles bezier based on current and next lines from _lineCache
                         this._currentFlyBy = new FlyBy(
@@ -324,12 +370,45 @@ namespace Simsip.LineRunner.Scenes.Action
 
                         // Update page/line number in hud
                         this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
-                        /*
-                        this._hudLayer.DisplayPageNumber(this._currentPageNumber);
-                        this._hudLayer.DisplayLineNumber(this._currentLineNumber);
-                        */
 
-                        // CreateLineHitParticles bezier based on current page and start position
+                        // Construct an appropriate message box to display while we are moving to next page.
+                        // Will be removed in FlyByFinished event handler
+                        var messageBoxTitle = string.Empty;
+                        switch (this._currentPageNumber)
+                        {
+                            case 2:
+                                {
+                                    messageBoxTitle = this._movingToPage2Text;
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    messageBoxTitle = this._movingToPage3Text;
+                                    break;
+                                }
+                            case 4:
+                                {
+                                    messageBoxTitle = this._movingToPage4Text;
+                                    break;
+                                }
+                            case 5:
+                                {
+                                    messageBoxTitle = this._movingToPage5Text;
+                                    break;
+                                }
+                            case 6:
+                                {
+                                    messageBoxTitle = this._movingToPage6Text;
+                                    break;
+                                }
+
+                        }
+                        this._parent.TheMessageBoxLayer.Show(
+                            messageBoxTitle,
+                            this._movingToPageText + " " + this._currentPageNumber,
+                            MessageBoxType.MB_PROGRESS);
+
+                        // Creates bezier based on current page and start position
                         this._currentFlyBy = new FlyBy(
                             cameraUpdate: FlyByCameraUpdate.TrackingAndStationaryHeightOnly,
                             targetAttachment: this._characterCache.TheHeroModel,
@@ -510,29 +589,14 @@ namespace Simsip.LineRunner.Scenes.Action
 
                         break;
                     }
-                // case LayerTags.AchievementsLayer:
-                // case LayerTags.CreditsMasterLayer:
-                // case LayerTags.OptionsMasterLayer:
                 case LayerTags.StartLayer:
                     {
-                        // TODO: Previous, leaving here until stable
-                        // this.UpdateStartingCamera();
                         this.UpdateTrackingCamera();
 
                         SwitchState(GameState.Start);
 
                         break;
                     }
-                    /*
-                case LayerTags.FinishLayer:
-                    {
-                        // TODO: Keeping it simple now, will consider animation later
-                        // If so, see HudLayer.Draw for how to keep ui positioned correctly
-                        SwitchState(GameState.Start);
-
-                        break;
-                    }
-                    */
             }
         }
 
@@ -550,16 +614,19 @@ namespace Simsip.LineRunner.Scenes.Action
 
             switch(this._currentGameState)
             {
-                case GameState.Intro:
+                case GameState.MovingToNextLine:
                     {
-                        // Intro is finished, display start screen
-                        // _parent.Navigate(LayerTags.StartLayer);
+                        // Moving to next line is finished while in-game, get
+                        // hero moving again
+                        this.SwitchState(GameState.Moving);
                         break;
                     }
-                case GameState.MovingToNextLine:
                 case GameState.MovingToNextPage:
                     {
-                        // Moving to next line/page is finished while in-game, get
+                        // Remove  message box put up at start of bezier
+                        this._parent.TheMessageBoxLayer.Hide();
+
+                        // Moving to next page is finished while in-game, get
                         // hero moving again
                         this.SwitchState(GameState.Moving);
                         break;
@@ -595,7 +662,12 @@ namespace Simsip.LineRunner.Scenes.Action
             }
             else if (e.TheSensorModel is MarginSensorModel)
             {
-                if (this._currentLineNumber != this._pageCache.CurrentPageModel.ThePadEntity.LineCount)
+                if (this._currentLineNumber == this._pageCache.CurrentPageModel.ThePadEntity.LineCount &&
+                    this._currentPageNumber == 6)
+                {
+                    this.HandleMoveToFinish(isWinner: true);
+                }
+                else if (this._currentLineNumber != this._pageCache.CurrentPageModel.ThePadEntity.LineCount)
                 {
                     this.SwitchState(GameState.MovingToNextLine);
                 }
@@ -650,7 +722,7 @@ namespace Simsip.LineRunner.Scenes.Action
                 // Animate hero being killed then determine where to navigate to in callback
                 this._characterCache.HandleKill(
                     e.TheObstacleModel.TheContact,
-                    () => HandleMoveToFinish());
+                    () => HandleMoveToFinish(isWinner: false));
             }
         }
 
@@ -696,7 +768,7 @@ namespace Simsip.LineRunner.Scenes.Action
                 // Animate hero being killed then determine where to navigate to in callback
                 this._characterCache.HandleKill(
                     e.TheLineModel.TheContact,
-                    () => HandleMoveToFinish());
+                    () => HandleMoveToFinish(isWinner: false));
             }
         }
 
@@ -1026,7 +1098,7 @@ namespace Simsip.LineRunner.Scenes.Action
 
         // Callback used when line/obstacle hit to determine
         // where to navigate to next
-        public void HandleMoveToFinish()
+        public void HandleMoveToFinish(bool isWinner)
         {
             // Hook up an event handler for end of content loading caused by
             // moving to start kicking off background load
@@ -1041,22 +1113,26 @@ namespace Simsip.LineRunner.Scenes.Action
             // Did we get a new high score without having "Kills On"?
             var scoreRepository = new FacebookScoreRepository();
             var previousTopScore = scoreRepository.GetTopScoresForPlayer(1);
-            if (!this._hudLayer.KillsOffEventRecorded           // We did not have "Kills Off" enabled during this game run
+            var qualifiesAsNewTopScore = 
+                !this._hudLayer.KillsOffEventRecorded           // We did not have "Kills Off" enabled during this game run
                 &&                                              // AND
                 currentScore > 0                                // We have a score to check
                 &&                                              // AND
                 (previousTopScore.Count == 0 ||                 // This is our first top score or we beat our previous top score
-                previousTopScore[0].Score < currentScore))
+                 previousTopScore[0].Score < currentScore);
+
+            if (isWinner ||
+                qualifiesAsNewTopScore)
             {
                 // Record new high score and give them a chance to post
                 this._parent.TheFinishLayer.SetNewHighScore(currentScore);
+                this._parent.TheFinishLayer.SetIsWinner(isWinner);
                 this._parent.Navigate(LayerTags.FinishLayer);
             }
 
             // Flip tracking of "Kills Off" for start of next game run
             this._hudLayer.KillsOffEventRecorded = false;
         }
-
 
         #endregion
     }

@@ -990,15 +990,11 @@ namespace Simsip.LineRunner.GameObjects.Characters
             var adminLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
             if (adminLineNumber > 1)
             {
-                // Indent on odd sides by half of first line's indent
-                float xOriginalIndent = heroStartOrigin.X - this._pageCache.CurrentPageModel.WorldOrigin.X;
-                float xOffsetOdd = 0.5f * xOriginalIndent;
-
-                // And drop down by appropriate amount to place us at new starting line number
+                // First, drop down by appropriate amount to place us at new starting line number
                 float yOffset = (adminLineNumber - 1) * this._pageCache.CurrentPageModel.WorldLineSpacing;
 
                 heroStartOrigin -= new Vector3(
-                    xOffsetOdd,
+                    0,
                     yOffset,
                     0);
 
@@ -1006,7 +1002,8 @@ namespace Simsip.LineRunner.GameObjects.Characters
                 if (adminLineNumber % 2 == 0)
                 {
                     // Move to other side with an appropriate indent for even lines
-                    float xOffsetEven = this._pageCache.CurrentPageModel.WorldWidth - xOffsetOdd;
+                    float xOriginalIndent = heroStartOrigin.X - this._pageCache.CurrentPageModel.WorldOrigin.X;
+                    float xOffsetEven = this._pageCache.CurrentPageModel.WorldWidth - (2* xOriginalIndent);
                     heroStartOrigin += new Vector3(
                         xOffsetEven,
                         0,

@@ -118,3 +118,10 @@
 "AchievementsColumnScore"="score";
 "HudHigh"="high";
 "HelpSupport"="support";
+"FinishWinner"="winner!";
+"MessageBoxMovingToPage"="moving to page";
+"MessageBoxMovingToPage2"="you\'re awesome!";
+"MessageBoxMovingToPage3"="boom!";
+"MessageBoxMovingToPage4"="sweetness!";
+"MessageBoxMovingToPage5"="fire!";
+"MessageBoxMovingToPage6"="last page!";

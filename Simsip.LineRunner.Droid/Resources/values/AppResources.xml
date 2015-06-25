@@ -120,4 +120,11 @@
   <string name="AchievementsColumnScore">score</string>
   <string name="HudHigh">high</string>
   <string name="HelpSupport">support</string>
+  <string name="FinishWinner">winner!</string>
+  <string name="MessageBoxMovingToPage">moving to page</string>
+  <string name="MessageBoxMovingToPage2">you\'re awesome!</string>
+  <string name="MessageBoxMovingToPage3">boom!</string>
+  <string name="MessageBoxMovingToPage4">sweetness!</string>
+  <string name="MessageBoxMovingToPage5">fire!</string>
+  <string name="MessageBoxMovingToPage6">last page!</string>
 </resources>

@@ -36,6 +36,10 @@ namespace Simsip.LineRunner.Scenes.Finish
         private CCLabelTTF _newTopScoreLabel;
         private CCLabelTTF _newTopTimeLabel;
 
+        // Winner
+        private bool _isWinner;
+        private CCLabelTTF _winnerLabel;
+
         // Top 5 score/date
         private List<CCLabelTTF> _userTop5Score;
         private List<CCLabelTTF> _userTop5Date;
@@ -50,13 +54,13 @@ namespace Simsip.LineRunner.Scenes.Finish
             this._parent = parent;
 
             // Get these set up for relative positioning below
-            var screenSize = CCDirector.SharedDirector.WinSize;
+            var screenSize = CCDirector.SharedDirector.VisibleSize;
             this.ContentSize = new CCSize(
                 0.6f * screenSize.Width,
                 0.4f * screenSize.Height);
 
             // Layer transition in/out
-            var layerEndPosition = new CCPoint(
+            var layerEndPosition = CCDirector.SharedDirector.VisibleOrigin + new CCPoint(
                 0.2f * screenSize.Width,
                 0.3f * screenSize.Height);
             var layerStartPosition = new CCPoint(
@@ -102,6 +106,25 @@ namespace Simsip.LineRunner.Scenes.Finish
                 0.5f * this.ContentSize.Width,
                 0.4f * this.ContentSize.Height);
             this.AddChild(this._newTopTimeLabel);
+
+            // Winner
+            // Important: visble only if flagged
+            var winnerText = string.Empty;
+#if ANDROID
+            winnerText = Program.SharedProgram.Resources.GetString(Resource.String.FinishWinner);
+#elif IOS
+            winnerText = NSBundle.MainBundle.LocalizedString(Strings.FinishWinner, Strings.FinishWinner);
+#else
+            winnerText = AppResources.FinishWinner;
+#endif
+            this._winnerLabel = new CCLabelTTF(winnerText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
+            this._winnerLabel.Color = CCColor3B.Yellow;
+            this._winnerLabel.Rotation = -45;
+            this._newTopScoreLabel.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.6f * this.ContentSize.Height);
+            this._winnerLabel.Visible = false;
+            this.AddChild(this._winnerLabel);
 
             /* TODO: Add back in when first version of finish layer is stablized
             // Top 5 scores
@@ -190,6 +213,11 @@ namespace Simsip.LineRunner.Scenes.Finish
             // we have a new highest score
             this.DisplayScore();
 
+            if (this._isWinner)
+            {
+                this._winnerLabel.Visible = true;
+            }
+
             // TODO: Add in after first version of finish layer is stabilized
             // For reference, show them the current top 5 scores
             // this.DisplayTopScores();
@@ -198,6 +226,8 @@ namespace Simsip.LineRunner.Scenes.Finish
         public override void OnExit()
         {
             base.OnExit();
+
+            this._winnerLabel.Visible = false;
 
             this._particleEffectCache.TerminateAllFinishEffects();
             this._customerContentManager.Unload();
@@ -209,6 +239,11 @@ namespace Simsip.LineRunner.Scenes.Finish
         public void SetNewHighScore(int newHighScore)
         {
             this._newHighScore = newHighScore;
+        }
+
+        public void SetIsWinner(bool isWinner)
+        {
+            this._isWinner = isWinner;
         }
 
         #endregion

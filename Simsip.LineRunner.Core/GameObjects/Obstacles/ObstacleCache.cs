@@ -843,11 +843,22 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             // Now loop over all entries
             foreach (var pageObstaclesEntity in pageObstaclesEntities)
             {
+                // IMPORTANT: Note how we adust spacing here to account for growing number of obstacles per line
+                //            on a page by page basis.
+                //            Example: page 1 has 11 obstacles/line
+                //                     page 2 has 12 obstacles/line
+                //                     .
+                //                     page 6 has 16 obstacles/line
+                //             In our level editer we just place obstacles at spacings of 10 and let this calculation handle spacing.
+                pageObstaclesEntity.LogicalXScaledTo100 = 
+                    (pageObstaclesEntity.LogicalXScaledTo100 * 100) / (110 + (pageObstaclesEntity.PageNumber*10));
+                var currentLogicalXSpacing = (10 * 100) / (110 + (pageObstaclesEntity.PageNumber*10));
+
                 // Update these in case we are injecting random obstacles on this pass
                 // which will need to know this state
                 var currentObstacleNumber = pageObstaclesEntity.ObstacleNumber;
                 var currentLogicalXScaledTo100 = pageObstaclesEntity.LogicalXScaledTo100;
-
+                                
                 // Are we injecting random obstacles?
                 if (pageObstaclesEntity.ModelName.StartsWith(GameConstants.RandomPrefix))
                 {
@@ -951,7 +962,9 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                             ObstacleNumber = currentObstacleNumber++,
                             ModelName = randomObstacle.ModelName,
                             ObstacleType = randomObstacle.ObstacleType,
-                            LogicalXScaledTo100 = currentLogicalXScaledTo100 + randomObstacle.LogicalXScaledTo100,
+                            LogicalXScaledTo100 = 
+                                currentLogicalXScaledTo100 + 
+                                (randomObstacle.LogicalXScaledTo100 / 10) * currentLogicalXSpacing,
                             LogicalHeightScaledTo100 = randomObstacle.LogicalHeightScaledTo100,
                             LogicalScaleScaledTo100 = randomObstacle.LogicalScaleScaledTo100,
                             LogicalAngle = randomObstacle.LogicalAngle,

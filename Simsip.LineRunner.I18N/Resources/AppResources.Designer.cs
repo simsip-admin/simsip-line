@@ -332,6 +332,15 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to winner!.
+        /// </summary>
+        public static string FinishWinner {
+            get {
+                return ResourceManager.GetString("FinishWinner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to help screen.
         /// </summary>
         public static string HelpHelpDescription {
@@ -724,6 +733,60 @@ namespace Simsip.LineRunner.Resources {
         public static string LoginUserNameDescription {
             get {
                 return ResourceManager.GetString("LoginUserNameDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to moving to page.
+        /// </summary>
+        public static string MessageBoxMovingToPage {
+            get {
+                return ResourceManager.GetString("MessageBoxMovingToPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to you&apos;re awesome!.
+        /// </summary>
+        public static string MessageBoxMovingToPage2 {
+            get {
+                return ResourceManager.GetString("MessageBoxMovingToPage2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to boom!.
+        /// </summary>
+        public static string MessageBoxMovingToPage3 {
+            get {
+                return ResourceManager.GetString("MessageBoxMovingToPage3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to sweetness!.
+        /// </summary>
+        public static string MessageBoxMovingToPage4 {
+            get {
+                return ResourceManager.GetString("MessageBoxMovingToPage4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to fire!.
+        /// </summary>
+        public static string MessageBoxMovingToPage5 {
+            get {
+                return ResourceManager.GetString("MessageBoxMovingToPage5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to last page!.
+        /// </summary>
+        public static string MessageBoxMovingToPage6 {
+            get {
+                return ResourceManager.GetString("MessageBoxMovingToPage6", resourceCulture);
             }
         }
         

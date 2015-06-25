@@ -229,18 +229,27 @@ namespace Simsip.LineRunner.GameObjects.Pages
             this.CurrentPageModel.WorldLineSpacing = modelLineMargin * scale.Y;
 
             // Now calculate our starting positions
-            var trackingCameraPosition = new Vector3(
-                    this._inputManager.LineRunnerCamera.Position.X + this.CurrentPageModel.ThePadEntity.ModelStartX * scale.X,
-                    this._inputManager.LineRunnerCamera.Position.Y + this.CurrentPageModel.ThePadEntity.ModelStartY * scale.Y,
-                    this._inputManager.LineRunnerCamera.Position.Z);
-            var trackingCameraTarget = trackingCameraPosition + new Vector3(0, 0, -this.PageDepthFromCameraStart);
-            this._inputManager.LineRunnerCamera.Position = trackingCameraPosition;
-            this._inputManager.LineRunnerCamera.Target = trackingCameraTarget;
-            this._inputManager.TheStationaryCamera.Position = trackingCameraPosition;
-            this._inputManager.TheStationaryCamera.Target = trackingCameraTarget;
-
-            this.CurrentPageModel.PageStartOrigin = trackingCameraPosition + new Vector3(0, 0, -this.PageDepthFromCameraStart); ;
-            this.CurrentPageModel.HeroStartOrigin = trackingCameraPosition + new Vector3(0, 0, -this.CharacterDepthFromCameraStart);
+            var lineRunnerCameraOffsetX = 0.01f * this.CurrentPageModel.WorldWidth;
+            var lineRunnerCameraOffsetY = this.CurrentPageModel.WorldFooterMargin +
+                                          (this.CurrentPageModel.ThePadEntity.LineCount - 0.5f) * this.CurrentPageModel.WorldLineSpacing;
+            this._inputManager.LineRunnerCamera.Position += new Vector3(
+                    lineRunnerCameraOffsetX,
+                    lineRunnerCameraOffsetY,
+                    0);
+            this._inputManager.LineRunnerCamera.Target = this._inputManager.LineRunnerCamera.Position + new Vector3(
+                    0, 
+                    0, 
+                    -this.PageDepthFromCameraStart);
+            this._inputManager.TheStationaryCamera.Position = this._inputManager.LineRunnerCamera.Position;
+            this._inputManager.TheStationaryCamera.Target = this._inputManager.LineRunnerCamera.Target;
+            this.CurrentPageModel.PageStartOrigin = this._inputManager.LineRunnerCamera.Position + new Vector3(
+                0, 
+                0, 
+                -this.PageDepthFromCameraStart); ;
+            this.CurrentPageModel.HeroStartOrigin = this._inputManager.LineRunnerCamera.Position + new Vector3(
+                0, 
+                0, 
+                -this.CharacterDepthFromCameraStart);
             
             // Adjust world matrix references accordingly with our newly constructed scale and translate matrixes
             // (Remember, order of multiplication is important here)

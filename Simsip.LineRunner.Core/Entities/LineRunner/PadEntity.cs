@@ -26,16 +26,6 @@ namespace Simsip.LineRunner.Entities.LineRunner
         public int LineCount { get; set; }
 
         /// <summary>
-        /// X position of page in model coordinates
-        /// </summary>
-        public float ModelStartX { get; set; }
-    
-        /// <summary>
-        /// Y position of page in model coordinates
-        /// </summary>
-        public float ModelStartY  { get; set; }             
-        
-        /// <summary>
         /// Height of page header in model coordinates
         /// </summary>
         public float ModelHeaderMargin { get; set; }

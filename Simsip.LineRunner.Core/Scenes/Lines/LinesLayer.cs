@@ -46,13 +46,13 @@ namespace Simsip.LineRunner.Scenes.Lines
             this._characterCache = (ICharacterCache)TheGame.SharedGame.Services.GetService(typeof(ICharacterCache));
 
             // Get these set up for relative positioning below
-            var screenSize = CCDirector.SharedDirector.WinSize;
+            var screenSize = CCDirector.SharedDirector.VisibleSize;
             this.ContentSize = new CCSize(
                 0.9f * screenSize.Width,
                 0.9f * screenSize.Height);
 
             // Layer transition in/out
-            var layerEndPosition = new CCPoint(
+            var layerEndPosition = CCDirector.SharedDirector.VisibleOrigin + new CCPoint(
                 0.05f * screenSize.Width,
                 0.05f * screenSize.Height);
             var layerStartPosition = new CCPoint(

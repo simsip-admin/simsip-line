@@ -180,6 +180,34 @@
           <source>support</source>
           <target state="new">support</target>
         </trans-unit>
+        <trans-unit id="Resx/MessageBoxMovingToPage6" translate="yes" xml:space="preserve">
+          <source>last page!</source>
+          <target state="new">last page!</target>
+        </trans-unit>
+        <trans-unit id="Resx/MessageBoxMovingToPage5" translate="yes" xml:space="preserve">
+          <source>fire!</source>
+          <target state="new">fire!</target>
+        </trans-unit>
+        <trans-unit id="Resx/MessageBoxMovingToPage4" translate="yes" xml:space="preserve">
+          <source>sweetness!</source>
+          <target state="new">sweetness!</target>
+        </trans-unit>
+        <trans-unit id="Resx/MessageBoxMovingToPage3" translate="yes" xml:space="preserve">
+          <source>boom!</source>
+          <target state="new">boom!</target>
+        </trans-unit>
+        <trans-unit id="Resx/MessageBoxMovingToPage2" translate="yes" xml:space="preserve">
+          <source>you're awesome!</source>
+          <target state="new">you're awesome!</target>
+        </trans-unit>
+        <trans-unit id="Resx/MessageBoxMovingToPage" translate="yes" xml:space="preserve">
+          <source>moving to page</source>
+          <target state="new">moving to page</target>
+        </trans-unit>
+        <trans-unit id="Resx/FinishWinner" translate="yes" xml:space="preserve">
+          <source>winner!</source>
+          <target state="new">winner!</target>
+        </trans-unit>
         <trans-unit id="Resx/AchievementsColumnScore" translate="yes" xml:space="preserve">
           <source>score</source>
           <target state="new">score</target>
