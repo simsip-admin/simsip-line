@@ -55,6 +55,9 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
         public ObstacleAnimationType TheObstacleAnimationType { get; set; }
 
+        public Actions.Action TheObstacleAnimation { get; set; }
+
+
         /// <summary>
         /// The additional database entries that describe this obstacle.
         /// </summary>

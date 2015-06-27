@@ -743,6 +743,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                             }
 
                             // Remove all previous animations for this model
+                            obstacleModel.TheObstacleAnimation = null;
                             obstacleModel.ModelActionManager.RemoveAllActionsFromTarget(obstacleModel);
 
                             obstacleModel.TheCustomContentManager.OriginalEffectsDictionary.Remove(obstacleModel.TheObstacleEntity.ModelName);
@@ -788,6 +789,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                                 }
 
                                 // Remove all previous animations for this model
+                                obstacleModel.TheObstacleAnimation = null;
                                 obstacleModel.ModelActionManager.RemoveAllActionsFromTarget(obstacleModel);
 
                                 this.ObstacleModels.Remove(obstacleModel);
@@ -1063,6 +1065,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 Actions.Action obstacleAction = null;
                 if (obstacleAnimation != null)
                 {
+                    // Record in case we want it to setup paired animations (see DetermineAnimation)
+                    obstacleModel.TheObstacleAnimation = obstacleAnimation;
                     obstacleAction = new Sequence(new FiniteTimeAction[] { obstacleMoveTo, obstacleAnimation });
                 }
                 else
@@ -1127,15 +1131,15 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 (predecessor.TheObstacleAnimationType == ObstacleAnimationType.SimpleTranslateX ||
                  predecessor.TheObstacleAnimationType == ObstacleAnimationType.SimpleTranslateY) )
             {
-                // Do we have a predecessor at the same x location we should copy the animation from
+                // Do we have a predecessor at the same x location we should copy the animation from?
                 if (predecessor.ThePageObstaclesEntity.LogicalXScaledTo100 == currentObstacle.ThePageObstaclesEntity.LogicalXScaledTo100)
                 {
                     // If we tagged this predecessor for copying, short-circuit by returning copy
-                    var predecessorAction = predecessor.ModelActionManager.GetActionByTag(predecessor.ModelID, predecessor);
-                    if (predecessorAction != null)
+                    if (predecessor.TheObstacleAnimation != null)
                     {
-                        var copyAction = predecessorAction.Copy() as FiniteTimeAction;
-                        copyAction.StartWithTarget(currentObstacle);
+                        var copyAction = predecessor.TheObstacleAnimation.Copy() as FiniteTimeAction;
+                        // TODO: Is this needed for?
+                        // copyAction.StartWithTarget(currentObstacle);
                         return copyAction;
                     }
                 }
@@ -1197,7 +1201,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             var randomEnum = this._randomNumberGenerator.Next(1,enumCount);       // Excludes ObstacleAnimationType.None
             currentObstacle.TheObstacleAnimationType = (ObstacleAnimationType)randomEnum;
             // TESTING: Uncomment for testing
-            // currentObstacle.TheObstacleAnimationType = ObstacleAnimationType.SimpleRotatePitch;
+            // currentObstacle.TheObstacleAnimationType = ObstacleAnimationType.SimpleTranslateY;
 
             switch (currentObstacle.TheObstacleAnimationType)
             {
@@ -1376,9 +1380,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         }
                         returnAction = new RepeatForever(moveBySequence);
 
-                        // Tag in case we we are setting up a paired set of animations
-                        returnAction.Tag = currentLineObstacles[index].ModelID;
-
                         break;
                     }
                 case ObstacleAnimationType.SimpleTranslateY:
@@ -1417,9 +1418,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         }
 
                         returnAction = new RepeatForever(moveBySequence);
-
-                        // Tag in case we we are setting up a paired set of animations
-                        returnAction.Tag = currentLineObstacles[index].ModelID;
 
                         break;
                     }
