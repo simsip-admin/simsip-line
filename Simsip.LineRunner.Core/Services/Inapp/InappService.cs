@@ -402,6 +402,11 @@ namespace Simsip.LineRunner.Services.Inapp
                 (notification) =>
                 {
                     var info = notification.UserInfo;
+                    if (info == null)
+                    {
+                        // TODO: Had to put this in so it wouldn't crash, needs a revisit
+                        return;
+                    }
                     var practiceModeProductId = new NSString(this.PracticeModeProductId);
 
                     var product = (SKProduct)info.ObjectForKey(practiceModeProductId);
