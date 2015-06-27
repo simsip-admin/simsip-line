@@ -314,18 +314,23 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
                                             GameTime gameTime,
                                             XNAUtils.CameraType cameraType)
         {
-            // CreateLineHitParticles appropriate offset for positioning particle effect
+            // Create appropriate offset for positioning particle effect
             // IMPORTANT: Note how we adjust offsetY if we are simple top as we have flipped the model
             //            (To understand, best to draw a diagram of a model, mark the particle point, then flip model)
             var obstacleModel = particleEffectDesc.TheGameModel as ObstacleModel;
             var offsetY = obstacleModel.TheObstacleEntity.DisplayParticleModelY * _pageCache.CurrentPageModel.ModelToWorldRatio;
-            if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
+            var offsetWorldY = 0f;
+            if (obstacleModel.TheObstacleType == ObstacleType.SimpleBottom)
             {
-                offsetY = obstacleModel.WorldHeight - offsetY;
+                offsetWorldY = obstacleModel.WorldOrigin.Y + offsetY;
+            }
+            else if (obstacleModel.TheObstacleType == ObstacleType.SimpleTop)
+            {
+                offsetWorldY = obstacleModel.WorldOrigin.Y - offsetY;
             }
             var offsetPosition = new Microsoft.Xna.Framework.Vector3(
                 obstacleModel.WorldOrigin.X + (obstacleModel.TheObstacleEntity.DisplayParticleModelX * _pageCache.CurrentPageModel.ModelToWorldRatio),
-                obstacleModel.WorldOrigin.Y + offsetY,
+                offsetWorldY,
                 obstacleModel.WorldOrigin.Z);
 
             // Convert world point for position to screen point
