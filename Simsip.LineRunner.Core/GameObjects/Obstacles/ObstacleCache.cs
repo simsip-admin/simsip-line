@@ -565,7 +565,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                                         (pageObstaclesEntity.LogicalXScaledTo100 / 100);            // then scale it by our logical X in the range [0,100]
                     var worldLogicalHeight = obstacleModel.WorldHeight *                            // Start with the world height of the obstacle,
                                              (pageObstaclesEntity.LogicalHeightScaledTo100 / 100);  // then scale it by logical height in the range [0,100] for truncated obstacles
-                    // or greater than 100 to float in middle of line
+                                                                                                    // or greater than 100 to float in middle of line
 
                     // Based on our world logical height, what should our Y position be to represent this obstacle?
                     float worldLogicalY = 0;
@@ -1021,17 +1021,19 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 .Where(x => x.ThePageObstaclesEntity.LineNumber == this._currentLineNumber)
                 .ToList();
 
+            // Get a depth that will position obstacle exactly
+            // straddling the halfway depth of the line
+            var lineModel = this._lineCache.GetLineModel(_currentLineNumber);
+            
             // Animate next line's obstacles into position
             int obstacleCount = currentLineObstacles.Count();
             for(int i = 0; i < obstacleCount; i++)
             {
                 var obstacleModel = currentLineObstacles[i];
 
-                // Get a depth that will position obstacle exactly
-                // straddling the halfway depth of the line
-                var lineModel = this._lineCache.GetLineModel(_currentLineNumber);
                 var halfwayDepth = -this._pageCache.PageDepthFromCameraStart +      // Start back at page depth
-                                   (0.5f * lineModel.WorldDepth);                    // Move forward to line depth halfway mark
+                               (0.5f * lineModel.WorldDepth);                    // Move forward to line depth halfway mark
+
                 if (obstacleModel.TheObstacleType == ObstacleType.SimpleBottom)
                 {
                     halfwayDepth += 0.5f*obstacleModel.WorldDepth;                 // Add in 1/2 of obstacle depth so obstacle
@@ -1132,7 +1134,9 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                     var predecessorAction = predecessor.ModelActionManager.GetActionByTag(predecessor.ModelID, predecessor);
                     if (predecessorAction != null)
                     {
-                        return predecessorAction.Copy() as FiniteTimeAction;
+                        var copyAction = predecessorAction.Copy() as FiniteTimeAction;
+                        copyAction.StartWithTarget(currentObstacle);
+                        return copyAction;
                     }
                 }
             }
@@ -1190,10 +1194,10 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             // Ok we qualify for an animation, let's randomly get one from our enum
             // TESTING: Comment out below for testing
             var enumCount = Enum.GetNames(typeof(ObstacleAnimationType)).Length;
-            var randomEnum = this._randomNumberGenerator.Next(1,enumCount+1);       // Excludes ObstacleAnimationType.None
+            var randomEnum = this._randomNumberGenerator.Next(1,enumCount);       // Excludes ObstacleAnimationType.None
             currentObstacle.TheObstacleAnimationType = (ObstacleAnimationType)randomEnum;
             // TESTING: Uncomment for testing
-            // currentObstacle.TheObstacleAnimationType = ObstacleAnimationType.SimpleRotateYaw;
+            // currentObstacle.TheObstacleAnimationType = ObstacleAnimationType.SimpleRotatePitch;
 
             switch (currentObstacle.TheObstacleAnimationType)
             {
@@ -1232,7 +1236,14 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                                 rotateByForward
                             });
                         }
-                        returnAction = new RepeatForever(rotateBySequence);
+
+                        // SimpleTop needs more polish before we can add this one in.
+                        // Start with implementation for RotateTo and not hack for injection ObstacleModel.RotationMatrix
+                        if (currentObstacle.TheObstacleType != ObstacleType.SimpleTop && 
+                            currentObstacle.ThePageObstaclesEntity.LogicalAngle == 0f)
+                        {
+                            returnAction = new RepeatForever(rotateBySequence);
+                        }
 
                         break;
                     }
@@ -1271,7 +1282,14 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                                 rotateByCW
                             });
                         }
-                        returnAction = new RepeatForever(rotateBySequence);
+
+                        // SimpleTop needs more polish before we can add this one in.
+                        // Start with implementation for RotateTo and not hack for injection ObstacleModel.RotationMatrix
+                        if (currentObstacle.TheObstacleType != ObstacleType.SimpleTop &&
+                            currentObstacle.ThePageObstaclesEntity.LogicalAngle == 0f)
+                        {
+                            returnAction = new RepeatForever(rotateBySequence);
+                        }
 
                         break;
                     }
@@ -1310,7 +1328,14 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                                 rotateByRight
                             });
                         }
-                        returnAction = new RepeatForever(rotateBySequence);
+
+                        // SimpleTop needs more polish before we can add this one in.
+                        // Start with implementation for RotateTo and not hack for injection ObstacleModel.RotationMatrix
+                        if (currentObstacle.TheObstacleType != ObstacleType.SimpleTop &&
+                            currentObstacle.ThePageObstaclesEntity.LogicalAngle == 0f)
+                        {
+                            returnAction = new RepeatForever(rotateBySequence);
+                        }
 
                         break;
                     }

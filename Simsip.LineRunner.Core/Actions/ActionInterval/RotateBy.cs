@@ -1,11 +1,15 @@
 using Microsoft.Xna.Framework;
 using Simsip.LineRunner.GameObjects;
+using Simsip.LineRunner.GameObjects.Obstacles;
 
 
 namespace Simsip.LineRunner.Actions
 {
     public class RotateBy : ActionInterval
     {
+        // Hack: Still trying to get rotates to work for SimpleTop obstacles
+        private ObstacleModel _obstacleModel;
+
         protected Quaternion m_StartQ;
         protected Quaternion m_EndQ;
 
@@ -23,8 +27,10 @@ namespace Simsip.LineRunner.Actions
         }
         */
 
-        public RotateBy(float duration, float yaw, float pitch, float roll)
+        public RotateBy(float duration, float yaw, float pitch, float roll, ObstacleModel obstacleModel=null)
         {
+            this._obstacleModel = obstacleModel;
+
             InitWithDuration(duration, yaw, pitch, roll);
         }
 
@@ -135,8 +141,19 @@ namespace Simsip.LineRunner.Actions
                 var rotateMatrix = Matrix.CreateFromQuaternion(rotate);
                 var scaleMatrix = Matrix.CreateScale(scale);
 
-                // Update our 3d model's world matrix
-                m_pTarget.WorldMatrix = scaleMatrix * rotateMatrix * translateMatrix;
+                if (this._obstacleModel != null)
+                {
+                    m_pTarget.WorldMatrix = 
+                        scaleMatrix * 
+                        this._obstacleModel.RotationMatrix *
+                        rotateMatrix * 
+                        translateMatrix;
+                }
+                else
+                {
+                    // Update our 3d model's world matrix
+                    m_pTarget.WorldMatrix = scaleMatrix * rotateMatrix * translateMatrix;
+                }
 
                 // If we have a physics entity, have it follow the rotation
                 if (m_pTarget.PhysicsEntity != null)

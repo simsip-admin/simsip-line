@@ -13,8 +13,8 @@ Random0106,1,Pipe02,SimpleBottom,0,0,20,8,0,0,0,r,1
 Random0106,2,Pipe02,SimpleTop,0,0,30,8,0,0,0,r,0
 Random0107,1,Pipe02,SimpleBottom,0,0,10,4,0,0,0,r,1
 Random0107,2,Pipe02,SimpleTop,0,0,40,4,0,0,0,r,0
-Random0108,1,Pipe01,SimpleBottom,0,0,0,4,0,0,0,r,1
-Random0108,2,Pipe01,SimpleTop,0,0,0,4,0,0,0,r,0
+Random0108,1,Pipe01,SimpleBottom,0,0,40,4,0,0,0,r,1
+Random0108,2,Pipe01,SimpleTop,0,0,10,4,0,0,0,r,0
 Random0201,1,Pipe03,SimpleBottom,0,0,50,4,0,0,0,r,1
 Random0201,2,Pipe03,SimpleTop,0,0,50,4,0,0,0,r,0
 Random0201,3,Pipe04,SimpleBottom,10,0,50,4,0,0,0,r,1
