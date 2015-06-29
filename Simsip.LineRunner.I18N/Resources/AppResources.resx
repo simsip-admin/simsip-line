@@ -500,4 +500,13 @@
   <data name="MessageBoxMovingToPage6" xml:space="preserve">
     <value>last page!</value>
   </data>
+  <data name="CommonBack" xml:space="preserve">
+    <value>back</value>
+  </data>
+  <data name="CommonNext" xml:space="preserve">
+    <value>next</value>
+  </data>
+  <data name="CommonPrevious" xml:space="preserve">
+    <value>previous</value>
+  </data>
 </root>

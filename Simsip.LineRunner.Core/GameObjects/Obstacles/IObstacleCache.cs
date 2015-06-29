@@ -10,6 +10,11 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 {
     public interface IObstacleCache : IUpdateable
     {
+        /// <summary>
+        /// Used to load and unload all related XNA resources for obstacles.
+        /// </summary>
+        CustomContentManager TheCustomContentManager { get; }
+
         event LoadContentAsyncFinishedEventHandler LoadContentAsyncFinished;
 
         /// <summary>
@@ -22,12 +27,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         /// Our current collection of obstacle models for the current page.
         /// </summary>
         IList<ObstacleModel> ObstacleModels { get; }
-
-        /// <summary>
-        /// Our current collection of content managers that control loading/unloading
-        /// of XNA resources.
-        /// </summary>
-        IDictionary<int, CustomContentManager> ContentManagers { get; }
 
         /// <summary>
         /// Called from our b2ContactListener whenever we hit an obstacle.

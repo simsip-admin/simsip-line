@@ -1960,6 +1960,9 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060069
 			public const int CommonAdmin = 2131099753;
 			
+			// aapt resource value: 0x7f0600bb
+			public const int CommonBack = 2131099835;
+			
 			// aapt resource value: 0x7f060057
 			public const int CommonCancel = 2131099735;
 			
@@ -1972,6 +1975,9 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f060075
 			public const int CommonLater = 2131099765;
 			
+			// aapt resource value: 0x7f0600bc
+			public const int CommonNext = 2131099836;
+			
 			// aapt resource value: 0x7f06005a
 			public const int CommonNo = 2131099738;
 			
@@ -1980,6 +1986,9 @@ namespace Simsip.LineRunner
 			
 			// aapt resource value: 0x7f06007d
 			public const int CommonPage = 2131099773;
+			
+			// aapt resource value: 0x7f0600bd
+			public const int CommonPrevious = 2131099837;
 			
 			// aapt resource value: 0x7f060089
 			public const int CommonReset = 2131099785;

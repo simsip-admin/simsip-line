@@ -184,6 +184,18 @@
           <source>last page!</source>
           <target state="new">last page!</target>
         </trans-unit>
+        <trans-unit id="Resx/CommonPrevious" translate="yes" xml:space="preserve">
+          <source>previous</source>
+          <target state="new">previous</target>
+        </trans-unit>
+        <trans-unit id="Resx/CommonNext" translate="yes" xml:space="preserve">
+          <source>next</source>
+          <target state="new">next</target>
+        </trans-unit>
+        <trans-unit id="Resx/CommonBack" translate="yes" xml:space="preserve">
+          <source>back</source>
+          <target state="new">back</target>
+        </trans-unit>
         <trans-unit id="Resx/MessageBoxMovingToPage5" translate="yes" xml:space="preserve">
           <source>fire!</source>
           <target state="new">fire!</target>

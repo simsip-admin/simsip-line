@@ -129,5 +129,8 @@
         public static string MessageBoxMovingToPage4 = "MessageBoxMovingToPage4";
         public static string MessageBoxMovingToPage5 = "MessageBoxMovingToPage5";
         public static string MessageBoxMovingToPage6 = "MessageBoxMovingToPage6";
+        public static string CommonBack = "CommonBack";
+        public static string CommonNext = "CommonNext";
+        public static string CommonPrevious = "CommonPrevious";
     }
 }

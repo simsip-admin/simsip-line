@@ -206,6 +206,15 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to back.
+        /// </summary>
+        public static string CommonBack {
+            get {
+                return ResourceManager.GetString("CommonBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to cancel.
         /// </summary>
         public static string CommonCancel {
@@ -242,6 +251,15 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to next.
+        /// </summary>
+        public static string CommonNext {
+            get {
+                return ResourceManager.GetString("CommonNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to no.
         /// </summary>
         public static string CommonNo {
@@ -265,6 +283,15 @@ namespace Simsip.LineRunner.Resources {
         public static string CommonPage {
             get {
                 return ResourceManager.GetString("CommonPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to previous.
+        /// </summary>
+        public static string CommonPrevious {
+            get {
+                return ResourceManager.GetString("CommonPrevious", resourceCulture);
             }
         }
         

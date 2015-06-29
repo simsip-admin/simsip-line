@@ -125,3 +125,6 @@
 "MessageBoxMovingToPage4"="sweetness!";
 "MessageBoxMovingToPage5"="fire!";
 "MessageBoxMovingToPage6"="last page!";
+"CommonBack"="back";
+"CommonNext"="next";
+"CommonPrevious"="previous";

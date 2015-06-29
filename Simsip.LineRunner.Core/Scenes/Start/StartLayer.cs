@@ -205,9 +205,6 @@ namespace Simsip.LineRunner.Scenes.Start
             // Animate layer and 3D text
             this.RunAction(this._layerActionIn);
             this._3DImage.RunAction(this._3DImageAction);
-
-            // If we meet the ratings prompt criteria, display ratings prompt
-            CheckForRatingsPrompt();
         }
 
         public override void Update(float dt)
@@ -237,6 +234,9 @@ namespace Simsip.LineRunner.Scenes.Start
 #else
             ThreadPool.QueueUserWorkItem(InitializeServicesDoWork);
 #endif
+            // If we meet the ratings prompt criteria, display ratings prompt
+            CheckForRatingsPrompt();
+
             this._servicesStarted = true;
         }
 

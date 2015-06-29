@@ -213,6 +213,19 @@ namespace Simsip.LineRunner.Scenes.Options
                 0.1f * this.ContentSize.Height);
             this.AddChild(this._previousMenu);
             this._previousMenu.Visible = false;
+            var previousText = string.Empty;
+#if ANDROID
+            previousText = Program.SharedProgram.Resources.GetString(Resource.String.CommonPrevious);
+#elif IOS
+            previousText = NSBundle.MainBundle.LocalizedString(Strings.CommonPrevious, Strings.CommonPrevious);
+#else
+            previousText = AppResources.CommonPrevious;
+#endif
+            var previousLabel = new CCLabelTTF(previousText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            previousLabel.Position = new CCPoint(
+                0.1f  * this.ContentSize.Width,
+                0.05f * this.ContentSize.Height);
+            this.AddChild(previousLabel);
 
             // Next
             var nextNormal = new CCSprite("Images/Icons/NextButtonNormal.png");
@@ -237,6 +250,19 @@ namespace Simsip.LineRunner.Scenes.Options
                 0.1f  * this.ContentSize.Height);
             this.AddChild(this._nextMenu);
             this._nextMenu.Visible = true;
+            var nextText = string.Empty;
+#if ANDROID
+            nextText = Program.SharedProgram.Resources.GetString(Resource.String.CommonNext);
+#elif IOS
+            nextText = NSBundle.MainBundle.LocalizedString(Strings.CommonNext, Strings.CommonNext);
+#else
+            nextText = AppResources.CommonNext;
+#endif
+            var nextLabel = new CCLabelTTF(nextText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            nextLabel.Position = new CCPoint(
+                0.95f * this.ContentSize.Width,
+                0.05f * this.ContentSize.Height);
+            this.AddChild(nextLabel);
 
             // Back
             CCMenuItemImage backButton =
@@ -252,6 +278,23 @@ namespace Simsip.LineRunner.Scenes.Options
                 0.5f * this.ContentSize.Width,
                 0.1f * this.ContentSize.Height);
             this.AddChild(backMenu);
+            backMenu.Position = new CCPoint(
+    0.5f * this.ContentSize.Width,
+    0.1f * this.ContentSize.Height);
+            this.AddChild(backMenu);
+            var backText = string.Empty;
+#if ANDROID
+            backText = Program.SharedProgram.Resources.GetString(Resource.String.CommonBack);
+#elif IOS
+            backText = NSBundle.MainBundle.LocalizedString(Strings.CommonBack, Strings.CommonBack);
+#else
+            backText = AppResources.CommonBack;
+#endif
+            var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            backLabel.Position = new CCPoint(
+                0.5f  * this.ContentSize.Width,
+                0.05f * this.ContentSize.Height);
+            this.AddChild(backLabel);
         }
 
         #region Properties

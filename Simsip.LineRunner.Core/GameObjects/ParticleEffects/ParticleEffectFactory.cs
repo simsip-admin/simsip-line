@@ -25,8 +25,7 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
             ParticleEffectType.BasicFireball,
             ParticleEffectType.BasicSmokePlume,
             ParticleEffectType.CampFire,
-            ParticleEffectType.FlowerBloom,
-            ParticleEffectType.WaterJet
+            ParticleEffectType.FlowerBloom
         };
 
         private static List<ParticleEffectType> _allowedFinishTypes = new List<ParticleEffectType>

@@ -127,4 +127,7 @@
   <string name="MessageBoxMovingToPage4">sweetness!</string>
   <string name="MessageBoxMovingToPage5">fire!</string>
   <string name="MessageBoxMovingToPage6">last page!</string>
+  <string name="CommonBack">back</string>
+  <string name="CommonNext">next</string>
+  <string name="CommonPrevious">previous</string>
 </resources>

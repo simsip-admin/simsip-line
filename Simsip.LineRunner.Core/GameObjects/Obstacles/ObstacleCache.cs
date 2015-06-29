@@ -103,7 +103,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
         public IList<ObstacleModel> ObstacleModels { get; private set; }
 
-        public IDictionary<int, CustomContentManager> ContentManagers { get; private set; }
+        // Taking out for now, fine-grained content management appeared to cause out of memory errors due to thrashing
+        // public IDictionary<int, CustomContentManager> ContentManagers { get; private set; }
 
         #endregion
 
@@ -115,10 +116,13 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
             this._currentLineNumber = 1;
             this.ObstacleModels = new List<ObstacleModel>();
+            this.TheCustomContentManager = new CustomContentManager(
+                TheGame.SharedGame.Services,
+                TheGame.SharedGame.Content.RootDirectory);
             this._loadContentThreadPurge = new ConcurrentQueue<LoadContentThreadArgs>();
             this._loadContentThreadResults = new ConcurrentQueue<LoadContentThreadArgs>();
             this._loadContentThreadCache = new ConcurrentQueue<LoadContentThreadArgs>();
-            this.ContentManagers = new Dictionary<int, CustomContentManager>();
+            // this.ContentManagers = new Dictionary<int, CustomContentManager>();
             this._obstacleHitList = new List<ObstacleModel>();
             this.InitializeRandomObstacles();
 
@@ -171,6 +175,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             this._obstacleHitList.Clear();
 
             // Did we signal we need an async content purge processed?
+            /* Taking out for now, doing this up front in LoadContentAsync
             if (this._loadContentThreadPurge.Count > 0)
             {
                 LoadContentThreadArgs loadContentThreadArgs = null;
@@ -180,6 +185,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                     ProcessPurgeContentAsync(loadContentThreadArgs);
                 }
             }
+            */
 
             // Did we signal we need an async content load processed?
             if (this._loadContentThreadResults.Count > 0)
@@ -205,6 +211,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         #endregion
 
         #region IObstacleCache Implementation
+
+        public CustomContentManager TheCustomContentManager { get; private set; }
 
         public event LoadContentAsyncFinishedEventHandler LoadContentAsyncFinished;
 
@@ -421,6 +429,16 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 ObstacleModelsAsync = new List<ObstacleModel>(),
             };
 
+            // Get a purge in first
+            var loadContentThreadPurge = new LoadContentThreadArgs()
+            {
+                TheLoadContentAsyncType = loadContentAsyncType,
+                TheGameState = gameState,
+                PageNumber = pageNumber,
+                LineNumbers = lineNumbers
+            };
+            ProcessPurgeContentAsync(loadContentThreadPurge);
+
 #if NETFX_CORE
 
             IAsyncAction asyncAction = 
@@ -445,6 +463,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             var obstacleModels = loadContentThreadArgs.ObstacleModelsAsync;
 
             // Purge
+            /* Doing this up front in LoadContentAsync
             var loadContentThreadPurge = new LoadContentThreadArgs()
             {
                 TheLoadContentAsyncType = loadContentAsyncType,
@@ -453,6 +472,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 LineNumbers = lineNumbers
             };
             this._loadContentThreadPurge.Enqueue(loadContentThreadPurge);
+            */
 
             // IMPORTANT: If we are coming from a Refresh we may have to clear out any
             //            cached stagings (e.g., the page/line number has changed and
@@ -461,12 +481,14 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             {
                 foreach (var entry in this._loadContentThreadCache)
                 {
+                    /* Taking out fine-grained content management for now
                     foreach (var key in entry.ContentManagersAsync.Keys)
                     {
                         entry.ContentManagersAsync[key].Unload();
                         entry.ContentManagersAsync[key].Dispose();
                     }
                     entry.ContentManagersAsync.Clear();
+                    */
                     entry.ObstacleModelsAsync.Clear();
                 }
 
@@ -521,13 +543,15 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
             foreach (var lineNumber in lineNumbers)
             {
+                /* Taking out fine-grained content management for now
                 var customContentManager = new CustomContentManager(
                    TheGame.SharedGame.Services,
                    TheGame.SharedGame.Content.RootDirectory);
-                   /* Debug
-                   "ObstacleCache (" + lineNumber + ")");
-                   */
+                   // Debug
+                   // "ObstacleCache (" + lineNumber + ")");
+                   //
                 contentManagers[lineNumber] = customContentManager;
+                */
 
                 // Ok, let's grab the collection of obstacles for our current page using our helper
                 // function that knows how to inject entries coded for random sets
@@ -542,7 +566,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                     var obstacleModel = new ObstacleModel(
                         obstacleEntity,
                         pageObstaclesEntity,
-                        customContentManager);
+                        this.TheCustomContentManager);
+                        // customContentManager);
 
                     // Construct our scale matrix based on how we scaled page.
                     // IMPORTANT: Note how we take into account an additional optional scaling that
@@ -746,9 +771,12 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                             obstacleModel.TheObstacleAnimation = null;
                             obstacleModel.ModelActionManager.RemoveAllActionsFromTarget(obstacleModel);
 
+                            // TODO: Not in NEXT below
+                            /*
                             obstacleModel.TheCustomContentManager.OriginalEffectsDictionary.Remove(obstacleModel.TheObstacleEntity.ModelName);
                             obstacleModel.TheCustomContentManager = null;
                             obstacleModel.XnaModel = null;
+                            */
                         }
 
                         // Clear out the full set of previous models
@@ -758,12 +786,14 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         this._particleEffectCache.TerminateAllObstacleEffects();
 
                         // Finally, dispose of all XNA resources
+                        /* Taking out fine-grained content management for now
                         foreach (var key in this.ContentManagers.Keys)
                         {
                             this.ContentManagers[key].Unload();
                             this.ContentManagers[key].Dispose();
                         }
                         this.ContentManagers.Clear();
+                        */
 
                         break;
                     }
@@ -786,6 +816,8 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                                     obstacleModel.PhysicsEntity.Space != null)
                                 {
                                     this._physicsManager.TheSpace.Remove(obstacleModel.PhysicsEntity);
+                                    obstacleModel.PhysicsEntity.Tag = null;
+                                    obstacleModel.PhysicsEntity = null;
                                 }
 
                                 // Remove all previous animations for this model
@@ -799,9 +831,11 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                             this._particleEffectCache.TerminateAllObstacleEffects();
 
                             // Finally, dispose of all XNA resources
+                            /* Taking out fine-grained content management for now
                             this.ContentManagers[lineToRemove].Unload();
                             this.ContentManagers[lineToRemove].Dispose();
                             this.ContentManagers.Remove(lineToRemove);
+                            */
                         }
 
                         break;
@@ -814,11 +848,13 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         private void ProcessLoadContentAsync(LoadContentThreadArgs loadContentThreadArgs)
         {
             // Populate our public content managers from our staged collection
+            /* Taking out fine-grained content management for now
             foreach(var contentManagerAsync in loadContentThreadArgs.ContentManagersAsync)
             {
-                this.ContentManagers[contentManagerAsync.Key] = contentManagerAsync.Value;
+                // this.ContentManagers[contentManagerAsync.Key] = contentManagerAsync.Value;
+                this.ContentManagers.Add(contentManagerAsync.Key, contentManagerAsync.Value);
             }
-
+            */
 
             // Populate our public model collections from our staged collections
             foreach (var obstacleModel in loadContentThreadArgs.ObstacleModelsAsync)
@@ -1175,7 +1211,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 // as we move through game states
                 var currentLineNumber = this._currentLineNumber;
                 particleAction = new CallFunc( () =>
-                      this._particleEffectCache.AddDisplayParticleEffect(currentObstacle, this.ContentManagers[currentLineNumber])
+                      this._particleEffectCache.AddDisplayParticleEffect(currentObstacle, this.TheCustomContentManager) // this.ContentManagers[currentLineNumber])
                     );
             }
 

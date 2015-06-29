@@ -46,7 +46,6 @@ namespace Engine.Input
     {
         private float _defaultNearPlaneDistance;
         private float _defaultFarPlaneDistance;
-        private Matrix _defaultCameraProjection;
 
         //Input
         public KeyboardState KeyboardInput;
@@ -93,6 +92,8 @@ namespace Engine.Input
             this.CaptureMouse = true; // capture the mouse by default.
             this.CursorCentered = false; // only center the mouse in certain game states
         }
+
+        public Matrix DefaultCameraProjection { get; private set; }
 
         public Camera CurrentCamera { get; private set; }
         public Camera LineRunnerCamera { get; private set; }
@@ -168,18 +169,18 @@ namespace Engine.Input
             // Construct our controllers
             this._defaultNearPlaneDistance = 0.01f;
             this._defaultFarPlaneDistance = 1500f;
-            this._defaultCameraProjection = Matrix.CreatePerspectiveFieldOfView(
+            this.DefaultCameraProjection = Matrix.CreatePerspectiveFieldOfView(
                 MathHelper.Pi / 3.0f, 
                 TheGame.SharedGame.GraphicsDevice.Viewport.AspectRatio, 
                 this._defaultNearPlaneDistance,
                 this._defaultFarPlaneDistance);
-            this.PlayerCamera = new Camera(Vector3.Zero, 0f, 0f, this._defaultCameraProjection);
+            this.PlayerCamera = new Camera(Vector3.Zero, 0f, 0f, this.DefaultCameraProjection);
             this.ThePlayerControllerInput = new PlayerControllerInput(this._physicsManager.TheSpace, this.PlayerCamera, TheGame.SharedGame);
-            this.LineRunnerCamera = new Camera(Vector3.Zero, 0f, 0f, this._defaultCameraProjection);
+            this.LineRunnerCamera = new Camera(Vector3.Zero, 0f, 0f, this.DefaultCameraProjection);
             this.TheLineRunnerControllerInput = new LineRunnerControllerInput(this._physicsManager.TheSpace, this.LineRunnerCamera, TheGame.SharedGame);
 
             // Construct our stationary camera
-            this.TheStationaryCamera = new StationaryCamera(Vector3.Zero, 0f, 0f, this._defaultCameraProjection);
+            this.TheStationaryCamera = new StationaryCamera(Vector3.Zero, 0f, 0f, this.DefaultCameraProjection);
             
             // Set inital current controller and camera
             this.CurrentCamera = this.TheLineRunnerControllerInput.TheCamera;

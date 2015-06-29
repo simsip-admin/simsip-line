@@ -41,6 +41,7 @@ using System.Diagnostics;
 using Simsip.LineRunner.GameObjects;
 using Simsip.LineRunner.Scenes.MessageBox;
 using Simsip.LineRunner.Resources;
+using BEPUphysicsDemos;
 #if IOS
 using Foundation;
 #endif
@@ -307,7 +308,7 @@ namespace Simsip.LineRunner.Scenes.Action
                         // Update line number in hud
                         this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
 
-                        // CreateLineHitParticles bezier based on current and next lines from _lineCache
+                        // Create bezier based on current and next lines from _lineCache
                         this._currentFlyBy = new FlyBy(
                             cameraUpdate: FlyByCameraUpdate.TrackingAndStationaryHeightOnly,    // We will update our tracking camera and only the height of the stationary camera
                             targetAttachment: this._characterCache.TheHeroModel,                // We will have the hero model follow our target bezier
@@ -326,6 +327,13 @@ namespace Simsip.LineRunner.Scenes.Action
                                 previousCenterLineWorldHeight,
                                 heroPosition.Z + this._pageCache.CharacterDepthFromCameraStart);
                         var cameraStartTarget = heroPosition;
+
+                        var camera = new Camera(
+                            Vector3.Zero,
+                            0f,
+                            0f,
+                            this._inputManager.DefaultCameraProjection);
+                        UpdateTrackingCamera(camera);
 
                         // We use this direction modifier to control our curve
                         // line number even => construct curve on right of pad
@@ -482,10 +490,10 @@ namespace Simsip.LineRunner.Scenes.Action
             this.SwitchState(GameState.Refresh);
         }
 
-        public void UpdateTrackingCamera()
+        public void UpdateTrackingCamera(Camera virtualCamera=null)
         {
             // TODO: Get setup once and then just add in deltas
-
+            var camera = virtualCamera == null ? this._inputManager.LineRunnerCamera : virtualCamera;
             var heroPosition = this._characterCache.TheHeroModel.WorldOrigin;
             var lineModel = this._lineCache.GetLineModel(this._currentLineNumber);
             if (lineModel == null)
@@ -498,8 +506,14 @@ namespace Simsip.LineRunner.Scenes.Action
 
             // 1. Set camera target, accounting for any adjustments
             //    made by user in xy plane
-            this._inputManager.LineRunnerCamera.Target = new Vector3(
-                heroPosition.X + this._inputManager.HudCameraOffsetX,
+            var isEvenLine = this._currentLineNumber % 2 == 0;
+            var offsetX = heroPosition.X + this._inputManager.HudCameraOffsetX;
+            if (isEvenLine)
+            {
+                offsetX = heroPosition.X - this._inputManager.HudCameraOffsetX;
+            }
+            camera.Target = new Vector3(
+                offsetX,
                 centerLineWorldHeight + this._inputManager.HudCameraOffsetY,
                 heroPosition.Z);
 
@@ -517,8 +531,13 @@ namespace Simsip.LineRunner.Scenes.Action
             // Vector3 orbitOffset = this._inputManager.LineRunnerCamera.Position - this._inputManager.LineRunnerCamera.Target;       
 
             // 2b. Now construct a rotation matrix based on what the user has set
+            var orbitYaw = this._inputManager.HudCameraOrbitYaw;
+            if (isEvenLine)
+            {
+                orbitYaw = -this._inputManager.HudCameraOrbitYaw;
+            }
             Matrix orbitRotation = Matrix.CreateFromYawPitchRoll(
-                this._inputManager.HudCameraOrbitYaw,
+                orbitYaw,
                 this._inputManager.HudCameraOrbitPitch,
                 0f);
 
@@ -527,13 +546,17 @@ namespace Simsip.LineRunner.Scenes.Action
 
             // 2d. This final orbit offset vector can now be added to the camera target to correctly
             //     position our camara
-            this._inputManager.LineRunnerCamera.Position = this._inputManager.LineRunnerCamera.Target + orbitOffset;
+            camera.Position = this._inputManager.LineRunnerCamera.Target + orbitOffset;
 
             // 3. Finally, add in any in-place yaw/pitch to the camera as defined by the user
-            this._inputManager.LineRunnerCamera.Yaw(this._inputManager.HudCameraOffsetYaw);
-            this._inputManager.LineRunnerCamera.Pitch(this._inputManager.HudCameraOffsetPitch);
+            var offsetYaw = this._inputManager.HudCameraOffsetYaw;
+            if (isEvenLine)
+            {
+                offsetYaw = -this._inputManager.HudCameraOffsetYaw;
+            }
+            camera.Yaw(offsetYaw);
+            camera.Pitch(this._inputManager.HudCameraOffsetPitch);
         }
-
 
         public void StartWorld()
         {
@@ -691,7 +714,7 @@ namespace Simsip.LineRunner.Scenes.Action
             this._particleCache.AddHitParticleEffect(
                 e.TheObstacleModel, 
                 e.TheObstacleModel.TheContact, 
-                this._obstacleCache.ContentManagers[this._currentLineNumber]);
+                this._obstacleCache.TheCustomContentManager); // this._obstacleCache.ContentManagers[this._currentLineNumber]);
 
             // Play glow animation
             var glowUpAction = new TintTo(GameConstants.DURATION_OBSTACLE_GLOW, Microsoft.Xna.Framework.Color.White, 0.1f);
@@ -778,6 +801,14 @@ namespace Simsip.LineRunner.Scenes.Action
 
         public override void Update(float dt)
         {
+            // Don't kick off our second stage of initialization until
+            // core app initialization is complete (e.g., database copied into place,
+            // user settings file in place, etc.)
+            if (!TheGame.SharedGame.Ready)
+            {
+                return;
+            }
+
             if (!this.Ready &&                               // If we have not flipped our one-time flag that says we are ready
                 GameManager.SharedGameManager.ServicesReadyForUpdate)   // AND the game services are ready to be referenced
             {

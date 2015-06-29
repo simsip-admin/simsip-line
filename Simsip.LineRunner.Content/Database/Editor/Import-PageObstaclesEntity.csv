@@ -1,12 +1,7 @@
 PageNumber,LineNumber,ObstacleNumber,ModelName,ObstacleType,LogicalXScaledTo100,XRange,LogicalHeightScaledTo100,HeightRange,LogicalScaleScaledTo100,LogicalAngle,AngleRange,DisplayParticle,IsGoal
-1,1,1,Random01x,SimpleBottom,10,0,0,0,0,0,0,,1
-1,1,3,Random01x,SimpleBottom,20,0,0,0,0,0,0,,0
-1,1,5,Random01x,SimpleBottom,30,0,0,0,0,0,0,,1
-1,1,7,Random01x,SimpleBottom,40,0,0,0,0,0,0,,0
-1,1,9,Random01x,SimpleBottom,50,0,0,0,0,0,0,,0
-1,1,11,Random01x,SimpleBottom,60,0,0,0,0,0,0,,0
-1,1,13,Random01x,SimpleBottom,70,0,0,0,0,0,0,,0
-1,1,15,Random01x,SimpleBottom,80,0,0,0,0,0,0,,0
+1,1,1,Random0408,SimpleBottom,10,0,0,0,0,0,0,,0
+1,1,9,Random0207,SimpleBottom,50,0,0,0,0,0,0,,0
+1,1,13,Random0208,SimpleBottom,70,0,0,0,0,0,0,,0
 1,1,17,Random01x,SimpleBottom,90,0,0,0,0,0,0,,0
 1,1,19,Pipe01,SimpleBottom,100,0,30,0,0,0,0,,1
 1,1,20,Pipe09,SimpleTop,100,0,30,0,0,0,0,,0

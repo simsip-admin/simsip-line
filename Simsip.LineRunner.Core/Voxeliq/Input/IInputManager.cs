@@ -29,6 +29,8 @@ namespace Engine.Input
     /// </summary>
     public interface IInputManager : IUpdateable
     {
+        Matrix DefaultCameraProjection { get; }
+
         Camera CurrentCamera { get; }
         Camera LineRunnerCamera { get; }
         Camera PlayerCamera { get; }

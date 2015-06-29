@@ -11,6 +11,11 @@ namespace Simsip.LineRunner.GameObjects.Lines
     public interface ILineCache : IUpdateable
     {
         /// <summary>
+        /// Used to load and unload all related XNA resources for obstacles.
+        /// </summary>
+        CustomContentManager TheCustomContentManager { get; }
+
+        /// <summary>
         /// Allows you to be notified when an async load has finished
         /// AND been processed on the Update() thread.
         /// </summary>
