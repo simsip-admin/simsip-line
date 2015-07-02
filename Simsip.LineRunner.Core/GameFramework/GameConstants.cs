@@ -5,7 +5,12 @@ namespace Simsip.LineRunner.GameFramework
 {
     public class GameConstants
     {
-        // Special strings
+        // Magic numbers
+        public const float DEFAULT_PAGE_DEPTH_FROM_CAMERA = 4f;
+        public const float DEFAULT_CHARACTER_DEPTH_FROM_PAGE = 0.4f;
+        public const float DEFAULT_PANE_DEPTH_FROM_PAGE = 2f;
+
+        // Magic strings
         public const string RandomPrefix = "Random";
 
         // Folders
@@ -63,6 +68,8 @@ namespace Simsip.LineRunner.GameFramework
         public const float USER_DEFAULT_INITIAL_HUD_ORBIT_YAW = 0f;
         public const string USER_DEFAULT_KEY_HUD_ORBIT_PITCH = "HudOrbitPitch";
         public const float USER_DEFAULT_INITIAL_HUD_ORBIT_PITCH = 0f;
+        public const string USER_DEFAULT_KEY_HUD_ZOOM = "HudZoom";
+        public const bool USER_DEFAULT_INITIAL_HUD_ZOOM = false;
 
         // Upgrades
         public const string USER_DEFAULT_KEY_START_PAGE = "StartPage";

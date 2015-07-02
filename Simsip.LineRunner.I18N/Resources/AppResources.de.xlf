@@ -18,515 +18,519 @@
           </trans-unit>
         <trans-unit id="Resx/HelpStartDescription" translate="yes" xml:space="preserve">
           <source>play game</source>
-          <target state="new">play game</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Spiel spielen</target>
         </trans-unit>
         <trans-unit id="Resx/AchievementsTopScoresFor" translate="yes" xml:space="preserve">
           <source>top scores</source>
-          <target state="new">top scores</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Top Bewertungen</target>
         </trans-unit>
         <trans-unit id="Resx/AdminKillsOn" translate="yes" xml:space="preserve">
           <source>kills on</source>
-          <target state="new">kills on</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">beendet am</target>
         </trans-unit>
         <trans-unit id="Resx/AdminKillsOff" translate="yes" xml:space="preserve">
           <source>kills off</source>
-          <target state="new">kills off</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Gelöschte deaktivieren</target>
         </trans-unit>
         <trans-unit id="Resx/AdminStartPageDescription" translate="yes" xml:space="preserve">
           <source>enter page to start on</source>
-          <target state="new">enter page to start on</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Geben Sie auf Seite</target>
         </trans-unit>
         <trans-unit id="Resx/CommonYes" translate="yes" xml:space="preserve">
           <source>yes</source>
-          <target state="new">yes</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">"Ja"</target>
         </trans-unit>
         <trans-unit id="Resx/CommonOK" translate="yes" xml:space="preserve">
           <source>ok</source>
-          <target state="new">ok</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OK</target>
         </trans-unit>
         <trans-unit id="Resx/CommonNo" translate="yes" xml:space="preserve">
           <source>no</source>
-          <target state="new">no</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Nein</target>
         </trans-unit>
         <trans-unit id="Resx/CommonError" translate="yes" xml:space="preserve">
           <source>error</source>
-          <target state="new">error</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Fehler</target>
         </trans-unit>
         <trans-unit id="Resx/CommonDelete" translate="yes" xml:space="preserve">
           <source>delete</source>
-          <target state="new">delete</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Löschen</target>
         </trans-unit>
         <trans-unit id="Resx/CommonCancel" translate="yes" xml:space="preserve">
           <source>cancel</source>
-          <target state="new">cancel</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Abbrechen</target>
         </trans-unit>
         <trans-unit id="Resx/HudResume" translate="yes" xml:space="preserve">
           <source>resume</source>
-          <target state="new">resume</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">wieder aufnehmen</target>
         </trans-unit>
         <trans-unit id="Resx/WorldsWorlds" translate="yes" xml:space="preserve">
           <source>worlds</source>
-          <target state="new">worlds</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Welten</target>
         </trans-unit>
         <trans-unit id="Resx/RatingsRateUs" translate="yes" xml:space="preserve">
           <source>rate us!</source>
-          <target state="new">rate us!</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Bewerten Sie uns!</target>
         </trans-unit>
         <trans-unit id="Resx/CreditsTitle" translate="yes" xml:space="preserve">
           <source>credits</source>
-          <target state="new">credits</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Gutschriften</target>
         </trans-unit>
         <trans-unit id="Resx/StartRate" translate="yes" xml:space="preserve">
           <source>rate</source>
-          <target state="new">rate</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Rate</target>
         </trans-unit>
         <trans-unit id="Resx/StartPlay" translate="yes" xml:space="preserve">
           <source>play</source>
-          <target state="new">play</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Spielen</target>
         </trans-unit>
         <trans-unit id="Resx/HudOptions" translate="yes" xml:space="preserve">
           <source>options</source>
-          <target state="new">options</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Optionen</target>
         </trans-unit>
         <trans-unit id="Resx/HudHelp" translate="yes" xml:space="preserve">
           <source>help</source>
-          <target state="new">help</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Hilfe</target>
         </trans-unit>
         <trans-unit id="Resx/CommonPage" translate="yes" xml:space="preserve">
           <source>page</source>
-          <target state="new">page</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Seite</target>
         </trans-unit>
         <trans-unit id="Resx/HudPause" translate="yes" xml:space="preserve">
           <source>pause</source>
-          <target state="new">pause</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Anhalten</target>
         </trans-unit>
         <trans-unit id="Resx/HudSpeed" translate="yes" xml:space="preserve">
           <source>speed</source>
-          <target state="new">speed</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Geschwindigkeit</target>
         </trans-unit>
         <trans-unit id="Resx/HudPaused" translate="yes" xml:space="preserve">
           <source>paused</source>
-          <target state="new">paused</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">angehalten</target>
         </trans-unit>
         <trans-unit id="Resx/HudTrackball" translate="yes" xml:space="preserve">
           <source>trackball</source>
-          <target state="new">trackball</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Trackball</target>
         </trans-unit>
         <trans-unit id="Resx/HudTime" translate="yes" xml:space="preserve">
           <source>time</source>
-          <target state="new">time</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Zeit</target>
         </trans-unit>
         <trans-unit id="Resx/HudHome" translate="yes" xml:space="preserve">
           <source>home</source>
-          <target state="new">home</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">(privat)</target>
         </trans-unit>
         <trans-unit id="Resx/AdminStartLineDescription" translate="yes" xml:space="preserve">
           <source>enter line to start on (1-17)</source>
-          <target state="new">enter line to start on (1-17)</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Geben Sie ein, auf der (1-17) zu starten</target>
         </trans-unit>
         <trans-unit id="Resx/HelpLicense" translate="yes" xml:space="preserve">
           <source>license</source>
-          <target state="new">license</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Lizenz</target>
         </trans-unit>
         <trans-unit id="Resx/HudScroll" translate="yes" xml:space="preserve">
           <source>scroll view</source>
-          <target state="new">scroll view</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Bildlaufleisten anzeigen</target>
         </trans-unit>
         <trans-unit id="Resx/HelpHud" translate="yes" xml:space="preserve">
           <source>hud</source>
-          <target state="new">hud</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">HUD</target>
         </trans-unit>
         <trans-unit id="Resx/HelpSound" translate="yes" xml:space="preserve">
           <source>turn sound off and on</source>
-          <target state="new">turn sound off and on</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Aktivieren von sound und ausschalten</target>
         </trans-unit>
         <trans-unit id="Resx/UpgradesTitle" translate="yes" xml:space="preserve">
           <source>upgrades</source>
-          <target state="new">upgrades</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Upgrades</target>
         </trans-unit>
         <trans-unit id="Resx/UpgradesPracticeDesc2" translate="yes" xml:space="preserve">
           <source>turn kills off</source>
-          <target state="new">turn kills off</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Gelöschte deaktivieren</target>
         </trans-unit>
         <trans-unit id="Resx/HelpUpgradesPracticeDesc2" translate="yes" xml:space="preserve">
           <source>turn kills off</source>
-          <target state="new">turn kills off</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Gelöschte deaktivieren</target>
         </trans-unit>
         <trans-unit id="Resx/UpgradesPrice" translate="yes" xml:space="preserve">
           <source>price</source>
-          <target state="new">price</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Preis</target>
         </trans-unit>
         <trans-unit id="Resx/UpgradesRestore" translate="yes" xml:space="preserve">
           <source>restore</source>
-          <target state="new">restore</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Stellen Sie wieder her</target>
         </trans-unit>
         <trans-unit id="Resx/AdminUpgradesOn" translate="yes" xml:space="preserve">
           <source>upgrades on</source>
-          <target state="new">upgrades on</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Upgrades auf</target>
         </trans-unit>
         <trans-unit id="Resx/OptionsPractice" translate="yes" xml:space="preserve">
           <source>practice mode</source>
-          <target state="new">practice mode</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Übungsmodus</target>
         </trans-unit>
         <trans-unit id="Resx/UpgradesRestoreStatus" translate="yes" xml:space="preserve">
           <source>restoring upgrade</source>
-          <target state="new">restoring upgrade</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Wiederherstellen der Aktualisierung</target>
         </trans-unit>
         <trans-unit id="Resx/HudHigh" translate="yes" xml:space="preserve">
           <source>high</source>
-          <target state="new">high</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">hoch</target>
         </trans-unit>
         <trans-unit id="Resx/HelpSupport" translate="yes" xml:space="preserve">
           <source>support</source>
-          <target state="new">support</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Unterstützung</target>
         </trans-unit>
         <trans-unit id="Resx/MessageBoxMovingToPage6" translate="yes" xml:space="preserve">
           <source>last page!</source>
-          <target state="new">last page!</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">letzte Seite!</target>
         </trans-unit>
         <trans-unit id="Resx/CommonPrevious" translate="yes" xml:space="preserve">
           <source>previous</source>
-          <target state="new">previous</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Vorherige</target>
+        </trans-unit>
+        <trans-unit id="Resx/HelpZoomInOut" translate="yes" xml:space="preserve">
+          <source>zoom in or out</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Vergrößern oder verkleinern</target>
         </trans-unit>
         <trans-unit id="Resx/CommonNext" translate="yes" xml:space="preserve">
           <source>next</source>
-          <target state="new">next</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Weiter</target>
         </trans-unit>
         <trans-unit id="Resx/CommonBack" translate="yes" xml:space="preserve">
           <source>back</source>
-          <target state="new">back</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Rückseite</target>
         </trans-unit>
         <trans-unit id="Resx/MessageBoxMovingToPage5" translate="yes" xml:space="preserve">
           <source>fire!</source>
-          <target state="new">fire!</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Feuer!</target>
         </trans-unit>
         <trans-unit id="Resx/MessageBoxMovingToPage4" translate="yes" xml:space="preserve">
           <source>sweetness!</source>
-          <target state="new">sweetness!</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Süße!</target>
         </trans-unit>
         <trans-unit id="Resx/MessageBoxMovingToPage3" translate="yes" xml:space="preserve">
           <source>boom!</source>
-          <target state="new">boom!</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Boom!</target>
         </trans-unit>
         <trans-unit id="Resx/MessageBoxMovingToPage2" translate="yes" xml:space="preserve">
           <source>you're awesome!</source>
-          <target state="new">you're awesome!</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Du bist Super!</target>
         </trans-unit>
         <trans-unit id="Resx/MessageBoxMovingToPage" translate="yes" xml:space="preserve">
           <source>moving to page</source>
-          <target state="new">moving to page</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Seite verschieben</target>
         </trans-unit>
         <trans-unit id="Resx/FinishWinner" translate="yes" xml:space="preserve">
           <source>winner!</source>
-          <target state="new">winner!</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Gewinner!</target>
         </trans-unit>
         <trans-unit id="Resx/AchievementsColumnScore" translate="yes" xml:space="preserve">
           <source>score</source>
-          <target state="new">score</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Punktzahl</target>
         </trans-unit>
         <trans-unit id="Resx/AchievementsColumnDate" translate="yes" xml:space="preserve">
           <source>date</source>
-          <target state="new">date</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Datum</target>
         </trans-unit>
         <trans-unit id="Resx/AchievementsColumnTime" translate="yes" xml:space="preserve">
           <source>time</source>
-          <target state="new">time</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Zeit</target>
         </trans-unit>
         <trans-unit id="Resx/UpgradesRestoreError" translate="yes" xml:space="preserve">
           <source>error restoring upgrade</source>
-          <target state="new">error restoring upgrade</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Fehler beim Wiederherstellen der Aktualisierung</target>
         </trans-unit>
         <trans-unit id="Resx/UpgradesPurchaseStatus" translate="yes" xml:space="preserve">
           <source>purchasing upgrade</source>
-          <target state="new">purchasing upgrade</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Upgrade auf</target>
         </trans-unit>
         <trans-unit id="Resx/UpgradesPurchaseError" translate="yes" xml:space="preserve">
           <source>error purchasing upgrade</source>
-          <target state="new">error purchasing upgrade</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Einkauf Update Fehler</target>
         </trans-unit>
         <trans-unit id="Resx/UpgradesPracticeDesc3" translate="yes" xml:space="preserve">
           <source>tap options for practice mode</source>
-          <target state="new">tap options for practice mode</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Tippen Sie auf Optionen für Übungsmodus</target>
         </trans-unit>
         <trans-unit id="Resx/AdminUpgradesOff" translate="yes" xml:space="preserve">
           <source>upgrades off</source>
-          <target state="new">upgrades off</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Upgrades von</target>
         </trans-unit>
         <trans-unit id="Resx/OptionsPracticeStartPage" translate="yes" xml:space="preserve">
           <source>starting page</source>
-          <target state="new">starting page</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Startseite</target>
         </trans-unit>
         <trans-unit id="Resx/OptionsPracticeSwitchingPage" translate="yes" xml:space="preserve">
           <source>switching page to</source>
-          <target state="new">switching page to</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Wechseln zu Seite</target>
         </trans-unit>
         <trans-unit id="Resx/OptionsPracticeSwitchingLine" translate="yes" xml:space="preserve">
           <source>switching line to</source>
-          <target state="new">switching line to</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Zeile wechseln</target>
         </trans-unit>
         <trans-unit id="Resx/OptionsPracticeStartLine" translate="yes" xml:space="preserve">
           <source>starting line</source>
-          <target state="new">starting line</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Anfangszeile</target>
         </trans-unit>
         <trans-unit id="Resx/OptionsPracticeKillsOn" translate="yes" xml:space="preserve">
           <source>kills on</source>
-          <target state="new">kills on</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">beendet am</target>
         </trans-unit>
         <trans-unit id="Resx/OptionsPracticeKillsOff" translate="yes" xml:space="preserve">
           <source>kills off</source>
-          <target state="new">kills off</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Gelöschte deaktivieren</target>
         </trans-unit>
         <trans-unit id="Resx/UpgradesPurchasedOn" translate="yes" xml:space="preserve">
           <source>purchased on</source>
-          <target state="new">purchased on</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">gekauft am</target>
         </trans-unit>
         <trans-unit id="Resx/UpgradesBuy" translate="yes" xml:space="preserve">
           <source>buy</source>
-          <target state="new">buy</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Kaufen</target>
         </trans-unit>
         <trans-unit id="Resx/HelpUpgradesPracticeDesc1" translate="yes" xml:space="preserve">
           <source>jump to any page and line</source>
-          <target state="new">jump to any page and line</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">zu jeder Seite und Zeile springen</target>
         </trans-unit>
         <trans-unit id="Resx/HelpUpgradesPractice" translate="yes" xml:space="preserve">
           <source>practice mode</source>
-          <target state="new">practice mode</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Übungsmodus</target>
         </trans-unit>
         <trans-unit id="Resx/HelpUpgrades" translate="yes" xml:space="preserve">
           <source>upgrades</source>
-          <target state="new">upgrades</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Upgrades</target>
         </trans-unit>
         <trans-unit id="Resx/UpgradesPracticeDesc1" translate="yes" xml:space="preserve">
           <source>jump to any page and line</source>
-          <target state="new">jump to any page and line</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">zu jeder Seite und Zeile springen</target>
         </trans-unit>
         <trans-unit id="Resx/UpgradesPractice" translate="yes" xml:space="preserve">
           <source>practice mode</source>
-          <target state="new">practice mode</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Übungsmodus</target>
         </trans-unit>
         <trans-unit id="Resx/HelpLeaderboards" translate="yes" xml:space="preserve">
           <source>see your top scores</source>
-          <target state="new">see your top scores</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">finden Sie Ihre besten Spielergebnisse</target>
         </trans-unit>
         <trans-unit id="Resx/HudRotate" translate="yes" xml:space="preserve">
           <source>rotate view</source>
-          <target state="new">rotate view</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Ansicht drehen</target>
         </trans-unit>
         <trans-unit id="Resx/HudOrbit" translate="yes" xml:space="preserve">
           <source>orbit view</source>
-          <target state="new">orbit view</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Orbit-Ansicht</target>
         </trans-unit>
         <trans-unit id="Resx/HelpScroll" translate="yes" xml:space="preserve">
           <source>tap or hold to scroll view</source>
-          <target state="new">tap or hold to scroll view</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Tippen Sie auf oder Ansicht einen Bildlauf zu halten</target>
         </trans-unit>
         <trans-unit id="Resx/HelpRotate" translate="yes" xml:space="preserve">
           <source>drag from middle to rotate view</source>
-          <target state="new">drag from middle to rotate view</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Ziehen Sie von der Mitte drehen anzeigen</target>
         </trans-unit>
         <trans-unit id="Resx/HelpPauseResume" translate="yes" xml:space="preserve">
           <source>pause or resume the game</source>
-          <target state="new">pause or resume the game</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Anhalten oder Fortsetzen des Spieles</target>
         </trans-unit>
         <trans-unit id="Resx/HelpOrbit" translate="yes" xml:space="preserve">
           <source>drag from trackball to orbit view</source>
-          <target state="new">drag from trackball to orbit view</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Ziehen Sie aus der Trackball Umlaufbahn anzeigen</target>
         </trans-unit>
         <trans-unit id="Resx/HelpIncreaseDecrease" translate="yes" xml:space="preserve">
           <source>increase or decrease speed</source>
-          <target state="new">increase or decrease speed</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">erhöhen oder verringern Sie die Geschwindigkeit</target>
         </trans-unit>
         <trans-unit id="Resx/CommonReset" translate="yes" xml:space="preserve">
           <source>double tap trackball to reset view</source>
-          <target state="new">double tap trackball to reset view</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">doppelt tippen Sie Trackball Ansicht zurücksetzen</target>
         </trans-unit>
         <trans-unit id="Resx/AdminStartLine" translate="yes" xml:space="preserve">
           <source>start line</source>
-          <target state="new">start line</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Zeilenbeginn</target>
         </trans-unit>
         <trans-unit id="Resx/HudJoystick" translate="yes" xml:space="preserve">
           <source>joystick</source>
-          <target state="new">joystick</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Joystick</target>
         </trans-unit>
         <trans-unit id="Resx/HudCannotGoSlowerThan" translate="yes" xml:space="preserve">
           <source>cannot go slower than</source>
-          <target state="new">cannot go slower than</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">kann nicht niedriger als</target>
         </trans-unit>
         <trans-unit id="Resx/RatingsDescription" translate="yes" xml:space="preserve">
           <source>It seems that you love LineRunner as much as we do. Care to give us a few stars?</source>
-          <target state="new">It seems that you love LineRunner as much as we do. Care to give us a few stars?</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Es scheint, dass Sie LineRunner so viel wie wir lieben. Wichtig Sie uns ein paar Sterne Geben?</target>
         </trans-unit>
         <trans-unit id="Resx/CommonLater" translate="yes" xml:space="preserve">
           <source>later</source>
-          <target state="new">later</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">später</target>
         </trans-unit>
         <trans-unit id="Resx/WorldsUseThisWorld" translate="yes" xml:space="preserve">
           <source>use this world when starting</source>
-          <target state="new">use this world when starting</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Beim Starten verwenden Sie dieser Welt</target>
         </trans-unit>
         <trans-unit id="Resx/WorldsSwitchingWorlds" translate="yes" xml:space="preserve">
           <source>switching worlds</source>
-          <target state="new">switching worlds</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Switching-Welten</target>
         </trans-unit>
         <trans-unit id="Resx/WorldsSelectNewWorld" translate="yes" xml:space="preserve">
           <source>select new world to use</source>
-          <target state="new">select new world to use</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Wählen Sie die neue Welt zu verwenden</target>
         </trans-unit>
         <trans-unit id="Resx/WorldsSaveWorldAsDescription" translate="yes" xml:space="preserve">
           <source>enter name of world</source>
-          <target state="new">enter name of world</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Geben Sie die Namen der Welt</target>
         </trans-unit>
         <trans-unit id="Resx/WorldsSaveWorldAs" translate="yes" xml:space="preserve">
           <source>save world as...</source>
-          <target state="new">save world as...</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Speichern Sie die Welt...</target>
         </trans-unit>
         <trans-unit id="Resx/WorldsGenerateNew" translate="yes" xml:space="preserve">
           <source>generate new</source>
-          <target state="new">generate new</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">neu generieren</target>
         </trans-unit>
         <trans-unit id="Resx/WorldsErrorWorldAlreadyExists" translate="yes" xml:space="preserve">
           <source>a world with this name already exists</source>
-          <target state="new">a world with this name already exists</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">eine Welt mit diesem Namen ist bereits vorhanden.</target>
         </trans-unit>
         <trans-unit id="Resx/WorldsErrorWorldActive" translate="yes" xml:space="preserve">
           <source>you cannot delete a world that is active</source>
-          <target state="new">you cannot delete a world that is active</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">eine Welt können nicht gelöscht, die aktiv ist</target>
         </trans-unit>
         <trans-unit id="Resx/WorldsErrorCannotUseName" translate="yes" xml:space="preserve">
           <source>you cannot use this name for your world</source>
-          <target state="new">you cannot use this name for your world</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">diesen Namen für Ihre Welt kann nicht verwendet werden.</target>
         </trans-unit>
         <trans-unit id="Resx/WorldsDefault" translate="yes" xml:space="preserve">
           <source>default</source>
-          <target state="new">default</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Standard</target>
         </trans-unit>
         <trans-unit id="Resx/ResourcePacksSwitchingResourcePacks" translate="yes" xml:space="preserve">
           <source>switching resource packs</source>
-          <target state="new">switching resource packs</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Ressource-Packs wechseln</target>
         </trans-unit>
         <trans-unit id="Resx/CommonAdmin" translate="yes" xml:space="preserve">
           <source>admin</source>
-          <target state="new">admin</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Admin</target>
         </trans-unit>
         <trans-unit id="Resx/PadsSwitchingPads" translate="yes" xml:space="preserve">
           <source>switching pads</source>
-          <target state="new">switching pads</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Switching-pads</target>
         </trans-unit>
         <trans-unit id="Resx/LoginUserNameDescription" translate="yes" xml:space="preserve">
           <source>enter a unique user name</source>
-          <target state="new">enter a unique user name</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Geben Sie einen eindeutigen Namen</target>
         </trans-unit>
         <trans-unit id="Resx/LoginUserName" translate="yes" xml:space="preserve">
           <source>user name</source>
-          <target state="new">user name</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Benutzername</target>
         </trans-unit>
         <trans-unit id="Resx/LoginPasswordDescription" translate="yes" xml:space="preserve">
           <source>enter password</source>
-          <target state="new">enter password</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Geben Sie Kennwort ein</target>
         </trans-unit>
         <trans-unit id="Resx/LoginPassword" translate="yes" xml:space="preserve">
           <source>password</source>
-          <target state="new">password</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Kennwort</target>
         </trans-unit>
         <trans-unit id="Resx/LinesSwitchingLines" translate="yes" xml:space="preserve">
           <source>switching lines</source>
-          <target state="new">switching lines</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Switching-Zeilen</target>
         </trans-unit>
         <trans-unit id="Resx/HudPageLine" translate="yes" xml:space="preserve">
           <source>page/line</source>
-          <target state="new">page/line</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Seite/Zeile</target>
         </trans-unit>
         <trans-unit id="Resx/FinishNewHighScore" translate="yes" xml:space="preserve">
           <source>new high score</source>
-          <target state="new">new high score</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">neuer Höchststand</target>
         </trans-unit>
         <trans-unit id="Resx/CreditsCreatedBySimsip" translate="yes" xml:space="preserve">
           <source>simsip</source>
-          <target state="new">simsip</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">simsip</target>
         </trans-unit>
         <trans-unit id="Resx/CreditsCreatedBy" translate="yes" xml:space="preserve">
           <source>development</source>
-          <target state="new">development</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Entwicklung</target>
         </trans-unit>
         <trans-unit id="Resx/AdminStartPage" translate="yes" xml:space="preserve">
           <source>start page</source>
-          <target state="new">start page</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Startseite</target>
         </trans-unit>
         <trans-unit id="Resx/AdminParticlesOn" translate="yes" xml:space="preserve">
           <source>particles on</source>
-          <target state="new">particles on</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Partikel auf</target>
         </trans-unit>
         <trans-unit id="Resx/AdminParticlesOff" translate="yes" xml:space="preserve">
           <source>particles off</source>
-          <target state="new">particles off</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Partikel aus</target>
         </trans-unit>
         <trans-unit id="Resx/AchievementsLeaderboards" translate="yes" xml:space="preserve">
           <source>leaderboards</source>
-          <target state="new">leaderboards</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Bestenlisten</target>
         </trans-unit>
         <trans-unit id="Resx/OptionsTitle" translate="yes" xml:space="preserve">
           <source>options</source>
-          <target state="new">options</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Optionen</target>
         </trans-unit>
         <trans-unit id="Resx/OptionsSoundOn" translate="yes" xml:space="preserve">
           <source>sound on</source>
-          <target state="new">sound on</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Sound auf</target>
         </trans-unit>
         <trans-unit id="Resx/OptionsSoundOff" translate="yes" xml:space="preserve">
           <source>sound off</source>
-          <target state="new">sound off</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Ton aus</target>
         </trans-unit>
         <trans-unit id="Resx/OptionsPads" translate="yes" xml:space="preserve">
           <source>pads</source>
-          <target state="new">pads</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Pads</target>
         </trans-unit>
         <trans-unit id="Resx/OptionsLines" translate="yes" xml:space="preserve">
           <source>lines</source>
-          <target state="new">lines</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Linien</target>
         </trans-unit>
         <trans-unit id="Resx/OptionsLeaderboards" translate="yes" xml:space="preserve">
           <source>leaderboards</source>
-          <target state="new">leaderboards</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Bestenlisten</target>
         </trans-unit>
         <trans-unit id="Resx/OptionsCredits" translate="yes" xml:space="preserve">
           <source>credits</source>
-          <target state="new">credits</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Gutschriften</target>
         </trans-unit>
         <trans-unit id="Resx/HelpTitle" translate="yes" xml:space="preserve">
           <source>help</source>
-          <target state="new">help</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Hilfe</target>
         </trans-unit>
         <trans-unit id="Resx/HelpRatingsDescription" translate="yes" xml:space="preserve">
           <source>rate us</source>
-          <target state="new">rate us</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Bewerten Sie uns</target>
         </trans-unit>
         <trans-unit id="Resx/HelpOptionsDescription" translate="yes" xml:space="preserve">
           <source>game options</source>
-          <target state="new">game options</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Spieloptionen</target>
         </trans-unit>
         <trans-unit id="Resx/HelpPads" translate="yes" xml:space="preserve">
           <source>change the pad you play on</source>
-          <target state="new">change the pad you play on</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Ändern Sie das Feld, auf dem, das Sie spielen</target>
         </trans-unit>
         <trans-unit id="Resx/HelpHelpDescription" translate="yes" xml:space="preserve">
           <source>help screen</source>
-          <target state="new">help screen</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Hilfe-Bildschirm</target>
         </trans-unit>
         <trans-unit id="Resx/HelpOptions" translate="yes" xml:space="preserve">
           <source>options</source>
-          <target state="new">options</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Optionen</target>
         </trans-unit>
         <trans-unit id="Resx/HelpLines" translate="yes" xml:space="preserve">
           <source>change the line for the pad</source>
-          <target state="new">change the line for the pad</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Ändern Sie die Zeile für das Feld</target>
         </trans-unit>
         <trans-unit id="Resx/HelpHowToPlayDescription1" translate="yes" xml:space="preserve">
           <source>tap to avoid lines and obstacles</source>
-          <target state="new">tap to avoid lines and obstacles</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Tippen Sie, um Linien und Hindernisse zu vermeiden.</target>
         </trans-unit>
         <trans-unit id="Resx/CommonVersion" translate="yes" xml:space="preserve">
           <source>version</source>
-          <target state="new">version</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Version</target>
         </trans-unit>
       </group>
     </body>

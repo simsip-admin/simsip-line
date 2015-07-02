@@ -47,6 +47,8 @@ namespace Simsip.LineRunner.Scenes.Options
         // Previous/next buttons
         private CCMenu _previousMenu;
         private CCMenu _nextMenu;
+        private CCLabelTTF _previousLabel;
+        private CCLabelTTF _nextLabel;
 
         // Track page we are on
         private int _currentPage;
@@ -221,11 +223,13 @@ namespace Simsip.LineRunner.Scenes.Options
 #else
             previousText = AppResources.CommonPrevious;
 #endif
-            var previousLabel = new CCLabelTTF(previousText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-            previousLabel.Position = new CCPoint(
-                0.1f  * this.ContentSize.Width,
-                0.05f * this.ContentSize.Height);
-            this.AddChild(previousLabel);
+            this._previousLabel = new CCLabelTTF(previousText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            this._previousLabel.AnchorPoint = CCPoint.AnchorMiddleLeft;
+            this._previousLabel.Position = new CCPoint(
+                0.05f * this.ContentSize.Width,
+                0.02f * this.ContentSize.Height);
+            this.AddChild(this._previousLabel);
+            this._previousLabel.Visible = false;
 
             // Next
             var nextNormal = new CCSprite("Images/Icons/NextButtonNormal.png");
@@ -258,11 +262,13 @@ namespace Simsip.LineRunner.Scenes.Options
 #else
             nextText = AppResources.CommonNext;
 #endif
-            var nextLabel = new CCLabelTTF(nextText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-            nextLabel.Position = new CCPoint(
-                0.95f * this.ContentSize.Width,
-                0.05f * this.ContentSize.Height);
-            this.AddChild(nextLabel);
+            this._nextLabel = new CCLabelTTF(nextText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            this._nextLabel.Position = new CCPoint(
+                0.95f  * this.ContentSize.Width,
+                0.02f  * this.ContentSize.Height);
+            this._nextLabel.AnchorPoint = CCPoint.AnchorMiddleRight;
+            this.AddChild(this._nextLabel);
+            this._nextLabel.Visible = true;
 
             // Back
             CCMenuItemImage backButton =
@@ -279,8 +285,8 @@ namespace Simsip.LineRunner.Scenes.Options
                 0.1f * this.ContentSize.Height);
             this.AddChild(backMenu);
             backMenu.Position = new CCPoint(
-    0.5f * this.ContentSize.Width,
-    0.1f * this.ContentSize.Height);
+                0.5f * this.ContentSize.Width,
+                0.1f * this.ContentSize.Height);
             this.AddChild(backMenu);
             var backText = string.Empty;
 #if ANDROID
@@ -293,7 +299,7 @@ namespace Simsip.LineRunner.Scenes.Options
             var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
             backLabel.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
-                0.05f * this.ContentSize.Height);
+                0.02f * this.ContentSize.Height);
             this.AddChild(backLabel);
         }
 
@@ -405,18 +411,24 @@ namespace Simsip.LineRunner.Scenes.Options
             if (this._currentPage == 1)
             {
                 this._previousMenu.Visible = false;
+                this._previousLabel.Visible = false;
                 this._nextMenu.Visible = true;
+                this._nextLabel.Visible = true;
 
             }
             else if (this._currentPage == this._totalPages)
             {
                 this._previousMenu.Visible = true;
+                this._previousLabel.Visible = true;
                 this._nextMenu.Visible = false;
+                this._nextLabel.Visible = false;
             }
             else
             {
                 this._previousMenu.Visible = true;
+                this._previousLabel.Visible = true;
                 this._nextMenu.Visible = true;
+                this._nextLabel.Visible = true;
             }
         }
 

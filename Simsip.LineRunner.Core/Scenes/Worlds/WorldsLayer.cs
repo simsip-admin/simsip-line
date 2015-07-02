@@ -208,7 +208,19 @@ namespace Simsip.LineRunner.Scenes.Worlds
                 0.2f * this.ContentSize.Height);
             this.AddChild(backMenu);
             backMenu.Tag = this._staticTag;
-
+            var backText = string.Empty;
+#if ANDROID
+            backText = Program.SharedProgram.Resources.GetString(Resource.String.CommonBack);
+#elif IOS
+            backText = NSBundle.MainBundle.LocalizedString(Strings.CommonBack, Strings.CommonBack);
+#else
+            backText = AppResources.CommonBack;
+#endif
+            var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            backLabel.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.02f * this.ContentSize.Height);
+            this.AddChild(backLabel);
         }
 
         #region Cocos2D overrides

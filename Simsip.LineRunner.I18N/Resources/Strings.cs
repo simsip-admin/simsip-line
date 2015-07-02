@@ -132,5 +132,6 @@
         public static string CommonBack = "CommonBack";
         public static string CommonNext = "CommonNext";
         public static string CommonPrevious = "CommonPrevious";
+        public static string HelpZoomInOut = "HelpZoomInOut";
     }
 }

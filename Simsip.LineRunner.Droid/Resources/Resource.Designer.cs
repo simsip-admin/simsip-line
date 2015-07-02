@@ -2086,6 +2086,9 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f06009c
 			public const int HelpUpgradesPracticeDesc2 = 2131099804;
 			
+			// aapt resource value: 0x7f0600be
+			public const int HelpZoomInOut = 2131099838;
+			
 			// aapt resource value: 0x7f060080
 			public const int HudCannotGoSlowerThan = 2131099776;
 			

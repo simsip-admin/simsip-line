@@ -47,6 +47,8 @@ namespace Engine.Input
 
         void HudOnGestureReset();
 
+        void HudOnZoom(bool zoomIn);
+
         void HudOnJoystick(MoveDirection moveDirection);
 
         float HudCameraOffsetX { get; }

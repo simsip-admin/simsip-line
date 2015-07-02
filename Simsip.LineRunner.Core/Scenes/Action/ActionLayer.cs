@@ -305,8 +305,9 @@ namespace Simsip.LineRunner.Scenes.Action
                         // Set state
                         this._currentLineNumber++;
 
-                        // Update line number in hud
+                        // Update hud
                         this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
+                        this._hudLayer.EnablePause(enabled: false);
 
                         // Create bezier based on current and next lines from _lineCache
                         this._currentFlyBy = new FlyBy(
@@ -314,26 +315,40 @@ namespace Simsip.LineRunner.Scenes.Action
                             targetAttachment: this._characterCache.TheHeroModel,                // We will have the hero model follow our target bezier
                             targetAttachmentUse: FlyByTargetAttachment.UsePhysicsBody);         // We will use the physics model for the hero when following the target bezier
                         this._currentFlyBy.FlyByFinished += OnCurrentFlyByFinished;             // Will switch state here in this event handler when finished
+
                         var heroPosition = this._characterCache.TheHeroModel.WorldOrigin;
                         var previousLineModel = this._lineCache.GetLineModel(this._currentLineNumber - 1);
-                        var lineModel = this._lineCache.GetLineModel(this._currentLineNumber);
+                        var currentLineModel = this._lineCache.GetLineModel(this._currentLineNumber);
                         var lineSpacing = this._pageCache.CurrentPageModel.WorldLineSpacing;
                         var pageWidth = this._pageCache.CurrentPageModel.WorldWidth;
                         var pageDepth = this._pageCache.CurrentPageModel.WorldDepth;
-                        var previousCenterLineWorldHeight = previousLineModel.WorldOrigin.Y +
-                                                    (0.5f * lineSpacing);
+
+                        var previousCenterLineWorldHeight = previousLineModel.WorldOrigin.Y + (0.5f * lineSpacing);
+                        var currentCenterLineWorldHeight = currentLineModel.WorldOrigin.Y + (0.5f * lineSpacing);
+
+                        /*
                         var cameraStartPosition = new Vector3(
                                 heroPosition.X,
                                 previousCenterLineWorldHeight,
                                 heroPosition.Z + this._pageCache.CharacterDepthFromCameraStart);
                         var cameraStartTarget = heroPosition;
-
-                        var camera = new Camera(
+                        */
+                        var cameraStartPosition = this._inputManager.LineRunnerCamera.Position;
+                        var cameraStartTarget = this._inputManager.LineRunnerCamera.Target;
+                        var cameraStop = new Camera(
                             Vector3.Zero,
                             0f,
                             0f,
                             this._inputManager.DefaultCameraProjection);
-                        UpdateTrackingCamera(camera);
+                        var heroStopPosition = new float[]
+                            {
+                                heroPosition.X,
+                                currentCenterLineWorldHeight,
+                                heroPosition.Z
+                            };
+                        UpdateTrackingCamera(cameraStop, heroStopPosition);
+                        var cameraStopPosition = cameraStop.Position;
+                        var cameraStopTarget = cameraStop.Target;
 
                         // We use this direction modifier to control our curve
                         // line number even => construct curve on right of pad
@@ -349,20 +364,27 @@ namespace Simsip.LineRunner.Scenes.Action
                             cameraStartPosition,                                              // Start at our current camera position
                             cameraStartPosition + new Vector3(0.75f*pageWidth * direction, -0.75f * lineSpacing, -1.2f* this._pageCache.CharacterDepthFromCameraStart),  // By first control point move to right and down 1/4 page margin
                             cameraStartPosition + new Vector3(1.5f*pageWidth * direction, -1.0f * lineSpacing,  -1.2f*this._pageCache.CharacterDepthFromCameraStart),  // By second control point we still to right and down 3/4 page margin
+                            /*
                             new Vector3(                                                        // Finish at previous camera position x,z and set our height to be middle of next line
                                 cameraStartPosition.X,                                                            
-                                lineModel.WorldOrigin.Y + (0.5f * lineSpacing),
+                                currentLineModel.WorldOrigin.Y + (0.5f * lineSpacing),
                                 cameraStartPosition.Z)
+                            */
+                            cameraStopPosition
                         };
                         var targetPoints = new List<Vector3>()
                         {
                             cameraStartTarget,                                                // Start with current camera target
                             cameraStartTarget + new Vector3(0.5f * pageWidth * direction, -0.75f * lineSpacing, 0f),    // By first control point move to right and down 1/4 line spacing
                             cameraStartTarget + new Vector3(0.5f * pageWidth * direction, -1.0f * lineSpacing, 0f),    // By second control point we still to right and down 3/4 line spacing
+                            /*
                             new Vector3(                                                        // Finish at previous camera target x,z and set our height to be middle of next line
                                 cameraStartTarget.X,                                                            
-                                lineModel.WorldOrigin.Y + (0.5f * lineSpacing),
-                                cameraStartTarget.Z)                        };
+                                currentLineModel.WorldOrigin.Y + (0.5f * lineSpacing),
+                                cameraStartTarget.Z)                        
+                            */
+                            cameraStopTarget
+                        };
 
                         this._currentFlyBy.InitBezierControlPoints(GameConstants.DURATION_MOVE_TO_NEXT_LINE, controlPoints, targetPoints);
 
@@ -376,8 +398,9 @@ namespace Simsip.LineRunner.Scenes.Action
                         this._currentPageNumber++;
                         this._currentLineNumber = 1;
 
-                        // Update page/line number in hud
+                        // Update hud
                         this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
+                        this._hudLayer.EnablePause(enabled: false);
 
                         // Construct an appropriate message box to display while we are moving to next page.
                         // Will be removed in FlyByFinished event handler
@@ -490,11 +513,13 @@ namespace Simsip.LineRunner.Scenes.Action
             this.SwitchState(GameState.Refresh);
         }
 
-        public void UpdateTrackingCamera(Camera virtualCamera=null)
+        public void UpdateTrackingCamera(Camera virtualCamera=null, float[] virtualHeroPosition=null)
         {
             // TODO: Get setup once and then just add in deltas
             var camera = virtualCamera == null ? this._inputManager.LineRunnerCamera : virtualCamera;
-            var heroPosition = this._characterCache.TheHeroModel.WorldOrigin;
+            var heroPosition = virtualHeroPosition == null ? 
+                this._characterCache.TheHeroModel.WorldOrigin : 
+                new Vector3(virtualHeroPosition[0], virtualHeroPosition[1], virtualHeroPosition[2]);
             var lineModel = this._lineCache.GetLineModel(this._currentLineNumber);
             if (lineModel == null)
             {
@@ -639,9 +664,13 @@ namespace Simsip.LineRunner.Scenes.Action
             {
                 case GameState.MovingToNextLine:
                     {
+                        // Update hud
+                        this._hudLayer.EnablePause(enabled: true);
+
                         // Moving to next line is finished while in-game, get
                         // hero moving again
                         this.SwitchState(GameState.Moving);
+
                         break;
                     }
                 case GameState.MovingToNextPage:
@@ -649,9 +678,13 @@ namespace Simsip.LineRunner.Scenes.Action
                         // Remove  message box put up at start of bezier
                         this._parent.TheMessageBoxLayer.Hide();
 
+                        // Update hud
+                        this._hudLayer.EnablePause(enabled: true);
+
                         // Moving to next page is finished while in-game, get
                         // hero moving again
                         this.SwitchState(GameState.Moving);
+
                         break;
                     }
                 case GameState.MovingToStart:

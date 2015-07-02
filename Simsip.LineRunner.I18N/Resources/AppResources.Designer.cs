@@ -575,6 +575,15 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to zoom in or out.
+        /// </summary>
+        public static string HelpZoomInOut {
+            get {
+                return ResourceManager.GetString("HelpZoomInOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to cannot go slower than.
         /// </summary>
         public static string HudCannotGoSlowerThan {

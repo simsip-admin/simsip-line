@@ -34,11 +34,6 @@ namespace Simsip.LineRunner.GameObjects.Pages
 {
     public class PageCache : GameComponent, IPageCache
     {
-        // Magic numbers
-        private const float DEFAULT_PAGE_DEPTH_FROM_CAMERA = 4f;
-        private const float DEFAULT_CHARACTER_DEPTH_FROM_PAGE = 0.4f;
-        private const float DEFAULT_PANE_DEPTH_FROM_PAGE = 2f;
-
         // State we maintain
         private int _currentPageNumber;
         private int _currentLineNumber;
@@ -86,7 +81,18 @@ namespace Simsip.LineRunner.GameObjects.Pages
             this._currentPageNumber = GameManager.SharedGameManager.GameStartPageNumber;
             this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
             this._loadContentThreadPurge = new ConcurrentQueue<LoadContentThreadArgs>();
-            this._loadContentThreadResults = new ConcurrentQueue<LoadContentThreadArgs>(); 
+            this._loadContentThreadResults = new ConcurrentQueue<LoadContentThreadArgs>();
+            var isCloseup = UserDefaults.SharedUserDefault.GetBoolForKey(
+                GameConstants.USER_DEFAULT_KEY_HUD_ZOOM,
+                GameConstants.USER_DEFAULT_INITIAL_HUD_ZOOM);
+            if (isCloseup)
+            {
+                this.CharacterDepthFromCameraStart = 0.5f * (this.PageDepthFromCameraStart - GameConstants.DEFAULT_CHARACTER_DEPTH_FROM_PAGE);
+            }
+            else
+            {
+                this.CharacterDepthFromCameraStart = this.PageDepthFromCameraStart - GameConstants.DEFAULT_CHARACTER_DEPTH_FROM_PAGE;
+            }
             
             // Import required services.
             this._inputManager = (IInputManager)this.Game.Services.GetService(typeof(IInputManager));
@@ -165,11 +171,11 @@ namespace Simsip.LineRunner.GameObjects.Pages
             }
         }
 
-        public float PageDepthFromCameraStart { get { return DEFAULT_PAGE_DEPTH_FROM_CAMERA; } }
+        public float PageDepthFromCameraStart { get { return GameConstants.DEFAULT_PAGE_DEPTH_FROM_CAMERA; } }
 
-        public float CharacterDepthFromCameraStart { get { return PageDepthFromCameraStart - DEFAULT_CHARACTER_DEPTH_FROM_PAGE; } }
+        public float CharacterDepthFromCameraStart { get; set; }
 
-        public float PaneDepthFromCameraStart { get { return PageDepthFromCameraStart - DEFAULT_PANE_DEPTH_FROM_PAGE; } }
+        public float PaneDepthFromCameraStart { get { return PageDepthFromCameraStart - GameConstants.DEFAULT_PANE_DEPTH_FROM_PAGE; } }
 
         public Vector3 StationaryCameraOriginalWorldPosition { get; private set; }
 

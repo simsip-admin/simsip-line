@@ -37,7 +37,9 @@ namespace Simsip.LineRunner.Scenes.Credits
 
         // Previous/next buttons
         private CCMenu _previousMenu;
+        private CCLabelTTF _previousLabel;
         private CCMenu _nextMenu;
+        private CCLabelTTF _nextLabel;
 
         // Track page we are on
         private int _currentPage;
@@ -194,6 +196,21 @@ namespace Simsip.LineRunner.Scenes.Credits
                 0.1f * this.ContentSize.Height);
             this.AddChild(this._previousMenu);
             this._previousMenu.Visible = false;
+            var previousText = string.Empty;
+#if ANDROID
+            previousText = Program.SharedProgram.Resources.GetString(Resource.String.CommonPrevious);
+#elif IOS
+            previousText = NSBundle.MainBundle.LocalizedString(Strings.CommonPrevious, Strings.CommonPrevious);
+#else
+            previousText = AppResources.CommonPrevious;
+#endif
+            this._previousLabel = new CCLabelTTF(previousText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            this._previousLabel.AnchorPoint = CCPoint.AnchorMiddleLeft;
+            this._previousLabel.Position = new CCPoint(
+                0.05f * this.ContentSize.Width,
+                0.02f * this.ContentSize.Height);
+            this.AddChild(this._previousLabel);
+            this._previousLabel.Visible = false;
 
             // Next
             var nextNormal = new CCSprite("Images/Icons/NextButtonNormal.png");
@@ -218,6 +235,21 @@ namespace Simsip.LineRunner.Scenes.Credits
                 0.1f  * this.ContentSize.Height);
             this.AddChild(this._nextMenu);
             this._nextMenu.Visible = true;
+            var nextText = string.Empty;
+#if ANDROID
+            nextText = Program.SharedProgram.Resources.GetString(Resource.String.CommonNext);
+#elif IOS
+            nextText = NSBundle.MainBundle.LocalizedString(Strings.CommonNext, Strings.CommonNext);
+#else
+            nextText = AppResources.CommonNext;
+#endif
+            this._nextLabel = new CCLabelTTF(nextText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            this._nextLabel.Position = new CCPoint(
+                0.95f * this.ContentSize.Width,
+                0.02f * this.ContentSize.Height);
+            this._nextLabel.AnchorPoint = CCPoint.AnchorMiddleRight;
+            this.AddChild(this._nextLabel);
+            this._nextLabel.Visible = true;
 
             // Back
             CCMenuItemImage backButton =
@@ -233,6 +265,20 @@ namespace Simsip.LineRunner.Scenes.Credits
                 0.5f * this.ContentSize.Width,
                 0.1f * this.ContentSize.Height);
             this.AddChild(backMenu);
+            var backText = string.Empty;
+#if ANDROID
+            backText = Program.SharedProgram.Resources.GetString(Resource.String.CommonBack);
+#elif IOS
+            backText = NSBundle.MainBundle.LocalizedString(Strings.CommonBack, Strings.CommonBack);
+#else
+            backText = AppResources.CommonBack;
+#endif
+            var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            backLabel.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.02f * this.ContentSize.Height);
+            this.AddChild(backLabel);
+
         }
 
         #region Cocos2D overrides
@@ -339,18 +385,24 @@ namespace Simsip.LineRunner.Scenes.Credits
             if (this._currentPage == 1)
             {
                 this._previousMenu.Visible = false;
+                this._previousLabel.Visible = false;
                 this._nextMenu.Visible = true;
+                this._nextLabel.Visible = true;
 
             }
             else if (this._currentPage == this._totalPages)
             {
                 this._previousMenu.Visible = true;
+                this._previousLabel.Visible = true;
                 this._nextMenu.Visible = false;
+                this._nextLabel.Visible = false;
             }
             else
             {
                 this._previousMenu.Visible = true;
+                this._previousLabel.Visible = true;
                 this._nextMenu.Visible = true;
+                this._nextLabel.Visible = true;
             }
         }
 

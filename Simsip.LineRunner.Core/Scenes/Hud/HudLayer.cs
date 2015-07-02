@@ -104,6 +104,7 @@ namespace Simsip.LineRunner.Scenes.Hud
         private CCMenuItemImage _joystickUpItem;
         private CCMenuItemImage _joystickDownItem;
         private MoveDirection _joystickMoveDirection;
+        private CCLabelTTF _joystickLabel;
 
         // Pause/resume
         private bool _paused;
@@ -336,6 +337,26 @@ namespace Simsip.LineRunner.Scenes.Hud
                  0.5f  * headerLeftSize.Height);
             this._headerLeftLayer.AddChild(hudMenu);
 
+            // Zoom
+            CCMenuItemImage zoomInToggle =
+                new CCMenuItemImage("Images/Icons/ZoomInButtonNormal.png",
+                                    "Images/Icons/ZoomInButtonSelected.png");
+            CCMenuItemImage zoomOutToggle =
+                new CCMenuItemImage("Images/Icons/ZoomOutButtonNormal.png",
+                                    "Images/Icons/ZoomOutButtonSelected.png");
+            var zoomToggle =
+                new CCMenuItemToggle((obj) => ZoomTogglePressed((obj as CCMenuItemToggle).SelectedIndex),
+                new CCMenuItem[] { zoomInToggle, zoomOutToggle });
+            var zoomMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        zoomToggle,
+                    });
+            zoomMenu.Position = new CCPoint(
+                0.5f * headerLeftSize.Width,
+                0.3f * headerLeftSize.Height);
+            this._headerLeftLayer.AddChild(zoomMenu);
+
             // Speed
             var decreaseButtonNormal = new CCSprite("Images/Icons/DecreaseButtonNormal.png");
             var decreaseButtonSelected = new CCSprite("Images/Icons/DecreaseButtonSelected.png");
@@ -374,8 +395,8 @@ namespace Simsip.LineRunner.Scenes.Hud
             var speedLabel = new CCLabelTTF(speedText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             speedLabel.AnchorPoint = CCPoint.AnchorMiddle;
             speedLabel.Position = new CCPoint(
-                0.75f  * headerLeftSize.Width,
-                0.2f * headerLeftSize.Height);
+                0.75f * headerLeftSize.Width,
+                0.2f  * headerLeftSize.Height);
             this._headerLeftLayer.AddChild(speedLabel);
 
             // High score
@@ -482,8 +503,25 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._hideFooterAnim = new CCScaleTo(GameConstants.DURATION_LAYER_TRANSITION, 0f);
             this._restoreFooterAnim = new CCEaseBackOut(new CCScaleTo(GameConstants.DURATION_LAYER_TRANSITION, 1f));
 
-            // Joystick (note: start with enumaration not moving)
+            // Joystick 
+            // Notes: 
+            // Start with enumaration not moving
+            // Joystick label is on bottom so double tap has to be right in center of label, in case arrow buttons overlap
             this._joystickMoveDirection = MoveDirection.None;
+            var joystickText = string.Empty;
+#if ANDROID
+            joystickText = Program.SharedProgram.Resources.GetString(Resource.String.HudJoystick);
+#elif IOS
+            joystickText = NSBundle.MainBundle.LocalizedString(Strings.HudJoystick, Strings.HudJoystick);
+#else
+            joystickText = AppResources.HudJoystick;
+#endif
+            this._joystickLabel = new CCLabelTTF(joystickText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._joystickLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            this._joystickLabel.Position = new CCPoint(
+                0.3f * footerLeftSize.Width,
+                0.5f * footerLeftSize.Height);
+            this._footerLeftLayer.AddChild(this._joystickLabel);
             this._joystickLeftItem = new CCMenuItemImage(
                 "Images/Icons/JoystickLeftNormal.png",
                 "Images/Icons/JoystickLeftSelected.png",
@@ -540,20 +578,6 @@ namespace Simsip.LineRunner.Scenes.Hud
                 0.3f * footerLeftSize.Width,
                 0.2f * footerLeftSize.Height);
             this._footerLeftLayer.AddChild(joystickDownMenu);
-            var joystickText = string.Empty;
-#if ANDROID
-            joystickText = Program.SharedProgram.Resources.GetString(Resource.String.HudJoystick);
-#elif IOS
-            joystickText = NSBundle.MainBundle.LocalizedString(Strings.HudJoystick, Strings.HudJoystick);
-#else
-            joystickText = AppResources.HudJoystick;
-#endif
-            var joystickLabel = new CCLabelTTF(joystickText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            joystickLabel.AnchorPoint = CCPoint.AnchorMiddle;
-            joystickLabel.Position = new CCPoint(
-                0.3f * footerLeftSize.Width,
-                0.5f * footerLeftSize.Height);
-            this._footerLeftLayer.AddChild(joystickLabel);
 
             // Trackball
             var trackballImage = new CCSprite("Images/Misc/Trackball.png");
@@ -832,6 +856,22 @@ namespace Simsip.LineRunner.Scenes.Hud
 
         #region Api
 
+        public void EnablePause(bool enabled)
+        {
+            this._pauseToggle.SelectedIndex = 0;
+            this._pauseLabel.Text = this._pauseText;
+
+            if (enabled)
+            {
+                this._pauseToggle.Enabled = true;
+                this._pauseLabel.Color = CCColor3B.White;
+            }
+            else
+            {
+                this._pauseToggle.Enabled = false;
+                this._pauseLabel.Color = CCColor3B.Gray;
+            }
+        }
         public void HandleKill()
         {
             // Disable pause and reset pause text
@@ -953,10 +993,17 @@ namespace Simsip.LineRunner.Scenes.Hud
                     {
                         var p = CCDirector.SharedDirector.ConvertToUi(g.Position);
                         var tb = this._trackballItem.WorldBoundingBox;
+                        var js = this._joystickLabel.WorldBoundingBox;
                         if (CCRect.ContainsPoint(ref tb, ref p))
                         {
                             this._inputManager.HudOnGestureReset();
                         }
+                        /*
+                        else if (CCRect.ContainsPoint(ref js, ref p))
+                        {
+                            this._inputManager.HudOnGestureCloseup();
+                        }
+                        */
 
                         break;
                     }
@@ -1149,20 +1196,21 @@ namespace Simsip.LineRunner.Scenes.Hud
             }
         }
 
-        private void EnablePause(bool enabled)
+        private void ZoomTogglePressed(int selectedIndex)
         {
-            this._pauseToggle.SelectedIndex = 0;
-            this._pauseLabel.Text = this._pauseText;
-
-            if (enabled)
+            // Short-circuit if dragging
+            if (this._dragging != Dragging.None)
             {
-                this._pauseToggle.Enabled = true;
-                this._pauseLabel.Color = CCColor3B.White;
+                return;
             }
-            else
+
+            if (selectedIndex == 0) // Zoom out
             {
-                this._pauseToggle.Enabled = false;
-                this._pauseLabel.Color = CCColor3B.Gray;
+                this._inputManager.HudOnZoom(zoomIn: false);
+            }
+            else                    // Zoom in
+            {
+                this._inputManager.HudOnZoom(zoomIn: true);
             }
         }
 
@@ -1245,7 +1293,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             {
                 statusText = this._hudCannotGoSlowerThan;
             }
-            this.UpdateStatus1(statusText + " " + (this._characterCache.GetLinearVelocityX() * 100));
+            this.UpdateStatus1(statusText + " " + (int)(this._characterCache.GetLinearVelocityX() * 100));
         }
 
         private void IncreaseVelocity()
@@ -1258,7 +1306,7 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             this._characterCache.IncreaseVelocity();
 
-            this.UpdateStatus1(this._hudSpeedText + " " + (this._characterCache.GetLinearVelocityX() * 100));
+            this.UpdateStatus1(this._hudSpeedText + " " + (int)(this._characterCache.GetLinearVelocityX() * 100));
         }
 
         private void NavigateBase(LayerTags layer)

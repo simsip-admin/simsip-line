@@ -487,9 +487,10 @@ namespace Simsip.LineRunner.GameObjects.Characters
         public void IncreaseVelocity()
         {
             // Update our state
-            this.TheHeroModel.LinearVelocityX += 0.1f;
+            this.TheHeroModel.LinearVelocityX += 0.01f;
+            // this.TheHeroModel.LinearVelocityX += 1.0f;
 
-            // Store away the new value
+            // Store away the new value, will be set in ResumeHeroPhysics()
             UserDefaults.SharedUserDefault.SetFloatForKey(
                 GameConstants.USER_DEFAULT_KEY_HERO_LINEAR_VELOCITY_X, 
                 this.TheHeroModel.LinearVelocityX);
@@ -497,6 +498,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
             // Depending on line we are on, increase our velocity
             // Odd => moving to right
             // Even => moving to left
+            /*
             if (this._currentLineNumber % 2 != 0)
             {
                 this.TheHeroModel.PhysicsEntity.LinearVelocity =
@@ -513,6 +515,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         0f,
                         0f);
             }
+            */
         }
 
         public bool DecreaseVelocity()
@@ -534,6 +537,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
             // Depending on line we are on, increase our velocity
             // Odd => moving to right
             // Even => moving to left
+            /*
             if (this._currentLineNumber % 2 != 0)
             {
                 this.TheHeroModel.PhysicsEntity.LinearVelocity =
@@ -550,6 +554,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         0f,
                         0f);
             }
+            */
 
             // Signal success
             return true;

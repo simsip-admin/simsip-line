@@ -24,6 +24,7 @@ using Simsip.LineRunner.GameFramework;
 using Simsip.LineRunner.Physics;
 using Simsip.LineRunner.Utils;
 using Microsoft.Xna.Framework.Input.Touch;
+using Simsip.LineRunner.GameObjects.Pages;
 
 
 namespace Engine.Input
@@ -77,6 +78,7 @@ namespace Engine.Input
         private ISkyDome _skyService;
         private IChunkCache _chunkCache;
         private IBloomService _bloomService;
+        private IPageCache _pageCache;
 
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility.
 
@@ -140,6 +142,7 @@ namespace Engine.Input
             this._skyService = (ISkyDome) this.Game.Services.GetService(typeof (ISkyDome));
             this._chunkCache = (IChunkCache) this.Game.Services.GetService(typeof (IChunkCache));
             this._bloomService = (IBloomService) this.Game.Services.GetService(typeof (IBloomService));
+            this._pageCache = (IPageCache)this.Game.Services.GetService(typeof(IPageCache));
 
             // get current mouse & keyboard states.
             this._previousKeyboardState = Keyboard.GetState();
@@ -238,6 +241,23 @@ namespace Engine.Input
             UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_PITCH, this.HudCameraOffsetPitch);
             UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_ORBIT_YAW, this.HudCameraOrbitYaw);
             UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_ORBIT_PITCH, this.HudCameraOrbitPitch);
+            UserDefaults.SharedUserDefault.SetBoolForKey(GameConstants.USER_DEFAULT_KEY_HUD_ZOOM, false);
+        }
+
+        public void HudOnZoom(bool zoomIn)
+        {
+            if (zoomIn)
+            {
+                this._pageCache.CharacterDepthFromCameraStart =
+                    0.5f * (this._pageCache.PageDepthFromCameraStart - GameConstants.DEFAULT_CHARACTER_DEPTH_FROM_PAGE);
+            }
+            else
+            {
+                this._pageCache.CharacterDepthFromCameraStart =
+                    this._pageCache.PageDepthFromCameraStart - GameConstants.DEFAULT_CHARACTER_DEPTH_FROM_PAGE;
+            }
+
+            UserDefaults.SharedUserDefault.SetBoolForKey(GameConstants.USER_DEFAULT_KEY_HUD_ZOOM, zoomIn);
         }
 
         public void HudOnJoystick(MoveDirection moveDirection)

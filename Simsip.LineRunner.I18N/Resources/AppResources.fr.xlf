@@ -188,6 +188,10 @@
           <source>previous</source>
           <target state="new">previous</target>
         </trans-unit>
+        <trans-unit id="Resx/HelpZoomInOut" translate="yes" xml:space="preserve">
+          <source>zoom in or out</source>
+          <target state="new">zoom in or out</target>
+        </trans-unit>
         <trans-unit id="Resx/CommonNext" translate="yes" xml:space="preserve">
           <source>next</source>
           <target state="new">next</target>

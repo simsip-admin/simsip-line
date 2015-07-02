@@ -4163,6 +4163,22 @@
       <Link>Content\Images\Icons\ResumeButtonDisabled.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Icons\ZoomInButtonNormal.xnb">
+      <Link>Content\Images\Icons\ZoomInButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Icons\ZoomInButtonSelected.xnb">
+      <Link>Content\Images\Icons\ZoomInButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Icons\ZoomOutButtonNormal.xnb">
+      <Link>Content\Images\Icons\ZoomOutButtonNormal.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Icons\ZoomOutButtonSelected.xnb">
+      <Link>Content\Images\Icons\ZoomOutButtonSelected.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Simsip.LineRunner.Store_TemporaryKey.pfx" />
   </ItemGroup>

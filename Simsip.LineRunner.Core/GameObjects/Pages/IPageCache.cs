@@ -38,7 +38,7 @@ namespace Simsip.LineRunner.GameObjects.Pages
         /// <summary>
         /// Depth from camara that we will place characters.
         /// </summary>
-        float CharacterDepthFromCameraStart { get; }
+        float CharacterDepthFromCameraStart { get; set; }
 
         /// <summary>
         /// Depth from camara that we will place panes.

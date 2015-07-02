@@ -509,4 +509,7 @@
   <data name="CommonPrevious" xml:space="preserve">
     <value>previous</value>
   </data>
+  <data name="HelpZoomInOut" xml:space="preserve">
+    <value>zoom in or out</value>
+  </data>
 </root>
