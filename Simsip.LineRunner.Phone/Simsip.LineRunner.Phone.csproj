@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <SilverlightApplication>true</SilverlightApplication>
-    <SupportedCultures>de;es;fr;id-ID;it;ja-JP;ko-KR;nl;pl-PL;pt-BR;pt;ru-RU;zh-Hans;zh-Hant</SupportedCultures>
+    <SupportedCultures>de;es;fr;hi-IN;id-ID;it;ja-JP;ko-KR;nl;pl-PL;pt-BR;pt;ru-RU;zh-Hans;zh-Hant</SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>EmptyProject_$(Configuration)_$(Platform).xap</XapFilename>
@@ -4342,6 +4342,13 @@
       <DependentUpon>AppResources.fr.xlf</DependentUpon>
       <culture>fr</culture>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.hi-IN.resx">
+      <Link>Resources\AppResources.hi-IN.resx</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppResources.hi-IN.xlf</DependentUpon>
+      <culture>hi-IN</culture>
+    </EmbeddedResource>
     <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.id-ID.resx">
       <Link>Resources\AppResources.id-ID.resx</Link>
       <AutoGen>True</AutoGen>
@@ -4440,6 +4447,11 @@
       <Link>Resources\AppResources.fr.xlf</Link>
       <Generator>XliffResxGenerator</Generator>
       <LastGenOutput>AppResources.fr.resx</LastGenOutput>
+    </XliffResource>
+    <XliffResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.hi-IN.xlf">
+      <Link>Resources\AppResources.hi-IN.xlf</Link>
+      <Generator>XliffResxGenerator</Generator>
+      <LastGenOutput>AppResources.hi-IN.resx</LastGenOutput>
     </XliffResource>
     <XliffResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.id-ID.xlf">
       <Link>Resources\AppResources.id-ID.xlf</Link>

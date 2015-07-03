@@ -131,4 +131,5 @@
   <string name="HelpLines">Ändern Sie die Zeile für das Feld</string>
   <string name="HelpHowToPlayDescription1">Tippen Sie, um Linien und Hindernisse zu vermeiden.</string>
   <string name="CommonVersion">Version</string>
+  <string name="HudSpeedDefault">(Standard)</string>
 </resources>

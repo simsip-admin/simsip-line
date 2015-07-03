@@ -74,6 +74,7 @@
     <EmbeddedResource Include="Resources\AppResources.de.resx" />
     <EmbeddedResource Include="Resources\AppResources.es.resx" />
     <EmbeddedResource Include="Resources\AppResources.fr.resx" />
+    <EmbeddedResource Include="Resources\AppResources.hi-IN.resx" />
     <EmbeddedResource Include="Resources\AppResources.id-ID.resx" />
     <EmbeddedResource Include="Resources\AppResources.it.resx" />
     <EmbeddedResource Include="Resources\AppResources.ja-JP.resx" />
@@ -114,6 +115,7 @@
     <XliffResource Include="Resources\AppResources.de.xlf" />
     <XliffResource Include="Resources\AppResources.es.xlf" />
     <XliffResource Include="Resources\AppResources.fr.xlf" />
+    <XliffResource Include="Resources\AppResources.hi-IN.xlf" />
     <XliffResource Include="Resources\AppResources.id-ID.xlf" />
     <XliffResource Include="Resources\AppResources.it.xlf" />
     <XliffResource Include="Resources\AppResources.ja-JP.xlf" />
@@ -137,21 +139,13 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Resx2Others.log</LastGenOutput>
       <LastOutputs>
-..\..\Simsip.LineRunner.Droid\Resources\Values\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-de\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-es\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-fr\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-id-rID\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-it\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-ja-rJP\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-ko-rKR\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-nl\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-pl-rPL\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-pt\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-pt-rBR\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-ru-rRU\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-zh-rHans\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-zh-rHant\AppResources.xml
+..\..\Simsip.LineRunner.Ios\de.lproj\Localizable.strings
+..\..\Simsip.LineRunner.Ios\en.lproj\Localizable.strings
+..\..\Simsip.LineRunner.Ios\es.lproj\Localizable.strings
+..\..\Simsip.LineRunner.Ios\fr.lproj\Localizable.strings
+..\..\Simsip.LineRunner.Ios\it.lproj\Localizable.strings
+..\..\Simsip.LineRunner.Ios\nl.lproj\Localizable.strings
+..\..\Simsip.LineRunner.Ios\pt.lproj\Localizable.strings
 .\Resx2Others.log
 .\Strings.cs
 </LastOutputs>

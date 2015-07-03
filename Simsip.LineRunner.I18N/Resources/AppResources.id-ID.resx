@@ -125,4 +125,394 @@
     <value>id-ID</value>
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
   </data>
+  <data name="HelpStartDescription" xml:space="preserve">
+    <value>bermain game</value>
+  </data>
+  <data name="AchievementsTopScoresFor" xml:space="preserve">
+    <value>Skor tertinggi</value>
+  </data>
+  <data name="AdminKillsOn" xml:space="preserve">
+    <value>membunuh di</value>
+  </data>
+  <data name="AdminKillsOff" xml:space="preserve">
+    <value>membunuh dari</value>
+  </data>
+  <data name="AdminStartPageDescription" xml:space="preserve">
+    <value>Masukkan halaman untuk memulai</value>
+  </data>
+  <data name="CommonYes" xml:space="preserve">
+    <value>Ya</value>
+  </data>
+  <data name="CommonOK" xml:space="preserve">
+    <value>Oke</value>
+  </data>
+  <data name="CommonNo" xml:space="preserve">
+    <value>Tidak</value>
+  </data>
+  <data name="CommonError" xml:space="preserve">
+    <value>kesalahan</value>
+  </data>
+  <data name="CommonDelete" xml:space="preserve">
+    <value>hapus</value>
+  </data>
+  <data name="CommonCancel" xml:space="preserve">
+    <value>batal</value>
+  </data>
+  <data name="HudResume" xml:space="preserve">
+    <value>lanjutkan</value>
+  </data>
+  <data name="WorldsWorlds" xml:space="preserve">
+    <value>dunia</value>
+  </data>
+  <data name="RatingsRateUs" xml:space="preserve">
+    <value>menilai kita!</value>
+  </data>
+  <data name="CreditsTitle" xml:space="preserve">
+    <value>kredit</value>
+  </data>
+  <data name="StartRate" xml:space="preserve">
+    <value>rate</value>
+  </data>
+  <data name="StartPlay" xml:space="preserve">
+    <value>Bermain</value>
+  </data>
+  <data name="HudOptions" xml:space="preserve">
+    <value>pilihan</value>
+  </data>
+  <data name="HudHelp" xml:space="preserve">
+    <value>bantuan</value>
+  </data>
+  <data name="CommonPage" xml:space="preserve">
+    <value>halaman</value>
+  </data>
+  <data name="HudPause" xml:space="preserve">
+    <value>jeda</value>
+  </data>
+  <data name="HudSpeed" xml:space="preserve">
+    <value>kecepatan</value>
+  </data>
+  <data name="HudPaused" xml:space="preserve">
+    <value>berhenti</value>
+  </data>
+  <data name="HudTrackball" xml:space="preserve">
+    <value>bola gulir</value>
+  </data>
+  <data name="HudTime" xml:space="preserve">
+    <value>time</value>
+  </data>
+  <data name="HudHome" xml:space="preserve">
+    <value>beranda</value>
+  </data>
+  <data name="AdminStartLineDescription" xml:space="preserve">
+    <value>memasukkan baris untuk memulai (1-17)</value>
+  </data>
+  <data name="HelpLicense" xml:space="preserve">
+    <value>lisensi</value>
+  </data>
+  <data name="HudScroll" xml:space="preserve">
+    <value>scroll lihat</value>
+  </data>
+  <data name="HelpHud" xml:space="preserve">
+    <value>HUD</value>
+  </data>
+  <data name="HelpSound" xml:space="preserve">
+    <value>mematikan suara dan</value>
+  </data>
+  <data name="UpgradesTitle" xml:space="preserve">
+    <value>upgrade</value>
+  </data>
+  <data name="UpgradesPracticeDesc2" xml:space="preserve">
+    <value>mematikan membunuh</value>
+  </data>
+  <data name="HelpUpgradesPracticeDesc2" xml:space="preserve">
+    <value>mematikan membunuh</value>
+  </data>
+  <data name="UpgradesPrice" xml:space="preserve">
+    <value>Harga</value>
+  </data>
+  <data name="UpgradesRestore" xml:space="preserve">
+    <value>pulihkan</value>
+  </data>
+  <data name="AdminUpgradesOn" xml:space="preserve">
+    <value>upgrade</value>
+  </data>
+  <data name="OptionsPractice" xml:space="preserve">
+    <value>mode latihan</value>
+  </data>
+  <data name="UpgradesRestoreStatus" xml:space="preserve">
+    <value>memulihkan upgrade</value>
+  </data>
+  <data name="HudHigh" xml:space="preserve">
+    <value>tinggi</value>
+  </data>
+  <data name="HelpSupport" xml:space="preserve">
+    <value>dukungan</value>
+  </data>
+  <data name="MessageBoxMovingToPage6" xml:space="preserve">
+    <value>Halaman terakhir!</value>
+  </data>
+  <data name="CommonPrevious" xml:space="preserve">
+    <value>sebelum</value>
+  </data>
+  <data name="HelpZoomInOut" xml:space="preserve">
+    <value>memperbesar atau memperkecil</value>
+  </data>
+  <data name="HudSpeedDefault" xml:space="preserve">
+    <value>(standar)</value>
+  </data>
+  <data name="CommonNext" xml:space="preserve">
+    <value>berikutnya</value>
+  </data>
+  <data name="CommonBack" xml:space="preserve">
+    <value>kembali</value>
+  </data>
+  <data name="MessageBoxMovingToPage5" xml:space="preserve">
+    <value>api!</value>
+  </data>
+  <data name="MessageBoxMovingToPage4" xml:space="preserve">
+    <value>manis!</value>
+  </data>
+  <data name="MessageBoxMovingToPage3" xml:space="preserve">
+    <value>Boom!</value>
+  </data>
+  <data name="MessageBoxMovingToPage2" xml:space="preserve">
+    <value>kau awesome!</value>
+  </data>
+  <data name="MessageBoxMovingToPage" xml:space="preserve">
+    <value>pindah ke halaman</value>
+  </data>
+  <data name="FinishWinner" xml:space="preserve">
+    <value>pemenang!</value>
+  </data>
+  <data name="AchievementsColumnScore" xml:space="preserve">
+    <value>Skor</value>
+  </data>
+  <data name="AchievementsColumnDate" xml:space="preserve">
+    <value>tanggal</value>
+  </data>
+  <data name="AchievementsColumnTime" xml:space="preserve">
+    <value>time</value>
+  </data>
+  <data name="UpgradesRestoreError" xml:space="preserve">
+    <value>kesalahan memulihkan upgrade</value>
+  </data>
+  <data name="UpgradesPurchaseStatus" xml:space="preserve">
+    <value>pembelian upgrade</value>
+  </data>
+  <data name="UpgradesPurchaseError" xml:space="preserve">
+    <value>kesalahan pembelian upgrade</value>
+  </data>
+  <data name="UpgradesPracticeDesc3" xml:space="preserve">
+    <value>tekan pilihan untuk mode latihan</value>
+  </data>
+  <data name="AdminUpgradesOff" xml:space="preserve">
+    <value>upgrade dari</value>
+  </data>
+  <data name="OptionsPracticeStartPage" xml:space="preserve">
+    <value>Halaman awal</value>
+  </data>
+  <data name="OptionsPracticeSwitchingPage" xml:space="preserve">
+    <value>beralih halaman untuk</value>
+  </data>
+  <data name="OptionsPracticeSwitchingLine" xml:space="preserve">
+    <value>beralih baris</value>
+  </data>
+  <data name="OptionsPracticeStartLine" xml:space="preserve">
+    <value>garis start</value>
+  </data>
+  <data name="OptionsPracticeKillsOn" xml:space="preserve">
+    <value>membunuh di</value>
+  </data>
+  <data name="OptionsPracticeKillsOff" xml:space="preserve">
+    <value>membunuh dari</value>
+  </data>
+  <data name="UpgradesPurchasedOn" xml:space="preserve">
+    <value>dibeli pada</value>
+  </data>
+  <data name="UpgradesBuy" xml:space="preserve">
+    <value>Beli</value>
+  </data>
+  <data name="HelpUpgradesPracticeDesc1" xml:space="preserve">
+    <value>melompat ke setiap halaman dan garis</value>
+  </data>
+  <data name="HelpUpgradesPractice" xml:space="preserve">
+    <value>mode latihan</value>
+  </data>
+  <data name="HelpUpgrades" xml:space="preserve">
+    <value>upgrade</value>
+  </data>
+  <data name="UpgradesPracticeDesc1" xml:space="preserve">
+    <value>melompat ke setiap halaman dan garis</value>
+  </data>
+  <data name="UpgradesPractice" xml:space="preserve">
+    <value>mode latihan</value>
+  </data>
+  <data name="HelpLeaderboards" xml:space="preserve">
+    <value>melihat Skor Anda atas</value>
+  </data>
+  <data name="HudRotate" xml:space="preserve">
+    <value>memutar tampilan</value>
+  </data>
+  <data name="HudOrbit" xml:space="preserve">
+    <value>Lihat orbit</value>
+  </data>
+  <data name="HelpScroll" xml:space="preserve">
+    <value>Tekan atau menahan untuk menggulir Lihat</value>
+  </data>
+  <data name="HelpRotate" xml:space="preserve">
+    <value>tarik dari tengah untuk memutar tampilan</value>
+  </data>
+  <data name="HelpPauseResume" xml:space="preserve">
+    <value>menjeda atau memulai kembali permainan</value>
+  </data>
+  <data name="HelpOrbit" xml:space="preserve">
+    <value>tarik dari trackball ke orbit Lihat</value>
+  </data>
+  <data name="HelpIncreaseDecrease" xml:space="preserve">
+    <value>menambah atau mengurangi kecepatan</value>
+  </data>
+  <data name="CommonReset" xml:space="preserve">
+    <value>Tekan dua kali trackball untuk me-reset Lihat</value>
+  </data>
+  <data name="AdminStartLine" xml:space="preserve">
+    <value>memulai baris</value>
+  </data>
+  <data name="HudJoystick" xml:space="preserve">
+    <value>tongkat ria</value>
+  </data>
+  <data name="HudCannotGoSlowerThan" xml:space="preserve">
+    <value>tidak bisa pergi lebih lambat dari</value>
+  </data>
+  <data name="RatingsDescription" xml:space="preserve">
+    <value>Tampaknya bahwa Anda mencintai LineRunner sebanyak yang kita lakukan. Perawatan untuk memberikan kita beberapa bintang?</value>
+  </data>
+  <data name="CommonLater" xml:space="preserve">
+    <value>kemudian</value>
+  </data>
+  <data name="WorldsUseThisWorld" xml:space="preserve">
+    <value>menggunakan dunia ini ketika mulai</value>
+  </data>
+  <data name="WorldsSwitchingWorlds" xml:space="preserve">
+    <value>beralih dunia</value>
+  </data>
+  <data name="WorldsSelectNewWorld" xml:space="preserve">
+    <value>Pilih dunia baru menggunakan</value>
+  </data>
+  <data name="WorldsSaveWorldAsDescription" xml:space="preserve">
+    <value>Masukkan nama dari dunia</value>
+  </data>
+  <data name="WorldsSaveWorldAs" xml:space="preserve">
+    <value>menyelamatkan dunia seperti...</value>
+  </data>
+  <data name="WorldsGenerateNew" xml:space="preserve">
+    <value>menghasilkan baru</value>
+  </data>
+  <data name="WorldsErrorWorldAlreadyExists" xml:space="preserve">
+    <value>sebuah dunia dengan nama ini sudah ada</value>
+  </data>
+  <data name="WorldsErrorWorldActive" xml:space="preserve">
+    <value>Anda tidak dapat menghapus dunia yang aktif</value>
+  </data>
+  <data name="WorldsErrorCannotUseName" xml:space="preserve">
+    <value>Anda tidak dapat menggunakan nama ini bagi dunia Anda</value>
+  </data>
+  <data name="WorldsDefault" xml:space="preserve">
+    <value>default</value>
+  </data>
+  <data name="ResourcePacksSwitchingResourcePacks" xml:space="preserve">
+    <value>beralih paket</value>
+  </data>
+  <data name="CommonAdmin" xml:space="preserve">
+    <value>admin</value>
+  </data>
+  <data name="PadsSwitchingPads" xml:space="preserve">
+    <value>beralih bantalan</value>
+  </data>
+  <data name="LoginUserNameDescription" xml:space="preserve">
+    <value>Masukkan nama pengguna yang unik</value>
+  </data>
+  <data name="LoginUserName" xml:space="preserve">
+    <value>nama pengguna</value>
+  </data>
+  <data name="LoginPasswordDescription" xml:space="preserve">
+    <value>Masukkan sandi</value>
+  </data>
+  <data name="LoginPassword" xml:space="preserve">
+    <value>sandi</value>
+  </data>
+  <data name="LinesSwitchingLines" xml:space="preserve">
+    <value>beralih baris</value>
+  </data>
+  <data name="HudPageLine" xml:space="preserve">
+    <value>Halaman/line</value>
+  </data>
+  <data name="FinishNewHighScore" xml:space="preserve">
+    <value>Skor tinggi baru</value>
+  </data>
+  <data name="CreditsCreatedBySimsip" xml:space="preserve">
+    <value>simsip</value>
+  </data>
+  <data name="CreditsCreatedBy" xml:space="preserve">
+    <value>pengembangan</value>
+  </data>
+  <data name="AdminStartPage" xml:space="preserve">
+    <value>Halaman awal</value>
+  </data>
+  <data name="AdminParticlesOn" xml:space="preserve">
+    <value>partikel di</value>
+  </data>
+  <data name="AdminParticlesOff" xml:space="preserve">
+    <value>partikel off</value>
+  </data>
+  <data name="AchievementsLeaderboards" xml:space="preserve">
+    <value>leaderboards</value>
+  </data>
+  <data name="OptionsTitle" xml:space="preserve">
+    <value>pilihan</value>
+  </data>
+  <data name="OptionsSoundOn" xml:space="preserve">
+    <value>Suara</value>
+  </data>
+  <data name="OptionsSoundOff" xml:space="preserve">
+    <value>suara off</value>
+  </data>
+  <data name="OptionsPads" xml:space="preserve">
+    <value>bantalan</value>
+  </data>
+  <data name="OptionsLines" xml:space="preserve">
+    <value>Baris</value>
+  </data>
+  <data name="OptionsLeaderboards" xml:space="preserve">
+    <value>leaderboards</value>
+  </data>
+  <data name="OptionsCredits" xml:space="preserve">
+    <value>kredit</value>
+  </data>
+  <data name="HelpTitle" xml:space="preserve">
+    <value>bantuan</value>
+  </data>
+  <data name="HelpRatingsDescription" xml:space="preserve">
+    <value>menilai kami</value>
+  </data>
+  <data name="HelpOptionsDescription" xml:space="preserve">
+    <value>opsi permainan</value>
+  </data>
+  <data name="HelpPads" xml:space="preserve">
+    <value>mengubah pad Anda bermain pada</value>
+  </data>
+  <data name="HelpHelpDescription" xml:space="preserve">
+    <value>Bantuan layar</value>
+  </data>
+  <data name="HelpOptions" xml:space="preserve">
+    <value>pilihan</value>
+  </data>
+  <data name="HelpLines" xml:space="preserve">
+    <value>mengubah baris untuk pad</value>
+  </data>
+  <data name="HelpHowToPlayDescription1" xml:space="preserve">
+    <value>ketuk untuk menghindari baris dan hambatan</value>
+  </data>
+  <data name="CommonVersion" xml:space="preserve">
+    <value>versi</value>
+  </data>
 </root>

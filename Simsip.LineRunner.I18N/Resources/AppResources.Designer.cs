@@ -710,6 +710,15 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (default).
+        /// </summary>
+        public static string HudSpeedDefault {
+            get {
+                return ResourceManager.GetString("HudSpeedDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to time.
         /// </summary>
         public static string HudTime {

@@ -56,6 +56,16 @@
             // Android
             if(androidTemplate != null)
             {
+				// Fix up Android's need for different locales
+				if (locale.Equals("-zh-rHans", StringComparison.CurrentCultureIgnoreCase))
+				{
+					locale = "-zh-rCN";
+				}
+				if (locale.Equals("-zh-rHant", StringComparison.CurrentCultureIgnoreCase))
+				{
+					locale = "-zh-rHK";
+				}
+
                 androidTemplate.ResxFileName = resxFileName;
                 string androidStringsFolder = @"Resources\Values" + locale;
  

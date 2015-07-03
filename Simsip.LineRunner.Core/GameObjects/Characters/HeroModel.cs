@@ -93,7 +93,26 @@ namespace Simsip.LineRunner.GameObjects.Characters
         /// </summary>
         public PageCharactersEntity ThePageCharactersEntity { get; private set; }
 
-        public float LinearVelocityX { get; set; }
+        private int _linearVelocityX;
+        private float _linearVelocityLowerLimit;
+        private float _linearVelocityUpperLimit;
+
+        public int LinearVelocityX {
+            get
+            {
+                return this._linearVelocityX;
+            }
+            set
+            {
+                this._linearVelocityX = value;
+
+                // Examples:  -0.1, 0.0, 0.1
+                var adjustment = (this._linearVelocityX - GameConstants.USER_DEFAULT_INITIAL_HERO_LINEAR_VELOCITY_X) / 10f; 
+
+                this._linearVelocityLowerLimit = -1.0f - adjustment; // Examples: -1.1, -1.0, -0.9
+                this._linearVelocityUpperLimit = 1.0f + adjustment; // Examples: 1.1, 1.0, 0.9
+            }
+        }
 
         #endregion
 
@@ -176,7 +195,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
             this.InitializeConvexHull();
 
             // Get the default or user modified speed
-            this.LinearVelocityX = UserDefaults.SharedUserDefault.GetFloatForKey(
+            this.LinearVelocityX = UserDefaults.SharedUserDefault.GetIntegerForKey(
                 GameConstants.USER_DEFAULT_KEY_HERO_LINEAR_VELOCITY_X,
                 GameConstants.USER_DEFAULT_INITIAL_HERO_LINEAR_VELOCITY_X);
         }
@@ -212,7 +231,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
             // Keep linear velocity in xy plane and limited
             // This is easily done by taking the min value of the max allowed value and the input value, then the max value of the min allowed value and the result.
             var linearVelocity = this.PhysicsEntity.LinearVelocity;
-            linearVelocity.X = Math.Max(-1.0f, Math.Min(1.0f, linearVelocity.X));
+            linearVelocity.X = Math.Max(this._linearVelocityLowerLimit, Math.Min(this._linearVelocityUpperLimit, linearVelocity.X));
             linearVelocity.Y = Math.Max(-2.0f, Math.Min(2.0f, linearVelocity.Y));
             linearVelocity.Z = 0;
             this.PhysicsEntity.LinearVelocity = linearVelocity;

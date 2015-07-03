@@ -512,4 +512,7 @@
   <data name="CommonVersion" xml:space="preserve">
     <value>Version</value>
   </data>
+  <data name="HudSpeedDefault" xml:space="preserve">
+    <value>(Standard)</value>
+  </data>
 </root>

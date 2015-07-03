@@ -54,7 +54,7 @@ namespace Simsip.LineRunner.GameFramework
         public const string USER_DEFAULT_KEY_ASK_FOR_RATING = "AskForRating";
 
         public const string USER_DEFAULT_KEY_HERO_LINEAR_VELOCITY_X = "HeroLinearVelocityY";
-        public const float USER_DEFAULT_INITIAL_HERO_LINEAR_VELOCITY_X = 0.1f;
+        public const int USER_DEFAULT_INITIAL_HERO_LINEAR_VELOCITY_X = 10;
 
         public const string USER_DEFAULT_KEY_HUD_OFFSET_X = "HudOffsetX";
         public const float USER_DEFAULT_INITIAL_HUD_OFFSET_X = 0f;
@@ -80,7 +80,7 @@ namespace Simsip.LineRunner.GameFramework
         public const bool USER_DEFAULT_INITIAL_KILLS_ALLOWED = true;
 
         // Limits
-        public const float VELOCITY_LOWER_LIMIT_X = 0.01f;
+        public const int VELOCITY_LOWER_LIMIT_X = 1;
         public const float HUD_JOYSTICK_LIMIT_X = 1.0f;
         public const float HUD_JOYSTICK_LIMIT_Y = 1.0f;
 

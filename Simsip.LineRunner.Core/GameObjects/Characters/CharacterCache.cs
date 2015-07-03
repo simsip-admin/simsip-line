@@ -487,42 +487,19 @@ namespace Simsip.LineRunner.GameObjects.Characters
         public void IncreaseVelocity()
         {
             // Update our state
-            this.TheHeroModel.LinearVelocityX += 0.01f;
-            // this.TheHeroModel.LinearVelocityX += 1.0f;
+            this.TheHeroModel.LinearVelocityX += 1;
 
             // Store away the new value, will be set in ResumeHeroPhysics()
-            UserDefaults.SharedUserDefault.SetFloatForKey(
+            UserDefaults.SharedUserDefault.SetIntegerForKey(
                 GameConstants.USER_DEFAULT_KEY_HERO_LINEAR_VELOCITY_X, 
                 this.TheHeroModel.LinearVelocityX);
-            
-            // Depending on line we are on, increase our velocity
-            // Odd => moving to right
-            // Even => moving to left
-            /*
-            if (this._currentLineNumber % 2 != 0)
-            {
-                this.TheHeroModel.PhysicsEntity.LinearVelocity =
-                    new BEPUutilities.Vector3(
-                        this.TheHeroModel.LinearVelocityX, 
-                        0f, 
-                        0f);
-            }
-            else
-            {
-                this.TheHeroModel.PhysicsEntity.LinearVelocity =
-                    new BEPUutilities.Vector3(
-                        -this.TheHeroModel.LinearVelocityX,
-                        0f,
-                        0f);
-            }
-            */
         }
 
         public bool DecreaseVelocity()
         {
             // Update our state with sanity check for lowest speed and
             // short circuit with failure if trying to decrease below lower limit
-            this.TheHeroModel.LinearVelocityX -= 0.01f;
+            this.TheHeroModel.LinearVelocityX -= 1;
             if (this.TheHeroModel.LinearVelocityX < GameConstants.VELOCITY_LOWER_LIMIT_X)
             {
                 this.TheHeroModel.LinearVelocityX = GameConstants.VELOCITY_LOWER_LIMIT_X;
@@ -530,31 +507,9 @@ namespace Simsip.LineRunner.GameObjects.Characters
             }
 
             // Store away the new value
-            UserDefaults.SharedUserDefault.SetFloatForKey(
+            UserDefaults.SharedUserDefault.SetIntegerForKey(
                 GameConstants.USER_DEFAULT_KEY_HERO_LINEAR_VELOCITY_X,
                 this.TheHeroModel.LinearVelocityX);
-
-            // Depending on line we are on, increase our velocity
-            // Odd => moving to right
-            // Even => moving to left
-            /*
-            if (this._currentLineNumber % 2 != 0)
-            {
-                this.TheHeroModel.PhysicsEntity.LinearVelocity =
-                    new BEPUutilities.Vector3(
-                        this.TheHeroModel.LinearVelocityX,
-                        0f,
-                        0f);
-            }
-            else
-            {
-                this.TheHeroModel.PhysicsEntity.LinearVelocity =
-                    new BEPUutilities.Vector3(
-                        -this.TheHeroModel.LinearVelocityX,
-                        0f,
-                        0f);
-            }
-            */
 
             // Signal success
             return true;

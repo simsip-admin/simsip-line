@@ -125,4 +125,394 @@
     <value>nl</value>
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
   </data>
+  <data name="HelpStartDescription" xml:space="preserve">
+    <value>spel spelen</value>
+  </data>
+  <data name="AchievementsTopScoresFor" xml:space="preserve">
+    <value>hoogste scores</value>
+  </data>
+  <data name="AdminKillsOn" xml:space="preserve">
+    <value>beëindigd op</value>
+  </data>
+  <data name="AdminKillsOff" xml:space="preserve">
+    <value>dodelijk uitschakelen</value>
+  </data>
+  <data name="AdminStartPageDescription" xml:space="preserve">
+    <value>Voer de pagina om op te starten</value>
+  </data>
+  <data name="CommonYes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="CommonOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="CommonNo" xml:space="preserve">
+    <value>Nee</value>
+  </data>
+  <data name="CommonError" xml:space="preserve">
+    <value>Fout</value>
+  </data>
+  <data name="CommonDelete" xml:space="preserve">
+    <value>verwijderen</value>
+  </data>
+  <data name="CommonCancel" xml:space="preserve">
+    <value>annuleren</value>
+  </data>
+  <data name="HudResume" xml:space="preserve">
+    <value>hervatten</value>
+  </data>
+  <data name="WorldsWorlds" xml:space="preserve">
+    <value>werelden</value>
+  </data>
+  <data name="RatingsRateUs" xml:space="preserve">
+    <value>Beoordeel ons!</value>
+  </data>
+  <data name="CreditsTitle" xml:space="preserve">
+    <value>credits</value>
+  </data>
+  <data name="StartRate" xml:space="preserve">
+    <value>snelheid</value>
+  </data>
+  <data name="StartPlay" xml:space="preserve">
+    <value>afspelen</value>
+  </data>
+  <data name="HudOptions" xml:space="preserve">
+    <value>Opties</value>
+  </data>
+  <data name="HudHelp" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="CommonPage" xml:space="preserve">
+    <value>pagina</value>
+  </data>
+  <data name="HudPause" xml:space="preserve">
+    <value>onderbreken</value>
+  </data>
+  <data name="HudSpeed" xml:space="preserve">
+    <value>snelheid</value>
+  </data>
+  <data name="HudPaused" xml:space="preserve">
+    <value>onderbroken</value>
+  </data>
+  <data name="HudTrackball" xml:space="preserve">
+    <value>trackball</value>
+  </data>
+  <data name="HudTime" xml:space="preserve">
+    <value>tijd</value>
+  </data>
+  <data name="HudHome" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="AdminStartLineDescription" xml:space="preserve">
+    <value>Geef de regel moet beginnen op (1-17)</value>
+  </data>
+  <data name="HelpLicense" xml:space="preserve">
+    <value>licentie</value>
+  </data>
+  <data name="HudScroll" xml:space="preserve">
+    <value>schuifgebied</value>
+  </data>
+  <data name="HelpHud" xml:space="preserve">
+    <value>HUD</value>
+  </data>
+  <data name="HelpSound" xml:space="preserve">
+    <value>geluid inschakelen en uitschakelen</value>
+  </data>
+  <data name="UpgradesTitle" xml:space="preserve">
+    <value>upgrades</value>
+  </data>
+  <data name="UpgradesPracticeDesc2" xml:space="preserve">
+    <value>dodelijk uitschakelen</value>
+  </data>
+  <data name="HelpUpgradesPracticeDesc2" xml:space="preserve">
+    <value>dodelijk uitschakelen</value>
+  </data>
+  <data name="UpgradesPrice" xml:space="preserve">
+    <value>prijs</value>
+  </data>
+  <data name="UpgradesRestore" xml:space="preserve">
+    <value>herstellen</value>
+  </data>
+  <data name="AdminUpgradesOn" xml:space="preserve">
+    <value>upgrades op</value>
+  </data>
+  <data name="OptionsPractice" xml:space="preserve">
+    <value>praktijkmodus</value>
+  </data>
+  <data name="UpgradesRestoreStatus" xml:space="preserve">
+    <value>upgrade terugzetten</value>
+  </data>
+  <data name="HudHigh" xml:space="preserve">
+    <value>hoge</value>
+  </data>
+  <data name="HelpSupport" xml:space="preserve">
+    <value>ondersteuning</value>
+  </data>
+  <data name="MessageBoxMovingToPage6" xml:space="preserve">
+    <value>laatste pagina!</value>
+  </data>
+  <data name="CommonPrevious" xml:space="preserve">
+    <value>vorige</value>
+  </data>
+  <data name="HelpZoomInOut" xml:space="preserve">
+    <value>in- of uitzoomen</value>
+  </data>
+  <data name="HudSpeedDefault" xml:space="preserve">
+    <value>(standaard)</value>
+  </data>
+  <data name="CommonNext" xml:space="preserve">
+    <value>volgende</value>
+  </data>
+  <data name="CommonBack" xml:space="preserve">
+    <value>achterkant</value>
+  </data>
+  <data name="MessageBoxMovingToPage5" xml:space="preserve">
+    <value>brand!</value>
+  </data>
+  <data name="MessageBoxMovingToPage4" xml:space="preserve">
+    <value>zoetheid!</value>
+  </data>
+  <data name="MessageBoxMovingToPage3" xml:space="preserve">
+    <value>boom!</value>
+  </data>
+  <data name="MessageBoxMovingToPage2" xml:space="preserve">
+    <value>u bent een Meester!</value>
+  </data>
+  <data name="MessageBoxMovingToPage" xml:space="preserve">
+    <value>verplaatsen naar pagina</value>
+  </data>
+  <data name="FinishWinner" xml:space="preserve">
+    <value>winnaar!</value>
+  </data>
+  <data name="AchievementsColumnScore" xml:space="preserve">
+    <value>score</value>
+  </data>
+  <data name="AchievementsColumnDate" xml:space="preserve">
+    <value>datum</value>
+  </data>
+  <data name="AchievementsColumnTime" xml:space="preserve">
+    <value>tijd</value>
+  </data>
+  <data name="UpgradesRestoreError" xml:space="preserve">
+    <value>Fout bij het terugzetten van de upgrade</value>
+  </data>
+  <data name="UpgradesPurchaseStatus" xml:space="preserve">
+    <value>upgrade kopen</value>
+  </data>
+  <data name="UpgradesPurchaseError" xml:space="preserve">
+    <value>inkoop upgrade fout</value>
+  </data>
+  <data name="UpgradesPracticeDesc3" xml:space="preserve">
+    <value>Tik op Opties voor de praktijkmodus</value>
+  </data>
+  <data name="AdminUpgradesOff" xml:space="preserve">
+    <value>upgrades zijn uitgeschakeld</value>
+  </data>
+  <data name="OptionsPracticeStartPage" xml:space="preserve">
+    <value>startpagina</value>
+  </data>
+  <data name="OptionsPracticeSwitchingPage" xml:space="preserve">
+    <value>overschakelen naar een andere pagina</value>
+  </data>
+  <data name="OptionsPracticeSwitchingLine" xml:space="preserve">
+    <value>overschakelen naar een andere lijn</value>
+  </data>
+  <data name="OptionsPracticeStartLine" xml:space="preserve">
+    <value>eerste regel</value>
+  </data>
+  <data name="OptionsPracticeKillsOn" xml:space="preserve">
+    <value>beëindigd op</value>
+  </data>
+  <data name="OptionsPracticeKillsOff" xml:space="preserve">
+    <value>dodelijk uitschakelen</value>
+  </data>
+  <data name="UpgradesPurchasedOn" xml:space="preserve">
+    <value>gekocht op</value>
+  </data>
+  <data name="UpgradesBuy" xml:space="preserve">
+    <value>kopen</value>
+  </data>
+  <data name="HelpUpgradesPracticeDesc1" xml:space="preserve">
+    <value>aan elke pagina en een regel gaan</value>
+  </data>
+  <data name="HelpUpgradesPractice" xml:space="preserve">
+    <value>praktijkmodus</value>
+  </data>
+  <data name="HelpUpgrades" xml:space="preserve">
+    <value>upgrades</value>
+  </data>
+  <data name="UpgradesPracticeDesc1" xml:space="preserve">
+    <value>aan elke pagina en een regel gaan</value>
+  </data>
+  <data name="UpgradesPractice" xml:space="preserve">
+    <value>praktijkmodus</value>
+  </data>
+  <data name="HelpLeaderboards" xml:space="preserve">
+    <value>Zie uw hoogste scores</value>
+  </data>
+  <data name="HudRotate" xml:space="preserve">
+    <value>weergave draaien</value>
+  </data>
+  <data name="HudOrbit" xml:space="preserve">
+    <value>weergave van de baan</value>
+  </data>
+  <data name="HelpScroll" xml:space="preserve">
+    <value>Tik of houd beeld schuiven</value>
+  </data>
+  <data name="HelpRotate" xml:space="preserve">
+    <value>Sleep vanaf het midden naar de weergave draaien</value>
+  </data>
+  <data name="HelpPauseResume" xml:space="preserve">
+    <value>onderbreken of hervatten van het spel</value>
+  </data>
+  <data name="HelpOrbit" xml:space="preserve">
+    <value>Sleep uit de trackball aan kring weergeven</value>
+  </data>
+  <data name="HelpIncreaseDecrease" xml:space="preserve">
+    <value>verhogen of verlagen, snelheid</value>
+  </data>
+  <data name="CommonReset" xml:space="preserve">
+    <value>dubbele Tik trackball weergave opnieuw instellen</value>
+  </data>
+  <data name="AdminStartLine" xml:space="preserve">
+    <value>regel beginnen</value>
+  </data>
+  <data name="HudJoystick" xml:space="preserve">
+    <value>joystick</value>
+  </data>
+  <data name="HudCannotGoSlowerThan" xml:space="preserve">
+    <value>kan niet gaan langzamer dan</value>
+  </data>
+  <data name="RatingsDescription" xml:space="preserve">
+    <value>Lijkt het u LineRunner hou zoveel als we doen. Care geven ons een paar sterren?</value>
+  </data>
+  <data name="CommonLater" xml:space="preserve">
+    <value>later</value>
+  </data>
+  <data name="WorldsUseThisWorld" xml:space="preserve">
+    <value>deze wereld gebruiken bij het starten</value>
+  </data>
+  <data name="WorldsSwitchingWorlds" xml:space="preserve">
+    <value>schakelen tussen werelden</value>
+  </data>
+  <data name="WorldsSelectNewWorld" xml:space="preserve">
+    <value>Selecteer de nieuwe wereld te gebruiken</value>
+  </data>
+  <data name="WorldsSaveWorldAsDescription" xml:space="preserve">
+    <value>Voer de naam van de wereld</value>
+  </data>
+  <data name="WorldsSaveWorldAs" xml:space="preserve">
+    <value>world als opslaan...</value>
+  </data>
+  <data name="WorldsGenerateNew" xml:space="preserve">
+    <value>nieuwe genereren</value>
+  </data>
+  <data name="WorldsErrorWorldAlreadyExists" xml:space="preserve">
+    <value>een wereld met deze naam bestaat al</value>
+  </data>
+  <data name="WorldsErrorWorldActive" xml:space="preserve">
+    <value>u kunt een wereld die actief niet verwijderen</value>
+  </data>
+  <data name="WorldsErrorCannotUseName" xml:space="preserve">
+    <value>u kunt deze naam voor uw wereld gebruiken</value>
+  </data>
+  <data name="WorldsDefault" xml:space="preserve">
+    <value>Standaard</value>
+  </data>
+  <data name="ResourcePacksSwitchingResourcePacks" xml:space="preserve">
+    <value>overschakelen naar een andere resource packs</value>
+  </data>
+  <data name="CommonAdmin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="PadsSwitchingPads" xml:space="preserve">
+    <value>overschakelen naar een andere pads</value>
+  </data>
+  <data name="LoginUserNameDescription" xml:space="preserve">
+    <value>Geef een unieke gebruikersnaam</value>
+  </data>
+  <data name="LoginUserName" xml:space="preserve">
+    <value>gebruikersnaam</value>
+  </data>
+  <data name="LoginPasswordDescription" xml:space="preserve">
+    <value>wachtwoord invoeren</value>
+  </data>
+  <data name="LoginPassword" xml:space="preserve">
+    <value>wachtwoord</value>
+  </data>
+  <data name="LinesSwitchingLines" xml:space="preserve">
+    <value>schakelen tussen regels</value>
+  </data>
+  <data name="HudPageLine" xml:space="preserve">
+    <value>pagina/nieuwe regel</value>
+  </data>
+  <data name="FinishNewHighScore" xml:space="preserve">
+    <value>Topscore</value>
+  </data>
+  <data name="CreditsCreatedBySimsip" xml:space="preserve">
+    <value>simsip</value>
+  </data>
+  <data name="CreditsCreatedBy" xml:space="preserve">
+    <value>ontwikkeling</value>
+  </data>
+  <data name="AdminStartPage" xml:space="preserve">
+    <value>startpagina</value>
+  </data>
+  <data name="AdminParticlesOn" xml:space="preserve">
+    <value>deeltjes op</value>
+  </data>
+  <data name="AdminParticlesOff" xml:space="preserve">
+    <value>deeltjes uit</value>
+  </data>
+  <data name="AchievementsLeaderboards" xml:space="preserve">
+    <value>scoreborden</value>
+  </data>
+  <data name="OptionsTitle" xml:space="preserve">
+    <value>Opties</value>
+  </data>
+  <data name="OptionsSoundOn" xml:space="preserve">
+    <value>geluid</value>
+  </data>
+  <data name="OptionsSoundOff" xml:space="preserve">
+    <value>geluid uit</value>
+  </data>
+  <data name="OptionsPads" xml:space="preserve">
+    <value>PADS</value>
+  </data>
+  <data name="OptionsLines" xml:space="preserve">
+    <value>regels</value>
+  </data>
+  <data name="OptionsLeaderboards" xml:space="preserve">
+    <value>scoreborden</value>
+  </data>
+  <data name="OptionsCredits" xml:space="preserve">
+    <value>credits</value>
+  </data>
+  <data name="HelpTitle" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="HelpRatingsDescription" xml:space="preserve">
+    <value>ons tarief</value>
+  </data>
+  <data name="HelpOptionsDescription" xml:space="preserve">
+    <value>Spelopties wijzigen</value>
+  </data>
+  <data name="HelpPads" xml:space="preserve">
+    <value>het pad dat u afspeelt op wijzigen</value>
+  </data>
+  <data name="HelpHelpDescription" xml:space="preserve">
+    <value>Help-venster</value>
+  </data>
+  <data name="HelpOptions" xml:space="preserve">
+    <value>Opties</value>
+  </data>
+  <data name="HelpLines" xml:space="preserve">
+    <value>de regel voor het Tekenpaneel wijzigen</value>
+  </data>
+  <data name="HelpHowToPlayDescription1" xml:space="preserve">
+    <value>Tik op om te voorkomen dat de lijnen en obstakels</value>
+  </data>
+  <data name="CommonVersion" xml:space="preserve">
+    <value>versie</value>
+  </data>
 </root>

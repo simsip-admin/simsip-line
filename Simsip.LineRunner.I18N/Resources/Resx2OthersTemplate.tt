@@ -121,7 +121,20 @@ public class Resx2AndroidTemplate : Template
             Write("  <string name=\"");
             Write(pair.Key);
             Write("\">");
-            Write(pair.Value);
+			
+			// Takes into account Android's special values for ResourceLanguage
+			if (pair.Value.Equals("zh-Hans", StringComparison.CurrentCultureIgnoreCase))
+			{
+				Write("zh-CN");
+			}
+			else if (pair.Value.Equals("zh-Hant", StringComparison.CurrentCultureIgnoreCase))
+			{
+				Write("zh-HK");
+			}
+			else
+			{
+				Write(pair.Value);
+			}
             WriteLine("</string>");
         }
         WriteLine("</resources>");

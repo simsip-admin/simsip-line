@@ -117,7 +117,8 @@ namespace Simsip.LineRunner.Scenes.Hud
         // Additional text
         private string _doubleTapResetText;
         private string _hudSpeedText;
-        private string _hudCannotGoSlowerThan;
+        private string _hudCannotGoSlowerThanText;
+        private string _hudSpeedDefaultText;
 
         // Dragging support
         private enum Dragging
@@ -679,7 +680,7 @@ namespace Simsip.LineRunner.Scenes.Hud
 #else
             this._doubleTapResetText = AppResources.CommonReset;
 #endif
-
+            this._hudSpeedText = string.Empty;
 #if ANDROID
             this._hudSpeedText = Program.SharedProgram.Resources.GetString(Resource.String.HudSpeed);
 #elif IOS
@@ -689,11 +690,19 @@ namespace Simsip.LineRunner.Scenes.Hud
 #endif
 
 #if ANDROID
-            this._hudCannotGoSlowerThan = Program.SharedProgram.Resources.GetString(Resource.String.HudCannotGoSlowerThan);
+            this._hudCannotGoSlowerThanText = Program.SharedProgram.Resources.GetString(Resource.String.HudCannotGoSlowerThan);
 #elif IOS
-            this._hudCannotGoSlowerThan = NSBundle.MainBundle.LocalizedString(Strings.HudCannotGoSlowerThan, Strings.HudCannotGoSlowerThan);
+            this._hudCannotGoSlowerThanText = NSBundle.MainBundle.LocalizedString(Strings.HudCannotGoSlowerThan, Strings.HudCannotGoSlowerThan);
 #else
-            this._hudCannotGoSlowerThan = AppResources.HudCannotGoSlowerThan; 
+            this._hudCannotGoSlowerThanText = AppResources.HudCannotGoSlowerThan; 
+#endif
+            this._hudSpeedDefaultText = string.Empty;
+#if ANDROID
+            this._hudSpeedDefaultText = Program.SharedProgram.Resources.GetString(Resource.String.HudSpeedDefault);
+#elif IOS
+            this._hudSpeedDefaultText = NSBundle.MainBundle.LocalizedString(Strings.HudSpeed, Strings.HudSpeedDefault);
+#else
+            this._hudSpeedDefaultText = AppResources.HudSpeedDefault; 
 #endif
 
             // Admin
@@ -1291,9 +1300,19 @@ namespace Simsip.LineRunner.Scenes.Hud
             }
             else
             {
-                statusText = this._hudCannotGoSlowerThan;
+                statusText = this._hudCannotGoSlowerThanText;
             }
-            this.UpdateStatus1(statusText + " " + (int)(this._characterCache.GetLinearVelocityX() * 100));
+
+            var newSpeed = this._characterCache.GetLinearVelocityX();
+            var newSpeedText = newSpeed.ToString();
+            if (newSpeed == GameConstants.USER_DEFAULT_INITIAL_HERO_LINEAR_VELOCITY_X)
+            {
+                this.UpdateStatus1(statusText + " " + newSpeedText + " " + this._hudSpeedDefaultText);
+            }
+            else
+            {
+                this.UpdateStatus1(statusText + " " + newSpeedText);
+            }
         }
 
         private void IncreaseVelocity()
@@ -1306,7 +1325,17 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             this._characterCache.IncreaseVelocity();
 
-            this.UpdateStatus1(this._hudSpeedText + " " + (int)(this._characterCache.GetLinearVelocityX() * 100));
+
+            var newSpeed = this._characterCache.GetLinearVelocityX();
+            var newSpeedText = newSpeed.ToString();
+            if (newSpeed == GameConstants.USER_DEFAULT_INITIAL_HERO_LINEAR_VELOCITY_X)
+            {
+                this.UpdateStatus1(this._hudSpeedText + " " + newSpeedText + " " + this._hudSpeedDefaultText);
+            }
+            else
+            {
+                this.UpdateStatus1(this._hudSpeedText + " " + newSpeedText);
+            }
         }
 
         private void NavigateBase(LayerTags layer)

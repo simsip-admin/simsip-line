@@ -4259,6 +4259,7 @@
     <AndroidResource Include="Resources\Values-ru-rRU\AppResources.xml" />
     <AndroidResource Include="Resources\Values-zh-rCN\AppResources.xml" />
     <AndroidResource Include="Resources\Values-zh-rHK\AppResources.xml" />
+    <AndroidResource Include="Resources\Values-hi-rIN\AppResources.xml" />
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
       <Link>Mercury\EffectLibrary\BasicExplosion.xml</Link>
     </None>

@@ -133,5 +133,6 @@
         public static string CommonNext = "CommonNext";
         public static string CommonPrevious = "CommonPrevious";
         public static string HelpZoomInOut = "HelpZoomInOut";
+        public static string HudSpeedDefault = "HudSpeedDefault";
     }
 }

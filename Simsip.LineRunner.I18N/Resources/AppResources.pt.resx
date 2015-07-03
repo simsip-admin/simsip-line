@@ -125,4 +125,394 @@
     <value>pt</value>
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
   </data>
+  <data name="HelpStartDescription" xml:space="preserve">
+    <value>jogar jogo</value>
+  </data>
+  <data name="AchievementsTopScoresFor" xml:space="preserve">
+    <value>principais resultados</value>
+  </data>
+  <data name="AdminKillsOn" xml:space="preserve">
+    <value>elimina em</value>
+  </data>
+  <data name="AdminKillsOff" xml:space="preserve">
+    <value>elimina</value>
+  </data>
+  <data name="AdminStartPageDescription" xml:space="preserve">
+    <value>Inserir página Iniciar em</value>
+  </data>
+  <data name="CommonYes" xml:space="preserve">
+    <value>Sim</value>
+  </data>
+  <data name="CommonOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="CommonNo" xml:space="preserve">
+    <value>não</value>
+  </data>
+  <data name="CommonError" xml:space="preserve">
+    <value>Erro</value>
+  </data>
+  <data name="CommonDelete" xml:space="preserve">
+    <value>Excluir</value>
+  </data>
+  <data name="CommonCancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="HudResume" xml:space="preserve">
+    <value>currículo</value>
+  </data>
+  <data name="WorldsWorlds" xml:space="preserve">
+    <value>mundos</value>
+  </data>
+  <data name="RatingsRateUs" xml:space="preserve">
+    <value>taxa conosco!</value>
+  </data>
+  <data name="CreditsTitle" xml:space="preserve">
+    <value>créditos</value>
+  </data>
+  <data name="StartRate" xml:space="preserve">
+    <value>taxa de</value>
+  </data>
+  <data name="StartPlay" xml:space="preserve">
+    <value>jogar</value>
+  </data>
+  <data name="HudOptions" xml:space="preserve">
+    <value>Opções</value>
+  </data>
+  <data name="HudHelp" xml:space="preserve">
+    <value>Ajuda</value>
+  </data>
+  <data name="CommonPage" xml:space="preserve">
+    <value>página</value>
+  </data>
+  <data name="HudPause" xml:space="preserve">
+    <value>Pausar</value>
+  </data>
+  <data name="HudSpeed" xml:space="preserve">
+    <value>velocidade</value>
+  </data>
+  <data name="HudPaused" xml:space="preserve">
+    <value>em pausa</value>
+  </data>
+  <data name="HudTrackball" xml:space="preserve">
+    <value>trackball</value>
+  </data>
+  <data name="HudTime" xml:space="preserve">
+    <value>tempo</value>
+  </data>
+  <data name="HudHome" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="AdminStartLineDescription" xml:space="preserve">
+    <value>Inserir linha para iniciar em (1-17)</value>
+  </data>
+  <data name="HelpLicense" xml:space="preserve">
+    <value>licença</value>
+  </data>
+  <data name="HudScroll" xml:space="preserve">
+    <value>exibição da rolagem</value>
+  </data>
+  <data name="HelpHud" xml:space="preserve">
+    <value>HUD</value>
+  </data>
+  <data name="HelpSound" xml:space="preserve">
+    <value>desligar e ligar som</value>
+  </data>
+  <data name="UpgradesTitle" xml:space="preserve">
+    <value>upgrades</value>
+  </data>
+  <data name="UpgradesPracticeDesc2" xml:space="preserve">
+    <value>Desativar elimina</value>
+  </data>
+  <data name="HelpUpgradesPracticeDesc2" xml:space="preserve">
+    <value>Desativar elimina</value>
+  </data>
+  <data name="UpgradesPrice" xml:space="preserve">
+    <value>preço</value>
+  </data>
+  <data name="UpgradesRestore" xml:space="preserve">
+    <value>restauração</value>
+  </data>
+  <data name="AdminUpgradesOn" xml:space="preserve">
+    <value>atualizações em</value>
+  </data>
+  <data name="OptionsPractice" xml:space="preserve">
+    <value>modo de prática</value>
+  </data>
+  <data name="UpgradesRestoreStatus" xml:space="preserve">
+    <value>Restaurar atualização</value>
+  </data>
+  <data name="HudHigh" xml:space="preserve">
+    <value>alta</value>
+  </data>
+  <data name="HelpSupport" xml:space="preserve">
+    <value>suporte</value>
+  </data>
+  <data name="MessageBoxMovingToPage6" xml:space="preserve">
+    <value>última página!</value>
+  </data>
+  <data name="CommonPrevious" xml:space="preserve">
+    <value>anterior</value>
+  </data>
+  <data name="HelpZoomInOut" xml:space="preserve">
+    <value>ampliar ou reduzir</value>
+  </data>
+  <data name="HudSpeedDefault" xml:space="preserve">
+    <value>(padrão)</value>
+  </data>
+  <data name="CommonNext" xml:space="preserve">
+    <value>próxima</value>
+  </data>
+  <data name="CommonBack" xml:space="preserve">
+    <value>Voltar</value>
+  </data>
+  <data name="MessageBoxMovingToPage5" xml:space="preserve">
+    <value>incêndio!</value>
+  </data>
+  <data name="MessageBoxMovingToPage4" xml:space="preserve">
+    <value>muito carinho!</value>
+  </data>
+  <data name="MessageBoxMovingToPage3" xml:space="preserve">
+    <value>boom!</value>
+  </data>
+  <data name="MessageBoxMovingToPage2" xml:space="preserve">
+    <value>Você é incrível!</value>
+  </data>
+  <data name="MessageBoxMovingToPage" xml:space="preserve">
+    <value>movendo a página</value>
+  </data>
+  <data name="FinishWinner" xml:space="preserve">
+    <value>vencedor!</value>
+  </data>
+  <data name="AchievementsColumnScore" xml:space="preserve">
+    <value>pontuação</value>
+  </data>
+  <data name="AchievementsColumnDate" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="AchievementsColumnTime" xml:space="preserve">
+    <value>tempo</value>
+  </data>
+  <data name="UpgradesRestoreError" xml:space="preserve">
+    <value>Erro ao restaurar atualização</value>
+  </data>
+  <data name="UpgradesPurchaseStatus" xml:space="preserve">
+    <value>atualização de compra</value>
+  </data>
+  <data name="UpgradesPurchaseError" xml:space="preserve">
+    <value>atualização de compras de erro</value>
+  </data>
+  <data name="UpgradesPracticeDesc3" xml:space="preserve">
+    <value>Toque em Opções de modo de prática</value>
+  </data>
+  <data name="AdminUpgradesOff" xml:space="preserve">
+    <value>upgrades de logoff</value>
+  </data>
+  <data name="OptionsPracticeStartPage" xml:space="preserve">
+    <value>página inicial</value>
+  </data>
+  <data name="OptionsPracticeSwitchingPage" xml:space="preserve">
+    <value>a troca de página</value>
+  </data>
+  <data name="OptionsPracticeSwitchingLine" xml:space="preserve">
+    <value>Alternar linha</value>
+  </data>
+  <data name="OptionsPracticeStartLine" xml:space="preserve">
+    <value>linha inicial</value>
+  </data>
+  <data name="OptionsPracticeKillsOn" xml:space="preserve">
+    <value>elimina em</value>
+  </data>
+  <data name="OptionsPracticeKillsOff" xml:space="preserve">
+    <value>elimina</value>
+  </data>
+  <data name="UpgradesPurchasedOn" xml:space="preserve">
+    <value>comprado em</value>
+  </data>
+  <data name="UpgradesBuy" xml:space="preserve">
+    <value>comprar</value>
+  </data>
+  <data name="HelpUpgradesPracticeDesc1" xml:space="preserve">
+    <value>saltar para qualquer página e linha</value>
+  </data>
+  <data name="HelpUpgradesPractice" xml:space="preserve">
+    <value>modo de prática</value>
+  </data>
+  <data name="HelpUpgrades" xml:space="preserve">
+    <value>upgrades</value>
+  </data>
+  <data name="UpgradesPracticeDesc1" xml:space="preserve">
+    <value>saltar para qualquer página e linha</value>
+  </data>
+  <data name="UpgradesPractice" xml:space="preserve">
+    <value>modo de prática</value>
+  </data>
+  <data name="HelpLeaderboards" xml:space="preserve">
+    <value>Consulte sua pontuação superior</value>
+  </data>
+  <data name="HudRotate" xml:space="preserve">
+    <value>Girar exibição</value>
+  </data>
+  <data name="HudOrbit" xml:space="preserve">
+    <value>modo de exibição de órbita</value>
+  </data>
+  <data name="HelpScroll" xml:space="preserve">
+    <value>toque ou mantenha pressionado para rolar a exibição</value>
+  </data>
+  <data name="HelpRotate" xml:space="preserve">
+    <value>Arraste do meio para girar visualização</value>
+  </data>
+  <data name="HelpPauseResume" xml:space="preserve">
+    <value>Pausar ou continuar o jogo</value>
+  </data>
+  <data name="HelpOrbit" xml:space="preserve">
+    <value>Arraste do trackball para girar exibição</value>
+  </data>
+  <data name="HelpIncreaseDecrease" xml:space="preserve">
+    <value>aumentar ou diminuir a velocidade</value>
+  </data>
+  <data name="CommonReset" xml:space="preserve">
+    <value>toque duplo trackball para redefinir o modo de exibição</value>
+  </data>
+  <data name="AdminStartLine" xml:space="preserve">
+    <value>Iniciar linha</value>
+  </data>
+  <data name="HudJoystick" xml:space="preserve">
+    <value>Joystick</value>
+  </data>
+  <data name="HudCannotGoSlowerThan" xml:space="preserve">
+    <value>não é possível ir mais lento do que</value>
+  </data>
+  <data name="RatingsDescription" xml:space="preserve">
+    <value>Parece que você adora LineRunner o que fazemos. Cuidado para nos dar algumas estrelas?</value>
+  </data>
+  <data name="CommonLater" xml:space="preserve">
+    <value>mais tarde</value>
+  </data>
+  <data name="WorldsUseThisWorld" xml:space="preserve">
+    <value>Use esse mundo ao iniciar</value>
+  </data>
+  <data name="WorldsSwitchingWorlds" xml:space="preserve">
+    <value>alternando os mundos</value>
+  </data>
+  <data name="WorldsSelectNewWorld" xml:space="preserve">
+    <value>Selecione novo mundo para usar</value>
+  </data>
+  <data name="WorldsSaveWorldAsDescription" xml:space="preserve">
+    <value>Digite o nome do mundo</value>
+  </data>
+  <data name="WorldsSaveWorldAs" xml:space="preserve">
+    <value>Salvar o mundo como...</value>
+  </data>
+  <data name="WorldsGenerateNew" xml:space="preserve">
+    <value>Gerar nova</value>
+  </data>
+  <data name="WorldsErrorWorldAlreadyExists" xml:space="preserve">
+    <value>um mundo com este nome já existe</value>
+  </data>
+  <data name="WorldsErrorWorldActive" xml:space="preserve">
+    <value>Você não pode excluir um mundo está ativo</value>
+  </data>
+  <data name="WorldsErrorCannotUseName" xml:space="preserve">
+    <value>Você não pode usar esse nome para seu mundo</value>
+  </data>
+  <data name="WorldsDefault" xml:space="preserve">
+    <value>padrão</value>
+  </data>
+  <data name="ResourcePacksSwitchingResourcePacks" xml:space="preserve">
+    <value>comutação de pacotes de recursos</value>
+  </data>
+  <data name="CommonAdmin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="PadsSwitchingPads" xml:space="preserve">
+    <value>alternar painéis</value>
+  </data>
+  <data name="LoginUserNameDescription" xml:space="preserve">
+    <value>Digite um nome de usuário exclusivo</value>
+  </data>
+  <data name="LoginUserName" xml:space="preserve">
+    <value>nome de usuário</value>
+  </data>
+  <data name="LoginPasswordDescription" xml:space="preserve">
+    <value>Digite a senha</value>
+  </data>
+  <data name="LoginPassword" xml:space="preserve">
+    <value>senha</value>
+  </data>
+  <data name="LinesSwitchingLines" xml:space="preserve">
+    <value>linhas de comutação</value>
+  </data>
+  <data name="HudPageLine" xml:space="preserve">
+    <value>página/linha</value>
+  </data>
+  <data name="FinishNewHighScore" xml:space="preserve">
+    <value>novos pontos máximos</value>
+  </data>
+  <data name="CreditsCreatedBySimsip" xml:space="preserve">
+    <value>simsip</value>
+  </data>
+  <data name="CreditsCreatedBy" xml:space="preserve">
+    <value>desenvolvimento</value>
+  </data>
+  <data name="AdminStartPage" xml:space="preserve">
+    <value>página inicial</value>
+  </data>
+  <data name="AdminParticlesOn" xml:space="preserve">
+    <value>partículas em</value>
+  </data>
+  <data name="AdminParticlesOff" xml:space="preserve">
+    <value>partículas</value>
+  </data>
+  <data name="AchievementsLeaderboards" xml:space="preserve">
+    <value>tabelas</value>
+  </data>
+  <data name="OptionsTitle" xml:space="preserve">
+    <value>Opções</value>
+  </data>
+  <data name="OptionsSoundOn" xml:space="preserve">
+    <value>som no</value>
+  </data>
+  <data name="OptionsSoundOff" xml:space="preserve">
+    <value>desligar som</value>
+  </data>
+  <data name="OptionsPads" xml:space="preserve">
+    <value>PADs</value>
+  </data>
+  <data name="OptionsLines" xml:space="preserve">
+    <value>linhas</value>
+  </data>
+  <data name="OptionsLeaderboards" xml:space="preserve">
+    <value>tabelas</value>
+  </data>
+  <data name="OptionsCredits" xml:space="preserve">
+    <value>créditos</value>
+  </data>
+  <data name="HelpTitle" xml:space="preserve">
+    <value>Ajuda</value>
+  </data>
+  <data name="HelpRatingsDescription" xml:space="preserve">
+    <value>taxa nos</value>
+  </data>
+  <data name="HelpOptionsDescription" xml:space="preserve">
+    <value>Opções de jogo</value>
+  </data>
+  <data name="HelpPads" xml:space="preserve">
+    <value>Alterar área de em que reproduzir</value>
+  </data>
+  <data name="HelpHelpDescription" xml:space="preserve">
+    <value>tela de ajuda</value>
+  </data>
+  <data name="HelpOptions" xml:space="preserve">
+    <value>Opções</value>
+  </data>
+  <data name="HelpLines" xml:space="preserve">
+    <value>Altere a linha para o teclado</value>
+  </data>
+  <data name="HelpHowToPlayDescription1" xml:space="preserve">
+    <value>Toque para evitar linhas e obstáculos</value>
+  </data>
+  <data name="CommonVersion" xml:space="preserve">
+    <value>versão</value>
+  </data>
 </root>

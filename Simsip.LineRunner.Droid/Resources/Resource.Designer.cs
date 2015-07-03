@@ -2131,6 +2131,9 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f06007f
 			public const int HudSpeed = 2131099775;
 			
+			// aapt resource value: 0x7f0600bf
+			public const int HudSpeedDefault = 2131099839;
+			
 			// aapt resource value: 0x7f060084
 			public const int HudTime = 2131099780;
 			
