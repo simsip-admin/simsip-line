@@ -62,6 +62,7 @@ namespace Simsip.LineRunner
                 RootViewController = iosGameViewController
             };
 
+            /*
             var originalFrame = iosGameViewController.View.Frame;
 
             iosGameViewController.View.Frame = new CoreGraphics.CGRect(
@@ -69,6 +70,7 @@ namespace Simsip.LineRunner
                 originalFrame.Y + this._adView.AdSize.Size.Height,
                 originalFrame.Width,
                 originalFrame.Height - this._adView.AdSize.Size.Height);
+            */
 
             // Inject our add banner
             iosGameViewController.View.AddSubview(this._adView);

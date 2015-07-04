@@ -4260,9 +4260,9 @@
     <Reference Include="BouncyCastle.Crypto">
       <HintPath>..\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
-    <Reference Include="GoogleAdMobAds, Version=7.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="GoogleAdMobAds, Version=7.2.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Components\googleadmob-7.1.0\lib\ios-unified\GoogleAdMobAds.dll</HintPath>
+      <HintPath>Components\googleadmob-7.2.2\lib\ios-unified\GoogleAdMobAds.dll</HintPath>
     </Reference>
     <Reference Include="HockeyApp.iOS">
       <HintPath>Components\hockeyappios-3.6.2.0\lib\ios-unified\HockeyApp.iOS.dll</HintPath>
@@ -4320,7 +4320,7 @@
     </XamarinComponentReference>
     <XamarinComponentReference Include="hockeyappios">
       <Visible>False</Visible>
-      <Version>3.6.4.0</Version>
+      <Version>3.7.1.0</Version>
     </XamarinComponentReference>
     <XamarinComponentReference Include="irate">
       <Visible>False</Visible>

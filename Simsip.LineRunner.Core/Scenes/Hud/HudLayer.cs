@@ -22,6 +22,7 @@ using Simsip.LineRunner.GameObjects;
 #endif
 #if IOS
 using Foundation;
+using GoogleAdMobAds;
 #endif
 
 
@@ -243,6 +244,12 @@ namespace Simsip.LineRunner.Scenes.Hud
             var headerLayerEndPosition = CCDirector.SharedDirector.VisibleOrigin + new CCPoint(
                 0.02f * screenSize.Width,
                 0.78f * screenSize.Height);
+#if IOS
+            // With the ad banner overlaying our screen in ios, we need to adjust certain ui elements downward by size of ad banner
+            headerLayerEndPosition = CCDirector.SharedDirector.VisibleOrigin + new CCPoint(
+                0.02f * screenSize.Width,
+                0.78f * screenSize.Height - (float)GADAdSizeCons.Banner.Size.Height);
+#endif
             var headerLayerStartPosition = new CCPoint(
                 headerLayerEndPosition.X,
                 screenSize.Height);
@@ -1232,8 +1239,14 @@ namespace Simsip.LineRunner.Scenes.Hud
                 this._status1Label.Color = CCColor3B.Red;
                 this._status1Label.AnchorPoint = CCPoint.AnchorMiddle;
                 this._status1Label.Position = new CCPoint(
-                    0.5f * this.ContentSize.Width,
+                    0.5f  * this.ContentSize.Width,
                     0.75f * this.ContentSize.Height);
+#if IOS
+                // With the ad banner overlaying our screen in ios, we need to adjust certain ui elements downward by size of ad banner
+                this._status1Label.Position = CCDirector.SharedDirector.VisibleOrigin + new CCPoint(
+                    0.5f  * this.ContentSize.Width,
+                    0.75f * this.ContentSize.Height - (float)GADAdSizeCons.Banner.Size.Height);
+#endif
                 this.AddChild(this._status1Label);
             }
 
@@ -1264,6 +1277,12 @@ namespace Simsip.LineRunner.Scenes.Hud
                 this._status2Label.Position = new CCPoint(
                     0.5f * this.ContentSize.Width,
                     0.65f * this.ContentSize.Height);
+#if IOS
+                // With the ad banner overlaying our screen in ios, we need to adjust certain ui elements downward by size of ad banner
+                this._status2Label.Position = CCDirector.SharedDirector.VisibleOrigin + new CCPoint(
+                    0.5f * this.ContentSize.Width,
+                    0.65f * this.ContentSize.Height - (float)GADAdSizeCons.Banner.Size.Height);
+#endif
                 this.AddChild(this._status2Label);
             }
             
