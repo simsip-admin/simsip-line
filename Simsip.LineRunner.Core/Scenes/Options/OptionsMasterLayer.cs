@@ -318,12 +318,6 @@ namespace Simsip.LineRunner.Scenes.Options
             // Animate layer
             this.RunAction(this._layerActionIn);
 
-            // Reset state
-            foreach(var optionPage in this._optionsPages)
-            {
-                optionPage.Visible = false;
-            }
-
 #if ANDROID || IOS
             // Determine if upgrade practice mode was purchased
             // Note: Override available from admin screen
@@ -342,6 +336,11 @@ namespace Simsip.LineRunner.Scenes.Options
                 }
             }
 #endif
+            // Reset state
+            foreach (var optionPage in this._optionsPages)
+            {
+                optionPage.Visible = false;
+            }
 
             // Flip on the last options page that was active
             // before leaving options and make sure it is 
