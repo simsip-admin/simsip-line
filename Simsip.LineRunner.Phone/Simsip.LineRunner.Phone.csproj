@@ -4232,6 +4232,22 @@
       <Link>Content\Images\Icons\ZoomOutButtonSelected.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Images\Misc\PracticeModeImage1.xnb">
+      <Link>Content\Images\Misc\PracticeModeImage1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Images\Misc\PracticeModeImage2.xnb">
+      <Link>Content\Images\Misc\PracticeModeImage2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Images\Misc\PracticeModeImage3.xnb">
+      <Link>Content\Images\Misc\PracticeModeImage3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Phone\Content\Images\Misc\PracticeModeImage4.xnb">
+      <Link>Content\Images\Misc\PracticeModeImage4.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">

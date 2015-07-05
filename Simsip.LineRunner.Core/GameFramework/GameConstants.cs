@@ -207,7 +207,12 @@ namespace Simsip.LineRunner.GameFramework
         /// <summary>
         /// How long we display an image for an upgrade on an upgrades page, before fading to the next image for the upgrade.
         /// </summary>
-        public const float DURATION_UPGRADE_IMAGE = 4.0f;
+        public const float DURATION_UPGRADE_IMAGE_DISPLAY = 6.0f;
+
+        /// <summary>
+        /// How long we transition an image for an upgrade on an upgrades page, before fading to the next image for the upgrade.
+        /// </summary>
+        public const float DURATION_UPGRADE_IMAGE_TRANSITION = 2.0f;
 
     }
 }

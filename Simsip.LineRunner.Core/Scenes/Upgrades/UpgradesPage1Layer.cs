@@ -59,6 +59,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
         // Purchased on
         private string _purchasedOnText;
         private CCLabelTTF _purchasedOnLabel;
+        private CCLabelTTF _purchasedOnDateLabel;
 
         // Message box messages
         private string _purchasingUpgradeText;
@@ -110,10 +111,11 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             this.AddChild(pageNumberHeader);
 
             // Practice images (note: placing this first so text is on top of images)
-            var practiceModeImage1 = new CCSprite("Models/Pads/Pad1-thumbnail");
-            var practiceModeImage2 = new CCSprite("Models/Pads/Pad1-thumbnail");
-            var practiceModeImage3 = new CCSprite("Models/Pads/Pad1-thumbnail");
-            var practiceModeImage4 = new CCSprite("Models/Pads/Pad1-thumbnail");
+            // Scaling assumes 2 : 1 ratio
+            var practiceModeImage1 = new CCSprite("Images/Misc/PracticeModeImage1");
+            var practiceModeImage2 = new CCSprite("Images/Misc/PracticeModeImage2");
+            var practiceModeImage3 = new CCSprite("Images/Misc/PracticeModeImage3");
+            var practiceModeImage4 = new CCSprite("Images/Misc/PracticeModeImage4");
             this._practiceModeImages = new List<CCSprite>();
             this._practiceModeImages.Add(practiceModeImage1);
             this._practiceModeImages.Add(practiceModeImage2);
@@ -122,19 +124,21 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             foreach (var image in this._practiceModeImages)
             {
                 image.Opacity = 0;
-                image.AnchorPoint = CCPoint.AnchorMiddleBottom;
+                Cocos2DUtils.ResizeSprite(image,
+                    0.6f * this.ContentSize.Height,
+                    0.3f * this.ContentSize.Height);
                 image.Position = new CCPoint(
-                    0.5f * this.ContentSize.Width,
-                    0.1f * this.ContentSize.Height);
+                    0.5f  * this.ContentSize.Width,
+                    0.45f * this.ContentSize.Height);
                 this.AddChild(image);
             }
             practiceModeImage1.Opacity = 255;
             this._practiceModeAction = new CCRepeatForever(new CCSequence(new CCFiniteTimeAction[] 
                 {
-                    new CCDelayTime(GameConstants.DURATION_UPGRADE_IMAGE),
+                    new CCDelayTime(GameConstants.DURATION_UPGRADE_IMAGE_DISPLAY),
                     new CCCallFunc(() =>
                         {
-                            this._practiceModeImages[this._currentPracticeModeImage].RunAction(new CCFadeOut(GameConstants.DURATION_UPGRADE_IMAGE));
+                            this._practiceModeImages[this._currentPracticeModeImage].RunAction(new CCFadeOut(GameConstants.DURATION_UPGRADE_IMAGE_TRANSITION));
                             if (this._currentPracticeModeImage == this._practiceModeImages.Count - 1)
                             {
                                 this._currentPracticeModeImage = 0;
@@ -143,7 +147,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                             {
                                 this._currentPracticeModeImage++;
                             }
-                            this._practiceModeImages[this._currentPracticeModeImage].RunAction(new CCFadeIn(GameConstants.DURATION_UPGRADE_IMAGE));
+                            this._practiceModeImages[this._currentPracticeModeImage].RunAction(new CCFadeIn(GameConstants.DURATION_UPGRADE_IMAGE_TRANSITION));
                         }),
                 }));
 
@@ -434,11 +438,11 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                 // Note, need to do this because of AdminAreUpgradesAllowed gating above
                 if (practicePurchase != null)
                 {
-                    this.UpdatePurchasedOnLabel(this._purchasedOnText + " " + practicePurchase.PurchaseTime.ToString("g"));
+                    this.UpdatePurchasedOnLabel(practicePurchase.PurchaseTime.ToString("g"));
                 }
                 else
                 {
-                    this.UpdatePurchasedOnLabel(this._purchasedOnText + " " + DateTime.Now.ToString("g"));
+                    this.UpdatePurchasedOnLabel(DateTime.Now.ToString("g"));
                 }
 
                 this._buyMenu.Visible = false;
@@ -524,8 +528,8 @@ namespace Simsip.LineRunner.Scenes.Upgrades
 
             this._priceLabel = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             this._priceLabel.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.3f * this.ContentSize.Height);
+                0.5f  * this.ContentSize.Width,
+                0.25f * this.ContentSize.Height);
             this.AddChild(this._priceLabel);
         }
 
@@ -535,12 +539,22 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             {
                 this.RemoveChild(this._purchasedOnLabel);
             }
+            if (this._purchasedOnDateLabel != null)
+            {
+                this.RemoveChild(this._purchasedOnDateLabel);
+            }
 
-            this._purchasedOnLabel = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._purchasedOnLabel = new CCLabelTTF(this._purchasedOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
             this._purchasedOnLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
-                0.3f * this.ContentSize.Height);
+                0.25f * this.ContentSize.Height);
             this.AddChild(this._purchasedOnLabel);
+
+            this._purchasedOnDateLabel = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            this._purchasedOnDateLabel.Position = new CCPoint(
+                0.5f  * this.ContentSize.Width,
+                0.2f * this.ContentSize.Height);
+            this.AddChild(this._purchasedOnDateLabel);
         }
     }
 }
