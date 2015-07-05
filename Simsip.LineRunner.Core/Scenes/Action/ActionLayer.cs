@@ -1168,8 +1168,9 @@ namespace Simsip.LineRunner.Scenes.Action
             // moving to start kicking off background load
             this._obstacleCache.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
 
-            // IMPORTANT: grab top score HERE as it will be reset in SwitchState(MovingToStart) immediately below
+            // IMPORTANT: grab these HERE as it will be reset in SwitchState(MovingToStart) immediately below
             var currentScore = GameManager.SharedGameManager.CurrentScore;
+            var killsOffEventRecorded = this._hudLayer.KillsOffEventRecorded;
 
             // Now go for the async load
             this.SwitchState(GameState.MovingToStart);
@@ -1178,7 +1179,7 @@ namespace Simsip.LineRunner.Scenes.Action
             var scoreRepository = new FacebookScoreRepository();
             var previousTopScore = scoreRepository.GetTopScoresForPlayer(1);
             var qualifiesAsNewTopScore = 
-                !this._hudLayer.KillsOffEventRecorded           // We did not have "Kills Off" enabled during this game run
+                !killsOffEventRecorded                          // We did not have "Kills Off" enabled during this game run
                 &&                                              // AND
                 currentScore > 0                                // We have a score to check
                 &&                                              // AND

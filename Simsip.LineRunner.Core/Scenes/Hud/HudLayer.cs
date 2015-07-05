@@ -780,11 +780,17 @@ namespace Simsip.LineRunner.Scenes.Hud
             TouchPanel.EnabledGestures = GestureType.FreeDrag | GestureType.DragComplete | GestureType.DoubleTap | GestureType.Hold;
             CCApplication.SharedApplication.OnGesture += this.HudOnGesture;
 
-            // Activate tap animation
-            this._startTapImage.RunAction(this._startTapAction);
+            // Careful here, we could be coming back from options, help etc. from a pause.
+            // We only display our start tap if we are NOT coming back from a pause. The two
+            // code paths (start tap vs pause/resume) could conflict in state restored.
+            if (!this._characterCache.IsPaused())
+            {
+                // Activate tap animation
+                this._startTapImage.RunAction(this._startTapAction);
 
-            // Base layer on
-            this._baseLayer.Visible = true;
+                // Base layer on
+                this._baseLayer.Visible = true;
+            }
         }
 
         public override void Update(float dt)
@@ -888,6 +894,7 @@ namespace Simsip.LineRunner.Scenes.Hud
                 this._pauseLabel.Color = CCColor3B.Gray;
             }
         }
+
         public void HandleKill()
         {
             // Disable pause and reset pause text
