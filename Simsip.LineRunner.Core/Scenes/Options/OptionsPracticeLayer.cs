@@ -327,6 +327,12 @@ namespace Simsip.LineRunner.Scenes.Options
             // Record what was selected
             GameManager.SharedGameManager.GameStartPageNumber = pageNumber;
 
+            // Determine if we need to signal we had a starting page event
+            if (GameManager.SharedGameManager.GameStartPageNumber != 1)
+            {
+                this._parent.TheHudLayer.StartingPageEventRecorded = true;
+            }
+
             // Hook up an event handler for end of content loading caused by
             // refresh kicking off background load
             this._obstacleCache.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
@@ -358,6 +364,12 @@ namespace Simsip.LineRunner.Scenes.Options
 
             // Record what was selected
             GameManager.SharedGameManager.GameStartLineNumber = lineNumber;
+
+            // Determine if we need to signal we had a starting page event
+            if (GameManager.SharedGameManager.GameStartLineNumber != 1)
+            {
+                this._parent.TheHudLayer.StartingLineEventRecorded = true;
+            }
 
             // Hook up an event handler for end of content loading caused by
             // refresh kicking off background load

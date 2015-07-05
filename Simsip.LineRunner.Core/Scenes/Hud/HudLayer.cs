@@ -959,6 +959,20 @@ namespace Simsip.LineRunner.Scenes.Hud
         /// </summary>
         public bool KillsOffEventRecorded { get; set; }
 
+        /// <summary>
+        /// Set to true if a "Starting Page" was enabled at start of a game run or
+        /// if "Starting Page" was enabled during a game run. Set to false if a game
+        /// run was completed without "Starting Page" enabled at any point in run.
+        /// </summary>
+        public bool StartingPageEventRecorded { get; set; }
+
+        /// <summary>
+        /// Set to true if a "Starting Line" was enabled at start of a game run or
+        /// if "Starting Line" was enabled during a game run. Set to false if a game
+        /// run was completed without "Starting Line" enabled at any point in run.
+        /// </summary>
+        public bool StartingLineEventRecorded { get; set; }
+
         #endregion
 
         #region Event handlers
@@ -1159,8 +1173,10 @@ namespace Simsip.LineRunner.Scenes.Hud
             this.ToggleScoreLabels(displayHighScore: false);
             this.StartTimer();
 
-            // Track if "Kills Off" is enabled during this game run
+            // Track if any upgrade events are enabled during this game run
             this.KillsOffEventRecorded = !GameManager.SharedGameManager.GameAreKillsAllowed;
+            this.StartingPageEventRecorded = GameManager.SharedGameManager.GameStartPageNumber != 1;
+            this.StartingLineEventRecorded = GameManager.SharedGameManager.GameStartLineNumber != 1;
 
             // Enable pause and set pause text
             this.EnablePause(true);

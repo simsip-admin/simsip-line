@@ -1171,6 +1171,19 @@ namespace Simsip.LineRunner.Scenes.Action
             // IMPORTANT: grab these HERE as it will be reset in SwitchState(MovingToStart) immediately below
             var currentScore = GameManager.SharedGameManager.CurrentScore;
             var killsOffEventRecorded = this._hudLayer.KillsOffEventRecorded;
+            var startingPageEventRecorded = this._hudLayer.StartingPageEventRecorded;
+            var startingLineEventRecorded = this._hudLayer.StartingLineEventRecorded;
+
+            // Flip tracking of upgrade events for start of next game run
+            this._hudLayer.KillsOffEventRecorded = false;
+            this._hudLayer.StartingPageEventRecorded = false;
+            this._hudLayer.StartingLineEventRecorded = false;
+
+            // Did we have any upgrade events that would invalidate this run
+            var upgradeEventRecorded = 
+                killsOffEventRecorded ||
+                startingPageEventRecorded ||
+                startingLineEventRecorded;
 
             // Now go for the async load
             this.SwitchState(GameState.MovingToStart);
@@ -1179,7 +1192,7 @@ namespace Simsip.LineRunner.Scenes.Action
             var scoreRepository = new FacebookScoreRepository();
             var previousTopScore = scoreRepository.GetTopScoresForPlayer(1);
             var qualifiesAsNewTopScore = 
-                !killsOffEventRecorded                          // We did not have "Kills Off" enabled during this game run
+                !upgradeEventRecorded                          // We did not have upgrade event enabled during this game run
                 &&                                              // AND
                 currentScore > 0                                // We have a score to check
                 &&                                              // AND
@@ -1195,8 +1208,6 @@ namespace Simsip.LineRunner.Scenes.Action
                 this._parent.Navigate(LayerTags.FinishLayer);
             }
 
-            // Flip tracking of "Kills Off" for start of next game run
-            this._hudLayer.KillsOffEventRecorded = false;
         }
 
         #endregion
