@@ -177,7 +177,7 @@ namespace Simsip.LineRunner.Scenes.Finish
                     });
             backMenu.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width, 
-                0.15f * this.ContentSize.Height);
+                0.2f * this.ContentSize.Height);
             this.AddChild(backMenu);
             var backText = string.Empty;
 #if ANDROID
@@ -189,8 +189,8 @@ namespace Simsip.LineRunner.Scenes.Finish
 #endif
             var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
             backLabel.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.02f * this.ContentSize.Height);
+                0.5f  * this.ContentSize.Width,
+                0.05f * this.ContentSize.Height);
             this.AddChild(backLabel);
 
             // Particle effects
