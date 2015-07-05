@@ -1232,6 +1232,8 @@
       <Link>Content\Effects\Stock\StockBasicEffect.mgfxo</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="hi-IN.lproj\Localizable.strings" />
+    <Content Include="id-ID.lproj\Localizable.strings" />
     <None Include="Info.plist" />
     <Compile Include="..\Simsip.LineRunner.Core\Actions\ActionEase\ActionEase.cs">
       <Link>Actions\ActionEase\ActionEase.cs</Link>
@@ -4242,8 +4244,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="it.lproj\Localizable.strings" />
     <Content Include="nl.lproj\Localizable.strings" />
+    <Content Include="ja-JP.lproj\Localizable.strings" />
+    <Content Include="ko-KR.lproj\Localizable.strings" />
     <None Include="packages.config" />
     <Content Include="pt.lproj\Localizable.strings" />
+    <Content Include="pl-PL.lproj\Localizable.strings" />
+    <Content Include="pt-BR.lproj\Localizable.strings" />
+    <Content Include="ru-RU.lproj\Localizable.strings" />
+    <Content Include="zh-Hans.lproj\Localizable.strings" />
+    <Content Include="zh-Hant.lproj\Localizable.strings" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

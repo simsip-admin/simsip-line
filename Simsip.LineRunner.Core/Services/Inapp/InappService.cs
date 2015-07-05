@@ -418,6 +418,7 @@ namespace Simsip.LineRunner.Services.Inapp
                     {
                         existingProduct.Type = "inapp";
                         existingProduct.Price = this.LocalizedPrice(product);
+                        existingProduct.PriceCurrencyCode = product.PriceLocale.CurrencyCode;
                         existingProduct.Title = product.LocalizedTitle;
                         existingProduct.Description = product.LocalizedDescription;
 
@@ -429,6 +430,7 @@ namespace Simsip.LineRunner.Services.Inapp
                         newProduct.ProductId = this.PracticeModeProductId;
                         newProduct.Type = "inapp";
                         newProduct.Price = this.LocalizedPrice(product);
+                        newProduct.PriceCurrencyCode = product.PriceLocale.CurrencyCode;
                         newProduct.Title = product.LocalizedTitle;
                         newProduct.Description = product.LocalizedDescription;
 

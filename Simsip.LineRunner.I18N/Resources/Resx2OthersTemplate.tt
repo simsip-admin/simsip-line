@@ -88,7 +88,7 @@ public static class ResxUtilities
      
         if (foo.Count() > 2)
         {
-            if (foo[1].Length == 2)
+            if (foo[1].Length >= 2)
             {
                 lang = foo[1];
             }
