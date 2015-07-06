@@ -1204,6 +1204,9 @@ namespace Simsip.LineRunner.Scenes.Hud
                 // Set state
                 this._paused = false;
 
+                // Make sure if we moved to another state while paused, we reset our state to moving
+                this._parent.TheActionLayer.SwitchState(GameState.Moving);
+
                 // Get hero moving again
                 this._characterCache.Pause(false);
 

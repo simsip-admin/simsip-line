@@ -235,7 +235,8 @@ namespace Simsip.LineRunner.Scenes.Start
             ThreadPool.QueueUserWorkItem(InitializeServicesDoWork);
 #endif
             // If we meet the ratings prompt criteria, display ratings prompt
-            CheckForRatingsPrompt();
+            // Holding off on this for now
+            // CheckForRatingsPrompt();
 
             this._servicesStarted = true;
         }
