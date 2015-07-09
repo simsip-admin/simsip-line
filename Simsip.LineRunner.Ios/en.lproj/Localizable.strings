@@ -130,3 +130,6 @@
 "CommonPrevious"="previous";
 "HelpZoomInOut"="zoom in or out";
 "HudSpeedDefault"="(default)";
+"Start3D"="3D";
+"StartLine"="Line";
+"StartRunner"="runner";

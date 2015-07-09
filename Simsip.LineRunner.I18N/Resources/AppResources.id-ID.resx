@@ -515,4 +515,13 @@
   <data name="CommonVersion" xml:space="preserve">
     <value>versi</value>
   </data>
+  <data name="StartRunner" xml:space="preserve">
+    <value>pelari</value>
+  </data>
+  <data name="StartLine" xml:space="preserve">
+    <value>Garis</value>
+  </data>
+  <data name="Start3D" xml:space="preserve">
+    <value>3D</value>
+  </data>
 </root>

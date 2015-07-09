@@ -132,4 +132,7 @@
   <string name="HelpLines">de regel voor het Tekenpaneel wijzigen</string>
   <string name="HelpHowToPlayDescription1">Tik op om te voorkomen dat de lijnen en obstakels</string>
   <string name="CommonVersion">versie</string>
+  <string name="StartRunner">runner</string>
+  <string name="StartLine">Regel</string>
+  <string name="Start3D">3D</string>
 </resources>

@@ -196,6 +196,18 @@
           <source>(default)</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">(valor predeterminado)</target>
         </trans-unit>
+        <trans-unit id="Resx/StartRunner" translate="yes" xml:space="preserve">
+          <source>runner</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">canal de moldeo</target>
+        </trans-unit>
+        <trans-unit id="Resx/StartLine" translate="yes" xml:space="preserve">
+          <source>Line</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Línea</target>
+        </trans-unit>
+        <trans-unit id="Resx/Start3D" translate="yes" xml:space="preserve">
+          <source>3D</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">3D</target>
+        </trans-unit>
         <trans-unit id="Resx/CommonNext" translate="yes" xml:space="preserve">
           <source>next</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">siguiente</target>

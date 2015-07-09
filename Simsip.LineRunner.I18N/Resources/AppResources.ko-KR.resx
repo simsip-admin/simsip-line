@@ -156,7 +156,7 @@
     <value>삭제</value>
   </data>
   <data name="CommonCancel" xml:space="preserve">
-    <value></value>
+    <value>취소</value>
   </data>
   <data name="HudResume" xml:space="preserve">
     <value>이력서</value>
@@ -171,10 +171,10 @@
     <value>제작진</value>
   </data>
   <data name="StartRate" xml:space="preserve">
-    <value>rate</value>
+    <value>속도</value>
   </data>
   <data name="StartPlay" xml:space="preserve">
-    <value></value>
+    <value>재생하다</value>
   </data>
   <data name="HudOptions" xml:space="preserve">
     <value>옵션</value>
@@ -186,7 +186,7 @@
     <value>페이지</value>
   </data>
   <data name="HudPause" xml:space="preserve">
-    <value></value>
+    <value>일시 중지하다</value>
   </data>
   <data name="HudSpeed" xml:space="preserve">
     <value>속도</value>
@@ -252,7 +252,7 @@
     <value>마지막 페이지!</value>
   </data>
   <data name="CommonPrevious" xml:space="preserve">
-    <value></value>
+    <value>이전</value>
   </data>
   <data name="HelpZoomInOut" xml:space="preserve">
     <value>확대 / 축소</value>
@@ -261,7 +261,7 @@
     <value>(기본값)</value>
   </data>
   <data name="CommonNext" xml:space="preserve">
-    <value></value>
+    <value>다음</value>
   </data>
   <data name="CommonBack" xml:space="preserve">
     <value>백</value>
@@ -514,5 +514,14 @@
   </data>
   <data name="CommonVersion" xml:space="preserve">
     <value>버전</value>
+  </data>
+  <data name="StartRunner" xml:space="preserve">
+    <value>러너</value>
+  </data>
+  <data name="StartLine" xml:space="preserve">
+    <value>꺾은선형</value>
+  </data>
+  <data name="Start3D" xml:space="preserve">
+    <value>3D</value>
   </data>
 </root>

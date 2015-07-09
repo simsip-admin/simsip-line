@@ -196,6 +196,18 @@
           <source>(default)</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">(默认值)</target>
         </trans-unit>
+        <trans-unit id="Resx/StartRunner" translate="yes" xml:space="preserve">
+          <source>runner</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">运行程序</target>
+        </trans-unit>
+        <trans-unit id="Resx/StartLine" translate="yes" xml:space="preserve">
+          <source>Line</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">线条</target>
+        </trans-unit>
+        <trans-unit id="Resx/Start3D" translate="yes" xml:space="preserve">
+          <source>3D</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">三维</target>
+        </trans-unit>
         <trans-unit id="Resx/CommonNext" translate="yes" xml:space="preserve">
           <source>next</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">下一步</target>
@@ -210,7 +222,7 @@
         </trans-unit>
         <trans-unit id="Resx/MessageBoxMovingToPage4" translate="yes" xml:space="preserve">
           <source>sweetness!</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">sweetness!</target>
+          <target state="translated">sweetness 为!</target>
         </trans-unit>
         <trans-unit id="Resx/MessageBoxMovingToPage3" translate="yes" xml:space="preserve">
           <source>boom!</source>

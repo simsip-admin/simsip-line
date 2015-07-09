@@ -152,7 +152,7 @@ namespace Simsip.LineRunner.GameFramework
         /// 
         /// Used by flyby, positioning new set of models, etc.
         /// </summary>
-        public const float DURATION_MOVE_TO_NEXT_PAGE = 4.0f;
+        public const float DURATION_MOVE_TO_NEXT_PAGE = 8.0f;
 
         /// <summary>
         /// Duration in seconds for layer transitions.

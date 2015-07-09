@@ -132,4 +132,7 @@
   <string name="HelpLines">Altere a linha para o teclado</string>
   <string name="HelpHowToPlayDescription1">Toque para evitar linhas e obstáculos</string>
   <string name="CommonVersion">versão</string>
+  <string name="StartRunner">Runner</string>
+  <string name="StartLine">Linha</string>
+  <string name="Start3D">3D</string>
 </resources>

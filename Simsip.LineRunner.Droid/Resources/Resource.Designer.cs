@@ -2509,11 +2509,20 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f070076
 			public const int ResourcePacksSwitchingResourcePacks = 2131165302;
 			
+			// aapt resource value: 0x7f0700ce
+			public const int Start3D = 2131165390;
+			
+			// aapt resource value: 0x7f0700cf
+			public const int StartLine = 2131165391;
+			
 			// aapt resource value: 0x7f070089
 			public const int StartPlay = 2131165321;
 			
 			// aapt resource value: 0x7f07008a
 			public const int StartRate = 2131165322;
+			
+			// aapt resource value: 0x7f0700d0
+			public const int StartRunner = 2131165392;
 			
 			// aapt resource value: 0x7f0700ab
 			public const int UpgradesBuy = 2131165355;

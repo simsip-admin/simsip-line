@@ -58,8 +58,9 @@
         </trans-unit>
         <trans-unit id="Resx/CommonCancel" translate="yes" xml:space="preserve">
           <source>cancel</source>
-          <target state="translated" state-qualifier="tm-suggestion" />
-        </trans-unit><trans-unit id="Resx/HudResume" translate="yes" xml:space="preserve">
+          <target state="translated">취소</target>
+        </trans-unit>
+        <trans-unit id="Resx/HudResume" translate="yes" xml:space="preserve">
           <source>resume</source>
           <target state="translated" state-qualifier="tm-suggestion">이력서</target>
         </trans-unit>
@@ -77,12 +78,13 @@
         </trans-unit>
         <trans-unit id="Resx/StartRate" translate="yes" xml:space="preserve">
           <source>rate</source>
-          <target state="translated" state-qualifier="tm-suggestion">rate</target>
+          <target state="translated">속도</target>
         </trans-unit>
         <trans-unit id="Resx/StartPlay" translate="yes" xml:space="preserve">
           <source>play</source>
-          <target state="translated" state-qualifier="tm-suggestion" />
-        </trans-unit><trans-unit id="Resx/HudOptions" translate="yes" xml:space="preserve">
+          <target state="translated">재생하다</target>
+        </trans-unit>
+        <trans-unit id="Resx/HudOptions" translate="yes" xml:space="preserve">
           <source>options</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">옵션</target>
         </trans-unit>
@@ -96,8 +98,9 @@
         </trans-unit>
         <trans-unit id="Resx/HudPause" translate="yes" xml:space="preserve">
           <source>pause</source>
-          <target state="translated" state-qualifier="tm-suggestion" />
-        </trans-unit><trans-unit id="Resx/HudSpeed" translate="yes" xml:space="preserve">
+          <target state="translated">일시 중지하다</target>
+        </trans-unit>
+        <trans-unit id="Resx/HudSpeed" translate="yes" xml:space="preserve">
           <source>speed</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">속도</target>
         </trans-unit>
@@ -183,8 +186,9 @@
         </trans-unit>
         <trans-unit id="Resx/CommonPrevious" translate="yes" xml:space="preserve">
           <source>previous</source>
-          <target state="translated" state-qualifier="tm-suggestion" />
-        </trans-unit><trans-unit id="Resx/HelpZoomInOut" translate="yes" xml:space="preserve">
+          <target state="translated">이전</target>
+        </trans-unit>
+        <trans-unit id="Resx/HelpZoomInOut" translate="yes" xml:space="preserve">
           <source>zoom in or out</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">확대 / 축소</target>
         </trans-unit>
@@ -192,10 +196,23 @@
           <source>(default)</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">(기본값)</target>
         </trans-unit>
+        <trans-unit id="Resx/StartRunner" translate="yes" xml:space="preserve">
+          <source>runner</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">러너</target>
+        </trans-unit>
+        <trans-unit id="Resx/StartLine" translate="yes" xml:space="preserve">
+          <source>Line</source>
+          <target state="translated" state-qualifier="tm-suggestion">꺾은선형</target>
+        </trans-unit>
+        <trans-unit id="Resx/Start3D" translate="yes" xml:space="preserve">
+          <source>3D</source>
+          <target state="translated" state-qualifier="tm-suggestion">3D</target>
+        </trans-unit>
         <trans-unit id="Resx/CommonNext" translate="yes" xml:space="preserve">
           <source>next</source>
-          <target state="translated" state-qualifier="tm-suggestion" />
-        </trans-unit><trans-unit id="Resx/CommonBack" translate="yes" xml:space="preserve">
+          <target state="translated">다음</target>
+        </trans-unit>
+        <trans-unit id="Resx/CommonBack" translate="yes" xml:space="preserve">
           <source>back</source>
           <target state="translated" state-qualifier="tm-suggestion">백</target>
         </trans-unit>

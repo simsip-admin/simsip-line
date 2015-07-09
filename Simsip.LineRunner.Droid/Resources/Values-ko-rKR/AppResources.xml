@@ -12,17 +12,17 @@
   <string name="CommonNo">아니오</string>
   <string name="CommonError">오류</string>
   <string name="CommonDelete">삭제</string>
-  <string name="CommonCancel"></string>
+  <string name="CommonCancel">취소</string>
   <string name="HudResume">이력서</string>
   <string name="WorldsWorlds">세계</string>
   <string name="RatingsRateUs">우리 평가!</string>
   <string name="CreditsTitle">제작진</string>
-  <string name="StartRate">rate</string>
-  <string name="StartPlay"></string>
+  <string name="StartRate">속도</string>
+  <string name="StartPlay">재생하다</string>
   <string name="HudOptions">옵션</string>
   <string name="HudHelp">도움말</string>
   <string name="CommonPage">페이지</string>
-  <string name="HudPause"></string>
+  <string name="HudPause">일시 중지하다</string>
   <string name="HudSpeed">속도</string>
   <string name="HudPaused">일시 중지</string>
   <string name="HudTrackball">트랙볼</string>
@@ -44,10 +44,10 @@
   <string name="HudHigh">높음</string>
   <string name="HelpSupport">지원</string>
   <string name="MessageBoxMovingToPage6">마지막 페이지!</string>
-  <string name="CommonPrevious"></string>
+  <string name="CommonPrevious">이전</string>
   <string name="HelpZoomInOut">확대 / 축소</string>
   <string name="HudSpeedDefault">(기본값)</string>
-  <string name="CommonNext"></string>
+  <string name="CommonNext">다음</string>
   <string name="CommonBack">백</string>
   <string name="MessageBoxMovingToPage5">발사!</string>
   <string name="MessageBoxMovingToPage4">유쾌!</string>
@@ -132,4 +132,7 @@
   <string name="HelpLines">패드 줄을 변경 합니다.</string>
   <string name="HelpHowToPlayDescription1">선 및 장애를 방지 하기 위해 누르기</string>
   <string name="CommonVersion">버전</string>
+  <string name="StartRunner">러너</string>
+  <string name="StartLine">꺾은선형</string>
+  <string name="Start3D">3D</string>
 </resources>

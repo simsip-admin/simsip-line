@@ -130,3 +130,6 @@
 "HelpLines"="modificare la riga per il blocco note";
 "HelpHowToPlayDescription1"="Toccare per evitare righe e ostacoli";
 "CommonVersion"="versione";
+"StartRunner"="Runner";
+"StartLine"="Riga";
+"Start3D"="3D";

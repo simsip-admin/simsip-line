@@ -134,5 +134,8 @@
         public static string CommonPrevious = "CommonPrevious";
         public static string HelpZoomInOut = "HelpZoomInOut";
         public static string HudSpeedDefault = "HudSpeedDefault";
+        public static string Start3D = "Start3D";
+        public static string StartLine = "StartLine";
+        public static string StartRunner = "StartRunner";
     }
 }

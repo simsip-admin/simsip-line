@@ -50,7 +50,7 @@
   <string name="CommonNext">下一步</string>
   <string name="CommonBack">后退</string>
   <string name="MessageBoxMovingToPage5">火灾!</string>
-  <string name="MessageBoxMovingToPage4">sweetness!</string>
+  <string name="MessageBoxMovingToPage4">sweetness 为!</string>
   <string name="MessageBoxMovingToPage3">繁荣!</string>
   <string name="MessageBoxMovingToPage2">你超!</string>
   <string name="MessageBoxMovingToPage">移动到页面</string>
@@ -132,4 +132,7 @@
   <string name="HelpLines">更改键盘的行</string>
   <string name="HelpHowToPlayDescription1">点击以避免行和障碍</string>
   <string name="CommonVersion">版本</string>
+  <string name="StartRunner">运行程序</string>
+  <string name="StartLine">线条</string>
+  <string name="Start3D">三维</string>
 </resources>

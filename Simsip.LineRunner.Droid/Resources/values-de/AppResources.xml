@@ -132,4 +132,7 @@
   <string name="HelpHowToPlayDescription1">Tippen Sie, um Linien und Hindernisse zu vermeiden.</string>
   <string name="CommonVersion">Version</string>
   <string name="HudSpeedDefault">(Standard)</string>
+  <string name="StartRunner">Runner</string>
+  <string name="StartLine">Zeile</string>
+  <string name="Start3D">3D</string>
 </resources>

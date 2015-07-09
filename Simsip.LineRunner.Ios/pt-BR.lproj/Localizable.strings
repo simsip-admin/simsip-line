@@ -130,3 +130,6 @@
 "HelpLines"="Altere a linha para o teclado";
 "HelpHowToPlayDescription1"="Toque para evitar linhas e obstáculos";
 "CommonVersion"="versão";
+"StartRunner"="Runner";
+"StartLine"="Linha";
+"Start3D"="3D";

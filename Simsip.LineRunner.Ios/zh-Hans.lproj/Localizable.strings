@@ -48,7 +48,7 @@
 "CommonNext"="下一步";
 "CommonBack"="后退";
 "MessageBoxMovingToPage5"="火灾!";
-"MessageBoxMovingToPage4"="sweetness!";
+"MessageBoxMovingToPage4"="sweetness 为!";
 "MessageBoxMovingToPage3"="繁荣!";
 "MessageBoxMovingToPage2"="你超!";
 "MessageBoxMovingToPage"="移动到页面";
@@ -130,3 +130,6 @@
 "HelpLines"="更改键盘的行";
 "HelpHowToPlayDescription1"="点击以避免行和障碍";
 "CommonVersion"="版本";
+"StartRunner"="运行程序";
+"StartLine"="线条";
+"Start3D"="三维";

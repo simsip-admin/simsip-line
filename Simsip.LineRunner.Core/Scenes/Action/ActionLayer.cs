@@ -309,30 +309,24 @@ namespace Simsip.LineRunner.Scenes.Action
                         this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
                         this._hudLayer.EnablePause(enabled: false);
 
-                        // Create bezier based on current and next lines from _lineCache
+                        // Create a default bezier
                         this._currentFlyBy = new FlyBy(
                             cameraUpdate: FlyByCameraUpdate.TrackingAndStationaryHeightOnly,    // We will update our tracking camera and only the height of the stationary camera
                             targetAttachment: this._characterCache.TheHeroModel,                // We will have the hero model follow our target bezier
                             targetAttachmentUse: FlyByTargetAttachment.UsePhysicsBody);         // We will use the physics model for the hero when following the target bezier
                         this._currentFlyBy.FlyByFinished += OnCurrentFlyByFinished;             // Will switch state here in this event handler when finished
 
+                        // Grab easy to reference positions
                         var heroPosition = this._characterCache.TheHeroModel.WorldOrigin;
                         var previousLineModel = this._lineCache.GetLineModel(this._currentLineNumber - 1);
                         var currentLineModel = this._lineCache.GetLineModel(this._currentLineNumber);
                         var lineSpacing = this._pageCache.CurrentPageModel.WorldLineSpacing;
                         var pageWidth = this._pageCache.CurrentPageModel.WorldWidth;
                         var pageDepth = this._pageCache.CurrentPageModel.WorldDepth;
-
                         var previousCenterLineWorldHeight = previousLineModel.WorldOrigin.Y + (0.5f * lineSpacing);
                         var currentCenterLineWorldHeight = currentLineModel.WorldOrigin.Y + (0.5f * lineSpacing);
 
-                        /*
-                        var cameraStartPosition = new Vector3(
-                                heroPosition.X,
-                                previousCenterLineWorldHeight,
-                                heroPosition.Z + this._pageCache.CharacterDepthFromCameraStart);
-                        var cameraStartTarget = heroPosition;
-                        */
+                        // Create defined camera start and stop positions
                         var cameraStartPosition = this._inputManager.LineRunnerCamera.Position;
                         var cameraStartTarget = this._inputManager.LineRunnerCamera.Target;
                         var cameraStop = new Camera(
@@ -359,33 +353,22 @@ namespace Simsip.LineRunner.Scenes.Action
                             direction = -direction;
                         }
 
+                        // Create control and target points for bezier
+                        // Note, hero will be positioned at target points
                         var controlPoints = new List<Vector3>()
                         {
-                            cameraStartPosition,                                              // Start at our current camera position
-                            cameraStartPosition + new Vector3(0.75f*pageWidth * direction, -0.75f * lineSpacing, -1.2f* this._pageCache.CharacterDepthFromCameraStart),  // By first control point move to right and down 1/4 page margin
-                            cameraStartPosition + new Vector3(1.5f*pageWidth * direction, -1.0f * lineSpacing,  -1.2f*this._pageCache.CharacterDepthFromCameraStart),  // By second control point we still to right and down 3/4 page margin
-                            /*
-                            new Vector3(                                                        // Finish at previous camera position x,z and set our height to be middle of next line
-                                cameraStartPosition.X,                                                            
-                                currentLineModel.WorldOrigin.Y + (0.5f * lineSpacing),
-                                cameraStartPosition.Z)
-                            */
+                            cameraStartPosition,                                              
+                            cameraStartPosition + new Vector3(0.75f * pageWidth * direction, -0.75f * lineSpacing, -1.2f * this._pageCache.CharacterDepthFromCameraStart),
+                            cameraStartPosition + new Vector3(1.5f  * pageWidth * direction, -1.0f  * lineSpacing, -1.2f * this._pageCache.CharacterDepthFromCameraStart),
                             cameraStopPosition
                         };
                         var targetPoints = new List<Vector3>()
                         {
-                            cameraStartTarget,                                                // Start with current camera target
-                            cameraStartTarget + new Vector3(0.5f * pageWidth * direction, -0.75f * lineSpacing, 0f),    // By first control point move to right and down 1/4 line spacing
-                            cameraStartTarget + new Vector3(0.5f * pageWidth * direction, -1.0f * lineSpacing, 0f),    // By second control point we still to right and down 3/4 line spacing
-                            /*
-                            new Vector3(                                                        // Finish at previous camera target x,z and set our height to be middle of next line
-                                cameraStartTarget.X,                                                            
-                                currentLineModel.WorldOrigin.Y + (0.5f * lineSpacing),
-                                cameraStartTarget.Z)                        
-                            */
+                            cameraStartTarget,
+                            cameraStartTarget + new Vector3(0.5f * pageWidth * direction, -0.75f * lineSpacing, 0f),
+                            cameraStartTarget + new Vector3(0.5f * pageWidth * direction, -1.0f  * lineSpacing, 0f),
                             cameraStopTarget
                         };
-
                         this._currentFlyBy.InitBezierControlPoints(GameConstants.DURATION_MOVE_TO_NEXT_LINE, controlPoints, targetPoints);
 
                         break;
@@ -399,71 +382,92 @@ namespace Simsip.LineRunner.Scenes.Action
                         this._currentLineNumber = 1;
 
                         // Update hud
-                        this._hudLayer.DisplayPageLineNumber(this._currentPageNumber, this._currentLineNumber);
+                        // Important: Don't call HudLayer.DisplayPageLineNumber as we are updating both status lines below
                         this._hudLayer.EnablePause(enabled: false);
 
-                        // Construct an appropriate message box to display while we are moving to next page.
+                        // Construct appropriate messages to display while we are moving to next page.
                         // Will be removed in FlyByFinished event handler
-                        var messageBoxTitle = string.Empty;
+                        var movingToNextPageTitle = string.Empty;
                         switch (this._currentPageNumber)
                         {
                             case 2:
                                 {
-                                    messageBoxTitle = this._movingToPage2Text;
+                                    movingToNextPageTitle = this._movingToPage2Text;
                                     break;
                                 }
                             case 3:
                                 {
-                                    messageBoxTitle = this._movingToPage3Text;
+                                    movingToNextPageTitle = this._movingToPage3Text;
                                     break;
                                 }
                             case 4:
                                 {
-                                    messageBoxTitle = this._movingToPage4Text;
+                                    movingToNextPageTitle = this._movingToPage4Text;
                                     break;
                                 }
                             case 5:
                                 {
-                                    messageBoxTitle = this._movingToPage5Text;
+                                    movingToNextPageTitle = this._movingToPage5Text;
                                     break;
                                 }
                             case 6:
                                 {
-                                    messageBoxTitle = this._movingToPage6Text;
+                                    movingToNextPageTitle = this._movingToPage6Text;
                                     break;
                                 }
 
                         }
-                        this._parent.TheMessageBoxLayer.Show(
-                            messageBoxTitle,
-                            this._movingToPageText + " " + this._currentPageNumber,
-                            MessageBoxType.MB_PROGRESS);
+                        this._hudLayer.UpdateStatus1(movingToNextPageTitle);
+                        var movingToNextPageDescription = this._movingToPageText + " " + this._currentPageNumber;
+                        this._hudLayer.UpdateStatus2(movingToNextPageDescription);
 
-                        // Creates bezier based on current page and start position
+                        // Create a default bezier
                         this._currentFlyBy = new FlyBy(
                             cameraUpdate: FlyByCameraUpdate.TrackingAndStationaryHeightOnly,
                             targetAttachment: this._characterCache.TheHeroModel,
                             targetAttachmentUse: FlyByTargetAttachment.UsePhysicsBody);
                         this._currentFlyBy.FlyByFinished += OnCurrentFlyByFinished;     // Will switch state here in this event handler when finished
+
+                        // Create easy to reference positions
                         var pageModel = this._pageCache.CurrentPageModel;
+                        var pageWidth = this._pageCache.CurrentPageModel.WorldWidth;
+                        var pageHeight = this._pageCache.CurrentPageModel.WorldHeight;
+                        var pageDepth = this._pageCache.CurrentPageModel.WorldDepth;
+
+                        // Create defined cmaera start and stop positions
+                        var cameraStartPosition = this._inputManager.LineRunnerCamera.Position;
+                        var cameraStartTarget = this._inputManager.LineRunnerCamera.Target;
+                        var cameraStop = new Camera(
+                            Vector3.Zero,
+                            0f,
+                            0f,
+                            this._inputManager.DefaultCameraProjection);
+                        var heroStopPosition = new float[] 
+                            {
+                                pageModel.HeroStartOrigin.X,
+                                pageModel.HeroStartOrigin.Y,
+                                pageModel.HeroStartOrigin.Z
+                            };
+                        UpdateTrackingCamera(cameraStop, heroStopPosition);
+                        var cameraStopPosition = cameraStop.Position;
+                        var cameraStopTarget = cameraStop.Target;
+
+                        // Create control and target points for bezier
+                        // Note, hero will be positioned at target points
                         var controlPoints = new List<Vector3>()
                         {
-                            this._inputManager.LineRunnerCamera.Position,                                                                                // Start at our current camera position
-                            this._inputManager.LineRunnerCamera.Position + new Vector3(-1.5f * pageModel.WorldWidth, 0.25f * pageModel.WorldHeight, 20f),  // By first control point move to left and up 1/4 page height
-                            this._inputManager.LineRunnerCamera.Position + new Vector3(-1.5f * pageModel.WorldWidth, 0.75f * pageModel.WorldHeight, 20f),  // By second control point we still to left and up 3/4 page height
-                            pageModel.PageStartOrigin + new Vector3(                                                           // Finish at world starting point adjusted back appropriately for camera
-                                0,                                                            
-                                0,
-                                this._pageCache.PageDepthFromCameraStart)
+                            cameraStartPosition,                                              
+                            cameraStartPosition + new Vector3(-1.5f * pageWidth, 0.75f * pageHeight, 10.0f * pageDepth),  
+                            cameraStartPosition + new Vector3(-1.5f * pageWidth, 1.25f * pageHeight, 10.0f * pageDepth),  
+                            cameraStopPosition
                         };
                         var targetPoints = new List<Vector3>()
                         {
-                            this._inputManager.LineRunnerCamera.Target,                                                                                  // Start with current camera target
-                            this._inputManager.LineRunnerCamera.Target + new Vector3(-1.5f * pageModel.WorldWidth, 0.25f * pageModel.WorldHeight, 20f),    // By first control point move to left and up 1/4 page height
-                            this._inputManager.LineRunnerCamera.Target + new Vector3(-1.5f * pageModel.WorldWidth, 0.75f * pageModel.WorldHeight, 20f),    // By second control point we still to left and up 3/4 page height
-                            pageModel.PageStartOrigin
-                        };                                                                        // Finish with target looking at world starting point
-
+                            cameraStartTarget,                                                
+                            controlPoints[1] + new Vector3(0.25f * pageWidth, -0.25f * pageHeight, 0),
+                            controlPoints[2] + new Vector3(0.25f * pageWidth, -0.25f * pageHeight, 0),
+                            cameraStopTarget
+                        };
                         this._currentFlyBy.InitBezierControlPoints(GameConstants.DURATION_MOVE_TO_NEXT_PAGE, controlPoints, targetPoints);
 
                         break;
@@ -515,19 +519,33 @@ namespace Simsip.LineRunner.Scenes.Action
 
         public void UpdateTrackingCamera(Camera virtualCamera=null, float[] virtualHeroPosition=null)
         {
+            //
             // TODO: Get setup once and then just add in deltas
+            //
+
+            // Determine camera and hero position we will use
             var camera = virtualCamera == null ? this._inputManager.LineRunnerCamera : virtualCamera;
             var heroPosition = virtualHeroPosition == null ? 
                 this._characterCache.TheHeroModel.WorldOrigin : 
                 new Vector3(virtualHeroPosition[0], virtualHeroPosition[1], virtualHeroPosition[2]);
+            
+            // Determine center line we will use
+            float centerLineWorldHeight;
             var lineModel = this._lineCache.GetLineModel(this._currentLineNumber);
-            if (lineModel == null)
+            if (lineModel != null)
+            {
+                var lineSpacing = this._pageCache.CurrentPageModel.WorldLineSpacing;
+                centerLineWorldHeight = lineModel.WorldOrigin.Y +
+                                        (0.5f * lineSpacing);
+            }
+            else if (virtualHeroPosition != null)
+            {
+                centerLineWorldHeight = virtualHeroPosition[1];
+            }
+            else
             {
                 return;
             }
-            var lineSpacing = this._pageCache.CurrentPageModel.WorldLineSpacing;
-            var centerLineWorldHeight = lineModel.WorldOrigin.Y +
-                                        (0.5f * lineSpacing);
 
             // 1. Set camera target, accounting for any adjustments
             //    made by user in xy plane
@@ -571,7 +589,7 @@ namespace Simsip.LineRunner.Scenes.Action
 
             // 2d. This final orbit offset vector can now be added to the camera target to correctly
             //     position our camara
-            camera.Position = this._inputManager.LineRunnerCamera.Target + orbitOffset;
+            camera.Position = camera.Target + orbitOffset;
 
             // 3. Finally, add in any in-place yaw/pitch to the camera as defined by the user
             var offsetYaw = this._inputManager.HudCameraOffsetYaw;
@@ -675,11 +693,11 @@ namespace Simsip.LineRunner.Scenes.Action
                     }
                 case GameState.MovingToNextPage:
                     {
-                        // Remove  message box put up at start of bezier
-                        this._parent.TheMessageBoxLayer.Hide();
-
                         // Update hud
                         this._hudLayer.EnablePause(enabled: true);
+                        this._hudLayer.UpdateStatus1(string.Empty);
+                        this._hudLayer.UpdateStatus2(string.Empty);
+
 
                         // Moving to next page is finished while in-game, get
                         // hero moving again
@@ -1180,10 +1198,13 @@ namespace Simsip.LineRunner.Scenes.Action
             this._hudLayer.StartingLineEventRecorded = false;
 
             // Did we have any upgrade events that would invalidate this run
+            var upgradeEventRecorded = false;
+            /*
             var upgradeEventRecorded = 
                 killsOffEventRecorded ||
                 startingPageEventRecorded ||
                 startingLineEventRecorded;
+            */
 
             // Now go for the async load
             this.SwitchState(GameState.MovingToStart);
@@ -1192,7 +1213,7 @@ namespace Simsip.LineRunner.Scenes.Action
             var scoreRepository = new FacebookScoreRepository();
             var previousTopScore = scoreRepository.GetTopScoresForPlayer(1);
             var qualifiesAsNewTopScore = 
-                !upgradeEventRecorded                          // We did not have upgrade event enabled during this game run
+                !upgradeEventRecorded                           // We did not have upgrade event enabled during this game run
                 &&                                              // AND
                 currentScore > 0                                // We have a score to check
                 &&                                              // AND

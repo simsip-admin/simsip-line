@@ -515,4 +515,13 @@
   <data name="HudSpeedDefault" xml:space="preserve">
     <value>(default)</value>
   </data>
+  <data name="Start3D" xml:space="preserve">
+    <value>3D</value>
+  </data>
+  <data name="StartLine" xml:space="preserve">
+    <value>Line</value>
+  </data>
+  <data name="StartRunner" xml:space="preserve">
+    <value>runner</value>
+  </data>
 </root>

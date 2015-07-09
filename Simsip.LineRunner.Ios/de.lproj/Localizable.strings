@@ -130,3 +130,6 @@
 "HelpHowToPlayDescription1"="Tippen Sie, um Linien und Hindernisse zu vermeiden.";
 "CommonVersion"="Version";
 "HudSpeedDefault"="(Standard)";
+"StartRunner"="Runner";
+"StartLine"="Zeile";
+"Start3D"="3D";

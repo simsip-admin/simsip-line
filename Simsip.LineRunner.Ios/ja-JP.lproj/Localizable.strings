@@ -130,3 +130,6 @@
 "HelpLines"="パッドの行を変更します。";
 "HelpHowToPlayDescription1"="タップ線や障害物を回避するには";
 "CommonVersion"="バージョン";
+"StartRunner"="ランナー";
+"StartLine"="折れ線";
+"Start3D"="3D";

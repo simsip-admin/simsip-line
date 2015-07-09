@@ -218,7 +218,8 @@ namespace Simsip.LineRunner.GameObjects.Lines
 
                         // In background get initial lines constructed for first page.
                         // this.ProcessNextLine() will be called in event handler when 
-                        // finished to animate header and first line for first page into position
+                        // finished to animate header and first line for first page into position.
+                        // We will also propogate state change there.
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
                         this.LoadContentAsync(LoadContentAsyncType.Initialize, state);
 
@@ -236,15 +237,18 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         // Set state
                         this._currentLineNumber++;
 
-                        // Animate next line into position
+                        // Animate next line into position right away
                         this.ProcessNextLine();
 
                         // In background load up the line following our current line we are moving to
-                        this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
-                        this.LoadContentAsync(LoadContentAsyncType.Next, state);
-
-                        // Propogate state change
-                        // this._obstacleCache.SwitchState(state);
+                        // and propogate state change.
+                        // IMPORTANT: Note how we don't do this if we are on the last line. See MovingToNextPage
+                        //            for how this is handled.
+                        if (this._currentLineNumber != this._pageCache.CurrentPageModel.ThePadEntity.LineCount)
+                        {
+                            this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
+                            this.LoadContentAsync(LoadContentAsyncType.Next, state);
+                        }
 
                         break;
                     }
@@ -254,15 +258,16 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         this._currentPageNumber++;
                         this._currentLineNumber = 1;
 
-                        // Animate first line and header for next page into position
-                        this.ProcessNextLine();
+                        // IMPORTANT: Can't call ProcessNextLine right away for fringe case
+                        //            where user has set via upgrade to last line. This will
+                        //            put user on last line w/o having MovingToNextLine being processed.
 
-                        // In background load up the line following our current line we are moving to
+                        // In background get initial lines of next page constructed.
+                        // this.ProcessNextLine() will be called in event handler when 
+                        // finished to animate header and first line for next page into position.
+                        // We will also propogate state change there.
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
                         this.LoadContentAsync(LoadContentAsyncType.Next, state);
-
-                        // Propogate state change
-                        // this._obstacleCache.SwitchState(state);
 
                         break;
                     }
@@ -273,8 +278,9 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // In background get initial lines constructed for first page.
-                        // this.ProcessNextLine() will be called in event handler when
-                        // finished to animate header and first line for first page into position
+                        // this.ProcessNextLine() will be called in event handler when 
+                        // finished to animate header and first line for first page into position.
+                        // We will also propogate state change there.
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
                         this.LoadContentAsync(LoadContentAsyncType.Initialize, state);
 
@@ -287,8 +293,9 @@ namespace Simsip.LineRunner.GameObjects.Lines
                         this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
 
                         // In background get initial lines constructed for first page.
-                        // this.ProcessNextLine() will be called in event handler when
-                        // finished to animate header and first line for first page into position
+                        // this.ProcessNextLine() will be called in event handler when 
+                        // finished to animate header and first line for first page into position.
+                        // We will also propogate state change there.
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
                         this.LoadContentAsync(LoadContentAsyncType.Refresh, state);
 
@@ -339,10 +346,10 @@ namespace Simsip.LineRunner.GameObjects.Lines
                 args.TheLoadContentAsyncType == LoadContentAsyncType.Refresh)
             {
             */
-                this.ProcessNextLine();
+            this.ProcessNextLine();
 
-                // Propogate state change
-                this._obstacleCache.SwitchState(args.TheGameState);
+            // Propogate state change
+            this._obstacleCache.SwitchState(args.TheGameState);
             // }
         }
 
@@ -360,26 +367,32 @@ namespace Simsip.LineRunner.GameObjects.Lines
                 case LoadContentAsyncType.Initialize:
                 case LoadContentAsyncType.Refresh:
                     {
+                        // Load header, current line and next line
+                        // Note how we use currentLineNumber here in case we have
+                        // changed starting line via upgrade.
                         pageNumber = this._currentPageNumber;
                         lineNumbers = new int[] { 
                             this._currentLineNumber - 1, 
                             this._currentLineNumber, 
                             this._currentLineNumber + 1 };
+
                         break;
                     }
                 case LoadContentAsyncType.Next:
                     {
-                        // Are we on the last line of the page
-                        var lineCount = this._pageCache.CurrentPageModel.ThePadEntity.LineCount;
-                        if (this._currentLineNumber == lineCount)
+                        // Are we coming from the last line of the previous page?
+                        if (this._currentPageNumber != 1 &&
+                            this._currentLineNumber == 1)
                         {
-                            // Ok, on last line, move to first line of next page
-                            pageNumber = this._currentPageNumber + 1;
-                            lineNumbers = new int[] { 1 };
+                            // Ok, coming from last line of previous page, 
+                            // stage header, first line and second line of next page
+                            pageNumber = this._currentPageNumber;
+                            lineNumbers = new int[] { 0, 1, 2 };
                         }
                         else
                         {
                             // Not on last line, just go for next line
+                            // Note that this is one ahead of line we are currently navigating
                             pageNumber = this._currentPageNumber;
                             lineNumbers = new int[] { this._currentLineNumber + 1 };
                         }
@@ -407,34 +420,6 @@ namespace Simsip.LineRunner.GameObjects.Lines
             };
             ProcessPurgeContentAsync(loadContentThreadPurge);
 
-            // If we are doing a refresh we need to flush our custom content manaager so we don't load
-            // a cached version of the model - critical when changing textures for model.
-            // (e.g., coming from options page and selected a new texture for line models)
-            //
-            // Since this will cause Dispose to be called on our XNA models, we need to carefully
-            // clear out our entire set of models, physics and textures for this scenario.
-            /*
-            if (loadContentAsyncType == LoadContentAsyncType.Refresh)
-            {
-                // Remove all previous models from our drawing filter
-                // and physics from our physics simulation
-                foreach (var lineModel in this.LineModels.ToList())
-                {
-                    this._ocTreeRoot.RemoveModel(lineModel.ModelID);
-
-                    if (lineModel.PhysicsEntity != null &&
-                        lineModel.PhysicsEntity.Space != null)
-                    {
-                        this._physicsManager.TheSpace.Remove(lineModel.PhysicsEntity);
-                    }
-
-                    lineModel.TheCustomContentManager.Unload();
-                }
-
-                // And finally clear out the full set of previous models
-                this.LineModels.Clear();
-            }
-            */
 #if NETFX_CORE
 
             IAsyncAction asyncAction = 
@@ -695,9 +680,20 @@ namespace Simsip.LineRunner.GameObjects.Lines
                     }
                 case LoadContentAsyncType.Next:
                     {
-                        // Remove all previous obstacle models from our drawing filter
-                        // and remove all previous obstacle physics
-                        var lineToRemove = this._currentLineNumber - 2;
+                        // Determine which line we need to purge.
+                        // Note our test for page/line number, which indicates
+                        // we are comming from last line of previous page and need to account for this.
+                        int lineToRemove;
+                        if (this._currentPageNumber != 1 &&
+                            this._currentLineNumber == 1)
+                        {
+                            lineToRemove = this._pageCache.CurrentPageModel.ThePadEntity.LineCount;
+                        }
+                        else
+                        {
+                            lineToRemove = this._currentLineNumber - 2;
+                        }
+
                         if (lineToRemove > 0)
                         {
                             var lineModel = this.LineModels[0];
@@ -748,10 +744,19 @@ namespace Simsip.LineRunner.GameObjects.Lines
 
         private void ProcessNextLine()
         {
-            // First line also animates in the header line
-            if (this._currentLineNumber == GameManager.SharedGameManager.GameStartLineNumber)
+            // First line or starting line also animates in the header line
+            if (this._currentLineNumber == 1 ||
+                this._currentLineNumber == GameManager.SharedGameManager.GameStartLineNumber)
             {
-                var headerLineNumber = GameManager.SharedGameManager.GameStartLineNumber - 1;
+                // Note how we account for which header line we should go for.
+                // BUG: This will cause duplicate animations as we are just navigating NEXT logic
+                //      when moving through page and we happen to hit the GameStartLineNumber on a new page.
+                int headerLineNumber = 0;
+                if (this._currentLineNumber == GameManager.SharedGameManager.GameStartLineNumber)
+                {
+                    headerLineNumber = GameManager.SharedGameManager.GameStartLineNumber - 1;
+                }
+                
                 var headerLine = this.GetLineModel(headerLineNumber);
                  
                 // IMPORTANT: Note the adjustment in depth as we have staged this line tucked behind page.

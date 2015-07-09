@@ -515,4 +515,13 @@
   <data name="CommonVersion" xml:space="preserve">
     <value>versión</value>
   </data>
+  <data name="StartRunner" xml:space="preserve">
+    <value>canal de moldeo</value>
+  </data>
+  <data name="StartLine" xml:space="preserve">
+    <value>Línea</value>
+  </data>
+  <data name="Start3D" xml:space="preserve">
+    <value>3D</value>
+  </data>
 </root>

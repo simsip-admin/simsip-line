@@ -244,6 +244,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         // 1. Animate first line's obstacles into position
                         // 2. Disable previous line physics (n/a)
                         // 3. Enable current line physics
+                        // Event handler will also propogate state change.
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
                         this.LoadContentAsync(LoadContentAsyncType.Initialize, state);
 
@@ -254,6 +255,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         // Propogate state change
                         this._characterCache.SwitchState(state);
                         this._sensorCache.SwitchState(state);
+
                         break;
                     }
                 case GameState.MovingToNextLine:
@@ -267,8 +269,13 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         this.ProcessNextLine();
 
                         // In background load up the line following our current line we are moving to
-                        this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
-                        this.LoadContentAsync(LoadContentAsyncType.Next, state);
+                        // IMPORTANT: Note how we don't do this if we are on the last line. See MovingToNextPage
+                        //            for how this is handled.
+                        if (this._currentLineNumber != this._pageCache.CurrentPageModel.ThePadEntity.LineCount)
+                        {
+                            this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
+                            this.LoadContentAsync(LoadContentAsyncType.Next, state);
+                        }
 
                         // Propogate state change
                         this._sensorCache.SwitchState(state);
@@ -282,12 +289,12 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         this._currentPageNumber++;
                         this._currentLineNumber = 1;
 
-                        // 1. Animate first line's obstacles into position
-                        // 2. Disable previous line physics
-                        // 3. Enable current line physics
-                        this.ProcessNextLine();
+                        // IMPORTANT: Can't call ProcessNextLine right away for fringe case
+                        //            where user has set via upgrade to last line. This will
+                        //            put user on last line w/o having MovingToNextLine being processed.
 
                         // In background load up the line following our current line we are moving to
+                        // Note we will call ProcessNextLine in event handler for thread finishing.
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
                         this.LoadContentAsync(LoadContentAsyncType.Next, state);
 
@@ -309,6 +316,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         // 1. Animate first line's obstacles into position
                         // 2. Disable previous line physics
                         // 3. Enable current line physics
+                        // Event handler will also propogate state change.
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
                         this.LoadContentAsync(LoadContentAsyncType.Initialize, state);
 
@@ -326,6 +334,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                         // 1. Animate first line's obstacles into position
                         // 2. Disable previous line physics
                         // 3. Enable current line physics
+                        // Event handler will also propogate state change.
                         this.LoadContentAsyncFinished += this.LoadContentAsyncFinishedHandler;
                         this.LoadContentAsync(LoadContentAsyncType.Refresh, state);
 
@@ -364,9 +373,11 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         {
             this.LoadContentAsyncFinished -= this.LoadContentAsyncFinishedHandler;
 
-
-            if (args.TheLoadContentAsyncType == LoadContentAsyncType.Initialize ||
-                args.TheLoadContentAsyncType == LoadContentAsyncType.Refresh)
+            if ((args.TheLoadContentAsyncType == LoadContentAsyncType.Initialize ||
+                 args.TheLoadContentAsyncType == LoadContentAsyncType.Refresh)
+                 ||
+                (args.TheLoadContentAsyncType == LoadContentAsyncType.Next &&
+                 args.TheGameState == GameState.MovingToNextPage))
             {
                 // 1. Remove previous line physics/animations
                 // 2. Assign current line physcis/animations
@@ -392,6 +403,9 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 case LoadContentAsyncType.Initialize:
                 case LoadContentAsyncType.Refresh:
                     {
+                        // Load current line and next line
+                        // Note how we use currentLineNumber here in case we have
+                        // changed starting line via upgrade.
                         pageNumber = this._currentPageNumber;
                         lineNumbers = new int[] { 
                             this._currentLineNumber, 
@@ -400,13 +414,14 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                     }
                 case LoadContentAsyncType.Next:
                     {
-                        // Are we on the last line of the page
-                        var lineCount = this._pageCache.CurrentPageModel.ThePadEntity.LineCount;
-                        if (this._currentLineNumber == lineCount)
+                        // Are we coming from the last line of the previous page?
+                        if (this._currentPageNumber != 1 &&
+                            this._currentLineNumber == 1)
                         {
-                            // Ok, on last line, move to first line of next page
-                            pageNumber = this._currentPageNumber + 1;
-                            lineNumbers = new int[] { 1 };
+                            // Ok, coming from last line of previous page, 
+                            // stage first line and second line of next page
+                            pageNumber = this._currentPageNumber;
+                            lineNumbers = new int[] { 1, 2 };
                         }
                         else
                         {
@@ -799,9 +814,20 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                     }
                 case LoadContentAsyncType.Next:
                     {
-                        // Remove all previous obstacle models from our drawing filter
-                        // and remove all previous obstacle physics
-                        var lineToRemove = this._currentLineNumber - 2;
+                        // Determine which line we need to purge.
+                        // Note our test for page/line number, which indicates
+                        // we are comming from last line of previous page and need to account for this.
+                        int lineToRemove;
+                        if (this._currentPageNumber != 1 &&
+                            this._currentLineNumber == 1)
+                        {
+                            lineToRemove = this._pageCache.CurrentPageModel.ThePadEntity.LineCount;
+                        }
+                        else
+                        {
+                            lineToRemove = this._currentLineNumber - 2;
+                        }
+
                         if (lineToRemove > 0)
                         {
                             var obstacleModels = this.ObstacleModels
@@ -1041,8 +1067,20 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         private void ProcessNextLine()
         {
             // Remove previous line physics/animations
+            // IMPORTANT: Note how we account for coming from previous page
+            int lineToRemove;
+            if (this._currentPageNumber != 1 &&
+                this._currentLineNumber == 1)
+            {
+                lineToRemove = this._pageCache.CurrentPageModel.ThePadEntity.LineCount;
+            }
+            else
+            {
+                lineToRemove = this._currentLineNumber - 1;
+            }
+
             var previousLineObstacles = this.ObstacleModels
-                .Where(x => x.ThePageObstaclesEntity.LineNumber == this._currentLineNumber - 1);
+                .Where(x => x.ThePageObstaclesEntity.LineNumber == lineToRemove);
             foreach (var obstacleModel in previousLineObstacles)
             {
                 if (obstacleModel.PhysicsEntity != null &&
@@ -1061,7 +1099,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
             // Get a depth that will position obstacle exactly
             // straddling the halfway depth of the line
-            var lineModel = this._lineCache.GetLineModel(_currentLineNumber);
+            var lineModel = this._lineCache.GetLineModel(this._currentLineNumber);
             
             // Animate next line's obstacles into position
             int obstacleCount = currentLineObstacles.Count();

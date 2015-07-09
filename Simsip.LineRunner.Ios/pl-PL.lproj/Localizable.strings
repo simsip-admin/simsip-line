@@ -5,7 +5,7 @@
 "AdminKillsOn"="zabija na";
 "AdminKillsOff"="Kasuje";
 "AdminStartPageDescription"="Wprowadź strona uruchomienia";
-"CommonYes"="";
+"CommonYes"="tak";
 "CommonOK"="OK";
 "CommonNo"="nie";
 "CommonError"="Błąd";
@@ -16,7 +16,7 @@
 "RatingsRateUs"="Oceń NAS!";
 "CreditsTitle"="Napisy końcowe";
 "StartRate"="szybkość";
-"StartPlay"="";
+"StartPlay"="Zagraj";
 "HudOptions"="Opcje";
 "HudHelp"="pomoc";
 "CommonPage"="strona";
@@ -42,7 +42,7 @@
 "HudHigh"="Wysoka";
 "HelpSupport"="pomoc techniczna";
 "MessageBoxMovingToPage6"="Ostatnia strona!";
-"CommonPrevious"="";
+"CommonPrevious"="Poprzedni";
 "HelpZoomInOut"="Powiększanie lub pomniejszanie";
 "HudSpeedDefault"="(domyślnie)";
 "CommonNext"="dalej";
@@ -130,3 +130,6 @@
 "HelpLines"="zmienić wiersz dla multipleksera pad";
 "HelpHowToPlayDescription1"="Wybierz, aby uniknąć przeszkód i linie";
 "CommonVersion"="wersja";
+"StartRunner"="Runner";
+"StartLine"="Linia";
+"Start3D"="3W";

@@ -515,4 +515,13 @@
   <data name="CommonVersion" xml:space="preserve">
     <value>バージョン</value>
   </data>
+  <data name="StartRunner" xml:space="preserve">
+    <value>ランナー</value>
+  </data>
+  <data name="StartLine" xml:space="preserve">
+    <value>折れ線</value>
+  </data>
+  <data name="Start3D" xml:space="preserve">
+    <value>3D</value>
+  </data>
 </root>

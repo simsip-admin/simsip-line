@@ -42,8 +42,12 @@ namespace Simsip.LineRunner.Scenes.Start
         private CCFiniteTimeAction _layerActionOut;
 
         // Animated 3D text
+        private CCLabelTTF _3DLabel;
+        private CCAction _3DLabelAction;
+        /* Legacy
         private CCSprite _3DImage;
         private CCAction _3DImageAction;
+        */
 
         // Flag so we only kick off services once
         private bool _servicesStarted;
@@ -79,6 +83,67 @@ namespace Simsip.LineRunner.Scenes.Start
             this._layerActionOut = layerMoveOutAction;
 
             // Logo
+            var logo = new CCSprite("Images/Misc/Logo2.png");
+            Cocos2DUtils.ResizeSprite(logo,     // Makes sure logo isn't clipped
+                this.ContentSize.Width,
+                logo.ContentSize.Height);
+            logo.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.7f * this.ContentSize.Height);
+            this.AddChild(logo);
+
+            var lineText = string.Empty;
+#if ANDROID
+            lineText = Program.SharedProgram.Resources.GetString(Resource.String.StartLine);
+#elif IOS
+            lineText = NSBundle.MainBundle.LocalizedString(Strings.StartLine, Strings.StartLine);
+#else
+            lineText = AppResources.StartLine;
+#endif
+            var lineLabel = new CCLabelTTF(lineText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_2X_LARGE);
+            lineLabel.Position = new CCPoint(
+                0.1f * this.ContentSize.Width,
+                0.7f * this.ContentSize.Height);
+            this.AddChild(lineLabel);
+
+            var runnerText = string.Empty;
+#if ANDROID
+            runnerText = Program.SharedProgram.Resources.GetString(Resource.String.StartRunner);
+#elif IOS
+            runnerText = NSBundle.MainBundle.LocalizedString(Strings.StartRunner, Strings.StartRunner);
+#else
+            runnerText = AppResources.StartRunner;
+#endif
+            var runnerLabel = new CCLabelTTF(runnerText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_2X_LARGE);
+            runnerLabel.Position = new CCPoint(
+                0.6f * this.ContentSize.Width,
+                0.7f * this.ContentSize.Height);
+            this.AddChild(runnerLabel);
+
+            var threeDText = string.Empty;
+#if ANDROID
+            threeDText = Program.SharedProgram.Resources.GetString(Resource.String.Start3D);
+#elif IOS
+            threeDText = NSBundle.MainBundle.LocalizedString(Strings.Start3D, Strings.Start3D);
+#else
+            threeDText = AppResources.Start3D;
+#endif
+            this._3DLabel = new CCLabelTTF(threeDText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_2X_LARGE);
+            this._3DLabel.Color = CCColor3B.Yellow;
+            this._3DLabel.Rotation = -30;
+            this._3DLabel.Position = new CCPoint(
+                0.9f * this.ContentSize.Width,
+                0.45f * this.ContentSize.Height);
+            this._3DLabelAction = new CCSequence(new CCFiniteTimeAction[] 
+            { 
+                new CCScaleTo(0f, 0f), 
+                new CCScaleTo(0.8f, 2.0f),
+                new CCScaleTo(0.2f, 1.0f),
+            });
+            this.AddChild(this._3DLabel);
+            
+            /* Legacy
+            // Logo
             var logo = new CCSprite("Images/Misc/Logo1.png");
             Cocos2DUtils.ResizeSprite(logo,     // Makes sure logo isn't clipped
                 this.ContentSize.Width,
@@ -101,7 +166,8 @@ namespace Simsip.LineRunner.Scenes.Start
                 new CCScaleTo(0.2f, 1.0f),
             });
             this.AddChild(this._3DImage);
-            
+            */
+
             // Start menu
             this._isStartEnabled = false;
             var startButtonNormal = new CCSprite("Images/Icons/StartButtonNormal.png");
@@ -204,7 +270,10 @@ namespace Simsip.LineRunner.Scenes.Start
 
             // Animate layer and 3D text
             this.RunAction(this._layerActionIn);
-            this._3DImage.RunAction(this._3DImageAction);
+
+            this._3DLabel.RunAction(this._3DLabelAction);
+            // Legacy
+            // this._3DImage.RunAction(this._3DImageAction);
         }
 
         public override void Update(float dt)

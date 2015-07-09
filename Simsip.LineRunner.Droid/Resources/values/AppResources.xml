@@ -132,4 +132,7 @@
   <string name="CommonPrevious">previous</string>
   <string name="HelpZoomInOut">zoom in or out</string>
   <string name="HudSpeedDefault">(default)</string>
+  <string name="Start3D">3D</string>
+  <string name="StartLine">Line</string>
+  <string name="StartRunner">runner</string>
 </resources>

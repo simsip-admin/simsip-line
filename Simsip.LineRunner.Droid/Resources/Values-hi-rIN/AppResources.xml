@@ -132,4 +132,7 @@
   <string name="CommonPrevious">पिछले</string>
   <string name="HelpZoomInOut">ज़ूम इन या आउट करें</string>
   <string name="HudSpeedDefault">(डिफ़ॉल्ट)</string>
+  <string name="StartRunner">रनर</string>
+  <string name="StartLine">रेखा</string>
+  <string name="Start3D">3डी</string>
 </resources>

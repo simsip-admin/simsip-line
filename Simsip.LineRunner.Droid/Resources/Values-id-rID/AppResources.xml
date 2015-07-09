@@ -132,4 +132,7 @@
   <string name="HelpLines">mengubah baris untuk pad</string>
   <string name="HelpHowToPlayDescription1">ketuk untuk menghindari baris dan hambatan</string>
   <string name="CommonVersion">versi</string>
+  <string name="StartRunner">pelari</string>
+  <string name="StartLine">Garis</string>
+  <string name="Start3D">3D</string>
 </resources>

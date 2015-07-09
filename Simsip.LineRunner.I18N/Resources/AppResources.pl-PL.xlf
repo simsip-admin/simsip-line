@@ -38,8 +38,9 @@
         </trans-unit>
         <trans-unit id="Resx/CommonYes" translate="yes" xml:space="preserve">
           <source>yes</source>
-          <target state="translated" state-qualifier="tm-suggestion" />
-        </trans-unit><trans-unit id="Resx/CommonOK" translate="yes" xml:space="preserve">
+          <target state="translated">tak</target>
+        </trans-unit>
+        <trans-unit id="Resx/CommonOK" translate="yes" xml:space="preserve">
           <source>ok</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">OK</target>
         </trans-unit>
@@ -81,8 +82,9 @@
         </trans-unit>
         <trans-unit id="Resx/StartPlay" translate="yes" xml:space="preserve">
           <source>play</source>
-          <target state="translated" state-qualifier="tm-suggestion" />
-        </trans-unit><trans-unit id="Resx/HudOptions" translate="yes" xml:space="preserve">
+          <target state="translated">Zagraj</target>
+        </trans-unit>
+        <trans-unit id="Resx/HudOptions" translate="yes" xml:space="preserve">
           <source>options</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">Opcje</target>
         </trans-unit>
@@ -184,14 +186,27 @@
         </trans-unit>
         <trans-unit id="Resx/CommonPrevious" translate="yes" xml:space="preserve">
           <source>previous</source>
-          <target state="translated" state-qualifier="tm-suggestion" />
-        </trans-unit><trans-unit id="Resx/HelpZoomInOut" translate="yes" xml:space="preserve">
+          <target state="translated">Poprzedni</target>
+        </trans-unit>
+        <trans-unit id="Resx/HelpZoomInOut" translate="yes" xml:space="preserve">
           <source>zoom in or out</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">Powiększanie lub pomniejszanie</target>
         </trans-unit>
         <trans-unit id="Resx/HudSpeedDefault" translate="yes" xml:space="preserve">
           <source>(default)</source>
           <target state="translated" state-qualifier="tm-suggestion">(domyślnie)</target>
+        </trans-unit>
+        <trans-unit id="Resx/StartRunner" translate="yes" xml:space="preserve">
+          <source>runner</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Runner</target>
+        </trans-unit>
+        <trans-unit id="Resx/StartLine" translate="yes" xml:space="preserve">
+          <source>Line</source>
+          <target state="translated" state-qualifier="tm-suggestion">Linia</target>
+        </trans-unit>
+        <trans-unit id="Resx/Start3D" translate="yes" xml:space="preserve">
+          <source>3D</source>
+          <target state="translated" state-qualifier="tm-suggestion">3W</target>
         </trans-unit>
         <trans-unit id="Resx/CommonNext" translate="yes" xml:space="preserve">
           <source>next</source>

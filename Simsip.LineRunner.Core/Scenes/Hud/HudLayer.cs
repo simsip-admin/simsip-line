@@ -116,6 +116,7 @@ namespace Simsip.LineRunner.Scenes.Hud
         private CCLabelTTF _pauseLabel;
 
         // Additional text
+        private string _pageLineText;
         private string _doubleTapResetText;
         private string _hudSpeedText;
         private string _hudCannotGoSlowerThanText;
@@ -679,6 +680,15 @@ namespace Simsip.LineRunner.Scenes.Hud
             this.EnablePause(false);
 
             // Additional text
+            this._pageLineText = string.Empty;
+#if ANDROID
+            this._pageLineText = Program.SharedProgram.Resources.GetString(Resource.String.HudPageLine);
+#elif IOS
+            this._pageLineText = NSBundle.MainBundle.LocalizedString(Strings.HudPageLine, Strings.HudPageLine);
+#else
+            this._pageLineText = AppResources.HudPageLine;
+#endif
+
             this._doubleTapResetText = string.Empty;
 #if ANDROID
             this._doubleTapResetText = Program.SharedProgram.Resources.GetString(Resource.String.CommonReset);
@@ -773,7 +783,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._footerLayer.RunAction(this._footerLayerActionIn);
 
             // IMPORTANT: We do not want touches. We will only be handling
-            //            responsed from menus and free drags.
+            //            responses from menus and free drags.
             this.TouchEnabled = false;
 
             // Enable support for gestures
@@ -878,6 +888,79 @@ namespace Simsip.LineRunner.Scenes.Hud
 
         #region Api
 
+        public void UpdateStatus1(string text)
+        {
+            // Lazy initialization
+            if (this._status1Label == null)
+            {
+                this._status1Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                this._status1Label.Color = CCColor3B.Red;
+                this._status1Label.AnchorPoint = CCPoint.AnchorMiddle;
+                this._status1Label.Position = new CCPoint(
+                    0.5f * this.ContentSize.Width,
+                    0.75f * this.ContentSize.Height);
+#if IOS
+                // With the ad banner overlaying our screen in ios, we need to adjust certain ui elements downward by size of ad banner
+                this._status1Label.Position = CCDirector.SharedDirector.VisibleOrigin + new CCPoint(
+                    0.5f  * this.ContentSize.Width,
+                    0.75f * this.ContentSize.Height - (float)GADAdSizeCons.Banner.Size.Height);
+#endif
+                this.AddChild(this._status1Label);
+            }
+
+            // Clear out any previous actions
+            this.ActionManager.RemoveAllActionsFromTarget(this._status1Label);
+
+            // Can't set empty strings, so just turn visibility off
+            if (text == string.Empty)
+            {
+                this._status1Label.Visible = false;
+            }
+            else
+            {
+                // Normal update of text, action will also turn visibility back on for short duration
+                this._status1Label.Text = text;
+                this._status1Label.RunAction(this._status1LabelAction);
+            }
+        }
+
+        public void UpdateStatus2(string text)
+        {
+            // Lazy initialization
+            if (this._status2Label == null)
+            {
+                this._status2Label = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                this._status2Label.Color = CCColor3B.Red;
+                this._status2Label.AnchorPoint = CCPoint.AnchorMiddle;
+                this._status2Label.Position = new CCPoint(
+                    0.5f * this.ContentSize.Width,
+                    0.65f * this.ContentSize.Height);
+#if IOS
+                // With the ad banner overlaying our screen in ios, we need to adjust certain ui elements downward by size of ad banner
+                this._status2Label.Position = CCDirector.SharedDirector.VisibleOrigin + new CCPoint(
+                    0.5f * this.ContentSize.Width,
+                    0.65f * this.ContentSize.Height - (float)GADAdSizeCons.Banner.Size.Height);
+#endif
+                this.AddChild(this._status2Label);
+            }
+
+            // Clear out any previous actions
+            this.ActionManager.RemoveAllActionsFromTarget(this._status2Label);
+
+            // Can't set empty strings, so just turn visibility off
+            if (text == string.Empty)
+            {
+                this._status2Label.Visible = false;
+            }
+            else
+            {
+                // Normal update of text, action will also turn visibility back on
+                this._status2Label.Text = text;
+                this._status2Label.RunAction(this._status2LabelAction);
+            }
+        }
+
+
         public void EnablePause(bool enabled)
         {
             this._pauseToggle.SelectedIndex = 0;
@@ -933,18 +1016,8 @@ namespace Simsip.LineRunner.Scenes.Hud
         public void DisplayPageLineNumber(int pageNumber, int lineNumber)
         {
             // Animate display of new page number
-            // this._status1Label.StopAllActions();
-            var pageLineText = string.Empty;
-#if ANDROID
-            pageLineText = Program.SharedProgram.Resources.GetString(Resource.String.HudPageLine);
-#elif IOS
-            pageLineText = NSBundle.MainBundle.LocalizedString(Strings.HudPageLine, Strings.HudPageLine);
-#else
-            pageLineText = AppResources.HudPageLine;
-#endif
-            var text = pageLineText + " " + pageNumber + "/" + lineNumber;
-
-            this.UpdateStatus1(text);
+            var pageLineText = this._pageLineText + " " + pageNumber + "/" + lineNumber;
+            this.UpdateStatus1(pageLineText);
         }
 
         public TimeSpan GetTime()
@@ -1253,78 +1326,6 @@ namespace Simsip.LineRunner.Scenes.Hud
             else                    // Zoom in
             {
                 this._inputManager.HudOnZoom(zoomIn: true);
-            }
-        }
-
-        private void UpdateStatus1(string text)
-        {
-            // Lazy initialization
-            if (this._status1Label == null)
-            {
-                this._status1Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-                this._status1Label.Color = CCColor3B.Red;
-                this._status1Label.AnchorPoint = CCPoint.AnchorMiddle;
-                this._status1Label.Position = new CCPoint(
-                    0.5f  * this.ContentSize.Width,
-                    0.75f * this.ContentSize.Height);
-#if IOS
-                // With the ad banner overlaying our screen in ios, we need to adjust certain ui elements downward by size of ad banner
-                this._status1Label.Position = CCDirector.SharedDirector.VisibleOrigin + new CCPoint(
-                    0.5f  * this.ContentSize.Width,
-                    0.75f * this.ContentSize.Height - (float)GADAdSizeCons.Banner.Size.Height);
-#endif
-                this.AddChild(this._status1Label);
-            }
-
-            // Clear out any previous actions
-            this.ActionManager.RemoveAllActionsFromTarget(this._status1Label);
-
-            // Can't set empty strings, so just turn visibility off
-            if (text == string.Empty)
-            {
-                this._status1Label.Visible = false;
-            }
-            else
-            {
-                // Normal update of text, action will also turn visibility back on for short duration
-                this._status1Label.Text = text;
-                this._status1Label.RunAction(this._status1LabelAction);
-            }
-        }
-
-        private void UpdateStatus2(string text)
-        {
-            // Lazy initialization
-            if (this._status2Label == null)
-            {
-                this._status2Label = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-                this._status2Label.Color = CCColor3B.Red;
-                this._status2Label.AnchorPoint = CCPoint.AnchorMiddle;
-                this._status2Label.Position = new CCPoint(
-                    0.5f * this.ContentSize.Width,
-                    0.65f * this.ContentSize.Height);
-#if IOS
-                // With the ad banner overlaying our screen in ios, we need to adjust certain ui elements downward by size of ad banner
-                this._status2Label.Position = CCDirector.SharedDirector.VisibleOrigin + new CCPoint(
-                    0.5f * this.ContentSize.Width,
-                    0.65f * this.ContentSize.Height - (float)GADAdSizeCons.Banner.Size.Height);
-#endif
-                this.AddChild(this._status2Label);
-            }
-            
-            // Clear out any previous actions
-            this.ActionManager.RemoveAllActionsFromTarget(this._status2Label);
-
-            // Can't set empty strings, so just turn visibility off
-            if (text == string.Empty)
-            {
-                this._status2Label.Visible = false;
-            }
-            else
-            {
-                // Normal update of text, action will also turn visibility back on
-                this._status2Label.Text = text;
-                this._status2Label.RunAction(this._status2LabelAction);
             }
         }
 

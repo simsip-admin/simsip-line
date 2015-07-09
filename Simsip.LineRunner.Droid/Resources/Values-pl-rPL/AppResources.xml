@@ -7,7 +7,7 @@
   <string name="AdminKillsOn">zabija na</string>
   <string name="AdminKillsOff">Kasuje</string>
   <string name="AdminStartPageDescription">Wprowadź strona uruchomienia</string>
-  <string name="CommonYes"></string>
+  <string name="CommonYes">tak</string>
   <string name="CommonOK">OK</string>
   <string name="CommonNo">nie</string>
   <string name="CommonError">Błąd</string>
@@ -18,7 +18,7 @@
   <string name="RatingsRateUs">Oceń NAS!</string>
   <string name="CreditsTitle">Napisy końcowe</string>
   <string name="StartRate">szybkość</string>
-  <string name="StartPlay"></string>
+  <string name="StartPlay">Zagraj</string>
   <string name="HudOptions">Opcje</string>
   <string name="HudHelp">pomoc</string>
   <string name="CommonPage">strona</string>
@@ -44,7 +44,7 @@
   <string name="HudHigh">Wysoka</string>
   <string name="HelpSupport">pomoc techniczna</string>
   <string name="MessageBoxMovingToPage6">Ostatnia strona!</string>
-  <string name="CommonPrevious"></string>
+  <string name="CommonPrevious">Poprzedni</string>
   <string name="HelpZoomInOut">Powiększanie lub pomniejszanie</string>
   <string name="HudSpeedDefault">(domyślnie)</string>
   <string name="CommonNext">dalej</string>
@@ -132,4 +132,7 @@
   <string name="HelpLines">zmienić wiersz dla multipleksera pad</string>
   <string name="HelpHowToPlayDescription1">Wybierz, aby uniknąć przeszkód i linie</string>
   <string name="CommonVersion">wersja</string>
+  <string name="StartRunner">Runner</string>
+  <string name="StartLine">Linia</string>
+  <string name="Start3D">3W</string>
 </resources>

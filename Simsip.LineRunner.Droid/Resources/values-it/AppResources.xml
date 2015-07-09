@@ -132,4 +132,7 @@
   <string name="HelpLines">modificare la riga per il blocco note</string>
   <string name="HelpHowToPlayDescription1">Toccare per evitare righe e ostacoli</string>
   <string name="CommonVersion">versione</string>
+  <string name="StartRunner">Runner</string>
+  <string name="StartLine">Riga</string>
+  <string name="Start3D">3D</string>
 </resources>

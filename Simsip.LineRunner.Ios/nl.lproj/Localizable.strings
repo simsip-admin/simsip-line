@@ -130,3 +130,6 @@
 "HelpLines"="de regel voor het Tekenpaneel wijzigen";
 "HelpHowToPlayDescription1"="Tik op om te voorkomen dat de lijnen en obstakels";
 "CommonVersion"="versie";
+"StartRunner"="runner";
+"StartLine"="Regel";
+"Start3D"="3D";

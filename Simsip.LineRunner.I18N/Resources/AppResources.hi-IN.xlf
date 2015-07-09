@@ -536,6 +536,18 @@
           <source>(default)</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">(डिफ़ॉल्ट)</target>
         </trans-unit>
+        <trans-unit id="Resx/StartRunner" translate="yes" xml:space="preserve">
+          <source>runner</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">रनर</target>
+        </trans-unit>
+        <trans-unit id="Resx/StartLine" translate="yes" xml:space="preserve">
+          <source>Line</source>
+          <target state="translated" state-qualifier="tm-suggestion">रेखा</target>
+        </trans-unit>
+        <trans-unit id="Resx/Start3D" translate="yes" xml:space="preserve">
+          <source>3D</source>
+          <target state="translated" state-qualifier="tm-suggestion">3डी</target>
+        </trans-unit>
       </group>
     </body>
   </file>

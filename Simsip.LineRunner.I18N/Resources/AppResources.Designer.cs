@@ -1016,6 +1016,24 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 3D.
+        /// </summary>
+        public static string Start3D {
+            get {
+                return ResourceManager.GetString("Start3D", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Line.
+        /// </summary>
+        public static string StartLine {
+            get {
+                return ResourceManager.GetString("StartLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to play.
         /// </summary>
         public static string StartPlay {
@@ -1030,6 +1048,15 @@ namespace Simsip.LineRunner.Resources {
         public static string StartRate {
             get {
                 return ResourceManager.GetString("StartRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to runner.
+        /// </summary>
+        public static string StartRunner {
+            get {
+                return ResourceManager.GetString("StartRunner", resourceCulture);
             }
         }
         

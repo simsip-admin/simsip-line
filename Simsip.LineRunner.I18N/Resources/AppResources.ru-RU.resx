@@ -515,4 +515,13 @@
   <data name="CommonVersion" xml:space="preserve">
     <value>версия</value>
   </data>
+  <data name="StartRunner" xml:space="preserve">
+    <value>бегун</value>
+  </data>
+  <data name="StartLine" xml:space="preserve">
+    <value>Линейный</value>
+  </data>
+  <data name="Start3D" xml:space="preserve">
+    <value>Объемный</value>
+  </data>
 </root>

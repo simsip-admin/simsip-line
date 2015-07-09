@@ -132,4 +132,7 @@
   <string name="HelpLines">Измените строку для панели ввода</string>
   <string name="HelpHowToPlayDescription1">Коснитесь, чтобы избежать линии и препятствия</string>
   <string name="CommonVersion">версия</string>
+  <string name="StartRunner">бегун</string>
+  <string name="StartLine">Линейный</string>
+  <string name="Start3D">Объемный</string>
 </resources>

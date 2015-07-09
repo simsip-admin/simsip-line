@@ -515,4 +515,13 @@
   <data name="HudSpeedDefault" xml:space="preserve">
     <value>(डिफ़ॉल्ट)</value>
   </data>
+  <data name="StartRunner" xml:space="preserve">
+    <value>रनर</value>
+  </data>
+  <data name="StartLine" xml:space="preserve">
+    <value>रेखा</value>
+  </data>
+  <data name="Start3D" xml:space="preserve">
+    <value>3डी</value>
+  </data>
 </root>

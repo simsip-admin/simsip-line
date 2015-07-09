@@ -132,4 +132,7 @@
   <string name="HelpLines">變更的線條</string>
   <string name="HelpHowToPlayDescription1">點選以避免線條和障礙</string>
   <string name="CommonVersion">版本</string>
+  <string name="StartRunner">執行程式</string>
+  <string name="StartLine">線條</string>
+  <string name="Start3D">3D</string>
 </resources>

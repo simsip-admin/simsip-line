@@ -130,3 +130,6 @@
 "HelpLines"="Измените строку для панели ввода";
 "HelpHowToPlayDescription1"="Коснитесь, чтобы избежать линии и препятствия";
 "CommonVersion"="версия";
+"StartRunner"="бегун";
+"StartLine"="Линейный";
+"Start3D"="Объемный";
