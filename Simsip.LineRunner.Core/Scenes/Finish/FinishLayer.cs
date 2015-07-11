@@ -87,6 +87,7 @@ namespace Simsip.LineRunner.Scenes.Finish
             newHighScoreText = AppResources.FinishNewHighScore;
 #endif
             var newHighScoreHeader = new CCLabelTTF(newHighScoreText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            newHighScoreHeader.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             newHighScoreHeader.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.8f * this.ContentSize.Height);
@@ -94,6 +95,7 @@ namespace Simsip.LineRunner.Scenes.Finish
 
             // New top score
             this._newTopScoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
+            this._newTopScoreLabel.Scale = GameConstants.FONT_SIZE_X_LARGE_SCALE;
             this._newTopScoreLabel.Color = CCColor3B.Green;
             this._newTopScoreLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
@@ -102,6 +104,7 @@ namespace Simsip.LineRunner.Scenes.Finish
 
             // New top time
             this._newTopTimeLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            this._newTopTimeLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             this._newTopTimeLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.4f * this.ContentSize.Height);
@@ -118,6 +121,7 @@ namespace Simsip.LineRunner.Scenes.Finish
             winnerText = AppResources.FinishWinner;
 #endif
             this._winnerLabel = new CCLabelTTF(winnerText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
+            this._winnerLabel.Scale = GameConstants.FONT_SIZE_X_LARGE_SCALE;
             this._winnerLabel.Color = CCColor3B.Yellow;
             this._winnerLabel.Rotation = -45;
             this._newTopScoreLabel.Position = new CCPoint(

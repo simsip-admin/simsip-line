@@ -524,4 +524,37 @@
   <data name="Start3D" xml:space="preserve">
     <value>3D</value>
   </data>
+  <data name="PadsYellow" xml:space="preserve">
+    <value>Gelb</value>
+  </data>
+  <data name="PadsWhite" xml:space="preserve">
+    <value>Weiß</value>
+  </data>
+  <data name="LinesRed" xml:space="preserve">
+    <value>Rot</value>
+  </data>
+  <data name="LinesOrange" xml:space="preserve">
+    <value>Orange</value>
+  </data>
+  <data name="LinesLightOrange" xml:space="preserve">
+    <value>Hellorange</value>
+  </data>
+  <data name="LinesLightGreen" xml:space="preserve">
+    <value>hellgrün</value>
+  </data>
+  <data name="LinesLightBlue" xml:space="preserve">
+    <value>Hellblau</value>
+  </data>
+  <data name="LinesGreen" xml:space="preserve">
+    <value>Grün</value>
+  </data>
+  <data name="LinesDarkOrange" xml:space="preserve">
+    <value>Dunkel orange</value>
+  </data>
+  <data name="LinesDarkGreen" xml:space="preserve">
+    <value>Dunkelgrün</value>
+  </data>
+  <data name="LinesBlue" xml:space="preserve">
+    <value>Blau</value>
+  </data>
 </root>

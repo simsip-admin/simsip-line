@@ -330,70 +330,6 @@
     </Compile>
     <Compile Include="Views\BrowserViewController.cs" />
     <Compile Include="Views\OAuthViewController.cs" />
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Fonts\arial-12.xnb">
-      <Link>Content\Fonts\arial-12.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Fonts\arial-16.xnb">
-      <Link>Content\Fonts\arial-16.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Fonts\arial-18.xnb">
-      <Link>Content\Fonts\arial-18.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Fonts\arial-20.xnb">
-      <Link>Content\Fonts\arial-20.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Fonts\arial-22.xnb">
-      <Link>Content\Fonts\arial-22.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Fonts\arial-24.xnb">
-      <Link>Content\Fonts\arial-24.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Fonts\arial-26.xnb">
-      <Link>Content\Fonts\arial-26.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Fonts\arial-28.xnb">
-      <Link>Content\Fonts\arial-28.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Fonts\arial-30.xnb">
-      <Link>Content\Fonts\arial-30.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Fonts\arial-32.xnb">
-      <Link>Content\Fonts\arial-32.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Fonts\arial-34.xnb">
-      <Link>Content\Fonts\arial-34.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Fonts\arial-38.xnb">
-      <Link>Content\Fonts\arial-38.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Fonts\arial-50.xnb">
-      <Link>Content\Fonts\arial-50.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Fonts\arial-64.xnb">
-      <Link>Content\Fonts\arial-64.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Fonts\Schwarzwald Regular-26.xnb">
-      <Link>Content\Fonts\Schwarzwald Regular-26.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Fonts\Verdana.xnb">
-      <Link>Content\Fonts\Verdana.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Icons\AchievementsButtonNormal.xnb">
       <Link>Content\Images\Icons\AchievementsButtonNormal.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1154,6 +1090,10 @@
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Misc\PracticeModeImage4.xnb">
       <Link>Content\Images\Misc\PracticeModeImage4.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Misc\Logo2.xnb">
+      <Link>Content\Images\Misc\Logo2.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
@@ -4276,6 +4216,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Bepu\BEPUphysicsDrawer\Models\Display types\Entity types\" />
+    <Folder Include="Content\Fonts\" />
     <Folder Include="Voxeliq\Common\Helpers\IO\" />
   </ItemGroup>
   <ItemGroup>

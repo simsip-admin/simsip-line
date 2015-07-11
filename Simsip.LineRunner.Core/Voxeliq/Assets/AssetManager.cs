@@ -41,6 +41,8 @@ namespace Engine.Assets
 
         private static readonly Logger Logger = LogManager.CreateLogger(); 
 
+        private SpriteFont _defaultFont;
+
         public AssetManager(Game game)
             : base(game)
         {
@@ -57,6 +59,9 @@ namespace Engine.Assets
         public async Task Initialize()
         {
 #endif
+   
+            this._defaultFont = TheGame.SharedGame.Content.Load<SpriteFont>(@"Fonts/arial-core-18");
+
             // Initialize resource dictionaries
             this._effects = new ConcurrentDictionary<string, Effect>();
             this._sounds = new Dictionary<string, string>();
@@ -75,6 +80,11 @@ namespace Engine.Assets
         #endregion
 
         #region IAssetManager implementation
+
+        public SpriteFont GetFont()
+        {
+            return _defaultFont;
+        }
 
         public Effect GetEffect(string effectPath)
         {
@@ -107,30 +117,6 @@ namespace Engine.Assets
             // with GetEffectAsync calls
             throw new Exception("Effect not loaded: " + effectPath);
 #endif
-        }
-
-        public SpriteFont GetFont(string fontPath)
-        {
-            try
-            {
-                // Do we have a cached version?
-                if (_fonts.ContainsKey(fontPath))
-                {
-                    return _fonts[fontPath];
-                }
-
-                // Ok, not in cache, let's create, store in cacha and return it
-                // IMPORTANT: Note how font path is the location of the font without
-                // the "Content" director prefix
-                var font = Game.Content.Load<SpriteFont>(@"Fonts/Verdana");
-                this._fonts.Add(fontPath, font);
-
-                return font;
-            }
-            catch(Exception ex)
-            {
-                throw new Exception("Unable to load font: " + fontPath + ", " + ex);
-            }
         }
 
         public Model GetModel(string modelName, 

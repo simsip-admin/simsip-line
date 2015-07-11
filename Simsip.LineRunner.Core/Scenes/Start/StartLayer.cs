@@ -100,10 +100,11 @@ namespace Simsip.LineRunner.Scenes.Start
 #else
             lineText = AppResources.StartLine;
 #endif
-            var lineLabel = new CCLabelTTF(lineText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_2X_LARGE);
+            var lineLabel = new CCLabelTTF(lineText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
+            lineLabel.Scale = GameConstants.FONT_SIZE_X_LARGE_SCALE;
             lineLabel.Position = new CCPoint(
-                0.1f * this.ContentSize.Width,
-                0.7f * this.ContentSize.Height);
+                0.18f * this.ContentSize.Width,
+                0.62f * this.ContentSize.Height);
             this.AddChild(lineLabel);
 
             var runnerText = string.Empty;
@@ -114,10 +115,12 @@ namespace Simsip.LineRunner.Scenes.Start
 #else
             runnerText = AppResources.StartRunner;
 #endif
-            var runnerLabel = new CCLabelTTF(runnerText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_2X_LARGE);
+            var runnerLabel = new CCLabelTTF(runnerText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
+            runnerLabel.Scale = GameConstants.FONT_SIZE_X_LARGE_SCALE;
+            runnerLabel.AnchorPoint = CCPoint.AnchorMiddleLeft;
             runnerLabel.Position = new CCPoint(
-                0.6f * this.ContentSize.Width,
-                0.7f * this.ContentSize.Height);
+                0.54f * this.ContentSize.Width,
+                0.62f * this.ContentSize.Height);
             this.AddChild(runnerLabel);
 
             var threeDText = string.Empty;
@@ -128,17 +131,17 @@ namespace Simsip.LineRunner.Scenes.Start
 #else
             threeDText = AppResources.Start3D;
 #endif
-            this._3DLabel = new CCLabelTTF(threeDText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_2X_LARGE);
+            this._3DLabel = new CCLabelTTF(threeDText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
             this._3DLabel.Color = CCColor3B.Yellow;
             this._3DLabel.Rotation = -30;
             this._3DLabel.Position = new CCPoint(
-                0.9f * this.ContentSize.Width,
+                0.85f * this.ContentSize.Width,
                 0.45f * this.ContentSize.Height);
             this._3DLabelAction = new CCSequence(new CCFiniteTimeAction[] 
             { 
                 new CCScaleTo(0f, 0f), 
-                new CCScaleTo(0.8f, 2.0f),
-                new CCScaleTo(0.2f, 1.0f),
+                new CCScaleTo(0.8f, 2.0f * GameConstants.FONT_SIZE_X_LARGE_SCALE),
+                new CCScaleTo(0.2f, GameConstants.FONT_SIZE_X_LARGE_SCALE)
             });
             this.AddChild(this._3DLabel);
             

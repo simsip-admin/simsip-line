@@ -135,4 +135,15 @@
   <string name="StartRunner">pelari</string>
   <string name="StartLine">Garis</string>
   <string name="Start3D">3D</string>
+  <string name="PadsYellow">kuning</string>
+  <string name="PadsWhite">putih</string>
+  <string name="LinesRed">merah</string>
+  <string name="LinesOrange">Orange</string>
+  <string name="LinesLightOrange">cahaya oranye</string>
+  <string name="LinesLightGreen">hijau</string>
+  <string name="LinesLightBlue">biru muda</string>
+  <string name="LinesGreen">hijau</string>
+  <string name="LinesDarkOrange">oranye tua</string>
+  <string name="LinesDarkGreen">hijau gelap</string>
+  <string name="LinesBlue">biru</string>
 </resources>

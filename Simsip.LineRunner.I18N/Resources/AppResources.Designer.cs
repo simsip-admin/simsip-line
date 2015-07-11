@@ -737,6 +737,87 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to blue.
+        /// </summary>
+        public static string LinesBlue {
+            get {
+                return ResourceManager.GetString("LinesBlue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to dark green.
+        /// </summary>
+        public static string LinesDarkGreen {
+            get {
+                return ResourceManager.GetString("LinesDarkGreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to dark orange.
+        /// </summary>
+        public static string LinesDarkOrange {
+            get {
+                return ResourceManager.GetString("LinesDarkOrange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to green.
+        /// </summary>
+        public static string LinesGreen {
+            get {
+                return ResourceManager.GetString("LinesGreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to light blue.
+        /// </summary>
+        public static string LinesLightBlue {
+            get {
+                return ResourceManager.GetString("LinesLightBlue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to light green.
+        /// </summary>
+        public static string LinesLightGreen {
+            get {
+                return ResourceManager.GetString("LinesLightGreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to light orange.
+        /// </summary>
+        public static string LinesLightOrange {
+            get {
+                return ResourceManager.GetString("LinesLightOrange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to orange.
+        /// </summary>
+        public static string LinesOrange {
+            get {
+                return ResourceManager.GetString("LinesOrange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to red.
+        /// </summary>
+        public static string LinesRed {
+            get {
+                return ResourceManager.GetString("LinesRed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to switching lines.
         /// </summary>
         public static string LinesSwitchingLines {
@@ -967,6 +1048,24 @@ namespace Simsip.LineRunner.Resources {
         public static string PadsSwitchingPads {
             get {
                 return ResourceManager.GetString("PadsSwitchingPads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to white.
+        /// </summary>
+        public static string PadsWhite {
+            get {
+                return ResourceManager.GetString("PadsWhite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yellow.
+        /// </summary>
+        public static string PadsYellow {
+            get {
+                return ResourceManager.GetString("PadsYellow", resourceCulture);
             }
         }
         

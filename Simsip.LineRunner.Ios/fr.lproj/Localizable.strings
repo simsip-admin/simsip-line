@@ -133,3 +133,14 @@
 "StartRunner"="canal d\'injection";
 "StartLine"="Ligne";
 "Start3D"="3D";
+"PadsYellow"="jaune";
+"PadsWhite"="blanc";
+"LinesRed"="rouge";
+"LinesOrange"="orange";
+"LinesLightOrange"="orange clair";
+"LinesLightGreen"="vert clair";
+"LinesLightBlue"="bleu clair";
+"LinesGreen"="vert";
+"LinesDarkOrange"="orange foncé";
+"LinesDarkGreen"="vert foncé";
+"LinesBlue"="bleu";

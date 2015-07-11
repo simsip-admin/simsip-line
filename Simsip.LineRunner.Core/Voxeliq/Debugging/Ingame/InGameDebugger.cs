@@ -79,7 +79,7 @@ namespace Engine.Debugging.Ingame
             this._chunkStorage = (IChunkStorage) this.Game.Services.GetService(typeof (IChunkStorage));
             this._assetManager = (IAssetManager)this.Game.Services.GetService(typeof(IAssetManager));
 
-            this._spriteFont = this._assetManager.GetFont(Asset.VerdanaFont);
+            this._spriteFont = this._assetManager.GetFont();
             this._spriteBatch = new SpriteBatch(Game.GraphicsDevice);
         }
 

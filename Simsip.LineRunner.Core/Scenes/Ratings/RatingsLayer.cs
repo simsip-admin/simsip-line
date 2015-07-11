@@ -58,6 +58,7 @@ namespace Simsip.LineRunner.Scenes.Ratings
             ratingsTitleText = AppResources.RatingsRateUs;
 #endif
             var ratingsTitle = new CCLabelTTF(ratingsTitleText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            ratingsTitle.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             ratingsTitle.AnchorPoint = CCPoint.AnchorMiddleLeft;
             ratingsTitle.Position = new CCPoint(
                 0.05f * this.ContentSize.Width,

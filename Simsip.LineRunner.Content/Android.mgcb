@@ -15,96 +15,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Content/Fonts/arial-12.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Content/Fonts/arial-12.spritefont
-
-#begin Content/Fonts/arial-24.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Content/Fonts/arial-24.spritefont
-
-#begin Content/Fonts/arial-38.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Content/Fonts/arial-38.spritefont
-
-#begin Content/Fonts/arial-64.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Content/Fonts/arial-64.spritefont
-
-#begin Content/Fonts/arial-16.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Content/Fonts/arial-16.spritefont
-
-#begin Content/Fonts/arial-18.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Content/Fonts/arial-18.spritefont
-
-#begin Content/Fonts/arial-20.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Content/Fonts/arial-20.spritefont
-
-#begin Content/Fonts/arial-22.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Content/Fonts/arial-22.spritefont
-
-#begin Content/Fonts/arial-26.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Content/Fonts/arial-26.spritefont
-
-#begin Content/Fonts/arial-28.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Content/Fonts/arial-28.spritefont
-
-#begin Content/Fonts/arial-30.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Content/Fonts/arial-30.spritefont
-
-#begin Content/Fonts/arial-32.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Content/Fonts/arial-32.spritefont
-
-#begin Content/Fonts/arial-34.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Content/Fonts/arial-34.spritefont
-
-#begin Content/Fonts/arial-50.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Content/Fonts/arial-50.spritefont
-
-#begin Content/Fonts/Schwarzwald Regular-26.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Content/Fonts/Schwarzwald Regular-26.spritefont
-
 #begin Content/Sounds/sfx_die.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
@@ -134,12 +44,6 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Content/Sounds/sfx_wing.mp3
-
-#begin Content/Fonts/Verdana.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Content/Fonts/Verdana.spritefont
 
 #begin Content/ResourcePacks/Default/Terrain.png
 /importer:TextureImporter
@@ -5744,4 +5648,10 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
 /build:Content/Images/Misc/Logo2.png
+
+#begin Content/Fonts/arial-core-8.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Content/Fonts/arial-core-8.spritefont
 

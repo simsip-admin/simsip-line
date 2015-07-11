@@ -133,3 +133,14 @@
 "StartRunner"="бегун";
 "StartLine"="Линейный";
 "Start3D"="Объемный";
+"PadsYellow"="желтый";
+"PadsWhite"="белый";
+"LinesRed"="красный";
+"LinesOrange"="оранжевый";
+"LinesLightOrange"="Светло-оранжевый";
+"LinesLightGreen"="светло-зеленый";
+"LinesLightBlue"="светло-синий";
+"LinesGreen"="green";
+"LinesDarkOrange"="Темно-оранжевый";
+"LinesDarkGreen"="Темно-зеленый";
+"LinesBlue"="синий";

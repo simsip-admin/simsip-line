@@ -198,7 +198,7 @@
     <value>トラックボール</value>
   </data>
   <data name="HudTime" xml:space="preserve">
-    <value>time</value>
+    <value>時間</value>
   </data>
   <data name="HudHome" xml:space="preserve">
     <value>ホーム</value>
@@ -276,7 +276,7 @@
     <value>ブーム!</value>
   </data>
   <data name="MessageBoxMovingToPage2" xml:space="preserve">
-    <value>なら awesome!</value>
+    <value>素晴らしいなります。</value>
   </data>
   <data name="MessageBoxMovingToPage" xml:space="preserve">
     <value>ページへ移動</value>
@@ -288,10 +288,10 @@
     <value>スコア</value>
   </data>
   <data name="AchievementsColumnDate" xml:space="preserve">
-    <value>date</value>
+    <value>日付</value>
   </data>
   <data name="AchievementsColumnTime" xml:space="preserve">
-    <value>time</value>
+    <value>時間</value>
   </data>
   <data name="UpgradesRestoreError" xml:space="preserve">
     <value>アップグレードの復元エラー</value>
@@ -523,5 +523,38 @@
   </data>
   <data name="Start3D" xml:space="preserve">
     <value>3D</value>
+  </data>
+  <data name="PadsYellow" xml:space="preserve">
+    <value>イエロー</value>
+  </data>
+  <data name="PadsWhite" xml:space="preserve">
+    <value>ホワイト</value>
+  </data>
+  <data name="LinesRed" xml:space="preserve">
+    <value>赤い</value>
+  </data>
+  <data name="LinesOrange" xml:space="preserve">
+    <value>オレンジ</value>
+  </data>
+  <data name="LinesLightOrange" xml:space="preserve">
+    <value>薄いオレンジ</value>
+  </data>
+  <data name="LinesLightGreen" xml:space="preserve">
+    <value>明るい緑</value>
+  </data>
+  <data name="LinesLightBlue" xml:space="preserve">
+    <value>水色</value>
+  </data>
+  <data name="LinesGreen" xml:space="preserve">
+    <value>緑</value>
+  </data>
+  <data name="LinesDarkOrange" xml:space="preserve">
+    <value>濃いオレンジ</value>
+  </data>
+  <data name="LinesDarkGreen" xml:space="preserve">
+    <value>濃い緑</value>
+  </data>
+  <data name="LinesBlue" xml:space="preserve">
+    <value>青</value>
   </data>
 </root>

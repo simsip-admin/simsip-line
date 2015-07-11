@@ -90,6 +90,7 @@ namespace Simsip.LineRunner.Scenes.Worlds
             worldsText = AppResources.WorldsWorlds;
 #endif
             var title = new CCLabelTTF(worldsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            title.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             title.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.9f * this.ContentSize.Height);

@@ -133,3 +133,14 @@
 "StartRunner"="Runner";
 "StartLine"="Linia";
 "Start3D"="3W";
+"PadsYellow"="żółty";
+"PadsWhite"="biały";
+"LinesRed"="czerw.";
+"LinesOrange"="fiolet";
+"LinesLightOrange"="pomarańczowe światła";
+"LinesLightGreen"="zielone światło";
+"LinesLightBlue"="Jasnoniebieski";
+"LinesGreen"="zielony";
+"LinesDarkOrange"="ciemny kolor pomarańczowy";
+"LinesDarkGreen"="Kolor Ciemnozielony";
+"LinesBlue"="sina";

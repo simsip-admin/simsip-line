@@ -199,6 +199,50 @@
           <source>runner</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">бегун</target>
         </trans-unit>
+        <trans-unit id="Resx/PadsYellow" translate="yes" xml:space="preserve">
+          <source>yellow</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">желтый</target>
+        </trans-unit>
+        <trans-unit id="Resx/PadsWhite" translate="yes" xml:space="preserve">
+          <source>white</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">белый</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesRed" translate="yes" xml:space="preserve">
+          <source>red</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">красный</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesOrange" translate="yes" xml:space="preserve">
+          <source>orange</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">оранжевый</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesLightOrange" translate="yes" xml:space="preserve">
+          <source>light orange</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Светло-оранжевый</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesLightGreen" translate="yes" xml:space="preserve">
+          <source>light green</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">светло-зеленый</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesLightBlue" translate="yes" xml:space="preserve">
+          <source>light blue</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">светло-синий</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesGreen" translate="yes" xml:space="preserve">
+          <source>green</source>
+          <target state="translated" state-qualifier="tm-suggestion">green</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesDarkOrange" translate="yes" xml:space="preserve">
+          <source>dark orange</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Темно-оранжевый</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesDarkGreen" translate="yes" xml:space="preserve">
+          <source>dark green</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Темно-зеленый</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesBlue" translate="yes" xml:space="preserve">
+          <source>blue</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">синий</target>
+        </trans-unit>
         <trans-unit id="Resx/StartLine" translate="yes" xml:space="preserve">
           <source>Line</source>
           <target state="translated" state-qualifier="tm-suggestion">Линейный</target>

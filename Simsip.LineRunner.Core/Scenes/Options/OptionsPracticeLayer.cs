@@ -70,6 +70,7 @@ namespace Simsip.LineRunner.Scenes.Options
             practiceText = AppResources.OptionsPractice;
 #endif
             var practiceLabel = new CCLabelTTF(practiceText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            practiceLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             practiceLabel.AnchorPoint = CCPoint.AnchorMiddle;
             practiceLabel.Color = CCColor3B.Blue;
             practiceLabel.Position = new CCPoint(
@@ -87,6 +88,7 @@ namespace Simsip.LineRunner.Scenes.Options
             startPageText = AppResources.OptionsPracticeStartPage;
 #endif
             var startPageLabel = new CCLabelTTF(startPageText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            startPageLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             startPageLabel.AnchorPoint = CCPoint.AnchorMiddle;
             startPageLabel.Rotation = -90;
             startPageLabel.Position = new CCPoint(
@@ -145,6 +147,7 @@ namespace Simsip.LineRunner.Scenes.Options
             startLineText = AppResources.OptionsPracticeStartLine;
 #endif
             var startLineLabel = new CCLabelTTF(startLineText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            startLineLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             startLineLabel.AnchorPoint = CCPoint.AnchorMiddle;
             startLineLabel.Rotation = -90;
             startLineLabel.Position = new CCPoint(

@@ -55,8 +55,7 @@ namespace Simsip.LineRunner
 
             // TODO: Which fonts do we want to pre-register?
             CCSpriteFontCache.FontRoot = "Fonts";
-            CCSpriteFontCache.RegisterFont("arial", 12, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 38, 50, 64);
-            CCSpriteFontCache.RegisterFont("Schwarzwald Regular", 26);
+            CCSpriteFontCache.RegisterFont("arial-unicode", 18, 24, 32, 50);
 
             CCDrawManager.SetDesignResolutionSize(DESIGN_WIDTH,
                                                   DESIGN_HEIGHT,

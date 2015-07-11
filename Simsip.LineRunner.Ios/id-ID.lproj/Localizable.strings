@@ -133,3 +133,14 @@
 "StartRunner"="pelari";
 "StartLine"="Garis";
 "Start3D"="3D";
+"PadsYellow"="kuning";
+"PadsWhite"="putih";
+"LinesRed"="merah";
+"LinesOrange"="Orange";
+"LinesLightOrange"="cahaya oranye";
+"LinesLightGreen"="hijau";
+"LinesLightBlue"="biru muda";
+"LinesGreen"="hijau";
+"LinesDarkOrange"="oranye tua";
+"LinesDarkGreen"="hijau gelap";
+"LinesBlue"="biru";

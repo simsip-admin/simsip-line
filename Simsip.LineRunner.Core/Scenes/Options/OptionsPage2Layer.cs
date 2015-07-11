@@ -54,6 +54,7 @@ namespace Simsip.LineRunner.Scenes.Options
             linesText = AppResources.OptionsLines;
 #endif
             var linesLabel = new CCLabelTTF(linesText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            linesLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             var linesButton = new CCMenuItemLabel(linesLabel,
                                                  (obj) => { _parent.Navigate(LayerTags.LinesLayer); });
             var linesMenu = new CCMenu(

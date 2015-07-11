@@ -524,4 +524,37 @@
   <data name="Start3D" xml:space="preserve">
     <value>3डी</value>
   </data>
+  <data name="PadsYellow" xml:space="preserve">
+    <value>पीला</value>
+  </data>
+  <data name="PadsWhite" xml:space="preserve">
+    <value>सफ़ेद</value>
+  </data>
+  <data name="LinesRed" xml:space="preserve">
+    <value>red</value>
+  </data>
+  <data name="LinesOrange" xml:space="preserve">
+    <value>नारंगी</value>
+  </data>
+  <data name="LinesLightOrange" xml:space="preserve">
+    <value>हल्का नारंगी</value>
+  </data>
+  <data name="LinesLightGreen" xml:space="preserve">
+    <value>हल्का हरा</value>
+  </data>
+  <data name="LinesLightBlue" xml:space="preserve">
+    <value>हल्का नीला</value>
+  </data>
+  <data name="LinesGreen" xml:space="preserve">
+    <value>green</value>
+  </data>
+  <data name="LinesDarkOrange" xml:space="preserve">
+    <value>गहरा नारंगी</value>
+  </data>
+  <data name="LinesDarkGreen" xml:space="preserve">
+    <value>गहरा हरा</value>
+  </data>
+  <data name="LinesBlue" xml:space="preserve">
+    <value>नीला</value>
+  </data>
 </root>

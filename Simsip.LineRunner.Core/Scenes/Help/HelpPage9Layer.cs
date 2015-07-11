@@ -79,6 +79,7 @@ namespace Simsip.LineRunner.Scenes.Help
             upgradesText = AppResources.HelpUpgrades;
 #endif
             var upgradesSubtitle = new CCLabelTTF(upgradesText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            upgradesSubtitle.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             upgradesSubtitle.Color = CCColor3B.Blue;
             upgradesSubtitle.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
@@ -95,6 +96,7 @@ namespace Simsip.LineRunner.Scenes.Help
             practiceText = AppResources.HelpUpgradesPractice;
 #endif
             var practiceTitle = new CCLabelTTF(practiceText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            practiceTitle.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             practiceTitle.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.68f * this.ContentSize.Height);

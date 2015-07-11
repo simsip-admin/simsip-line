@@ -161,6 +161,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             practiceText = AppResources.UpgradesPractice;
 #endif
             var practiceTitle = new CCLabelTTF(practiceText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            practiceTitle.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             practiceTitle.Color = CCColor3B.Blue;
             practiceTitle.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,

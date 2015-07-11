@@ -524,4 +524,37 @@
   <data name="Start3D" xml:space="preserve">
     <value>三维</value>
   </data>
+  <data name="PadsYellow" xml:space="preserve">
+    <value>黄色</value>
+  </data>
+  <data name="PadsWhite" xml:space="preserve">
+    <value>白色</value>
+  </data>
+  <data name="LinesRed" xml:space="preserve">
+    <value>红色</value>
+  </data>
+  <data name="LinesOrange" xml:space="preserve">
+    <value>橙色</value>
+  </data>
+  <data name="LinesLightOrange" xml:space="preserve">
+    <value>浅橙色</value>
+  </data>
+  <data name="LinesLightGreen" xml:space="preserve">
+    <value>浅绿色</value>
+  </data>
+  <data name="LinesLightBlue" xml:space="preserve">
+    <value>浅蓝色</value>
+  </data>
+  <data name="LinesGreen" xml:space="preserve">
+    <value>绿色</value>
+  </data>
+  <data name="LinesDarkOrange" xml:space="preserve">
+    <value>深橙色</value>
+  </data>
+  <data name="LinesDarkGreen" xml:space="preserve">
+    <value>深绿色</value>
+  </data>
+  <data name="LinesBlue" xml:space="preserve">
+    <value>蓝色</value>
+  </data>
 </root>

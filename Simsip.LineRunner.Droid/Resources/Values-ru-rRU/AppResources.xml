@@ -135,4 +135,15 @@
   <string name="StartRunner">бегун</string>
   <string name="StartLine">Линейный</string>
   <string name="Start3D">Объемный</string>
+  <string name="PadsYellow">желтый</string>
+  <string name="PadsWhite">белый</string>
+  <string name="LinesRed">красный</string>
+  <string name="LinesOrange">оранжевый</string>
+  <string name="LinesLightOrange">Светло-оранжевый</string>
+  <string name="LinesLightGreen">светло-зеленый</string>
+  <string name="LinesLightBlue">светло-синий</string>
+  <string name="LinesGreen">green</string>
+  <string name="LinesDarkOrange">Темно-оранжевый</string>
+  <string name="LinesDarkGreen">Темно-зеленый</string>
+  <string name="LinesBlue">синий</string>
 </resources>

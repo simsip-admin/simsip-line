@@ -26,7 +26,7 @@
   <string name="HudSpeed">速度</string>
   <string name="HudPaused">一時停止</string>
   <string name="HudTrackball">トラックボール</string>
-  <string name="HudTime">time</string>
+  <string name="HudTime">時間</string>
   <string name="HudHome">ホーム</string>
   <string name="AdminStartLineDescription">(1-17) で開始する行を入力します</string>
   <string name="HelpLicense">使用許諾契約書</string>
@@ -52,12 +52,12 @@
   <string name="MessageBoxMovingToPage5">火災!</string>
   <string name="MessageBoxMovingToPage4">誕生日!</string>
   <string name="MessageBoxMovingToPage3">ブーム!</string>
-  <string name="MessageBoxMovingToPage2">なら awesome!</string>
+  <string name="MessageBoxMovingToPage2">素晴らしいなります。</string>
   <string name="MessageBoxMovingToPage">ページへ移動</string>
   <string name="FinishWinner">勝者!</string>
   <string name="AchievementsColumnScore">スコア</string>
-  <string name="AchievementsColumnDate">date</string>
-  <string name="AchievementsColumnTime">time</string>
+  <string name="AchievementsColumnDate">日付</string>
+  <string name="AchievementsColumnTime">時間</string>
   <string name="UpgradesRestoreError">アップグレードの復元エラー</string>
   <string name="UpgradesPurchaseStatus">アップグレードを購入</string>
   <string name="UpgradesPurchaseError">購入アップグレードのエラー</string>
@@ -135,4 +135,15 @@
   <string name="StartRunner">ランナー</string>
   <string name="StartLine">折れ線</string>
   <string name="Start3D">3D</string>
+  <string name="PadsYellow">イエロー</string>
+  <string name="PadsWhite">ホワイト</string>
+  <string name="LinesRed">赤い</string>
+  <string name="LinesOrange">オレンジ</string>
+  <string name="LinesLightOrange">薄いオレンジ</string>
+  <string name="LinesLightGreen">明るい緑</string>
+  <string name="LinesLightBlue">水色</string>
+  <string name="LinesGreen">緑</string>
+  <string name="LinesDarkOrange">濃いオレンジ</string>
+  <string name="LinesDarkGreen">濃い緑</string>
+  <string name="LinesBlue">青</string>
 </resources>

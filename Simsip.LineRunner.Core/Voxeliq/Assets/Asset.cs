@@ -70,13 +70,6 @@ namespace Engine.Assets
                 GameConstants.USER_DEFAULT_INITIAL_CURRENT_RESOURCE_PACK) +
             @"/Terrain";
 
-        // Fonts are identified by a string that represents the full path (location + texture name)
-        // of the texture to load.
-        // IMPORTANT: Note how font path is the location of the font without
-        // the "Content" directory prefix
-        // TODO: When comfortable with textures, categorize as models are done
-        public const string VerdanaFont = @"Fonts/Verdana";
-
         // Sounds are identified by a string that represents the filename of the sound file to load.
         public const string SoundHeroDieing = "sfx_die.mp3";
         public const string SoundHeroHitting = "sfx_hit.mp3";

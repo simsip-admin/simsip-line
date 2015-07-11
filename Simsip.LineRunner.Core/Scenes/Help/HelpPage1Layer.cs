@@ -39,6 +39,7 @@ namespace Simsip.LineRunner.Scenes.Help
             helpStartDescriptionText = AppResources.HelpStartDescription;
 #endif
             var startButtonDescription = new CCLabelTTF(helpStartDescriptionText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            startButtonDescription.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             startButtonDescription.AnchorPoint = CCPoint.AnchorMiddleLeft;
             startButtonDescription.Position = new CCPoint(
                 0.4f  * this.ContentSize.Width, 
@@ -61,6 +62,7 @@ namespace Simsip.LineRunner.Scenes.Help
             helpRatingsDescriptionText = AppResources.HelpRatingsDescription;
 #endif
             var ratingsButtonDescription = new CCLabelTTF(helpRatingsDescriptionText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            ratingsButtonDescription.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             ratingsButtonDescription.AnchorPoint = CCPoint.AnchorMiddleLeft;
             ratingsButtonDescription.Position = new CCPoint(
                 0.4f  * this.ContentSize.Width,

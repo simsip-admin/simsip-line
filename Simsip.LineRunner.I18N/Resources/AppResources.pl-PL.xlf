@@ -200,6 +200,50 @@
           <source>runner</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">Runner</target>
         </trans-unit>
+        <trans-unit id="Resx/PadsYellow" translate="yes" xml:space="preserve">
+          <source>yellow</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">żółty</target>
+        </trans-unit>
+        <trans-unit id="Resx/PadsWhite" translate="yes" xml:space="preserve">
+          <source>white</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">biały</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesRed" translate="yes" xml:space="preserve">
+          <source>red</source>
+          <target state="translated" state-qualifier="tm-suggestion">czerw.</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesOrange" translate="yes" xml:space="preserve">
+          <source>orange</source>
+          <target state="translated" state-qualifier="tm-suggestion">fiolet</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesLightOrange" translate="yes" xml:space="preserve">
+          <source>light orange</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">pomarańczowe światła</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesLightGreen" translate="yes" xml:space="preserve">
+          <source>light green</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">zielone światło</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesLightBlue" translate="yes" xml:space="preserve">
+          <source>light blue</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Jasnoniebieski</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesGreen" translate="yes" xml:space="preserve">
+          <source>green</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">zielony</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesDarkOrange" translate="yes" xml:space="preserve">
+          <source>dark orange</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">ciemny kolor pomarańczowy</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesDarkGreen" translate="yes" xml:space="preserve">
+          <source>dark green</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Kolor Ciemnozielony</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesBlue" translate="yes" xml:space="preserve">
+          <source>blue</source>
+          <target state="translated" state-qualifier="tm-suggestion">sina</target>
+        </trans-unit>
         <trans-unit id="Resx/StartLine" translate="yes" xml:space="preserve">
           <source>Line</source>
           <target state="translated" state-qualifier="tm-suggestion">Linia</target>

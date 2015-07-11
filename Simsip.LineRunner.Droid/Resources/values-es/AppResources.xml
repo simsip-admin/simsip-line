@@ -135,4 +135,15 @@
   <string name="StartRunner">canal de moldeo</string>
   <string name="StartLine">Línea</string>
   <string name="Start3D">3D</string>
+  <string name="PadsYellow">amarillo</string>
+  <string name="PadsWhite">blanco</string>
+  <string name="LinesRed">rojo</string>
+  <string name="LinesOrange">naranja</string>
+  <string name="LinesLightOrange">Naranja claro</string>
+  <string name="LinesLightGreen">verde claro</string>
+  <string name="LinesLightBlue">azul claro</string>
+  <string name="LinesGreen">verde</string>
+  <string name="LinesDarkOrange">Naranja oscuro</string>
+  <string name="LinesDarkGreen">verde oscuro</string>
+  <string name="LinesBlue">azul</string>
 </resources>

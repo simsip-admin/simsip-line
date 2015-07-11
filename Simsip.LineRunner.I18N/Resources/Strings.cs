@@ -137,5 +137,16 @@
         public static string Start3D = "Start3D";
         public static string StartLine = "StartLine";
         public static string StartRunner = "StartRunner";
+        public static string LinesBlue = "LinesBlue";
+        public static string LinesDarkGreen = "LinesDarkGreen";
+        public static string LinesDarkOrange = "LinesDarkOrange";
+        public static string LinesGreen = "LinesGreen";
+        public static string LinesLightBlue = "LinesLightBlue";
+        public static string LinesLightGreen = "LinesLightGreen";
+        public static string LinesLightOrange = "LinesLightOrange";
+        public static string LinesOrange = "LinesOrange";
+        public static string LinesRed = "LinesRed";
+        public static string PadsWhite = "PadsWhite";
+        public static string PadsYellow = "PadsYellow";
     }
 }

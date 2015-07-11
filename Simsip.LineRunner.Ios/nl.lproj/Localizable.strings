@@ -133,3 +133,14 @@
 "StartRunner"="runner";
 "StartLine"="Regel";
 "Start3D"="3D";
+"PadsYellow"="geel";
+"PadsWhite"="wit";
+"LinesRed"="rood";
+"LinesOrange"="oranje";
+"LinesLightOrange"="Lichtoranje";
+"LinesLightGreen"="licht groen";
+"LinesLightBlue"="lichtblauw";
+"LinesGreen"="groen";
+"LinesDarkOrange"="Oranjerood";
+"LinesDarkGreen"="Donkergroen";
+"LinesBlue"="blauw";

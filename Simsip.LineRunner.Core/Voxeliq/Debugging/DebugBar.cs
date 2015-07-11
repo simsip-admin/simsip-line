@@ -132,7 +132,7 @@ namespace Engine.Debugging
             this._localProjection = Matrix.CreateOrthographicOffCenter(0f, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height, 0f, 0f, 1f);
             this._localView = Matrix.Identity;
             this._spriteBatch = new SpriteBatch(GraphicsDevice);
-            this._spriteFont = this._assetManager.GetFont(Asset.VerdanaFont);
+            this._spriteFont = this._assetManager.GetFont();
 
             // Init bounds.
             this._bounds = new Rectangle(10, 10, this.Game.GraphicsDevice.Viewport.Bounds.Width - 20, 20);

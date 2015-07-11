@@ -58,10 +58,9 @@ namespace Simsip.LineRunner
             // Set FPS. the default value is 1.0/60 if you don't call this
             pDirector.AnimationInterval = 1.0 / 60;
 
-            // TODO: Which fonts do we want to pre-register?
+            // Preregister fonts
             CCSpriteFontCache.FontRoot = "Fonts";
-            CCSpriteFontCache.RegisterFont("arial", 12, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 38, 50, 64);
-            CCSpriteFontCache.RegisterFont("Schwarzwald Regular", 26);
+            CCSpriteFontCache.RegisterFont("arial-unicode", 18, 24, 32, 50);
 
             CCDrawManager.SetDesignResolutionSize(DESIGN_WIDTH,
                                                   DESIGN_HEIGHT,

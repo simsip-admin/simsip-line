@@ -133,3 +133,14 @@
 "StartRunner"="Runner";
 "StartLine"="Riga";
 "Start3D"="3D";
+"PadsYellow"="giallo";
+"PadsWhite"="bianco";
+"LinesRed"="rosso";
+"LinesOrange"="arancione";
+"LinesLightOrange"="arancione chiaro";
+"LinesLightGreen"="verde chiaro";
+"LinesLightBlue"="blu chiaro";
+"LinesGreen"="verde";
+"LinesDarkOrange"="Arancione scuro";
+"LinesDarkGreen"="verde scuro";
+"LinesBlue"="blu";

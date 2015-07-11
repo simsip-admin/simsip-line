@@ -135,4 +135,15 @@
   <string name="StartRunner">रनर</string>
   <string name="StartLine">रेखा</string>
   <string name="Start3D">3डी</string>
+  <string name="PadsYellow">पीला</string>
+  <string name="PadsWhite">सफ़ेद</string>
+  <string name="LinesRed">red</string>
+  <string name="LinesOrange">नारंगी</string>
+  <string name="LinesLightOrange">हल्का नारंगी</string>
+  <string name="LinesLightGreen">हल्का हरा</string>
+  <string name="LinesLightBlue">हल्का नीला</string>
+  <string name="LinesGreen">green</string>
+  <string name="LinesDarkOrange">गहरा नारंगी</string>
+  <string name="LinesDarkGreen">गहरा हरा</string>
+  <string name="LinesBlue">नीला</string>
 </resources>

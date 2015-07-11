@@ -135,4 +135,15 @@
   <string name="StartRunner">Runner</string>
   <string name="StartLine">Linia</string>
   <string name="Start3D">3W</string>
+  <string name="PadsYellow">żółty</string>
+  <string name="PadsWhite">biały</string>
+  <string name="LinesRed">czerw.</string>
+  <string name="LinesOrange">fiolet</string>
+  <string name="LinesLightOrange">pomarańczowe światła</string>
+  <string name="LinesLightGreen">zielone światło</string>
+  <string name="LinesLightBlue">Jasnoniebieski</string>
+  <string name="LinesGreen">zielony</string>
+  <string name="LinesDarkOrange">ciemny kolor pomarańczowy</string>
+  <string name="LinesDarkGreen">Kolor Ciemnozielony</string>
+  <string name="LinesBlue">sina</string>
 </resources>

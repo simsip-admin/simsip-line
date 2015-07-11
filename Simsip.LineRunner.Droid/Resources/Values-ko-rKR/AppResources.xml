@@ -135,4 +135,15 @@
   <string name="StartRunner">러너</string>
   <string name="StartLine">꺾은선형</string>
   <string name="Start3D">3D</string>
+  <string name="PadsYellow">노랑</string>
+  <string name="PadsWhite">흰색</string>
+  <string name="LinesRed">빨강</string>
+  <string name="LinesOrange">주황</string>
+  <string name="LinesLightOrange">연한 주황</string>
+  <string name="LinesLightGreen">연한 녹색</string>
+  <string name="LinesLightBlue">연한 파랑</string>
+  <string name="LinesGreen">녹색</string>
+  <string name="LinesDarkOrange">진한 주황</string>
+  <string name="LinesDarkGreen">진한 녹색</string>
+  <string name="LinesBlue">파랑</string>
 </resources>

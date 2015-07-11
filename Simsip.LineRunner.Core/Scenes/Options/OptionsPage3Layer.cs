@@ -68,6 +68,7 @@ namespace Simsip.LineRunner.Scenes.Options
             soundOnText = AppResources.OptionsSoundOn;
 #endif
             var soundOnLabel = new CCLabelTTF(soundOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            soundOnLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             var soundOnItem = new CCMenuItemLabel(soundOnLabel);
 
             var soundOffText = string.Empty;
@@ -79,6 +80,7 @@ namespace Simsip.LineRunner.Scenes.Options
             soundOffText = AppResources.OptionsSoundOff;
 #endif
             var soundOffLabel = new CCLabelTTF(soundOffText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            soundOffLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             var soundOffItem = new CCMenuItemLabel(soundOffLabel);
 
             this._soundLabelToggle =
@@ -124,6 +126,7 @@ namespace Simsip.LineRunner.Scenes.Options
             leaderboardsText = AppResources.OptionsLeaderboards;
 #endif
             var leaderboardLabel = new CCLabelTTF(leaderboardsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            leaderboardLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             var leaderboardItem = new CCMenuItemLabel(leaderboardLabel,
                                         (obj) => { _parent.Navigate(LayerTags.AchievementsLayer); });
             var leaderboardLabelMenu = new CCMenu(
@@ -159,6 +162,7 @@ namespace Simsip.LineRunner.Scenes.Options
             creditsText = AppResources.OptionsCredits;
 #endif
             var creditsLabel = new CCLabelTTF(creditsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            creditsLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             var creditsItem = new CCMenuItemLabel(creditsLabel,
                                         (obj) => { _parent.Navigate(LayerTags.CreditsMasterLayer); });
             var creditsLabelMenu = new CCMenu(

@@ -114,7 +114,7 @@
         </trans-unit>
         <trans-unit id="Resx/HudTime" translate="yes" xml:space="preserve">
           <source>time</source>
-          <target state="translated" state-qualifier="tm-suggestion">time</target>
+          <target state="translated">時間</target>
         </trans-unit>
         <trans-unit id="Resx/HudHome" translate="yes" xml:space="preserve">
           <source>home</source>
@@ -200,6 +200,50 @@
           <source>runner</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">ランナー</target>
         </trans-unit>
+        <trans-unit id="Resx/PadsYellow" translate="yes" xml:space="preserve">
+          <source>yellow</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">イエロー</target>
+        </trans-unit>
+        <trans-unit id="Resx/PadsWhite" translate="yes" xml:space="preserve">
+          <source>white</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">ホワイト</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesRed" translate="yes" xml:space="preserve">
+          <source>red</source>
+          <target state="translated" state-qualifier="tm-suggestion">赤い</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesOrange" translate="yes" xml:space="preserve">
+          <source>orange</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">オレンジ</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesLightOrange" translate="yes" xml:space="preserve">
+          <source>light orange</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">薄いオレンジ</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesLightGreen" translate="yes" xml:space="preserve">
+          <source>light green</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">明るい緑</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesLightBlue" translate="yes" xml:space="preserve">
+          <source>light blue</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">水色</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesGreen" translate="yes" xml:space="preserve">
+          <source>green</source>
+          <target state="translated">緑</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesDarkOrange" translate="yes" xml:space="preserve">
+          <source>dark orange</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">濃いオレンジ</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesDarkGreen" translate="yes" xml:space="preserve">
+          <source>dark green</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">濃い緑</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesBlue" translate="yes" xml:space="preserve">
+          <source>blue</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">青</target>
+        </trans-unit>
         <trans-unit id="Resx/StartLine" translate="yes" xml:space="preserve">
           <source>Line</source>
           <target state="translated" state-qualifier="tm-suggestion">折れ線</target>
@@ -230,7 +274,7 @@
         </trans-unit>
         <trans-unit id="Resx/MessageBoxMovingToPage2" translate="yes" xml:space="preserve">
           <source>you're awesome!</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">なら awesome!</target>
+          <target state="translated">素晴らしいなります。</target>
         </trans-unit>
         <trans-unit id="Resx/MessageBoxMovingToPage" translate="yes" xml:space="preserve">
           <source>moving to page</source>
@@ -246,11 +290,11 @@
         </trans-unit>
         <trans-unit id="Resx/AchievementsColumnDate" translate="yes" xml:space="preserve">
           <source>date</source>
-          <target state="translated" state-qualifier="tm-suggestion">date</target>
+          <target state="translated">日付</target>
         </trans-unit>
         <trans-unit id="Resx/AchievementsColumnTime" translate="yes" xml:space="preserve">
           <source>time</source>
-          <target state="translated" state-qualifier="tm-suggestion">time</target>
+          <target state="translated">時間</target>
         </trans-unit>
         <trans-unit id="Resx/UpgradesRestoreError" translate="yes" xml:space="preserve">
           <source>error restoring upgrade</source>

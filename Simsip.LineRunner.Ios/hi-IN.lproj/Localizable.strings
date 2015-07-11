@@ -133,3 +133,14 @@
 "StartRunner"="रनर";
 "StartLine"="रेखा";
 "Start3D"="3डी";
+"PadsYellow"="पीला";
+"PadsWhite"="सफ़ेद";
+"LinesRed"="red";
+"LinesOrange"="नारंगी";
+"LinesLightOrange"="हल्का नारंगी";
+"LinesLightGreen"="हल्का हरा";
+"LinesLightBlue"="हल्का नीला";
+"LinesGreen"="green";
+"LinesDarkOrange"="गहरा नारंगी";
+"LinesDarkGreen"="गहरा हरा";
+"LinesBlue"="नीला";

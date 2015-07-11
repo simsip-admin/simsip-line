@@ -275,7 +275,7 @@ namespace Engine.Debugging.Timing
             this.texture = new Texture2D(this.Game.GraphicsDevice, 1, 1);
             Color[] whitePixels = new Color[] { Color.White };
             texture.SetData<Color>(whitePixels);
-            this.debugFont = this._assetManager.GetFont(Asset.VerdanaFont);
+            this.debugFont = this._assetManager.GetFont();
 
             // Initialize Parameters.
             logs = new FrameLog[2];

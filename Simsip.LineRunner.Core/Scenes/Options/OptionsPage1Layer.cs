@@ -58,6 +58,7 @@ namespace Simsip.LineRunner.Scenes.Options
             padsText = AppResources.OptionsPads;
 #endif
             var padsLabel = new CCLabelTTF(padsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            padsLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             var padsButton = new CCMenuItemLabel(padsLabel,
                                                  (obj) => { _parent.Navigate(LayerTags.PadsLayer); });
             var padsMenu = new CCMenu(

@@ -135,4 +135,15 @@
   <string name="StartRunner">Runner</string>
   <string name="StartLine">Riga</string>
   <string name="Start3D">3D</string>
+  <string name="PadsYellow">giallo</string>
+  <string name="PadsWhite">bianco</string>
+  <string name="LinesRed">rosso</string>
+  <string name="LinesOrange">arancione</string>
+  <string name="LinesLightOrange">arancione chiaro</string>
+  <string name="LinesLightGreen">verde chiaro</string>
+  <string name="LinesLightBlue">blu chiaro</string>
+  <string name="LinesGreen">verde</string>
+  <string name="LinesDarkOrange">Arancione scuro</string>
+  <string name="LinesDarkGreen">verde scuro</string>
+  <string name="LinesBlue">blu</string>
 </resources>

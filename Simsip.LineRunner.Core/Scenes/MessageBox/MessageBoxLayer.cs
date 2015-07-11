@@ -74,11 +74,13 @@ namespace Simsip.LineRunner.Scenes.MessageBox
 
             // Title
             this._title = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            this._title.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             this._title.Tag = this._staticTag;
             this.AddChild(this._title);
 
             // Description
             this._description = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            this._description.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             this._description.Tag = this._staticTag;
             this.AddChild(this._description);
 

@@ -133,3 +133,14 @@
 "StartRunner"="运行程序";
 "StartLine"="线条";
 "Start3D"="三维";
+"PadsYellow"="黄色";
+"PadsWhite"="白色";
+"LinesRed"="红色";
+"LinesOrange"="橙色";
+"LinesLightOrange"="浅橙色";
+"LinesLightGreen"="浅绿色";
+"LinesLightBlue"="浅蓝色";
+"LinesGreen"="绿色";
+"LinesDarkOrange"="深橙色";
+"LinesDarkGreen"="深绿色";
+"LinesBlue"="蓝色";

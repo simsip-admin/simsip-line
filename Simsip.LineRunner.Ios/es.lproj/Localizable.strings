@@ -133,3 +133,14 @@
 "StartRunner"="canal de moldeo";
 "StartLine"="Línea";
 "Start3D"="3D";
+"PadsYellow"="amarillo";
+"PadsWhite"="blanco";
+"LinesRed"="rojo";
+"LinesOrange"="naranja";
+"LinesLightOrange"="Naranja claro";
+"LinesLightGreen"="verde claro";
+"LinesLightBlue"="azul claro";
+"LinesGreen"="verde";
+"LinesDarkOrange"="Naranja oscuro";
+"LinesDarkGreen"="verde oscuro";
+"LinesBlue"="azul";

@@ -129,6 +129,7 @@ namespace Simsip.LineRunner.Scenes.Credits
             creditsText = AppResources.CreditsTitle;
 #endif
             var creditsTitle = new CCLabelTTF(creditsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            creditsTitle.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             creditsTitle.AnchorPoint = CCPoint.AnchorMiddleLeft;
             creditsTitle.Position = new CCPoint(
                 0.05f * this.ContentSize.Width,

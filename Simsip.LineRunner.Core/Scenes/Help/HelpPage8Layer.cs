@@ -32,6 +32,7 @@ namespace Simsip.LineRunner.Scenes.Help
             optionsText = AppResources.HelpOptions;
 #endif
             var optionsSubtitle = new CCLabelTTF(optionsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            optionsSubtitle.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             optionsSubtitle.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.75f * this.ContentSize.Height);

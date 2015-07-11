@@ -69,6 +69,29 @@ namespace Simsip.LineRunner.Scenes.Pads
                 new CCSequence(new CCFiniteTimeAction[] { layerMoveOutAction, layerNavigateAction })
             );
 
+            // Setup strings
+            var yellowText = string.Empty;
+#if ANDROID
+            yellowText = Program.SharedProgram.Resources.GetString(Resource.String.PadsYellow);
+#elif IOS
+            yellowText = NSBundle.MainBundle.LocalizedString(Strings.PadsYellow, Strings.PadsYellow);
+#else
+            yellowText = AppResources.PadsYellow;
+#endif
+            var whiteText = string.Empty;
+#if ANDROID
+            whiteText = Program.SharedProgram.Resources.GetString(Resource.String.PadsWhite);
+#elif IOS
+            whiteText = NSBundle.MainBundle.LocalizedString(Strings.PadsWhite, Strings.PadsWhite);
+#else
+            whiteText = AppResources.PadsWhite;
+#endif
+
+            // Setup dictionary to lookup strings
+            var padDisplayNames = new Dictionary<string, string>();
+            padDisplayNames.Add("yellow", yellowText);
+            padDisplayNames.Add("white", whiteText);
+
             // Pads menu
             this._padBoundingBoxes = new List<CCRect>();
             this._padRepository = new PadRepository();
@@ -88,7 +111,7 @@ namespace Simsip.LineRunner.Scenes.Pads
 
                 this._padBoundingBoxes.Add(padImage.WorldBoundingBox);
 
-                var padLabel = new CCLabelTTF(pad.DisplayName, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                var padLabel = new CCLabelTTF(padDisplayNames[pad.DisplayName], GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
                 var padsButton = new CCMenuItemLabel(padLabel,
                                                      (obj) => { PadSelected(pad); });
                 var labelMenu = new CCMenu();

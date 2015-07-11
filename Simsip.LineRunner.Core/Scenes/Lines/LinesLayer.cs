@@ -69,6 +69,92 @@ namespace Simsip.LineRunner.Scenes.Lines
                 new CCSequence(new CCFiniteTimeAction[] { layerMoveOutAction, layerNavigateAction })
             );
 
+            // Setup strings
+            var blueText = string.Empty;
+#if ANDROID
+            blueText = Program.SharedProgram.Resources.GetString(Resource.String.LinesBlue);
+#elif IOS
+            blueText = NSBundle.MainBundle.LocalizedString(Strings.LinesBlue, Strings.LinesBlue);
+#else
+            blueText = AppResources.LinesBlue;
+#endif
+            var lightBlueText = string.Empty;
+#if ANDROID
+            lightBlueText = Program.SharedProgram.Resources.GetString(Resource.String.LinesLightBlue);
+#elif IOS
+            lightBlueText = NSBundle.MainBundle.LocalizedString(Strings.LinesLightBlue, Strings.LinesLightBlue);
+#else
+            lightBlueText = AppResources.LinesLightBlue;
+#endif
+            var lightGreenText = string.Empty;
+#if ANDROID
+            lightGreenText = Program.SharedProgram.Resources.GetString(Resource.String.LinesLightGreen);
+#elif IOS
+            lightGreenText = NSBundle.MainBundle.LocalizedString(Strings.LinesLightGreen, Strings.LinesLightGreen);
+#else
+            lightGreenText = AppResources.LinesLightGreen;
+#endif
+            var greenText = string.Empty;
+#if ANDROID
+            greenText = Program.SharedProgram.Resources.GetString(Resource.String.LinesGreen);
+#elif IOS
+            greenText = NSBundle.MainBundle.LocalizedString(Strings.LinesGreen, Strings.LinesGreen);
+#else
+            greenText = AppResources.LinesGreen;
+#endif
+            var darkGreenText = string.Empty;
+#if ANDROID
+            darkGreenText = Program.SharedProgram.Resources.GetString(Resource.String.LinesDarkGreen);
+#elif IOS
+            darkGreenText = NSBundle.MainBundle.LocalizedString(Strings.LinesDarkGreen, Strings.LinesDarkGreen);
+#else
+            darkGreenText = AppResources.LinesDarkGreen;
+#endif
+            var orangeText = string.Empty;
+#if ANDROID
+            orangeText = Program.SharedProgram.Resources.GetString(Resource.String.LinesOrange);
+#elif IOS
+            orangeText = NSBundle.MainBundle.LocalizedString(Strings.LinesOrange, Strings.LinesOrange);
+#else
+            orangeText = AppResources.LinesOrange;
+#endif
+            var lightOrangeText = string.Empty;
+#if ANDROID
+            lightOrangeText = Program.SharedProgram.Resources.GetString(Resource.String.LinesLightOrange);
+#elif IOS
+            lightOrangeText = NSBundle.MainBundle.LocalizedString(Strings.LinesLightOrange, Strings.LinesLightOrange);
+#else
+            lightOrangeText = AppResources.LinesLightOrange;
+#endif
+            var darkOrangeText = string.Empty;
+#if ANDROID
+            darkOrangeText = Program.SharedProgram.Resources.GetString(Resource.String.LinesDarkOrange);
+#elif IOS
+            darkOrangeText = NSBundle.MainBundle.LocalizedString(Strings.LinesDarkOrange, Strings.LinesDarkOrange);
+#else
+            darkOrangeText = AppResources.LinesDarkOrange;
+#endif
+            var redText = string.Empty;
+#if ANDROID
+            redText = Program.SharedProgram.Resources.GetString(Resource.String.LinesRed);
+#elif IOS
+            redText = NSBundle.MainBundle.LocalizedString(Strings.LinesRed, Strings.LinesRed);
+#else
+            redText = AppResources.LinesRed;
+#endif
+
+            // Setup dictionary to lookup strings
+            var lineDisplayNames = new Dictionary<string, string>();
+            lineDisplayNames.Add("blue", blueText);
+            lineDisplayNames.Add("light blue", lightBlueText);
+            lineDisplayNames.Add("light green", lightGreenText);
+            lineDisplayNames.Add("green", greenText);
+            lineDisplayNames.Add("dark green", darkGreenText);
+            lineDisplayNames.Add("orange", orangeText);
+            lineDisplayNames.Add("light orange", lightOrangeText);
+            lineDisplayNames.Add("dark orange", darkOrangeText);
+            lineDisplayNames.Add("red", redText);
+
             // Lines menu
             this._lineEntities = new List<LineEntity>();
             this._lineRepository = new LineRepository();
@@ -87,7 +173,7 @@ namespace Simsip.LineRunner.Scenes.Lines
                     y + (0.01f * this.ContentSize.Height));
                 this.AddChild(lineImage);
 
-                var lineLabel = new CCLabelTTF(line.DisplayName, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                var lineLabel = new CCLabelTTF(lineDisplayNames[line.DisplayName], GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
                 var lineEntity = line;  // Need to do this for correct lambda resolution inside a foreach loop
                 var lineButton = new CCMenuItemLabel(lineLabel,
                                                      (obj) => { LineSelected(lineEntity); });

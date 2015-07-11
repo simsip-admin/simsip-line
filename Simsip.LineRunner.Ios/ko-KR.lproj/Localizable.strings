@@ -133,3 +133,14 @@
 "StartRunner"="러너";
 "StartLine"="꺾은선형";
 "Start3D"="3D";
+"PadsYellow"="노랑";
+"PadsWhite"="흰색";
+"LinesRed"="빨강";
+"LinesOrange"="주황";
+"LinesLightOrange"="연한 주황";
+"LinesLightGreen"="연한 녹색";
+"LinesLightBlue"="연한 파랑";
+"LinesGreen"="녹색";
+"LinesDarkOrange"="진한 주황";
+"LinesDarkGreen"="진한 녹색";
+"LinesBlue"="파랑";

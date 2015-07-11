@@ -452,6 +452,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             // Current score
             // IMPORTANT: Starts off not visible
             this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            this._scoreLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             this._scoreLabel.Visible = false;
             this._scoreLabel.Color = CCColor3B.Yellow;
             this._scoreLabel.AnchorPoint = CCPoint.AnchorMiddle;

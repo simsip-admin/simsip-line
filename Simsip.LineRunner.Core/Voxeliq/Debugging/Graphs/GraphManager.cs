@@ -73,7 +73,7 @@ namespace Engine.Debugging.Graphs
             // init the drawing related objects.
             this._primitiveBatch = new PrimitiveBatch(this.GraphicsDevice, 1000);
             this._spriteBatch = new SpriteBatch(GraphicsDevice);
-            this._spriteFont = this._assetManager.GetFont(Asset.VerdanaFont);
+            this._spriteFont = this._assetManager.GetFont();
             this._localProjection = Matrix.CreateOrthographicOffCenter(0f, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height, 0f, 0f, 1f);
             this._localView = Matrix.Identity;           
             

@@ -135,4 +135,15 @@
   <string name="StartRunner">執行程式</string>
   <string name="StartLine">線條</string>
   <string name="Start3D">3D</string>
+  <string name="PadsYellow">黃色</string>
+  <string name="PadsWhite">白色</string>
+  <string name="LinesRed">紅色</string>
+  <string name="LinesOrange">橙色</string>
+  <string name="LinesLightOrange">淺橙色</string>
+  <string name="LinesLightGreen">淺綠色</string>
+  <string name="LinesLightBlue">淺藍色</string>
+  <string name="LinesGreen">綠色</string>
+  <string name="LinesDarkOrange">深橙</string>
+  <string name="LinesDarkGreen">深綠色</string>
+  <string name="LinesBlue">藍色</string>
 </resources>

@@ -135,4 +135,15 @@
   <string name="StartRunner">canal d\'injection</string>
   <string name="StartLine">Ligne</string>
   <string name="Start3D">3D</string>
+  <string name="PadsYellow">jaune</string>
+  <string name="PadsWhite">blanc</string>
+  <string name="LinesRed">rouge</string>
+  <string name="LinesOrange">orange</string>
+  <string name="LinesLightOrange">orange clair</string>
+  <string name="LinesLightGreen">vert clair</string>
+  <string name="LinesLightBlue">bleu clair</string>
+  <string name="LinesGreen">vert</string>
+  <string name="LinesDarkOrange">orange foncé</string>
+  <string name="LinesDarkGreen">vert foncé</string>
+  <string name="LinesBlue">bleu</string>
 </resources>

@@ -9,8 +9,9 @@ namespace Engine.Assets
     {
         // TODO: Create new and purge capabilities for resource dictionaries
 
+        SpriteFont GetFont();
+
         Effect GetEffect(string effectPath);
-        SpriteFont GetFont(string fontPath);
         Model GetModel(string modelName, 
                        ModelType modelType, 
                        CustomContentManager customContentManager, 

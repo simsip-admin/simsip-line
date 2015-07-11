@@ -200,6 +200,50 @@
           <source>runner</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">러너</target>
         </trans-unit>
+        <trans-unit id="Resx/PadsYellow" translate="yes" xml:space="preserve">
+          <source>yellow</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">노랑</target>
+        </trans-unit>
+        <trans-unit id="Resx/PadsWhite" translate="yes" xml:space="preserve">
+          <source>white</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">흰색</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesRed" translate="yes" xml:space="preserve">
+          <source>red</source>
+          <target state="translated">빨강</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesOrange" translate="yes" xml:space="preserve">
+          <source>orange</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">주황</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesLightOrange" translate="yes" xml:space="preserve">
+          <source>light orange</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">연한 주황</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesLightGreen" translate="yes" xml:space="preserve">
+          <source>light green</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">연한 녹색</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesLightBlue" translate="yes" xml:space="preserve">
+          <source>light blue</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">연한 파랑</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesGreen" translate="yes" xml:space="preserve">
+          <source>green</source>
+          <target state="translated">녹색</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesDarkOrange" translate="yes" xml:space="preserve">
+          <source>dark orange</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">진한 주황</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesDarkGreen" translate="yes" xml:space="preserve">
+          <source>dark green</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">진한 녹색</target>
+        </trans-unit>
+        <trans-unit id="Resx/LinesBlue" translate="yes" xml:space="preserve">
+          <source>blue</source>
+          <target state="translated">파랑</target>
+        </trans-unit>
         <trans-unit id="Resx/StartLine" translate="yes" xml:space="preserve">
           <source>Line</source>
           <target state="translated" state-qualifier="tm-suggestion">꺾은선형</target>

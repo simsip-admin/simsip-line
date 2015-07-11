@@ -2416,6 +2416,33 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f070091
 			public const int HudTrackball = 2131165329;
 			
+			// aapt resource value: 0x7f0700d1
+			public const int LinesBlue = 2131165393;
+			
+			// aapt resource value: 0x7f0700d2
+			public const int LinesDarkGreen = 2131165394;
+			
+			// aapt resource value: 0x7f0700d3
+			public const int LinesDarkOrange = 2131165395;
+			
+			// aapt resource value: 0x7f0700d4
+			public const int LinesGreen = 2131165396;
+			
+			// aapt resource value: 0x7f0700d5
+			public const int LinesLightBlue = 2131165397;
+			
+			// aapt resource value: 0x7f0700d6
+			public const int LinesLightGreen = 2131165398;
+			
+			// aapt resource value: 0x7f0700d7
+			public const int LinesLightOrange = 2131165399;
+			
+			// aapt resource value: 0x7f0700d8
+			public const int LinesOrange = 2131165400;
+			
+			// aapt resource value: 0x7f0700d9
+			public const int LinesRed = 2131165401;
+			
 			// aapt resource value: 0x7f070070
 			public const int LinesSwitchingLines = 2131165296;
 			
@@ -2493,6 +2520,12 @@ namespace Simsip.LineRunner
 			
 			// aapt resource value: 0x7f070075
 			public const int PadsSwitchingPads = 2131165301;
+			
+			// aapt resource value: 0x7f0700da
+			public const int PadsWhite = 2131165402;
+			
+			// aapt resource value: 0x7f0700db
+			public const int PadsYellow = 2131165403;
 			
 			// aapt resource value: 0x7f070084
 			public const int RatingsDescription = 2131165316;

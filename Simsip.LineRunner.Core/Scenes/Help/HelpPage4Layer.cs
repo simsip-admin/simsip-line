@@ -36,6 +36,7 @@ namespace Simsip.LineRunner.Scenes.Help
             hudText = AppResources.HelpHud;
 #endif
             var hudSubtitle = new CCLabelTTF(hudText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            hudSubtitle.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             hudSubtitle.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.75f * this.ContentSize.Height);
