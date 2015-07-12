@@ -44,10 +44,6 @@ namespace Simsip.LineRunner.Scenes.Start
         // Animated 3D text
         private CCLabelTTF _3DLabel;
         private CCAction _3DLabelAction;
-        /* Legacy
-        private CCSprite _3DImage;
-        private CCAction _3DImageAction;
-        */
 
         // Flag so we only kick off services once
         private bool _servicesStarted;
@@ -135,8 +131,8 @@ namespace Simsip.LineRunner.Scenes.Start
             this._3DLabel.Color = CCColor3B.Yellow;
             this._3DLabel.Rotation = -30;
             this._3DLabel.Position = new CCPoint(
-                0.85f * this.ContentSize.Width,
-                0.45f * this.ContentSize.Height);
+                0.9f * this.ContentSize.Width,
+                0.6f * this.ContentSize.Height);
             this._3DLabelAction = new CCSequence(new CCFiniteTimeAction[] 
             { 
                 new CCScaleTo(0f, 0f), 
@@ -145,32 +141,6 @@ namespace Simsip.LineRunner.Scenes.Start
             });
             this.AddChild(this._3DLabel);
             
-            /* Legacy
-            // Logo
-            var logo = new CCSprite("Images/Misc/Logo1.png");
-            Cocos2DUtils.ResizeSprite(logo,     // Makes sure logo isn't clipped
-                this.ContentSize.Width,
-                logo.ContentSize.Height);
-            logo.Position = new CCPoint(
-                0.5f * this.ContentSize.Width, 
-                0.7f * this.ContentSize.Height);
-            this.AddChild(logo);
-
-            // 3D animated text
-            this._3DImage = new CCSprite("Images/Misc/Logo3D.png");
-            this._3DImage.Rotation = -30;
-            this._3DImage.Position = new CCPoint(
-                0.9f * this.ContentSize.Width,
-                0.45f * this.ContentSize.Height);
-            this._3DImageAction = new CCSequence(new CCFiniteTimeAction[] 
-            { 
-                new CCScaleTo(0f, 0f), 
-                new CCScaleTo(0.8f, 2.0f),
-                new CCScaleTo(0.2f, 1.0f),
-            });
-            this.AddChild(this._3DImage);
-            */
-
             // Start menu
             this._isStartEnabled = false;
             var startButtonNormal = new CCSprite("Images/Icons/StartButtonNormal.png");
@@ -275,8 +245,6 @@ namespace Simsip.LineRunner.Scenes.Start
             this.RunAction(this._layerActionIn);
 
             this._3DLabel.RunAction(this._3DLabelAction);
-            // Legacy
-            // this._3DImage.RunAction(this._3DImageAction);
         }
 
         public override void Update(float dt)
