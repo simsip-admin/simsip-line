@@ -115,7 +115,7 @@ PageNumber,LineNumber,ObstacleNumber,ModelName,ObstacleType,LogicalXScaledTo100,
 1,17,306,Random04x,SimpleBottom,10,0,0,0,0,0,0,,0
 1,17,314,Random02x,SimpleBottom,50,0,0,0,0,0,0,,0
 1,17,318,Random04x,SimpleBottom,70,0,0,0,0,0,0,,0
-1,17,326,Stove01,SimpleBottom,110,0,100,0,0,0,0,,1
+1,17,326,Stove01,SimpleBottom,110,0,90,0,0,0,0,,1
 2,1,327,Random01x,SimpleBottom,10,0,0,0,0,0,0,,0
 2,1,329,Random01x,SimpleBottom,20,0,0,0,0,0,0,,0
 2,1,331,Random01x,SimpleBottom,30,0,0,0,0,0,0,,0
@@ -248,7 +248,7 @@ PageNumber,LineNumber,ObstacleNumber,ModelName,ObstacleType,LogicalXScaledTo100,
 2,17,664,Random04x,SimpleBottom,10,0,0,0,0,0,0,,0
 2,17,672,Random02x,SimpleBottom,50,0,0,0,0,0,0,,0
 2,17,676,Random04x,SimpleBottom,70,0,0,0,0,0,0,,0
-2,17,684,Stove01,SimpleBottom,110,0,100,0,0,0,0,,1
+2,17,684,Stove01,SimpleBottom,110,0,90,0,0,0,0,,1
 2,17,685,Random01x,SimpleBottom,120,0,0,0,0,0,0,,0
 3,1,687,Random01x,SimpleBottom,10,0,0,0,0,0,0,,0
 3,1,689,Random01x,SimpleBottom,20,0,0,0,0,0,0,,0
@@ -382,7 +382,7 @@ PageNumber,LineNumber,ObstacleNumber,ModelName,ObstacleType,LogicalXScaledTo100,
 3,17,1056,Random04x,SimpleBottom,10,0,0,0,0,0,0,,0
 3,17,1064,Random02x,SimpleBottom,50,0,0,0,0,0,0,,0
 3,17,1068,Random04x,SimpleBottom,70,0,0,0,0,0,0,,0
-3,17,1076,Stove01,SimpleBottom,110,0,100,0,0,0,0,,1
+3,17,1076,Stove01,SimpleBottom,110,0,90,0,0,0,0,,1
 3,17,1077,Random02x,SimpleBottom,120,0,0,0,0,0,0,,0
 4,1,1081,Random01x,SimpleBottom,10,0,0,0,0,0,0,,0
 4,1,1083,Random01x,SimpleBottom,20,0,0,0,0,0,0,,0
@@ -532,7 +532,7 @@ PageNumber,LineNumber,ObstacleNumber,ModelName,ObstacleType,LogicalXScaledTo100,
 4,17,1482,Random04x,SimpleBottom,10,0,0,0,0,0,0,,0
 4,17,1490,Random02x,SimpleBottom,50,0,0,0,0,0,0,,0
 4,17,1494,Random04x,SimpleBottom,70,0,0,0,0,0,0,,0
-4,17,1502,Stove01,SimpleBottom,110,0,100,0,0,0,0,,1
+4,17,1502,Stove01,SimpleBottom,110,0,90,0,0,0,0,,1
 4,17,1503,Random01x,SimpleBottom,120,0,0,0,0,0,0,,0
 4,17,1505,Random02x,SimpleBottom,130,0,0,0,0,0,0,,0
 5,1,1509,Random01x,SimpleBottom,10,0,0,0,0,0,0,,0
@@ -667,7 +667,7 @@ PageNumber,LineNumber,ObstacleNumber,ModelName,ObstacleType,LogicalXScaledTo100,
 5,17,1942,Random04x,SimpleBottom,10,0,0,0,0,0,0,,0
 5,17,1950,Random02x,SimpleBottom,50,0,0,0,0,0,0,,0
 5,17,1954,Random04x,SimpleBottom,70,0,0,0,0,0,0,,0
-5,17,1962,Stove01,SimpleBottom,110,0,100,0,0,0,0,,1
+5,17,1962,Stove01,SimpleBottom,110,0,90,0,0,0,0,,1
 5,17,1963,Random04x,SimpleBottom,120,0,0,0,0,0,0,,0
 6,1,1971,Random01x,SimpleBottom,10,0,0,0,0,0,0,,0
 6,1,1973,Random01x,SimpleBottom,20,0,0,0,0,0,0,,0
@@ -817,6 +817,6 @@ PageNumber,LineNumber,ObstacleNumber,ModelName,ObstacleType,LogicalXScaledTo100,
 6,17,2436,Random04x,SimpleBottom,10,0,0,0,0,0,0,,0
 6,17,2444,Random02x,SimpleBottom,50,0,0,0,0,0,0,,0
 6,17,2448,Random04x,SimpleBottom,70,0,0,0,0,0,0,,0
-6,17,2456,Stove01,SimpleBottom,110,0,100,0,0,0,0,,1
+6,17,2456,Stove01,SimpleBottom,110,0,90,0,0,0,0,,1
 6,17,2457,Random01x,SimpleBottom,120,0,0,0,0,0,0,,0
 6,17,2459,Random04x,SimpleBottom,130,0,0,0,0,0,0,,0

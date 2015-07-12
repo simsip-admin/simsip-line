@@ -4135,6 +4135,14 @@
       <Link>Content\Images\Misc\Logo2.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Content\Fonts\Store\arial-core-18.xnb">
+      <Link>Content\Fonts\arial-core-18.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\Fonts\Store\arial-core-24.xnb">
+      <Link>Content\Fonts\arial-core-24.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Simsip.LineRunner.Store_TemporaryKey.pfx" />
   </ItemGroup>
@@ -4201,7 +4209,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Bepu\BEPUphysicsDrawer\Models\Display types\Entity types\" />
-    <Folder Include="Content\Fonts\" />
     <Folder Include="Scenes\Upgrades\" />
     <Folder Include="Services\Inapp\" />
   </ItemGroup>

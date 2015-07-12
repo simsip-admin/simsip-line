@@ -77,8 +77,6 @@
     <EmbeddedResource Include="Resources\AppResources.hi-IN.resx" />
     <EmbeddedResource Include="Resources\AppResources.id-ID.resx" />
     <EmbeddedResource Include="Resources\AppResources.it.resx" />
-    <EmbeddedResource Include="Resources\AppResources.ja-JP.resx" />
-    <EmbeddedResource Include="Resources\AppResources.ko-KR.resx" />
     <EmbeddedResource Include="Resources\AppResources.nl.resx" />
     <EmbeddedResource Include="Resources\AppResources.pl-PL.resx" />
     <EmbeddedResource Include="Resources\AppResources.pt-BR.resx" />
@@ -91,8 +89,6 @@
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\AppResources.ru-RU.resx" />
-    <EmbeddedResource Include="Resources\AppResources.zh-Hans.resx" />
-    <EmbeddedResource Include="Resources\AppResources.zh-Hant.resx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -118,16 +114,12 @@
     <XliffResource Include="Resources\AppResources.hi-IN.xlf" />
     <XliffResource Include="Resources\AppResources.id-ID.xlf" />
     <XliffResource Include="Resources\AppResources.it.xlf" />
-    <XliffResource Include="Resources\AppResources.ja-JP.xlf" />
-    <XliffResource Include="Resources\AppResources.ko-KR.xlf" />
     <XliffResource Include="Resources\AppResources.nl.xlf" />
     <XliffResource Include="Resources\AppResources.pl-PL.xlf" />
     <XliffResource Include="Resources\AppResources.pt-BR.xlf" />
     <XliffResource Include="Resources\AppResources.pt.xlf" />
     <XliffResource Include="Resources\AppResources.qps-ploc.xlf" />
     <XliffResource Include="Resources\AppResources.ru-RU.xlf" />
-    <XliffResource Include="Resources\AppResources.zh-Hans.xlf" />
-    <XliffResource Include="Resources\AppResources.zh-Hant.xlf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Resx2Others.log">
@@ -139,22 +131,18 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Resx2Others.log</LastGenOutput>
       <LastOutputs>
-..\..\Simsip.LineRunner.Droid\Resources\Values\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-de\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-es\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-fr\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-hi-rIN\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-id-rID\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-it\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-ja-rJP\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-ko-rKR\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-nl\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-pl-rPL\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-pt\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-pt-rBR\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-ru-rRU\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-zh-rCN\AppResources.xml
-..\..\Simsip.LineRunner.Droid\Resources\Values-zh-rHK\AppResources.xml
+..\..\Simsip.LineRunner.Ios\de.lproj\Localizable.strings
+..\..\Simsip.LineRunner.Ios\en.lproj\Localizable.strings
+..\..\Simsip.LineRunner.Ios\es.lproj\Localizable.strings
+..\..\Simsip.LineRunner.Ios\fr.lproj\Localizable.strings
+..\..\Simsip.LineRunner.Ios\hi-IN.lproj\Localizable.strings
+..\..\Simsip.LineRunner.Ios\id-ID.lproj\Localizable.strings
+..\..\Simsip.LineRunner.Ios\it.lproj\Localizable.strings
+..\..\Simsip.LineRunner.Ios\nl.lproj\Localizable.strings
+..\..\Simsip.LineRunner.Ios\pl-PL.lproj\Localizable.strings
+..\..\Simsip.LineRunner.Ios\pt.lproj\Localizable.strings
+..\..\Simsip.LineRunner.Ios\pt-BR.lproj\Localizable.strings
+..\..\Simsip.LineRunner.Ios\ru-RU.lproj\Localizable.strings
 .\Resx2Others.log
 .\Strings.cs
 </LastOutputs>

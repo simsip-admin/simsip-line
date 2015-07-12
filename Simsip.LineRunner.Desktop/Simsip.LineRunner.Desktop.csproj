@@ -4096,6 +4096,14 @@
       <Link>Content\Images\Misc\Logo2.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Content\Fonts\Desktop\arial-core-18.xnb">
+      <Link>Content\Fonts\arial-core-18.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\Fonts\Desktop\arial-core-24.xnb">
+      <Link>Content\Fonts\arial-core-24.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
       <Link>Mercury\EffectLibrary\BasicExplosion.xml</Link>
     </None>
@@ -4215,7 +4223,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Bepu\BEPUphysicsDrawer\Models\Display types\Entity types\" />
-    <Folder Include="Content\Fonts\" />
     <Folder Include="Scenes\Upgrades\" />
     <Folder Include="Services\Inapp\" />
   </ItemGroup>

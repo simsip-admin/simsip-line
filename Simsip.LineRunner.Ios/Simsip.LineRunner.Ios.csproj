@@ -1096,6 +1096,14 @@
       <Link>Content\Images\Misc\Logo2.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Content\Fonts\IOS\arial-core-18.xnb">
+      <Link>Content\Fonts\arial-core-18.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\Fonts\IOS\arial-core-24.xnb">
+      <Link>Content\Fonts\arial-core-24.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
       <Link>Mercury\EffectLibrary\BasicExplosion.xml</Link>
     </None>
@@ -4200,15 +4208,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="it.lproj\Localizable.strings" />
     <Content Include="nl.lproj\Localizable.strings" />
-    <Content Include="ja-JP.lproj\Localizable.strings" />
-    <Content Include="ko-KR.lproj\Localizable.strings" />
     <None Include="packages.config" />
     <Content Include="pt.lproj\Localizable.strings" />
     <Content Include="pl-PL.lproj\Localizable.strings" />
     <Content Include="pt-BR.lproj\Localizable.strings" />
     <Content Include="ru-RU.lproj\Localizable.strings" />
-    <Content Include="zh-Hans.lproj\Localizable.strings" />
-    <Content Include="zh-Hant.lproj\Localizable.strings" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
@@ -4216,7 +4220,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Bepu\BEPUphysicsDrawer\Models\Display types\Entity types\" />
-    <Folder Include="Content\Fonts\" />
     <Folder Include="Voxeliq\Common\Helpers\IO\" />
   </ItemGroup>
   <ItemGroup>

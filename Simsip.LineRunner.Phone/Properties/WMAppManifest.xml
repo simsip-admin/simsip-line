@@ -8,15 +8,11 @@
     <Language code="hi-IN" />
     <Language code="id-ID" />
     <Language code="it" />
-    <Language code="ja-JP" />
-    <Language code="ko-KR" />
     <Language code="nl" />
     <Language code="pl-PL" />
     <Language code="pt-BR" />
     <Language code="pt" />
     <Language code="ru-RU" />
-    <Language code="zh-Hans" />
-    <Language code="zh-Hant" />
   </Languages>
   <App xmlns="" ProductID="{f13744ce-a3b0-426b-8a4a-cf6f482b80cd}" Title="LineRunner" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="GameName2 author" Description="Sample description" Publisher="GameName2" PublisherID="{0df4bf76-7146-42eb-ba7c-83daa7249a23}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
