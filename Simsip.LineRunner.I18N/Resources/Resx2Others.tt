@@ -16,12 +16,14 @@
     foreach(EnvDTE.Project project in dte.Solution.Projects)
     {
         string projectName = project.Name.ToLower();
+		// SIMSIP
         if(projectName.Contains("simsip.linerunner.ios"))
         {
             iosTemplate = new Resx2iOSTemplate();
             iosTemplate.Output.Project = project.FullName;
             iosTemplate.Output.ItemType = "Content";
         }
+		// SIMSIP
         else if(projectName.Contains("simsip.linerunner.droid"))
         {
             androidTemplate = new Resx2AndroidTemplate();
@@ -56,6 +58,7 @@
             // Android
             if(androidTemplate != null)
             {
+				// SIMSIP
 				// Fix up Android's need for different locales
 				if (locale.Equals("-zh-rHans", StringComparison.CurrentCultureIgnoreCase))
 				{
