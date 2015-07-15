@@ -249,7 +249,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             // With the ad banner overlaying our screen in ios, we need to adjust certain ui elements downward by size of ad banner
             headerLayerEndPosition = CCDirector.SharedDirector.VisibleOrigin + new CCPoint(
                 0.02f * screenSize.Width,
-                0.78f * screenSize.Height - (float)GADAdSizeCons.Banner.Size.Height);
+                0.76f * screenSize.Height - (float)GADAdSizeCons.Banner.Size.Height);
 #endif
             var headerLayerStartPosition = new CCPoint(
                 headerLayerEndPosition.X,

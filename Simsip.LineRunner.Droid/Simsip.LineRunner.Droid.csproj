@@ -4226,20 +4226,18 @@
     <AndroidResource Include="Resources\drawable\icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values-de\AppResources.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
+    <AndroidResource Include="Resources\values-de\AppResources.xml" />
     <AndroidResource Include="Resources\values-es\AppResources.xml" />
     <AndroidResource Include="Resources\values-fr\AppResources.xml" />
-    <AndroidResource Include="Resources\Values-id-rID\AppResources.xml" />
+    <AndroidResource Include="Resources\values-hi-rIN\AppResources.xml" />
+    <AndroidResource Include="Resources\values-in\AppResources.xml" />
     <AndroidResource Include="Resources\values-it\AppResources.xml" />
-    <AndroidResource Include="Resources\Values-nl\AppResources.xml" />
-    <AndroidResource Include="Resources\Values-pl-rPL\AppResources.xml" />
-    <AndroidResource Include="Resources\Values-pt-rBR\AppResources.xml" />
+    <AndroidResource Include="Resources\values-nl\AppResources.xml" />
+    <AndroidResource Include="Resources\values-pl-rPL\AppResources.xml" />
+    <AndroidResource Include="Resources\values-pt-rBR\AppResources.xml" />
     <AndroidResource Include="Resources\values-pt\AppResources.xml" />
     <AndroidResource Include="Resources\values\AppResources.xml" />
-    <AndroidResource Include="Resources\Values-ru-rRU\AppResources.xml" />
-    <AndroidResource Include="Resources\Values-hi-rIN\AppResources.xml" />
+    <AndroidResource Include="Resources\values-ru-rRU\AppResources.xml" />
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
       <Link>Mercury\EffectLibrary\BasicExplosion.xml</Link>
     </None>

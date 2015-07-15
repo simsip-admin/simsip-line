@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="ResourceFlowDirection">LeftToRight</string>
-  <string name="ResourceLanguage">id-ID</string>
+  <string name="ResourceLanguage">in</string>
   <string name="HelpStartDescription">bermain game</string>
   <string name="AchievementsTopScoresFor">Skor tertinggi</string>
   <string name="AdminKillsOn">membunuh di</string>

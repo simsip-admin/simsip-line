@@ -38,7 +38,7 @@
         </trans-unit>
         <trans-unit id="Resx/CommonYes" translate="yes" xml:space="preserve">
           <source>yes</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">"Ja"</target>
+          <target state="translated">Ja</target>
         </trans-unit>
         <trans-unit id="Resx/CommonOK" translate="yes" xml:space="preserve">
           <source>ok</source>

@@ -80,7 +80,7 @@ public static class ResxUtilities
         return name;
     }
  
-    public static string GetLanguage(string filename)
+    public static string GetIosLanguage(string filename)
     {
         string lang = null;
         var f = Path.GetFileName(filename);
@@ -89,13 +89,23 @@ public static class ResxUtilities
 		// SIMSIP
 		// Examples:
 		// Appresources.it.resx => it
-		// Appresources.ja-JP.resx => ja-JP
+		// Appresources.pt-BR.resx => pt_BR
         if (foo.Count() > 2)
         {
-            if (foo[1].Length >= 2)
-            {
-                lang = foo[1];
-            }
+			if (foo[1].Equals("pt-BR", StringComparison.CurrentCultureIgnoreCase))
+			{
+				lang = foo[1].Replace("-", "_");
+			}
+			else
+			{
+				lang = foo[1].Substring(0,2);
+			}
+            
+			
+			// if (foo[1].Length >= 2)
+            // {
+            //     lang = foo[1].Replace("-", "_");
+            // }
         }
 
 		// Example: 
@@ -131,7 +141,11 @@ public class Resx2AndroidTemplate : Template
 			
 			// SIMSIP
 			// Takes into account Android's special values for ResourceLanguage
-			if (pair.Value.Equals("zh-Hans", StringComparison.CurrentCultureIgnoreCase))
+			if (pair.Value.Equals("id-ID", StringComparison.CurrentCultureIgnoreCase))
+			{
+				Write("in");
+			}
+			else if (pair.Value.Equals("zh-Hans", StringComparison.CurrentCultureIgnoreCase))
 			{
 				Write("zh-CN");
 			}

@@ -132,7 +132,7 @@
   <string name="HelpLines">Modifiez la ligne pour le pavé</string>
   <string name="HelpHowToPlayDescription1">Cliquez sur pour éviter les lignes et les obstacles</string>
   <string name="CommonVersion">version</string>
-  <string name="StartRunner">canal d\'injection</string>
+  <string name="StartRunner">coureur</string>
   <string name="StartLine">Ligne</string>
   <string name="Start3D">3D</string>
   <string name="PadsYellow">jaune</string>

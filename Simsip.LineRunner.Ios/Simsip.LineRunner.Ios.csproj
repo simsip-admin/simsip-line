@@ -45,19 +45,19 @@
     <ConsolePause>false</ConsolePause>
     <MtouchDebug>True</MtouchDebug>
     <CodesignKey>iPhone Developer</CodesignKey>
-    <MtouchSdkVersion>8.1</MtouchSdkVersion>
+    <MtouchSdkVersion>8.4</MtouchSdkVersion>
     <MtouchLink>SdkOnly</MtouchLink>
     <MtouchProfiling>False</MtouchProfiling>
-    <MtouchExtraArgs />
     <MtouchFastDev>False</MtouchFastDev>
     <MtouchEnableGenericValueTypeSharing>True</MtouchEnableGenericValueTypeSharing>
-    <MtouchArch>Default, ARMv7</MtouchArch>
+    <MtouchArch>ARMv7</MtouchArch>
     <MtouchUseLlvm>False</MtouchUseLlvm>
     <MtouchUseThumb>False</MtouchUseThumb>
     <MtouchUseSGen>False</MtouchUseSGen>
     <MtouchUseRefCounting>False</MtouchUseRefCounting>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
-    <MtouchI18n />
+    <MtouchI18n>
+    </MtouchI18n>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
@@ -1104,6 +1104,10 @@
       <Link>Content\Fonts\arial-core-24.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Models\Obstacles\Pipe08-texture_1.xnb">
+      <Link>Content\Models\Obstacles\Pipe08-texture_1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
       <Link>Mercury\EffectLibrary\BasicExplosion.xml</Link>
     </None>
@@ -1140,10 +1144,6 @@
     <Content Include="Content\Catalog\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="de.lproj\Localizable.strings" />
-    <Content Include="es.lproj\Localizable.strings" />
-    <Content Include="fr.lproj\Localizable.strings" />
-    <Content Include="en.lproj\Localizable.strings" />
     <Content Include="..\Simsip.LineRunner.Effects\mgfxo\DX09\Deferred\Deferred1Scene.mgfxo">
       <Link>Content\Effects\Deferred\Deferred1Scene.mgfxo</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1196,8 +1196,12 @@
       <Link>Content\Effects\Stock\StockBasicEffect.mgfxo</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="hi-IN.lproj\Localizable.strings" />
-    <Content Include="id-ID.lproj\Localizable.strings" />
+    <Content Include="de.lproj\Localizable.strings" />
+    <Content Include="es.lproj\Localizable.strings" />
+    <Content Include="fr.lproj\Localizable.strings" />
+    <Content Include="hi.lproj\Localizable.strings" />
+    <Content Include="id.lproj\Localizable.strings" />
+    <Content Include="en.lproj\Localizable.strings" />
     <None Include="Info.plist" />
     <Compile Include="..\Simsip.LineRunner.Core\Actions\ActionEase\ActionEase.cs">
       <Link>Actions\ActionEase\ActionEase.cs</Link>
@@ -4209,10 +4213,10 @@
     <Content Include="it.lproj\Localizable.strings" />
     <Content Include="nl.lproj\Localizable.strings" />
     <None Include="packages.config" />
+    <Content Include="pl.lproj\Localizable.strings" />
+    <Content Include="pt_BR.lproj\Localizable.strings" />
     <Content Include="pt.lproj\Localizable.strings" />
-    <Content Include="pl-PL.lproj\Localizable.strings" />
-    <Content Include="pt-BR.lproj\Localizable.strings" />
-    <Content Include="ru-RU.lproj\Localizable.strings" />
+    <Content Include="ru.lproj\Localizable.strings" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

@@ -550,7 +550,7 @@
         </trans-unit>
         <trans-unit id="Resx/LinesRed" translate="yes" xml:space="preserve">
           <source>red</source>
-          <target state="translated" state-qualifier="tm-suggestion">red</target>
+          <target state="translated">लाल</target>
         </trans-unit>
         <trans-unit id="Resx/LinesOrange" translate="yes" xml:space="preserve">
           <source>orange</source>

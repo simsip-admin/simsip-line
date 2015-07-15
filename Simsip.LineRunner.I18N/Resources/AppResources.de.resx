@@ -141,7 +141,7 @@
     <value>Geben Sie auf Seite</value>
   </data>
   <data name="CommonYes" xml:space="preserve">
-    <value>"Ja"</value>
+    <value>Ja</value>
   </data>
   <data name="CommonOK" xml:space="preserve">
     <value>OK</value>

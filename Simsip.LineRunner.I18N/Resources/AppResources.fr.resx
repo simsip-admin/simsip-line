@@ -516,7 +516,7 @@
     <value>version</value>
   </data>
   <data name="StartRunner" xml:space="preserve">
-    <value>canal d'injection</value>
+    <value>coureur</value>
   </data>
   <data name="StartLine" xml:space="preserve">
     <value>Ligne</value>

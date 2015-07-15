@@ -60,6 +60,10 @@
             {
 				// SIMSIP
 				// Fix up Android's need for different locales
+				if (locale.Equals("-id-rID", StringComparison.CurrentCultureIgnoreCase))
+				{
+					locale = "-in";
+				}
 				if (locale.Equals("-zh-rHans", StringComparison.CurrentCultureIgnoreCase))
 				{
 					locale = "-zh-rCN";
@@ -70,7 +74,7 @@
 				}
 
                 androidTemplate.ResxFileName = resxFileName;
-                string androidStringsFolder = @"Resources\Values" + locale;
+                string androidStringsFolder = @"Resources\values" + locale;
  
                 // Set the destination filename and path and transform the resource
                 androidTemplate.Output.File = Path.Combine(androidStringsFolder, Path.GetFileName(Path.ChangeExtension(ResxUtilities.GetNameSpace(resxFile), ".xml")));
@@ -83,7 +87,7 @@
             {
                 iosTemplate.ResxFileName = resxFileName;
                 // Don't need the locale, just the language
-                var lang = ResxUtilities.GetLanguage(iosTemplate.ResxFileName);
+                var lang = ResxUtilities.GetIosLanguage(iosTemplate.ResxFileName);
  
                 if (lang != null)
                 {

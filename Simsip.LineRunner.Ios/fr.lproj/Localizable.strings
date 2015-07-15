@@ -130,7 +130,7 @@
 "HelpLines"="Modifiez la ligne pour le pavé";
 "HelpHowToPlayDescription1"="Cliquez sur pour éviter les lignes et les obstacles";
 "CommonVersion"="version";
-"StartRunner"="canal d\'injection";
+"StartRunner"="coureur";
 "StartLine"="Ligne";
 "Start3D"="3D";
 "PadsYellow"="jaune";

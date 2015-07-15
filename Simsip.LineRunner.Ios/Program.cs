@@ -47,6 +47,8 @@ namespace Simsip.LineRunner
 
             try
             {
+                Program.SharedProgram = this;
+
                 // Fun begins..
                 game = new TheGame();
                 game.Run();

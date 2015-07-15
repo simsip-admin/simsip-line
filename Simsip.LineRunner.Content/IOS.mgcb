@@ -1874,3 +1874,15 @@
 /processorParam:TextureFormat=Color
 /build:Content/Images/Misc/Logo2.png
 
+#begin Content/Fonts/arial-core-18.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Content/Fonts/arial-core-18.spritefont
+
+#begin Content/Fonts/arial-core-24.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Content/Fonts/arial-core-24.spritefont
+

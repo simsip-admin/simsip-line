@@ -198,7 +198,7 @@
         </trans-unit>
         <trans-unit id="Resx/StartRunner" translate="yes" xml:space="preserve">
           <source>runner</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">canal d'injection</target>
+          <target state="translated">coureur</target>
         </trans-unit>
         <trans-unit id="Resx/PadsYellow" translate="yes" xml:space="preserve">
           <source>yellow</source>
