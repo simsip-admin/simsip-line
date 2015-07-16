@@ -3812,10 +3812,6 @@
       <Link>Content\Models\Obstacles\Pipe08-texture_0.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Models\Obstacles\Pipe08-texture_1.xnb">
-      <Link>Content\Models\Obstacles\Pipe08-texture_1.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Models\Obstacles\Pipe09-model.xnb">
       <Link>Content\Models\Obstacles\Pipe09-model.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -4102,6 +4098,10 @@
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\Fonts\Desktop\arial-core-24.xnb">
       <Link>Content\Fonts\arial-core-24.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Models\Obstacles\Pipe10-texture_0.xnb">
+      <Link>Content\Models\Obstacles\Pipe10-texture_0.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">

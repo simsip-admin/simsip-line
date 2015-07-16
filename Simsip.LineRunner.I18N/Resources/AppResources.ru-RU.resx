@@ -519,7 +519,7 @@
     <value>бегун</value>
   </data>
   <data name="StartLine" xml:space="preserve">
-    <value>Линейный</value>
+    <value>Линия</value>
   </data>
   <data name="Start3D" xml:space="preserve">
     <value>Объемный</value>

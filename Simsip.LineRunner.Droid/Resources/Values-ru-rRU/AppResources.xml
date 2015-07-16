@@ -133,7 +133,7 @@
   <string name="HelpHowToPlayDescription1">Коснитесь, чтобы избежать линии и препятствия</string>
   <string name="CommonVersion">версия</string>
   <string name="StartRunner">бегун</string>
-  <string name="StartLine">Линейный</string>
+  <string name="StartLine">Линия</string>
   <string name="Start3D">Объемный</string>
   <string name="PadsYellow">желтый</string>
   <string name="PadsWhite">белый</string>

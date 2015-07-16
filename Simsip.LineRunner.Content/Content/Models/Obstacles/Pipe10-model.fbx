@@ -371,7 +371,7 @@ Objects:  {
 			} 
 		}
 	}
-	Material: 44324920, "Material::01___Default__Pipe08-texture_jpg", "" {
+	Material: 44324920, "Material::01___Default__Pipe10-texture_jpg", "" {
 		Version: 102
 		ShadingModel: "lambert"
 		MultiLayer: 0
@@ -395,28 +395,28 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Video: 44473744, "Video::Pipe08-texture_jpg", "Clip" {
+	Video: 44473744, "Video::Pipe10-texture_jpg", "Clip" {
 		Type: "Clip"
 		Properties70:  {
-			P: "Path", "KString", "XRefUrl", "", "C:\dev3\simsip-line\Simsip.LineRunner.Content\Content\Models\Obstacles\Pipe08-texture.jpg"
+			P: "Path", "KString", "XRefUrl", "", "C:\dev3\simsip-line\Simsip.LineRunner.Content\Content\Models\Obstacles\Pipe10-texture.jpg"
 			P: "PlaySpeed", "double", "Number", "",1
 		}
 		UseMipMap: 0
-		Filename: "Pipe08-texture.jpg"
-		RelativeFilename: "Pipe08-texture.jpg"
+		Filename: "Pipe10-texture.jpg"
+		RelativeFilename: "Pipe10-texture.jpg"
 	}
-	Texture: 44539776, "Texture::Pipe08-texture_jpg", "" {
+	Texture: 44539776, "Texture::Pipe10-texture_jpg", "" {
 		Type: "TextureVideoClip"
 		Version: 202
-		TextureName: "Texture::Pipe08-texture_jpg"
+		TextureName: "Texture::Pipe10-texture_jpg"
 		Properties70:  {
 			P: "Texture alpha", "Number", "", "A+",0
 			P: "UVSet", "KString", "", "", "UVMap"
 			P: "VideoProperty", "object", "", ""
 		}
-		Media: "Video::Pipe08-texture_jpg"
-		FileName: "Pipe08-texture.jpg"
-		RelativeFilename: "Pipe08-texture.jpg"
+		Media: "Video::Pipe10-texture_jpg"
+		FileName: "Pipe10-texture.jpg"
+		RelativeFilename: "Pipe10-texture.jpg"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"
@@ -443,16 +443,16 @@ Connections:  {
 	;Geometry::, Model::Cylinder16
 	C: "OO",44372416,44377040
 	
-	;Material::01___Default__Pipe08-texture_jpg, Model::Cylinder16
+	;Material::01___Default__Pipe10-texture_jpg, Model::Cylinder16
 	C: "OO",44324920,44377040
 	
-	;Video::Pipe08-texture_jpg, Texture::Pipe08-texture_jpg
+	;Video::Pipe10-texture_jpg, Texture::Pipe10-texture_jpg
 	C: "OO",44473744,44539776
 	
 	;Model::Cylinder16, Pipe10
 	C: "OO",44377040,44540576
 	
-	;Texture::Pipe08-texture_jpg, Material::01___Default__Pipe08-texture_jpg
+	;Texture::Pipe10-texture_jpg, Material::01___Default__Pipe10-texture_jpg
 	C: "OP",44539776,44324920, "DiffuseColor"
 }
 ;Takes section
