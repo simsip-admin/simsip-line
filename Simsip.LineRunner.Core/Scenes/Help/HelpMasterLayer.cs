@@ -189,6 +189,8 @@ namespace Simsip.LineRunner.Scenes.Help
             this.AddChild(headerLineImage);
 
             // License
+            // Only for Android for now. Add in as needed. IOS has a default license
+            // we can use for now.
             var licenseText = string.Empty;
 #if ANDROID
             licenseText = Program.SharedProgram.Resources.GetString(Resource.String.HelpLicense);
@@ -208,9 +210,13 @@ namespace Simsip.LineRunner.Scenes.Help
             licenseMenu.Position = new CCPoint(
                  0.2f  * this.ContentSize.Width,
                  0.8f * this.ContentSize.Height);
+#if ANDROID
             this.AddChild(licenseMenu);
+#endif
 
             // Support
+            // Only add in as needed. Currently both Android and IOS allow specifying a support link 
+            // in setting up store.
             var supportText = string.Empty;
 #if ANDROID
             supportText = Program.SharedProgram.Resources.GetString(Resource.String.HelpSupport);
@@ -230,7 +236,7 @@ namespace Simsip.LineRunner.Scenes.Help
             supportMenu.Position = new CCPoint(
                  0.8f * this.ContentSize.Width,
                  0.8f * this.ContentSize.Height);
-            this.AddChild(supportMenu);
+            // this.AddChild(supportMenu);
 
             // 1 page create up front, rest created on-demand, see GetHelpPage() below
             this._helpPage1Layer = new HelpPage1Layer(this._parent, this);

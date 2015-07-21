@@ -266,26 +266,64 @@ namespace Engine.Input
             {
                 case MoveDirection.Left:
                     {
-                        this.HudCameraOffsetX -= this._joystickDelta;
-                        UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_X, this.HudCameraOffsetX);
+                        var newPosition = 
+                            this.LineRunnerCamera.Position.X + 
+                            this.HudCameraOffsetX - 
+                            this._joystickDelta;
+                        var limitLeft = 
+                            this._pageCache.CurrentPageModel.WorldOrigin.X - 
+                            (0.5f * this._pageCache.CurrentPageModel.WorldWidth);
+                        if (newPosition > limitLeft)
+                        {
+                            this.HudCameraOffsetX -= this._joystickDelta;
+                            UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_X, this.HudCameraOffsetX);
+                        }
                         break;
                     }
                 case MoveDirection.Right:
                     {
-                        this.HudCameraOffsetX += this._joystickDelta;
-                        UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_X, this.HudCameraOffsetX);
+                        var newPosition = 
+                            this.LineRunnerCamera.Position.X + 
+                            this.HudCameraOffsetX + 
+                            this._joystickDelta;
+                        var limitRight = 
+                            this._pageCache.CurrentPageModel.WorldOrigin.X + 
+                            (1.5f * this._pageCache.CurrentPageModel.WorldWidth);
+                        if (newPosition < limitRight)
+                        {
+                            this.HudCameraOffsetX += this._joystickDelta;
+                            UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_X, this.HudCameraOffsetX);
+                        }
                         break;
                     }
                 case MoveDirection.Up:
                     {
-                        this.HudCameraOffsetY += this._joystickDelta;
-                        UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_Y, this.HudCameraOffsetY);
+                        var newPosition = 
+                            this.LineRunnerCamera.Position.Y + 
+                            this.HudCameraOffsetY + 
+                            this._joystickDelta;
+                        var limitUp = 
+                            this._pageCache.CurrentPageModel.WorldOrigin.Y + 
+                            (1.1f * this._pageCache.CurrentPageModel.WorldHeight);
+                        if (newPosition < limitUp)
+                        {
+                            this.HudCameraOffsetY += this._joystickDelta;
+                            UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_Y, this.HudCameraOffsetY);
+                        }
                         break;
                     }
                case MoveDirection.Down:
                     {
-                        this.HudCameraOffsetY -= this._joystickDelta;
-                        UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_Y, this.HudCameraOffsetY);
+                        var newPosition = 
+                            this.LineRunnerCamera.Position.Y + 
+                            this.HudCameraOffsetY - 
+                            this._joystickDelta;
+                        var limitDown = this._pageCache.CurrentPageModel.WorldOrigin.Y;
+                        if (newPosition > limitDown)
+                        {
+                            this.HudCameraOffsetY -= this._joystickDelta;
+                            UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_Y, this.HudCameraOffsetY);
+                        }
                         break;
                     }
             }

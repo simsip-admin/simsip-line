@@ -79,13 +79,13 @@ namespace Simsip.LineRunner.GameObjects.ParticleEffects
                 // up to 6th page where we top out at 50% frequency of assigning a particle to an obstacle
                 // (Tip: Map out several current page numbers to see how this works
                 // TESTING: Comment out below for testing
-                var exclusiveUpperBound = 3;
-                var divisor = 2;
+                var exclusiveUpperBound = 5;
+                var divisor = exclusiveUpperBound - 1;
                 var currentPageNumber = _pageCache.CurrentPageNumber;
                 if (currentPageNumber < 7)
                 {
-                    exclusiveUpperBound = 9 - currentPageNumber;
-                    divisor = 8 - currentPageNumber;
+                    exclusiveUpperBound = 11 - currentPageNumber;
+                    divisor = exclusiveUpperBound - 1;
                 }
                 
                 var qualifiesForParticle = (_randomNumberGenerator.Next(1,exclusiveUpperBound) % divisor) == 0;

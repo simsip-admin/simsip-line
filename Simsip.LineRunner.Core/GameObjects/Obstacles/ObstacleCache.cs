@@ -896,7 +896,6 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             //
         }
 
-
         private List<PageObstaclesEntity> HydrateLineObstacles(int pageNumber, int[] lineNumbers)
         {
             var returnEntities = new List<PageObstaclesEntity>();
