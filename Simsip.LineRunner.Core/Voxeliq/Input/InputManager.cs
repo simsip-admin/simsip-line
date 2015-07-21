@@ -25,6 +25,7 @@ using Simsip.LineRunner.Physics;
 using Simsip.LineRunner.Utils;
 using Microsoft.Xna.Framework.Input.Touch;
 using Simsip.LineRunner.GameObjects.Pages;
+using Simsip.LineRunner.GameObjects.Characters;
 
 
 namespace Engine.Input
@@ -79,6 +80,7 @@ namespace Engine.Input
         private IChunkCache _chunkCache;
         private IBloomService _bloomService;
         private IPageCache _pageCache;
+        private ICharacterCache _characterCache;
 
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility.
 
@@ -143,6 +145,7 @@ namespace Engine.Input
             this._chunkCache = (IChunkCache) this.Game.Services.GetService(typeof (IChunkCache));
             this._bloomService = (IBloomService) this.Game.Services.GetService(typeof (IBloomService));
             this._pageCache = (IPageCache)this.Game.Services.GetService(typeof(IPageCache));
+            this._characterCache = (ICharacterCache)this.Game.Services.GetService(typeof(ICharacterCache));
 
             // get current mouse & keyboard states.
             this._previousKeyboardState = Keyboard.GetState();
@@ -266,8 +269,8 @@ namespace Engine.Input
             {
                 case MoveDirection.Left:
                     {
-                        var newPosition = 
-                            this.LineRunnerCamera.Position.X + 
+                        var newPosition =
+                            this._characterCache.TheHeroModel.WorldOrigin.X +
                             this.HudCameraOffsetX - 
                             this._joystickDelta;
                         var limitLeft = 
@@ -283,7 +286,7 @@ namespace Engine.Input
                 case MoveDirection.Right:
                     {
                         var newPosition = 
-                            this.LineRunnerCamera.Position.X + 
+                            this._characterCache.TheHeroModel.WorldOrigin.X +
                             this.HudCameraOffsetX + 
                             this._joystickDelta;
                         var limitRight = 
@@ -298,8 +301,8 @@ namespace Engine.Input
                     }
                 case MoveDirection.Up:
                     {
-                        var newPosition = 
-                            this.LineRunnerCamera.Position.Y + 
+                        var newPosition =
+                            this._characterCache.TheHeroModel.WorldOrigin.Y + 
                             this.HudCameraOffsetY + 
                             this._joystickDelta;
                         var limitUp = 
@@ -314,8 +317,8 @@ namespace Engine.Input
                     }
                case MoveDirection.Down:
                     {
-                        var newPosition = 
-                            this.LineRunnerCamera.Position.Y + 
+                        var newPosition =
+                            this._characterCache.TheHeroModel.WorldOrigin.Y +
                             this.HudCameraOffsetY - 
                             this._joystickDelta;
                         var limitDown = this._pageCache.CurrentPageModel.WorldOrigin.Y;
