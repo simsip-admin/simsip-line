@@ -10,6 +10,11 @@ namespace Simsip.LineRunner.Entities.LineRunner
     public class RandomObstaclesEntity
     {
         /// <summary>
+        /// The product id that this entries belong to.
+        /// </summary>
+        public string ProductId { get; set; }
+
+        /// <summary>
         /// The name of the random set to represent these obstacles - also the primary key.
         /// 
         /// IMPORTANT: The naming represents both a count and version:

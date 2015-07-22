@@ -10,6 +10,11 @@ namespace Simsip.LineRunner.Entities.LineRunner
     public class PadEntity
     {
         /// <summary>
+        /// The product id that this pad belongs to.
+        /// </summary>
+        public string ProductId { get; set; }
+
+        /// <summary>
         /// The name of the model to load for this page - also the primary key.
         /// </summary>
         [PrimaryKey]

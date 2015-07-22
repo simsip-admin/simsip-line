@@ -9,6 +9,11 @@ namespace Simsip.LineRunner.Entities.LineRunner
     public class TextureEntity
     {
         /// <summary>
+        /// The product id that this texture belongs to.
+        /// </summary>
+        public string ProductId { get; set; }
+
+        /// <summary>
         /// The unique id for this TextureEntity.
         /// </summary>
         [PrimaryKey, AutoIncrement]

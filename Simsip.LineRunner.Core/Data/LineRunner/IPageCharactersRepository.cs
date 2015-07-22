@@ -5,9 +5,9 @@ namespace Simsip.LineRunner.Data.LineRunner
 {
     public interface IPageCharactersRepository
     {
-        List<PageCharactersEntity> GetCharacters(int pageNumber);
-        List<PageCharactersEntity> GetCharacters(int pageNumber, int lineNumber);
-        List<PageCharactersEntity> GetCharacters(int pageNumber, int[] lineNumbers);
-        PageCharactersEntity GetCharacter(int pageNumber, int lineNumber, int characterNumber);
+        List<PageCharactersEntity> GetCharacters(string productId, int pageNumber);
+        List<PageCharactersEntity> GetCharacters(string productId, int pageNumber, int lineNumber);
+        List<PageCharactersEntity> GetCharacters(string productId, int pageNumber, int[] lineNumbers);
+        PageCharactersEntity GetCharacter(string productId, int pageNumber, int lineNumber, int characterNumber);
     }
 }

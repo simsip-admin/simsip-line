@@ -8,14 +8,15 @@ namespace Simsip.LineRunner.Data.LineRunner
 {
     public class PageCharactersRepository : IPageCharactersRepository
     {
-        public List<PageCharactersEntity> GetCharacters(int pageNumber)
+        public List<PageCharactersEntity> GetCharacters(string productId, int pageNumber)
         {
             lock (Database.DATABASE_LOCK)
             {
                 using (var connection = new SQLiteConnection(Database.DatabasePath()))
                 {
                     var results = connection.Table<PageCharactersEntity>()
-                                  .Where(x => x.PageNumber == pageNumber)
+                                  .Where(x => x.ProductId == productId &&
+                                              x.PageNumber == pageNumber)
                                   .OrderBy(x => x.LineNumber)
                                   .ThenBy(x => x.CharacterNumber);
 
@@ -24,14 +25,15 @@ namespace Simsip.LineRunner.Data.LineRunner
             }
         }
 
-        public List<PageCharactersEntity> GetCharacters(int pageNumber, int lineNumber)
+        public List<PageCharactersEntity> GetCharacters(string productId, int pageNumber, int lineNumber)
         {
             lock (Database.DATABASE_LOCK)
             {
                 using (var connection = new SQLiteConnection(Database.DatabasePath()))
                 {
                     var results = connection.Table<PageCharactersEntity>()
-                                  .Where(x => x.PageNumber == pageNumber &&
+                                  .Where(x => x.ProductId == productId &&
+                                              x.PageNumber == pageNumber &&
                                               x.LineNumber == lineNumber)
                                   .OrderBy(x => x.CharacterNumber);
 
@@ -40,14 +42,15 @@ namespace Simsip.LineRunner.Data.LineRunner
             }
         }
 
-        public List<PageCharactersEntity> GetCharacters(int pageNumber, int[] lineNumbers)
+        public List<PageCharactersEntity> GetCharacters(string productId, int pageNumber, int[] lineNumbers)
         {
             lock (Database.DATABASE_LOCK)
             {
                 using (var connection = new SQLiteConnection(Database.DatabasePath()))
                 {
                     var results = connection.Table<PageCharactersEntity>()
-                                  .Where(x => x.PageNumber == pageNumber &&
+                                  .Where(x => x.ProductId == productId &&
+                                              x.PageNumber == pageNumber &&
                                               lineNumbers.Contains(x.LineNumber))
                                   .OrderBy(x => x.CharacterNumber);
 
@@ -55,14 +58,15 @@ namespace Simsip.LineRunner.Data.LineRunner
                 }
             }
         }
-        public PageCharactersEntity GetCharacter(int pageNumber, int lineNumber, int characterNumber)
+        public PageCharactersEntity GetCharacter(string productId, int pageNumber, int lineNumber, int characterNumber)
         {
             lock (Database.DATABASE_LOCK)
             {
                 using (var connection = new SQLiteConnection(Database.DatabasePath()))
                 {
                     var result = (connection.Table<PageCharactersEntity>()
-                                  .Where(x => x.PageNumber == pageNumber &&
+                                  .Where(x => x.ProductId == productId &&
+                                              x.PageNumber == pageNumber &&
                                               x.LineNumber == lineNumber &&
                                               x.CharacterNumber == characterNumber))
                                  .FirstOrDefault<PageCharactersEntity>();

@@ -7,14 +7,15 @@ namespace Simsip.LineRunner.Data.LineRunner
 {
     public class ModelRepository : IModelRepository
     {
-        public ModelEntity GetModel(string modelName)
+        public ModelEntity GetModel(string productId, string modelName)
         {
             lock (Database.DATABASE_LOCK)
             {
                 using (var connection = new SQLiteConnection(Database.DatabasePath()))
                 {
                     var result = (connection.Table<ModelEntity>()
-                                 .Where(x => x.ModelName == modelName))
+                                 .Where(x => x.ProductId == productId &&
+                                             x.ModelName == modelName))
                                  .FirstOrDefault<ModelEntity>();
 
                     return result;

@@ -6,7 +6,7 @@ namespace Simsip.LineRunner.Data.LineRunner
 {
     public interface ILineRepository
     {
-        LineEntity GetLine(string modelName);
-        IList<LineEntity> GetLines();
+        LineEntity GetLine(string productId, string modelName);
+        IList<LineEntity> GetLines(string productId);
     }
 }

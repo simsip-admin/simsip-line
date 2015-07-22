@@ -5,6 +5,6 @@ namespace Simsip.LineRunner.Data.LineRunner
 {
     public interface IObstacleRepository
     {
-        ObstacleEntity GetObstacle(string modelName);
+        ObstacleEntity GetObstacle(string productId, string modelName);
     }
 }

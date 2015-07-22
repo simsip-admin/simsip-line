@@ -8,13 +8,14 @@ namespace Simsip.LineRunner.Data.LineRunner
 {
     public class RandomObstaclesRepository : IRandomObstaclesRepository
     {
-        public List<RandomObstaclesEntity> GetAllRandomObstacles()
+        public List<RandomObstaclesEntity> GetAllRandomObstacles(string productId)
         {
             lock (Database.DATABASE_LOCK)
             {
                 using (var connection = new SQLiteConnection(Database.DatabasePath()))
                 {
                     var result = (connection.Table<RandomObstaclesEntity>()
+                                 .Where(x => x.ProductId == productId)
                                  .OrderBy(x => x.RandomObstaclesSet)
                                  .ThenBy(x => x.ObstacleNumber))
                                  .ToList<RandomObstaclesEntity>();
@@ -24,14 +25,15 @@ namespace Simsip.LineRunner.Data.LineRunner
             }
         }
 
-        public List<RandomObstaclesEntity> GetRandomObstacleSet(string randomObstaclesSet)
+        public List<RandomObstaclesEntity> GetRandomObstacleSet(string productId, string randomObstaclesSet)
         {
             lock (Database.DATABASE_LOCK)
             {
                 using (var connection = new SQLiteConnection(Database.DatabasePath()))
                 {
                     var result = (connection.Table<RandomObstaclesEntity>()
-                                 .Where(x => x.RandomObstaclesSet == randomObstaclesSet)
+                                 .Where(x => x.ProductId == productId &&
+                                             x.RandomObstaclesSet == randomObstaclesSet)
                                  .OrderBy(x => x.RandomObstaclesSet)
                                  .ThenBy(x => x.ObstacleNumber))
                                  .ToList<RandomObstaclesEntity>();

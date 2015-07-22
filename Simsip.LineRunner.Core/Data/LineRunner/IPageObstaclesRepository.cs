@@ -5,11 +5,11 @@ namespace Simsip.LineRunner.Data.LineRunner
 {
     public interface IPageObstaclesRepository
     {
-        List<PageObstaclesEntity> GetObstacles();
-        List<PageObstaclesEntity> GetObstacles(int pageNumber);
-        List<PageObstaclesEntity> GetObstacles(int pageNumber, int lineNumber);
-        List<PageObstaclesEntity> GetObstacles(int pageNumber, int[] lineNumbers);
+        List<PageObstaclesEntity> GetObstacles(string productId);
+        List<PageObstaclesEntity> GetObstacles(string productId, int pageNumber);
+        List<PageObstaclesEntity> GetObstacles(string productId, int pageNumber, int lineNumber);
+        List<PageObstaclesEntity> GetObstacles(string productId, int pageNumber, int[] lineNumbers);
 
-        PageObstaclesEntity GetObstacle(int pageNumber, int lineNumber, int obstacleNumber);
+        PageObstaclesEntity GetObstacle(string productId, int pageNumber, int lineNumber, int obstacleNumber);
     }
 }

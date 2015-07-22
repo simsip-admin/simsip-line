@@ -5,6 +5,6 @@ namespace Simsip.LineRunner.Data.LineRunner
 {
     public interface ITextureRepository
     {
-        IList<TextureEntity> GetTextures(string modelName);
+        IList<TextureEntity> GetTextures(string productId, string modelName);
     }
 }

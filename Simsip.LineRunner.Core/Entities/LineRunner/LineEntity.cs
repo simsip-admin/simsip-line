@@ -9,6 +9,11 @@ namespace Simsip.LineRunner.Entities.LineRunner
     public class LineEntity
     {
         /// <summary>
+        /// The product id that this line belongs to.
+        /// </summary>
+        public string ProductId { get; set; }
+
+        /// <summary>
         /// The name of the model to represent this line - also the primary key.
         /// </summary>
         [PrimaryKey]

@@ -5,6 +5,6 @@ namespace Simsip.LineRunner.Data.LineRunner
 {
     public interface ICharacterRepository
     {
-        CharacterEntity GetCharacter(string modelName);
+        CharacterEntity GetCharacter(string productId, string modelName);
     }
 }

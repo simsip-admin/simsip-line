@@ -5,9 +5,9 @@ namespace Simsip.LineRunner.Data.LineRunner
 {
     public interface IPageLinesRepository
     {
-        List<PageLinesEntity> GetLines(int pageNumber);
-        List<PageLinesEntity> GetLines(int pageNumber, int[] lineNumbers);
+        List<PageLinesEntity> GetLines(string productId, int pageNumber);
+        List<PageLinesEntity> GetLines(string productId, int pageNumber, int[] lineNumbers);
 
-        PageLinesEntity GetLine(int pageNumber, int lineNumber);
+        PageLinesEntity GetLine(string productId, int pageNumber, int lineNumber);
     }
 }

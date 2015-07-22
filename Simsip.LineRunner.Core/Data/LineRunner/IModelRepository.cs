@@ -5,6 +5,6 @@ namespace Simsip.LineRunner.Data.LineRunner
 {
     public interface IModelRepository
     {
-        ModelEntity GetModel(string modelName);
+        ModelEntity GetModel(string productId, string modelName);
     }
 }

@@ -10,6 +10,11 @@ namespace Simsip.LineRunner.Entities.LineRunner
     public class PageObstaclesEntity
     {
         /// <summary>
+        /// The product id that this entries belong to.
+        /// </summary>
+        public string ProductId { get; set; }
+
+        /// <summary>
         /// The page number we are describing.
         /// </summary>
         [Indexed]

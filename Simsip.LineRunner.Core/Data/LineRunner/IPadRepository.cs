@@ -5,8 +5,8 @@ namespace Simsip.LineRunner.Data.LineRunner
 {
     public interface IPadRepository
     {
-        IList<PadEntity> GetPads();
+        IList<PadEntity> GetPads(string productId);
 
-        PadEntity GetPad(string modelName);
+        PadEntity GetPad(string productId, string modelName);
     }
 }

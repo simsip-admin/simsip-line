@@ -10,6 +10,11 @@ namespace Simsip.LineRunner.Entities.LineRunner
     public class ObstacleEntity
     {
         /// <summary>
+        /// The product id that this obstacle belongs to.
+        /// </summary>
+        public string ProductId { get; set; }
+
+        /// <summary>
         /// The name of the model to represent this obstacle - also the primary key.
         /// </summary>
         [PrimaryKey]

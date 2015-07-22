@@ -8,14 +8,15 @@ namespace Simsip.LineRunner.Data.LineRunner
 {
     public class LineRepository : ILineRepository
     {
-        public LineEntity GetLine(string modelName)
+        public LineEntity GetLine(string productId, string modelName)
         {
             lock (Database.DATABASE_LOCK)
             {
                 using (var connection = new SQLiteConnection(Database.DatabasePath()))
                 {
                     var result = connection.Table<LineEntity>()
-                                 .Where(x => x.ModelName == modelName)
+                                 .Where(x => x.ProductId == productId &&
+                                             x.ModelName == modelName)
                                  .FirstOrDefault<LineEntity>();
 
                     return result;
@@ -23,13 +24,14 @@ namespace Simsip.LineRunner.Data.LineRunner
             }
         }
 
-        public IList<LineEntity> GetLines()
+        public IList<LineEntity> GetLines(string productId)
         {
             lock (Database.DATABASE_LOCK)
             {
                 using (var connection = new SQLiteConnection(Database.DatabasePath()))
                 {
                     var result = connection.Table<LineEntity>()
+                                 .Where(x => x.ProductId == productId)
                                  .ToList<LineEntity>();
 
                     return result;

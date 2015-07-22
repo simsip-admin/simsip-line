@@ -8,14 +8,15 @@ namespace Simsip.LineRunner.Data.LineRunner
 {
     public class TextureRepository : ITextureRepository
     {
-        public IList<TextureEntity> GetTextures(string modelName)
+        public IList<TextureEntity> GetTextures(string productId, string modelName)
         {
             lock (Database.DATABASE_LOCK)
             {
                 using (var connection = new SQLiteConnection(Database.DatabasePath()))
                 {
                     var result = connection.Table<TextureEntity>()
-                                 .Where(x => x.ModelName == modelName)
+                                 .Where(x => x.ProductId == productId &&
+                                             x.ModelName == modelName)
                                  .OrderBy(x => x.TexturePosition)
                                  .ToList();
 
