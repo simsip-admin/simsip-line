@@ -125,6 +125,24 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to packs off.
+        /// </summary>
+        public static string AdminPacksOff {
+            get {
+                return ResourceManager.GetString("AdminPacksOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to packs on.
+        /// </summary>
+        public static string AdminPacksOn {
+            get {
+                return ResourceManager.GetString("AdminPacksOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to particles off.
         /// </summary>
         public static string AdminParticlesOff {

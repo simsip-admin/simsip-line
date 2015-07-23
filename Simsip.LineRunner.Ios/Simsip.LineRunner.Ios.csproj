@@ -1117,6 +1117,38 @@
       <Link>Content\Models\Obstacles\Pipe10-texture_0.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Misc\LinerunnerPackProImage1.xnb">
+      <Link>Content\Images\Misc\LinerunnerPackProImage1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Misc\LinerunnerPackProImage2.xnb">
+      <Link>Content\Images\Misc\LinerunnerPackProImage2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Misc\LinerunnerPackProImage3.xnb">
+      <Link>Content\Images\Misc\LinerunnerPackProImage3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Misc\LinerunnerPackProImage4.xnb">
+      <Link>Content\Images\Misc\LinerunnerPackProImage4.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Misc\LinerunnerPackTvImage1.xnb">
+      <Link>Content\Images\Misc\LinerunnerPackTvImage1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Misc\LinerunnerPackTvImage2.xnb">
+      <Link>Content\Images\Misc\LinerunnerPackTvImage2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Misc\LinerunnerPackTvImage3.xnb">
+      <Link>Content\Images\Misc\LinerunnerPackTvImage3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\IOS\Content\Images\Misc\LinerunnerPackTvImage4.xnb">
+      <Link>Content\Images\Misc\LinerunnerPackTvImage4.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
       <Link>Mercury\EffectLibrary\BasicExplosion.xml</Link>
     </None>

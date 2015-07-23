@@ -144,3 +144,5 @@
 "LinesRed"="red";
 "PadsWhite"="white";
 "PadsYellow"="yellow";
+"AdminPacksOff"="packs off";
+"AdminPacksOn"="packs on";

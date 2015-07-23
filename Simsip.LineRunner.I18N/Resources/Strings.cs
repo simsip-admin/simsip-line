@@ -148,5 +148,7 @@
         public static string LinesRed = "LinesRed";
         public static string PadsWhite = "PadsWhite";
         public static string PadsYellow = "PadsYellow";
+        public static string AdminPacksOff = "AdminPacksOff";
+        public static string AdminPacksOn = "AdminPacksOn";
     }
 }

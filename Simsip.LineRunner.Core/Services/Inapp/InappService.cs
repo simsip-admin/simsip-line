@@ -31,16 +31,25 @@ namespace Simsip.LineRunner.Services.Inapp
 
         public InappService()
         {
+            // IMPORTANT: Normally done here, the registration of this service is done in AppDelegate.
             // Register as service
             // TheGame.SharedGame.Services.AddService(typeof(IInappService), this);
         }
         
         #region IInappService implementation
 
-
         // public string PracticeModeProductId { get { return "com.simsip.linerunner.practicemode"; } }
         // Testing
         public string PracticeModeProductId { get { return ReservedTestProductIDs.Purchased; } }
+
+        // public string LinerunnerPackTvProductId { get { return "com.simsip.linerunner.pack.tv"; } }
+        // Testing
+        public string LinerunnerPackTvProductId { get { return ReservedTestProductIDs.Purchased; } }
+
+        // public string LinerunnerPackProProductId { get { return "com.simsip.linerunner.pack.pro"; } }
+        // Testing
+        public string LinerunnerPackProProductId { get { return ReservedTestProductIDs.Purchased; } }
+
 
         public void Initialize()
         {
@@ -392,7 +401,11 @@ namespace Simsip.LineRunner.Services.Inapp
         #region IInappService implementation
 
         public string PracticeModeProductId { get { return "com.simsip.linerunner.practicemode"; } }
-
+        
+        public string LinerunnerPackTvProductId { get { return "com.simsip.linerunner.pack.tv"; } }
+        
+        public string LinerunnerPackProProductId { get { return "com.simsip.linerunner.pack.pro"; } }
+        
         public void Initialize()
         {
             this._customPaymentObserver = new CustomPaymentObserver(this);

@@ -2206,6 +2206,12 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f070060
 			public const int AdminKillsOn = 2131165280;
 			
+			// aapt resource value: 0x7f0700dc
+			public const int AdminPacksOff = 2131165404;
+			
+			// aapt resource value: 0x7f0700dd
+			public const int AdminPacksOn = 2131165405;
+			
 			// aapt resource value: 0x7f070061
 			public const int AdminParticlesOff = 2131165281;
 			

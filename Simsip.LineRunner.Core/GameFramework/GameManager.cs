@@ -162,6 +162,13 @@ namespace Simsip.LineRunner.GameFramework
         public bool AdminAreUpgradesAllowed { get; set; }
 
         /// <summary>
+        /// Controls whether pack pages are displayed.
+        /// 
+        /// Admin screen has an option to toggle this flag.
+        /// </summary>
+        public bool AdminArePacksAllowed { get; set; }
+
+        /// <summary>
         /// Centralized access to current score.
         /// </summary>
         public int CurrentScore { get; set; }

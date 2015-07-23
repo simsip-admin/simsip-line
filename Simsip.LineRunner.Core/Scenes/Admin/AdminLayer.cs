@@ -266,6 +266,44 @@ namespace Simsip.LineRunner.Scenes.Admin
                  0.3f * this.ContentSize.Height);
             this.AddChild(refundMenu);
 #endif
+            // Are packs on?
+            var packsOnText = string.Empty;
+#if ANDROID
+            packsOnText = Program.SharedProgram.Resources.GetString(Resource.String.AdminPacksOn);
+#elif IOS
+            packsOnText = NSBundle.MainBundle.LocalizedString(Strings.AdminPacksOn, Strings.AdminPacksOn);
+#else
+            packsOnText = AppResources.AdminPacksOn;
+#endif
+            var packsOnLabel = new CCLabelTTF(packsOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var packsOnItem = new CCMenuItemLabel(packsOnLabel);
+            var packsOffText = string.Empty;
+#if ANDROID
+            packsOffText = Program.SharedProgram.Resources.GetString(Resource.String.AdminPacksOff);
+#elif IOS
+            packsOffText = NSBundle.MainBundle.LocalizedString(Strings.AdminPacksOff, Strings.AdminPacksOff);
+#else
+            packsOffText = AppResources.AdminPacksOff;
+#endif
+            var packsOffLabel = new CCLabelTTF(packsOffText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var packsOffItem = new CCMenuItemLabel(packsOffLabel);
+            CCMenuItemToggle packsToggle =
+                new CCMenuItemToggle((obj) => PacksTogglePressed((obj as CCMenuItemToggle).SelectedIndex),
+                new CCMenuItem[] { packsOnItem, packsOffItem });
+            if (GameManager.SharedGameManager.AdminArePacksAllowed == false)
+            {
+                packsToggle.SelectedIndex = 1; // Packs are OFF
+            }
+            var packsMenu = new CCMenu(
+                new CCMenuItem[] 
+                    {
+                        packsToggle,
+                    });
+            packsMenu.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.4f * this.ContentSize.Height);
+            this.AddChild(packsMenu);
+
 
             // Back
             CCMenuItemImage backButton =
@@ -348,6 +386,18 @@ namespace Simsip.LineRunner.Scenes.Admin
             else
             {
                 GameManager.SharedGameManager.AdminAreUpgradesAllowed = false;
+            }
+        }
+
+        private void PacksTogglePressed(int selectedIndex)
+        {
+            if (selectedIndex == 0)
+            {
+                GameManager.SharedGameManager.AdminArePacksAllowed = true;
+            }
+            else
+            {
+                GameManager.SharedGameManager.AdminArePacksAllowed = false;
             }
         }
 

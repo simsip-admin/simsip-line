@@ -204,6 +204,14 @@
           <source>yellow</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">amarelo</target>
         </trans-unit>
+        <trans-unit id="Resx/AdminPacksOn" translate="yes" xml:space="preserve">
+          <source>packs on</source>
+          <target state="new">packs on</target>
+        </trans-unit>
+        <trans-unit id="Resx/AdminPacksOff" translate="yes" xml:space="preserve">
+          <source>packs off</source>
+          <target state="new">packs off</target>
+        </trans-unit>
         <trans-unit id="Resx/PadsWhite" translate="yes" xml:space="preserve">
           <source>white</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">branco</target>

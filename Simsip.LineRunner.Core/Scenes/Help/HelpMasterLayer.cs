@@ -238,7 +238,7 @@ namespace Simsip.LineRunner.Scenes.Help
                  0.8f * this.ContentSize.Height);
             // this.AddChild(supportMenu);
 
-            // 1 page create up front, rest created on-demand, see GetHelpPage() below
+            // First page create up front, rest created on-demand, see GetHelpPage() below
             this._helpPage1Layer = new HelpPage1Layer(this._parent, this);
             this.AddChild(this._helpPage1Layer);
             this._currentPage = 1;

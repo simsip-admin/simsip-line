@@ -33,6 +33,7 @@ namespace Simsip.LineRunner.Scenes.Options
         // Options pages
         private IList<CCLayer> _optionsPages;
         private OptionsPracticeLayer _practicePage;
+        private OptionsPackLayer _packPage;
 
         // Page actions
         private CCAction _pageActionInFromLeft;
@@ -335,6 +336,25 @@ namespace Simsip.LineRunner.Scenes.Options
                     this._totalPages = this._optionsPages.Count;
                 }
             }
+
+            var packTvPurchase =
+                this._inAppPurchaseRepository.GetPurchaseByProductId(this._inAppService.LinerunnerPackTvProductId);
+            var packProPurchase =
+                this._inAppPurchaseRepository.GetPurchaseByProductId(this._inAppService.LinerunnerPackProProductId);
+            if (packTvPurchase != null ||
+                packProPurchase != null ||
+                GameManager.SharedGameManager.AdminArePacksAllowed)
+            {
+                // OK, we have the purchase, do we need to insert into our pages?
+                if (this._packPage == null)
+                {
+                    this._packPage = new OptionsPackLayer(this._parent, this);
+                    this.AddChild(this._packPage);
+                    this._optionsPages.Insert(0, this._packPage);
+                    this._totalPages = this._optionsPages.Count;
+                }
+            }
+
 #endif
             // Reset state
             foreach (var optionPage in this._optionsPages)

@@ -2707,6 +2707,9 @@
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Options\OptionsMasterLayer.cs">
       <Link>Scenes\Options\OptionsMasterLayer.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Options\OptionsPackLayer.cs">
+      <Link>Scenes\Options\OptionsPackLayer.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Options\OptionsPage1Layer.cs">
       <Link>Scenes\Options\OptionsPage1Layer.cs</Link>
     </Compile>
@@ -4102,6 +4105,38 @@
     </Content>
     <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Models\Obstacles\Pipe10-texture_0.xnb">
       <Link>Content\Models\Obstacles\Pipe10-texture_0.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\LinerunnerPackProImage1.xnb">
+      <Link>Content\Images\Misc\LinerunnerPackProImage1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\LinerunnerPackProImage2.xnb">
+      <Link>Content\Images\Misc\LinerunnerPackProImage2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\LinerunnerPackProImage3.xnb">
+      <Link>Content\Images\Misc\LinerunnerPackProImage3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\LinerunnerPackProImage4.xnb">
+      <Link>Content\Images\Misc\LinerunnerPackProImage4.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\LinerunnerPackTvImage1.xnb">
+      <Link>Content\Images\Misc\LinerunnerPackTvImage1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\LinerunnerPackTvImage2.xnb">
+      <Link>Content\Images\Misc\LinerunnerPackTvImage2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\LinerunnerPackTvImage3.xnb">
+      <Link>Content\Images\Misc\LinerunnerPackTvImage3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Desktop\Content\Images\Misc\LinerunnerPackTvImage4.xnb">
+      <Link>Content\Images\Misc\LinerunnerPackTvImage4.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">

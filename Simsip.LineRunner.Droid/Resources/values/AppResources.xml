@@ -146,4 +146,6 @@
   <string name="LinesRed">red</string>
   <string name="PadsWhite">white</string>
   <string name="PadsYellow">yellow</string>
+  <string name="AdminPacksOff">packs off</string>
+  <string name="AdminPacksOn">packs on</string>
 </resources>

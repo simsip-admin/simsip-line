@@ -557,4 +557,10 @@
   <data name="PadsYellow" xml:space="preserve">
     <value>yellow</value>
   </data>
+  <data name="AdminPacksOff" xml:space="preserve">
+    <value>packs off</value>
+  </data>
+  <data name="AdminPacksOn" xml:space="preserve">
+    <value>packs on</value>
+  </data>
 </root>
