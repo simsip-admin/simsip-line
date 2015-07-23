@@ -289,6 +289,9 @@
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Help\HelpPage9Layer.cs">
       <Link>Scenes\Help\HelpPage9Layer.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Options\OptionsPackLayer.cs">
+      <Link>Scenes\Options\OptionsPackLayer.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Options\OptionsPracticeLayer.cs">
       <Link>Scenes\Options\OptionsPracticeLayer.cs</Link>
     </Compile>
@@ -303,6 +306,12 @@
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Upgrades\UpgradesPage1Layer.cs">
       <Link>Scenes\Upgrades\UpgradesPage1Layer.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Upgrades\UpgradesPage2Layer.cs">
+      <Link>Scenes\Upgrades\UpgradesPage2Layer.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Upgrades\UpgradesPage3Layer.cs">
+      <Link>Scenes\Upgrades\UpgradesPage3Layer.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Services\Inapp\IInappService.cs">
       <Link>Services\Inapp\IInappService.cs</Link>
