@@ -135,7 +135,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
             {
                 case CharacterType.Hero:
                     {
-                        TheModelEntity = modelRepository.GetModel(TheCharacterEntity.ModelName);
+                        TheModelEntity = modelRepository.GetModel(GameManager.SharedGameManager.LinerunnerPack, TheCharacterEntity.ModelName);
                         var modelNameToLoad = string.IsNullOrEmpty(TheModelEntity.ModelAlias) ? TheModelEntity.ModelName : TheModelEntity.ModelAlias;
                         XnaModel = _assetManager.GetModel(
                             modelNameToLoad, 
@@ -180,7 +180,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
             // Do we have any texture overrides?
             this._textureOverrides = new List<Texture2D>();
             var textureRepository = new TextureRepository();
-            var textureEntities = textureRepository.GetTextures(TheModelEntity.ModelName);
+            var textureEntities = textureRepository.GetTextures(GameManager.SharedGameManager.LinerunnerPack, TheModelEntity.ModelName);
             foreach (var textureEntity in textureEntities)
             {
                 var texture = this._assetManager.GetModelTexture(

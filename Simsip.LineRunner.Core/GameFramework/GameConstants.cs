@@ -78,6 +78,8 @@ namespace Simsip.LineRunner.GameFramework
         public const int USER_DEFAULT_INITIAL_START_LINE = 1;
         public const string USER_DEFAULT_KEY_KILLS_ALLOWED = "KillsAllowed";
         public const bool USER_DEFAULT_INITIAL_KILLS_ALLOWED = true;
+        public const string USER_DEFAULT_KEY_LINERUNNER_PACK = "LinerunnerPack";
+        public const string USER_DEFAULT_INITIAL_LINERUNNER_PACK = "default";
 
         // Limits
         public const int VELOCITY_LOWER_LIMIT_X = 1;
@@ -102,22 +104,6 @@ namespace Simsip.LineRunner.GameFramework
         public const string USER_DEFAULT_KEY_SOUND = "Sound";
         public const bool USER_DEFAULT_INITIAL_SOUND = true;
 
-        /// <summary>
-        /// Controls whether user is in practice mode.
-        /// 
-        /// Practice mode allows users to specify which page to start on. In practice mode, users
-        /// cannot post scores to leaderboard.
-        /// </summary>
-        public const string USER_DEFAULT_KEY_PRACTICE_MODE = "PracticeMode";
-        public const bool USER_DEFAULT_INITIAL_PRACTICE_MODE = false;
-
-        /// <summary>
-        /// When in practice mode, designates the page the user has selected to start on.
-        /// </summary>
-        public const string USER_DEFAULT_KEY_PRACTICE_MODE_START_PAGE = "PracticeModeStartPage";
-        public const int USER_DEFAULT_INITIAL_PRACTICE_MODE_START_PAGE = 1;
-
-        
         /// <summary>
         /// Ratio to convert width from pixels to logical coordinates.
         /// </summary>

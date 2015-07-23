@@ -95,7 +95,7 @@ namespace Simsip.LineRunner.Scenes.Pads
             // Pads menu
             this._padBoundingBoxes = new List<CCRect>();
             this._padRepository = new PadRepository();
-            this._padEntities = this._padRepository.GetPads();
+            this._padEntities = this._padRepository.GetPads(GameManager.SharedGameManager.LinerunnerPack);
             var y = 0.6f*this.ContentSize.Height;
             foreach(var pad in this._padEntities)
             {

@@ -159,8 +159,8 @@ namespace Simsip.LineRunner.Scenes.Lines
             this._lineEntities = new List<LineEntity>();
             this._lineRepository = new LineRepository();
             this._pageLinesRepository = new PageLinesRepository();
-            var pageLinesEntity = this._pageLinesRepository.GetLine(1, 1);
-            this._lineEntities = this._lineRepository.GetLines();
+            var pageLinesEntity = this._pageLinesRepository.GetLine(GameManager.SharedGameManager.LinerunnerPack, 1, 1);
+            this._lineEntities = this._lineRepository.GetLines(GameManager.SharedGameManager.LinerunnerPack);
             var y = 0.9f * this.ContentSize.Height;
             foreach (var line in this._lineEntities)
             {

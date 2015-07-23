@@ -15,6 +15,7 @@ namespace Simsip.LineRunner.GameFramework
         private int _gameStartLineNumber;
         private int _gameStartScore;
         private bool _gameKillsAllowed;
+        private string _linerunnerPack;
 
         //
         // Singleton implementation/defaults
@@ -26,14 +27,17 @@ namespace Simsip.LineRunner.GameFramework
                 this.TheActionManager = new ActionManager();
 
                 this.GameStartPageNumber = UserDefaults.SharedUserDefault.GetIntegerForKey(
-                        GameConstants.USER_DEFAULT_KEY_START_PAGE,
-                        GameConstants.USER_DEFAULT_INITIAL_START_PAGE);
+                    GameConstants.USER_DEFAULT_KEY_START_PAGE,
+                    GameConstants.USER_DEFAULT_INITIAL_START_PAGE);
                 this.GameStartLineNumber = UserDefaults.SharedUserDefault.GetIntegerForKey(
-                        GameConstants.USER_DEFAULT_KEY_START_LINE,
-                        GameConstants.USER_DEFAULT_INITIAL_START_LINE);
+                    GameConstants.USER_DEFAULT_KEY_START_LINE,
+                    GameConstants.USER_DEFAULT_INITIAL_START_LINE);
                 this.GameAreKillsAllowed = UserDefaults.SharedUserDefault.GetBoolForKey(
-                        GameConstants.USER_DEFAULT_KEY_KILLS_ALLOWED,
-                        GameConstants.USER_DEFAULT_INITIAL_KILLS_ALLOWED);
+                    GameConstants.USER_DEFAULT_KEY_KILLS_ALLOWED,
+                    GameConstants.USER_DEFAULT_INITIAL_KILLS_ALLOWED);
+                this.LinerunnerPack = UserDefaults.SharedUserDefault.GetStringForKey(
+                    GameConstants.USER_DEFAULT_KEY_LINERUNNER_PACK,
+                    GameConstants.USER_DEFAULT_INITIAL_LINERUNNER_PACK);
 
                 this.CurrentScore = this.GameStartScore;
 
@@ -133,6 +137,24 @@ namespace Simsip.LineRunner.GameFramework
         }
 
         /// <summary>
+        /// The Linerunner 3D pack that is currently selected to be played.
+        /// </summary>
+        public string LinerunnerPack
+        {
+            get
+            {
+                return this._linerunnerPack;
+            }
+            set
+            {
+                this._linerunnerPack = value;
+                UserDefaults.SharedUserDefault.SetStringForKey(
+                    GameConstants.USER_DEFAULT_KEY_LINERUNNER_PACK,
+                    this._linerunnerPack);
+            }
+        }
+
+        /// <summary>
         /// Controls whether upgrade pages are displayed.
         /// 
         /// Admin screen has an option to toggle this flag.
@@ -172,7 +194,7 @@ namespace Simsip.LineRunner.GameFramework
 
             // Ok, we need to determine the start score
             var pageObstaclesRepository = new PageObstaclesRepository();
-            var obstacles = pageObstaclesRepository.GetObstacles();
+            var obstacles = pageObstaclesRepository.GetObstacles(GameManager.SharedGameManager.LinerunnerPack);
             var filteredObstacles = obstacles
                                     .Where(x =>
                                     (x.IsGoal == true ||

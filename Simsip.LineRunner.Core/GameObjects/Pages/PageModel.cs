@@ -121,7 +121,7 @@ namespace Simsip.LineRunner.GameObjects.Pages
             // Determine and load appropriate xna model for page along with it's matching
             // meta-data info from database
             var modelRepository = new ModelRepository();
-            TheModelEntity = modelRepository.GetModel(ThePadEntity.ModelName);
+            TheModelEntity = modelRepository.GetModel(GameManager.SharedGameManager.LinerunnerPack, ThePadEntity.ModelName);
             var modelNameToLoad = string.IsNullOrEmpty(TheModelEntity.ModelAlias) ? TheModelEntity.ModelName : TheModelEntity.ModelAlias;
             XnaModel = _assetManager.GetModel(
                 modelNameToLoad, 
@@ -159,7 +159,7 @@ namespace Simsip.LineRunner.GameObjects.Pages
             // Do we have any texture overrides?
             this._textureOverrides = new List<Texture2D>();
             var textureRepository = new TextureRepository();
-            var textureEntities = textureRepository.GetTextures(TheModelEntity.ModelName);
+            var textureEntities = textureRepository.GetTextures(GameManager.SharedGameManager.LinerunnerPack, TheModelEntity.ModelName);
             foreach (var textureEntity in textureEntities)
             {
                 var texture = this._assetManager.GetModelTexture(

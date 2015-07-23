@@ -577,7 +577,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                     var lineModel = this._lineCache.GetLineModel(pageObstaclesEntity.LineNumber);
 
                     // Get an initial model constructed
-                    var obstacleEntity = this._obstacleRepository.GetObstacle(pageObstaclesEntity.ModelName);
+                    var obstacleEntity = this._obstacleRepository.GetObstacle(GameManager.SharedGameManager.LinerunnerPack, pageObstaclesEntity.ModelName);
                     var obstacleModel = new ObstacleModel(
                         obstacleEntity,
                         pageObstaclesEntity,
@@ -901,7 +901,10 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             var returnEntities = new List<PageObstaclesEntity>();
 
             // Get the set of page obstacle entries for the page/line we are processing
-            var pageObstaclesEntities = _pageObstaclesRepository.GetObstacles(pageNumber, lineNumbers);
+            var pageObstaclesEntities = _pageObstaclesRepository.GetObstacles(
+                GameManager.SharedGameManager.LinerunnerPack, 
+                pageNumber, 
+                lineNumbers);
 
             // Now loop over all entries
             foreach (var pageObstaclesEntity in pageObstaclesEntities)
@@ -1580,7 +1583,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
             // Pull in our defined random obstacle sets
             var randomRepository = new RandomObstaclesRepository();
-            var randomObstacles = randomRepository.GetAllRandomObstacles();
+            var randomObstacles = randomRepository.GetAllRandomObstacles(GameManager.SharedGameManager.LinerunnerPack);
 
             // Loop over all defined random obstacles
             // IMPORTANT:

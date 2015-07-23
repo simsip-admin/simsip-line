@@ -521,7 +521,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
 
            // Line construction logic will vary based on if we have
            // 1 line definition or more than 1 line definition for the current page
-           var pageLinesEntities = this._pageLinesRepository.GetLines(this._currentPageNumber); 
+           var pageLinesEntities = this._pageLinesRepository.GetLines(GameManager.SharedGameManager.LinerunnerPack, this._currentPageNumber); 
            if (pageLinesEntities.Count == 1)
            {
                // Ok, we have one line definition that is the same for all
@@ -533,7 +533,7 @@ namespace Simsip.LineRunner.GameObjects.Lines
                    var currentLine = UserDefaults.SharedUserDefault.GetStringForKey(
                        GameConstants.USER_DEFAULT_KEY_CURRENT_LINE,
                        GameConstants.USER_DEFAULT_INITIAL_CURRENT_LINE);
-                   var lineEntity = this._lineRepository.GetLine(currentLine);
+                   var lineEntity = this._lineRepository.GetLine(GameManager.SharedGameManager.LinerunnerPack, currentLine);
 
                    // Create a PageLinesEntity to represent this model
                    var pageLinesEntity = new PageLinesEntity

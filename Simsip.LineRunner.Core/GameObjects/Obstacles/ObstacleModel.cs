@@ -119,7 +119,7 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
                 case ObstacleType.SimpleBottom:
                 case ObstacleType.SimpleTop:
                     {
-                        TheModelEntity = modelRepository.GetModel(TheObstacleEntity.ModelName);
+                        TheModelEntity = modelRepository.GetModel(GameManager.SharedGameManager.LinerunnerPack, TheObstacleEntity.ModelName);
                         var modelNameToLoad = string.IsNullOrEmpty(TheModelEntity.ModelAlias) ? TheModelEntity.ModelName : TheModelEntity.ModelAlias;
                         XnaModel = _assetManager.GetModel(
                             modelNameToLoad, 

@@ -611,7 +611,10 @@ namespace Simsip.LineRunner.GameObjects.Characters
             var characterModels = loadContentThreadArgs.CharacterModelsAsync;
 
             // Grab our collection of characters for current page
-            var pageCharactersEntities = this._pageCharactersRepository.GetCharacters(pageNumber, lineNumbers);
+            var pageCharactersEntities = this._pageCharactersRepository.GetCharacters(
+                GameManager.SharedGameManager.LinerunnerPack, 
+                pageNumber, 
+                lineNumbers);
             foreach (var pageCharactersEntity in pageCharactersEntities)
             {
                 // Determine what type of model to construct
@@ -626,7 +629,7 @@ namespace Simsip.LineRunner.GameObjects.Characters
                         continue;
                     }
 
-                    characterEntity = this._characterRepository.GetCharacter(pageCharactersEntity.ModelName);
+                    characterEntity = this._characterRepository.GetCharacter(GameManager.SharedGameManager.LinerunnerPack, pageCharactersEntity.ModelName);
                     // this.TheHeroModel = new HeroModel(characterEntity, pageCharactersEntity);
                     // characterModel = this.TheHeroModel;   // Just to scale across multiple character types
                     characterModel = new HeroModel(

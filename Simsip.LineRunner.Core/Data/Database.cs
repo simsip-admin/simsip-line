@@ -264,6 +264,7 @@ namespace Simsip.LineRunner.Data
             {
                 // Get the matching dest page obstacle
                 var pageObstacle = pageObstaclesRepository.GetObstacle(
+                    GameManager.SharedGameManager.LinerunnerPack, 
                     v2_PageObstacle.PageNumber,
                     v2_PageObstacle.LineNumber,
                     v2_PageObstacle.ObstacleNumber);

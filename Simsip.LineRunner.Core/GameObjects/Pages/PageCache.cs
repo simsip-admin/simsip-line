@@ -465,7 +465,7 @@ namespace Simsip.LineRunner.GameObjects.Pages
             var currentPad = UserDefaults.SharedUserDefault.GetStringForKey(
                 GameConstants.USER_DEFAULT_KEY_CURRENT_PAD,
                 GameConstants.USER_DEFAULT_INITIAL_CURRENT_PAD);
-            var padEntity = this._padRepository.GetPad(currentPad);
+            var padEntity = this._padRepository.GetPad(GameManager.SharedGameManager.LinerunnerPack, currentPad);
 
             // Load a fresh or cached version of our page model
             var customContentManager = new CustomContentManager(
@@ -536,7 +536,7 @@ namespace Simsip.LineRunner.GameObjects.Pages
             var currentPad = UserDefaults.SharedUserDefault.GetStringForKey(
                 GameConstants.USER_DEFAULT_KEY_CURRENT_PAD,
                 GameConstants.USER_DEFAULT_INITIAL_CURRENT_PAD);
-            var padEntity = this._padRepository.GetPad(currentPad);
+            var padEntity = this._padRepository.GetPad(GameManager.SharedGameManager.LinerunnerPack, currentPad);
 
             // Load a fresh or cached version of our page model
             // We use our own CustomContentManager scoped to this cache so that
