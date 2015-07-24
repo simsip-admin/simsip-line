@@ -277,6 +277,9 @@
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Help\HelpPage10Layer.cs">
       <Link>Scenes\Help\HelpPage10Layer.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Help\HelpPage11Layer.cs">
+      <Link>Scenes\Help\HelpPage11Layer.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Help\HelpPage5Layer.cs">
       <Link>Scenes\Help\HelpPage5Layer.cs</Link>
     </Compile>
