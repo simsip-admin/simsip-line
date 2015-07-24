@@ -68,6 +68,29 @@ namespace Simsip.LineRunner.Scenes.Help
                 0.4f  * this.ContentSize.Width,
                 0.4f * this.ContentSize.Height);
             this.AddChild(ratingsButtonDescription);
+
+#if DEBUG
+            var adminText = string.Empty;
+#if ANDROID
+            adminText = Program.SharedProgram.Resources.GetString(Resource.String.CommonAdmin);
+#elif IOS
+            adminText = NSBundle.MainBundle.LocalizedString(Strings.CommonAdmin, Strings.CommonAdmin);
+#else
+            adminText = AppResources.CommonAdmin;
+#endif
+            var adminLabel = new CCLabelTTF(adminText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var adminItem = new CCMenuItemLabel(adminLabel,
+                (obj) => { this._parent.Navigate(LayerTags.AdminLayer); });
+            var adminLabelMenu = new CCMenu(
+               new CCMenuItem[] 
+                    {
+                        adminItem
+                    });
+            adminLabelMenu.Position = new CCPoint(
+                 0.2f * this.ContentSize.Width,
+                 0.1f * this.ContentSize.Height);
+            this.AddChild(adminLabelMenu);
+#endif
         }
     }
 }
