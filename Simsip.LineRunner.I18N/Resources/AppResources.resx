@@ -563,4 +563,46 @@
   <data name="AdminPacksOn" xml:space="preserve">
     <value>packs on</value>
   </data>
+  <data name="HelpUpgradesPackPro" xml:space="preserve">
+    <value>pro pack</value>
+  </data>
+  <data name="HelpUpgradesPackProDesc1" xml:space="preserve">
+    <value>harder and more challenging</value>
+  </data>
+  <data name="HelpUpgradesPackProDesc2" xml:space="preserve">
+    <value>high definition graphics and physics</value>
+  </data>
+  <data name="HelpUpgradesPackTv" xml:space="preserve">
+    <value>tv pack</value>
+  </data>
+  <data name="HelpUpgradesPackTvDesc1" xml:space="preserve">
+    <value>navigate over live tvs</value>
+  </data>
+  <data name="HelpUpgradesPackTvDesc2" xml:space="preserve">
+    <value>watch popular gifs</value>
+  </data>
+  <data name="UpgradesPackPro" xml:space="preserve">
+    <value>pro pack</value>
+  </data>
+  <data name="UpgradesPackProDesc1" xml:space="preserve">
+    <value>harder and more challenging</value>
+  </data>
+  <data name="UpgradesPackProDesc2" xml:space="preserve">
+    <value>high definition graphics and physics</value>
+  </data>
+  <data name="UpgradesPackProDesc3" xml:space="preserve">
+    <value>tap options for pro pack</value>
+  </data>
+  <data name="UpgradesPackTv" xml:space="preserve">
+    <value>tv pack</value>
+  </data>
+  <data name="UpgradesPackTvDesc1" xml:space="preserve">
+    <value>navigate over live tvs</value>
+  </data>
+  <data name="UpgradesPackTvDesc2" xml:space="preserve">
+    <value>watch popular gifs</value>
+  </data>
+  <data name="UpgradesPackTvDesc3" xml:space="preserve">
+    <value>tap options for tv pack</value>
+  </data>
 </root>

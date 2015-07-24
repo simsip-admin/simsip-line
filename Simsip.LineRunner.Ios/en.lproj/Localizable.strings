@@ -146,3 +146,17 @@
 "PadsYellow"="yellow";
 "AdminPacksOff"="packs off";
 "AdminPacksOn"="packs on";
+"HelpUpgradesPackPro"="pro pack";
+"HelpUpgradesPackProDesc1"="harder and more challenging";
+"HelpUpgradesPackProDesc2"="high definition graphics and physics";
+"HelpUpgradesPackTv"="tv pack";
+"HelpUpgradesPackTvDesc1"="navigate over live tvs";
+"HelpUpgradesPackTvDesc2"="watch popular gifs";
+"UpgradesPackPro"="pro pack";
+"UpgradesPackProDesc1"="harder and more challenging";
+"UpgradesPackProDesc2"="high definition graphics and physics";
+"UpgradesPackProDesc3"="tap options for pro pack";
+"UpgradesPackTv"="tv pack";
+"UpgradesPackTvDesc1"="navigate over live tvs";
+"UpgradesPackTvDesc2"="watch popular gifs";
+"UpgradesPackTvDesc3"="tap options for tv pack";

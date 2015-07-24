@@ -2359,6 +2359,24 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f0700a7
 			public const int HelpUpgrades = 2131165351;
 			
+			// aapt resource value: 0x7f0700de
+			public const int HelpUpgradesPackPro = 2131165406;
+			
+			// aapt resource value: 0x7f0700df
+			public const int HelpUpgradesPackProDesc1 = 2131165407;
+			
+			// aapt resource value: 0x7f0700e0
+			public const int HelpUpgradesPackProDesc2 = 2131165408;
+			
+			// aapt resource value: 0x7f0700e1
+			public const int HelpUpgradesPackTv = 2131165409;
+			
+			// aapt resource value: 0x7f0700e2
+			public const int HelpUpgradesPackTvDesc1 = 2131165410;
+			
+			// aapt resource value: 0x7f0700e3
+			public const int HelpUpgradesPackTvDesc2 = 2131165411;
+			
 			// aapt resource value: 0x7f0700a8
 			public const int HelpUpgradesPractice = 2131165352;
 			
@@ -2565,6 +2583,30 @@ namespace Simsip.LineRunner
 			
 			// aapt resource value: 0x7f0700ab
 			public const int UpgradesBuy = 2131165355;
+			
+			// aapt resource value: 0x7f0700e4
+			public const int UpgradesPackPro = 2131165412;
+			
+			// aapt resource value: 0x7f0700e5
+			public const int UpgradesPackProDesc1 = 2131165413;
+			
+			// aapt resource value: 0x7f0700e6
+			public const int UpgradesPackProDesc2 = 2131165414;
+			
+			// aapt resource value: 0x7f0700e7
+			public const int UpgradesPackProDesc3 = 2131165415;
+			
+			// aapt resource value: 0x7f0700e8
+			public const int UpgradesPackTv = 2131165416;
+			
+			// aapt resource value: 0x7f0700e9
+			public const int UpgradesPackTvDesc1 = 2131165417;
+			
+			// aapt resource value: 0x7f0700ea
+			public const int UpgradesPackTvDesc2 = 2131165418;
+			
+			// aapt resource value: 0x7f0700eb
+			public const int UpgradesPackTvDesc3 = 2131165419;
 			
 			// aapt resource value: 0x7f0700a4
 			public const int UpgradesPractice = 2131165348;

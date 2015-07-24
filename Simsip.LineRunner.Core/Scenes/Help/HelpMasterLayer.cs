@@ -34,6 +34,7 @@ namespace Simsip.LineRunner.Scenes.Help
         private HelpPage7Layer _helpPage7Layer;
         private HelpPage8Layer _helpPage8Layer;
         private HelpPage9Layer _helpPage9Layer;
+        private HelpPage10Layer _helpPage10Layer;
 
         // Page actions
         private CCAction _pageActionInFromLeft;
@@ -242,7 +243,7 @@ namespace Simsip.LineRunner.Scenes.Help
             this._helpPage1Layer = new HelpPage1Layer(this._parent, this);
             this.AddChild(this._helpPage1Layer);
             this._currentPage = 1;
-            this._totalPages = 9;
+            this._totalPages = 10;
 
             // Previous
             var previousNormal = new CCSprite("Images/Icons/PreviousButtonNormal.png");
@@ -474,7 +475,17 @@ namespace Simsip.LineRunner.Scenes.Help
 
                         break;
                     }
+                    case 10:
+                    {
+                        if (this._helpPage10Layer == null)
+                        {
+                            this._helpPage10Layer = new HelpPage10Layer(this._parent, this);
+                            this.AddChild(this._helpPage10Layer);
+                        }
+                        returnHelpPage = this._helpPage10Layer;
 
+                        break;
+                    }
                 }
 
                 return returnHelpPage;

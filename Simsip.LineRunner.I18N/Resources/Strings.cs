@@ -150,5 +150,19 @@
         public static string PadsYellow = "PadsYellow";
         public static string AdminPacksOff = "AdminPacksOff";
         public static string AdminPacksOn = "AdminPacksOn";
+        public static string HelpUpgradesPackPro = "HelpUpgradesPackPro";
+        public static string HelpUpgradesPackProDesc1 = "HelpUpgradesPackProDesc1";
+        public static string HelpUpgradesPackProDesc2 = "HelpUpgradesPackProDesc2";
+        public static string HelpUpgradesPackTv = "HelpUpgradesPackTv";
+        public static string HelpUpgradesPackTvDesc1 = "HelpUpgradesPackTvDesc1";
+        public static string HelpUpgradesPackTvDesc2 = "HelpUpgradesPackTvDesc2";
+        public static string UpgradesPackPro = "UpgradesPackPro";
+        public static string UpgradesPackProDesc1 = "UpgradesPackProDesc1";
+        public static string UpgradesPackProDesc2 = "UpgradesPackProDesc2";
+        public static string UpgradesPackProDesc3 = "UpgradesPackProDesc3";
+        public static string UpgradesPackTv = "UpgradesPackTv";
+        public static string UpgradesPackTvDesc1 = "UpgradesPackTvDesc1";
+        public static string UpgradesPackTvDesc2 = "UpgradesPackTvDesc2";
+        public static string UpgradesPackTvDesc3 = "UpgradesPackTvDesc3";
     }
 }

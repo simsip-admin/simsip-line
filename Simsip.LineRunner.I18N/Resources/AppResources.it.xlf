@@ -208,6 +208,62 @@
           <source>packs on</source>
           <target state="new">packs on</target>
         </trans-unit>
+        <trans-unit id="Resx/UpgradesPackTvDesc3" translate="yes" xml:space="preserve">
+          <source>tap options for tv pack</source>
+          <target state="new">tap options for tv pack</target>
+        </trans-unit>
+        <trans-unit id="Resx/UpgradesPackTvDesc2" translate="yes" xml:space="preserve">
+          <source>watch popular gifs</source>
+          <target state="new">watch popular gifs</target>
+        </trans-unit>
+        <trans-unit id="Resx/UpgradesPackTvDesc1" translate="yes" xml:space="preserve">
+          <source>navigate over live tvs</source>
+          <target state="new">navigate over live tvs</target>
+        </trans-unit>
+        <trans-unit id="Resx/UpgradesPackTv" translate="yes" xml:space="preserve">
+          <source>tv pack</source>
+          <target state="new">tv pack</target>
+        </trans-unit>
+        <trans-unit id="Resx/UpgradesPackProDesc3" translate="yes" xml:space="preserve">
+          <source>tap options for pro pack</source>
+          <target state="new">tap options for pro pack</target>
+        </trans-unit>
+        <trans-unit id="Resx/UpgradesPackProDesc2" translate="yes" xml:space="preserve">
+          <source>high definition graphics and physics</source>
+          <target state="new">high definition graphics and physics</target>
+        </trans-unit>
+        <trans-unit id="Resx/UpgradesPackProDesc1" translate="yes" xml:space="preserve">
+          <source>harder and more challenging</source>
+          <target state="new">harder and more challenging</target>
+        </trans-unit>
+        <trans-unit id="Resx/UpgradesPackPro" translate="yes" xml:space="preserve">
+          <source>pro pack</source>
+          <target state="new">pro pack</target>
+        </trans-unit>
+        <trans-unit id="Resx/HelpUpgradesPackTvDesc2" translate="yes" xml:space="preserve">
+          <source>watch popular gifs</source>
+          <target state="new">watch popular gifs</target>
+        </trans-unit>
+        <trans-unit id="Resx/HelpUpgradesPackTvDesc1" translate="yes" xml:space="preserve">
+          <source>navigate over live tvs</source>
+          <target state="new">navigate over live tvs</target>
+        </trans-unit>
+        <trans-unit id="Resx/HelpUpgradesPackTv" translate="yes" xml:space="preserve">
+          <source>tv pack</source>
+          <target state="new">tv pack</target>
+        </trans-unit>
+        <trans-unit id="Resx/HelpUpgradesPackProDesc2" translate="yes" xml:space="preserve">
+          <source>high definition graphics and physics</source>
+          <target state="new">high definition graphics and physics</target>
+        </trans-unit>
+        <trans-unit id="Resx/HelpUpgradesPackProDesc1" translate="yes" xml:space="preserve">
+          <source>harder and more challenging</source>
+          <target state="new">harder and more challenging</target>
+        </trans-unit>
+        <trans-unit id="Resx/HelpUpgradesPackPro" translate="yes" xml:space="preserve">
+          <source>pro pack</source>
+          <target state="new">pro pack</target>
+        </trans-unit>
         <trans-unit id="Resx/AdminPacksOff" translate="yes" xml:space="preserve">
           <source>packs off</source>
           <target state="new">packs off</target>

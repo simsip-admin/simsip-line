@@ -566,6 +566,60 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to pro pack.
+        /// </summary>
+        public static string HelpUpgradesPackPro {
+            get {
+                return ResourceManager.GetString("HelpUpgradesPackPro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to harder and more challenging.
+        /// </summary>
+        public static string HelpUpgradesPackProDesc1 {
+            get {
+                return ResourceManager.GetString("HelpUpgradesPackProDesc1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to high definition graphics and physics.
+        /// </summary>
+        public static string HelpUpgradesPackProDesc2 {
+            get {
+                return ResourceManager.GetString("HelpUpgradesPackProDesc2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tv pack.
+        /// </summary>
+        public static string HelpUpgradesPackTv {
+            get {
+                return ResourceManager.GetString("HelpUpgradesPackTv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to navigate over live tvs.
+        /// </summary>
+        public static string HelpUpgradesPackTvDesc1 {
+            get {
+                return ResourceManager.GetString("HelpUpgradesPackTvDesc1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to watch popular gifs.
+        /// </summary>
+        public static string HelpUpgradesPackTvDesc2 {
+            get {
+                return ResourceManager.GetString("HelpUpgradesPackTvDesc2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to practice mode.
         /// </summary>
         public static string HelpUpgradesPractice {
@@ -1183,6 +1237,78 @@ namespace Simsip.LineRunner.Resources {
         public static string UpgradesBuy {
             get {
                 return ResourceManager.GetString("UpgradesBuy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pro pack.
+        /// </summary>
+        public static string UpgradesPackPro {
+            get {
+                return ResourceManager.GetString("UpgradesPackPro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to harder and more challenging.
+        /// </summary>
+        public static string UpgradesPackProDesc1 {
+            get {
+                return ResourceManager.GetString("UpgradesPackProDesc1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to high definition graphics and physics.
+        /// </summary>
+        public static string UpgradesPackProDesc2 {
+            get {
+                return ResourceManager.GetString("UpgradesPackProDesc2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tap options for pro pack.
+        /// </summary>
+        public static string UpgradesPackProDesc3 {
+            get {
+                return ResourceManager.GetString("UpgradesPackProDesc3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tv pack.
+        /// </summary>
+        public static string UpgradesPackTv {
+            get {
+                return ResourceManager.GetString("UpgradesPackTv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to navigate over live tvs.
+        /// </summary>
+        public static string UpgradesPackTvDesc1 {
+            get {
+                return ResourceManager.GetString("UpgradesPackTvDesc1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to watch popular gifs.
+        /// </summary>
+        public static string UpgradesPackTvDesc2 {
+            get {
+                return ResourceManager.GetString("UpgradesPackTvDesc2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tap options for tv pack.
+        /// </summary>
+        public static string UpgradesPackTvDesc3 {
+            get {
+                return ResourceManager.GetString("UpgradesPackTvDesc3", resourceCulture);
             }
         }
         

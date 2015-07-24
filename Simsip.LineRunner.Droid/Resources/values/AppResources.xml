@@ -148,4 +148,18 @@
   <string name="PadsYellow">yellow</string>
   <string name="AdminPacksOff">packs off</string>
   <string name="AdminPacksOn">packs on</string>
+  <string name="HelpUpgradesPackPro">pro pack</string>
+  <string name="HelpUpgradesPackProDesc1">harder and more challenging</string>
+  <string name="HelpUpgradesPackProDesc2">high definition graphics and physics</string>
+  <string name="HelpUpgradesPackTv">tv pack</string>
+  <string name="HelpUpgradesPackTvDesc1">navigate over live tvs</string>
+  <string name="HelpUpgradesPackTvDesc2">watch popular gifs</string>
+  <string name="UpgradesPackPro">pro pack</string>
+  <string name="UpgradesPackProDesc1">harder and more challenging</string>
+  <string name="UpgradesPackProDesc2">high definition graphics and physics</string>
+  <string name="UpgradesPackProDesc3">tap options for pro pack</string>
+  <string name="UpgradesPackTv">tv pack</string>
+  <string name="UpgradesPackTvDesc1">navigate over live tvs</string>
+  <string name="UpgradesPackTvDesc2">watch popular gifs</string>
+  <string name="UpgradesPackTvDesc3">tap options for tv pack</string>
 </resources>
