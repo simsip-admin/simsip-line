@@ -178,6 +178,7 @@ namespace Simsip.LineRunner.Scenes.Start
             playText = AppResources.StartPlay;
 #endif
             var playLabel = new CCLabelTTF(playText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            playLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             var playItem = new CCMenuItemLabel(playLabel,
                 (obj) => { this.NavigateBase(LayerTags.HudLayer); });
             
@@ -190,6 +191,7 @@ namespace Simsip.LineRunner.Scenes.Start
             rateText = AppResources.StartRate;
 #endif
             var rateLabel = new CCLabelTTF(rateText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            rateLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             var rateItem = new CCMenuItemLabel(rateLabel,
                 (obj) => { this.Rate(); });
 

@@ -23,12 +23,14 @@ namespace Simsip.LineRunner.GameFramework
 
         // Font settings
         public const string FONT_FAMILY_NORMAL = "arial-core";
-        public const float FONT_SIZE_SMALL = 18f;
-        public const float FONT_SIZE_NORMAL = 24f;
-        public const float FONT_SIZE_LARGE = 24f;
-        public const float FONT_SIZE_X_LARGE = 24f;
-        public const float FONT_SIZE_LARGE_SCALE = 1.3f;
-        public const float FONT_SIZE_X_LARGE_SCALE = 2.0f;
+        public const float FONT_SIZE_SMALL = 8f;
+        public const float FONT_SIZE_NORMAL = 8f;
+        public const float FONT_SIZE_LARGE = 8f;
+        public const float FONT_SIZE_X_LARGE = 8f;
+        public const float FONT_SIZE_SMALL_SCALE = 2f;
+        public const float FONT_SIZE_NORMAL_SCALE = 3f;
+        public const float FONT_SIZE_LARGE_SCALE = 4f;
+        public const float FONT_SIZE_X_LARGE_SCALE = 6f;
 
         // Worlds
         public const string WORLD_DEFAULT = "default";
