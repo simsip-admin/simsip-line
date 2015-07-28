@@ -16,9 +16,9 @@ namespace Simsip.LineRunner.Scenes.Help
         private HelpMasterLayer _masterLayer;
 
         // Practice mode
-        private IList<CCSprite> _practiceModeImages;
-        private int _currentPracticeModeImage;
-        private CCAction _practiceModeAction;
+        private IList<CCSprite> _proPackImages;
+        private int _currentProPackImage;
+        private CCAction _proPackAction;
 
         public HelpPage10Layer(CoreScene parent, HelpMasterLayer masterLayer)
         {
@@ -30,16 +30,16 @@ namespace Simsip.LineRunner.Scenes.Help
 
             // Practice images (note: placing this first so text is on top of images)
             // Scaling assumes 2 : 1 ratio
-            var practiceModeImage1 = new CCSprite("Images/Misc/PracticeModeImage1");
-            var practiceModeImage2 = new CCSprite("Images/Misc/PracticeModeImage2");
-            var practiceModeImage3 = new CCSprite("Images/Misc/PracticeModeImage3");
-            var practiceModeImage4 = new CCSprite("Images/Misc/PracticeModeImage4");
-            this._practiceModeImages = new List<CCSprite>();
-            this._practiceModeImages.Add(practiceModeImage1);
-            this._practiceModeImages.Add(practiceModeImage2);
-            this._practiceModeImages.Add(practiceModeImage3);
-            this._practiceModeImages.Add(practiceModeImage4);
-            foreach (var image in this._practiceModeImages)
+            var proPackImage1 = new CCSprite("Images/Misc/LinerunnerPackProImage1");
+            var proPackImage2 = new CCSprite("Images/Misc/LinerunnerPackProImage2");
+            var proPackImage3 = new CCSprite("Images/Misc/LinerunnerPackProImage3");
+            var proPackImage4 = new CCSprite("Images/Misc/LinerunnerPackProImage4");
+            this._proPackImages = new List<CCSprite>();
+            this._proPackImages.Add(proPackImage1);
+            this._proPackImages.Add(proPackImage2);
+            this._proPackImages.Add(proPackImage3);
+            this._proPackImages.Add(proPackImage4);
+            foreach (var image in this._proPackImages)
             {
                 image.Opacity = 0;
                 Cocos2DUtils.ResizeSprite(image,
@@ -50,22 +50,22 @@ namespace Simsip.LineRunner.Scenes.Help
                     0.4f * this.ContentSize.Height);
                 this.AddChild(image);
             }
-            practiceModeImage1.Opacity = 255;
-            this._practiceModeAction = new CCRepeatForever(new CCSequence(new CCFiniteTimeAction[] 
+            proPackImage1.Opacity = 255;
+            this._proPackAction = new CCRepeatForever(new CCSequence(new CCFiniteTimeAction[] 
                 {
                     new CCDelayTime(2 * GameConstants.DURATION_UPGRADE_IMAGE_DISPLAY),
                     new CCCallFunc(() =>
                         {
-                            this._practiceModeImages[this._currentPracticeModeImage].RunAction(new CCFadeOut(GameConstants.DURATION_UPGRADE_IMAGE_TRANSITION));
-                            if (this._currentPracticeModeImage == this._practiceModeImages.Count - 1)
+                            this._proPackImages[this._currentProPackImage].RunAction(new CCFadeOut(GameConstants.DURATION_UPGRADE_IMAGE_TRANSITION));
+                            if (this._currentProPackImage == this._proPackImages.Count - 1)
                             {
-                                this._currentPracticeModeImage = 0;
+                                this._currentProPackImage = 0;
                             }
                             else
                             {
-                                this._currentPracticeModeImage++;
+                                this._currentProPackImage++;
                             }
-                            this._practiceModeImages[this._currentPracticeModeImage].RunAction(new CCFadeIn(GameConstants.DURATION_UPGRADE_IMAGE_TRANSITION));
+                            this._proPackImages[this._currentProPackImage].RunAction(new CCFadeIn(GameConstants.DURATION_UPGRADE_IMAGE_TRANSITION));
                         }),
                 }));
 
@@ -86,64 +86,64 @@ namespace Simsip.LineRunner.Scenes.Help
                 0.75f * this.ContentSize.Height);
             this.AddChild(upgradesSubtitle);
 
-            // Practice
-            var practiceText = string.Empty;
+            // Pro pack
+            var proPackText = string.Empty;
 #if ANDROID
-            practiceText = Program.SharedProgram.Resources.GetString(Resource.String.HelpUpgradesPractice);
+            proPackText = Program.SharedProgram.Resources.GetString(Resource.String.HelpUpgradesPackPro);
 #elif IOS
-            practiceText = NSBundle.MainBundle.LocalizedString(Strings.HelpUpgradesPractice, Strings.HelpUpgradesPractice);
+            proPackText = NSBundle.MainBundle.LocalizedString(Strings.HelpUpgradesPackPro, Strings.HelpUpgradesPackPro);
 #else
-            practiceText = AppResources.HelpUpgradesPractice;
+            proPackText = AppResources.HelpUpgradesPackPro;
 #endif
-            var practiceTitle = new CCLabelTTF(practiceText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            practiceTitle.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
-            practiceTitle.Position = new CCPoint(
+            var proPackTitle = new CCLabelTTF(proPackText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            proPackTitle.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
+            proPackTitle.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.68f * this.ContentSize.Height);
-            this.AddChild(practiceTitle);
+            this.AddChild(proPackTitle);
 
-            var practiceDesc1Text = string.Empty;
+            var proPackDesc1Text = string.Empty;
 #if ANDROID
-            practiceDesc1Text = Program.SharedProgram.Resources.GetString(Resource.String.HelpUpgradesPracticeDesc1);
+            proPackDesc1Text = Program.SharedProgram.Resources.GetString(Resource.String.HelpUpgradesPackProDesc1);
 #elif IOS
-            practiceDesc1Text = NSBundle.MainBundle.LocalizedString(Strings.HelpUpgradesPracticeDesc1, Strings.HelpUpgradesPracticeDesc1);
+            proPackDesc1Text = NSBundle.MainBundle.LocalizedString(Strings.HelpUpgradesPackProDesc1, Strings.HelpUpgradesPackProDesc1);
 #else
-            practiceDesc1Text = AppResources.HelpUpgradesPracticeDesc1;
+            proPackDesc1Text = AppResources.HelpUpgradesPackProDesc1;
 #endif
-            var practiceDesc1 = new CCLabelTTF(practiceDesc1Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            practiceDesc1.Position = new CCPoint(
+            var proPackDesc1 = new CCLabelTTF(proPackDesc1Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            proPackDesc1.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.6f * this.ContentSize.Height);
-            this.AddChild(practiceDesc1);
+            this.AddChild(proPackDesc1);
 
-            var practiceDesc2Text = string.Empty;
+            var proPackDesc2Text = string.Empty;
 #if ANDROID
-            practiceDesc2Text = Program.SharedProgram.Resources.GetString(Resource.String.HelpUpgradesPracticeDesc2);
+            proPackDesc2Text = Program.SharedProgram.Resources.GetString(Resource.String.HelpUpgradesPackProDesc2);
 #elif IOS
-            practiceDesc2Text = NSBundle.MainBundle.LocalizedString(Strings.HelpUpgradesPracticeDesc2, Strings.HelpUpgradesPracticeDesc2);
+            proPackDesc2Text = NSBundle.MainBundle.LocalizedString(Strings.HelpUpgradesPackProDesc2, Strings.HelpUpgradesPackProDesc2);
 #else
-            practiceDesc2Text = AppResources.HelpUpgradesPracticeDesc2;
+            proPackDesc2Text = AppResources.HelpUpgradesPackProDesc2;
 #endif
-            var practiceDesc2 = new CCLabelTTF(practiceDesc2Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            practiceDesc2.Position = new CCPoint(
+            var proPackDesc2 = new CCLabelTTF(proPackDesc2Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            proPackDesc2.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.2f * this.ContentSize.Height);
-            this.AddChild(practiceDesc2);
+            this.AddChild(proPackDesc2);
         }
 
         public override void OnEnter()
         {
             base.OnEnter();
 
-            this._currentPracticeModeImage = 0;
-            this.RunAction(this._practiceModeAction);
+            this._currentProPackImage = 0;
+            this.RunAction(this._proPackAction);
         }
 
         public override void OnExit()
         {
             base.OnExit();
 
-            this.ActionManager.RemoveAction(this._practiceModeAction);
+            this.ActionManager.RemoveAction(this._proPackAction);
         }
     }
 }

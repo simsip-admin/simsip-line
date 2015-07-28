@@ -30,16 +30,16 @@ namespace Simsip.LineRunner.Scenes.Upgrades
         private CoreScene _parent;
         private UpgradesMasterLayer _masterLayer;
 
-        // Practice mode
-        private IList<CCSprite> _practiceModeImages;
-        private int _currentPracticeModeImage;
-        private CCAction _practiceModeAction;
+        // Tv pack
+        private IList<CCSprite> _tvPackImages;
+        private int _currentTvPackImage;
+        private CCAction _tvPackAction;
         
         // Description lines
-        private string _practiceDesc1Text;
-        private string _practiceDesc2Text;
-        private CCLabelTTF _practiceDesc1Label;
-        private CCLabelTTF _practiceDesc2Label;
+        private string _tvPackDesc1Text;
+        private string _tvPackDesc2Text;
+        private CCLabelTTF _tvPackDesc1Label;
+        private CCLabelTTF _tvPackDesc2Label;
 
         // Status line
         private CCLabelTTF _statusLabel;
@@ -103,7 +103,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
 #else
             pageNumberText = AppResources.CommonPage;
 #endif
-            var pageNumberHeader = new CCLabelTTF(pageNumberText + " 1", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            var pageNumberHeader = new CCLabelTTF(pageNumberText + " 3", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             pageNumberHeader.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,
@@ -112,16 +112,16 @@ namespace Simsip.LineRunner.Scenes.Upgrades
 
             // Practice images (note: placing this first so text is on top of images)
             // Scaling assumes 2 : 1 ratio
-            var practiceModeImage1 = new CCSprite("Images/Misc/PracticeModeImage1");
-            var practiceModeImage2 = new CCSprite("Images/Misc/PracticeModeImage2");
-            var practiceModeImage3 = new CCSprite("Images/Misc/PracticeModeImage3");
-            var practiceModeImage4 = new CCSprite("Images/Misc/PracticeModeImage4");
-            this._practiceModeImages = new List<CCSprite>();
-            this._practiceModeImages.Add(practiceModeImage1);
-            this._practiceModeImages.Add(practiceModeImage2);
-            this._practiceModeImages.Add(practiceModeImage3);
-            this._practiceModeImages.Add(practiceModeImage4);
-            foreach (var image in this._practiceModeImages)
+            var tvPackImage1 = new CCSprite("Images/Misc/LinerunnerPackTvImage1");
+            var tvPackImage2 = new CCSprite("Images/Misc/LinerunnerPackTvImage2");
+            var tvPackImage3 = new CCSprite("Images/Misc/LinerunnerPackTvImage3");
+            var tvPackImage4 = new CCSprite("Images/Misc/LinerunnerPackTvImage4");
+            this._tvPackImages = new List<CCSprite>();
+            this._tvPackImages.Add(tvPackImage1);
+            this._tvPackImages.Add(tvPackImage2);
+            this._tvPackImages.Add(tvPackImage3);
+            this._tvPackImages.Add(tvPackImage4);
+            foreach (var image in this._tvPackImages)
             {
                 image.Opacity = 0;
                 Cocos2DUtils.ResizeSprite(image,
@@ -132,63 +132,63 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                     0.45f * this.ContentSize.Height);
                 this.AddChild(image);
             }
-            practiceModeImage1.Opacity = 255;
-            this._practiceModeAction = new CCRepeatForever(new CCSequence(new CCFiniteTimeAction[] 
+            tvPackImage1.Opacity = 255;
+            this._tvPackAction = new CCRepeatForever(new CCSequence(new CCFiniteTimeAction[] 
                 {
                     new CCDelayTime(GameConstants.DURATION_UPGRADE_IMAGE_DISPLAY),
                     new CCCallFunc(() =>
                         {
-                            this._practiceModeImages[this._currentPracticeModeImage].RunAction(new CCFadeOut(GameConstants.DURATION_UPGRADE_IMAGE_TRANSITION));
-                            if (this._currentPracticeModeImage == this._practiceModeImages.Count - 1)
+                            this._tvPackImages[this._currentTvPackImage].RunAction(new CCFadeOut(GameConstants.DURATION_UPGRADE_IMAGE_TRANSITION));
+                            if (this._currentTvPackImage == this._tvPackImages.Count - 1)
                             {
-                                this._currentPracticeModeImage = 0;
+                                this._currentTvPackImage = 0;
                             }
                             else
                             {
-                                this._currentPracticeModeImage++;
+                                this._currentTvPackImage++;
                             }
-                            this._practiceModeImages[this._currentPracticeModeImage].RunAction(new CCFadeIn(GameConstants.DURATION_UPGRADE_IMAGE_TRANSITION));
+                            this._tvPackImages[this._currentTvPackImage].RunAction(new CCFadeIn(GameConstants.DURATION_UPGRADE_IMAGE_TRANSITION));
                         }),
                 }));
 
-            // Practice title
-            var practiceText = string.Empty;
+            // Tv pack title
+            var tvPackText = string.Empty;
 #if ANDROID
-            practiceText = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPractice);
+            tvPackText = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPackTv);
 #elif IOS
-            practiceText = NSBundle.MainBundle.LocalizedString(Strings.UpgradesPractice, Strings.UpgradesPractice);
+            tvPackText = NSBundle.MainBundle.LocalizedString(Strings.UpgradesPackTv, Strings.UpgradesPackTv);
 #else
-            practiceText = AppResources.UpgradesPractice;
+            tvPackText = AppResources.UpgradesPackTv;
 #endif
-            var practiceTitle = new CCLabelTTF(practiceText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            practiceTitle.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
-            practiceTitle.Color = CCColor3B.Blue;
-            practiceTitle.Position = new CCPoint(
+            var tvPackTitle = new CCLabelTTF(tvPackText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            tvPackTitle.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
+            tvPackTitle.Color = CCColor3B.Blue;
+            tvPackTitle.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.78f * this.ContentSize.Height);
-            this.AddChild(practiceTitle);
+            this.AddChild(tvPackTitle);
 
-            // Practice desc1 - See UpdatePracticeDesc1()
+            // Tv pack desc1 - See UpdatePracticeDesc1()
 
-            this._practiceDesc1Text = string.Empty;
+            this._tvPackDesc1Text = string.Empty;
 #if ANDROID
-            this._practiceDesc1Text = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPracticeDesc1);
+            this._tvPackDesc1Text = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPackTvDesc1);
 #elif IOS
-            this._practiceDesc1Text = NSBundle.MainBundle.LocalizedString(Strings.UpgradesPracticeDesc1, Strings.UpgradesPracticeDesc1);
+            this._tvPackDesc1Text = NSBundle.MainBundle.LocalizedString(Strings.UpgradesPackTvDesc1, Strings.UpgradesPackTvDesc1);
 #else
-            this._practiceDesc1Text = AppResources.UpgradesPracticeDesc1;
+            this._tvPackDesc1Text = AppResources.UpgradesPackTvDesc1;
 #endif
 
             // Status line - See UpdateStatusLabel
 
-            // Practice desc2 - See UpdatePracticeDesc2
-            this._practiceDesc2Text = string.Empty;
+            // Tv pack desc2 - See UpdatePracticeDesc2
+            this._tvPackDesc2Text = string.Empty;
 #if ANDROID
-            this._practiceDesc2Text = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPracticeDesc2);
+            this._tvPackDesc2Text = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPackTvDesc2);
 #elif IOS
-            this._practiceDesc2Text = NSBundle.MainBundle.LocalizedString(Strings.UpgradesPracticeDesc2, Strings.UpgradesPracticeDesc2);
+            this._tvPackDesc2Text = NSBundle.MainBundle.LocalizedString(Strings.UpgradesPackTvDesc2, Strings.UpgradesPackTvDesc2);
 #else
-            this._practiceDesc2Text = AppResources.UpgradesPracticeDesc2;
+            this._tvPackDesc2Text = AppResources.UpgradesPackTvDesc2;
 #endif
 
             // Restore
@@ -320,11 +320,11 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             // How to text to display after purchase
             this._howToText = string.Empty;
 #if ANDROID
-            this._howToText = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPracticeDesc3);
+            this._howToText = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPackTvDesc3);
 #elif IOS
-            this._howToText = NSBundle.MainBundle.LocalizedString(Strings.UpgradesPracticeDesc3, Strings.UpgradesPracticeDesc3);
+            this._howToText = NSBundle.MainBundle.LocalizedString(Strings.UpgradesPackTvDesc3, Strings.UpgradesPackTvDesc3);
 #else
-            this._howToText = AppResources.UpgradesPracticeDesc3;
+            this._howToText = AppResources.UpgradesPackTvDesc3;
 #endif
         }
 
@@ -334,8 +334,8 @@ namespace Simsip.LineRunner.Scenes.Upgrades
         {
             base.OnEnter();
 
-            this._currentPracticeModeImage = 0;
-            this.RunAction(this._practiceModeAction);
+            this._currentTvPackImage = 0;
+            this.RunAction(this._tvPackAction);
 
             this.UpdateUI();
         }
@@ -344,7 +344,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
         {
             base.OnExit();
 
-            this.ActionManager.RemoveAction(this._practiceModeAction);
+            this.ActionManager.RemoveAction(this._tvPackAction);
         }
 
         #endregion
@@ -362,9 +362,9 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             // Go for the purchase
 #if ANDROID
             // IMPORTANT: Call to BuyProduct must be called from MainActivity on its main thread
-            Application.SynchronizationContext.Post(Program.SharedProgram.BuyProduct, this._inAppService.PracticeModeProductId);
+            Application.SynchronizationContext.Post(Program.SharedProgram.BuyProduct, this._inAppService.LinerunnerPackTvProductId);
 #elif IOS
-            this._inAppService.PurchaseProduct(this._inAppService.PracticeModeProductId);
+            this._inAppService.PurchaseProduct(this._inAppService.LinerunnerPackTvProductId);
 #endif
         }
 
@@ -414,17 +414,17 @@ namespace Simsip.LineRunner.Scenes.Upgrades
         {
             // Get latest price
             var price = string.Empty;
-            var practiceProduct =
-                this._inAppSkuRepository.GetSkuByProductId(this._inAppService.PracticeModeProductId);
-            if (practiceProduct != null)
+            var tvPackProduct =
+                this._inAppSkuRepository.GetSkuByProductId(this._inAppService.LinerunnerPackTvProductId);
+            if (tvPackProduct != null)
             {
-                price = practiceProduct.Price;
+                price = tvPackProduct.Price;
             }
             
             // Determine if purchased
-            var practicePurchase =
-                this._inAppPurchaseRepository.GetPurchaseByProductId(this._inAppService.PracticeModeProductId);
-            if (practicePurchase != null ||
+            var tvPackPurchase =
+                this._inAppPurchaseRepository.GetPurchaseByProductId(this._inAppService.LinerunnerPackTvProductId);
+            if (tvPackPurchase != null ||
                 GameManager.SharedGameManager.AdminAreUpgradesAllowed)
             {
                 // UI for purchased upgrade
@@ -437,9 +437,9 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                 this.UpdatePriceLabel(string.Empty);
 
                 // Note, need to do this because of AdminAreUpgradesAllowed gating above
-                if (practicePurchase != null)
+                if (tvPackPurchase != null)
                 {
-                    this.UpdatePurchasedOnLabel(practicePurchase.PurchaseTime.ToString("g"));
+                    this.UpdatePurchasedOnLabel(tvPackPurchase.PurchaseTime.ToString("g"));
                 }
                 else
                 {
@@ -452,8 +452,8 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             else
             {
                 // UI for non-purchased upgrade
-                this.UpdateDesc1Label(this._practiceDesc1Text);
-                this.UpdateDesc2Label(this._practiceDesc2Text);
+                this.UpdateDesc1Label(this._tvPackDesc1Text);
+                this.UpdateDesc2Label(this._tvPackDesc2Text);
 
                 this._restoreMenu.Visible = true;
                 this._restoreLabelMenu.Visible = true;
@@ -479,30 +479,30 @@ namespace Simsip.LineRunner.Scenes.Upgrades
 
         private void UpdateDesc1Label(string text)
         {
-            if (this._practiceDesc1Label != null)
+            if (this._tvPackDesc1Label != null)
             {
-                this.RemoveChild(this._practiceDesc1Label);
+                this.RemoveChild(this._tvPackDesc1Label);
             }
 
-            this._practiceDesc1Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._practiceDesc1Label.Position = new CCPoint(
+            this._tvPackDesc1Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._tvPackDesc1Label.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.7f * this.ContentSize.Height);
-            this.AddChild(this._practiceDesc1Label);
+            this.AddChild(this._tvPackDesc1Label);
         }
 
         private void UpdateDesc2Label(string text)
         {
-            if (this._practiceDesc2Label != null)
+            if (this._tvPackDesc2Label != null)
             {
-                this.RemoveChild(this._practiceDesc2Label);
+                this.RemoveChild(this._tvPackDesc2Label);
             }
 
-            this._practiceDesc2Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._practiceDesc2Label.Position = new CCPoint(
+            this._tvPackDesc2Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._tvPackDesc2Label.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.65f * this.ContentSize.Height);
-            this.AddChild(this._practiceDesc2Label);
+            this.AddChild(this._tvPackDesc2Label);
         }
 
         private void UpdateStatusLabel(string text)
