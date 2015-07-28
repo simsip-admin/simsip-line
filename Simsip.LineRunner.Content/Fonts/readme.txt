@@ -6,5 +6,3 @@ This way we can:
 3. Copy the resulting xnb file to here.
 4. Remove the sprite-font definition from the pipeline tool.
 
-Notes:
-- Current arial-core.xnb is defined for font size of 24.
