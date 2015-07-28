@@ -2506,6 +2506,21 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f070057
 			public const int OptionsLeaderboards = 2131165271;
 			
+			// aapt resource value: 0x7f0700ec
+			public const int OptionsLinerunnerPacks = 2131165420;
+			
+			// aapt resource value: 0x7f0700ee
+			public const int OptionsLinerunnerPacksProPack = 2131165422;
+			
+			// aapt resource value: 0x7f0700ef
+			public const int OptionsLinerunnerPacksStandardPack = 2131165423;
+			
+			// aapt resource value: 0x7f0700ed
+			public const int OptionsLinerunnerPacksSwitchingPack = 2131165421;
+			
+			// aapt resource value: 0x7f0700f0
+			public const int OptionsLinerunnerPacksTvPack = 2131165424;
+			
 			// aapt resource value: 0x7f070058
 			public const int OptionsLines = 2131165272;
 			

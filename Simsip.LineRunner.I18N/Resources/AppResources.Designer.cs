@@ -1007,6 +1007,51 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to linerunner packs.
+        /// </summary>
+        public static string OptionsLinerunnerPacks {
+            get {
+                return ResourceManager.GetString("OptionsLinerunnerPacks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pro.
+        /// </summary>
+        public static string OptionsLinerunnerPacksProPack {
+            get {
+                return ResourceManager.GetString("OptionsLinerunnerPacksProPack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to standard.
+        /// </summary>
+        public static string OptionsLinerunnerPacksStandardPack {
+            get {
+                return ResourceManager.GetString("OptionsLinerunnerPacksStandardPack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to switching pack.
+        /// </summary>
+        public static string OptionsLinerunnerPacksSwitchingPack {
+            get {
+                return ResourceManager.GetString("OptionsLinerunnerPacksSwitchingPack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tv.
+        /// </summary>
+        public static string OptionsLinerunnerPacksTvPack {
+            get {
+                return ResourceManager.GetString("OptionsLinerunnerPacksTvPack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to lines.
         /// </summary>
         public static string OptionsLines {

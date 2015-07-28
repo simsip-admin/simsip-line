@@ -38,9 +38,12 @@ namespace Simsip.LineRunner.Services.Inapp
     {
         string PracticeModeProductId { get; }
 
-        string LinerunnerPackTvProductId { get; }
+        string LinerunnerPackPrefix { get; }
 
+        string LinerunnerPackStandardProductId { get; }
+        
         string LinerunnerPackProProductId { get; }
+        string LinerunnerPackTvProductId { get; }
 
         /// <summary>
         /// Starts the setup of this Android application by connection to the Google Play Service

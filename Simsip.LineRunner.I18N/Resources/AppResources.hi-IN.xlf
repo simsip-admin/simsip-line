@@ -552,6 +552,26 @@
           <source>tap options for tv pack</source>
           <target state="new">tap options for tv pack</target>
         </trans-unit>
+        <trans-unit id="Resx/OptionsLinerunnerPacks" translate="yes" xml:space="preserve">
+          <source>linerunner packs</source>
+          <target state="new">linerunner packs</target>
+        </trans-unit>
+        <trans-unit id="Resx/OptionsLinerunnerPacksTvPack" translate="yes" xml:space="preserve">
+          <source>tv</source>
+          <target state="new">tv</target>
+        </trans-unit>
+        <trans-unit id="Resx/OptionsLinerunnerPacksStandardPack" translate="yes" xml:space="preserve">
+          <source>standard</source>
+          <target state="new">standard</target>
+        </trans-unit>
+        <trans-unit id="Resx/OptionsLinerunnerPacksProPack" translate="yes" xml:space="preserve">
+          <source>pro</source>
+          <target state="new">pro</target>
+        </trans-unit>
+        <trans-unit id="Resx/OptionsLinerunnerPacksSwitchingPack" translate="yes" xml:space="preserve">
+          <source>switching pack</source>
+          <target state="new">switching pack</target>
+        </trans-unit>
         <trans-unit id="Resx/UpgradesPackTvDesc2" translate="yes" xml:space="preserve">
           <source>watch popular gifs</source>
           <target state="new">watch popular gifs</target>

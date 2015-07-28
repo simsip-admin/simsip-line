@@ -10,6 +10,7 @@ using Simsip.LineRunner.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 #if ANDROID
 using Simsip.LineRunner.Services.Inapp;
 using Xamarin.InAppBilling;
@@ -337,12 +338,10 @@ namespace Simsip.LineRunner.Scenes.Options
                 }
             }
 
-            var packTvPurchase =
-                this._inAppPurchaseRepository.GetPurchaseByProductId(this._inAppService.LinerunnerPackTvProductId);
-            var packProPurchase =
-                this._inAppPurchaseRepository.GetPurchaseByProductId(this._inAppService.LinerunnerPackProProductId);
-            if (packTvPurchase != null ||
-                packProPurchase != null ||
+            var packPurchases = this._inAppPurchaseRepository.GetAllPurchases()
+                            .Where(x => x.ProductId.StartsWith(this._inAppService.LinerunnerPackPrefix));
+
+            if (packPurchases.Count() > 0 ||
                 GameManager.SharedGameManager.AdminArePacksAllowed)
             {
                 // OK, we have the purchase, do we need to insert into our pages?

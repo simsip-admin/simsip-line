@@ -164,5 +164,10 @@
         public static string UpgradesPackTvDesc1 = "UpgradesPackTvDesc1";
         public static string UpgradesPackTvDesc2 = "UpgradesPackTvDesc2";
         public static string UpgradesPackTvDesc3 = "UpgradesPackTvDesc3";
+        public static string OptionsLinerunnerPacks = "OptionsLinerunnerPacks";
+        public static string OptionsLinerunnerPacksSwitchingPack = "OptionsLinerunnerPacksSwitchingPack";
+        public static string OptionsLinerunnerPacksProPack = "OptionsLinerunnerPacksProPack";
+        public static string OptionsLinerunnerPacksStandardPack = "OptionsLinerunnerPacksStandardPack";
+        public static string OptionsLinerunnerPacksTvPack = "OptionsLinerunnerPacksTvPack";
     }
 }

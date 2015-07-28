@@ -42,6 +42,12 @@ namespace Simsip.LineRunner.Services.Inapp
         // Testing
         public string PracticeModeProductId { get { return ReservedTestProductIDs.Purchased; } }
 
+        public string LinerunnerPackPrefix { get { return "com.simsip.linerunner.pack"; } }
+
+        // public string LinerunnerPackStandardProductId { get { return "com.simsip.linerunner.pack.standard"; } }
+        // Testing
+        public string LinerunnerPackStandardProductId { get { return ReservedTestProductIDs.Purchased; } }
+
         // public string LinerunnerPackTvProductId { get { return "com.simsip.linerunner.pack.tv"; } }
         // Testing
         public string LinerunnerPackTvProductId { get { return ReservedTestProductIDs.Purchased; } }
@@ -402,6 +408,10 @@ namespace Simsip.LineRunner.Services.Inapp
 
         public string PracticeModeProductId { get { return "com.simsip.linerunner.practicemode"; } }
         
+        public string LinerunnerPackPrefix { get { return "com.simsip.linerunner.pack"; } }
+
+        public string LinerunnerPackStandardProductId { get { return "com.simsip.linerunner.pack.standard"; } }
+
         public string LinerunnerPackTvProductId { get { return "com.simsip.linerunner.pack.tv"; } }
         
         public string LinerunnerPackProProductId { get { return "com.simsip.linerunner.pack.pro"; } }
@@ -605,7 +615,7 @@ namespace Simsip.LineRunner.Services.Inapp
 
         #endregion
 
-        #region Api
+    #region Api
 
         public void PurchaseTransaction(SKPaymentTransaction transaction)
         {
@@ -712,7 +722,7 @@ namespace Simsip.LineRunner.Services.Inapp
 
         #endregion
 
-        #region Helper methods
+    #region Helper methods
 
         private string LocalizedPrice(SKProduct product)
         {

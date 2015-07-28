@@ -605,4 +605,19 @@
   <data name="UpgradesPackTvDesc3" xml:space="preserve">
     <value>tap options for tv pack</value>
   </data>
+  <data name="OptionsLinerunnerPacks" xml:space="preserve">
+    <value>linerunner packs</value>
+  </data>
+  <data name="OptionsLinerunnerPacksSwitchingPack" xml:space="preserve">
+    <value>switching pack</value>
+  </data>
+  <data name="OptionsLinerunnerPacksProPack" xml:space="preserve">
+    <value>pro</value>
+  </data>
+  <data name="OptionsLinerunnerPacksStandardPack" xml:space="preserve">
+    <value>standard</value>
+  </data>
+  <data name="OptionsLinerunnerPacksTvPack" xml:space="preserve">
+    <value>tv</value>
+  </data>
 </root>

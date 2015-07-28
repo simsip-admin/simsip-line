@@ -162,4 +162,9 @@
   <string name="UpgradesPackTvDesc1">navigate over live tvs</string>
   <string name="UpgradesPackTvDesc2">watch popular gifs</string>
   <string name="UpgradesPackTvDesc3">tap options for tv pack</string>
+  <string name="OptionsLinerunnerPacks">linerunner packs</string>
+  <string name="OptionsLinerunnerPacksSwitchingPack">switching pack</string>
+  <string name="OptionsLinerunnerPacksProPack">pro</string>
+  <string name="OptionsLinerunnerPacksStandardPack">standard</string>
+  <string name="OptionsLinerunnerPacksTvPack">tv</string>
 </resources>

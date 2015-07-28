@@ -4184,6 +4184,10 @@
       <Link>Content\Images\Misc\LinerunnerPackTvImage4.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Simsip.LineRunner.Content\bin\Store\Content\Images\Misc\LinerunnerPackStandardImage1.xnb">
+      <Link>Content\Images\Misc\LinerunnerPackStandardImage1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Simsip.LineRunner.Store_TemporaryKey.pfx" />
   </ItemGroup>

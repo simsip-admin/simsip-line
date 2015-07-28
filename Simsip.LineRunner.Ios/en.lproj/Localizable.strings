@@ -160,3 +160,8 @@
 "UpgradesPackTvDesc1"="navigate over live tvs";
 "UpgradesPackTvDesc2"="watch popular gifs";
 "UpgradesPackTvDesc3"="tap options for tv pack";
+"OptionsLinerunnerPacks"="linerunner packs";
+"OptionsLinerunnerPacksSwitchingPack"="switching pack";
+"OptionsLinerunnerPacksProPack"="pro";
+"OptionsLinerunnerPacksStandardPack"="standard";
+"OptionsLinerunnerPacksTvPack"="tv";
