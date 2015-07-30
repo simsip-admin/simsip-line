@@ -42,7 +42,7 @@ namespace Simsip.LineRunner.Services.Inapp
         // Testing
         public string PracticeModeProductId { get { return ReservedTestProductIDs.Purchased; } }
 
-        public string LinerunnerPackPrefix { get { return "com.simsip.linerunner.pack"; } }
+        public string LinerunnerPackPrefix { get { return "com.simsip.linerunner.pack."; } }
 
         // public string LinerunnerPackStandardProductId { get { return "com.simsip.linerunner.pack.standard"; } }
         // Testing
@@ -408,7 +408,7 @@ namespace Simsip.LineRunner.Services.Inapp
 
         public string PracticeModeProductId { get { return "com.simsip.linerunner.practicemode"; } }
         
-        public string LinerunnerPackPrefix { get { return "com.simsip.linerunner.pack"; } }
+        public string LinerunnerPackPrefix { get { return "com.simsip.linerunner.pack."; } }
 
         public string LinerunnerPackStandardProductId { get { return "com.simsip.linerunner.pack.standard"; } }
 

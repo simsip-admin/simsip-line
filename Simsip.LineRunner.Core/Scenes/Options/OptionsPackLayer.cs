@@ -31,6 +31,9 @@ namespace Simsip.LineRunner.Scenes.Options
         private CoreScene _parent;
         private OptionsMasterLayer _masterLayer;
 
+        // Collection of pack labels we have purchased
+        private Dictionary<string, CCLabelTTF> _packLabels;
+
         // Additional text
         private string _switchingPackText;
 
@@ -68,7 +71,7 @@ namespace Simsip.LineRunner.Scenes.Options
 #else
             packText = AppResources.OptionsLinerunnerPacks;
 #endif
-            var packLabel = new CCLabelTTF(packText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            var packLabel = new CCLabelTTF(packText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             packLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             packLabel.AnchorPoint = CCPoint.AnchorMiddle;
             packLabel.Color = CCColor3B.Blue;
@@ -76,6 +79,9 @@ namespace Simsip.LineRunner.Scenes.Options
                 0.5f * this.ContentSize.Width,
                 0.8f * this.ContentSize.Height);
             this.AddChild(packLabel);
+
+            // Used to highlight current pack
+            this._packLabels = new Dictionary<string, CCLabelTTF>();
 
             // Standard
             var standardPackImage = new CCSprite("Images/Misc/LinerunnerPackStandardImage1.png");
@@ -92,35 +98,133 @@ namespace Simsip.LineRunner.Scenes.Options
                                 });
             standardPackMenu.Position = new CCPoint(
                 0.2f * this.ContentSize.Width,
-                0.6f * this.ContentSize.Height);
+                0.7f * this.ContentSize.Height);
             this.AddChild(standardPackMenu);
             var standardPackText = string.Empty;
 #if ANDROID
-            standardPackText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsLinerunnerPacks);
+            standardPackText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsLinerunnerPacksStandardPack);
 #elif IOS
-            standardPackText = NSBundle.MainBundle.LocalizedString(Strings.OptionsLinerunnerPacks, Strings.OptionsLinerunnerPacks);
+            standardPackText = NSBundle.MainBundle.LocalizedString(Strings.OptionsLinerunnerPacksStandardPack, Strings.OptionsLinerunnerPacksStandardPack);
 #else
-            standardPackText = AppResources.OptionsLinerunnerPacks;
+            standardPackText = AppResources.OptionsLinerunnerPacksStandardPack;
 #endif
+            var standardPackLabel = new CCLabelTTF(standardPackText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._packLabels[this._inAppService.LinerunnerPackStandardProductId] = standardPackLabel;
+            var standardPackLabelItem = new CCMenuItemLabel(standardPackLabel,
+                                        (obj) => { this.PackSelected(this._inAppService.LinerunnerPackStandardProductId); });
+            var standardPackLabelMenu = new CCMenu(
+               new CCMenuItem[] 
+                    {
+                        standardPackLabelItem
+                    });
+            standardPackLabelMenu.Position = new CCPoint(
+                0.7f * this.ContentSize.Width,
+                0.7f * this.ContentSize.Height);
+            this.AddChild(standardPackLabelMenu);
 
             var packPurchases = this._inAppPurchaseRepository.GetAllPurchases()
-                .Where(x => x.ProductId.StartsWith(this._inAppService.LinerunnerPackPrefix));
-
-            var tableStartHeight = packLabel.Position.Y;
+                .Where(x => x.ProductId.StartsWith(this._inAppService.LinerunnerPackPrefix))
+                .ToList();
+            var lineHeight = standardPackLabelMenu.Position.Y - (0.1f * this.ContentSize.Height);
             foreach(var packPurchase in packPurchases)
             {
                 if (packPurchase.ProductId == this._inAppService.LinerunnerPackProProductId)
                 {
-
+                    // Pro
+                    var proPackImage = new CCSprite("Images/Misc/LinerunnerPackProImage1.png");
+                    Cocos2DUtils.ResizeSprite(proPackImage,
+                        0.1f * this.ContentSize.Width,
+                        0.1f * this.ContentSize.Width);
+                    var proPackItem = new CCMenuItemImage();
+                    proPackItem.NormalImage = proPackImage;
+                    proPackItem.SetTarget((obj) => { this.PackSelected(this._inAppService.LinerunnerPackProProductId); });
+                    var proPackMenu = new CCMenu(
+                        new CCMenuItem[] 
+                                {
+                                    proPackItem, 
+                                });
+                    proPackMenu.Position = new CCPoint(
+                        0.2f * this.ContentSize.Width,
+                        lineHeight);
+                    this.AddChild(proPackMenu);
+                    var proPackText = string.Empty;
+#if ANDROID
+                    proPackText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsLinerunnerPacksProPack);
+#elif IOS
+                    proPackText = NSBundle.MainBundle.LocalizedString(Strings.OptionsLinerunnerPacksProPack, Strings.OptionsLinerunnerPacksProPack);
+#else
+                    proPackText = AppResources.OptionsLinerunnerPacksProPack;
+#endif
+                    var proPackLabel = new CCLabelTTF(proPackText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                    this._packLabels[this._inAppService.LinerunnerPackProProductId] = proPackLabel;
+                    var proPackLabelItem = new CCMenuItemLabel(proPackLabel,
+                                                (obj) => { this.PackSelected(this._inAppService.LinerunnerPackProProductId); });
+                    var proPackLabelMenu = new CCMenu(
+                       new CCMenuItem[] 
+                    {
+                        proPackLabelItem
+                    });
+                    proPackLabelMenu.Position = new CCPoint(
+                        0.7f * this.ContentSize.Width,
+                        lineHeight);
+                    this.AddChild(proPackLabelMenu);
                 }
                 else if (packPurchase.ProductId == this._inAppService.LinerunnerPackTvProductId)
                 {
+                    // Tv
+                    var tvPackImage = new CCSprite("Images/Misc/LinerunnerPackTvImage1.png");
+                    Cocos2DUtils.ResizeSprite(tvPackImage,
+                        0.1f * this.ContentSize.Width,
+                        0.1f * this.ContentSize.Width);
+                    var tvPackItem = new CCMenuItemImage();
+                    tvPackItem.NormalImage = tvPackImage;
+                    tvPackItem.SetTarget((obj) => { this.PackSelected(this._inAppService.LinerunnerPackTvProductId); });
+                    var tvPackMenu = new CCMenu(
+                        new CCMenuItem[] 
+                                {
+                                    tvPackItem, 
+                                });
+                    tvPackMenu.Position = new CCPoint(
+                        0.2f * this.ContentSize.Width,
+                        lineHeight);
+                    this.AddChild(tvPackMenu);
+                    var tvPackText = string.Empty;
+#if ANDROID
+                    tvPackText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsLinerunnerPacksTvPack);
+#elif IOS
+                    tvPackText = NSBundle.MainBundle.LocalizedString(Strings.OptionsLinerunnerPacksTvPack, Strings.OptionsLinerunnerPacksTvPack);
+#else
+                    tvPackText = AppResources.OptionsLinerunnerPacksTvPack;
+#endif
+                    var tvPackLabel = new CCLabelTTF(tvPackText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                    this._packLabels[this._inAppService.LinerunnerPackTvProductId] = tvPackLabel;
+                    var tvPackLabelItem = new CCMenuItemLabel(tvPackLabel,
+                                                (obj) => { this.PackSelected(this._inAppService.LinerunnerPackTvProductId); });
+                    var tvPackLabelMenu = new CCMenu(
+                       new CCMenuItem[] 
+                    {
+                        tvPackLabelItem
+                    });
+                    tvPackLabelMenu.Position = new CCPoint(
+                        0.7f * this.ContentSize.Width,
+                        lineHeight);
+                    this.AddChild(tvPackLabelMenu);
 
                 }
+
+                lineHeight -= 0.1f * this.ContentSize.Height;
             }
 #endif
+            // Additional text strings
+            this._switchingPackText = string.Empty;
 
-
+#if ANDROID
+            this._switchingPackText = Program.SharedProgram.Resources.GetString(Resource.String.OptionsLinerunnerPacksSwitchingPack);
+#elif IOS
+            this._switchingPackText = NSBundle.MainBundle.LocalizedString(Strings.OptionsLinerunnerPacksSwitchingPack, Strings.OptionsLinerunnerPacksSwitchingPack);
+#else
+            _switchingPackText = AppResources.OptionsLinerunnerPacksSwitchingPack;
+#endif
         }
 
         #region Overrides
@@ -129,15 +233,23 @@ namespace Simsip.LineRunner.Scenes.Options
         {
             base.OnEnter();
 
-            // Highlight current starting page/line
-            // See other options upgrade page
+            // Reset all label colors
+            foreach(var packLabel in this._packLabels)
+            {
+                packLabel.Value.Color = CCColor3B.White;
+            }
+
+            // Highlight current pack
+            var currentPackProductId = this._inAppService.LinerunnerPackPrefix + GameManager.SharedGameManager.LinerunnerPack;
+            var currentPackLabel = this._packLabels[currentPackProductId];
+            currentPackLabel.Color = CCColor3B.Blue;
         }
 
         #endregion
 
         #region Helper methods
 
-        private void PackSelected(string selectedPack)
+        private void PackSelected(string selectedPackProductId)
         {
             // Provide immediate feedback
             this._parent.TheMessageBoxLayer.Show(
@@ -145,14 +257,21 @@ namespace Simsip.LineRunner.Scenes.Options
                 string.Empty,
                 MessageBoxType.MB_PROGRESS);
 
-            // Update ui to reflect selection
-            // See other options upgrade page for this
+            // Reset all label colors
+            foreach (var packLabel in this._packLabels)
+            {
+                packLabel.Value.Color = CCColor3B.White;
+            }
+
+            // Highlight current pack
+            var currentPackLabel = this._packLabels[selectedPackProductId];
+            currentPackLabel.Color = CCColor3B.Blue;
+
 
             // Record what was selected
             // IMPORTANT: Note how we use the suffix of the id for the selected pack. This is because the database
             //            has recorded only the suffix due to space/performance concerns
-            var selectedPackSuffix = selectedPack.Substring(selectedPack.LastIndexOf("."));
-            GameManager.SharedGameManager.LinerunnerPack = selectedPackSuffix;
+            GameManager.SharedGameManager.LinerunnerPack = GetPackProductIdSuffix(selectedPackProductId);
 
             // Hook up an event handler for end of content loading caused by
             // refresh kicking off background load
@@ -163,6 +282,10 @@ namespace Simsip.LineRunner.Scenes.Options
             this._parent.Refresh();
         }
 
+        private string GetPackProductIdSuffix(string productId)
+        {
+            return productId.Replace(this._inAppService.LinerunnerPackPrefix, "");
+        }
 
         private void LoadContentAsyncFinishedHandler(object sender, LoadContentAsyncFinishedEventArgs args)
         {
