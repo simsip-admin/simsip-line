@@ -146,6 +146,7 @@ namespace Simsip.LineRunner.Scenes.Options
             optionsText = AppResources.OptionsTitle;
 #endif
             var optionsTitle = new CCLabelTTF(optionsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            optionsTitle.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             optionsTitle.AnchorPoint = CCPoint.AnchorMiddleLeft;
             optionsTitle.Position = new CCPoint(
                 0.05f * this.ContentSize.Width,
@@ -162,6 +163,7 @@ namespace Simsip.LineRunner.Scenes.Options
             this._pageNumberText = AppResources.CommonPage;
 #endif
             this._pageNumberHeader = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._pageNumberHeader.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             this._pageNumberHeader.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,
@@ -224,6 +226,7 @@ namespace Simsip.LineRunner.Scenes.Options
             previousText = AppResources.CommonPrevious;
 #endif
             this._previousLabel = new CCLabelTTF(previousText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            this._previousLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             this._previousLabel.AnchorPoint = CCPoint.AnchorMiddleLeft;
             this._previousLabel.Position = new CCPoint(
                 0.05f * this.ContentSize.Width,
@@ -263,6 +266,7 @@ namespace Simsip.LineRunner.Scenes.Options
             nextText = AppResources.CommonNext;
 #endif
             this._nextLabel = new CCLabelTTF(nextText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            this._nextLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             this._nextLabel.Position = new CCPoint(
                 0.95f  * this.ContentSize.Width,
                 0.02f  * this.ContentSize.Height);
@@ -297,6 +301,7 @@ namespace Simsip.LineRunner.Scenes.Options
             backText = AppResources.CommonBack;
 #endif
             var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            backLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             backLabel.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.02f * this.ContentSize.Height);

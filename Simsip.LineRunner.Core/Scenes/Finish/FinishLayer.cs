@@ -192,6 +192,7 @@ namespace Simsip.LineRunner.Scenes.Finish
             backText = AppResources.CommonBack;
 #endif
             var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            backLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             backLabel.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.05f * this.ContentSize.Height);

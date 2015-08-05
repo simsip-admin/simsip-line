@@ -40,6 +40,7 @@ namespace Simsip.LineRunner.Scenes.Credits
             pageNumberText = AppResources.CommonPage;
 #endif
             var pageNumberHeader = new CCLabelTTF(pageNumberText + " 1", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            pageNumberHeader.Scale = GameConstants.FONT_SIZE_NORMAL;
             pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             pageNumberHeader.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,

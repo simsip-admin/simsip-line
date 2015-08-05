@@ -156,6 +156,7 @@ namespace Simsip.LineRunner.Scenes.Credits
             versionText = AppResources.CommonVersion;
 #endif
             var versionHeader = new CCLabelTTF(versionText + "-" + FileUtils.GetVersion(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            versionHeader.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             versionHeader.AnchorPoint = CCPoint.AnchorMiddleLeft;
             versionHeader.Position = new CCPoint(
                 0.05f * this.ContentSize.Width,
@@ -206,6 +207,7 @@ namespace Simsip.LineRunner.Scenes.Credits
             previousText = AppResources.CommonPrevious;
 #endif
             this._previousLabel = new CCLabelTTF(previousText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            this._previousLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             this._previousLabel.AnchorPoint = CCPoint.AnchorMiddleLeft;
             this._previousLabel.Position = new CCPoint(
                 0.05f * this.ContentSize.Width,
@@ -245,6 +247,7 @@ namespace Simsip.LineRunner.Scenes.Credits
             nextText = AppResources.CommonNext;
 #endif
             this._nextLabel = new CCLabelTTF(nextText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            this._nextLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             this._nextLabel.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,
                 0.02f * this.ContentSize.Height);
@@ -275,6 +278,7 @@ namespace Simsip.LineRunner.Scenes.Credits
             backText = AppResources.CommonBack;
 #endif
             var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            backLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             backLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.02f * this.ContentSize.Height);

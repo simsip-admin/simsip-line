@@ -79,6 +79,7 @@ namespace Simsip.LineRunner.Scenes.Help
             adminText = AppResources.CommonAdmin;
 #endif
             var adminLabel = new CCLabelTTF(adminText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            adminLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             var adminItem = new CCMenuItemLabel(adminLabel,
                 (obj) => { this._parent.Navigate(LayerTags.AdminLayer); });
             var adminLabelMenu = new CCMenu(

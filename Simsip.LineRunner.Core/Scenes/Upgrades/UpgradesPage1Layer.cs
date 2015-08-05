@@ -104,6 +104,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             pageNumberText = AppResources.CommonPage;
 #endif
             var pageNumberHeader = new CCLabelTTF(pageNumberText + " 1", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            pageNumberHeader.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             pageNumberHeader.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,
@@ -214,6 +215,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             restoreText = AppResources.UpgradesRestore;
 #endif
             var restoreLabel = new CCLabelTTF(restoreText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            restoreLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             var restoreItem = new CCMenuItemLabel(restoreLabel,
                 (obj) => { this.RestoreProducts(); });
             this._restoreLabelMenu = new CCMenu(
@@ -269,6 +271,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             buyText = AppResources.UpgradesBuy;
 #endif
             var buyLabel = new CCLabelTTF(buyText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            buyLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             var buyItem = new CCMenuItemLabel(buyLabel,
                 (obj) => { this.PurchaseProduct(); });
             this._buyLabelMenu = new CCMenu(
@@ -485,6 +488,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             }
 
             this._practiceDesc1Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._practiceDesc1Label.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._practiceDesc1Label.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.7f * this.ContentSize.Height);
@@ -499,6 +503,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             }
 
             this._practiceDesc2Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._practiceDesc2Label.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._practiceDesc2Label.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.65f * this.ContentSize.Height);
@@ -513,6 +518,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             }
 
             this._statusLabel = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._statusLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._statusLabel.Color = CCColor3B.Red;
             this._statusLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
@@ -528,6 +534,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             }
 
             this._priceLabel = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._priceLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._priceLabel.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.25f * this.ContentSize.Height);
@@ -546,12 +553,14 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             }
 
             this._purchasedOnLabel = new CCLabelTTF(this._purchasedOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            this._purchasedOnLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             this._purchasedOnLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.25f * this.ContentSize.Height);
             this.AddChild(this._purchasedOnLabel);
 
             this._purchasedOnDateLabel = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            this._purchasedOnDateLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             this._purchasedOnDateLabel.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.2f * this.ContentSize.Height);

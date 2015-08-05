@@ -111,6 +111,7 @@ namespace Simsip.LineRunner.Scenes.Help
             practiceDesc1Text = AppResources.HelpUpgradesPracticeDesc1;
 #endif
             var practiceDesc1 = new CCLabelTTF(practiceDesc1Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            practiceDesc1.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             practiceDesc1.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.6f * this.ContentSize.Height);
@@ -125,6 +126,7 @@ namespace Simsip.LineRunner.Scenes.Help
             practiceDesc2Text = AppResources.HelpUpgradesPracticeDesc2;
 #endif
             var practiceDesc2 = new CCLabelTTF(practiceDesc2Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            practiceDesc2.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             practiceDesc2.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.2f * this.ContentSize.Height);

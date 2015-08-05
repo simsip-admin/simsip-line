@@ -22,15 +22,32 @@ namespace Simsip.LineRunner.GameFramework
         public const string FOLDER_SHADER_PACKS = "shaderpacks";
 
         // Font settings
+#if IOS
+        public const string DEBUG_FONT = @"Fonts/arial-core-16";    // To be removed
+#else
+        public const string DEBUG_FONT = @"Fonts/arial-core-8";     // To be removed
+#endif
         public const string FONT_FAMILY_NORMAL = "arial-core";
+#if IOS
+        public const float FONT_SIZE_SMALL = 16f;
+        public const float FONT_SIZE_NORMAL = 16f;
+        public const float FONT_SIZE_LARGE = 16f;
+        public const float FONT_SIZE_X_LARGE = 16f;
+        public const float FONT_SIZE_SMALL_SCALE = 1f;      // 16
+        public const float FONT_SIZE_NORMAL_SCALE = 1.5f;   // 24
+        public const float FONT_SIZE_LARGE_SCALE = 2f;      // 32
+        public const float FONT_SIZE_X_LARGE_SCALE = 3f;    // 48
+#else
         public const float FONT_SIZE_SMALL = 8f;
         public const float FONT_SIZE_NORMAL = 8f;
         public const float FONT_SIZE_LARGE = 8f;
         public const float FONT_SIZE_X_LARGE = 8f;
-        public const float FONT_SIZE_SMALL_SCALE = 2f;
-        public const float FONT_SIZE_NORMAL_SCALE = 3f;
-        public const float FONT_SIZE_LARGE_SCALE = 4f;
-        public const float FONT_SIZE_X_LARGE_SCALE = 6f;
+        public const float FONT_SIZE_SMALL_SCALE = 2f;      // 16
+        public const float FONT_SIZE_NORMAL_SCALE = 3f;     // 24
+        public const float FONT_SIZE_LARGE_SCALE = 4f;      // 32
+        public const float FONT_SIZE_X_LARGE_SCALE = 6f;    // 48
+#endif
+
 
         // Worlds
         public const string WORLD_DEFAULT = "default";

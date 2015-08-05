@@ -85,6 +85,7 @@ namespace Simsip.LineRunner.Scenes.ResourcePacks
                 this._resourcePackBoundingBoxes.Add(packImage.WorldBoundingBox);
 
                 var packLabel = new CCLabelTTF(pack.DisplayName, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                packLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
                 var packButton = new CCMenuItemLabel(packLabel,
                                                      (obj) => { ResourcePackSelected(pack); });
                 var labelMenu = new CCMenu();
@@ -120,6 +121,7 @@ namespace Simsip.LineRunner.Scenes.ResourcePacks
             backText = AppResources.CommonBack;
 #endif
             var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            backLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             backLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.02f * this.ContentSize.Height);

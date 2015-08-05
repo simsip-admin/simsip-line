@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <SilverlightApplication>true</SilverlightApplication>
-    <SupportedCultures>de;es;fr;hi-IN;id-ID;it;nl;pl-PL;pt-BR;pt;ru-RU</SupportedCultures>
+    <SupportedCultures>de;es;fr;hi-IN;id-ID;it;ja-JP;ko-KR;nl;pl-PL;pt-BR;pt;ru-RU;zh-Hans;zh-Hant</SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>EmptyProject_$(Configuration)_$(Platform).xap</XapFilename>
@@ -4327,6 +4327,20 @@
       <DependentUpon>AppResources.it.xlf</DependentUpon>
       <culture>it</culture>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.ja-JP.resx">
+      <Link>Resources\AppResources.ja-JP.resx</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppResources.ja-JP.xlf</DependentUpon>
+      <culture>ja-JP</culture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.ko-KR.resx">
+      <Link>Resources\AppResources.ko-KR.resx</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppResources.ko-KR.xlf</DependentUpon>
+      <culture>ko-KR</culture>
+    </EmbeddedResource>
     <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.nl.resx">
       <Link>Resources\AppResources.nl.resx</Link>
       <AutoGen>True</AutoGen>
@@ -4367,6 +4381,20 @@
       <DependentUpon>AppResources.ru-RU.xlf</DependentUpon>
       <culture>ru-RU</culture>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.zh-Hans.resx">
+      <Link>Resources\AppResources.zh-Hans.resx</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppResources.zh-Hans.xlf</DependentUpon>
+      <culture>zh-Hans</culture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.zh-Hant.resx">
+      <Link>Resources\AppResources.zh-Hant.resx</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppResources.zh-Hant.xlf</DependentUpon>
+      <culture>zh-Hant</culture>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <XliffResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.de.xlf">
@@ -4399,6 +4427,16 @@
       <Generator>XliffResxGenerator</Generator>
       <LastGenOutput>AppResources.it.resx</LastGenOutput>
     </XliffResource>
+    <XliffResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.ja-JP.xlf">
+      <Link>Resources\AppResources.ja-JP.xlf</Link>
+      <Generator>XliffResxGenerator</Generator>
+      <LastGenOutput>AppResources.ja-JP.resx</LastGenOutput>
+    </XliffResource>
+    <XliffResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.ko-KR.xlf">
+      <Link>Resources\AppResources.ko-KR.xlf</Link>
+      <Generator>XliffResxGenerator</Generator>
+      <LastGenOutput>AppResources.ko-KR.resx</LastGenOutput>
+    </XliffResource>
     <XliffResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.nl.xlf">
       <Link>Resources\AppResources.nl.xlf</Link>
       <Generator>XliffResxGenerator</Generator>
@@ -4423,6 +4461,16 @@
       <Link>Resources\AppResources.ru-RU.xlf</Link>
       <Generator>XliffResxGenerator</Generator>
       <LastGenOutput>AppResources.ru-RU.resx</LastGenOutput>
+    </XliffResource>
+    <XliffResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.zh-Hans.xlf">
+      <Link>Resources\AppResources.zh-Hans.xlf</Link>
+      <Generator>XliffResxGenerator</Generator>
+      <LastGenOutput>AppResources.zh-Hans.resx</LastGenOutput>
+    </XliffResource>
+    <XliffResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.zh-Hant.xlf">
+      <Link>Resources\AppResources.zh-Hant.xlf</Link>
+      <Generator>XliffResxGenerator</Generator>
+      <LastGenOutput>AppResources.zh-Hant.resx</LastGenOutput>
     </XliffResource>
   </ItemGroup>
   <ItemGroup>

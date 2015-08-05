@@ -94,6 +94,7 @@ namespace Simsip.LineRunner.Scenes.MessageBox
             okText = AppResources.CommonOK;
 #endif
             var okLabel = new CCLabelTTF(okText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            okLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             var okItem = new CCMenuItemLabel(okLabel,
                 (obj) => { this.OnOK(); });
             this._okButton = new CCMenu(
@@ -113,6 +114,7 @@ namespace Simsip.LineRunner.Scenes.MessageBox
             cancelText = AppResources.CommonCancel;
 #endif
             var cancelLabel = new CCLabelTTF(cancelText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            cancelLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             var cancelItem = new CCMenuItemLabel(cancelLabel,
                 (obj) => { this.OnCancel(); });
             this._cancelButton = new CCMenu(
@@ -132,6 +134,7 @@ namespace Simsip.LineRunner.Scenes.MessageBox
             yesText = AppResources.CommonYes;
 #endif
             var yesLabel = new CCLabelTTF(yesText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            yesLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             var yesItem = new CCMenuItemLabel(yesLabel,
                 (obj) => { this.OnYes(); });
             this._yesButton = new CCMenu(
@@ -151,6 +154,7 @@ namespace Simsip.LineRunner.Scenes.MessageBox
             noText = AppResources.CommonNo;
 #endif
             var noLabel = new CCLabelTTF(noText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            noLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             var noItem = new CCMenuItemLabel(noLabel,
                 (obj) => { this.OnNo(); });
             this._noButton = new CCMenu(

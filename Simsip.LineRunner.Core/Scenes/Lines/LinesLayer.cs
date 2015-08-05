@@ -174,6 +174,7 @@ namespace Simsip.LineRunner.Scenes.Lines
                 this.AddChild(lineImage);
 
                 var lineLabel = new CCLabelTTF(lineDisplayNames[line.DisplayName], GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                lineLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
                 var lineEntity = line;  // Need to do this for correct lambda resolution inside a foreach loop
                 var lineButton = new CCMenuItemLabel(lineLabel,
                                                      (obj) => { LineSelected(lineEntity); });
@@ -212,6 +213,7 @@ namespace Simsip.LineRunner.Scenes.Lines
             backText = AppResources.CommonBack;
 #endif
             var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            backLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             backLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.02f * this.ContentSize.Height);

@@ -452,6 +452,7 @@ namespace Simsip.LineRunner.Scenes.Hud
                 0.4f * headerRightSize.Height);
             this._headerRightLayer.AddChild(this._highScoreTimeHeaderLabel);
             this._highScoreTimeLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._highScoreTimeLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._highScoreTimeLabel.Position = new CCPoint(
                 0.5f * headerRightSize.Width,
                 0.2f * headerRightSize.Height);
@@ -471,8 +472,8 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             // Score label action
             var scaleStartScore = new CCScaleTo(0f, 0f);
-            var scaleUpScore = new CCScaleTo(0.5f, 1.2f);
-            var scaleBackScore = new CCScaleTo(0.1f, 1.0f);
+            var scaleUpScore = new CCScaleTo(0.5f, 1.2f * GameConstants.FONT_SIZE_LARGE_SCALE);
+            var scaleBackScore = new CCScaleTo(0.1f, 1.0f *GameConstants.FONT_SIZE_LARGE_SCALE);
             this._scoreLabelAction = new CCSequence(new CCFiniteTimeAction[] { scaleStartScore, scaleUpScore, scaleBackScore });
 
             // Timer
@@ -734,31 +735,6 @@ namespace Simsip.LineRunner.Scenes.Hud
 #else
             this._hudSpeedDefaultText = AppResources.HudSpeedDefault; 
 #endif
-
-            // Admin
-#if DEBUG
-            var adminText = string.Empty;
-#if ANDROID
-            adminText = Program.SharedProgram.Resources.GetString(Resource.String.CommonAdmin);
-#elif IOS
-            adminText = NSBundle.MainBundle.LocalizedString(Strings.CommonAdmin, Strings.CommonAdmin);
-#else
-            adminText = AppResources.CommonAdmin;
-#endif
-            var adminLabel = new CCLabelTTF(adminText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            var adminItem = new CCMenuItemLabel(adminLabel,
-                (obj) => { this.NavigateBase(LayerTags.AdminLayer); });
-            var adminLabelMenu = new CCMenu(
-               new CCMenuItem[] 
-                    {
-                        adminItem
-                    });
-            adminLabelMenu.Position = new CCPoint(
-                 0.5f * this.ContentSize.Width,
-                -0.1f * this.ContentSize.Height);
-            this.AddChild(adminLabelMenu);
-#endif
-
         }
 
         #region Cocos2D overrides
@@ -907,6 +883,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             if (this._status1Label == null)
             {
                 this._status1Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                this._status1Label.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
                 this._status1Label.Color = CCColor3B.Red;
                 this._status1Label.AnchorPoint = CCPoint.AnchorMiddle;
                 this._status1Label.Position = new CCPoint(
@@ -943,6 +920,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             if (this._status2Label == null)
             {
                 this._status2Label = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                this._status2Label.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
                 this._status2Label.Color = CCColor3B.Red;
                 this._status2Label.AnchorPoint = CCPoint.AnchorMiddle;
                 this._status2Label.Position = new CCPoint(

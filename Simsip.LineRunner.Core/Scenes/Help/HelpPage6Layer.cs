@@ -52,6 +52,7 @@ namespace Simsip.LineRunner.Scenes.Help
             orbitText = AppResources.HelpOrbit;
 #endif
             var orbitLabel = new CCLabelTTF(orbitText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            orbitLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             orbitLabel.AnchorPoint = CCPoint.AnchorMiddle;
             orbitLabel.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
@@ -99,6 +100,7 @@ namespace Simsip.LineRunner.Scenes.Help
             doubleTapText = AppResources.CommonReset;
 #endif
             var doubleTapLabel = new CCLabelTTF(doubleTapText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            doubleTapLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             doubleTapLabel.AnchorPoint = CCPoint.AnchorMiddle;
             doubleTapLabel.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,

@@ -140,6 +140,7 @@ namespace Simsip.LineRunner.Scenes.Help
             versionText = AppResources.CommonVersion;
 #endif
             var versionHeader = new CCLabelTTF(versionText + " " + FileUtils.GetVersion(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            versionHeader.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             versionHeader.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.95f * this.ContentSize.Height);
@@ -156,6 +157,7 @@ namespace Simsip.LineRunner.Scenes.Help
             helpText = AppResources.HelpTitle;
 #endif
             var helpTitle = new CCLabelTTF(helpText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            helpTitle.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             helpTitle.AnchorPoint = CCPoint.AnchorMiddleLeft;
             helpTitle.Position = new CCPoint(
                 0.05f * this.ContentSize.Width,
@@ -172,6 +174,7 @@ namespace Simsip.LineRunner.Scenes.Help
             this._pageNumberText = AppResources.CommonPage;
 #endif
             this._pageNumberHeader = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._pageNumberHeader.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             this._pageNumberHeader.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,
@@ -200,6 +203,7 @@ namespace Simsip.LineRunner.Scenes.Help
             licenseText = AppResources.HelpLicense;
 #endif
             var licenseLabel = new CCLabelTTF(licenseText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            licenseLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             var licenseItem = new CCMenuItemLabel(licenseLabel,
                 (obj) => { this.LaunchLicense(); });
             var licenseMenu = new CCMenu(
@@ -226,6 +230,7 @@ namespace Simsip.LineRunner.Scenes.Help
             supportText = AppResources.HelpSupport;
 #endif
             var supportLabel = new CCLabelTTF(supportText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            supportLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             var supportItem = new CCMenuItemLabel(supportLabel,
                 (obj) => { this.LaunchSupport(); });
             var supportMenu = new CCMenu(
@@ -276,6 +281,7 @@ namespace Simsip.LineRunner.Scenes.Help
             previousText = AppResources.CommonPrevious;
 #endif
             this._previousLabel = new CCLabelTTF(previousText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            this._previousLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             this._previousLabel.AnchorPoint = CCPoint.AnchorMiddleLeft;
             this._previousLabel.Position = new CCPoint(
                 0.05f * this.ContentSize.Width,
@@ -315,6 +321,7 @@ namespace Simsip.LineRunner.Scenes.Help
             nextText = AppResources.CommonNext;
 #endif
             this._nextLabel = new CCLabelTTF(nextText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            this._nextLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             this._nextLabel.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,
                 0.02f * this.ContentSize.Height);
@@ -345,6 +352,7 @@ namespace Simsip.LineRunner.Scenes.Help
             backText = AppResources.CommonBack;
 #endif
             var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            backLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             backLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.02f * this.ContentSize.Height);

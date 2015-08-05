@@ -112,6 +112,7 @@ namespace Simsip.LineRunner.Scenes.Pads
                 this._padBoundingBoxes.Add(padImage.WorldBoundingBox);
 
                 var padLabel = new CCLabelTTF(padDisplayNames[pad.DisplayName], GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                padLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
                 var padsButton = new CCMenuItemLabel(padLabel,
                                                      (obj) => { PadSelected(pad); });
                 var labelMenu = new CCMenu();
@@ -148,6 +149,7 @@ namespace Simsip.LineRunner.Scenes.Pads
             backText = AppResources.CommonBack;
 #endif
             var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            backLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             backLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.02f * this.ContentSize.Height);

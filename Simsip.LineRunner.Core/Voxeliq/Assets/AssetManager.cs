@@ -60,7 +60,7 @@ namespace Engine.Assets
         {
 #endif
    
-            this._defaultFont = TheGame.SharedGame.Content.Load<SpriteFont>(@"Fonts/arial-core-8");
+            this._defaultFont = TheGame.SharedGame.Content.Load<SpriteFont>(GameConstants.DEBUG_FONT);
 
             // Initialize resource dictionaries
             this._effects = new ConcurrentDictionary<string, Effect>();

@@ -4228,12 +4228,16 @@
     <AndroidResource Include="Resources\values-hi-rIN\AppResources.xml" />
     <AndroidResource Include="Resources\values-in\AppResources.xml" />
     <AndroidResource Include="Resources\values-it\AppResources.xml" />
+    <AndroidResource Include="Resources\values-ja-rJP\AppResources.xml" />
+    <AndroidResource Include="Resources\values-ko-rKR\AppResources.xml" />
     <AndroidResource Include="Resources\values-nl\AppResources.xml" />
     <AndroidResource Include="Resources\values-pl-rPL\AppResources.xml" />
     <AndroidResource Include="Resources\values-pt-rBR\AppResources.xml" />
     <AndroidResource Include="Resources\values-pt\AppResources.xml" />
     <AndroidResource Include="Resources\values\AppResources.xml" />
     <AndroidResource Include="Resources\values-ru-rRU\AppResources.xml" />
+    <AndroidResource Include="Resources\values-zh-rCN\AppResources.xml" />
+    <AndroidResource Include="Resources\values-zh-rHK\AppResources.xml" />
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
       <Link>Mercury\EffectLibrary\BasicExplosion.xml</Link>
     </None>
