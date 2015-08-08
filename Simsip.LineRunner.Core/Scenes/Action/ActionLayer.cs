@@ -1198,13 +1198,12 @@ namespace Simsip.LineRunner.Scenes.Action
             this._hudLayer.StartingLineEventRecorded = false;
 
             // Did we have any upgrade events that would invalidate this run
-            var upgradeEventRecorded = false;
-            /*
+            // Uncomment below if you want to test winning display
+            // var upgradeEventRecorded = false;
             var upgradeEventRecorded = 
                 killsOffEventRecorded ||
                 startingPageEventRecorded ||
                 startingLineEventRecorded;
-            */
 
             // Now go for the async load
             this.SwitchState(GameState.MovingToStart);
