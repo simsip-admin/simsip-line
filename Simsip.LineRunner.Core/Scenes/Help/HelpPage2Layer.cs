@@ -50,6 +50,7 @@ namespace Simsip.LineRunner.Scenes.Help
             howToPlayDescription1Text = AppResources.HelpHowToPlayDescription1;
 #endif
             var howToDescription1 = new CCLabelTTF(howToPlayDescription1Text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            howToDescription1.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             howToDescription1.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.75f * this.ContentSize.Height);

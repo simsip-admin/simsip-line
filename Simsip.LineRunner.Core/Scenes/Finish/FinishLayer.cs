@@ -94,17 +94,17 @@ namespace Simsip.LineRunner.Scenes.Finish
             this.AddChild(newHighScoreHeader);
 
             // New top score
-            this._newTopScoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
-            this._newTopScoreLabel.Scale = GameConstants.FONT_SIZE_X_LARGE_SCALE;
-            this._newTopScoreLabel.Color = CCColor3B.Green;
+            this._newTopScoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            this._newTopScoreLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
+            this._newTopScoreLabel.Color = CCColor3B.Yellow;
             this._newTopScoreLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.6f * this.ContentSize.Height);
             this.AddChild(this._newTopScoreLabel);
 
             // New top time
-            this._newTopTimeLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            this._newTopTimeLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
+            this._newTopTimeLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._newTopTimeLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._newTopTimeLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.4f * this.ContentSize.Height);
@@ -120,8 +120,8 @@ namespace Simsip.LineRunner.Scenes.Finish
 #else
             winnerText = AppResources.FinishWinner;
 #endif
-            this._winnerLabel = new CCLabelTTF(winnerText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
-            this._winnerLabel.Scale = GameConstants.FONT_SIZE_X_LARGE_SCALE;
+            this._winnerLabel = new CCLabelTTF(winnerText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            this._winnerLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             this._winnerLabel.Color = CCColor3B.Yellow;
             this._winnerLabel.Rotation = -45;
             this._newTopScoreLabel.Position = new CCPoint(
@@ -192,6 +192,7 @@ namespace Simsip.LineRunner.Scenes.Finish
             backText = AppResources.CommonBack;
 #endif
             var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            backLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             backLabel.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.05f * this.ContentSize.Height);

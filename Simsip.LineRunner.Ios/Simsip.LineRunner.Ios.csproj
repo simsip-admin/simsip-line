@@ -4212,11 +4212,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="it.lproj\Localizable.strings" />
     <Content Include="nl.lproj\Localizable.strings" />
+    <Content Include="ja.lproj\Localizable.strings" />
+    <Content Include="ko.lproj\Localizable.strings" />
     <None Include="packages.config" />
     <Content Include="pl.lproj\Localizable.strings" />
     <Content Include="pt_BR.lproj\Localizable.strings" />
     <Content Include="pt.lproj\Localizable.strings" />
     <Content Include="ru.lproj\Localizable.strings" />
+    <Content Include="zh.lproj\Localizable.strings" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

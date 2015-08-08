@@ -178,8 +178,8 @@ namespace Simsip.LineRunner.Scenes.Hud
                 { 
                     new CCShow(),
                     new CCScaleTo(0f, 0f), 
-                    new CCScaleTo(0.5f, 1.2f),
-                    new CCScaleTo(0.1f, 1.0f),
+                    new CCScaleTo(0.5f, 1.2f * GameConstants.FONT_SIZE_NORMAL_SCALE),
+                    new CCScaleTo(0.1f, 1.0f * GameConstants.FONT_SIZE_NORMAL_SCALE),
                     new CCDelayTime(GameConstants.DURATION_STATUS_LABEL),
                     new CCHide()
                 });
@@ -190,8 +190,8 @@ namespace Simsip.LineRunner.Scenes.Hud
             { 
                 new CCShow(),
                 new CCScaleTo(0f, 0f), 
-                new CCScaleTo(0.5f, 1.2f),
-                new CCScaleTo(0.1f, 1.0f),
+                new CCScaleTo(0.5f, 1.2f * GameConstants.FONT_SIZE_NORMAL_SCALE),
+                new CCScaleTo(0.1f, 1.0f * GameConstants.FONT_SIZE_NORMAL_SCALE),
             });
 
             // Base layer
@@ -287,7 +287,9 @@ namespace Simsip.LineRunner.Scenes.Hud
             homeText = AppResources.HudHome;
 #endif
             var homeLabel = new CCLabelTTF(homeText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            homeLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             homeLabel.Color = CCColor3B.Green;
+            homeLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var homeItem = new CCMenuItemLabel(homeLabel,
                 (obj) => { this._parent.GoBack(); });
             var upgradesText = string.Empty;
@@ -301,7 +303,9 @@ namespace Simsip.LineRunner.Scenes.Hud
 
 #if ANDROID || IOS
             var upgradesLabel = new CCLabelTTF(upgradesText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            upgradesLabel.Color = CCColor3B.Blue;
+            upgradesLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            upgradesLabel.Color = CCColor3B.Yellow;
+            upgradesLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var upgradesItem = new CCMenuItemLabel(upgradesLabel,
                 (obj) => { this.NavigateBase(LayerTags.UpgradesMasterLayer); });
 #endif
@@ -315,7 +319,9 @@ namespace Simsip.LineRunner.Scenes.Hud
             optionsText = AppResources.HudOptions;
 #endif
             var optionsLabel = new CCLabelTTF(optionsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            optionsLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             optionsLabel.Color = CCColor3B.Green;
+            optionsLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var optionsItem = new CCMenuItemLabel(optionsLabel,
                 (obj) => { this.NavigateBase(LayerTags.OptionsMasterLayer); });
             var helpText = string.Empty;
@@ -327,24 +333,53 @@ namespace Simsip.LineRunner.Scenes.Hud
             helpText = AppResources.HudHelp;
 #endif
             var helpLabel = new CCLabelTTF(helpText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            helpLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             helpLabel.Color = CCColor3B.Green;
+            helpLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var helpItem = new CCMenuItemLabel(helpLabel,
                 (obj) => { this.NavigateBase(LayerTags.HelpMasterLayer); });
-            var hudMenu = new CCMenu(
+
+            var hudHomeMenu = new CCMenu(
                new CCMenuItem[] 
                     {
-                        homeItem,
-#if ANDROID || IOS
-                        upgradesItem,
-#endif
-                        optionsItem,
-                        helpItem
+                        homeItem
                     });
-            hudMenu.AlignItemsVertically();
-            hudMenu.Position = new CCPoint(
-                 0.25f * headerLeftSize.Width,
-                 0.5f  * headerLeftSize.Height);
-            this._headerLeftLayer.AddChild(hudMenu);
+            hudHomeMenu.Position = new CCPoint(
+                 0.2f * headerLeftSize.Width,
+                 0.8f * headerLeftSize.Height);
+            this._headerLeftLayer.AddChild(hudHomeMenu);
+
+#if ANDROID || IOS
+            var hudUpgradesMenu = new CCMenu(
+                new CCMenuItem[] 
+                        {
+                            upgradesItem
+                        });
+            hudUpgradesMenu.Position = new CCPoint(
+                 0.2f * headerLeftSize.Width,
+                 0.6f * headerLeftSize.Height);
+            this._headerLeftLayer.AddChild(hudUpgradesMenu);
+#endif
+
+            var hudOptionsMenu = new CCMenu(
+                new CCMenuItem[] 
+                        {
+                            optionsItem
+                        });
+            hudOptionsMenu.Position = new CCPoint(
+                 0.2f * headerLeftSize.Width,
+                 0.4f * headerLeftSize.Height);
+            this._headerLeftLayer.AddChild(hudOptionsMenu);
+
+            var hudHelpMenu = new CCMenu(
+                new CCMenuItem[] 
+                        {
+                            helpItem
+                        });
+            hudHelpMenu.Position = new CCPoint(
+                 0.2f * headerLeftSize.Width,
+                 0.2f * headerLeftSize.Height);
+            this._headerLeftLayer.AddChild(hudHelpMenu);
 
             // Zoom
             CCMenuItemImage zoomInToggle =
@@ -402,6 +437,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             speedText = AppResources.HudSpeed;
 #endif
             var speedLabel = new CCLabelTTF(speedText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            speedLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             speedLabel.AnchorPoint = CCPoint.AnchorMiddle;
             speedLabel.Position = new CCPoint(
                 0.75f * headerLeftSize.Width,
@@ -418,12 +454,14 @@ namespace Simsip.LineRunner.Scenes.Hud
             highScoreHeaderText = AppResources.HudHigh;
 #endif
             this._highScoreHeaderLabel = new CCLabelTTF(highScoreHeaderText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._highScoreHeaderLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._highScoreHeaderLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._highScoreHeaderLabel.Position = new CCPoint(
                 0.5f * headerRightSize.Width,
                 0.8f * headerRightSize.Height);
             this._headerRightLayer.AddChild(this._highScoreHeaderLabel);
             this._highScoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._highScoreLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._highScoreLabel.Color = CCColor3B.Yellow;
             this._highScoreLabel.Position = new CCPoint(
                 0.5f * headerRightSize.Width,
@@ -438,12 +476,14 @@ namespace Simsip.LineRunner.Scenes.Hud
             timeText = AppResources.HudTime;
 #endif
             this._highScoreTimeHeaderLabel = new CCLabelTTF(timeText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._highScoreTimeHeaderLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._highScoreTimeHeaderLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._highScoreTimeHeaderLabel.Position = new CCPoint(
                 0.5f * headerRightSize.Width,
                 0.4f * headerRightSize.Height);
             this._headerRightLayer.AddChild(this._highScoreTimeHeaderLabel);
             this._highScoreTimeLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._highScoreTimeLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._highScoreTimeLabel.Position = new CCPoint(
                 0.5f * headerRightSize.Width,
                 0.2f * headerRightSize.Height);
@@ -451,8 +491,8 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             // Current score
             // IMPORTANT: Starts off not visible
-            this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            this._scoreLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
+            this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._scoreLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._scoreLabel.Visible = false;
             this._scoreLabel.Color = CCColor3B.Yellow;
             this._scoreLabel.AnchorPoint = CCPoint.AnchorMiddle;
@@ -463,13 +503,14 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             // Score label action
             var scaleStartScore = new CCScaleTo(0f, 0f);
-            var scaleUpScore = new CCScaleTo(0.5f, 1.2f);
-            var scaleBackScore = new CCScaleTo(0.1f, 1.0f);
+            var scaleUpScore = new CCScaleTo(0.5f, 1.2f * GameConstants.FONT_SIZE_NORMAL_SCALE);
+            var scaleBackScore = new CCScaleTo(0.1f, 1.0f * GameConstants.FONT_SIZE_NORMAL_SCALE);
             this._scoreLabelAction = new CCSequence(new CCFiniteTimeAction[] { scaleStartScore, scaleUpScore, scaleBackScore });
 
             // Timer
             // IMPORTANT: Starts off not visible
             this._timerLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._timerLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._timerLabel.Visible = false;
             this._timerLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._timerLabel.Position = new CCPoint(
@@ -527,6 +568,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             joystickText = AppResources.HudJoystick;
 #endif
             this._joystickLabel = new CCLabelTTF(joystickText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._joystickLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._joystickLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._joystickLabel.Position = new CCPoint(
                 0.3f * footerLeftSize.Width,
@@ -621,6 +663,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             trackballText = AppResources.HudTrackball;
 #endif
             var trackballLabel = new CCLabelTTF(trackballText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            trackballLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             trackballLabel.AnchorPoint = CCPoint.AnchorMiddle;
             trackballLabel.Position = new CCPoint(
                 0.8f * footerLeftSize.Width,
@@ -674,6 +717,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._resumeText = AppResources.HudResume;
 #endif
             this._pauseLabel = new CCLabelTTF(this._pauseText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._pauseLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._pauseLabel.Position = new CCPoint(
                 0.5f * footerRightSize.Width,
                 0.2f * footerRightSize.Height);
@@ -722,31 +766,6 @@ namespace Simsip.LineRunner.Scenes.Hud
 #else
             this._hudSpeedDefaultText = AppResources.HudSpeedDefault; 
 #endif
-
-            // Admin
-#if DEBUG
-            var adminText = string.Empty;
-#if ANDROID
-            adminText = Program.SharedProgram.Resources.GetString(Resource.String.CommonAdmin);
-#elif IOS
-            adminText = NSBundle.MainBundle.LocalizedString(Strings.CommonAdmin, Strings.CommonAdmin);
-#else
-            adminText = AppResources.CommonAdmin;
-#endif
-            var adminLabel = new CCLabelTTF(adminText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            var adminItem = new CCMenuItemLabel(adminLabel,
-                (obj) => { this.NavigateBase(LayerTags.AdminLayer); });
-            var adminLabelMenu = new CCMenu(
-               new CCMenuItem[] 
-                    {
-                        adminItem
-                    });
-            adminLabelMenu.Position = new CCPoint(
-                 0.5f * this.ContentSize.Width,
-                -0.1f * this.ContentSize.Height);
-            this.AddChild(adminLabelMenu);
-#endif
-
         }
 
         #region Cocos2D overrides
@@ -895,6 +914,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             if (this._status1Label == null)
             {
                 this._status1Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                this._status1Label.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
                 this._status1Label.Color = CCColor3B.Red;
                 this._status1Label.AnchorPoint = CCPoint.AnchorMiddle;
                 this._status1Label.Position = new CCPoint(
@@ -931,6 +951,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             if (this._status2Label == null)
             {
                 this._status2Label = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                this._status2Label.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
                 this._status2Label.Color = CCColor3B.Red;
                 this._status2Label.AnchorPoint = CCPoint.AnchorMiddle;
                 this._status2Label.Position = new CCPoint(

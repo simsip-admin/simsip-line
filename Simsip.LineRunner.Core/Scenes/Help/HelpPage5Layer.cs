@@ -52,6 +52,7 @@ namespace Simsip.LineRunner.Scenes.Help
             scrollText = AppResources.HelpScroll;
 #endif
             var scrollLabel = new CCLabelTTF(scrollText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            scrollLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             scrollLabel.AnchorPoint = CCPoint.AnchorMiddle;
             scrollLabel.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
@@ -92,6 +93,7 @@ namespace Simsip.LineRunner.Scenes.Help
             joystickText = AppResources.HudJoystick;
 #endif
             var joystickLabel = new CCLabelTTF(joystickText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            joystickLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             joystickLabel.AnchorPoint = CCPoint.AnchorMiddle;
             joystickLabel.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
@@ -129,6 +131,7 @@ namespace Simsip.LineRunner.Scenes.Help
             doubleTapText = AppResources.CommonReset;
 #endif
             var doubleTapLabel = new CCLabelTTF(doubleTapText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            doubleTapLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             doubleTapLabel.AnchorPoint = CCPoint.AnchorMiddle;
             doubleTapLabel.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,

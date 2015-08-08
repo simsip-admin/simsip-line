@@ -54,6 +54,7 @@ namespace Simsip.LineRunner.Scenes.Help
             soundText = AppResources.HelpSound;
 #endif
             var soundDescription = new CCLabelTTF(soundText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            soundDescription.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             soundDescription.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.5f * this.ContentSize.Height);
@@ -75,6 +76,7 @@ namespace Simsip.LineRunner.Scenes.Help
             leaderboardsText = AppResources.HelpLeaderboards;
 #endif
             var leaderboardsDescription = new CCLabelTTF(leaderboardsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            leaderboardsDescription.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             leaderboardsDescription.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.25f * this.ContentSize.Height);

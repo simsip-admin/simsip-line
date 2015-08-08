@@ -64,8 +64,8 @@ namespace Simsip.LineRunner.Scenes.Upgrades
 #else
             upgradesText = AppResources.UpgradesTitle;
 #endif
-            var upgradesTitle = new CCLabelTTF(upgradesText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            upgradesTitle.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
+            var upgradesTitle = new CCLabelTTF(upgradesText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            upgradesTitle.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             upgradesTitle.AnchorPoint = CCPoint.AnchorMiddleLeft;
             upgradesTitle.Position = new CCPoint(
                 0.05f * this.ContentSize.Width,
@@ -109,6 +109,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             backText = AppResources.CommonBack;
 #endif
             var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            backLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             backLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.02f * this.ContentSize.Height);

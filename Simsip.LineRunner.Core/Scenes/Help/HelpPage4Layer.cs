@@ -52,6 +52,7 @@ namespace Simsip.LineRunner.Scenes.Help
             rotateText = AppResources.HelpRotate;
 #endif
             var rotateLabel = new CCLabelTTF(rotateText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            rotateLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             rotateLabel.AnchorPoint = CCPoint.AnchorMiddle;
             rotateLabel.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
@@ -99,6 +100,7 @@ namespace Simsip.LineRunner.Scenes.Help
             doubleTapText = AppResources.CommonReset;
 #endif
             var doubleTapLabel = new CCLabelTTF(doubleTapText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            doubleTapLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             doubleTapLabel.AnchorPoint = CCPoint.AnchorMiddle;
             doubleTapLabel.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,

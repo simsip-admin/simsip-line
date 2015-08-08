@@ -1,0 +1,560 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ResourceFlowDirection" xml:space="preserve">
+    <value>LeftToRight</value>
+    <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
+  </data>
+  <data name="ResourceLanguage" xml:space="preserve">
+    <value>zh-Hant</value>
+    <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
+  </data>
+  <data name="CommonVersion" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="HelpHelpDescription" xml:space="preserve">
+    <value>說明畫面</value>
+  </data>
+  <data name="HelpHowToPlayDescription1" xml:space="preserve">
+    <value>點選以避免線條和障礙</value>
+  </data>
+  <data name="HelpLines" xml:space="preserve">
+    <value>變更的線條</value>
+  </data>
+  <data name="HelpOptions" xml:space="preserve">
+    <value>選項</value>
+  </data>
+  <data name="HelpOptionsDescription" xml:space="preserve">
+    <value>遊戲選項</value>
+  </data>
+  <data name="HelpPads" xml:space="preserve">
+    <value>變更您在播放的板</value>
+  </data>
+  <data name="HelpRatingsDescription" xml:space="preserve">
+    <value>我們評等</value>
+  </data>
+  <data name="HelpStartDescription" xml:space="preserve">
+    <value>玩遊戲</value>
+  </data>
+  <data name="HelpTitle" xml:space="preserve">
+    <value>說明</value>
+  </data>
+  <data name="OptionsCredits" xml:space="preserve">
+    <value>參與名單</value>
+  </data>
+  <data name="OptionsLeaderboards" xml:space="preserve">
+    <value>排行榜</value>
+  </data>
+  <data name="OptionsLines" xml:space="preserve">
+    <value>線條</value>
+  </data>
+  <data name="OptionsPads" xml:space="preserve">
+    <value>墊</value>
+  </data>
+  <data name="OptionsSoundOff" xml:space="preserve">
+    <value>關閉音效</value>
+  </data>
+  <data name="OptionsSoundOn" xml:space="preserve">
+    <value>上的聲音</value>
+  </data>
+  <data name="OptionsTitle" xml:space="preserve">
+    <value>選項</value>
+  </data>
+  <data name="AchievementsLeaderboards" xml:space="preserve">
+    <value>排行榜</value>
+  </data>
+  <data name="AchievementsTopScoresFor" xml:space="preserve">
+    <value>最高得分</value>
+  </data>
+  <data name="AdminKillsOff" xml:space="preserve">
+    <value>關閉殲敵</value>
+  </data>
+  <data name="AdminKillsOn" xml:space="preserve">
+    <value>在上殲敵</value>
+  </data>
+  <data name="AdminParticlesOff" xml:space="preserve">
+    <value>關閉物件</value>
+  </data>
+  <data name="AdminParticlesOn" xml:space="preserve">
+    <value>上的物件</value>
+  </data>
+  <data name="AdminStartPage" xml:space="preserve">
+    <value>起始頁</value>
+  </data>
+  <data name="AdminStartPageDescription" xml:space="preserve">
+    <value>輸入要在開始頁</value>
+  </data>
+  <data name="CommonCancel" xml:space="preserve">
+    <value>[取消]</value>
+  </data>
+  <data name="CommonDelete" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="CommonError" xml:space="preserve">
+    <value>錯誤</value>
+  </data>
+  <data name="CommonNo" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="CommonOK" xml:space="preserve">
+    <value>[確定]</value>
+  </data>
+  <data name="CommonYes" xml:space="preserve">
+    <value>[是]</value>
+  </data>
+  <data name="CreditsCreatedBy" xml:space="preserve">
+    <value>開發</value>
+  </data>
+  <data name="CreditsCreatedBySimsip" xml:space="preserve">
+    <value>simsip</value>
+  </data>
+  <data name="FinishNewHighScore" xml:space="preserve">
+    <value>新的最高分</value>
+  </data>
+  <data name="HudPageLine" xml:space="preserve">
+    <value>頁/線條</value>
+  </data>
+  <data name="HudResume" xml:space="preserve">
+    <value>繼續</value>
+  </data>
+  <data name="LinesSwitchingLines" xml:space="preserve">
+    <value>切換線條</value>
+  </data>
+  <data name="LoginPassword" xml:space="preserve">
+    <value>密碼</value>
+  </data>
+  <data name="LoginPasswordDescription" xml:space="preserve">
+    <value>輸入的密碼</value>
+  </data>
+  <data name="LoginUserName" xml:space="preserve">
+    <value>使用者名稱</value>
+  </data>
+  <data name="LoginUserNameDescription" xml:space="preserve">
+    <value>輸入唯一的使用者名稱</value>
+  </data>
+  <data name="PadsSwitchingPads" xml:space="preserve">
+    <value>切換板</value>
+  </data>
+  <data name="ResourcePacksSwitchingResourcePacks" xml:space="preserve">
+    <value>切換資源套件</value>
+  </data>
+  <data name="CommonAdmin" xml:space="preserve">
+    <value>系統管理員</value>
+  </data>
+  <data name="WorldsDefault" xml:space="preserve">
+    <value>預設值</value>
+  </data>
+  <data name="WorldsErrorCannotUseName" xml:space="preserve">
+    <value>您無法使用此名稱，您的世界</value>
+  </data>
+  <data name="WorldsErrorWorldActive" xml:space="preserve">
+    <value>您不能刪除正在使用中的世界</value>
+  </data>
+  <data name="WorldsErrorWorldAlreadyExists" xml:space="preserve">
+    <value>具有這個名稱已經存在</value>
+  </data>
+  <data name="WorldsGenerateNew" xml:space="preserve">
+    <value>完成新工作</value>
+  </data>
+  <data name="WorldsSaveWorldAs" xml:space="preserve">
+    <value>另存為世界...</value>
+  </data>
+  <data name="WorldsSaveWorldAsDescription" xml:space="preserve">
+    <value>請輸入界的傳奇人物的名稱</value>
+  </data>
+  <data name="WorldsSelectNewWorld" xml:space="preserve">
+    <value>選取要使用的新世界</value>
+  </data>
+  <data name="WorldsSwitchingWorlds" xml:space="preserve">
+    <value>切換世界</value>
+  </data>
+  <data name="WorldsUseThisWorld" xml:space="preserve">
+    <value>在啟動時，請使用這個世界</value>
+  </data>
+  <data name="WorldsWorlds" xml:space="preserve">
+    <value>世界</value>
+  </data>
+  <data name="CommonLater" xml:space="preserve">
+    <value>稍後</value>
+  </data>
+  <data name="RatingsDescription" xml:space="preserve">
+    <value>看來您愛上 LineRunner，就像我們所做的。如果要讓我們幾顆星嗎?</value>
+  </data>
+  <data name="RatingsRateUs" xml:space="preserve">
+    <value>評等我們!</value>
+  </data>
+  <data name="CreditsTitle" xml:space="preserve">
+    <value>參與名單</value>
+  </data>
+  <data name="HudHelp" xml:space="preserve">
+    <value>說明</value>
+  </data>
+  <data name="HudOptions" xml:space="preserve">
+    <value>選項</value>
+  </data>
+  <data name="StartPlay" xml:space="preserve">
+    <value>播放</value>
+  </data>
+  <data name="StartRate" xml:space="preserve">
+    <value>速率</value>
+  </data>
+  <data name="CommonPage" xml:space="preserve">
+    <value>頁面</value>
+  </data>
+  <data name="HudPause" xml:space="preserve">
+    <value>暫停</value>
+  </data>
+  <data name="HudSpeed" xml:space="preserve">
+    <value>速度</value>
+  </data>
+  <data name="HudCannotGoSlowerThan" xml:space="preserve">
+    <value>無法進入低於</value>
+  </data>
+  <data name="HudPaused" xml:space="preserve">
+    <value>暫停</value>
+  </data>
+  <data name="HudJoystick" xml:space="preserve">
+    <value>搖桿</value>
+  </data>
+  <data name="HudTrackball" xml:space="preserve">
+    <value>軌跡球</value>
+  </data>
+  <data name="HudTime" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="HudHome" xml:space="preserve">
+    <value>主目錄</value>
+  </data>
+  <data name="AdminStartLine" xml:space="preserve">
+    <value>開始一行</value>
+  </data>
+  <data name="AdminStartLineDescription" xml:space="preserve">
+    <value>輸入啟動 (1-17) 上的列</value>
+  </data>
+  <data name="HelpLicense" xml:space="preserve">
+    <value>授權</value>
+  </data>
+  <data name="CommonReset" xml:space="preserve">
+    <value>雙點一下 [軌跡球，重設檢視</value>
+  </data>
+  <data name="HelpIncreaseDecrease" xml:space="preserve">
+    <value>增加或減少速度</value>
+  </data>
+  <data name="HelpOrbit" xml:space="preserve">
+    <value>自 [orbit] 檢視的軌跡球</value>
+  </data>
+  <data name="HelpPauseResume" xml:space="preserve">
+    <value>暫停或繼續遊戲</value>
+  </data>
+  <data name="HelpRotate" xml:space="preserve">
+    <value>自 [置中旋轉檢視</value>
+  </data>
+  <data name="HelpScroll" xml:space="preserve">
+    <value>請點選或捲動檢視</value>
+  </data>
+  <data name="HudOrbit" xml:space="preserve">
+    <value>固定的軌道檢視</value>
+  </data>
+  <data name="HudRotate" xml:space="preserve">
+    <value>旋轉檢視</value>
+  </data>
+  <data name="HudScroll" xml:space="preserve">
+    <value>捲動檢視</value>
+  </data>
+  <data name="HelpHud" xml:space="preserve">
+    <value>抬頭顯示器</value>
+  </data>
+  <data name="HelpLeaderboards" xml:space="preserve">
+    <value>請參閱您的最高得分</value>
+  </data>
+  <data name="HelpSound" xml:space="preserve">
+    <value>關閉及開啟音效</value>
+  </data>
+  <data name="UpgradesTitle" xml:space="preserve">
+    <value>升級</value>
+  </data>
+  <data name="UpgradesPractice" xml:space="preserve">
+    <value>練習模式</value>
+  </data>
+  <data name="UpgradesPracticeDesc1" xml:space="preserve">
+    <value>跳至任何頁面及行</value>
+  </data>
+  <data name="UpgradesPracticeDesc2" xml:space="preserve">
+    <value>關閉殲敵</value>
+  </data>
+  <data name="HelpUpgrades" xml:space="preserve">
+    <value>升級</value>
+  </data>
+  <data name="HelpUpgradesPractice" xml:space="preserve">
+    <value>練習模式</value>
+  </data>
+  <data name="HelpUpgradesPracticeDesc1" xml:space="preserve">
+    <value>跳至任何頁面及行</value>
+  </data>
+  <data name="HelpUpgradesPracticeDesc2" xml:space="preserve">
+    <value>關閉殲敵</value>
+  </data>
+  <data name="UpgradesBuy" xml:space="preserve">
+    <value>購買</value>
+  </data>
+  <data name="UpgradesPrice" xml:space="preserve">
+    <value>價格</value>
+  </data>
+  <data name="UpgradesPurchasedOn" xml:space="preserve">
+    <value>在購買</value>
+  </data>
+  <data name="UpgradesRestore" xml:space="preserve">
+    <value>還原</value>
+  </data>
+  <data name="OptionsPracticeKillsOff" xml:space="preserve">
+    <value>關閉殲敵</value>
+  </data>
+  <data name="OptionsPracticeKillsOn" xml:space="preserve">
+    <value>在上殲敵</value>
+  </data>
+  <data name="OptionsPracticeStartLine" xml:space="preserve">
+    <value>起始行</value>
+  </data>
+  <data name="OptionsPracticeStartPage" xml:space="preserve">
+    <value>起始網頁</value>
+  </data>
+  <data name="OptionsPracticeSwitchingLine" xml:space="preserve">
+    <value>切換線條</value>
+  </data>
+  <data name="OptionsPracticeSwitchingPage" xml:space="preserve">
+    <value>切換至頁面</value>
+  </data>
+  <data name="AdminUpgradesOff" xml:space="preserve">
+    <value>關閉的升級</value>
+  </data>
+  <data name="AdminUpgradesOn" xml:space="preserve">
+    <value>在升級</value>
+  </data>
+  <data name="OptionsPractice" xml:space="preserve">
+    <value>練習模式</value>
+  </data>
+  <data name="UpgradesPracticeDesc3" xml:space="preserve">
+    <value>請點一下 [練習模式的選項</value>
+  </data>
+  <data name="UpgradesPurchaseError" xml:space="preserve">
+    <value>錯誤購買升級</value>
+  </data>
+  <data name="UpgradesPurchaseStatus" xml:space="preserve">
+    <value>購買升級</value>
+  </data>
+  <data name="UpgradesRestoreError" xml:space="preserve">
+    <value>還原升級時發生錯誤</value>
+  </data>
+  <data name="UpgradesRestoreStatus" xml:space="preserve">
+    <value>還原升級</value>
+  </data>
+  <data name="AchievementsColumnDate" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="AchievementsColumnTime" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="AchievementsColumnScore" xml:space="preserve">
+    <value>分數</value>
+  </data>
+  <data name="HudHigh" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="HelpSupport" xml:space="preserve">
+    <value>支援</value>
+  </data>
+  <data name="FinishWinner" xml:space="preserve">
+    <value>勝利者!</value>
+  </data>
+  <data name="MessageBoxMovingToPage" xml:space="preserve">
+    <value>移動至頁面</value>
+  </data>
+  <data name="MessageBoxMovingToPage2" xml:space="preserve">
+    <value>你還好極了!</value>
+  </data>
+  <data name="MessageBoxMovingToPage3" xml:space="preserve">
+    <value>繁榮!</value>
+  </data>
+  <data name="MessageBoxMovingToPage4" xml:space="preserve">
+    <value>擁有歡笑!</value>
+  </data>
+  <data name="MessageBoxMovingToPage5" xml:space="preserve">
+    <value>火!</value>
+  </data>
+  <data name="MessageBoxMovingToPage6" xml:space="preserve">
+    <value>最後一頁!</value>
+  </data>
+  <data name="CommonBack" xml:space="preserve">
+    <value>上一步]</value>
+  </data>
+  <data name="CommonNext" xml:space="preserve">
+    <value>下一步</value>
+  </data>
+  <data name="CommonPrevious" xml:space="preserve">
+    <value>前一個</value>
+  </data>
+  <data name="HelpZoomInOut" xml:space="preserve">
+    <value>放大或縮小</value>
+  </data>
+  <data name="HudSpeedDefault" xml:space="preserve">
+    <value>(預設值)</value>
+  </data>
+  <data name="Start3D" xml:space="preserve">
+    <value>3D</value>
+  </data>
+  <data name="StartLine" xml:space="preserve">
+    <value>線條</value>
+  </data>
+  <data name="StartRunner" xml:space="preserve">
+    <value>執行程式</value>
+  </data>
+  <data name="LinesBlue" xml:space="preserve">
+    <value>藍色</value>
+  </data>
+  <data name="LinesDarkGreen" xml:space="preserve">
+    <value>深綠色</value>
+  </data>
+  <data name="LinesDarkOrange" xml:space="preserve">
+    <value>深橙</value>
+  </data>
+  <data name="LinesGreen" xml:space="preserve">
+    <value>綠色</value>
+  </data>
+  <data name="LinesLightBlue" xml:space="preserve">
+    <value>淺藍色</value>
+  </data>
+  <data name="LinesLightGreen" xml:space="preserve">
+    <value>淺綠色</value>
+  </data>
+  <data name="LinesLightOrange" xml:space="preserve">
+    <value>淺橙色</value>
+  </data>
+  <data name="LinesOrange" xml:space="preserve">
+    <value>橙色</value>
+  </data>
+  <data name="LinesRed" xml:space="preserve">
+    <value>紅色</value>
+  </data>
+  <data name="PadsWhite" xml:space="preserve">
+    <value>白色</value>
+  </data>
+  <data name="PadsYellow" xml:space="preserve">
+    <value>黃色</value>
+  </data>
+</root>

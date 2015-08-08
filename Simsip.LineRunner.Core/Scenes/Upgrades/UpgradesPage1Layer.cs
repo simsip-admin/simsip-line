@@ -104,6 +104,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             pageNumberText = AppResources.CommonPage;
 #endif
             var pageNumberHeader = new CCLabelTTF(pageNumberText + " 1", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            pageNumberHeader.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             pageNumberHeader.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,
@@ -162,7 +163,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
 #endif
             var practiceTitle = new CCLabelTTF(practiceText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
             practiceTitle.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
-            practiceTitle.Color = CCColor3B.Blue;
+            practiceTitle.Color = CCColor3B.Yellow;
             practiceTitle.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.78f * this.ContentSize.Height);
@@ -201,6 +202,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                     {
                         restoreButton, 
                     });
+            this._restoreMenu.AnchorPoint = CCPoint.AnchorMiddle;
             this._restoreMenu.Position = new CCPoint(
                 0.2f * this.ContentSize.Width,
                 0.2f  * this.ContentSize.Height);
@@ -214,6 +216,8 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             restoreText = AppResources.UpgradesRestore;
 #endif
             var restoreLabel = new CCLabelTTF(restoreText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            restoreLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            restoreLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var restoreItem = new CCMenuItemLabel(restoreLabel,
                 (obj) => { this.RestoreProducts(); });
             this._restoreLabelMenu = new CCMenu(
@@ -221,6 +225,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                     {
                         restoreItem,
                     });
+            this._restoreLabelMenu.AnchorPoint = CCPoint.AnchorMiddle;
             this._restoreLabelMenu.Position = new CCPoint(
                  0.2f * this.ContentSize.Width,
                  0.1f * this.ContentSize.Height);
@@ -256,6 +261,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                     {
                         buyButton, 
                     });
+            this._buyMenu.AnchorPoint = CCPoint.AnchorMiddle;
             this._buyMenu.Position = new CCPoint(
                 0.8f * this.ContentSize.Width,
                 0.2f * this.ContentSize.Height);
@@ -269,6 +275,8 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             buyText = AppResources.UpgradesBuy;
 #endif
             var buyLabel = new CCLabelTTF(buyText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            buyLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            buyLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var buyItem = new CCMenuItemLabel(buyLabel,
                 (obj) => { this.PurchaseProduct(); });
             this._buyLabelMenu = new CCMenu(
@@ -276,6 +284,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                     {
                         buyItem,
                     });
+            this._buyLabelMenu.AnchorPoint = CCPoint.AnchorMiddle;
             this._buyLabelMenu.Position = new CCPoint(
                  0.8f * this.ContentSize.Width,
                  0.1f * this.ContentSize.Height);
@@ -485,6 +494,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             }
 
             this._practiceDesc1Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._practiceDesc1Label.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._practiceDesc1Label.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.7f * this.ContentSize.Height);
@@ -499,6 +509,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             }
 
             this._practiceDesc2Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._practiceDesc2Label.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._practiceDesc2Label.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.65f * this.ContentSize.Height);
@@ -513,6 +524,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             }
 
             this._statusLabel = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._statusLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._statusLabel.Color = CCColor3B.Red;
             this._statusLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
@@ -528,6 +540,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             }
 
             this._priceLabel = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._priceLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._priceLabel.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.25f * this.ContentSize.Height);
@@ -546,12 +559,14 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             }
 
             this._purchasedOnLabel = new CCLabelTTF(this._purchasedOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            this._purchasedOnLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             this._purchasedOnLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.25f * this.ContentSize.Height);
             this.AddChild(this._purchasedOnLabel);
 
             this._purchasedOnDateLabel = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            this._purchasedOnDateLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             this._purchasedOnDateLabel.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.2f * this.ContentSize.Height);

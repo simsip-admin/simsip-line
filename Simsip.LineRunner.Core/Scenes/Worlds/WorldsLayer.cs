@@ -107,6 +107,7 @@ namespace Simsip.LineRunner.Scenes.Worlds
             useThisWorldText = AppResources.WorldsUseThisWorld;
 #endif
             var use = new CCLabelTTF(useThisWorldText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            use.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             use.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.8f * this.ContentSize.Height);
@@ -123,6 +124,7 @@ namespace Simsip.LineRunner.Scenes.Worlds
             selectNewWorldText = AppResources.WorldsSelectNewWorld;
 #endif
             var select = new CCLabelTTF(selectNewWorldText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            select.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             select.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.5f * this.ContentSize.Height);
@@ -139,6 +141,7 @@ namespace Simsip.LineRunner.Scenes.Worlds
             saveWorldAsText = AppResources.WorldsSaveWorldAs;
 #endif
             this._worldSaveTextField = new CCTextFieldTTF(saveWorldAsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._worldSaveTextField.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._worldSaveTextField.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.8f * this.ContentSize.Height);
@@ -218,6 +221,7 @@ namespace Simsip.LineRunner.Scenes.Worlds
             backText = AppResources.CommonBack;
 #endif
             var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            backLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             backLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.02f * this.ContentSize.Height);
@@ -253,6 +257,7 @@ namespace Simsip.LineRunner.Scenes.Worlds
             // Curent world
             var currentWorld = CCUserDefault.SharedUserDefault.GetStringForKey(GameConstants.USER_DEFAULT_KEY_CURRENT_WORLD, GameConstants.WORLD_DEFAULT);
             var current = new CCLabelTTF(currentWorld, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            current.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             current.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.7f * this.ContentSize.Height);
@@ -271,6 +276,7 @@ namespace Simsip.LineRunner.Scenes.Worlds
             defaultText = AppResources.WorldsDefault;
 #endif
             var defaultLabel = new CCLabelTTF(defaultText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            defaultLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             var defaultItem = new CCMenuItemLabel(defaultLabel,
                 (obj) => { this.OnWorldSelected(GameConstants.WORLD_DEFAULT); });
             var generateNewText = string.Empty;
@@ -282,6 +288,7 @@ namespace Simsip.LineRunner.Scenes.Worlds
             generateNewText = AppResources.WorldsGenerateNew;
 #endif
             var generateLabel = new CCLabelTTF(generateNewText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            generateLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             var generateItem = new CCMenuItemLabel(defaultLabel,
                 (obj) => { this.OnWorldSelected(GameConstants.WORLD_GENERATE_NEW); });
             masterListWorlds.Add(defaultItem);
@@ -301,6 +308,7 @@ namespace Simsip.LineRunner.Scenes.Worlds
             foreach (var worldName in worldNames)
             {
                 var worldLabel = new CCLabelTTF(worldName, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+                worldLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
                 var worldItem = new CCMenuItemLabel(worldLabel,
                     (obj) => { this.OnWorldSelected(worldName); });
                 masterListWorlds.Add(worldItem);
@@ -314,6 +322,7 @@ namespace Simsip.LineRunner.Scenes.Worlds
                 deleteText = AppResources.CommonDelete;
 #endif
                 var deleteLabel = new CCLabelTTF(deleteText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+                deleteLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
                 var deleteItem = new CCMenuItemLabel(deleteLabel,
                     (obj) => { this.OnWorldDeleted(worldName); });
                 masterListDeletes.Add(deleteItem);

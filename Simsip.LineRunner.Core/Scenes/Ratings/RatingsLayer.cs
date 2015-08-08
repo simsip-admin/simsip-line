@@ -85,6 +85,7 @@ namespace Simsip.LineRunner.Scenes.Ratings
             ratingsDescText = AppResources.RatingsDescription;
 #endif
             var ratingsDescLabel = new CCLabelTTF(ratingsDescText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            ratingsDescLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             ratingsDescLabel.AnchorPoint = CCPoint.AnchorMiddle;
             ratingsDescLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
@@ -101,6 +102,7 @@ namespace Simsip.LineRunner.Scenes.Ratings
             yesText = AppResources.CommonYes;
 #endif
             var yesLabel = new CCLabelTTF(yesText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            yesLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             var yesItem = new CCMenuItemLabel(yesLabel,
                 (obj) => { this.OnRatingsYes(); });
 
@@ -114,6 +116,7 @@ namespace Simsip.LineRunner.Scenes.Ratings
             noText = AppResources.CommonNo;
 #endif
             var noLabel = new CCLabelTTF(noText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            noLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             var noItem = new CCMenuItemLabel(noLabel,
                 (obj) => { this.OnRatingsNo(); });
 
@@ -127,6 +130,7 @@ namespace Simsip.LineRunner.Scenes.Ratings
             laterText = AppResources.CommonLater;
 #endif
             var laterLabel = new CCLabelTTF(laterText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            laterLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             var laterItem = new CCMenuItemLabel(laterLabel,
                 (obj) => { this.OnRatingsLater(); });
 
@@ -167,6 +171,7 @@ namespace Simsip.LineRunner.Scenes.Ratings
             backText = AppResources.CommonBack;
 #endif
             var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            backLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             backLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.02f * this.ContentSize.Height);

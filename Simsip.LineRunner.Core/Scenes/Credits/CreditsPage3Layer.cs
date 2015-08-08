@@ -39,6 +39,7 @@ namespace Simsip.LineRunner.Scenes.Credits
             pageNumberText = AppResources.CommonPage;
 #endif
             var pageNumberHeader = new CCLabelTTF(pageNumberText + " 3", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            pageNumberHeader.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             pageNumberHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             pageNumberHeader.Position = new CCPoint(
                 0.95f * this.ContentSize.Width,
@@ -46,6 +47,7 @@ namespace Simsip.LineRunner.Scenes.Credits
             this.AddChild(pageNumberHeader);
 
             var iconsTitle = new CCLabelTTF("Icons by freepik (freepik.com)", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            iconsTitle.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             iconsTitle.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.7f * this.ContentSize.Height);

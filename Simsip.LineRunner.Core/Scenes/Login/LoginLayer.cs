@@ -67,11 +67,13 @@ namespace Simsip.LineRunner.Scenes.Login
             userNameText = AppResources.LoginUserName;
 #endif
             var usernameLabel = new CCLabelTTF(userNameText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            usernameLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             usernameLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width, 
                 0.8f * this.ContentSize.Height);
             this.AddChild(usernameLabel);
             this._usernameTextField = new CCTextFieldTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._usernameTextField.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._usernameTextField.Position = new CCPoint(
                 0.5f * this.ContentSize.Width, 
                 0.8f * this.ContentSize.Height);
@@ -99,11 +101,13 @@ namespace Simsip.LineRunner.Scenes.Login
             passwordText = AppResources.LoginPassword;
 #endif
             var passwordLabel = new CCLabelTTF(passwordText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            passwordLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             passwordLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width, 
                 0.6f * this.ContentSize.Height);
             this.AddChild(passwordLabel);
             this._passwordTextField = new CCTextFieldTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._passwordTextField.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._passwordTextField.Position = new CCPoint(
                 0.5f * this.ContentSize.Width, 
                 0.6f * this.ContentSize.Height);
@@ -163,6 +167,7 @@ namespace Simsip.LineRunner.Scenes.Login
             backText = AppResources.CommonBack;
 #endif
             var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            backLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             backLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.02f * this.ContentSize.Height);

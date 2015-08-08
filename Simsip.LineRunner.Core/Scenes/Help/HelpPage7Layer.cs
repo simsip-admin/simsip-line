@@ -54,6 +54,7 @@ namespace Simsip.LineRunner.Scenes.Help
             padsText = AppResources.HelpPads;
 #endif
             var padsDescription = new CCLabelTTF(padsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            padsDescription.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             padsDescription.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.5f * this.ContentSize.Height);
@@ -75,6 +76,7 @@ namespace Simsip.LineRunner.Scenes.Help
             linesText = AppResources.HelpLines;
 #endif
             var linesDescription = new CCLabelTTF(linesText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            linesDescription.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             linesDescription.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.25f * this.ContentSize.Height);

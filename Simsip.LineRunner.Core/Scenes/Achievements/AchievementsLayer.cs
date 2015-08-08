@@ -82,8 +82,9 @@ namespace Simsip.LineRunner.Scenes.Achievements
             leaderboardsText = AppResources.AchievementsLeaderboards;
 #endif
 
-            var leaderboardTitle = new CCLabelTTF(leaderboardsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
-            leaderboardTitle.Scale = GameConstants.FONT_SIZE_X_LARGE_SCALE;
+            var leaderboardTitle = new CCLabelTTF(leaderboardsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            leaderboardTitle.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
+            leaderboardTitle.Color = CCColor3B.Yellow;
             leaderboardTitle.Position = new CCPoint(
                 0.5f * this.ContentSize.Width, 
                 0.9f * this.ContentSize.Height);
@@ -100,6 +101,7 @@ namespace Simsip.LineRunner.Scenes.Achievements
 #endif
             var userScoresHeader = new CCLabelTTF(topScoresForText + " " + "", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
             userScoresHeader.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
+
             userScoresHeader.Position = new CCPoint(
                 0.5f * this.ContentSize.Width, 
                 0.8f * this.ContentSize.Height);
@@ -115,6 +117,7 @@ namespace Simsip.LineRunner.Scenes.Achievements
             scoreColumnHeaderText = AppResources.AchievementsColumnScore;
 #endif
             var scoreColumnHeader = new CCLabelTTF(scoreColumnHeaderText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            scoreColumnHeader.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             scoreColumnHeader.AnchorPoint = CCPoint.AnchorMiddleRight;
             scoreColumnHeader.Position = new CCPoint(
                 0.25f * this.ContentSize.Width,
@@ -129,6 +132,7 @@ namespace Simsip.LineRunner.Scenes.Achievements
             timeColumnHeaderText = AppResources.AchievementsColumnTime;
 #endif
             var timeColumnHeader = new CCLabelTTF(timeColumnHeaderText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            timeColumnHeader.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             timeColumnHeader.AnchorPoint = CCPoint.AnchorMiddleLeft;
             timeColumnHeader.Position = new CCPoint(
                 0.35f * this.ContentSize.Width,
@@ -143,17 +147,19 @@ namespace Simsip.LineRunner.Scenes.Achievements
             dateColumnHeaderText = AppResources.AchievementsColumnDate;
 #endif
             var dateColumnHeader = new CCLabelTTF(dateColumnHeaderText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            dateColumnHeader.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             dateColumnHeader.AnchorPoint = CCPoint.AnchorMiddleLeft;
             dateColumnHeader.Position = new CCPoint(
                 0.65f * this.ContentSize.Width,
                 0.7f  * this.ContentSize.Height);
             this.AddChild(dateColumnHeader);
 
-            var tableStartHeight = scoreColumnHeader.Position.Y; // - (0.05f * this.ContentSize.Height);
+            var tableStartHeight = scoreColumnHeader.Position.Y;
             this._userScoreScore = new List<CCLabelTTF>();
             for (int i = 0; i < 5; i++)
             {
                 var score = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                score.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
                 score.AnchorPoint = CCPoint.AnchorMiddleRight;
                 score.Position = new CCPoint(
                     0.25f * this.ContentSize.Width, 
@@ -166,6 +172,7 @@ namespace Simsip.LineRunner.Scenes.Achievements
             for (int i = 0; i < 5; i++)
             {
                 var time = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                time.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
                 time.AnchorPoint = CCPoint.AnchorMiddleLeft;
                 time.Position = new CCPoint(
                     0.35f * this.ContentSize.Width,
@@ -178,6 +185,7 @@ namespace Simsip.LineRunner.Scenes.Achievements
             for (int i = 0; i < 5; i++)
             {
                 var date = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                date.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
                 date.AnchorPoint = CCPoint.AnchorMiddleLeft;
                 date.Position = new CCPoint(
                     0.65f * this.ContentSize.Width,
@@ -240,9 +248,10 @@ namespace Simsip.LineRunner.Scenes.Achievements
                     {
                         backButton, 
                     });
+            backMenu.AnchorPoint = CCPoint.AnchorMiddle;
             backMenu.Position = new CCPoint(
-                0.5f * this.ContentSize.Width, 
-                0.1f * this.ContentSize.Height);
+                0.5f  * this.ContentSize.Width, 
+                0.15f * this.ContentSize.Height);
             this.AddChild(backMenu);
             var backText = string.Empty;
 #if ANDROID
@@ -253,9 +262,11 @@ namespace Simsip.LineRunner.Scenes.Achievements
             backText = AppResources.CommonBack;
 #endif
             var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            backLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
+            backLabel.AnchorPoint = CCPoint.AnchorMiddle;
             backLabel.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.02f * this.ContentSize.Height);
+                0.5f  * this.ContentSize.Width,
+                0.05f * this.ContentSize.Height);
             this.AddChild(backLabel);
         }
 

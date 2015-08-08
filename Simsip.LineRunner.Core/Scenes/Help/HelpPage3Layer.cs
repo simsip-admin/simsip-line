@@ -66,6 +66,7 @@ namespace Simsip.LineRunner.Scenes.Help
             zoomInOutText = AppResources.HelpZoomInOut;
 #endif
             var zoomInOutLabel = new CCLabelTTF(zoomInOutText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            zoomInOutLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             zoomInOutLabel.AnchorPoint = CCPoint.AnchorMiddle;
             zoomInOutLabel.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
@@ -100,6 +101,7 @@ namespace Simsip.LineRunner.Scenes.Help
             increaseDecreaseText = AppResources.HelpIncreaseDecrease;
 #endif
             var increaseDecreaseLabel = new CCLabelTTF(increaseDecreaseText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            increaseDecreaseLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             increaseDecreaseLabel.AnchorPoint = CCPoint.AnchorMiddle;
             increaseDecreaseLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
@@ -134,6 +136,7 @@ namespace Simsip.LineRunner.Scenes.Help
             pauseResumeText = AppResources.HelpPauseResume;
 #endif
             var pauseResumeLabel = new CCLabelTTF(pauseResumeText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            pauseResumeLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             pauseResumeLabel.AnchorPoint = CCPoint.AnchorMiddle;
             pauseResumeLabel.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,

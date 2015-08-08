@@ -54,6 +54,7 @@ namespace Simsip.LineRunner.Scenes.Options
                     {
                         this._soundToggle,
                     });
+            soundMenu.AnchorPoint = CCPoint.AnchorMiddle;
             soundMenu.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.7f * this.ContentSize.Height);
@@ -67,8 +68,9 @@ namespace Simsip.LineRunner.Scenes.Options
 #else
             soundOnText = AppResources.OptionsSoundOn;
 #endif
-            var soundOnLabel = new CCLabelTTF(soundOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            soundOnLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
+            var soundOnLabel = new CCLabelTTF(soundOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            soundOnLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            soundOnLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var soundOnItem = new CCMenuItemLabel(soundOnLabel);
 
             var soundOffText = string.Empty;
@@ -79,8 +81,9 @@ namespace Simsip.LineRunner.Scenes.Options
 #else
             soundOffText = AppResources.OptionsSoundOff;
 #endif
-            var soundOffLabel = new CCLabelTTF(soundOffText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            soundOffLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
+            var soundOffLabel = new CCLabelTTF(soundOffText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            soundOffLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            soundOffLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var soundOffItem = new CCMenuItemLabel(soundOffLabel);
 
             this._soundLabelToggle =
@@ -97,6 +100,7 @@ namespace Simsip.LineRunner.Scenes.Options
                     {
                         this._soundLabelToggle,
                     });
+            soundLabelMenu.AnchorPoint = CCPoint.AnchorMiddle;
             soundLabelMenu.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.6f * this.ContentSize.Height);
@@ -113,6 +117,7 @@ namespace Simsip.LineRunner.Scenes.Options
                     {
                         leaderboardButton, 
                     });
+            leaderboardButtonMenu.AnchorPoint = CCPoint.AnchorMiddle;
             leaderboardButtonMenu.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.5f * this.ContentSize.Height);
@@ -125,8 +130,9 @@ namespace Simsip.LineRunner.Scenes.Options
 #else
             leaderboardsText = AppResources.OptionsLeaderboards;
 #endif
-            var leaderboardLabel = new CCLabelTTF(leaderboardsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            leaderboardLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
+            var leaderboardLabel = new CCLabelTTF(leaderboardsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            leaderboardLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            leaderboardLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var leaderboardItem = new CCMenuItemLabel(leaderboardLabel,
                                         (obj) => { _parent.Navigate(LayerTags.AchievementsLayer); });
             var leaderboardLabelMenu = new CCMenu(
@@ -134,6 +140,7 @@ namespace Simsip.LineRunner.Scenes.Options
                     {
                         leaderboardItem
                     });
+            leaderboardLabelMenu.AnchorPoint = CCPoint.AnchorMiddle;
             leaderboardLabelMenu.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.4f * this.ContentSize.Height);
@@ -149,6 +156,7 @@ namespace Simsip.LineRunner.Scenes.Options
                     {
                         creditsButton, 
                     });
+            creditsMenu.AnchorPoint = CCPoint.AnchorMiddle;
             creditsMenu.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.3f * this.ContentSize.Height);
@@ -161,8 +169,9 @@ namespace Simsip.LineRunner.Scenes.Options
 #else
             creditsText = AppResources.OptionsCredits;
 #endif
-            var creditsLabel = new CCLabelTTF(creditsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            creditsLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
+            var creditsLabel = new CCLabelTTF(creditsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            creditsLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            creditsLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var creditsItem = new CCMenuItemLabel(creditsLabel,
                                         (obj) => { _parent.Navigate(LayerTags.CreditsMasterLayer); });
             var creditsLabelMenu = new CCMenu(
@@ -170,6 +179,7 @@ namespace Simsip.LineRunner.Scenes.Options
                     {
                         creditsItem
                     });
+            creditsLabelMenu.AnchorPoint = CCPoint.AnchorMiddle;
             creditsLabelMenu.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.2f * this.ContentSize.Height);
