@@ -72,7 +72,7 @@ namespace Simsip.LineRunner.Scenes.Options
             var practiceLabel = new CCLabelTTF(practiceText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
             practiceLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
             practiceLabel.AnchorPoint = CCPoint.AnchorMiddle;
-            practiceLabel.Color = CCColor3B.Blue;
+            practiceLabel.Color = CCColor3B.Yellow;
             practiceLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.8f * this.ContentSize.Height);
@@ -124,6 +124,7 @@ namespace Simsip.LineRunner.Scenes.Options
                     });
                 pageMenu.AnchorPoint = CCPoint.AnchorMiddle;
                 var pageLabel = new CCLabelTTF(i.ToString(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                pageLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
                 pageLabel.AnchorPoint = CCPoint.AnchorMiddle;
                 this._pageLabels.Add(pageLabel);
                 pageMenu.Position = new CCPoint(
@@ -151,7 +152,7 @@ namespace Simsip.LineRunner.Scenes.Options
             startLineLabel.AnchorPoint = CCPoint.AnchorMiddle;
             startLineLabel.Rotation = -90;
             startLineLabel.Position = new CCPoint(
-                0.58f * this.ContentSize.Width,
+                0.56f * this.ContentSize.Width,
                 0.5f  * this.ContentSize.Height);
             this.AddChild(startLineLabel);
 
@@ -183,13 +184,14 @@ namespace Simsip.LineRunner.Scenes.Options
                     });
                 lineMenu.AnchorPoint = CCPoint.AnchorMiddle;
                 var lineLabel = new CCLabelTTF(i.ToString(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                lineLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
                 lineLabel.AnchorPoint = CCPoint.AnchorMiddle;
                 this._lineLabels.Add(lineLabel);
                 if ( (i % 2) != 0)   
                 {
                     // Odd lines to left and number on left
                     lineMenu.Position = new CCPoint(
-                        0.7f * this.ContentSize.Width,
+                        0.68f * this.ContentSize.Width,
                         0.75f * this.ContentSize.Height - 
                         (i * lineMenuMargin));
                     lineLabel.Position = new CCPoint(
@@ -201,7 +203,7 @@ namespace Simsip.LineRunner.Scenes.Options
                     // Even lines to right and number on right
                     // AND drop 1/2 way height-wise between odd lines
                     lineMenu.Position = new CCPoint(
-                        0.8f * this.ContentSize.Width,
+                        0.78f * this.ContentSize.Width,
                         0.75f * this.ContentSize.Height -
                         (i * lineMenuMargin));
                     lineLabel.Position = new CCPoint(
@@ -253,6 +255,7 @@ namespace Simsip.LineRunner.Scenes.Options
             this._killsOff = AppResources.OptionsPracticeKillsOff;
 #endif
             this._killsLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._killsLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._killsLabel.Position = new CCPoint(
                 0.15f * this.ContentSize.Width,
                 0.42f * this.ContentSize.Height);
@@ -296,11 +299,11 @@ namespace Simsip.LineRunner.Scenes.Options
             var startPageToggle = this._pageToggles[GameManager.SharedGameManager.GameStartPageNumber - 1];
             startPageToggle.SelectedIndex = 0;
             var startPageLabel = this._pageLabels[GameManager.SharedGameManager.GameStartPageNumber - 1];
-            startPageLabel.Color = CCColor3B.Blue;
+            startPageLabel.Color = CCColor3B.Yellow;
             var startLineToggle = this._lineToggles[GameManager.SharedGameManager.GameStartLineNumber - 1];
             startLineToggle.SelectedIndex = 0;
             var startLineLabel = this._lineLabels[GameManager.SharedGameManager.GameStartLineNumber - 1];
-            startLineLabel.Color = CCColor3B.Blue;
+            startLineLabel.Color = CCColor3B.Yellow;
         }
 
         #endregion
@@ -325,7 +328,7 @@ namespace Simsip.LineRunner.Scenes.Options
             {
                 pageLabel.Color = CCColor3B.White;
             }
-            this._pageLabels[pageNumber - 1].Color = CCColor3B.Blue;
+            this._pageLabels[pageNumber - 1].Color = CCColor3B.Yellow;
 
             // Record what was selected
             GameManager.SharedGameManager.GameStartPageNumber = pageNumber;
@@ -363,7 +366,7 @@ namespace Simsip.LineRunner.Scenes.Options
             {
                 lineLabel.Color = CCColor3B.White;
             }
-            this._lineLabels[lineNumber - 1].Color = CCColor3B.Blue;
+            this._lineLabels[lineNumber - 1].Color = CCColor3B.Yellow;
 
             // Record what was selected
             GameManager.SharedGameManager.GameStartLineNumber = lineNumber;

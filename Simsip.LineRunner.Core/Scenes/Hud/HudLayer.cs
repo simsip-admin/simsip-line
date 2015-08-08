@@ -178,8 +178,8 @@ namespace Simsip.LineRunner.Scenes.Hud
                 { 
                     new CCShow(),
                     new CCScaleTo(0f, 0f), 
-                    new CCScaleTo(0.5f, 1.2f),
-                    new CCScaleTo(0.1f, 1.0f),
+                    new CCScaleTo(0.5f, 1.2f * GameConstants.FONT_SIZE_NORMAL_SCALE),
+                    new CCScaleTo(0.1f, 1.0f * GameConstants.FONT_SIZE_NORMAL_SCALE),
                     new CCDelayTime(GameConstants.DURATION_STATUS_LABEL),
                     new CCHide()
                 });
@@ -190,8 +190,8 @@ namespace Simsip.LineRunner.Scenes.Hud
             { 
                 new CCShow(),
                 new CCScaleTo(0f, 0f), 
-                new CCScaleTo(0.5f, 1.2f),
-                new CCScaleTo(0.1f, 1.0f),
+                new CCScaleTo(0.5f, 1.2f * GameConstants.FONT_SIZE_NORMAL_SCALE),
+                new CCScaleTo(0.1f, 1.0f * GameConstants.FONT_SIZE_NORMAL_SCALE),
             });
 
             // Base layer
@@ -289,6 +289,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             var homeLabel = new CCLabelTTF(homeText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             homeLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             homeLabel.Color = CCColor3B.Green;
+            homeLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var homeItem = new CCMenuItemLabel(homeLabel,
                 (obj) => { this._parent.GoBack(); });
             var upgradesText = string.Empty;
@@ -303,7 +304,8 @@ namespace Simsip.LineRunner.Scenes.Hud
 #if ANDROID || IOS
             var upgradesLabel = new CCLabelTTF(upgradesText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             upgradesLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
-            upgradesLabel.Color = CCColor3B.Blue;
+            upgradesLabel.Color = CCColor3B.Yellow;
+            upgradesLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var upgradesItem = new CCMenuItemLabel(upgradesLabel,
                 (obj) => { this.NavigateBase(LayerTags.UpgradesMasterLayer); });
 #endif
@@ -319,6 +321,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             var optionsLabel = new CCLabelTTF(optionsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             optionsLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             optionsLabel.Color = CCColor3B.Green;
+            optionsLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var optionsItem = new CCMenuItemLabel(optionsLabel,
                 (obj) => { this.NavigateBase(LayerTags.OptionsMasterLayer); });
             var helpText = string.Empty;
@@ -332,23 +335,51 @@ namespace Simsip.LineRunner.Scenes.Hud
             var helpLabel = new CCLabelTTF(helpText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             helpLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             helpLabel.Color = CCColor3B.Green;
+            helpLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var helpItem = new CCMenuItemLabel(helpLabel,
                 (obj) => { this.NavigateBase(LayerTags.HelpMasterLayer); });
-            var hudMenu = new CCMenu(
+
+            var hudHomeMenu = new CCMenu(
                new CCMenuItem[] 
                     {
-                        homeItem,
-#if ANDROID || IOS
-                        upgradesItem,
-#endif
-                        optionsItem,
-                        helpItem
+                        homeItem
                     });
-            hudMenu.AlignItemsVertically();
-            hudMenu.Position = new CCPoint(
-                 0.25f * headerLeftSize.Width,
-                 0.5f  * headerLeftSize.Height);
-            this._headerLeftLayer.AddChild(hudMenu);
+            hudHomeMenu.Position = new CCPoint(
+                 0.2f * headerLeftSize.Width,
+                 0.8f * headerLeftSize.Height);
+            this._headerLeftLayer.AddChild(hudHomeMenu);
+
+#if ANDROID || IOS
+            var hudUpgradesMenu = new CCMenu(
+                new CCMenuItem[] 
+                        {
+                            upgradesItem
+                        });
+            hudUpgradesMenu.Position = new CCPoint(
+                 0.2f * headerLeftSize.Width,
+                 0.6f * headerLeftSize.Height);
+            this._headerLeftLayer.AddChild(hudUpgradesMenu);
+#endif
+
+            var hudOptionsMenu = new CCMenu(
+                new CCMenuItem[] 
+                        {
+                            optionsItem
+                        });
+            hudOptionsMenu.Position = new CCPoint(
+                 0.2f * headerLeftSize.Width,
+                 0.4f * headerLeftSize.Height);
+            this._headerLeftLayer.AddChild(hudOptionsMenu);
+
+            var hudHelpMenu = new CCMenu(
+                new CCMenuItem[] 
+                        {
+                            helpItem
+                        });
+            hudHelpMenu.Position = new CCPoint(
+                 0.2f * headerLeftSize.Width,
+                 0.2f * headerLeftSize.Height);
+            this._headerLeftLayer.AddChild(hudHelpMenu);
 
             // Zoom
             CCMenuItemImage zoomInToggle =
@@ -460,8 +491,8 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             // Current score
             // IMPORTANT: Starts off not visible
-            this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            this._scoreLabel.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
+            this._scoreLabel = new CCLabelTTF(string.Empty, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._scoreLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             this._scoreLabel.Visible = false;
             this._scoreLabel.Color = CCColor3B.Yellow;
             this._scoreLabel.AnchorPoint = CCPoint.AnchorMiddle;
@@ -472,8 +503,8 @@ namespace Simsip.LineRunner.Scenes.Hud
 
             // Score label action
             var scaleStartScore = new CCScaleTo(0f, 0f);
-            var scaleUpScore = new CCScaleTo(0.5f, 1.2f * GameConstants.FONT_SIZE_LARGE_SCALE);
-            var scaleBackScore = new CCScaleTo(0.1f, 1.0f *GameConstants.FONT_SIZE_LARGE_SCALE);
+            var scaleUpScore = new CCScaleTo(0.5f, 1.2f * GameConstants.FONT_SIZE_NORMAL_SCALE);
+            var scaleBackScore = new CCScaleTo(0.1f, 1.0f * GameConstants.FONT_SIZE_NORMAL_SCALE);
             this._scoreLabelAction = new CCSequence(new CCFiniteTimeAction[] { scaleStartScore, scaleUpScore, scaleBackScore });
 
             // Timer

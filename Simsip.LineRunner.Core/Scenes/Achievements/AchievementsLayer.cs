@@ -82,8 +82,9 @@ namespace Simsip.LineRunner.Scenes.Achievements
             leaderboardsText = AppResources.AchievementsLeaderboards;
 #endif
 
-            var leaderboardTitle = new CCLabelTTF(leaderboardsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
-            leaderboardTitle.Scale = GameConstants.FONT_SIZE_X_LARGE_SCALE;
+            var leaderboardTitle = new CCLabelTTF(leaderboardsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
+            leaderboardTitle.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
+            leaderboardTitle.Color = CCColor3B.Yellow;
             leaderboardTitle.Position = new CCPoint(
                 0.5f * this.ContentSize.Width, 
                 0.9f * this.ContentSize.Height);
@@ -100,6 +101,7 @@ namespace Simsip.LineRunner.Scenes.Achievements
 #endif
             var userScoresHeader = new CCLabelTTF(topScoresForText + " " + "", GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
             userScoresHeader.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
+
             userScoresHeader.Position = new CCPoint(
                 0.5f * this.ContentSize.Width, 
                 0.8f * this.ContentSize.Height);
@@ -246,9 +248,10 @@ namespace Simsip.LineRunner.Scenes.Achievements
                     {
                         backButton, 
                     });
+            backMenu.AnchorPoint = CCPoint.AnchorMiddle;
             backMenu.Position = new CCPoint(
-                0.5f * this.ContentSize.Width, 
-                0.1f * this.ContentSize.Height);
+                0.5f  * this.ContentSize.Width, 
+                0.15f * this.ContentSize.Height);
             this.AddChild(backMenu);
             var backText = string.Empty;
 #if ANDROID
@@ -259,10 +262,11 @@ namespace Simsip.LineRunner.Scenes.Achievements
             backText = AppResources.CommonBack;
 #endif
             var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-            backLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            backLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
+            backLabel.AnchorPoint = CCPoint.AnchorMiddle;
             backLabel.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.02f * this.ContentSize.Height);
+                0.5f  * this.ContentSize.Width,
+                0.05f * this.ContentSize.Height);
             this.AddChild(backLabel);
         }
 

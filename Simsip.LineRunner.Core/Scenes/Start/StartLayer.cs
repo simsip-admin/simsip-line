@@ -98,6 +98,7 @@ namespace Simsip.LineRunner.Scenes.Start
 #endif
             var lineLabel = new CCLabelTTF(lineText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
             lineLabel.Scale = GameConstants.FONT_SIZE_X_LARGE_SCALE;
+            lineLabel.Color = CCColor3B.Yellow;
             lineLabel.Position = new CCPoint(
                 0.18f * this.ContentSize.Width,
                 0.62f * this.ContentSize.Height);
@@ -113,6 +114,7 @@ namespace Simsip.LineRunner.Scenes.Start
 #endif
             var runnerLabel = new CCLabelTTF(runnerText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
             runnerLabel.Scale = GameConstants.FONT_SIZE_X_LARGE_SCALE;
+            runnerLabel.Color = CCColor3B.Yellow;
             runnerLabel.AnchorPoint = CCPoint.AnchorMiddleLeft;
             runnerLabel.Position = new CCPoint(
                 0.54f * this.ContentSize.Width,
@@ -128,7 +130,7 @@ namespace Simsip.LineRunner.Scenes.Start
             threeDText = AppResources.Start3D;
 #endif
             this._3DLabel = new CCLabelTTF(threeDText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_X_LARGE);
-            this._3DLabel.Color = CCColor3B.Yellow;
+            this._3DLabel.Color = CCColor3B.Green; 
             this._3DLabel.Rotation = -30;
             this._3DLabel.Position = new CCPoint(
                 0.9f * this.ContentSize.Width,
@@ -155,19 +157,27 @@ namespace Simsip.LineRunner.Scenes.Start
             ratingsButton.NormalImage = ratingsButtonNormal;
             ratingsButton.SelectedImage = ratingsButtonSelected;
 
-            var mainImageMenu = new CCMenu(
+            var mainStartImageMenu = new CCMenu(
                 new CCMenuItem[] 
                     {
-                        startButton,
-                        ratingsButton,
+                        startButton
                     });
-            mainImageMenu.AlignItemsHorizontallyWithPadding(
-                0.2f * this.ContentSize.Width);
-            mainImageMenu.AnchorPoint = CCPoint.AnchorMiddle;
-            mainImageMenu.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
+            mainStartImageMenu.AnchorPoint = CCPoint.AnchorMiddle;
+            mainStartImageMenu.Position = new CCPoint(
+                0.3f * this.ContentSize.Width,
                 0.3f * this.ContentSize.Height);
-            this.AddChild(mainImageMenu);
+            this.AddChild(mainStartImageMenu);
+
+            var mainRatingsImageMenu = new CCMenu(
+                new CCMenuItem[] 
+                        {
+                            ratingsButton
+                        });
+            mainRatingsImageMenu.AnchorPoint = CCPoint.AnchorMiddle;
+            mainRatingsImageMenu.Position = new CCPoint(
+                0.7f * this.ContentSize.Width,
+                0.3f * this.ContentSize.Height);
+            this.AddChild(mainRatingsImageMenu);
 
             var playText = string.Empty;
 #if ANDROID
@@ -179,6 +189,7 @@ namespace Simsip.LineRunner.Scenes.Start
 #endif
             var playLabel = new CCLabelTTF(playText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             playLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            playLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var playItem = new CCMenuItemLabel(playLabel,
                 (obj) => { this.NavigateBase(LayerTags.HudLayer); });
             
@@ -192,22 +203,31 @@ namespace Simsip.LineRunner.Scenes.Start
 #endif
             var rateLabel = new CCLabelTTF(rateText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             rateLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            rateLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var rateItem = new CCMenuItemLabel(rateLabel,
                 (obj) => { this.Rate(); });
 
-            var mainLabelMenu = new CCMenu(
+            var mainPlayLabelMenu = new CCMenu(
                new CCMenuItem[] 
                     {
-                        playItem,
-                        rateItem,
+                        playItem
                     });
-            mainLabelMenu.AlignItemsHorizontallyWithPadding(
-                0.2f * this.ContentSize.Width);
-            mainLabelMenu.AnchorPoint = CCPoint.AnchorMiddle;
-            mainLabelMenu.Position = new CCPoint(
-                 0.5f * this.ContentSize.Width,
+            mainPlayLabelMenu.AnchorPoint = CCPoint.AnchorMiddle;
+            mainPlayLabelMenu.Position = new CCPoint(
+                 0.3f * this.ContentSize.Width,
                  0.1f * this.ContentSize.Height);
-            this.AddChild(mainLabelMenu);
+            this.AddChild(mainPlayLabelMenu);
+
+            var mainRateLabelMenu = new CCMenu(
+                new CCMenuItem[] 
+                        {
+                            rateItem
+                        });
+            mainRateLabelMenu.AnchorPoint = CCPoint.AnchorMiddle;
+            mainRateLabelMenu.Position = new CCPoint(
+                 0.7f * this.ContentSize.Width,
+                 0.1f * this.ContentSize.Height);
+            this.AddChild(mainRateLabelMenu);
 
             // We'll use our override of Update to intelligently kick-off
             // initialization

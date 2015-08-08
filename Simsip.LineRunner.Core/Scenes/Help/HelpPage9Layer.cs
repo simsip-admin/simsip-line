@@ -80,7 +80,7 @@ namespace Simsip.LineRunner.Scenes.Help
 #endif
             var upgradesSubtitle = new CCLabelTTF(upgradesText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
             upgradesSubtitle.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
-            upgradesSubtitle.Color = CCColor3B.Blue;
+            upgradesSubtitle.Color = CCColor3B.Yellow;
             upgradesSubtitle.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.75f * this.ContentSize.Height);

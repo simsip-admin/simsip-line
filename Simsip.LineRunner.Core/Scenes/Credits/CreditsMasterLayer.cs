@@ -128,8 +128,8 @@ namespace Simsip.LineRunner.Scenes.Credits
 #else
             creditsText = AppResources.CreditsTitle;
 #endif
-            var creditsTitle = new CCLabelTTF(creditsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_LARGE);
-            creditsTitle.Scale = GameConstants.FONT_SIZE_LARGE_SCALE;
+            var creditsTitle = new CCLabelTTF(creditsText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            creditsTitle.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             creditsTitle.AnchorPoint = CCPoint.AnchorMiddleLeft;
             creditsTitle.Position = new CCPoint(
                 0.05f * this.ContentSize.Width,
@@ -177,13 +177,7 @@ namespace Simsip.LineRunner.Scenes.Credits
 
             // Previous
             var previousNormal = new CCSprite("Images/Icons/PreviousButtonNormal.png");
-            Cocos2DUtils.ResizeSprite(previousNormal,
-                0.1f * this.ContentSize.Width,
-                0.1f * this.ContentSize.Height);
             var previousSelected = new CCSprite("Images/Icons/PreviousButtonSelected.png");
-            Cocos2DUtils.ResizeSprite(previousSelected,
-                0.1f * this.ContentSize.Width,
-                0.1f * this.ContentSize.Height);
             var previousButton = new CCMenuItemImage();
             previousButton.NormalImage = previousNormal;
             previousButton.SelectedImage = previousSelected;
@@ -208,22 +202,16 @@ namespace Simsip.LineRunner.Scenes.Credits
 #endif
             this._previousLabel = new CCLabelTTF(previousText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
             this._previousLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
-            this._previousLabel.AnchorPoint = CCPoint.AnchorMiddleLeft;
+            this._previousLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._previousLabel.Position = new CCPoint(
-                0.05f * this.ContentSize.Width,
+                0.1f  * this.ContentSize.Width,
                 0.02f * this.ContentSize.Height);
             this.AddChild(this._previousLabel);
             this._previousLabel.Visible = false;
 
             // Next
             var nextNormal = new CCSprite("Images/Icons/NextButtonNormal.png");
-            Cocos2DUtils.ResizeSprite(nextNormal,
-                0.1f * this.ContentSize.Width,
-                0.1f * this.ContentSize.Height);
             var nextSelected = new CCSprite("Images/Icons/NextButtonSelected.png");
-            Cocos2DUtils.ResizeSprite(nextSelected,
-                0.1f * this.ContentSize.Width,
-                0.1f * this.ContentSize.Height);
             var nextButton = new CCMenuItemImage();
             nextButton.NormalImage = nextNormal;
             nextButton.SelectedImage = nextSelected;
@@ -234,8 +222,8 @@ namespace Simsip.LineRunner.Scenes.Credits
                         nextButton, 
                     });
             this._nextMenu.Position = new CCPoint(
-                0.95f * this.ContentSize.Width,
-                0.1f  * this.ContentSize.Height);
+                0.9f * this.ContentSize.Width,
+                0.1f * this.ContentSize.Height);
             this.AddChild(this._nextMenu);
             this._nextMenu.Visible = true;
             var nextText = string.Empty;
@@ -248,10 +236,10 @@ namespace Simsip.LineRunner.Scenes.Credits
 #endif
             this._nextLabel = new CCLabelTTF(nextText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
             this._nextLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
+            this._nextLabel.AnchorPoint = CCPoint.AnchorMiddle;
             this._nextLabel.Position = new CCPoint(
-                0.95f * this.ContentSize.Width,
+                0.9f  * this.ContentSize.Width,
                 0.02f * this.ContentSize.Height);
-            this._nextLabel.AnchorPoint = CCPoint.AnchorMiddleRight;
             this.AddChild(this._nextLabel);
             this._nextLabel.Visible = true;
 
@@ -265,6 +253,7 @@ namespace Simsip.LineRunner.Scenes.Credits
                     {
                         backButton, 
                     });
+            backMenu.AnchorPoint = CCPoint.AnchorMiddle;
             backMenu.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.1f * this.ContentSize.Height);
@@ -279,6 +268,7 @@ namespace Simsip.LineRunner.Scenes.Credits
 #endif
             var backLabel = new CCLabelTTF(backText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
             backLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
+            backLabel.AnchorPoint = CCPoint.AnchorMiddle;
             backLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.02f * this.ContentSize.Height);

@@ -150,6 +150,7 @@ namespace Simsip.LineRunner.Scenes.Admin
 #endif
             var killsOnLabel = new CCLabelTTF(killOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             killsOnLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            killsOnLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var killsOnItem = new CCMenuItemLabel(killsOnLabel);
             var killOffText = string.Empty;
 #if ANDROID
@@ -161,6 +162,7 @@ namespace Simsip.LineRunner.Scenes.Admin
 #endif
             var killsOffLabel = new CCLabelTTF(killOffText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             killsOffLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            killsOffLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var killsOffItem = new CCMenuItemLabel(killsOffLabel);
             CCMenuItemToggle killToggle =
                 new CCMenuItemToggle((obj) => KillsTogglePressed(),
@@ -174,6 +176,7 @@ namespace Simsip.LineRunner.Scenes.Admin
                     {
                         killToggle,
                     });
+            killMenu.AnchorPoint = CCPoint.AnchorMiddle;
             killMenu.Position = new CCPoint(
                 0.5f * this.ContentSize.Width, 
                 0.6f * this.ContentSize.Height);
@@ -190,6 +193,7 @@ namespace Simsip.LineRunner.Scenes.Admin
 #endif
             var particlesOnLabel = new CCLabelTTF(particlesOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             particlesOnLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            particlesOnLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var particlesOnItem = new CCMenuItemLabel(particlesOnLabel);
             var particlesOffText = string.Empty;
 #if ANDROID
@@ -199,9 +203,9 @@ namespace Simsip.LineRunner.Scenes.Admin
 #else
             particlesOffText = AppResources.AdminParticlesOff;
 #endif
-
             var particlesOffLabel = new CCLabelTTF(particlesOffText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             particlesOffLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            particlesOffLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var particlesOffItem = new CCMenuItemLabel(particlesOffLabel);
             CCMenuItemToggle particlesToggle =
                 new CCMenuItemToggle((obj) => ParticlesTogglePressed(),
@@ -215,6 +219,7 @@ namespace Simsip.LineRunner.Scenes.Admin
                     {
                         particlesToggle,
                     });
+            particlesMenu.AnchorPoint = CCPoint.AnchorMiddle;
             particlesMenu.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.5f * this.ContentSize.Height);
@@ -231,6 +236,7 @@ namespace Simsip.LineRunner.Scenes.Admin
 #endif
             var upgradesOnLabel = new CCLabelTTF(upgradesOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             upgradesOnLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            upgradesOnLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var upgradesOnItem = new CCMenuItemLabel(upgradesOnLabel);
             var upgradesOffText = string.Empty;
 #if ANDROID
@@ -242,6 +248,7 @@ namespace Simsip.LineRunner.Scenes.Admin
 #endif
             var upgradesOffLabel = new CCLabelTTF(upgradesOffText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             upgradesOffLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            upgradesOffLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var upgradesOffItem = new CCMenuItemLabel(upgradesOffLabel);
             CCMenuItemToggle upgradesToggle =
                 new CCMenuItemToggle((obj) => UpgradesTogglePressed((obj as CCMenuItemToggle).SelectedIndex),
@@ -255,6 +262,7 @@ namespace Simsip.LineRunner.Scenes.Admin
                     {
                         upgradesToggle,
                     });
+            upgradesMenu.AnchorPoint = CCPoint.AnchorMiddle;
             upgradesMenu.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.4f * this.ContentSize.Height);
@@ -265,6 +273,7 @@ namespace Simsip.LineRunner.Scenes.Admin
             var refundText = "refund";
             var refundLabel = new CCLabelTTF(refundText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             refundLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            refundLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var refundItem = new CCMenuItemLabel(refundLabel,
                 (obj) => { this.Refund(); });
             var refundMenu = new CCMenu(
@@ -272,6 +281,7 @@ namespace Simsip.LineRunner.Scenes.Admin
                     {
                         refundItem,
                     });
+            refundMenu.AnchorPoint = CCPoint.AnchorMiddle;
             refundMenu.Position = new CCPoint(
                  0.5f * this.ContentSize.Width,
                  0.3f * this.ContentSize.Height);
