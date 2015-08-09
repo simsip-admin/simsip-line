@@ -329,7 +329,17 @@ namespace Simsip.LineRunner.Scenes.Options
                     this._totalPages = this._optionsPages.Count;
                 }
             }
+            else
+            {
+                if (this._practicePage != null)
+                {
+                    this.RemoveChild(this._practicePage);
+                    this._optionsPages.Remove(this._practicePage);
+                    this._totalPages = this._optionsPages.Count;
+                }
+            }
 #endif
+
             // Reset state
             foreach (var optionPage in this._optionsPages)
             {

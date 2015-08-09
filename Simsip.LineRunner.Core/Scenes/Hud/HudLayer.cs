@@ -982,7 +982,6 @@ namespace Simsip.LineRunner.Scenes.Hud
             }
         }
 
-
         public void EnablePause(bool enabled)
         {
             this._pauseToggle.SelectedIndex = 0;

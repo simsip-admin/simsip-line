@@ -51,11 +51,11 @@ namespace Simsip.LineRunner.Services.Inapp
             // a set of key/value pairs to replace in the final string. 
             string value = Security.Unify(
                 new string[] { 
-                    "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhKyKc37WFTHmYoBQkxCRcKz6RfDXTNV59OqAYhATPUdZ4Y2at3X2dECM+G6wCMfnM+Z7TayYGHeuctWFh",
-                    "SJzZR3CkGL2ueXuoKKdViJX1ti8btY8Htu9n4t841F9wJVE+YW+A7VJ49cyj+7oc1t6q/6uFDrEdZU+FuAweTQuFjR12RNxxckf2w6HhLQwzNOWdv8agaWI2sK8kaF",
-                    "rA5kX6kAtjAflyWdDOnk0dAxXFji4qADmsquL668tYVFryk8XXn7EnE4kjxrWeWf6GBPNbfRZulUgvs4RBQ0mj8WFD+cDw36TbrQCAk0JePskFwWxtnA0pEL63+duO",
-                    "HPZ7ndRZQIDAQAB" },
-                new int[] { 0, 1, 2, 3 });
+                    "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAg7JOshLQXoD9VPkAz582QVxQvEDJQ55PfW5/7Z6UxF5JUAYC3akR4ijpR5Fw78URV+sNWma/+6lYobi/85z",
+                    "GekOQIDAQAB",
+                    "jICCCrExJIJFowrDr0LcQBQ2ev20Dw9Odwmj2wpoZzBiolXZNH3UfP5+xcV3m+jHk9wmC0t3XhGJGBODDbBxMbXohEjC+MJ0E2GO7XR0ZNUDeQjxCYnOt4+ZCAUntwG",
+                    "tZdi12iV1tToVl4inQCbyyRRb7Zi7+66UTuvzvTZJIZzG7LQejp1qtts/JERtaDwVtXAWSysQtaZH+BmxZ2/gDPsslpA8hSNc3mSpYWykgqd5ib3n8GUKPDd+iT35P5" },
+                new int[] { 0, 3, 2, 1 });
 
             // Create a new connection to the Google Play Service
             _serviceConnection = new InAppBillingServiceConnection(Program.SharedProgram /*TheGame.Activity*/, value);
@@ -282,6 +282,13 @@ namespace Simsip.LineRunner.Services.Inapp
             var purchases = this._serviceConnection.BillingHandler.GetPurchases(ItemType.Product);
 
             this._serviceConnection.BillingHandler.ConsumePurchase(purchases[0].PurchaseToken);
+
+            var inAppPurchaseRepository = new InAppPurchaseRepository();
+            var inAppPurchaseEntity = inAppPurchaseRepository.GetPurchaseByProductId(this.PracticeModeProductId);
+            if (inAppPurchaseEntity != null)
+            {
+                inAppPurchaseRepository.Delete(inAppPurchaseEntity);
+            }
         }
 
         public void OnDestroy()

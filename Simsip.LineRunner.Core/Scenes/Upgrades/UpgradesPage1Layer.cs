@@ -43,6 +43,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
 
         // Status line
         private CCLabelTTF _statusLabel;
+        private string _statusText;
 
         // Restore
         private CCMenu _restoreMenu;
@@ -111,6 +112,9 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                 0.95f * this.ContentSize.Width,
                 0.9f * this.ContentSize.Height);
             this.AddChild(pageNumberHeader);
+
+            // Status
+            this._statusText = string.Empty;
 
             // Practice images (note: placing this first so text is on top of images)
             // Scaling assumes 2 : 1 ratio
@@ -381,15 +385,12 @@ namespace Simsip.LineRunner.Scenes.Upgrades
         private void OnPurchaseProduct()
         {
             this._parent.TheMessageBoxLayer.Hide();
-
-            this.UpdateUI();
         }
 
         private void OnPurchaseProductError(int responseCode, string sku)
         {
+            this._statusText = this._purchaseErrorText;
             this._parent.TheMessageBoxLayer.Hide();
-
-            this.UpdateUI(this._restoreErrorText);
         }
 
         private void RestoreProducts()
@@ -407,20 +408,17 @@ namespace Simsip.LineRunner.Scenes.Upgrades
         private void OnRestoreProducts()
         {
             this._parent.TheMessageBoxLayer.Hide();
-
-            this.UpdateUI();
         }
 
         private void OnRestoreProductsError(int responseCode, IDictionary<string, object> skuDetails)
         {
+            this._statusText = this._restoreErrorText;
             this._parent.TheMessageBoxLayer.Hide();
-
-            this.UpdateUI(this._restoreErrorText);
         }
 
         #endregion
 
-        private void UpdateUI(string statusLine="")
+        private void UpdateUI()
         {
             // Get latest price
             var price = string.Empty;
@@ -476,114 +474,163 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                 this._buyLabelMenu.Visible = true;
             }
 
-            // Did we request a status line
-            if (!string.IsNullOrEmpty(statusLine))
-            {
-                this.UpdateStatusLabel(statusLine);
-            }
-            else
-            {
-                this.UpdateStatusLabel(string.Empty);
-            }
+            // Did we request a status line?
+            this.UpdateStatusLabel(this._statusText);
+            this._statusText = string.Empty;
         }
 
         private void UpdateDesc1Label(string text)
         {
-            if (this._practiceDesc1Label != null)
+            if (this._practiceDesc1Label == null)
             {
-                this.RemoveChild(this._practiceDesc1Label);
+                this._practiceDesc1Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                this._practiceDesc1Label.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+                this._practiceDesc1Label.Position = new CCPoint(
+                    0.5f * this.ContentSize.Width,
+                    0.7f * this.ContentSize.Height);
+                this.AddChild(this._practiceDesc1Label);
             }
 
-            this._practiceDesc1Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._practiceDesc1Label.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
-            this._practiceDesc1Label.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.7f * this.ContentSize.Height);
-            this.AddChild(this._practiceDesc1Label);
+            // Can't set empty strings, so just turn visibility off
+            if (text == string.Empty)
+            {
+                this._practiceDesc1Label.Visible = false;
+            }
+            else
+            {
+                this._practiceDesc1Label.Visible = true;
+                this._practiceDesc1Label.Text = text;
+            }
         }
 
         private void UpdateDesc2Label(string text)
         {
-            if (this._practiceDesc2Label != null)
+            if (this._practiceDesc2Label == null)
             {
-                this.RemoveChild(this._practiceDesc2Label);
+                this._practiceDesc2Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                this._practiceDesc2Label.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+                this._practiceDesc2Label.Position = new CCPoint(
+                    0.5f * this.ContentSize.Width,
+                    0.65f * this.ContentSize.Height);
+                this.AddChild(this._practiceDesc2Label);
             }
-
-            this._practiceDesc2Label = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._practiceDesc2Label.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
-            this._practiceDesc2Label.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.65f * this.ContentSize.Height);
-            this.AddChild(this._practiceDesc2Label);
+            
+            if (text == string.Empty)
+            {
+                this._practiceDesc2Label.Visible = false;
+            }
+            else
+            {
+                this._practiceDesc2Label.Visible = true;
+                this._practiceDesc2Label.Text = text;
+            }
         }
 
         private void UpdateStatusLabel(string text)
         {
-            if (this._statusLabel != null)
+            if (this._statusLabel == null)
             {
-                this.RemoveChild(this._statusLabel);
+                this._statusLabel = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                this._statusLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+                this._statusLabel.Color = CCColor3B.Red;
+                this._statusLabel.Position = new CCPoint(
+                    0.5f  * this.ContentSize.Width,
+                    0.82f * this.ContentSize.Height);
+                this.AddChild(this._statusLabel);
             }
 
-            this._statusLabel = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._statusLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
-            this._statusLabel.Color = CCColor3B.Red;
-            this._statusLabel.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.6f * this.ContentSize.Height);
-            this.AddChild(this._statusLabel);
+            if (text == string.Empty)
+            {
+                this._statusLabel.Visible = false;
+            }
+            else
+            {
+                this._statusLabel.Visible = true;
+                this._statusLabel.Text = text;
+            }
         }
 
         private void UpdatePriceLabel(string priceText, string price)
         {
-            if (this._priceTextLabel != null)
+            if (this._priceTextLabel == null)
             {
-                this.RemoveChild(this._priceTextLabel);
+                this._priceTextLabel = new CCLabelTTF(priceText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                this._priceTextLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+                this._priceTextLabel.Position = new CCPoint(
+                    0.5f * this.ContentSize.Width,
+                    0.25f * this.ContentSize.Height);
+                this.AddChild(this._priceTextLabel);
             }
-            if (this._priceLabel != null)
+            if (this._priceLabel == null)
             {
-                this.RemoveChild(this._priceLabel);
+                this._priceLabel = new CCLabelTTF(price, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+                this._priceLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+                this._priceLabel.Color = CCColor3B.Yellow;
+                this._priceLabel.Position = new CCPoint(
+                    0.5f * this.ContentSize.Width,
+                    0.2f * this.ContentSize.Height);
+                this.AddChild(this._priceLabel);
             }
 
-            this._priceTextLabel = new CCLabelTTF(priceText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._priceTextLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
-            this._priceTextLabel.Position = new CCPoint(
-                0.5f  * this.ContentSize.Width,
-                0.25f * this.ContentSize.Height);
-            this.AddChild(this._priceTextLabel);
-
-            this._priceLabel = new CCLabelTTF(price, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._priceLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
-            this._priceLabel.Color = CCColor3B.Yellow;
-            this._priceLabel.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.2f * this.ContentSize.Height);
-            this.AddChild(this._priceLabel);
+            if (priceText == string.Empty)
+            {
+                this._priceTextLabel.Visible = false;
+            }
+            else
+            {
+                this._priceTextLabel.Visible = true;
+                this._priceTextLabel.Text = priceText;
+            }
+            if (price == string.Empty)
+            {
+                this._priceLabel.Visible = false;
+            }
+            else
+            {
+                this._priceLabel.Visible = true;
+                this._priceLabel.Text = price;
+            }
         }
 
         private void UpdatePurchasedOnLabel(string purchasedOnText, string purchasedOnDate)
         {
-            if (this._purchasedOnLabel != null)
+            if (this._purchasedOnLabel == null)
             {
-                this.RemoveChild(this._purchasedOnLabel);
+                this._purchasedOnLabel = new CCLabelTTF(purchasedOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+                this._purchasedOnLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
+                this._purchasedOnLabel.Position = new CCPoint(
+                    0.5f * this.ContentSize.Width,
+                    0.25f * this.ContentSize.Height);
+                this.AddChild(this._purchasedOnLabel);
             }
-            if (this._purchasedOnDateLabel != null)
+            if (this._purchasedOnDateLabel == null)
             {
-                this.RemoveChild(this._purchasedOnDateLabel);
+                this._purchasedOnDateLabel = new CCLabelTTF(purchasedOnDate, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+                this._purchasedOnDateLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
+                this._purchasedOnDateLabel.Position = new CCPoint(
+                    0.5f * this.ContentSize.Width,
+                    0.2f * this.ContentSize.Height);
+                this.AddChild(this._purchasedOnDateLabel);
             }
 
-            this._purchasedOnLabel = new CCLabelTTF(purchasedOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-            this._purchasedOnLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
-            this._purchasedOnLabel.Position = new CCPoint(
-                0.5f * this.ContentSize.Width,
-                0.25f * this.ContentSize.Height);
-            this.AddChild(this._purchasedOnLabel);
-
-            this._purchasedOnDateLabel = new CCLabelTTF(purchasedOnDate, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
-            this._purchasedOnDateLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
-            this._purchasedOnDateLabel.Position = new CCPoint(
-                0.5f  * this.ContentSize.Width,
-                0.2f * this.ContentSize.Height);
-            this.AddChild(this._purchasedOnDateLabel);
+            if (purchasedOnText == string.Empty)
+            {
+                this._purchasedOnLabel.Visible = false;
+            }
+            else
+            {
+                this._purchasedOnLabel.Visible = true;
+                this._purchasedOnLabel.Text = purchasedOnText;
+            }
+            if (purchasedOnDate == string.Empty)
+            {
+                this._purchasedOnDateLabel.Visible = false;
+            }
+            else
+            {
+                this._purchasedOnDateLabel.Visible = true;
+                this._purchasedOnDateLabel.Text = purchasedOnDate;
+            }
         }
     }
 }
