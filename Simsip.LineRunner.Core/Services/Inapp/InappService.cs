@@ -37,10 +37,12 @@ namespace Simsip.LineRunner.Services.Inapp
         
         #region IInappService implementation
 
-
-        // public string PracticeModeProductId { get { return "com.simsip.linerunner.practicemode"; } }
+        public string PracticeModeProductId { get { return "com.simsip.linerunner.practicemode"; } }
         // Testing
+        /*
         public string PracticeModeProductId { get { return ReservedTestProductIDs.Purchased; } }
+        public string PracticeModeProductId { get { return ReservedTestProductIDs.Canceled; } }
+        */
 
         public void Initialize()
         {

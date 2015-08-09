@@ -90,6 +90,8 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             this._inAppService.OnPurchaseProductError += OnPurchaseProductError;
             this._inAppService.OnRestoreProducts += OnRestoreProducts;
             this._inAppService.OnRestoreProductsError += OnRestoreProductsError;
+            this._inAppService.OnInAppBillingProcesingError += OnInAppBillingProcesingError;
+            this._inAppService.OnUserCanceled += OnUserCanceled;
             this._inAppSkuRepository = new InAppSkuRepository();
             this._inAppPurchaseRepository = new InAppPurchaseRepository();
 
@@ -413,6 +415,18 @@ namespace Simsip.LineRunner.Scenes.Upgrades
         private void OnRestoreProductsError(int responseCode, IDictionary<string, object> skuDetails)
         {
             this._statusText = this._restoreErrorText;
+            this._parent.TheMessageBoxLayer.Hide();
+        }
+
+        private void OnInAppBillingProcesingError(string message)
+        {
+            this._statusText = this._purchaseErrorText;
+            this._parent.TheMessageBoxLayer.Hide();
+        }
+
+        private void OnUserCanceled()
+        {
+            this._statusText = this._purchaseErrorText;
             this._parent.TheMessageBoxLayer.Hide();
         }
 
