@@ -324,9 +324,11 @@ namespace Simsip.LineRunner.Scenes.Options
                 if (this._practicePage == null)
                 {
                     this._practicePage = new OptionsPracticeLayer(this._parent, this);
+                }
+                if (!this._optionsPages.Contains(this._practicePage))
+                {
                     this.AddChild(this._practicePage);
                     this._optionsPages.Insert(0, this._practicePage);
-                    this._totalPages = this._optionsPages.Count;
                 }
             }
             else
@@ -335,12 +337,12 @@ namespace Simsip.LineRunner.Scenes.Options
                 {
                     this.RemoveChild(this._practicePage);
                     this._optionsPages.Remove(this._practicePage);
-                    this._totalPages = this._optionsPages.Count;
                 }
             }
 #endif
 
             // Reset state
+            this._totalPages = this._optionsPages.Count;
             foreach (var optionPage in this._optionsPages)
             {
                 optionPage.Visible = false;
