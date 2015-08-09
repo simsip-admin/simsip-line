@@ -54,6 +54,7 @@ namespace Simsip.LineRunner.Scenes.Upgrades
 
         // Price
         private string _priceText;
+        private CCLabelTTF _priceTextLabel;
         private CCLabelTTF _priceLabel;
 
         // Purchased on
@@ -443,16 +444,16 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                 this._restoreMenu.Visible = false;
                 this._restoreLabelMenu.Visible = false;
 
-                this.UpdatePriceLabel(string.Empty);
+                this.UpdatePriceLabel(string.Empty, string.Empty);
 
                 // Note, need to do this because of AdminAreUpgradesAllowed gating above
                 if (practicePurchase != null)
                 {
-                    this.UpdatePurchasedOnLabel(practicePurchase.PurchaseTime.ToString("g"));
+                    this.UpdatePurchasedOnLabel(this._purchasedOnText, practicePurchase.PurchaseTime.ToString("g"));
                 }
                 else
                 {
-                    this.UpdatePurchasedOnLabel(DateTime.Now.ToString("g"));
+                    this.UpdatePurchasedOnLabel(this._purchasedOnText, DateTime.Now.ToString("g"));
                 }
 
                 this._buyMenu.Visible = false;
@@ -467,9 +468,9 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                 this._restoreMenu.Visible = true;
                 this._restoreLabelMenu.Visible = true;
 
-                this.UpdatePriceLabel(this._priceText + " " + price);
+                this.UpdatePriceLabel(this._priceText, price);
 
-                this.UpdatePurchasedOnLabel(string.Empty);
+                this.UpdatePurchasedOnLabel(string.Empty, string.Empty);
 
                 this._buyMenu.Visible = true;
                 this._buyLabelMenu.Visible = true;
@@ -532,22 +533,34 @@ namespace Simsip.LineRunner.Scenes.Upgrades
             this.AddChild(this._statusLabel);
         }
 
-        private void UpdatePriceLabel(string text)
+        private void UpdatePriceLabel(string priceText, string price)
         {
+            if (this._priceTextLabel != null)
+            {
+                this.RemoveChild(this._priceTextLabel);
+            }
             if (this._priceLabel != null)
             {
                 this.RemoveChild(this._priceLabel);
             }
 
-            this._priceLabel = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
-            this._priceLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
-            this._priceLabel.Position = new CCPoint(
+            this._priceTextLabel = new CCLabelTTF(priceText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._priceTextLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            this._priceTextLabel.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
                 0.25f * this.ContentSize.Height);
+            this.AddChild(this._priceTextLabel);
+
+            this._priceLabel = new CCLabelTTF(price, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            this._priceLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            this._priceLabel.Color = CCColor3B.Yellow;
+            this._priceLabel.Position = new CCPoint(
+                0.5f * this.ContentSize.Width,
+                0.2f * this.ContentSize.Height);
             this.AddChild(this._priceLabel);
         }
 
-        private void UpdatePurchasedOnLabel(string text)
+        private void UpdatePurchasedOnLabel(string purchasedOnText, string purchasedOnDate)
         {
             if (this._purchasedOnLabel != null)
             {
@@ -558,14 +571,14 @@ namespace Simsip.LineRunner.Scenes.Upgrades
                 this.RemoveChild(this._purchasedOnDateLabel);
             }
 
-            this._purchasedOnLabel = new CCLabelTTF(this._purchasedOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            this._purchasedOnLabel = new CCLabelTTF(purchasedOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
             this._purchasedOnLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             this._purchasedOnLabel.Position = new CCPoint(
                 0.5f * this.ContentSize.Width,
                 0.25f * this.ContentSize.Height);
             this.AddChild(this._purchasedOnLabel);
 
-            this._purchasedOnDateLabel = new CCLabelTTF(text, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            this._purchasedOnDateLabel = new CCLabelTTF(purchasedOnDate, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
             this._purchasedOnDateLabel.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             this._purchasedOnDateLabel.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,
