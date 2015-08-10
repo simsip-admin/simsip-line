@@ -54,7 +54,8 @@ namespace Simsip.LineRunner
             var mainWindow = (UIWindow)TheGame.SharedGame.Services.GetService(typeof(UIWindow));
             var iosGameViewController = (UIViewController)TheGame.SharedGame.Services.GetService(typeof(UIViewController));
             
-            /* commented out for getting screenshots
+#if !ADVERTISING_OFF
+            // Define ADVERTISING_OFF for screenshots
             this._adView = new GADBannerView(
                 size: GADAdSizeCons.Banner,
                 origin: new CGPoint(0, 0))
@@ -62,8 +63,7 @@ namespace Simsip.LineRunner
                 AdUnitID = AdmobID,
                 RootViewController = iosGameViewController
             };
-            */
-
+#endif
             /*
             var originalFrame = iosGameViewController.View.Frame;
 
@@ -74,12 +74,13 @@ namespace Simsip.LineRunner
                 originalFrame.Height - this._adView.AdSize.Size.Height);
             */
 
-            /* commented out for getting screenshots
+#if !ADVERTISING_OFF
+            // Define ADVERTISING_OFF for screenshots
             // Inject our add banner
             iosGameViewController.View.AddSubview(this._adView);
 
             this._adView.LoadRequest(GADRequest.Request);
-            */
+#endif
 
             /* Add in test devices for add banner
             // See: https://developers.google.com/mobile-ads-sdk/docs/admob/ios/targeting

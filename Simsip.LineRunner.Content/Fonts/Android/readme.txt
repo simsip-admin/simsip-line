@@ -1,5 +1,7 @@
 arial-core-8
 - plus cjk
+arial-core-12
+- plus cjk
 arial-core-16
 - plus cjk
 arial-core-18
