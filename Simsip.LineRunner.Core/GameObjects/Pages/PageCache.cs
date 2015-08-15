@@ -200,12 +200,25 @@ namespace Simsip.LineRunner.GameObjects.Pages
             this.CurrentPageModel.LogicalStartOrigin = new CCPoint(         // We start our hero in the center of the screen
                 0.5f * CCDrawManager.DesignResolutionSize.Width, 
                 0.5f * CCDrawManager.DesignResolutionSize.Height);
+            
+#if IOS
+            // IMPORTANT: These are different for IOS as the ad banner overlaps the game screen
+            //            as opposed to Android where the ad banner is stacked above the game screen.
+            //            Hence, we need to zoom out a little bit more so we can see both lines on IOS.
+            this.CurrentPageModel.LogicalLineSpacingTop = new CCPoint(      // We want the line margin to fill most of the screen with a little border on top/bottom
+                0.5f * CCDrawManager.DesignResolutionSize.Width,
+                0.6f * CCDrawManager.DesignResolutionSize.Height);
+            this.CurrentPageModel.LogicalLineSpacingBottom = new CCPoint(
+                0.5f  * CCDrawManager.DesignResolutionSize.Width,
+                0.15f * CCDrawManager.DesignResolutionSize.Height);
+#else
             this.CurrentPageModel.LogicalLineSpacingTop = new CCPoint(      // We want the line margin to fill most of the screen with a little border on top/bottom
                 0.5f  * CCDrawManager.DesignResolutionSize.Width,
                 0.75f * CCDrawManager.DesignResolutionSize.Height);    
             this.CurrentPageModel.LogicalLineSpacingBottom = new CCPoint(
                 0.5f  * CCDrawManager.DesignResolutionSize.Width,
                 0.25f * CCDrawManager.DesignResolutionSize.Height);    
+#endif
 
             // First, determine the unscaled line margin (distance between each line)
             var modelPageBody = this.CurrentPageModel.TheModelEntity.ModelHeight -
