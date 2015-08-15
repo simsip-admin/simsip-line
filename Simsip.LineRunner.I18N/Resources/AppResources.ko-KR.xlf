@@ -592,6 +592,10 @@
           <source>yellow</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">노랑</target>
         </trans-unit>
+        <trans-unit id="Resx/HudZoom" translate="yes" xml:space="preserve">
+          <source>zoom</source>
+          <target state="translated">확대/축소</target>
+        </trans-unit>
       </group>
     </body>
   </file>

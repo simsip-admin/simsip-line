@@ -204,6 +204,10 @@
           <source>yellow</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">kuning</target>
         </trans-unit>
+        <trans-unit id="Resx/HudZoom" translate="yes" xml:space="preserve">
+          <source>zoom</source>
+          <target state="translated" state-qualifier="tm-suggestion">perbesar</target>
+        </trans-unit>
         <trans-unit id="Resx/PadsWhite" translate="yes" xml:space="preserve">
           <source>white</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">putih</target>

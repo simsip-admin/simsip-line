@@ -557,4 +557,7 @@
   <data name="PadsYellow" xml:space="preserve">
     <value>黃色</value>
   </data>
+  <data name="HudZoom" xml:space="preserve">
+    <value>縮放</value>
+  </data>
 </root>

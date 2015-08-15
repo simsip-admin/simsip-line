@@ -146,4 +146,5 @@
   <string name="LinesDarkOrange">Темно-оранжевый</string>
   <string name="LinesDarkGreen">Темно-зеленый</string>
   <string name="LinesBlue">синий</string>
+  <string name="HudZoom">увеличение</string>
 </resources>

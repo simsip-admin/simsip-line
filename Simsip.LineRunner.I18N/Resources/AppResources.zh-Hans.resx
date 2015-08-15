@@ -557,4 +557,7 @@
   <data name="Start3D" xml:space="preserve">
     <value>三维</value>
   </data>
+  <data name="HudZoom" xml:space="preserve">
+    <value>显示比例</value>
+  </data>
 </root>

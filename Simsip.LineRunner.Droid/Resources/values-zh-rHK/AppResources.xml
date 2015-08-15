@@ -146,4 +146,5 @@
   <string name="LinesRed">紅色</string>
   <string name="PadsWhite">白色</string>
   <string name="PadsYellow">黃色</string>
+  <string name="HudZoom">縮放</string>
 </resources>

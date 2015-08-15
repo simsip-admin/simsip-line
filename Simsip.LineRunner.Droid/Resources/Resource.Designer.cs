@@ -4083,6 +4083,9 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f070092
 			public const int HudTrackball = 2131165330;
 			
+			// aapt resource value: 0x7f0700dd
+			public const int HudZoom = 2131165405;
+			
 			// aapt resource value: 0x7f0700d2
 			public const int LinesBlue = 2131165394;
 			

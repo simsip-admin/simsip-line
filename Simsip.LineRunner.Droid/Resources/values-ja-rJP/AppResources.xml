@@ -146,4 +146,5 @@
   <string name="LinesRed">赤い</string>
   <string name="PadsWhite">ホワイト</string>
   <string name="PadsYellow">イエロー</string>
+  <string name="HudZoom">ズーム</string>
 </resources>

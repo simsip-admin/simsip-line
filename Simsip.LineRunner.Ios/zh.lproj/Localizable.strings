@@ -144,6 +144,7 @@
 "StartRunner"="运行程序";
 "StartLine"="线条";
 "Start3D"="三维";
+"HudZoom"="显示比例";
 "ResourceFlowDirection"="LeftToRight";
 "ResourceLanguage"="zh-Hant";
 "CommonVersion"="版本";
@@ -290,3 +291,4 @@
 "LinesRed"="紅色";
 "PadsWhite"="白色";
 "PadsYellow"="黃色";
+"HudZoom"="縮放";

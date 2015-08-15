@@ -148,5 +148,6 @@
         public static string LinesRed = "LinesRed";
         public static string PadsWhite = "PadsWhite";
         public static string PadsYellow = "PadsYellow";
+        public static string HudZoom = "HudZoom";
     }
 }

@@ -146,4 +146,5 @@
   <string name="LinesDarkOrange">गहरा नारंगी</string>
   <string name="LinesDarkGreen">गहरा हरा</string>
   <string name="LinesBlue">नीला</string>
+  <string name="HudZoom">ज़ूम</string>
 </resources>

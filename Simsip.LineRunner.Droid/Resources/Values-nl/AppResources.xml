@@ -146,4 +146,5 @@
   <string name="LinesDarkOrange">Oranjerood</string>
   <string name="LinesDarkGreen">Donkergroen</string>
   <string name="LinesBlue">blauw</string>
+  <string name="HudZoom">Zoom</string>
 </resources>

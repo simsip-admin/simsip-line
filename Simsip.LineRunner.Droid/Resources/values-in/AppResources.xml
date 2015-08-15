@@ -146,4 +146,5 @@
   <string name="LinesDarkOrange">oranye tua</string>
   <string name="LinesDarkGreen">hijau gelap</string>
   <string name="LinesBlue">biru</string>
+  <string name="HudZoom">perbesar</string>
 </resources>

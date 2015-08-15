@@ -146,4 +146,5 @@
   <string name="LinesDarkOrange">orange foncé</string>
   <string name="LinesDarkGreen">vert foncé</string>
   <string name="LinesBlue">bleu</string>
+  <string name="HudZoom">Zoom</string>
 </resources>

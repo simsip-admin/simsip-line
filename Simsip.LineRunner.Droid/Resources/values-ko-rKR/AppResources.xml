@@ -146,4 +146,5 @@
   <string name="LinesRed">빨강</string>
   <string name="PadsWhite">화이트</string>
   <string name="PadsYellow">노랑</string>
+  <string name="HudZoom">확대/축소</string>
 </resources>

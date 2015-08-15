@@ -204,6 +204,10 @@
           <source>yellow</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">Gelb</target>
         </trans-unit>
+        <trans-unit id="Resx/HudZoom" translate="yes" xml:space="preserve">
+          <source>zoom</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Zoom</target>
+        </trans-unit>
         <trans-unit id="Resx/PadsWhite" translate="yes" xml:space="preserve">
           <source>white</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">Weiß</target>

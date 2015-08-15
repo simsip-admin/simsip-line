@@ -146,4 +146,5 @@
   <string name="StartRunner">运行程序</string>
   <string name="StartLine">线条</string>
   <string name="Start3D">三维</string>
+  <string name="HudZoom">显示比例</string>
 </resources>

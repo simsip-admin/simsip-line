@@ -146,4 +146,5 @@
   <string name="LinesRed">red</string>
   <string name="PadsWhite">white</string>
   <string name="PadsYellow">yellow</string>
+  <string name="HudZoom">zoom</string>
 </resources>

@@ -146,4 +146,5 @@
   <string name="LinesDarkOrange">ciemny kolor pomarańczowy</string>
   <string name="LinesDarkGreen">Kolor Ciemnozielony</string>
   <string name="LinesBlue">sina</string>
+  <string name="HudZoom">zoom</string>
 </resources>
