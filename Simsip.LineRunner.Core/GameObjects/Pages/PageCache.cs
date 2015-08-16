@@ -82,17 +82,9 @@ namespace Simsip.LineRunner.GameObjects.Pages
             this._currentLineNumber = GameManager.SharedGameManager.GameStartLineNumber;
             this._loadContentThreadPurge = new ConcurrentQueue<LoadContentThreadArgs>();
             this._loadContentThreadResults = new ConcurrentQueue<LoadContentThreadArgs>();
-            var isCloseup = UserDefaults.SharedUserDefault.GetBoolForKey(
+            this.CharacterDepthFromCameraStart = UserDefaults.SharedUserDefault.GetFloatForKey(
                 GameConstants.USER_DEFAULT_KEY_HUD_ZOOM,
                 GameConstants.USER_DEFAULT_INITIAL_HUD_ZOOM);
-            if (isCloseup)
-            {
-                this.CharacterDepthFromCameraStart = 0.5f * (this.PageDepthFromCameraStart - GameConstants.DEFAULT_CHARACTER_DEPTH_FROM_PAGE);
-            }
-            else
-            {
-                this.CharacterDepthFromCameraStart = this.PageDepthFromCameraStart - GameConstants.DEFAULT_CHARACTER_DEPTH_FROM_PAGE;
-            }
             
             // Import required services.
             this._inputManager = (IInputManager)this.Game.Services.GetService(typeof(IInputManager));

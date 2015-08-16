@@ -60,6 +60,7 @@ namespace Engine.Input
 
         private GameState _currentGameState;
 
+        private float _zoomDelta;
         private float _joystickDelta;
 
         // properties.
@@ -169,7 +170,8 @@ namespace Engine.Input
             this.HudCameraOrbitPitch = UserDefaults.SharedUserDefault.GetFloatForKey(
                 GameConstants.USER_DEFAULT_KEY_HUD_ORBIT_PITCH,
                 GameConstants.USER_DEFAULT_INITIAL_HUD_ORBIT_PITCH);
-            
+
+            this._zoomDelta = 0.1f;
             this._joystickDelta = 0.1f;
 
             // Construct our controllers
@@ -237,6 +239,7 @@ namespace Engine.Input
             this.HudCameraOffsetPitch = GameConstants.USER_DEFAULT_INITIAL_HUD_OFFSET_PITCH;
             this.HudCameraOrbitYaw = GameConstants.USER_DEFAULT_INITIAL_HUD_ORBIT_YAW;
             this.HudCameraOrbitPitch = GameConstants.USER_DEFAULT_INITIAL_HUD_ORBIT_PITCH;
+            this._pageCache.CharacterDepthFromCameraStart = GameConstants.USER_DEFAULT_INITIAL_HUD_ZOOM;
 
             UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_X, this.HudCameraOffsetX);
             UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_Y, this.HudCameraOffsetY);
@@ -244,23 +247,34 @@ namespace Engine.Input
             UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_OFFSET_PITCH, this.HudCameraOffsetPitch);
             UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_ORBIT_YAW, this.HudCameraOrbitYaw);
             UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_ORBIT_PITCH, this.HudCameraOrbitPitch);
-            UserDefaults.SharedUserDefault.SetBoolForKey(GameConstants.USER_DEFAULT_KEY_HUD_ZOOM, false);
+            UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_ZOOM, this._pageCache.CharacterDepthFromCameraStart);
         }
 
         public void HudOnZoom(bool zoomIn)
         {
             if (zoomIn)
             {
-                this._pageCache.CharacterDepthFromCameraStart =
-                    0.5f * (this._pageCache.PageDepthFromCameraStart - GameConstants.DEFAULT_CHARACTER_DEPTH_FROM_PAGE);
+                var newPosition = 
+                    this._pageCache.CharacterDepthFromCameraStart - this._zoomDelta;
+                var limitIn = GameConstants.DEFAULT_CHARACTER_DEPTH_FROM_PAGE + 0.1f;
+                if (newPosition > limitIn)
+                {
+                    this._pageCache.CharacterDepthFromCameraStart = newPosition;
+                    UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_ZOOM, this._pageCache.CharacterDepthFromCameraStart);
+                }
             }
             else
             {
-                this._pageCache.CharacterDepthFromCameraStart =
-                    this._pageCache.PageDepthFromCameraStart - GameConstants.DEFAULT_CHARACTER_DEPTH_FROM_PAGE;
+                var newPosition =
+                    this._pageCache.CharacterDepthFromCameraStart + this._zoomDelta;
+                var limitOut =
+                     GameConstants.DEFAULT_CHARACTER_DEPTH_FROM_PAGE + 80f;
+                if (newPosition < limitOut)
+                {
+                    this._pageCache.CharacterDepthFromCameraStart = newPosition;
+                    UserDefaults.SharedUserDefault.SetFloatForKey(GameConstants.USER_DEFAULT_KEY_HUD_ZOOM, this._pageCache.CharacterDepthFromCameraStart);
+                }
             }
-
-            UserDefaults.SharedUserDefault.SetBoolForKey(GameConstants.USER_DEFAULT_KEY_HUD_ZOOM, zoomIn);
         }
 
         public void HudOnJoystick(MoveDirection moveDirection)

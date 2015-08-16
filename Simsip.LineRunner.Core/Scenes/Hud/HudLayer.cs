@@ -68,6 +68,10 @@ namespace Simsip.LineRunner.Scenes.Hud
         private CCAction _footerLayerActionOut;
         private CCAction _hideFooterAnim;
         private CCAction _restoreFooterAnim;
+
+        // Zoom
+        private CCMenuItemImage _zoomInItem;
+        private CCMenuItemImage _zoomOutItem;
         
         // Trackball
         private CCMenuItemLabel _trackballItem;
@@ -382,24 +386,47 @@ namespace Simsip.LineRunner.Scenes.Hud
             this._headerLeftLayer.AddChild(hudHelpMenu);
 
             // Zoom
-            CCMenuItemImage zoomInToggle =
-                new CCMenuItemImage("Images/Icons/ZoomInButtonNormal.png",
-                                    "Images/Icons/ZoomInButtonSelected.png");
-            CCMenuItemImage zoomOutToggle =
-                new CCMenuItemImage("Images/Icons/ZoomOutButtonNormal.png",
-                                    "Images/Icons/ZoomOutButtonSelected.png");
-            var zoomToggle =
-                new CCMenuItemToggle((obj) => ZoomTogglePressed((obj as CCMenuItemToggle).SelectedIndex),
-                new CCMenuItem[] { zoomInToggle, zoomOutToggle });
+            var zoomOutButtonNormal = new CCSprite("Images/Icons/ZoomOutButtonNormal.png");
+            var zoomOutButtonSelected = new CCSprite("Images/Icons/ZoomOutButtonSelected.png");
+            this._zoomOutItem = new CCMenuItemImage((obj) => { this.ZoomOut(); });
+            this._zoomOutItem.NormalImage = zoomOutButtonNormal;
+            this._zoomOutItem.SelectedImage = zoomOutButtonSelected;
+
+            var zoomInButtonNormal = new CCSprite("Images/Icons/ZoomInButtonNormal.png");
+            var zoomInButtonSelected = new CCSprite("Images/Icons/ZoomInButtonSelected.png");
+            this._zoomInItem = new CCMenuItemImage((obj) => { this.ZoomIn(); });
+            this._zoomInItem.NormalImage = zoomInButtonNormal;
+            this._zoomInItem.SelectedImage = zoomInButtonSelected;
+
             var zoomMenu = new CCMenu(
-                new CCMenuItem[] 
+            new CCMenuItem[] 
                     {
-                        zoomToggle,
+                        this._zoomOutItem,
+                        this._zoomInItem,
                     });
+            zoomMenu.AlignItemsVerticallyWithPadding(
+                0.05f * headerLeftSize.Height);
+            zoomMenu.AnchorPoint = CCPoint.AnchorMiddle;
             zoomMenu.Position = new CCPoint(
-                0.5f * headerLeftSize.Width,
-                0.3f * headerLeftSize.Height);
+                0.55f * headerLeftSize.Width,
+                0.6f  * headerLeftSize.Height);
             this._headerLeftLayer.AddChild(zoomMenu);
+
+            var zoomText = string.Empty;
+#if ANDROID
+            zoomText = Program.SharedProgram.Resources.GetString(Resource.String.HudZoom);
+#elif IOS
+            zoomText = NSBundle.MainBundle.LocalizedString(Strings.HudZoom, Strings.HudZoom);
+#else
+            zoomText = AppResources.HudZoom;
+#endif
+            var zoomLabel = new CCLabelTTF(zoomText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
+            zoomLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
+            zoomLabel.AnchorPoint = CCPoint.AnchorMiddle;
+            zoomLabel.Position = new CCPoint(
+                0.55f * headerLeftSize.Width,
+                0.1f  * headerLeftSize.Height);
+            this._headerLeftLayer.AddChild(zoomLabel);
 
             // Speed
             var decreaseButtonNormal = new CCSprite("Images/Icons/DecreaseButtonNormal.png");
@@ -420,12 +447,12 @@ namespace Simsip.LineRunner.Scenes.Hud
                         decreaseButton,
                         increaseButton,
                     });
-            speedMenu.AlignItemsHorizontallyWithPadding(
-                0.05f * headerLeftSize.Width);
+            speedMenu.AlignItemsVerticallyWithPadding(
+                0.05f * headerLeftSize.Height);
             speedMenu.AnchorPoint = CCPoint.AnchorMiddle;
             speedMenu.Position = new CCPoint(
-                0.75f * headerLeftSize.Width,
-                0.6f  * headerLeftSize.Height);
+                0.8f * headerLeftSize.Width,
+                0.6f * headerLeftSize.Height);
             this._headerLeftLayer.AddChild(speedMenu);
 
             var speedText = string.Empty;
@@ -440,8 +467,8 @@ namespace Simsip.LineRunner.Scenes.Hud
             speedLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             speedLabel.AnchorPoint = CCPoint.AnchorMiddle;
             speedLabel.Position = new CCPoint(
-                0.75f * headerLeftSize.Width,
-                0.2f  * headerLeftSize.Height);
+                0.8f * headerLeftSize.Width,
+                0.1f * headerLeftSize.Height);
             this._headerLeftLayer.AddChild(speedLabel);
 
             // High score
@@ -838,7 +865,24 @@ namespace Simsip.LineRunner.Scenes.Hud
                 }
                 else
                 {
-                    this._inputManager.HudOnJoystick(this._joystickMoveDirection);
+                    switch(this._joystickMoveDirection)
+                    { 
+                        case MoveDirection.Forward:
+                            {
+                                this._inputManager.HudOnZoom(zoomIn: true);
+                                break;
+                            }
+                        case MoveDirection.Backward:
+                            {
+                                this._inputManager.HudOnZoom(zoomIn: false);
+                                break;
+                            }
+                        default:
+                            {
+                                this._inputManager.HudOnJoystick(this._joystickMoveDirection);
+                                break;
+                            }
+                    }
                 }
             }
 
@@ -1148,6 +1192,8 @@ namespace Simsip.LineRunner.Scenes.Hud
                         var jr = this._joystickRightItem.WorldBoundingBox;
                         var ju = this._joystickUpItem.WorldBoundingBox;
                         var jd = this._joystickDownItem.WorldBoundingBox;
+                        var zi = this._zoomInItem.WorldBoundingBox;
+                        var zo = this._zoomOutItem.WorldBoundingBox;
                         
                         if (CCRect.ContainsPoint(ref jl, ref p))
                         {
@@ -1168,6 +1214,16 @@ namespace Simsip.LineRunner.Scenes.Hud
                         {
                             this._joystickMoveDirection = MoveDirection.Down;
                             this._inputManager.HudOnJoystick(this._joystickMoveDirection);
+                        }
+                        else if (CCRect.ContainsPoint(ref zi, ref p))
+                        {
+                            this._joystickMoveDirection = MoveDirection.Forward;
+                            this._inputManager.HudOnZoom(zoomIn: true);
+                        }
+                        else if (CCRect.ContainsPoint(ref zo, ref p))
+                        {
+                            this._joystickMoveDirection = MoveDirection.Backward;
+                            this._inputManager.HudOnZoom(zoomIn: false);
                         }
 
                         break;
@@ -1332,7 +1388,7 @@ namespace Simsip.LineRunner.Scenes.Hud
             }
         }
 
-        private void ZoomTogglePressed(int selectedIndex)
+        private void ZoomIn()
         {
             // Short-circuit if dragging
             if (this._dragging != Dragging.None)
@@ -1340,14 +1396,24 @@ namespace Simsip.LineRunner.Scenes.Hud
                 return;
             }
 
-            if (selectedIndex == 0) // Zoom out
+            // Animate display of double tap help text
+            this.UpdateStatus1(this._doubleTapResetText);
+
+            this._inputManager.HudOnZoom(zoomIn: true);
+        }
+
+        private void ZoomOut()
+        {
+            // Short-circuit if dragging
+            if (this._dragging != Dragging.None)
             {
-                this._inputManager.HudOnZoom(zoomIn: false);
+                return;
             }
-            else                    // Zoom in
-            {
-                this._inputManager.HudOnZoom(zoomIn: true);
-            }
+
+            // Animate display of double tap help text
+            this.UpdateStatus1(this._doubleTapResetText);
+
+            this._inputManager.HudOnZoom(zoomIn: false);
         }
 
         private void DecreaseVelocity()

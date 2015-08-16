@@ -120,7 +120,8 @@ namespace Simsip.LineRunner.GameFramework
         public const string USER_DEFAULT_KEY_HUD_ORBIT_PITCH = "HudOrbitPitch";
         public const float USER_DEFAULT_INITIAL_HUD_ORBIT_PITCH = 0f;
         public const string USER_DEFAULT_KEY_HUD_ZOOM = "HudZoom";
-        public const bool USER_DEFAULT_INITIAL_HUD_ZOOM = false;
+        public const float USER_DEFAULT_INITIAL_HUD_ZOOM = 
+            GameConstants.DEFAULT_PAGE_DEPTH_FROM_CAMERA - GameConstants.DEFAULT_CHARACTER_DEPTH_FROM_PAGE;
 
         // Upgrades
         public const string USER_DEFAULT_KEY_START_PAGE = "StartPage";
