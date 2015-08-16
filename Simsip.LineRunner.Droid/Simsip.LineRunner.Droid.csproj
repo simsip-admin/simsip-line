@@ -4254,8 +4254,8 @@
       <Link>Assets\Content\Models\Obstacles\Pipe10-texture_0.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
-    <AndroidAsset Include="..\Simsip.LineRunner.Content\Fonts\Android\arial-core-8.xnb">
-      <Link>Assets\Content\Fonts\arial-core-8.xnb</Link>
+    <AndroidAsset Include="..\Simsip.LineRunner.Content\Fonts\Android\arial-core-16.xnb">
+      <Link>Assets\Content\Fonts\arial-core-16.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
     <None Include="packages.config" />

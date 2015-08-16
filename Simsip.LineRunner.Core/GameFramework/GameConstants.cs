@@ -23,7 +23,7 @@ namespace Simsip.LineRunner.GameFramework
 
         // Font settings
 #if ANDROID
-        public const string DEBUG_FONT = @"Fonts/arial-core-8";     // To be removed
+        public const string DEBUG_FONT = @"Fonts/arial-core-16";     // To be removed
 #elif DESKTOP
         public const string DEBUG_FONT = @"Fonts/arial-core-18";    // To be removed
 #elif IOS
@@ -35,14 +35,14 @@ namespace Simsip.LineRunner.GameFramework
 #endif
         public const string FONT_FAMILY_NORMAL = "arial-core";
 #if ANDROID
-        public const float FONT_SIZE_SMALL = 8f;
-        public const float FONT_SIZE_NORMAL = 8f;
-        public const float FONT_SIZE_LARGE = 8f;
-        public const float FONT_SIZE_X_LARGE = 8f;
-        public const float FONT_SIZE_SMALL_SCALE = 2f;      // 16
-        public const float FONT_SIZE_NORMAL_SCALE = 3f;     // 24
-        public const float FONT_SIZE_LARGE_SCALE = 4f;      // 32
-        public const float FONT_SIZE_X_LARGE_SCALE = 6f;    // 48
+        public const float FONT_SIZE_SMALL = 16f;
+        public const float FONT_SIZE_NORMAL = 16f;
+        public const float FONT_SIZE_LARGE = 16f;
+        public const float FONT_SIZE_X_LARGE = 16f;
+        public const float FONT_SIZE_SMALL_SCALE = 1f;      // 16
+        public const float FONT_SIZE_NORMAL_SCALE = 1.5f;   // 24
+        public const float FONT_SIZE_LARGE_SCALE = 2f;      // 32
+        public const float FONT_SIZE_X_LARGE_SCALE = 3f;    // 48
 #elif DESKTOP
         public const float FONT_SIZE_SMALL = 18f;
         public const float FONT_SIZE_NORMAL = 24f;
