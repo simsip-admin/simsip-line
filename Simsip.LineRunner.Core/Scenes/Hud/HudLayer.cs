@@ -789,7 +789,7 @@ namespace Simsip.LineRunner.Scenes.Hud
 #if ANDROID
             this._hudSpeedDefaultText = Program.SharedProgram.Resources.GetString(Resource.String.HudSpeedDefault);
 #elif IOS
-            this._hudSpeedDefaultText = NSBundle.MainBundle.LocalizedString(Strings.HudSpeed, Strings.HudSpeedDefault);
+            this._hudSpeedDefaultText = NSBundle.MainBundle.LocalizedString(Strings.HudSpeedDefault, Strings.HudSpeedDefault);
 #else
             this._hudSpeedDefaultText = AppResources.HudSpeedDefault; 
 #endif
