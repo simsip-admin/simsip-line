@@ -271,7 +271,7 @@ namespace Simsip.LineRunner.Scenes.Options
             // Record what was selected
             // IMPORTANT: Note how we use the suffix of the id for the selected pack. This is because the database
             //            has recorded only the suffix due to space/performance concerns
-            GameManager.SharedGameManager.LinerunnerPack = GetPackProductIdSuffix(selectedPackProductId);
+            GameManager.SharedGameManager.LinerunnerPack = InAppUtils.GetPackProductIdSuffix(selectedPackProductId);
 
             // Hook up an event handler for end of content loading caused by
             // refresh kicking off background load
@@ -280,11 +280,6 @@ namespace Simsip.LineRunner.Scenes.Options
             // Start the background refresh to get the new pad displayed. See 
             // LoadContentAsyncFinishedHandler for how we clean-up after refresh is finished
             this._parent.Refresh();
-        }
-
-        private string GetPackProductIdSuffix(string productId)
-        {
-            return productId.Replace(this._inAppService.LinerunnerPackPrefix, "");
         }
 
         private void LoadContentAsyncFinishedHandler(object sender, LoadContentAsyncFinishedEventArgs args)

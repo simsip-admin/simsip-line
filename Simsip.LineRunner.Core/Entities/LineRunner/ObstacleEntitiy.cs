@@ -46,5 +46,30 @@ namespace Simsip.LineRunner.Entities.LineRunner
         /// The Y offset in model coordinates to center the display particle effect at.
         /// </summary>
         public float DisplayParticleModelY { get; set; }
+
+        /// <summary>
+        /// The X offset in model coordinates for the origin of an optional spritesheet to play on the model.
+        /// </summary>
+        public float SpritesheetOriginX { get; set; }
+
+        /// <summary>
+        /// The Y offset in model coordinates for the origin of an optional spritesheet to play on the model.
+        /// </summary>
+        public float SpritesheetOriginY { get; set; }
+
+        /// <summary>
+        /// The Z offset in model coordinates for the origin of an optional spritesheet to play on the model.
+        /// </summary>
+        public float SpritesheetOriginZ { get; set; }
+
+        /// <summary>
+        /// The width in model coordinates for an optional spritesheet to play on the model.
+        /// </summary>
+        public float SpritesheetWidth { get; set; }
+
+        /// <summary>
+        /// The height in model coordinates for an optional spritesheet to play on the model.
+        /// </summary>
+        public float SpritesheetHeight { get; set; }
     }
 }
