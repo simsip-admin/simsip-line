@@ -48,6 +48,11 @@ namespace Simsip.LineRunner.Entities.LineRunner
         public float DisplayParticleModelY { get; set; }
 
         /// <summary>
+        /// If set, maps to an enumeration for a spritesheet type for the obstacle to use when displayed.
+        /// </summary>
+        public string SpritesheetType { get; set; }
+
+        /// <summary>
         /// The X offset in model coordinates for the origin of an optional spritesheet to play on the model.
         /// </summary>
         public float SpritesheetOriginX { get; set; }

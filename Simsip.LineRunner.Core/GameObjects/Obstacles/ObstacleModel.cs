@@ -30,6 +30,13 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         // to be retrieved from AssetManager
         private bool _allowCached;
 
+        // Spritesheet support
+        private SpritesheetType _spritesheetType;
+        private Vector3 _spritesheetOrigin;
+        private float _spritesheetWidth;
+        private float _spritesheetHeight;
+        private Texture2D _spritesheet;
+
         public ObstacleModel(ObstacleEntity obstacleEntity, PageObstaclesEntity pageObstaclesEntity, CustomContentManager customContentManager, bool allowCached = true)
         {
             TheObstacleEntity = obstacleEntity;
@@ -212,6 +219,9 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             this.DisplayParticleEffectDescs = ParticleEffectFactory.CreateObstacleDisplayParticles(this);
             this.HitParticleEffectDescs = ParticleEffectFactory.CreateObstacleHitParticles(this);
 
+            // Load optional spritesheet
+            this.LoadSpritesheet();
+
             // Default to no additional animation
             this.TheObstacleAnimationType = ObstacleAnimationType.None;
         }
@@ -227,5 +237,44 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
 
         #endregion
 
+        #region Helper methods
+
+        private void LoadSpritesheet()
+        {
+            if (string.IsNullOrEmpty(this.TheObstacleEntity.SpritesheetType))
+            {
+                this._spritesheetType = SpritesheetType.None;
+                return;
+            }
+
+            // Just doing tv decals for now
+            // TODO: Will need to expand in future
+            this._spritesheetType = 
+                (SpritesheetType)Enum.Parse(typeof(SpritesheetType), this.TheObstacleEntity.SpritesheetType);
+           
+            // Pick up with refactor of
+            // - decal origin, width, height (walk back to database, entity, etc.)
+            // - spritesheet references are to the png
+            // - How to load random given that other metadata is in filename?
+            // http://stackoverflow.com/questions/12914002/how-to-load-all-files-in-a-folder-with-xna
+            // Have an array of filenames
+            // Have a dictionary of Texture2Ds
+            // Request a random number to array of filenames
+            // Load if necessary into dictionary and then pull texture from dictionary
+            // Load random tv spritesheet
+
+            // Pick up with dissecting framerate, etc. 
+            var randomNumberGenerator = new Random();
+            var tvTextureNumber = randomNumberGenerator.Next(1, 99);
+
+            this._spritesheet = InAppUtils.GetTvSpritesheet(tvTextureNumber, this.TheCustomContentManager);
+
+            this._spritesheetHeight = this._spritesheet.Height;
+
+            string[] spritesheetComponents = this._spritesheet.Name.Split(new string[] { "." }, StringSplitOptions.None);
+
+
+        }
+        #endregion
     }
 }
