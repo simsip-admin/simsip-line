@@ -13,6 +13,7 @@ using Android.OS;
 using Xamarin.InAppBilling;
 using Xamarin.InAppBilling.Utilities;
 using System;
+using Android.Net;
 #elif IOS
 using StoreKit;
 using Foundation;
@@ -28,6 +29,7 @@ namespace Simsip.LineRunner.Services.Inapp
     public class InappService : IInappService
     {
         private InAppBillingServiceConnection _serviceConnection;
+        private bool _connected;
 
         public InappService()
         {
@@ -150,13 +152,40 @@ namespace Simsip.LineRunner.Services.Inapp
                     }
                 };
 
+                this._connected = true;
+
                 // Load inventory or available products
                 this.QueryInventory();
             };
 
-            // Attempt to connect to the service
-            _serviceConnection.Connect();
+            /* Leaving these in here just for reference
+            _serviceConnection.OnDisconnected += () =>
+            {
+                System.Diagnostics.Debug.WriteLine("Remove");
+            };
 
+            _serviceConnection.OnInAppBillingError += (error, message) =>
+                {
+                    System.Diagnostics.Debug.WriteLine("Remove");
+                };
+            */
+
+            // Are we connected to a network?
+            ConnectivityManager connectivityManager = (ConnectivityManager)Program.SharedProgram.GetSystemService(Program.ConnectivityService);
+            NetworkInfo activeConnection = connectivityManager.ActiveNetworkInfo;
+            if ((activeConnection != null) && activeConnection.IsConnected)
+            {
+                // Ok, carefully attempt to connect to the in-app service
+                try
+                {
+
+                    _serviceConnection.Connect();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exception trying to connect to in app service: " + ex);
+                }
+            }
         }
 
         public void HandleActivityResult(int requestCode, Result resultCode, Intent data)

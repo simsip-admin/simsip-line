@@ -94,7 +94,7 @@ namespace Simsip.LineRunner
                 relativeLayout.AddView(androidGameWindow.GameView, lp);
                 this.SetContentView(relativeLayout);
 
-                // Create an ad request.
+                // Create an ad request
                 AdRequest adRequest = new AdRequest.Builder()
                     .AddTestDevice("03f38988437cd73a")  // LGE Nexus 5
                     .Build();

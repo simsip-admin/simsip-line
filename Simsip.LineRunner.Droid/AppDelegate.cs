@@ -71,10 +71,7 @@ namespace Simsip.LineRunner
                                                   CCResolutionPolicy.NoBorder);
 
             // Load inapp service on main thread
-            /*
-            var inAppService = new InappService();
-            inAppService.Initialize();
-            */
+            // Note: Created in Program.OnCreate
             TheGame.SharedGame.Services.AddService(typeof(IInappService), Program.SharedProgram.TheInAppService);
 
             // Get initial loading screen displayed
