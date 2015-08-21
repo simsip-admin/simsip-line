@@ -240,9 +240,11 @@ namespace Simsip.LineRunner.Scenes.Options
             }
 
             // Highlight current pack
+#if ANDROID || IOS
             var currentPackProductId = this._inAppService.LinerunnerPackPrefix + GameManager.SharedGameManager.LinerunnerPack;
             var currentPackLabel = this._packLabels[currentPackProductId];
             currentPackLabel.Color = CCColor3B.Blue;
+#endif
         }
 
         #endregion
@@ -267,11 +269,12 @@ namespace Simsip.LineRunner.Scenes.Options
             var currentPackLabel = this._packLabels[selectedPackProductId];
             currentPackLabel.Color = CCColor3B.Blue;
 
-
+#if ANDROID || IOS
             // Record what was selected
             // IMPORTANT: Note how we use the suffix of the id for the selected pack. This is because the database
             //            has recorded only the suffix due to space/performance concerns
             GameManager.SharedGameManager.LinerunnerPack = InAppUtils.GetPackProductIdSuffix(selectedPackProductId);
+#endif
 
             // Hook up an event handler for end of content loading caused by
             // refresh kicking off background load

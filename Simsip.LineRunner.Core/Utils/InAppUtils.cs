@@ -15,7 +15,7 @@ namespace Simsip.LineRunner.Utils
         private static IList<string> _tvFilenames;
         private static IDictionary<string, Texture2D> _tvSpritesheets;
 
-        private static InAppUtils()
+        static InAppUtils()
         {
             InAppUtils._inAppService = (IInappService)TheGame.SharedGame.Services.GetService(typeof(IInappService));
             InAppUtils._assetManager = (IAssetManager)TheGame.SharedGame.Services.GetService(typeof(IAssetManager));
@@ -34,6 +34,7 @@ namespace Simsip.LineRunner.Utils
             return InAppUtils._inAppService.LinerunnerPackPrefix + productIdSuffix;
         }
 
+        // http://stackoverflow.com/questions/12914002/how-to-load-all-files-in-a-folder-with-xna
         public static Texture2D GetTvSpritesheet(int index, CustomContentManager customContentManager)
         {
             // Do we need to do our one-time initialization of filenames?

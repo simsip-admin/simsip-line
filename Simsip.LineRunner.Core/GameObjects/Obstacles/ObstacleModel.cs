@@ -1,4 +1,4 @@
-using Cocos2D;
+﻿using Cocos2D;
 using Engine.Assets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -31,11 +31,16 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
         private bool _allowCached;
 
         // Spritesheet support
-        private SpritesheetType _spritesheetType;
-        private Vector3 _spritesheetOrigin;
-        private float _spritesheetWidth;
-        private float _spritesheetHeight;
+        private DecalType _decalType;
+        private Vector3 _decalOrigin;
+        private float _decalWidth;
+        private float _decalHeight;
         private Texture2D _spritesheet;
+        private int _spritesheetFrameCount;
+        private float _timeSinceLastFrame;
+        private float _secondsPerFrame;
+        private int _currentFrameCount;
+        private SpriteBatch _spriteBatch;
 
         public ObstacleModel(ObstacleEntity obstacleEntity, PageObstaclesEntity pageObstaclesEntity, CustomContentManager customContentManager, bool allowCached = true)
         {
@@ -219,11 +224,39 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             this.DisplayParticleEffectDescs = ParticleEffectFactory.CreateObstacleDisplayParticles(this);
             this.HitParticleEffectDescs = ParticleEffectFactory.CreateObstacleHitParticles(this);
 
+#if ANDROID || IOS
             // Load optional spritesheet
             this.LoadSpritesheet();
+#endif
 
             // Default to no additional animation
             this.TheObstacleAnimationType = ObstacleAnimationType.None;
+        }
+
+        public override void Update(float dt)
+        {
+            if (this._decalType != DecalType.DecalTv)
+            {
+                if (this._spriteBatch == null)
+                {
+                    this._spriteBatch = new SpriteBatch(TheGame.SharedGame.GraphicsDevice);
+                }
+
+                this._timeSinceLastFrame += dt;
+                if (this._timeSinceLastFrame > this._secondsPerFrame)
+                {
+                    this._timeSinceLastFrame -= this._secondsPerFrame;
+
+                    ++this._currentFrameCount;
+
+                    if (this._currentFrameCount >= this._spritesheetFrameCount)
+                    {
+                        this._currentFrameCount = 0;
+                    }
+                }
+            }
+
+            base.Update(dt);
         }
 
         public override void Draw(Matrix view, Matrix projection, StockBasicEffect effect = null, EffectType type = EffectType.None)
@@ -233,48 +266,63 @@ namespace Simsip.LineRunner.GameObjects.Obstacles
             effect.TopClippingPlane = this.TopClippingPlane;
 
             base.Draw(view, projection, effect, type);
+
+            // http://gamedev.stackexchange.com/questions/24743/can-i-use-spritebatch-when-drawing-sprites-on-a-rotating-3d-plane
+		    // http://gamedev.stackexchange.com/questions/20155/xna-draw-a-sprite-in-3d-is-that-possible
+		    // http://xboxforums.create.msdn.com/forums/t/1796.aspx
+		    // http://blogs.msdn.com/b/shawnhar/archive/2010/06/18/spritebatch-and-renderstates-in-xna-game-studio-4-0.aspx
+            // TODO:
+            // - Rectangle is referencing decal width, when it needs to reference spritesheet width
+            if (this._decalType != DecalType.None)
+            {
+                this._spriteBatch.Begin(0, null, null, null, null, effect);
+                this._spriteBatch.Draw(
+                    this._spritesheet, 
+                    Vector2.Zero,
+                    new Rectangle((int)(this._spritesheetFrameCount * this._decalWidth),
+                                  0,
+                                  (int)this._decalWidth,
+                                  (int)this._decalHeight),
+                    Microsoft.Xna.Framework.Color.White, 
+                    0, 
+                    Vector2.Zero,
+                    1, 
+                    SpriteEffects.None, 
+                    0);
+                this._spriteBatch.End();
+            }
         }
 
         #endregion
 
         #region Helper methods
 
+#if ANDROID || IOS
         private void LoadSpritesheet()
         {
-            if (string.IsNullOrEmpty(this.TheObstacleEntity.SpritesheetType))
+            if (string.IsNullOrEmpty(this.TheObstacleEntity.DecalType))
             {
-                this._spritesheetType = SpritesheetType.None;
+                this._decalType = DecalType.None;
                 return;
             }
 
             // Just doing tv decals for now
             // TODO: Will need to expand in future
-            this._spritesheetType = 
-                (SpritesheetType)Enum.Parse(typeof(SpritesheetType), this.TheObstacleEntity.SpritesheetType);
-           
-            // Pick up with refactor of
-            // - decal origin, width, height (walk back to database, entity, etc.)
-            // - spritesheet references are to the png
-            // - How to load random given that other metadata is in filename?
-            // http://stackoverflow.com/questions/12914002/how-to-load-all-files-in-a-folder-with-xna
-            // Have an array of filenames
-            // Have a dictionary of Texture2Ds
-            // Request a random number to array of filenames
-            // Load if necessary into dictionary and then pull texture from dictionary
-            // Load random tv spritesheet
+            this._decalType = 
+                (DecalType)Enum.Parse(typeof(DecalType), this.TheObstacleEntity.DecalType);
 
-            // Pick up with dissecting framerate, etc. 
             var randomNumberGenerator = new Random();
             var tvTextureNumber = randomNumberGenerator.Next(1, 99);
 
             this._spritesheet = InAppUtils.GetTvSpritesheet(tvTextureNumber, this.TheCustomContentManager);
-
-            this._spritesheetHeight = this._spritesheet.Height;
-
             string[] spritesheetComponents = this._spritesheet.Name.Split(new string[] { "." }, StringSplitOptions.None);
+            this._spritesheetFrameCount = Int32.Parse(spritesheetComponents[1]);
+            this._secondsPerFrame = float.Parse(spritesheetComponents[2]) / 100f;
 
-
+            this._decalHeight = this._spritesheet.Height;
+            this._decalWidth = this._spritesheet.Width / this._spritesheetFrameCount;
         }
+#endif
         #endregion
     }
 }

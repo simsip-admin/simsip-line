@@ -50,31 +50,31 @@ namespace Simsip.LineRunner.Entities.LineRunner
         /// <summary>
         /// If set, maps to an enumeration for a spritesheet type for the obstacle to use when displayed.
         /// </summary>
-        public string SpritesheetType { get; set; }
+        public string DecalType { get; set; }
 
         /// <summary>
         /// The X offset in model coordinates for the origin of an optional spritesheet to play on the model.
         /// </summary>
-        public float SpritesheetOriginX { get; set; }
+        public float DecalOriginX { get; set; }
 
         /// <summary>
         /// The Y offset in model coordinates for the origin of an optional spritesheet to play on the model.
         /// </summary>
-        public float SpritesheetOriginY { get; set; }
+        public float DecalOriginY { get; set; }
 
         /// <summary>
         /// The Z offset in model coordinates for the origin of an optional spritesheet to play on the model.
         /// </summary>
-        public float SpritesheetOriginZ { get; set; }
+        public float DecalOriginZ { get; set; }
 
         /// <summary>
         /// The width in model coordinates for an optional spritesheet to play on the model.
         /// </summary>
-        public float SpritesheetWidth { get; set; }
+        public float DecalWidth { get; set; }
 
         /// <summary>
         /// The height in model coordinates for an optional spritesheet to play on the model.
         /// </summary>
-        public float SpritesheetHeight { get; set; }
+        public float DecalHeight { get; set; }
     }
 }

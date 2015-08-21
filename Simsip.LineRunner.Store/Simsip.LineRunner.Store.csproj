@@ -2145,6 +2145,9 @@
     <Compile Include="..\Simsip.LineRunner.Core\GameObjects\Characters\PlayerModel.cs">
       <Link>GameObjects\Characters\PlayerModel.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\GameObjects\DecalType.cs">
+      <Link>GameObjects\DecalType.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\GameObjects\GameModel.cs">
       <Link>GameObjects\GameModel.cs</Link>
     </Compile>

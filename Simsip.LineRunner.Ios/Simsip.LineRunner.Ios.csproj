@@ -235,6 +235,9 @@
     <Compile Include="..\Simsip.LineRunner.Core\GameObjects\Characters\PlayerModel.cs">
       <Link>GameObjects\Characters\PlayerModel.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\GameObjects\DecalType.cs">
+      <Link>GameObjects\DecalType.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\GameObjects\Lines\LineHitEventArgs.cs">
       <Link>GameObjects\Lines\LineHitEventArgs.cs</Link>
     </Compile>
@@ -324,6 +327,9 @@
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Services\Inapp\InappService.cs">
       <Link>Services\Inapp\InappService.cs</Link>
+    </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Utils\InAppUtils.cs">
+      <Link>Utils\InAppUtils.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\ViewModels\BaseViewModel.cs">
       <Link>ViewModels\BaseViewModel.cs</Link>
