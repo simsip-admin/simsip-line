@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <SilverlightApplication>true</SilverlightApplication>
-    <SupportedCultures>de;es;fr;hi-IN;id-ID;it;ja-JP;ko-KR;nl;pl-PL;pt-BR;pt;ru-RU;zh-Hans;zh-Hant</SupportedCultures>
+    <SupportedCultures>de;es;fr;hi-IN;id-ID;it;ja-JP;nl;pl-PL;pt-BR;pt;ru-RU;zh-Hans;zh-Hant</SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>EmptyProject_$(Configuration)_$(Platform).xap</XapFilename>
@@ -4334,13 +4334,6 @@
       <DependentUpon>AppResources.ja-JP.xlf</DependentUpon>
       <culture>ja-JP</culture>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.ko-KR.resx">
-      <Link>Resources\AppResources.ko-KR.resx</Link>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AppResources.ko-KR.xlf</DependentUpon>
-      <culture>ko-KR</culture>
-    </EmbeddedResource>
     <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.nl.resx">
       <Link>Resources\AppResources.nl.resx</Link>
       <AutoGen>True</AutoGen>
@@ -4431,11 +4424,6 @@
       <Link>Resources\AppResources.ja-JP.xlf</Link>
       <Generator>XliffResxGenerator</Generator>
       <LastGenOutput>AppResources.ja-JP.resx</LastGenOutput>
-    </XliffResource>
-    <XliffResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.ko-KR.xlf">
-      <Link>Resources\AppResources.ko-KR.xlf</Link>
-      <Generator>XliffResxGenerator</Generator>
-      <LastGenOutput>AppResources.ko-KR.resx</LastGenOutput>
     </XliffResource>
     <XliffResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.nl.xlf">
       <Link>Resources\AppResources.nl.xlf</Link>

@@ -92,7 +92,9 @@ public static class ResxUtilities
 		// Appresources.pt-BR.resx => pt_BR
         if (foo.Count() > 2)
         {
-			if (foo[1].Equals("pt-BR", StringComparison.CurrentCultureIgnoreCase))
+			if ( (foo[1].Equals("pt-BR",   StringComparison.CurrentCultureIgnoreCase)) ||
+				 (foo[1].Equals("zh-Hans", StringComparison.CurrentCultureIgnoreCase)) ||
+				 (foo[1].Equals("zh-Hant", StringComparison.CurrentCultureIgnoreCase)) ) 
 			{
 				lang = foo[1].Replace("-", "_");
 			}

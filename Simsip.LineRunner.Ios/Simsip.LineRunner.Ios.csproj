@@ -54,7 +54,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhone\Debug</OutputPath>
-    <DefineConstants>DEBUG;__UNIFIED__;__MOBILE__;__IOS__;__UNIFIED__;__MOBILE__;__IOS__;__UNIFIED__;__MOBILE__;__IOS__;__UNIFIED__;__MOBILE__;__IOS__;__UNIFIED__;__MOBILE__;__IOS__;IPHONE;IOS;ADVERTISING_OFF</DefineConstants>
+    <DefineConstants>DEBUG;__UNIFIED__;__MOBILE__;__IOS__;__UNIFIED__;__MOBILE__;__IOS__;__UNIFIED__;__MOBILE__;__IOS__;__UNIFIED__;__MOBILE__;__IOS__;__UNIFIED__;__MOBILE__;__IOS__;__UNIFIED__;__MOBILE__;__IOS__;IPHONE;IOS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -1131,8 +1131,8 @@
       <Link>Content\Models\Obstacles\Pipe10-texture_0.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Simsip.LineRunner.Content\Fonts\IOS\arial-core-24.xnb">
-      <Link>Content\Fonts\arial-core-24.xnb</Link>
+    <Content Include="..\Simsip.LineRunner.Content\Fonts\IOS\arial-core-16.xnb">
+      <Link>Content\Fonts\arial-core-16.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="..\Simsip.LineRunner.Core\Mercury\EffectLibrary\BasicExplosion.xml">
@@ -4240,7 +4240,6 @@
     <Content Include="it.lproj\Localizable.strings" />
     <Content Include="nl.lproj\Localizable.strings" />
     <Content Include="ja.lproj\Localizable.strings" />
-    <Content Include="ko.lproj\Localizable.strings" />
     <None Include="packages.config" />
     <Content Include="pl.lproj\Localizable.strings" />
     <Content Include="pt_BR.lproj\Localizable.strings" />
@@ -4251,7 +4250,8 @@
     <BundleResource Include="Resources\Icon-Small-40%402x.png" />
     <BundleResource Include="Resources\Icon%402x.png" />
     <Content Include="ru.lproj\Localizable.strings" />
-    <Content Include="zh.lproj\Localizable.strings" />
+    <Content Include="zh_Hans.lproj\Localizable.strings" />
+    <Content Include="zh_Hant.lproj\Localizable.strings" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

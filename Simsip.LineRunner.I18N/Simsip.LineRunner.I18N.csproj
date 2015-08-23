@@ -81,10 +81,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.ja-JP.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\AppResources.ko-KR.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResources.ko-KR.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\AppResources.nl.resx" />
     <EmbeddedResource Include="Resources\AppResources.pl-PL.resx" />
     <EmbeddedResource Include="Resources\AppResources.pt-BR.resx" />
@@ -113,26 +109,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Resources\AppResources.ja-JP.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AppResources.ja-JP.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\AppResources.ko-KR.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AppResources.ko-KR.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\AppResources.zh-Hans.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AppResources.zh-Hans.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\AppResources.zh-Hant.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AppResources.zh-Hant.resx</DependentUpon>
-    </Compile>
     <Compile Include="Resources\Resx2OthersTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -151,7 +127,6 @@
     <XliffResource Include="Resources\AppResources.id-ID.xlf" />
     <XliffResource Include="Resources\AppResources.it.xlf" />
     <XliffResource Include="Resources\AppResources.ja-JP.xlf" />
-    <XliffResource Include="Resources\AppResources.ko-KR.xlf" />
     <XliffResource Include="Resources\AppResources.nl.xlf" />
     <XliffResource Include="Resources\AppResources.pl-PL.xlf" />
     <XliffResource Include="Resources\AppResources.pt-BR.xlf" />
@@ -179,13 +154,13 @@
 ..\..\Simsip.LineRunner.Ios\id.lproj\Localizable.strings
 ..\..\Simsip.LineRunner.Ios\it.lproj\Localizable.strings
 ..\..\Simsip.LineRunner.Ios\ja.lproj\Localizable.strings
-..\..\Simsip.LineRunner.Ios\ko.lproj\Localizable.strings
 ..\..\Simsip.LineRunner.Ios\nl.lproj\Localizable.strings
 ..\..\Simsip.LineRunner.Ios\pl.lproj\Localizable.strings
 ..\..\Simsip.LineRunner.Ios\pt.lproj\Localizable.strings
 ..\..\Simsip.LineRunner.Ios\pt_BR.lproj\Localizable.strings
 ..\..\Simsip.LineRunner.Ios\ru.lproj\Localizable.strings
-..\..\Simsip.LineRunner.Ios\zh.lproj\Localizable.strings
+..\..\Simsip.LineRunner.Ios\zh_Hans.lproj\Localizable.strings
+..\..\Simsip.LineRunner.Ios\zh_Hant.lproj\Localizable.strings
 .\Resx2Others.log
 .\Strings.cs
 </LastOutputs>

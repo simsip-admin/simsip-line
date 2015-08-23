@@ -4285,7 +4285,6 @@
     <AndroidResource Include="Resources\values-in\AppResources.xml" />
     <AndroidResource Include="Resources\values-it\AppResources.xml" />
     <AndroidResource Include="Resources\values-ja-rJP\AppResources.xml" />
-    <AndroidResource Include="Resources\values-ko-rKR\AppResources.xml" />
     <AndroidResource Include="Resources\values-nl\AppResources.xml" />
     <AndroidResource Include="Resources\values-pl-rPL\AppResources.xml" />
     <AndroidResource Include="Resources\values-pt-rBR\AppResources.xml" />
