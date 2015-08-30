@@ -99,6 +99,10 @@
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <DefineConstants>__UNIFIED__;__MOBILE__;__IOS__;IOS</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodesignProvision>bcefb2d2-3f15-46b5-8e15-1fb3e8af1e09</CodesignProvision>
+    <CodesignEntitlements />
+    <CodesignResourceRules />
+    <CodesignExtraArgs />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
     <DebugType>none</DebugType>
