@@ -13,6 +13,10 @@ namespace Simsip.LineRunner
 {
     public class TheGame : Game
     {
+        // Staging for controlling fps in future release
+        private const float timeToNextUpdate = 1.0f / 30.0f;
+        private float timeSinceLastUpdate;
+
         /// <summary>
         /// Used to signal first stage of initialization is done.
         /// </summary>
@@ -97,6 +101,12 @@ namespace Simsip.LineRunner
 
         protected override void Update(GameTime gameTime)
         {
+            // Protect against battery drain
+            if (!this.IsActive)
+            {
+                return;
+            }
+
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             {
@@ -105,6 +115,32 @@ namespace Simsip.LineRunner
 
             // Now let all other game compenents update
             base.Update(gameTime);
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+            // Protect against battery drain
+            if (!this.IsActive)
+            {
+                return;
+            }
+
+            // Draw game
+            base.Draw(gameTime);
+
+            /*
+            timeSinceLastUpdate += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (timeSinceLastUpdate >= timeToNextUpdate)
+            {
+                // Update game
+                base.Draw(gameTime);
+
+                timeSinceLastUpdate = 0;
+            }
+
+            // Systems you don't want to limit would be updated here
+            */
         }
 
         private void ProcessBackClick()
