@@ -56,8 +56,11 @@ namespace Simsip.LineRunner
             this._graphicsDeviceManager.PreferredDepthStencilFormat = DepthFormat.Depth24;
             
             // Frame rate is 30 fps by default for Windows Phone.
+            TargetElapsedTime = TimeSpan.FromTicks(333333);
             // Divide by 2 to make it 60 fps
-            TargetElapsedTime = TimeSpan.FromTicks(333333 / 2);
+            // TargetElapsedTime = TimeSpan.FromTicks(333333 / 2);
+
+            // Leaving in - in case we want to come back to this for battery drain issues
             // this._graphicsDeviceManager.PreparingDeviceSettings += new EventHandler<PreparingDeviceSettingsEventArgs>(graphics_PreparingDeviceSettings);
             
             // Extend battery life under lock.

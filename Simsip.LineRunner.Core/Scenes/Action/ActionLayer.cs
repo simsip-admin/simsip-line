@@ -524,6 +524,7 @@ namespace Simsip.LineRunner.Scenes.Action
             //
 
             // Determine camera and hero position we will use
+            var isVirtual = virtualCamera != null;
             var camera = virtualCamera == null ? this._inputManager.LineRunnerCamera : virtualCamera;
             var heroPosition = virtualHeroPosition == null ? 
                 this._characterCache.TheHeroModel.WorldOrigin : 
@@ -555,10 +556,21 @@ namespace Simsip.LineRunner.Scenes.Action
             {
                 offsetX = heroPosition.X - this._inputManager.HudCameraOffsetX;
             }
-            camera.Target = new Vector3(
-                offsetX,
-                centerLineWorldHeight + this._inputManager.HudCameraOffsetY,
-                heroPosition.Z);
+            if (isVirtual)
+            {
+                camera.Target = new Vector3(
+                    offsetX,
+                    centerLineWorldHeight + this._inputManager.HudCameraOffsetY,
+                    heroPosition.Z);
+            }
+            else
+            {
+                var cameraNewTarget = new Vector3(
+                    offsetX,
+                    centerLineWorldHeight + this._inputManager.HudCameraOffsetY,
+                    heroPosition.Z);
+                camera.Target = Vector3.Lerp(camera.Target, cameraNewTarget, 0.1f);
+            }
 
             // 2. We now want to add any orbit adjustments made by the user. We do this by
             //    rotating around the just set camera target

@@ -27,6 +27,7 @@ namespace Simsip.LineRunner.Physics
             // may depend on this already being in place (e.g., InputManager)
             this.TheSpace = new Space();
             this.TheSpace.ForceUpdater.Gravity = new BEPUutilities.Vector3(0, -9.81f, 0);
+            this.TheSpace.TimeStepSettings.TimeStepDuration = 1f / 30;
         }
 
         #region GameComponent Overrides
