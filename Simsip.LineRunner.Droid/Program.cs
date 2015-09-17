@@ -10,7 +10,12 @@ using AuditApp.Common;
 using Microsoft.Xna.Framework;
 using System;
 using Android.Content;
+#if CHINA
+using Com.Mobvista.Cloud.Sdk;
+#else
 using Android.Gms.Ads;
+#endif
+
 // TODO: Kamcord
 // using Com.Kamcord.Android;
 using Simsip.LineRunner.Views;
@@ -41,7 +46,13 @@ namespace Simsip.LineRunner
 
         public static Program SharedProgram { get; private set; }
 
+#if CHINA
+        private MobvistaAd _mobvistaAd;
+        public View Ad { get; private set; }
+#else
         public AdView Ad { get; private set; }
+#endif
+
 
         private bool _allowRating;
 
@@ -67,11 +78,19 @@ namespace Simsip.LineRunner
                 AndroidPlaystoreAudit.Instance.OnReviewAppPlaystore = this;
 
                 // Create the add banner.
-                Ad = new AdView(this);
-                Ad.AdUnitId = "ca-app-pub-1449829469918284/9470451252";
-                Ad.AdSize = AdSize.Banner;
-                Ad.LayoutParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent);
-                Ad.Id = 1;
+#if CHINA
+                //Initialization SDK
+                this._mobvistaAd = new MobvistaAd(this, "21448", "331b27b08dab30a7ac76f9f9ff757d99");
+                this.Ad = this._mobvistaAd.GetBannerAdView(this, null);
+                this.Ad.LayoutParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent);
+                this.Ad.Id = 1;
+#else
+                this.Ad = new AdView(this);
+                this.Ad.AdUnitId = "ca-app-pub-1449829469918284/9470451252";
+                this.Ad.AdSize = AdSize.Banner;
+                this.Ad.LayoutParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent);
+                this.Ad.Id = 1;
+#endif
 
                 // Create the game
                 // TODO: New monogame
@@ -94,13 +113,15 @@ namespace Simsip.LineRunner
                 relativeLayout.AddView(androidGameWindow.GameView, lp);
                 this.SetContentView(relativeLayout);
 
+#if !CHINA
                 // Create an ad request
                 AdRequest adRequest = new AdRequest.Builder()
                     .AddTestDevice("03f38988437cd73a")  // LGE Nexus 5
                     .Build();
 
                 // Start loading the ad in the background.
-                Ad.LoadAd(adRequest);
+                this.Ad.LoadAd(adRequest);
+#endif
 
                 // Register the crash manager before Initializing the trace writer
                 HockeyApp.CrashManager.Register(this, HOCKEYAPP_APPID);
@@ -149,7 +170,6 @@ namespace Simsip.LineRunner
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
-
             // Ask the open service connection's billing handler to process this request
             var inappService = (IInappService)TheGame.SharedGame.Services.GetService(typeof(IInappService));
             if (inappService != null)
@@ -167,18 +187,50 @@ namespace Simsip.LineRunner
 
         protected override void OnDestroy()
         {
+#if CHINA
+            this._mobvistaAd.OnDestory();
+#else
             // Destroy the AdView.
-            Ad.Destroy();
+            this.Ad.Destroy();
+#endif
 
             // If we are attached to the Google Play Service then disconnect
+#if !CHINA
             var inappService = (IInappService)TheGame.SharedGame.Services.GetService(typeof(IInappService));
             if (inappService != null)
             {
                 inappService.OnDestroy();
             }
+#endif
 
             base.OnDestroy();
         }
+
+#if CHINA
+        protected override void OnResume() 
+        {
+            base.OnResume();
+            this._mobvistaAd.OnResume();
+        }
+    
+        protected override void OnPause() 
+        {
+            base.OnPause();
+            this._mobvistaAd.OnPause();
+        }
+
+        protected override void OnStart() 
+        {
+            base.OnStart();
+            this._mobvistaAd.OnStart();
+        }
+    
+        protected override void OnStop() 
+        {
+            base.OnStop();
+            this._mobvistaAd.OnStop();
+        }
+#endif
 
         // Summary:
         //     Return 'True' if you want to proceed to the app store without interuption

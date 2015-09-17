@@ -139,7 +139,13 @@ namespace Simsip.LineRunner.Scenes.Help
 #else
             versionText = AppResources.CommonVersion;
 #endif
-            var versionHeader = new CCLabelTTF(versionText + " " + FileUtils.GetVersion(), GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
+            var version = FileUtils.GetVersion() + " (" + FileUtils.GetBuild();
+#if CHINA
+            version += "-zh)";
+#else
+            version += ")";
+#endif
+            var versionHeader = new CCLabelTTF(versionText + " " + version, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_SMALL);
             versionHeader.Scale = GameConstants.FONT_SIZE_SMALL_SCALE;
             versionHeader.Position = new CCPoint(
                 0.5f  * this.ContentSize.Width,

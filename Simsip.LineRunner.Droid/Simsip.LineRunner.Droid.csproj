@@ -29,7 +29,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;ANDROID;DEBUG_DRAW</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;ANDROID;DEBUG_DRAW;CHINA;TEST_INAPP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
@@ -2919,6 +2919,9 @@
     <Compile Include="..\Simsip.LineRunner.Core\Services\Inapp\InappService.cs">
       <Link>Services\Inapp\InappService.cs</Link>
     </Compile>
+    <Compile Include="..\Simsip.LineRunner.Core\Services\Inapp\PaymentStatusReceiver.cs">
+      <Link>Services\Inapp\PaymentStatusReceiver.cs</Link>
+    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Services\OAuth\IOAuthService.cs">
       <Link>Services\OAuth\IOAuthService.cs</Link>
     </Compile>
@@ -4347,6 +4350,14 @@
     <ProjectReference Include="..\..\cocos2d-xna\MonoGame\MonoGame.Framework\MonoGame.Framework.Net.Android.csproj">
       <Project>{713ee5ca-c850-42ad-ac67-b6546ac8bffb}</Project>
       <Name>MonoGame.Framework.Net.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fortumo\Fortumo.csproj">
+      <Project>{7a079156-c63a-4948-bd73-2da0a5a0aa8f}</Project>
+      <Name>Fortumo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mobvista\Mobvista.csproj">
+      <Project>{2fdf9857-1b6a-4e26-b4d7-7e9f935b13ca}</Project>
+      <Name>Mobvista</Name>
     </ProjectReference>
     <ProjectReference Include="..\Simsip.LineRunner.I18N\Simsip.LineRunner.I18N.csproj">
       <Project>{a35dc14f-22ce-46ac-9b0e-bab2047e4aed}</Project>

@@ -14,6 +14,8 @@ using Xamarin.InAppBilling;
 using Xamarin.InAppBilling.Utilities;
 using System;
 using Android.Net;
+using MP;
+using Android;
 #elif IOS
 using StoreKit;
 using Foundation;
@@ -24,7 +26,429 @@ using System;
 
 namespace Simsip.LineRunner.Services.Inapp
 {
+#if CHINA
+
+    public class InappService : IInappService
+    {
+        public static InappService SharedInstance;
+
+#if TEST_INAPP
+        // See here to simulute different types of transactions
+        // https://fortumo.com/services/b3341490ed43018b752f8fe66f6d31e4/test
+        private const string _serviceId = "b3341490ed43018b752f8fe66f6d31e4";
+        private const string _inAppSecret = "2a77939be22e5060b499953b4b0fa905";
+        private const string _productName = "practicemode.qa";
+#else
+        private const string _serviceId = "280a71b1ce503267f11388ba6a8e76cf";
+        private const string _inAppSecret = "d06cb13a4f8895ec3b919565d225012c";
+        private const string _productName = "practicemode";
+#endif
+
+        // We'll go for 10 second time-out for async calls that have a timeout parameter
+        private const int _timeOut = 10;
+
+        public InappService()
+        {
+            // Register as service
+            // TheGame.SharedGame.Services.AddService(typeof(IInappService), this);
+
+            InappService.SharedInstance = this;
+        }
+
+        #region IInappService implementation
+
+        public string PracticeModeProductId { get { return "com.simsip.linerunner.practicemode"; } }
+
+        public void Initialize()
+        {
+            // Load inventory of available products
+            this.QueryInventory();
+        }
+
+        public void QueryInventory()
+        {
+            // Are we connected to a network?
+            ConnectivityManager connectivityManager = (ConnectivityManager)Program.SharedProgram.GetSystemService(Program.ConnectivityService);
+            NetworkInfo activeConnection = connectivityManager.ActiveNetworkInfo;
+            if ((activeConnection != null) && activeConnection.IsConnected)
+            {
+                // Ok, carefully attempt to connect to the in-app service
+                try
+                {
+                    // Asynchronously get inventory
+                    Task.Factory.StartNew(() =>
+                        MP.MpUtils.FetchPaymentData(Android.App.Application.Context, InappService._serviceId, InappService._inAppSecret));
+
+                    // Asnchronously get purchases
+                    Task.Factory.StartNew(() =>
+                        {
+                            var responses = MP.MpUtils.GetPurchaseHistory(Android.App.Application.Context, InappService._serviceId, InappService._inAppSecret, InappService._timeOut);
+
+                            // Record what we purchased
+                            foreach (var response in responses)
+                            {
+                                var paymentResponse = response as PaymentResponse;
+
+                                // Sanity checks
+                                if (paymentResponse == null || 
+                                    paymentResponse.BillingStatus != MP.MpUtils.MessageStatusBilled)
+                                {
+                                    continue;
+                                }
+
+                                // Ok to record payment
+                                this.UpdatePayment(paymentResponse);
+                            }
+                        });
+
+                    // Get local inventory
+                    // IMPORTANT: First time this is called, result will be empty)
+                    var priceData = MP.MpUtils.GetFetchedPriceData(Android.App.Application.Context, InappService._serviceId, InappService._inAppSecret);
+
+                    // TODO: Process priceData
+                    // Update inventory
+                    var inAppSkuRepository = new InAppSkuRepository();
+                    /*
+                    foreach (var product in products)
+                    {
+                        var existingProduct = inAppSkuRepository.GetSkuByProductId(product.ProductId);
+                        if (existingProduct != null)
+                        {
+                            existingProduct.Type = ItemType.Product;
+                            existingProduct.Price = product.Price;
+                            existingProduct.Title = product.Title;
+                            existingProduct.Description = product.Description;
+                            existingProduct.PriceCurrencyCode = product.Price_Currency_Code;
+
+                            inAppSkuRepository.Update(existingProduct);
+                        }
+                        else
+                        {
+                            var newProduct = new InAppSkuEntity();
+                            newProduct.ProductId = product.ProductId;
+                            newProduct.Type = ItemType.Product;
+                            newProduct.Price = product.Price;
+                            newProduct.Title = product.Title;
+                            newProduct.Description = product.Description;
+                            newProduct.PriceCurrencyCode = product.Price_Currency_Code;
+
+                            inAppSkuRepository.Create(newProduct);
+                        }
+                    }
+                    */
+
+                    this.FireOnQueryInventory();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exception trying to connect to in app service: " + ex);
+                    this.FireOnQueryInventoryError(-1, null);
+                }
+            }
+        }
+
+        public void PurchaseProduct(string productId)
+        {
+            try
+            {
+                // In case we need to process a delayed payment, otherwise our HandleActivityResult below will handle
+                MpUtils.EnablePaymentBroadcast(Android.App.Application.Context, "com.simsip.permission.PAYMENT_BROADCAST_PERMISSION");
+
+                PaymentRequest.PaymentRequestBuilder builder = new PaymentRequest.PaymentRequestBuilder();
+
+                builder.SetService(InappService._serviceId, InappService._inAppSecret);
+
+                var practiceText = string.Empty;
 #if ANDROID
+                practiceText = Program.SharedProgram.Resources.GetString(Resource.String.UpgradesPractice);
+#elif IOS
+            practiceText = NSBundle.MainBundle.LocalizedString(Strings.UpgradesPractice, Strings.UpgradesPractice);
+#else
+            practiceText = AppResources.UpgradesPractice;
+#endif
+                builder.SetDisplayString(practiceText);
+
+                // Non-consumable purchases are restored using this value
+                builder.SetProductName(InappService._productName);
+
+                // Non-consumable items can be later restored
+                builder.SetType(MpUtils.ProductTypeNonConsumable);
+
+                builder.SetIcon(Resource.Drawable.icon);
+
+                PaymentRequest pr = builder.Build();
+
+                // Can be anything
+                int REQUEST_CODE = 1234;
+
+                Program.SharedProgram.StartActivityForResult(pr.ToIntent(Android.App.Application.Context), REQUEST_CODE);
+            }
+            catch(Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception in PurchaseProduct: " + ex);
+            }
+        }
+
+        public void HandleActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            // TODO: What is this for?
+            if(data == null) 
+            {
+				return;
+			}
+
+            try
+            {
+                if (resultCode == Result.Ok)
+                {
+                    var paymentResponse = new PaymentResponse(data);
+
+                    switch (paymentResponse.BillingStatus)
+                    {
+                        case MpUtils.MessageStatusBilled:
+                            {
+                                // Record what we purchased
+                                this.UpdatePayment(paymentResponse);
+
+                                // Let anyone know who is interested that purchase has completed
+                                this.FireOnPurchaseProduct(paymentResponse.BillingStatus, null, string.Empty, string.Empty);
+
+                                break;
+                            }
+                        case MpUtils.MessageStatusNotSent:
+                        case MpUtils.MessageStatusFailed:
+                            {
+                                InappService.SharedInstance.FireOnPurchaseProductError(paymentResponse.BillingStatus, string.Empty);
+                                break;
+                            }
+                        case MpUtils.MessageStatusPending:
+                            {
+                                break;
+                            }
+                    }
+                }
+                else
+                {
+                    // Cancel
+                    this.FireOnUserCanceled();
+                }
+            }
+            catch(Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception in HandleActivityResult: " + ex);
+                this.FireOnPurchaseProductError(-1, string.Empty);
+            }
+		}
+
+        public void RestoreProducts()
+        {
+            // Are we connected to a network?
+            ConnectivityManager connectivityManager = (ConnectivityManager)Program.SharedProgram.GetSystemService(Program.ConnectivityService);
+            NetworkInfo activeConnection = connectivityManager.ActiveNetworkInfo;
+            if ((activeConnection != null) && activeConnection.IsConnected)
+            {
+                // Ok, carefully attempt to connect to the in-app service
+                try
+                {
+                    var responses = MP.MpUtils.GetPurchaseHistory(Android.App.Application.Context, InappService._serviceId, InappService._inAppSecret, InappService._timeOut);
+
+                    if (responses.Count == 0)
+                    {
+                        this.FireOnRestoreProductsError(-1, null);
+                    }
+                    else
+                    {
+                        // Record what we purchased
+                        bool foundProduct = false;
+                        foreach (var response in responses)
+                        {
+                            var paymentResponse = response as PaymentResponse;
+
+                            // Sanity checks
+                            if (paymentResponse == null ||
+                                paymentResponse.BillingStatus != MP.MpUtils.MessageStatusBilled)
+                            {
+                                continue;
+                            }
+
+                            if (paymentResponse.ServiceId == InappService._serviceId)
+                            {
+                                // Ok to record payment
+                                this.UpdatePayment(paymentResponse);
+                                foundProduct = true;
+                            }
+                        }
+
+                        // Notifiy anyone who needs to know outcome
+                        if (foundProduct)
+                        {
+                            this.FireOnRestoreProducts();
+                        }
+                        else
+                        {
+                            this.FireOnRestoreProductsError(-1, null);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exception in RestoreProducts: " + ex);
+                    this.FireOnRestoreProductsError(-1, null);
+                }
+            }
+            else
+            {
+                this.FireOnRestoreProductsError(-1, null);
+            }
+        }
+
+        public void RefundProduct()
+        {
+            // No-op
+        }
+
+        public event OnQueryInventoryDelegate OnQueryInventory;
+
+        public event OnPurchaseProductDelegate OnPurchaseProduct;
+
+        public event OnRestoreProductsDelegate OnRestoreProducts;
+
+        public event OnQueryInventoryErrorDelegate OnQueryInventoryError;
+
+        public event OnPurchaseProductErrorDelegate OnPurchaseProductError;
+
+        public event OnRestoreProductsErrorDelegate OnRestoreProductsError;
+
+        public event OnUserCanceledDelegate OnUserCanceled;
+
+        public event OnInAppBillingProcessingErrorDelegate OnInAppBillingProcesingError;
+
+        public event OnInvalidOwnedItemsBundleReturnedDelegate OnInvalidOwnedItemsBundleReturned;
+
+        public event OnPurchaseFailedValidationDelegate OnPurchaseFailedValidation;
+
+        public void FireOnQueryInventory()
+        {
+            if (this.OnQueryInventory != null)
+            {
+                this.OnQueryInventory();
+            }
+        }
+
+        public void FireOnQueryInventoryError(int responseCode, Bundle skuDetails)
+        {
+            if (this.OnQueryInventoryError != null)
+            {
+                this.OnQueryInventoryError(responseCode, null);
+            }
+        }
+
+        public void FireOnPurchaseProduct(int response, Purchase purchase, string purchaseData, string purchaseSignature)
+        {
+            if (this.OnPurchaseProduct != null)
+            {
+                this.OnPurchaseProduct();
+            }
+        }
+
+        public void FireOnPurchaseProductError(int responseCode, string sku)
+        {
+            if (this.OnPurchaseProductError != null)
+            {
+                this.OnPurchaseProductError(responseCode, sku);
+            }
+        }
+
+        public void FireOnRestoreProducts()
+        {
+            if (this.OnRestoreProducts != null)
+            {
+                this.OnRestoreProducts();
+            }
+        }
+
+        public void FireOnRestoreProductsError(int responseCode, IDictionary<string, object> skuDetails)
+        {
+            if (this.OnRestoreProductsError != null)
+            {
+                this.OnRestoreProductsError(responseCode, skuDetails);
+            }
+        }
+
+        public void FireOnOnInAppBillingProcesingError(string message)
+        {
+            if (this.OnInAppBillingProcesingError != null)
+            {
+                this.OnInAppBillingProcesingError(message);
+            }
+        }
+
+        public void FireOnUserCanceled()
+        {
+            if (this.OnUserCanceled != null)
+            {
+                this.OnUserCanceled();
+            }
+        }
+
+        public string SimsipToFortumoProductId(string simsipProductId)
+        {
+            string result = string.Empty;
+
+            if (simsipProductId == this.PracticeModeProductId)
+            {
+                result = InappService._serviceId;
+            }
+
+            return result;
+        }
+
+        public string FortumoToSimsipProductId(string fortumoProductId)
+        {
+            string result = string.Empty;
+
+            if (fortumoProductId == InappService._serviceId)
+            {
+                result = this.PracticeModeProductId;
+            }
+
+            return result;
+        }
+
+        public void UpdatePayment(PaymentResponse paymentResponse)
+        {
+            var simsipProductId = this.FortumoToSimsipProductId(paymentResponse.ServiceId);
+            var inAppPurchaseRepository = new InAppPurchaseRepository();
+
+            var existingPurchase = inAppPurchaseRepository.GetPurchaseByProductId(simsipProductId);
+
+            if (existingPurchase == null)
+            {
+                var newPurchase = new InAppPurchaseEntity
+                {
+                    OrderId = paymentResponse.PaymentCode,
+                    ProductId = simsipProductId,
+                    PurchaseTime = DateTime.Now
+                };
+
+                inAppPurchaseRepository.Create(newPurchase);
+            }
+            else
+            {
+                existingPurchase.OrderId = paymentResponse.PaymentCode;
+                existingPurchase.ProductId = simsipProductId;
+                existingPurchase.PurchaseTime = DateTime.Now;
+
+                inAppPurchaseRepository.Update(existingPurchase);
+            }
+
+        }
+
+        #endregion
+
+    }
+
+#elif ANDROID
 
     public class InappService : IInappService
     {
@@ -38,13 +462,12 @@ namespace Simsip.LineRunner.Services.Inapp
         }
         
         #region IInappService implementation
-
-        public string PracticeModeProductId { get { return "com.simsip.linerunner.practicemode"; } }
-        // Testing
-        /*
+#if TEST_INAPP
         public string PracticeModeProductId { get { return ReservedTestProductIDs.Purchased; } }
-        public string PracticeModeProductId { get { return ReservedTestProductIDs.Canceled; } }
-        */
+        // public string PracticeModeProductId { get { return ReservedTestProductIDs.Canceled; } }
+#else
+        public string PracticeModeProductId { get { return "com.simsip.linerunner.practicemode"; } }
+#endif
 
         public void Initialize()
         {
@@ -199,7 +622,6 @@ namespace Simsip.LineRunner.Services.Inapp
                                 new List<string>() 
                                     { 
                                         this.PracticeModeProductId
-                                        // ReservedTestProductIDs.Canceled
                                     }, 
                                     ItemType.Product);
 
@@ -247,24 +669,12 @@ namespace Simsip.LineRunner.Services.Inapp
             {
                 this.OnQueryInventory();
             }
-            
-            /* Example:
-            // Ask the open connection's billing handler to return a list of avilable products for the 
-            // given list of items.
-            // NOTE: We are asking for the Reserved Test Product IDs that allow you to test In-App
-            // Billing without actually making a purchase.
-            _products = await _serviceConnection.BillingHandler.QueryInventoryAsync(new List<string> {
-                "appra_01_test",
-                "appra_02_sub",
-                ReservedTestProductIDs.Purchased
-            }, ItemType.Product);
-            */
         }
 
         public void PurchaseProduct(string productId)
         {
             // See Initialize() for where we hook up event handler for this
-            this._serviceConnection.BillingHandler.BuyProduct(productId, ItemType.Product, "test");
+            this._serviceConnection.BillingHandler.BuyProduct(productId, ItemType.Product, "payload");
         }
 
         public void RestoreProducts()

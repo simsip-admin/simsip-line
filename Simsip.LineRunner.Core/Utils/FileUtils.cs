@@ -903,6 +903,12 @@ namespace Simsip.LineRunner.Utils
 
             return version;
         }
+        
+        public static string GetBuild()
+        {
+            return string.Empty;
+        }
+
 #endif
 
 #if ANDROID
@@ -921,6 +927,24 @@ namespace Simsip.LineRunner.Utils
 
             return version;
         }
+
+        public static string GetBuild()
+        {
+            var buildStr = string.Empty;
+
+            try
+            {
+                var build = Program.SharedProgram.PackageManager.GetPackageInfo(Program.SharedProgram.PackageName, 0).VersionCode;
+                buildStr = build.ToString();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception in GetBuild: " + ex);
+            }
+
+            return buildStr;
+        }
+
 #endif
 
 #if IOS
@@ -939,6 +963,23 @@ namespace Simsip.LineRunner.Utils
 
             return version;
         }
+
+        public static string GetBuild()
+        {
+            var build = string.Empty;
+
+            try
+            {
+                build = NSBundle.MainBundle.InfoDictionary [new NSString ("CFBundleVersion")].ToString();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception in GetBuild: " + ex);
+            }
+
+            return build;
+        }
+
 #endif
 
 #if WINDOWS_PHONE
@@ -966,6 +1007,12 @@ namespace Simsip.LineRunner.Utils
 
             return version;
         }
+
+        public static string GetBuild()
+        {
+            return string.Empty;
+        }
+
 #endif
 
 #if NETFX_CORE
@@ -986,6 +1033,12 @@ namespace Simsip.LineRunner.Utils
 
             return version;
         }
+
+        public static string GetBuild()
+        {
+            return string.Empty;
+        }
+
 #endif
 
     }

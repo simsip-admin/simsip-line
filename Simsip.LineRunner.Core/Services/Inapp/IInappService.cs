@@ -5,6 +5,7 @@ using Simsip.LineRunner.Entities.InApp;
 using Android.App;
 using Android.Content;
 using System.Threading.Tasks;
+using MP;
 #elif IOS
 using StoreKit;
 #endif
@@ -12,7 +13,7 @@ using StoreKit;
 
 namespace Simsip.LineRunner.Services.Inapp
 {
-#if ANDROID || IOS
+#if ANDROID || IOS || CHINA
 
     public delegate void OnQueryInventoryDelegate();
 
@@ -108,7 +109,7 @@ namespace Simsip.LineRunner.Services.Inapp
         /// Occurs when on user canceled.
         /// </summary>
         event OnUserCanceledDelegate OnUserCanceled;
-        
+
         /// <summary>
         /// Occurs when there is an in app billing procesing error.
         /// </summary>
@@ -127,7 +128,14 @@ namespace Simsip.LineRunner.Services.Inapp
 
 #endif
 
-#if ANDROID
+#if CHINA
+
+        void HandleActivityResult(int requestCode, Result resultCode, Intent data);
+
+        void UpdatePayment(PaymentResponse paymentResponse);
+    }
+
+#elif ANDROID
 
         void HandleActivityResult(int requestCode, Result resultCode, Intent data);
 

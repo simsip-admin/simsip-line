@@ -4290,77 +4290,66 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.de.xlf</DependentUpon>
-      <culture>de</culture>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.es.resx">
       <Link>Resources\AppResources.es.resx</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.es.xlf</DependentUpon>
-      <culture>es</culture>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.fr.resx">
       <Link>Resources\AppResources.fr.resx</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.fr.xlf</DependentUpon>
-      <culture>fr</culture>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.hi-IN.resx">
       <Link>Resources\AppResources.hi-IN.resx</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.hi-IN.xlf</DependentUpon>
-      <culture>hi-IN</culture>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.id-ID.resx">
       <Link>Resources\AppResources.id-ID.resx</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.id-ID.xlf</DependentUpon>
-      <culture>id-ID</culture>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.it.resx">
       <Link>Resources\AppResources.it.resx</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.it.xlf</DependentUpon>
-      <culture>it</culture>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.ja-JP.resx">
       <Link>Resources\AppResources.ja-JP.resx</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.ja-JP.xlf</DependentUpon>
-      <culture>ja-JP</culture>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.nl.resx">
       <Link>Resources\AppResources.nl.resx</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.nl.xlf</DependentUpon>
-      <culture>nl</culture>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.pl-PL.resx">
       <Link>Resources\AppResources.pl-PL.resx</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.pl-PL.xlf</DependentUpon>
-      <culture>pl-PL</culture>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.pt-BR.resx">
       <Link>Resources\AppResources.pt-BR.resx</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.pt-BR.xlf</DependentUpon>
-      <culture>pt-BR</culture>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.pt.resx">
       <Link>Resources\AppResources.pt.resx</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.pt.xlf</DependentUpon>
-      <culture>pt</culture>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.resx">
       <Link>Resources\AppResources.resx</Link>
@@ -4372,21 +4361,18 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.ru-RU.xlf</DependentUpon>
-      <culture>ru-RU</culture>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.zh-Hans.resx">
       <Link>Resources\AppResources.zh-Hans.resx</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.zh-Hans.xlf</DependentUpon>
-      <culture>zh-Hans</culture>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Simsip.LineRunner.I18N\Resources\AppResources.zh-Hant.resx">
       <Link>Resources\AppResources.zh-Hant.resx</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.zh-Hant.xlf</DependentUpon>
-      <culture>zh-Hant</culture>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -4527,16 +4513,12 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <PropertyGroup Label="MultilingualAppToolkit">
-      <MultilingualAppToolkitVersion>3.0</MultilingualAppToolkitVersion>
-    </PropertyGroup>
     <Error Condition="!Exists('packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
     <Error Condition="!Exists('packages\Microsoft.Bcl.Compression.3.9.85\build\wp8\Microsoft.Bcl.Compression.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Bcl.Compression.3.9.85\build\wp8\Microsoft.Bcl.Compression.targets'))" />
     <Error Condition="!Exists('packages\sqlite-net-wp8.3.8.5\build\windowsphone8\sqlite-net-wp8.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\sqlite-net-wp8.3.8.5\build\windowsphone8\sqlite-net-wp8.props'))" />
     <Error Condition="!Exists('packages\sqlite-net-wp8.3.8.5\build\windowsphone8\sqlite-net-wp8.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\sqlite-net-wp8.3.8.5\build\windowsphone8\sqlite-net-wp8.targets'))" />
     <Error Condition="!Exists('packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
   </Target>
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.ResxResources.targets" Label="MultilingualAppToolkit" />
   <Import Project="packages\Microsoft.Bcl.Compression.3.9.85\build\wp8\Microsoft.Bcl.Compression.targets" Condition="Exists('packages\Microsoft.Bcl.Compression.3.9.85\build\wp8\Microsoft.Bcl.Compression.targets')" />
   <Import Project="packages\sqlite-net-wp8.3.8.5\build\windowsphone8\sqlite-net-wp8.targets" Condition="Exists('packages\sqlite-net-wp8.3.8.5\build\windowsphone8\sqlite-net-wp8.targets')" />
   <Import Project="packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

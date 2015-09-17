@@ -1,6 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="com.simsip" android:versionName="1.0" android:versionCode="6">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="com.simsip" android:versionName="1.0" android:versionCode="9">
 	<uses-sdk android:minSdkVersion="17" android:targetSdkVersion="21" />
+	<!-- Common permissions -->
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+	<uses-permission android:name="com.android.vending.BILLING" />
+	<!-- Mobvista: permissions -->
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<!-- Mobvista/Fortumo: permissions -->
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<!-- Fortumo: permissions -->
+	<uses-permission android:name="android.permission.RECEIVE_SMS" />
+	<uses-permission android:name="android.permission.SEND_SMS" />
+	<!-- Fortumo: Define your own permission to protect payment broadcast -->
+	<permission android:name="com.simsip.permission.PAYMENT_BROADCAST_PERMISSION" android:label="Read payment status" android:protectionLevel="signature" />
+	<!-- Fortumo: "signature" permission granted automatically by system, without notifying user. -->
+	<uses-permission android:name="com.simsip.permission.PAYMENT_BROADCAST_PERMISSION" />
 	<application android:label="Linerunner 3D" android:icon="@drawable/icon">
 		<!--
     http://stackoverflow.com/questions/19843784/google-play-services-library-update-and-missing-symbol-integer-google-play-serv
@@ -8,10 +25,42 @@
 		<meta-data android:name="com.google.android.gms.version" android:value="4452000" />
 		<activity android:name="com.google.android.gms.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
 		<activity android:name="net.hockeyapp.android.UpdateActivity" />
+		<!-- MobvistaSDK *begin* -->
+		<activity android:name="com.mobvista.sdk.core.ad.AdActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:windowSoftInputMode="adjustPan" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+		<!-- For admob -->
+		<!-- Already have this above
+    <activity android:name="com.google.ads.AdActivity"
+        android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+
+    <activity android:name="com.google.android.gms.ads.AdActivity"
+        android:theme="@android:style/Theme.Translucent"
+        android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+    -->
+		<!-- For mobfox 
+		<activity android:name="com.adsdk.sdk.banner.InAppWebView" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+		<activity android:name="com.adsdk.sdk.mraid.MraidBrowser" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+    -->
+		<!-- For startapp
+		<activity android:name="com.startapp.android.publish.list3d.List3DActivity" android:theme="@android:style/Theme" />
+		<activity android:name="com.startapp.android.publish.AppWallActivity" android:theme="@android:style/Theme.Translucent" android:configChanges="orientation|keyboardHidden|screenSize" />
+     -->
+		<!-- MobvistaSDK *end* -->
+		<!-- Fortumo: Declare these objects, this is part of Fortumo SDK, and should not be called directly -->
+		<receiver android:name="mp.MpSMSReceiver">
+			<intent-filter>
+				<action android:name="android.provider.Telephony.SMS_RECEIVED" />
+			</intent-filter>
+		</receiver>
+		<service android:name="mp.MpService" />
+		<service android:name="mp.StatusUpdateService" />
+		<activity android:name="mp.MpActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:configChanges="orientation|keyboardHidden|screenSize" />
+		<!-- Fortumo: Implement you own BroadcastReceiver to track payment status, should be protected by "signature" permission -->
+		<!-- See Simsip.LineRunner.Services.Inapp.PaymentStatusReceiver for attribute based build up of this:
+		<receiver android:name="Simsip.LineRunner.Services.Inapp.PaymentStatusReceiver" android:permission="com.simsip.permission.PAYMENT_BROADCAST_PERMISSION">
+			<intent-filter>
+				<action android:name="mp.info.PAYMENT_STATUS_CHANGED" />
+			</intent-filter>
+		</receiver>
+    -->
 	</application>
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.RECORD_AUDIO" />
-	<uses-permission android:name="com.android.vending.BILLING" />
 </manifest>
