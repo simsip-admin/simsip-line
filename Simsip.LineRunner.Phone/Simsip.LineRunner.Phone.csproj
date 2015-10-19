@@ -2735,9 +2735,6 @@
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Lines\LinesLayer.cs">
       <Link>Scenes\Lines\LinesLayer.cs</Link>
     </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Login\LoginLayer.cs">
-      <Link>Scenes\Login\LoginLayer.cs</Link>
-    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\MessageBox\MessageBoxLayer.cs">
       <Link>Scenes\MessageBox\MessageBoxLayer.cs</Link>
     </Compile>
@@ -2759,12 +2756,6 @@
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\Pads\PadsLayer.cs">
       <Link>Scenes\Pads\PadsLayer.cs</Link>
     </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Ratings\RatingsLayer.cs">
-      <Link>Scenes\Ratings\RatingsLayer.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Scenes\ResourcePacks\ResourcePacksLayer.cs">
-      <Link>Scenes\ResourcePacks\ResourcePacksLayer.cs</Link>
-    </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\SceneZOrder.cs">
       <Link>Scenes\SceneZOrder.cs</Link>
     </Compile>
@@ -2773,9 +2764,6 @@
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Scenes\UILayer.cs">
       <Link>Scenes\UILayer.cs</Link>
-    </Compile>
-    <Compile Include="..\Simsip.LineRunner.Core\Scenes\Worlds\WorldsLayer.cs">
-      <Link>Scenes\Worlds\WorldsLayer.cs</Link>
     </Compile>
     <Compile Include="..\Simsip.LineRunner.Core\Services\Facebook\FacebookActionService.cs">
       <Link>Services\Facebook\FacebookActionService.cs</Link>

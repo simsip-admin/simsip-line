@@ -11,14 +11,10 @@ using Simsip.LineRunner.Scenes.Credits;
 using Simsip.LineRunner.Scenes.Finish;
 using Simsip.LineRunner.Scenes.Help;
 using Simsip.LineRunner.Scenes.Hud;
-using Simsip.LineRunner.Scenes.Login;
 using Simsip.LineRunner.Scenes.MessageBox;
 using Simsip.LineRunner.Scenes.Options;
 using Simsip.LineRunner.Scenes.Pads;
-using Simsip.LineRunner.Scenes.Ratings;
-using Simsip.LineRunner.Scenes.ResourcePacks;
 using Simsip.LineRunner.Scenes.Start;
-using Simsip.LineRunner.Scenes.Worlds;
 using System;
 using System.Collections.Generic;
 using Simsip.LineRunner.Utils;
@@ -199,24 +195,6 @@ namespace Simsip.LineRunner.Scenes
             }
         }
 
-        private LoginLayer _theLoginLayer;
-        /// <summary>
-        /// The screen that is displayed when we need to prompt the user
-        /// to login or create a username/password for scoreboard purposes.
-        /// </summary>
-        public LoginLayer TheLoginLayer
-        {
-            get
-            {
-                if (_theLoginLayer == null)
-                {
-                    _theLoginLayer = new LoginLayer(this);
-                    _theLoginLayer.Tag = (int)LayerTags.LoginLayer;
-                }
-                return _theLoginLayer;
-            }
-        }
-
         private MessageBoxLayer _theMessageBoxLayer;
         /// <summary>
         /// UI layer that provides generic message box capabilities (e.g., yes/no, ok/cancel, etc.).
@@ -268,40 +246,6 @@ namespace Simsip.LineRunner.Scenes
             }
         }
 
-        private RatingsLayer _theRatingsLayer;
-        /// <summary>
-        /// UI layer that programatically pops-up to prompt players to rate us.
-        /// </summary>
-        public RatingsLayer TheRatingsLayer
-        {
-            get
-            {
-                if (_theRatingsLayer == null)
-                {
-                    _theRatingsLayer = new RatingsLayer(this);
-                    _theRatingsLayer.Tag = (int)LayerTags.RatingsLayer;
-                }
-                return _theRatingsLayer;
-            }
-        }
-
-        private ResourcePacksLayer _theResourcePacksLayer;
-        /// <summary>
-        /// UI layer that allows user to select a resource pack.
-        /// </summary>
-        public ResourcePacksLayer TheResourcePacksLayer
-        {
-            get
-            {
-                if (_theResourcePacksLayer == null)
-                {
-                    _theResourcePacksLayer = new ResourcePacksLayer(this);
-                    _theResourcePacksLayer.Tag = (int)LayerTags.ResourcePacksLayer;
-                }
-                return _theResourcePacksLayer;
-            }
-        }
-
         private StartLayer _theStartLayer;
         /// <summary>
         /// The UI layer that allows players to start the game or navigate
@@ -339,24 +283,6 @@ namespace Simsip.LineRunner.Scenes
             }
         }
 #endif
-
-        private WorldsLayer _theWorldsLayer;
-        /// <summary>
-        /// The UI layer that allows players to manage their worlds.
-        /// </summary>
-        public WorldsLayer TheWorldsLayer
-        {
-            get
-            {
-                if (_theWorldsLayer == null)
-                {
-                    _theWorldsLayer = new WorldsLayer(this);
-                    _theWorldsLayer.Tag = (int)LayerTags.WorldsLayer;
-                }
-                return _theWorldsLayer;
-            }
-        }
-
 
         #endregion
 
@@ -498,10 +424,6 @@ namespace Simsip.LineRunner.Scenes
                     {
                         return TheLinesLayer;
                     }
-                case LayerTags.LoginLayer:
-                    {
-                        return TheLoginLayer;
-                    }
                 case LayerTags.MessageBoxLayer:
                     {
                         return TheMessageBoxLayer;
@@ -514,14 +436,6 @@ namespace Simsip.LineRunner.Scenes
                     {
                         return ThePadsLayer;
                     }
-                case LayerTags.RatingsLayer:
-                    {
-                        return TheRatingsLayer;
-                    }
-                case LayerTags.ResourcePacksLayer:
-                    {
-                        return TheResourcePacksLayer;
-                    }
                 case LayerTags.StartLayer:
                     {
                         return TheStartLayer;
@@ -532,10 +446,6 @@ namespace Simsip.LineRunner.Scenes
                         return TheUpgradesMasterLayer;
                     }
 #endif
-                case LayerTags.WorldsLayer:
-                    {
-                        return TheWorldsLayer;
-                    }
                 default:
                     {
                         return null;

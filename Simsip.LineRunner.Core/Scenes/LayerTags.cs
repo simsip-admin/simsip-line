@@ -14,16 +14,13 @@ namespace Simsip.LineRunner.Scenes
         HudLayer,
         IntroLayer,
         LinesLayer,
-        LoginLayer,
         MessageBoxLayer,
         OptionsMasterLayer,
         PadsLayer,
         RatingsLayer,
-        ResourcePacksLayer,
         StartLayer,
 #if ANDROID || IOS
         UpgradesMasterLayer,
 #endif
-        WorldsLayer
     }
 }
