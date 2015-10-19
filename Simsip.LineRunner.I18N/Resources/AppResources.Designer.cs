@@ -107,96 +107,6 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to kills off.
-        /// </summary>
-        public static string AdminKillsOff {
-            get {
-                return ResourceManager.GetString("AdminKillsOff", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to kills on.
-        /// </summary>
-        public static string AdminKillsOn {
-            get {
-                return ResourceManager.GetString("AdminKillsOn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to particles off.
-        /// </summary>
-        public static string AdminParticlesOff {
-            get {
-                return ResourceManager.GetString("AdminParticlesOff", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to particles on.
-        /// </summary>
-        public static string AdminParticlesOn {
-            get {
-                return ResourceManager.GetString("AdminParticlesOn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to start line.
-        /// </summary>
-        public static string AdminStartLine {
-            get {
-                return ResourceManager.GetString("AdminStartLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to enter line to start on (1-17).
-        /// </summary>
-        public static string AdminStartLineDescription {
-            get {
-                return ResourceManager.GetString("AdminStartLineDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to start page.
-        /// </summary>
-        public static string AdminStartPage {
-            get {
-                return ResourceManager.GetString("AdminStartPage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to enter page to start on.
-        /// </summary>
-        public static string AdminStartPageDescription {
-            get {
-                return ResourceManager.GetString("AdminStartPageDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to upgrades off.
-        /// </summary>
-        public static string AdminUpgradesOff {
-            get {
-                return ResourceManager.GetString("AdminUpgradesOff", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to upgrades on.
-        /// </summary>
-        public static string AdminUpgradesOn {
-            get {
-                return ResourceManager.GetString("AdminUpgradesOn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to admin.
         /// </summary>
         public static string CommonAdmin {
@@ -368,15 +278,6 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to help screen.
-        /// </summary>
-        public static string HelpHelpDescription {
-            get {
-                return ResourceManager.GetString("HelpHelpDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to tap to avoid lines and obstacles.
         /// </summary>
         public static string HelpHowToPlayDescription1 {
@@ -436,15 +337,6 @@ namespace Simsip.LineRunner.Resources {
         public static string HelpOptions {
             get {
                 return ResourceManager.GetString("HelpOptions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to game options.
-        /// </summary>
-        public static string HelpOptionsDescription {
-            get {
-                return ResourceManager.GetString("HelpOptionsDescription", resourceCulture);
             }
         }
         
@@ -638,15 +530,6 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to orbit view.
-        /// </summary>
-        public static string HudOrbit {
-            get {
-                return ResourceManager.GetString("HudOrbit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to page/line.
         /// </summary>
         public static string HudPageLine {
@@ -679,24 +562,6 @@ namespace Simsip.LineRunner.Resources {
         public static string HudResume {
             get {
                 return ResourceManager.GetString("HudResume", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to rotate view.
-        /// </summary>
-        public static string HudRotate {
-            get {
-                return ResourceManager.GetString("HudRotate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to scroll view.
-        /// </summary>
-        public static string HudScroll {
-            get {
-                return ResourceManager.GetString("HudScroll", resourceCulture);
             }
         }
         
@@ -832,42 +697,6 @@ namespace Simsip.LineRunner.Resources {
         public static string LinesSwitchingLines {
             get {
                 return ResourceManager.GetString("LinesSwitchingLines", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to password.
-        /// </summary>
-        public static string LoginPassword {
-            get {
-                return ResourceManager.GetString("LoginPassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to enter password.
-        /// </summary>
-        public static string LoginPasswordDescription {
-            get {
-                return ResourceManager.GetString("LoginPasswordDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to user name.
-        /// </summary>
-        public static string LoginUserName {
-            get {
-                return ResourceManager.GetString("LoginUserName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to enter a unique user name.
-        /// </summary>
-        public static string LoginUserNameDescription {
-            get {
-                return ResourceManager.GetString("LoginUserNameDescription", resourceCulture);
             }
         }
         
@@ -1079,24 +908,6 @@ namespace Simsip.LineRunner.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to It seems that you love LineRunner as much as we do. Care to give us a few stars?.
-        /// </summary>
-        public static string RatingsDescription {
-            get {
-                return ResourceManager.GetString("RatingsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to rate us!.
-        /// </summary>
-        public static string RatingsRateUs {
-            get {
-                return ResourceManager.GetString("RatingsRateUs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to LeftToRight.
         /// </summary>
         public static string ResourceFlowDirection {
@@ -1111,15 +922,6 @@ namespace Simsip.LineRunner.Resources {
         public static string ResourceLanguage {
             get {
                 return ResourceManager.GetString("ResourceLanguage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to switching resource packs.
-        /// </summary>
-        public static string ResourcePacksSwitchingResourcePacks {
-            get {
-                return ResourceManager.GetString("ResourcePacksSwitchingResourcePacks", resourceCulture);
             }
         }
         
@@ -1282,105 +1084,6 @@ namespace Simsip.LineRunner.Resources {
         public static string UpgradesTitle {
             get {
                 return ResourceManager.GetString("UpgradesTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to default.
-        /// </summary>
-        public static string WorldsDefault {
-            get {
-                return ResourceManager.GetString("WorldsDefault", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to you cannot use this name for your world.
-        /// </summary>
-        public static string WorldsErrorCannotUseName {
-            get {
-                return ResourceManager.GetString("WorldsErrorCannotUseName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to you cannot delete a world that is active.
-        /// </summary>
-        public static string WorldsErrorWorldActive {
-            get {
-                return ResourceManager.GetString("WorldsErrorWorldActive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to a world with this name already exists.
-        /// </summary>
-        public static string WorldsErrorWorldAlreadyExists {
-            get {
-                return ResourceManager.GetString("WorldsErrorWorldAlreadyExists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to generate new.
-        /// </summary>
-        public static string WorldsGenerateNew {
-            get {
-                return ResourceManager.GetString("WorldsGenerateNew", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to save world as....
-        /// </summary>
-        public static string WorldsSaveWorldAs {
-            get {
-                return ResourceManager.GetString("WorldsSaveWorldAs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to enter name of world.
-        /// </summary>
-        public static string WorldsSaveWorldAsDescription {
-            get {
-                return ResourceManager.GetString("WorldsSaveWorldAsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to select new world to use.
-        /// </summary>
-        public static string WorldsSelectNewWorld {
-            get {
-                return ResourceManager.GetString("WorldsSelectNewWorld", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to switching worlds.
-        /// </summary>
-        public static string WorldsSwitchingWorlds {
-            get {
-                return ResourceManager.GetString("WorldsSwitchingWorlds", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to use this world when starting.
-        /// </summary>
-        public static string WorldsUseThisWorld {
-            get {
-                return ResourceManager.GetString("WorldsUseThisWorld", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to worlds.
-        /// </summary>
-        public static string WorldsWorlds {
-            get {
-                return ResourceManager.GetString("WorldsWorlds", resourceCulture);
             }
         }
     }

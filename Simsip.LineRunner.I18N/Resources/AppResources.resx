@@ -129,10 +129,6 @@
     <value>version</value>
     <comment>Common text to use when indicating version of game, e.g., version 1.0</comment>
   </data>
-  <data name="HelpHelpDescription" xml:space="preserve">
-    <value>help screen</value>
-    <comment>Ignore</comment>
-  </data>
   <data name="HelpHowToPlayDescription1" xml:space="preserve">
     <value>tap to avoid lines and obstacles</value>
     <comment>Help page 2 - description on how to play game</comment>
@@ -144,10 +140,6 @@
   <data name="HelpOptions" xml:space="preserve">
     <value>options</value>
     <comment>Help pages 7-8 subtitle, these pages focus on the options section of the game</comment>
-  </data>
-  <data name="HelpOptionsDescription" xml:space="preserve">
-    <value>game options</value>
-    <comment>Ignore</comment>
   </data>
   <data name="HelpPads" xml:space="preserve">
     <value>change the pad you play on</value>
@@ -201,30 +193,6 @@
     <value>top scores</value>
     <comment>Leaderboards screen subtitle.</comment>
   </data>
-  <data name="AdminKillsOff" xml:space="preserve">
-    <value>kills off</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="AdminKillsOn" xml:space="preserve">
-    <value>kills on</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="AdminParticlesOff" xml:space="preserve">
-    <value>particles off</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="AdminParticlesOn" xml:space="preserve">
-    <value>particles on</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="AdminStartPage" xml:space="preserve">
-    <value>start page</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="AdminStartPageDescription" xml:space="preserve">
-    <value>enter page to start on</value>
-    <comment>Ignore</comment>
-  </data>
   <data name="CommonCancel" xml:space="preserve">
     <value>cancel</value>
     <comment>Common text to use when we want to cancel an operation.</comment>
@@ -273,89 +241,17 @@
     <value>switching lines</value>
     <comment>Options - line selection - status line to display when switching line colors</comment>
   </data>
-  <data name="LoginPassword" xml:space="preserve">
-    <value>password</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="LoginPasswordDescription" xml:space="preserve">
-    <value>enter password</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="LoginUserName" xml:space="preserve">
-    <value>user name</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="LoginUserNameDescription" xml:space="preserve">
-    <value>enter a unique user name</value>
-    <comment>Ignore</comment>
-  </data>
   <data name="PadsSwitchingPads" xml:space="preserve">
     <value>switching pads</value>
     <comment>Options - pads - status text to display when switching pads.</comment>
-  </data>
-  <data name="ResourcePacksSwitchingResourcePacks" xml:space="preserve">
-    <value>switching resource packs</value>
-    <comment>Ignore</comment>
   </data>
   <data name="CommonAdmin" xml:space="preserve">
     <value>admin</value>
     <comment>Ignore</comment>
   </data>
-  <data name="WorldsDefault" xml:space="preserve">
-    <value>default</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="WorldsErrorCannotUseName" xml:space="preserve">
-    <value>you cannot use this name for your world</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="WorldsErrorWorldActive" xml:space="preserve">
-    <value>you cannot delete a world that is active</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="WorldsErrorWorldAlreadyExists" xml:space="preserve">
-    <value>a world with this name already exists</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="WorldsGenerateNew" xml:space="preserve">
-    <value>generate new</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="WorldsSaveWorldAs" xml:space="preserve">
-    <value>save world as...</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="WorldsSaveWorldAsDescription" xml:space="preserve">
-    <value>enter name of world</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="WorldsSelectNewWorld" xml:space="preserve">
-    <value>select new world to use</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="WorldsSwitchingWorlds" xml:space="preserve">
-    <value>switching worlds</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="WorldsUseThisWorld" xml:space="preserve">
-    <value>use this world when starting</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="WorldsWorlds" xml:space="preserve">
-    <value>worlds</value>
-    <comment>Ignore</comment>
-  </data>
   <data name="CommonLater" xml:space="preserve">
     <value>later</value>
     <comment>Common text to use when we want to give the user a chance to attempt the operation later.</comment>
-  </data>
-  <data name="RatingsDescription" xml:space="preserve">
-    <value>It seems that you love LineRunner as much as we do. Care to give us a few stars?</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="RatingsRateUs" xml:space="preserve">
-    <value>rate us!</value>
-    <comment>Ignore</comment>
   </data>
   <data name="CreditsTitle" xml:space="preserve">
     <value>credits</value>
@@ -413,14 +309,6 @@
     <value>home</value>
     <comment>Hud - home menu option that will take you to start screen</comment>
   </data>
-  <data name="AdminStartLine" xml:space="preserve">
-    <value>start line</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="AdminStartLineDescription" xml:space="preserve">
-    <value>enter line to start on (1-17)</value>
-    <comment>Ignore</comment>
-  </data>
   <data name="HelpLicense" xml:space="preserve">
     <value>license</value>
     <comment>All help pages - tappable subtitle that will take you to game license</comment>
@@ -448,18 +336,6 @@
   <data name="HelpScroll" xml:space="preserve">
     <value>tap or hold to scroll view</value>
     <comment>Help page 5 - description on how to scroll your view</comment>
-  </data>
-  <data name="HudOrbit" xml:space="preserve">
-    <value>orbit view</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="HudRotate" xml:space="preserve">
-    <value>rotate view</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="HudScroll" xml:space="preserve">
-    <value>scroll view</value>
-    <comment>Ignore</comment>
   </data>
   <data name="HelpHud" xml:space="preserve">
     <value>hud</value>
@@ -544,14 +420,6 @@
   <data name="OptionsPracticeSwitchingPage" xml:space="preserve">
     <value>switching page to</value>
     <comment>Options - practice mode - status line to display while you are moving to a new starting page.</comment>
-  </data>
-  <data name="AdminUpgradesOff" xml:space="preserve">
-    <value>upgrades off</value>
-    <comment>Ignore</comment>
-  </data>
-  <data name="AdminUpgradesOn" xml:space="preserve">
-    <value>upgrades on</value>
-    <comment>Ignore</comment>
   </data>
   <data name="OptionsPractice" xml:space="preserve">
     <value>practice mode</value>

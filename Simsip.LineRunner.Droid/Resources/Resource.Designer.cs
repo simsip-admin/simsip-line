@@ -3852,356 +3852,356 @@ namespace Simsip.LineRunner
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f0700be
-			public const int AchievementsColumnDate = 2131165374;
+			// aapt resource value: 0x7f07009d
+			public const int AchievementsColumnDate = 2131165341;
 			
-			// aapt resource value: 0x7f0700c0
-			public const int AchievementsColumnScore = 2131165376;
+			// aapt resource value: 0x7f07009f
+			public const int AchievementsColumnScore = 2131165343;
+			
+			// aapt resource value: 0x7f07009e
+			public const int AchievementsColumnTime = 2131165342;
+			
+			// aapt resource value: 0x7f07005c
+			public const int AchievementsLeaderboards = 2131165276;
+			
+			// aapt resource value: 0x7f07005d
+			public const int AchievementsTopScoresFor = 2131165277;
+			
+			// aapt resource value: 0x7f0700be
+			public const int AdminKillsOff = 2131165374;
+			
+			// aapt resource value: 0x7f0700bd
+			public const int AdminKillsOn = 2131165373;
+			
+			// aapt resource value: 0x7f0700db
+			public const int AdminParticlesOff = 2131165403;
+			
+			// aapt resource value: 0x7f0700da
+			public const int AdminParticlesOn = 2131165402;
+			
+			// aapt resource value: 0x7f0700c8
+			public const int AdminStartLine = 2131165384;
+			
+			// aapt resource value: 0x7f0700c2
+			public const int AdminStartLineDescription = 2131165378;
+			
+			// aapt resource value: 0x7f0700d9
+			public const int AdminStartPage = 2131165401;
 			
 			// aapt resource value: 0x7f0700bf
-			public const int AchievementsColumnTime = 2131165375;
+			public const int AdminStartPageDescription = 2131165375;
 			
-			// aapt resource value: 0x7f07005e
-			public const int AchievementsLeaderboards = 2131165278;
+			// aapt resource value: 0x7f0700c5
+			public const int AdminUpgradesOff = 2131165381;
 			
-			// aapt resource value: 0x7f07005f
-			public const int AchievementsTopScoresFor = 2131165279;
-			
-			// aapt resource value: 0x7f070060
-			public const int AdminKillsOff = 2131165280;
-			
-			// aapt resource value: 0x7f070061
-			public const int AdminKillsOn = 2131165281;
-			
-			// aapt resource value: 0x7f070062
-			public const int AdminParticlesOff = 2131165282;
-			
-			// aapt resource value: 0x7f070063
-			public const int AdminParticlesOn = 2131165283;
-			
-			// aapt resource value: 0x7f070095
-			public const int AdminStartLine = 2131165333;
-			
-			// aapt resource value: 0x7f070096
-			public const int AdminStartLineDescription = 2131165334;
-			
-			// aapt resource value: 0x7f070064
-			public const int AdminStartPage = 2131165284;
-			
-			// aapt resource value: 0x7f070065
-			public const int AdminStartPageDescription = 2131165285;
-			
-			// aapt resource value: 0x7f0700b6
-			public const int AdminUpgradesOff = 2131165366;
-			
-			// aapt resource value: 0x7f0700b7
-			public const int AdminUpgradesOn = 2131165367;
+			// aapt resource value: 0x7f0700c4
+			public const int AdminUpgradesOn = 2131165380;
 			
 			// aapt resource value: 0x7f07004a
 			public const int ApplicationName = 2131165258;
 			
-			// aapt resource value: 0x7f070078
-			public const int CommonAdmin = 2131165304;
+			// aapt resource value: 0x7f07006b
+			public const int CommonAdmin = 2131165291;
 			
-			// aapt resource value: 0x7f0700ca
-			public const int CommonBack = 2131165386;
+			// aapt resource value: 0x7f0700a9
+			public const int CommonBack = 2131165353;
 			
-			// aapt resource value: 0x7f070066
-			public const int CommonCancel = 2131165286;
+			// aapt resource value: 0x7f07005e
+			public const int CommonCancel = 2131165278;
 			
-			// aapt resource value: 0x7f070067
-			public const int CommonDelete = 2131165287;
+			// aapt resource value: 0x7f07005f
+			public const int CommonDelete = 2131165279;
 			
-			// aapt resource value: 0x7f070068
-			public const int CommonError = 2131165288;
+			// aapt resource value: 0x7f070060
+			public const int CommonError = 2131165280;
 			
-			// aapt resource value: 0x7f070084
-			public const int CommonLater = 2131165316;
+			// aapt resource value: 0x7f07006c
+			public const int CommonLater = 2131165292;
 			
-			// aapt resource value: 0x7f0700cb
-			public const int CommonNext = 2131165387;
+			// aapt resource value: 0x7f0700aa
+			public const int CommonNext = 2131165354;
 			
-			// aapt resource value: 0x7f070069
-			public const int CommonNo = 2131165289;
+			// aapt resource value: 0x7f070061
+			public const int CommonNo = 2131165281;
 			
-			// aapt resource value: 0x7f07006a
-			public const int CommonOK = 2131165290;
+			// aapt resource value: 0x7f070062
+			public const int CommonOK = 2131165282;
 			
-			// aapt resource value: 0x7f07008c
-			public const int CommonPage = 2131165324;
+			// aapt resource value: 0x7f070072
+			public const int CommonPage = 2131165298;
 			
-			// aapt resource value: 0x7f0700cc
-			public const int CommonPrevious = 2131165388;
+			// aapt resource value: 0x7f0700ab
+			public const int CommonPrevious = 2131165355;
 			
-			// aapt resource value: 0x7f070098
-			public const int CommonReset = 2131165336;
+			// aapt resource value: 0x7f07007c
+			public const int CommonReset = 2131165308;
 			
 			// aapt resource value: 0x7f07004d
 			public const int CommonVersion = 2131165261;
 			
-			// aapt resource value: 0x7f07006b
-			public const int CommonYes = 2131165291;
+			// aapt resource value: 0x7f070063
+			public const int CommonYes = 2131165283;
 			
-			// aapt resource value: 0x7f07006c
-			public const int CreditsCreatedBy = 2131165292;
+			// aapt resource value: 0x7f070064
+			public const int CreditsCreatedBy = 2131165284;
+			
+			// aapt resource value: 0x7f070065
+			public const int CreditsCreatedBySimsip = 2131165285;
 			
 			// aapt resource value: 0x7f07006d
-			public const int CreditsCreatedBySimsip = 2131165293;
+			public const int CreditsTitle = 2131165293;
 			
-			// aapt resource value: 0x7f070087
-			public const int CreditsTitle = 2131165319;
+			// aapt resource value: 0x7f070066
+			public const int FinishNewHighScore = 2131165286;
 			
-			// aapt resource value: 0x7f07006e
-			public const int FinishNewHighScore = 2131165294;
-			
-			// aapt resource value: 0x7f0700c3
-			public const int FinishWinner = 2131165379;
+			// aapt resource value: 0x7f0700a2
+			public const int FinishWinner = 2131165346;
 			
 			// aapt resource value: 0x7f070049
 			public const int Hello = 2131165257;
 			
+			// aapt resource value: 0x7f0700dd
+			public const int HelpHelpDescription = 2131165405;
+			
 			// aapt resource value: 0x7f07004e
-			public const int HelpHelpDescription = 2131165262;
+			public const int HelpHowToPlayDescription1 = 2131165262;
+			
+			// aapt resource value: 0x7f070082
+			public const int HelpHud = 2131165314;
+			
+			// aapt resource value: 0x7f07007d
+			public const int HelpIncreaseDecrease = 2131165309;
+			
+			// aapt resource value: 0x7f070083
+			public const int HelpLeaderboards = 2131165315;
+			
+			// aapt resource value: 0x7f07007b
+			public const int HelpLicense = 2131165307;
 			
 			// aapt resource value: 0x7f07004f
-			public const int HelpHowToPlayDescription1 = 2131165263;
-			
-			// aapt resource value: 0x7f0700a1
-			public const int HelpHud = 2131165345;
-			
-			// aapt resource value: 0x7f070099
-			public const int HelpIncreaseDecrease = 2131165337;
-			
-			// aapt resource value: 0x7f0700a2
-			public const int HelpLeaderboards = 2131165346;
-			
-			// aapt resource value: 0x7f070097
-			public const int HelpLicense = 2131165335;
+			public const int HelpLines = 2131165263;
 			
 			// aapt resource value: 0x7f070050
-			public const int HelpLines = 2131165264;
-			
-			// aapt resource value: 0x7f070051
-			public const int HelpOptions = 2131165265;
-			
-			// aapt resource value: 0x7f070052
-			public const int HelpOptionsDescription = 2131165266;
-			
-			// aapt resource value: 0x7f07009a
-			public const int HelpOrbit = 2131165338;
-			
-			// aapt resource value: 0x7f070053
-			public const int HelpPads = 2131165267;
-			
-			// aapt resource value: 0x7f07009b
-			public const int HelpPauseResume = 2131165339;
-			
-			// aapt resource value: 0x7f070054
-			public const int HelpRatingsDescription = 2131165268;
-			
-			// aapt resource value: 0x7f07009c
-			public const int HelpRotate = 2131165340;
-			
-			// aapt resource value: 0x7f07009d
-			public const int HelpScroll = 2131165341;
-			
-			// aapt resource value: 0x7f0700a3
-			public const int HelpSound = 2131165347;
-			
-			// aapt resource value: 0x7f070055
-			public const int HelpStartDescription = 2131165269;
-			
-			// aapt resource value: 0x7f0700c2
-			public const int HelpSupport = 2131165378;
-			
-			// aapt resource value: 0x7f070056
-			public const int HelpTitle = 2131165270;
-			
-			// aapt resource value: 0x7f0700a8
-			public const int HelpUpgrades = 2131165352;
-			
-			// aapt resource value: 0x7f0700a9
-			public const int HelpUpgradesPractice = 2131165353;
-			
-			// aapt resource value: 0x7f0700aa
-			public const int HelpUpgradesPracticeDesc1 = 2131165354;
-			
-			// aapt resource value: 0x7f0700ab
-			public const int HelpUpgradesPracticeDesc2 = 2131165355;
-			
-			// aapt resource value: 0x7f0700cd
-			public const int HelpZoomInOut = 2131165389;
-			
-			// aapt resource value: 0x7f07008f
-			public const int HudCannotGoSlowerThan = 2131165327;
-			
-			// aapt resource value: 0x7f070088
-			public const int HudHelp = 2131165320;
-			
-			// aapt resource value: 0x7f0700c1
-			public const int HudHigh = 2131165377;
-			
-			// aapt resource value: 0x7f070094
-			public const int HudHome = 2131165332;
-			
-			// aapt resource value: 0x7f070091
-			public const int HudJoystick = 2131165329;
-			
-			// aapt resource value: 0x7f070089
-			public const int HudOptions = 2131165321;
-			
-			// aapt resource value: 0x7f07009e
-			public const int HudOrbit = 2131165342;
-			
-			// aapt resource value: 0x7f07006f
-			public const int HudPageLine = 2131165295;
-			
-			// aapt resource value: 0x7f07008d
-			public const int HudPause = 2131165325;
-			
-			// aapt resource value: 0x7f070090
-			public const int HudPaused = 2131165328;
-			
-			// aapt resource value: 0x7f070070
-			public const int HudResume = 2131165296;
-			
-			// aapt resource value: 0x7f07009f
-			public const int HudRotate = 2131165343;
-			
-			// aapt resource value: 0x7f0700a0
-			public const int HudScroll = 2131165344;
-			
-			// aapt resource value: 0x7f07008e
-			public const int HudSpeed = 2131165326;
-			
-			// aapt resource value: 0x7f0700ce
-			public const int HudSpeedDefault = 2131165390;
-			
-			// aapt resource value: 0x7f070093
-			public const int HudTime = 2131165331;
-			
-			// aapt resource value: 0x7f070092
-			public const int HudTrackball = 2131165330;
-			
-			// aapt resource value: 0x7f0700dd
-			public const int HudZoom = 2131165405;
-			
-			// aapt resource value: 0x7f0700d2
-			public const int LinesBlue = 2131165394;
-			
-			// aapt resource value: 0x7f0700d3
-			public const int LinesDarkGreen = 2131165395;
-			
-			// aapt resource value: 0x7f0700d4
-			public const int LinesDarkOrange = 2131165396;
-			
-			// aapt resource value: 0x7f0700d5
-			public const int LinesGreen = 2131165397;
-			
-			// aapt resource value: 0x7f0700d6
-			public const int LinesLightBlue = 2131165398;
-			
-			// aapt resource value: 0x7f0700d7
-			public const int LinesLightGreen = 2131165399;
-			
-			// aapt resource value: 0x7f0700d8
-			public const int LinesLightOrange = 2131165400;
-			
-			// aapt resource value: 0x7f0700d9
-			public const int LinesOrange = 2131165401;
-			
-			// aapt resource value: 0x7f0700da
-			public const int LinesRed = 2131165402;
-			
-			// aapt resource value: 0x7f070071
-			public const int LinesSwitchingLines = 2131165297;
-			
-			// aapt resource value: 0x7f070072
-			public const int LoginPassword = 2131165298;
-			
-			// aapt resource value: 0x7f070073
-			public const int LoginPasswordDescription = 2131165299;
-			
-			// aapt resource value: 0x7f070074
-			public const int LoginUserName = 2131165300;
-			
-			// aapt resource value: 0x7f070075
-			public const int LoginUserNameDescription = 2131165301;
-			
-			// aapt resource value: 0x7f0700c4
-			public const int MessageBoxMovingToPage = 2131165380;
-			
-			// aapt resource value: 0x7f0700c5
-			public const int MessageBoxMovingToPage2 = 2131165381;
-			
-			// aapt resource value: 0x7f0700c6
-			public const int MessageBoxMovingToPage3 = 2131165382;
-			
-			// aapt resource value: 0x7f0700c7
-			public const int MessageBoxMovingToPage4 = 2131165383;
-			
-			// aapt resource value: 0x7f0700c8
-			public const int MessageBoxMovingToPage5 = 2131165384;
-			
-			// aapt resource value: 0x7f0700c9
-			public const int MessageBoxMovingToPage6 = 2131165385;
-			
-			// aapt resource value: 0x7f070057
-			public const int OptionsCredits = 2131165271;
-			
-			// aapt resource value: 0x7f070058
-			public const int OptionsLeaderboards = 2131165272;
-			
-			// aapt resource value: 0x7f070059
-			public const int OptionsLines = 2131165273;
-			
-			// aapt resource value: 0x7f07005a
-			public const int OptionsPads = 2131165274;
-			
-			// aapt resource value: 0x7f0700b8
-			public const int OptionsPractice = 2131165368;
-			
-			// aapt resource value: 0x7f0700b0
-			public const int OptionsPracticeKillsOff = 2131165360;
-			
-			// aapt resource value: 0x7f0700b1
-			public const int OptionsPracticeKillsOn = 2131165361;
-			
-			// aapt resource value: 0x7f0700b2
-			public const int OptionsPracticeStartLine = 2131165362;
-			
-			// aapt resource value: 0x7f0700b3
-			public const int OptionsPracticeStartPage = 2131165363;
-			
-			// aapt resource value: 0x7f0700b4
-			public const int OptionsPracticeSwitchingLine = 2131165364;
-			
-			// aapt resource value: 0x7f0700b5
-			public const int OptionsPracticeSwitchingPage = 2131165365;
-			
-			// aapt resource value: 0x7f07005b
-			public const int OptionsSoundOff = 2131165275;
-			
-			// aapt resource value: 0x7f07005c
-			public const int OptionsSoundOn = 2131165276;
-			
-			// aapt resource value: 0x7f07005d
-			public const int OptionsTitle = 2131165277;
-			
-			// aapt resource value: 0x7f070076
-			public const int PadsSwitchingPads = 2131165302;
-			
-			// aapt resource value: 0x7f0700db
-			public const int PadsWhite = 2131165403;
+			public const int HelpOptions = 2131165264;
 			
 			// aapt resource value: 0x7f0700dc
-			public const int PadsYellow = 2131165404;
+			public const int HelpOptionsDescription = 2131165404;
 			
-			// aapt resource value: 0x7f070085
-			public const int RatingsDescription = 2131165317;
+			// aapt resource value: 0x7f07007e
+			public const int HelpOrbit = 2131165310;
 			
-			// aapt resource value: 0x7f070086
-			public const int RatingsRateUs = 2131165318;
+			// aapt resource value: 0x7f070051
+			public const int HelpPads = 2131165265;
+			
+			// aapt resource value: 0x7f07007f
+			public const int HelpPauseResume = 2131165311;
+			
+			// aapt resource value: 0x7f070052
+			public const int HelpRatingsDescription = 2131165266;
+			
+			// aapt resource value: 0x7f070080
+			public const int HelpRotate = 2131165312;
+			
+			// aapt resource value: 0x7f070081
+			public const int HelpScroll = 2131165313;
+			
+			// aapt resource value: 0x7f070084
+			public const int HelpSound = 2131165316;
+			
+			// aapt resource value: 0x7f070053
+			public const int HelpStartDescription = 2131165267;
+			
+			// aapt resource value: 0x7f0700a1
+			public const int HelpSupport = 2131165345;
+			
+			// aapt resource value: 0x7f070054
+			public const int HelpTitle = 2131165268;
+			
+			// aapt resource value: 0x7f070089
+			public const int HelpUpgrades = 2131165321;
+			
+			// aapt resource value: 0x7f07008a
+			public const int HelpUpgradesPractice = 2131165322;
+			
+			// aapt resource value: 0x7f07008b
+			public const int HelpUpgradesPracticeDesc1 = 2131165323;
+			
+			// aapt resource value: 0x7f07008c
+			public const int HelpUpgradesPracticeDesc2 = 2131165324;
+			
+			// aapt resource value: 0x7f0700ac
+			public const int HelpZoomInOut = 2131165356;
+			
+			// aapt resource value: 0x7f070075
+			public const int HudCannotGoSlowerThan = 2131165301;
+			
+			// aapt resource value: 0x7f07006e
+			public const int HudHelp = 2131165294;
+			
+			// aapt resource value: 0x7f0700a0
+			public const int HudHigh = 2131165344;
+			
+			// aapt resource value: 0x7f07007a
+			public const int HudHome = 2131165306;
+			
+			// aapt resource value: 0x7f070077
+			public const int HudJoystick = 2131165303;
+			
+			// aapt resource value: 0x7f07006f
+			public const int HudOptions = 2131165295;
+			
+			// aapt resource value: 0x7f0700c7
+			public const int HudOrbit = 2131165383;
+			
+			// aapt resource value: 0x7f070067
+			public const int HudPageLine = 2131165287;
+			
+			// aapt resource value: 0x7f070073
+			public const int HudPause = 2131165299;
+			
+			// aapt resource value: 0x7f070076
+			public const int HudPaused = 2131165302;
+			
+			// aapt resource value: 0x7f070068
+			public const int HudResume = 2131165288;
+			
+			// aapt resource value: 0x7f0700c6
+			public const int HudRotate = 2131165382;
+			
+			// aapt resource value: 0x7f0700c3
+			public const int HudScroll = 2131165379;
+			
+			// aapt resource value: 0x7f070074
+			public const int HudSpeed = 2131165300;
+			
+			// aapt resource value: 0x7f0700ad
+			public const int HudSpeedDefault = 2131165357;
+			
+			// aapt resource value: 0x7f070079
+			public const int HudTime = 2131165305;
+			
+			// aapt resource value: 0x7f070078
+			public const int HudTrackball = 2131165304;
+			
+			// aapt resource value: 0x7f0700bc
+			public const int HudZoom = 2131165372;
+			
+			// aapt resource value: 0x7f0700b1
+			public const int LinesBlue = 2131165361;
+			
+			// aapt resource value: 0x7f0700b2
+			public const int LinesDarkGreen = 2131165362;
+			
+			// aapt resource value: 0x7f0700b3
+			public const int LinesDarkOrange = 2131165363;
+			
+			// aapt resource value: 0x7f0700b4
+			public const int LinesGreen = 2131165364;
+			
+			// aapt resource value: 0x7f0700b5
+			public const int LinesLightBlue = 2131165365;
+			
+			// aapt resource value: 0x7f0700b6
+			public const int LinesLightGreen = 2131165366;
+			
+			// aapt resource value: 0x7f0700b7
+			public const int LinesLightOrange = 2131165367;
+			
+			// aapt resource value: 0x7f0700b8
+			public const int LinesOrange = 2131165368;
+			
+			// aapt resource value: 0x7f0700b9
+			public const int LinesRed = 2131165369;
+			
+			// aapt resource value: 0x7f070069
+			public const int LinesSwitchingLines = 2131165289;
+			
+			// aapt resource value: 0x7f0700d8
+			public const int LoginPassword = 2131165400;
+			
+			// aapt resource value: 0x7f0700d7
+			public const int LoginPasswordDescription = 2131165399;
+			
+			// aapt resource value: 0x7f0700d6
+			public const int LoginUserName = 2131165398;
+			
+			// aapt resource value: 0x7f0700d5
+			public const int LoginUserNameDescription = 2131165397;
+			
+			// aapt resource value: 0x7f0700a3
+			public const int MessageBoxMovingToPage = 2131165347;
+			
+			// aapt resource value: 0x7f0700a4
+			public const int MessageBoxMovingToPage2 = 2131165348;
+			
+			// aapt resource value: 0x7f0700a5
+			public const int MessageBoxMovingToPage3 = 2131165349;
+			
+			// aapt resource value: 0x7f0700a6
+			public const int MessageBoxMovingToPage4 = 2131165350;
+			
+			// aapt resource value: 0x7f0700a7
+			public const int MessageBoxMovingToPage5 = 2131165351;
+			
+			// aapt resource value: 0x7f0700a8
+			public const int MessageBoxMovingToPage6 = 2131165352;
+			
+			// aapt resource value: 0x7f070055
+			public const int OptionsCredits = 2131165269;
+			
+			// aapt resource value: 0x7f070056
+			public const int OptionsLeaderboards = 2131165270;
+			
+			// aapt resource value: 0x7f070057
+			public const int OptionsLines = 2131165271;
+			
+			// aapt resource value: 0x7f070058
+			public const int OptionsPads = 2131165272;
+			
+			// aapt resource value: 0x7f070097
+			public const int OptionsPractice = 2131165335;
+			
+			// aapt resource value: 0x7f070091
+			public const int OptionsPracticeKillsOff = 2131165329;
+			
+			// aapt resource value: 0x7f070092
+			public const int OptionsPracticeKillsOn = 2131165330;
+			
+			// aapt resource value: 0x7f070093
+			public const int OptionsPracticeStartLine = 2131165331;
+			
+			// aapt resource value: 0x7f070094
+			public const int OptionsPracticeStartPage = 2131165332;
+			
+			// aapt resource value: 0x7f070095
+			public const int OptionsPracticeSwitchingLine = 2131165333;
+			
+			// aapt resource value: 0x7f070096
+			public const int OptionsPracticeSwitchingPage = 2131165334;
+			
+			// aapt resource value: 0x7f070059
+			public const int OptionsSoundOff = 2131165273;
+			
+			// aapt resource value: 0x7f07005a
+			public const int OptionsSoundOn = 2131165274;
+			
+			// aapt resource value: 0x7f07005b
+			public const int OptionsTitle = 2131165275;
+			
+			// aapt resource value: 0x7f07006a
+			public const int PadsSwitchingPads = 2131165290;
+			
+			// aapt resource value: 0x7f0700ba
+			public const int PadsWhite = 2131165370;
+			
+			// aapt resource value: 0x7f0700bb
+			public const int PadsYellow = 2131165371;
+			
+			// aapt resource value: 0x7f0700c9
+			public const int RatingsDescription = 2131165385;
+			
+			// aapt resource value: 0x7f0700c1
+			public const int RatingsRateUs = 2131165377;
 			
 			// aapt resource value: 0x7f07004b
 			public const int ResourceFlowDirection = 2131165259;
@@ -4209,95 +4209,95 @@ namespace Simsip.LineRunner
 			// aapt resource value: 0x7f07004c
 			public const int ResourceLanguage = 2131165260;
 			
-			// aapt resource value: 0x7f070077
-			public const int ResourcePacksSwitchingResourcePacks = 2131165303;
-			
-			// aapt resource value: 0x7f0700cf
-			public const int Start3D = 2131165391;
-			
-			// aapt resource value: 0x7f0700d0
-			public const int StartLine = 2131165392;
-			
-			// aapt resource value: 0x7f07008a
-			public const int StartPlay = 2131165322;
-			
-			// aapt resource value: 0x7f07008b
-			public const int StartRate = 2131165323;
-			
-			// aapt resource value: 0x7f0700d1
-			public const int StartRunner = 2131165393;
-			
-			// aapt resource value: 0x7f0700ac
-			public const int UpgradesBuy = 2131165356;
-			
-			// aapt resource value: 0x7f0700a5
-			public const int UpgradesPractice = 2131165349;
-			
-			// aapt resource value: 0x7f0700a6
-			public const int UpgradesPracticeDesc1 = 2131165350;
-			
-			// aapt resource value: 0x7f0700a7
-			public const int UpgradesPracticeDesc2 = 2131165351;
-			
-			// aapt resource value: 0x7f0700b9
-			public const int UpgradesPracticeDesc3 = 2131165369;
-			
-			// aapt resource value: 0x7f0700ad
-			public const int UpgradesPrice = 2131165357;
-			
-			// aapt resource value: 0x7f0700ba
-			public const int UpgradesPurchaseError = 2131165370;
-			
-			// aapt resource value: 0x7f0700bb
-			public const int UpgradesPurchaseStatus = 2131165371;
+			// aapt resource value: 0x7f0700d4
+			public const int ResourcePacksSwitchingResourcePacks = 2131165396;
 			
 			// aapt resource value: 0x7f0700ae
-			public const int UpgradesPurchasedOn = 2131165358;
+			public const int Start3D = 2131165358;
 			
 			// aapt resource value: 0x7f0700af
-			public const int UpgradesRestore = 2131165359;
+			public const int StartLine = 2131165359;
 			
-			// aapt resource value: 0x7f0700bc
-			public const int UpgradesRestoreError = 2131165372;
+			// aapt resource value: 0x7f070070
+			public const int StartPlay = 2131165296;
 			
-			// aapt resource value: 0x7f0700bd
-			public const int UpgradesRestoreStatus = 2131165373;
+			// aapt resource value: 0x7f070071
+			public const int StartRate = 2131165297;
 			
-			// aapt resource value: 0x7f0700a4
-			public const int UpgradesTitle = 2131165348;
+			// aapt resource value: 0x7f0700b0
+			public const int StartRunner = 2131165360;
 			
-			// aapt resource value: 0x7f070079
-			public const int WorldsDefault = 2131165305;
+			// aapt resource value: 0x7f07008d
+			public const int UpgradesBuy = 2131165325;
 			
-			// aapt resource value: 0x7f07007a
-			public const int WorldsErrorCannotUseName = 2131165306;
+			// aapt resource value: 0x7f070086
+			public const int UpgradesPractice = 2131165318;
 			
-			// aapt resource value: 0x7f07007b
-			public const int WorldsErrorWorldActive = 2131165307;
+			// aapt resource value: 0x7f070087
+			public const int UpgradesPracticeDesc1 = 2131165319;
 			
-			// aapt resource value: 0x7f07007c
-			public const int WorldsErrorWorldAlreadyExists = 2131165308;
+			// aapt resource value: 0x7f070088
+			public const int UpgradesPracticeDesc2 = 2131165320;
 			
-			// aapt resource value: 0x7f07007d
-			public const int WorldsGenerateNew = 2131165309;
+			// aapt resource value: 0x7f070098
+			public const int UpgradesPracticeDesc3 = 2131165336;
 			
-			// aapt resource value: 0x7f07007e
-			public const int WorldsSaveWorldAs = 2131165310;
+			// aapt resource value: 0x7f07008e
+			public const int UpgradesPrice = 2131165326;
 			
-			// aapt resource value: 0x7f07007f
-			public const int WorldsSaveWorldAsDescription = 2131165311;
+			// aapt resource value: 0x7f070099
+			public const int UpgradesPurchaseError = 2131165337;
 			
-			// aapt resource value: 0x7f070080
-			public const int WorldsSelectNewWorld = 2131165312;
+			// aapt resource value: 0x7f07009a
+			public const int UpgradesPurchaseStatus = 2131165338;
 			
-			// aapt resource value: 0x7f070081
-			public const int WorldsSwitchingWorlds = 2131165313;
+			// aapt resource value: 0x7f07008f
+			public const int UpgradesPurchasedOn = 2131165327;
 			
-			// aapt resource value: 0x7f070082
-			public const int WorldsUseThisWorld = 2131165314;
+			// aapt resource value: 0x7f070090
+			public const int UpgradesRestore = 2131165328;
 			
-			// aapt resource value: 0x7f070083
-			public const int WorldsWorlds = 2131165315;
+			// aapt resource value: 0x7f07009b
+			public const int UpgradesRestoreError = 2131165339;
+			
+			// aapt resource value: 0x7f07009c
+			public const int UpgradesRestoreStatus = 2131165340;
+			
+			// aapt resource value: 0x7f070085
+			public const int UpgradesTitle = 2131165317;
+			
+			// aapt resource value: 0x7f0700d3
+			public const int WorldsDefault = 2131165395;
+			
+			// aapt resource value: 0x7f0700d2
+			public const int WorldsErrorCannotUseName = 2131165394;
+			
+			// aapt resource value: 0x7f0700d1
+			public const int WorldsErrorWorldActive = 2131165393;
+			
+			// aapt resource value: 0x7f0700d0
+			public const int WorldsErrorWorldAlreadyExists = 2131165392;
+			
+			// aapt resource value: 0x7f0700cf
+			public const int WorldsGenerateNew = 2131165391;
+			
+			// aapt resource value: 0x7f0700ce
+			public const int WorldsSaveWorldAs = 2131165390;
+			
+			// aapt resource value: 0x7f0700cd
+			public const int WorldsSaveWorldAsDescription = 2131165389;
+			
+			// aapt resource value: 0x7f0700cc
+			public const int WorldsSelectNewWorld = 2131165388;
+			
+			// aapt resource value: 0x7f0700cb
+			public const int WorldsSwitchingWorlds = 2131165387;
+			
+			// aapt resource value: 0x7f0700ca
+			public const int WorldsUseThisWorld = 2131165386;
+			
+			// aapt resource value: 0x7f0700c0
+			public const int WorldsWorlds = 2131165376;
 			
 			// aapt resource value: 0x7f070036
 			public const int abc_action_bar_home_description = 2131165238;

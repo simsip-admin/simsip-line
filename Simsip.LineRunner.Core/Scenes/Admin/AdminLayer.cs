@@ -67,14 +67,7 @@ namespace Simsip.LineRunner.Scenes.Admin
             );
 
             // Start page
-            var startPageText = string.Empty;
-#if ANDROID
-            startPageText = Program.SharedProgram.Resources.GetString(Resource.String.AdminStartPage);
-#elif IOS
-            startPageText = NSBundle.MainBundle.LocalizedString(Strings.AdminStartPage, Strings.AdminStartPage);
-#else
-            startPageText = AppResources.AdminStartPage;
-#endif
+            var startPageText = "start page";
             var startPageLabel = new CCLabelTTF(startPageText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             startPageLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             startPageLabel.Position = new CCPoint(
@@ -88,14 +81,7 @@ namespace Simsip.LineRunner.Scenes.Admin
                 0.8f * this.ContentSize.Height);
             this._startPageTextField.AutoEdit = true;
             this._startPageTextField.EditTitle = startPageText;
-            var startPageDescriptionText = string.Empty;
-#if ANDROID
-            startPageDescriptionText = Program.SharedProgram.Resources.GetString(Resource.String.AdminStartPageDescription);
-#elif IOS
-            startPageDescriptionText = NSBundle.MainBundle.LocalizedString(Strings.AdminStartPageDescription, Strings.AdminStartPageDescription);
-#else
-            startPageDescriptionText = AppResources.AdminStartPageDescription;
-#endif
+            var startPageDescriptionText = "enter page to start on";
             this._startPageTextField.EditDescription = startPageDescriptionText;
             this._startPageTextField.ContentSize = new CCSize(      // Makes it easier to touch
                 4f * this._startPageTextField.ContentSize.Width,
@@ -103,14 +89,7 @@ namespace Simsip.LineRunner.Scenes.Admin
             AddChild(this._startPageTextField);
 
             // Start line
-            var startLineText = string.Empty;
-#if ANDROID
-            startLineText = Program.SharedProgram.Resources.GetString(Resource.String.AdminStartLine);
-#elif IOS
-            startLineText = NSBundle.MainBundle.LocalizedString(Strings.AdminStartLine, Strings.AdminStartLine);
-#else
-            startLineText = AppResources.AdminStartLine;
-#endif
+            var startLineText = "start line";
             var startLineLabel = new CCLabelTTF(startLineText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             startLineLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             startLineLabel.Position = new CCPoint(
@@ -125,14 +104,7 @@ namespace Simsip.LineRunner.Scenes.Admin
             this._startLineTextField.AutoEdit = true;
             this._startLineTextField.EditTitle = startLineText;
 
-            var startLineDescriptionText = string.Empty;
-#if ANDROID
-            startLineDescriptionText = Program.SharedProgram.Resources.GetString(Resource.String.AdminStartLineDescription);
-#elif IOS
-            startLineDescriptionText = NSBundle.MainBundle.LocalizedString(Strings.AdminStartLineDescription, Strings.AdminStartLineDescription);
-#else
-            startLineDescriptionText = AppResources.AdminStartLineDescription;
-#endif
+            var startLineDescriptionText = "enter line to start on (1-17)";
             this._startLineTextField.EditDescription = startLineDescriptionText;
             this._startLineTextField.ContentSize = new CCSize(      // Makes it easier to touch
                 4f * this._startLineTextField.ContentSize.Width,
@@ -140,26 +112,12 @@ namespace Simsip.LineRunner.Scenes.Admin
             AddChild(this._startLineTextField);
 
             // Are kills on?
-            var killOnText = string.Empty;
-#if ANDROID
-            killOnText = Program.SharedProgram.Resources.GetString(Resource.String.AdminKillsOn);
-#elif IOS
-            killOnText = NSBundle.MainBundle.LocalizedString(Strings.AdminKillsOn, Strings.AdminKillsOn);
-#else
-            killOnText = AppResources.AdminKillsOn;
-#endif
+            var killOnText = "kills on";
             var killsOnLabel = new CCLabelTTF(killOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             killsOnLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             killsOnLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var killsOnItem = new CCMenuItemLabel(killsOnLabel);
-            var killOffText = string.Empty;
-#if ANDROID
-            killOffText = Program.SharedProgram.Resources.GetString(Resource.String.AdminKillsOff);
-#elif IOS
-            killOffText = NSBundle.MainBundle.LocalizedString(Strings.AdminKillsOff, Strings.AdminKillsOff);
-#else
-            killOffText = AppResources.AdminKillsOff;
-#endif
+            var killOffText = "kills off";
             var killsOffLabel = new CCLabelTTF(killOffText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             killsOffLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             killsOffLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
@@ -183,26 +141,12 @@ namespace Simsip.LineRunner.Scenes.Admin
             this.AddChild(killMenu);
 
             // Are particles on?
-            var particlesOnText = string.Empty;
-#if ANDROID
-            particlesOnText = Program.SharedProgram.Resources.GetString(Resource.String.AdminParticlesOn);
-#elif IOS
-            particlesOnText = NSBundle.MainBundle.LocalizedString(Strings.AdminParticlesOn, Strings.AdminParticlesOn);
-#else
-            particlesOnText = AppResources.AdminParticlesOn;
-#endif
+            var particlesOnText = "particles on";
             var particlesOnLabel = new CCLabelTTF(particlesOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             particlesOnLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             particlesOnLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var particlesOnItem = new CCMenuItemLabel(particlesOnLabel);
-            var particlesOffText = string.Empty;
-#if ANDROID
-            particlesOffText = Program.SharedProgram.Resources.GetString(Resource.String.AdminParticlesOff);
-#elif IOS
-            particlesOffText = NSBundle.MainBundle.LocalizedString(Strings.AdminParticlesOff, Strings.AdminParticlesOff);
-#else
-            particlesOffText = AppResources.AdminParticlesOff;
-#endif
+            var particlesOffText = "particles off";
             var particlesOffLabel = new CCLabelTTF(particlesOffText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             particlesOffLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             particlesOffLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
@@ -226,26 +170,12 @@ namespace Simsip.LineRunner.Scenes.Admin
             this.AddChild(particlesMenu);
 
             // Are upgrades on?
-            var upgradesOnText = string.Empty;
-#if ANDROID
-            upgradesOnText = Program.SharedProgram.Resources.GetString(Resource.String.AdminUpgradesOn);
-#elif IOS
-            upgradesOnText = NSBundle.MainBundle.LocalizedString(Strings.AdminUpgradesOn, Strings.AdminUpgradesOn);
-#else
-            upgradesOnText = AppResources.AdminUpgradesOn;
-#endif
+            var upgradesOnText = "upgrades on";
             var upgradesOnLabel = new CCLabelTTF(upgradesOnText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             upgradesOnLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             upgradesOnLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
             var upgradesOnItem = new CCMenuItemLabel(upgradesOnLabel);
-            var upgradesOffText = string.Empty;
-#if ANDROID
-            upgradesOffText = Program.SharedProgram.Resources.GetString(Resource.String.AdminUpgradesOff);
-#elif IOS
-            upgradesOffText = NSBundle.MainBundle.LocalizedString(Strings.AdminUpgradesOff, Strings.AdminUpgradesOff);
-#else
-            upgradesOffText = AppResources.AdminUpgradesOff;
-#endif
+            var upgradesOffText = "upgrades off";
             var upgradesOffLabel = new CCLabelTTF(upgradesOffText, GameConstants.FONT_FAMILY_NORMAL, GameConstants.FONT_SIZE_NORMAL);
             upgradesOffLabel.Scale = GameConstants.FONT_SIZE_NORMAL_SCALE;
             upgradesOffLabel.ContentSize *= GameConstants.FONT_SIZE_NORMAL_SCALE;
