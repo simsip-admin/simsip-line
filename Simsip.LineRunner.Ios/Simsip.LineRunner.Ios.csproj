@@ -54,7 +54,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhone\Debug</OutputPath>
-    <DefineConstants>DEBUG;__UNIFIED__;__MOBILE__;__IOS__;__UNIFIED__;__MOBILE__;__IOS__;__UNIFIED__;__MOBILE__;__IOS__;__UNIFIED__;__MOBILE__;__IOS__;__UNIFIED__;__MOBILE__;__IOS__;__UNIFIED__;__MOBILE__;__IOS__;IPHONE;IOS</DefineConstants>
+    <DefineConstants>DEBUG;__UNIFIED__;__MOBILE__;__IOS__;IPHONE;IOS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -83,7 +83,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
-    <DefineConstants>__UNIFIED__;__MOBILE__;__IOS__;__MOBILE__;__IOS__;IOS</DefineConstants>
+    <DefineConstants>__UNIFIED__;__MOBILE__;__IOS__;IPHONE;IOS</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
   </PropertyGroup>
@@ -97,7 +97,7 @@
     <CodesignKey>iPhone Distribution</CodesignKey>
     <BuildIpa>True</BuildIpa>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
-    <DefineConstants>__UNIFIED__;__MOBILE__;__IOS__;IOS</DefineConstants>
+    <DefineConstants>__UNIFIED__;__MOBILE__;__IOS__;IPHONE;IOS</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CodesignProvision>bcefb2d2-3f15-46b5-8e15-1fb3e8af1e09</CodesignProvision>
     <CodesignEntitlements />
