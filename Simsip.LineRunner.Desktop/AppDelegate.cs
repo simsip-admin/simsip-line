@@ -50,8 +50,11 @@ namespace Simsip.LineRunner
             // turn on display FPS
             //pDirector.DisplayStats = true;
 
-            // set FPS. the default value is 1.0/60 if you don't call this
-            pDirector.AnimationInterval = 1.0 / 60;
+            pDirector.AnimationInterval = TheGame.SharedGame.TimeStepDuration;
+            // Original
+            // Set FPS. the default value is 1.0/60 if you don't call this
+            // pDirector.AnimationInterval = 1.0 / 60;
+            // pDirector.AnimationInterval = 1.0 / 30;
 
             // TODO: Which fonts do we want to pre-register?
             CCSpriteFontCache.FontRoot = "Fonts";

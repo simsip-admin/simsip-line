@@ -49,9 +49,13 @@ namespace Simsip.LineRunner
             // Needed for stencil clipping via CCClippingNode
             this._graphicsDeviceManager.PreferredDepthStencilFormat = DepthFormat.Depth24Stencil8;
 
+            this.TimeStepDuration = 1f / 30;
+            TargetElapsedTime = TimeSpan.FromTicks((int)(this.TimeStepDuration * 10000000));
+            // Original:
             // Frame rate is 30 fps by default for Windows Phone.
+            // TargetElapsedTime = TimeSpan.FromTicks(333333);
             // Divide by 2 to make it 60 fps
-            TargetElapsedTime = TimeSpan.FromTicks(333333 / 2);
+            // TargetElapsedTime = TimeSpan.FromTicks(333333 / 2);
 
             // Extend battery life under lock.
             // InactiveSleepTime = TimeSpan.FromSeconds(1);
@@ -61,6 +65,13 @@ namespace Simsip.LineRunner
 
             TheGame.SharedGame = this;
         }
+
+        /// <summary>
+        /// Our defined frame rate.
+        /// 
+        /// Example: 1f/30 equals 30 fps
+        /// </summary>
+        public float TimeStepDuration { get; private set; }
 
         protected async override void Initialize()
         {

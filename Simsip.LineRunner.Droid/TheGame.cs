@@ -15,6 +15,7 @@ namespace Simsip.LineRunner
 {
     public class TheGame : Game
     {
+        // Experimenting with timestep, ignore for now, 
         // in your game1 class variable definitions
         private const float timeToNextUpdate = 1.0f / 30.0f;
         private float timeSinceLastUpdate;
@@ -55,8 +56,11 @@ namespace Simsip.LineRunner
 
             this._graphicsDeviceManager.PreferredDepthStencilFormat = DepthFormat.Depth24;
             
+            this.TimeStepDuration = 1f / 30;
+            TargetElapsedTime = TimeSpan.FromTicks((int)(this.TimeStepDuration * 10000000));
+            // Original:
             // Frame rate is 30 fps by default for Windows Phone.
-            TargetElapsedTime = TimeSpan.FromTicks(333333);
+            // TargetElapsedTime = TimeSpan.FromTicks(333333);
             // Divide by 2 to make it 60 fps
             // TargetElapsedTime = TimeSpan.FromTicks(333333 / 2);
 
@@ -71,6 +75,13 @@ namespace Simsip.LineRunner
 
             TheGame.SharedGame = this;
         }
+
+        /// <summary>
+        /// Our defined frame rate.
+        /// 
+        /// Example: 1f/30 equals 30 fps
+        /// </summary>
+        public float TimeStepDuration { get; private set; }
 
         // Currently not used
         private void graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
