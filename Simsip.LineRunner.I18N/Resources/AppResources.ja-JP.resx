@@ -118,446 +118,460 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ResourceFlowDirection" xml:space="preserve">
-    <value>LeftToRight</value>
+    <value>左から右へ</value>
     <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
   </data>
   <data name="ResourceLanguage" xml:space="preserve">
-    <value>ja-JP</value>
+    <value>英語-米国</value>
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
   </data>
   <data name="CommonVersion" xml:space="preserve">
     <value>バージョン</value>
-  </data>
-  <data name="HelpHelpDescription" xml:space="preserve">
-    <value>ヘルプ画面</value>
+    <comment>Common text to use when indicating version of game, e.g., version 1.0</comment>
   </data>
   <data name="HelpHowToPlayDescription1" xml:space="preserve">
-    <value>タップすると、線や障害物を回避します。</value>
+    <value>タップして行や障害物を回避</value>
+    <comment>Help page 2 - description on how to play game</comment>
   </data>
   <data name="HelpLines" xml:space="preserve">
-    <value>パッドの行を変更します。</value>
+    <value>メモ帳の行を変更します</value>
+    <comment>Help page 7 - desciption for changing lines option</comment>
   </data>
   <data name="HelpOptions" xml:space="preserve">
     <value>オプション</value>
-  </data>
-  <data name="HelpOptionsDescription" xml:space="preserve">
-    <value>ゲーム オプション</value>
+    <comment>Help pages 7-8 subtitle, these pages focus on the options section of the game</comment>
   </data>
   <data name="HelpPads" xml:space="preserve">
-    <value>再生するパッドを変更します。</value>
+    <value>プレイするメモ帳を変更します</value>
+    <comment>Help page 7 - description for changing pads option</comment>
   </data>
   <data name="HelpRatingsDescription" xml:space="preserve">
-    <value>私たちを評価します。</value>
+    <value>評価する</value>
+    <comment>Help page 1 - description for the ratings button</comment>
   </data>
   <data name="HelpStartDescription" xml:space="preserve">
-    <value>ゲームをプレイします。</value>
+    <value>プレイ</value>
+    <comment>Help page 1 - description for the play game button</comment>
   </data>
   <data name="HelpTitle" xml:space="preserve">
     <value>ヘルプ</value>
+    <comment>All help pages - help title</comment>
   </data>
   <data name="OptionsCredits" xml:space="preserve">
     <value>クレジット</value>
+    <comment>Options - misc - text for credits button</comment>
   </data>
   <data name="OptionsLeaderboards" xml:space="preserve">
-    <value>スコア_ボード</value>
+    <value>スコアボード</value>
+    <comment>Options - misc - text for leaderboards button</comment>
   </data>
   <data name="OptionsLines" xml:space="preserve">
     <value>行</value>
+    <comment>Options - lines - text for title</comment>
   </data>
   <data name="OptionsPads" xml:space="preserve">
-    <value>パッド</value>
+    <value>メモ帳</value>
+    <comment>Options - pads - text for title</comment>
   </data>
   <data name="OptionsSoundOff" xml:space="preserve">
-    <value>サウンド オフ</value>
+    <value>サウンドオフ</value>
+    <comment>Options - misc - text for stating that sound is off.</comment>
   </data>
   <data name="OptionsSoundOn" xml:space="preserve">
-    <value>サウンド</value>
+    <value>サウンドオン</value>
+    <comment>Options - misc - text for stating that sound is on.</comment>
   </data>
   <data name="OptionsTitle" xml:space="preserve">
     <value>オプション</value>
+    <comment>Options - title text for all options pages</comment>
   </data>
   <data name="AchievementsLeaderboards" xml:space="preserve">
-    <value>スコア_ボード</value>
+    <value>スコアボード</value>
+    <comment>Leaderboards screen title.</comment>
   </data>
   <data name="AchievementsTopScoresFor" xml:space="preserve">
-    <value>トップ スコア</value>
-  </data>
-  <data name="AdminKillsOff" xml:space="preserve">
-    <value>を強制終了します。</value>
-  </data>
-  <data name="AdminKillsOn" xml:space="preserve">
-    <value>強制終了します。</value>
-  </data>
-  <data name="AdminParticlesOff" xml:space="preserve">
-    <value>パーティクルをオフ</value>
-  </data>
-  <data name="AdminParticlesOn" xml:space="preserve">
-    <value>パーティクル</value>
-  </data>
-  <data name="AdminStartPage" xml:space="preserve">
-    <value>スタート ページ</value>
-  </data>
-  <data name="AdminStartPageDescription" xml:space="preserve">
-    <value>ページで開始を入力してください。</value>
+    <value>スコア上位</value>
+    <comment>Leaderboards screen subtitle.</comment>
   </data>
   <data name="CommonCancel" xml:space="preserve">
-    <value>取り消す</value>
+    <value>キャンセル</value>
+    <comment>Common text to use when we want to cancel an operation.</comment>
   </data>
   <data name="CommonDelete" xml:space="preserve">
-    <value>削除する</value>
+    <value>削除</value>
+    <comment>Common text to use when we want to delete something.</comment>
   </data>
   <data name="CommonError" xml:space="preserve">
     <value>エラー</value>
+    <comment>Common text to use when we want to indicate an error.</comment>
   </data>
   <data name="CommonNo" xml:space="preserve">
     <value>いいえ</value>
+    <comment>Common text to use for a no option.</comment>
   </data>
   <data name="CommonOK" xml:space="preserve">
-    <value>/オーケー/おーけー/オーケー;</value>
+    <value>OK</value>
+    <comment>Common text to use for an ok option.</comment>
   </data>
   <data name="CommonYes" xml:space="preserve">
-    <value>[はい]</value>
+    <value>はい</value>
+    <comment>Common text to use for a yes option.</comment>
   </data>
   <data name="CreditsCreatedBy" xml:space="preserve">
     <value>開発</value>
+    <comment>Credits screen subtitle.</comment>
   </data>
   <data name="CreditsCreatedBySimsip" xml:space="preserve">
     <value>simsip</value>
+    <comment>Credits screen company name.</comment>
   </data>
   <data name="FinishNewHighScore" xml:space="preserve">
-    <value>新しいハイ スコア</value>
+    <value>最高得点更新</value>
+    <comment>Finish screen title.</comment>
   </data>
   <data name="HudPageLine" xml:space="preserve">
-    <value>ページと行</value>
+    <value>ページ／行</value>
+    <comment>Hud - status line to be displayed when starting and moving to new page/line, e.g., page/line 1/2 - on first page and moving to second line</comment>
   </data>
   <data name="HudResume" xml:space="preserve">
-    <value>履歴書</value>
+    <value>再開</value>
+    <comment>Hud - text to be displayed under the resume button (toggles with pause button)</comment>
   </data>
   <data name="LinesSwitchingLines" xml:space="preserve">
-    <value>線の切り替え</value>
-  </data>
-  <data name="LoginPassword" xml:space="preserve">
-    <value>パスワード</value>
-  </data>
-  <data name="LoginPasswordDescription" xml:space="preserve">
-    <value>パスワードを入力してください。</value>
-  </data>
-  <data name="LoginUserName" xml:space="preserve">
-    <value>ユーザー名</value>
-  </data>
-  <data name="LoginUserNameDescription" xml:space="preserve">
-    <value>一意のユーザー名を入力してください。</value>
+    <value>行を変更</value>
+    <comment>Options - line selection - status line to display when switching line colors</comment>
   </data>
   <data name="PadsSwitchingPads" xml:space="preserve">
-    <value>パッドの切り替え</value>
-  </data>
-  <data name="ResourcePacksSwitchingResourcePacks" xml:space="preserve">
-    <value>パックのリソースの切り替え</value>
+    <value>メモ帳を変更</value>
+    <comment>Options - pads - status text to display when switching pads.</comment>
   </data>
   <data name="CommonAdmin" xml:space="preserve">
     <value>管理者</value>
-  </data>
-  <data name="WorldsDefault" xml:space="preserve">
-    <value>既定値</value>
-  </data>
-  <data name="WorldsErrorCannotUseName" xml:space="preserve">
-    <value>世界中のこの名前を使用することはできません。</value>
-  </data>
-  <data name="WorldsErrorWorldActive" xml:space="preserve">
-    <value>アクティブになっている世界を削除することはできません。</value>
-  </data>
-  <data name="WorldsErrorWorldAlreadyExists" xml:space="preserve">
-    <value>この名前の世界は既に存在しています。</value>
-  </data>
-  <data name="WorldsGenerateNew" xml:space="preserve">
-    <value>新規生成します。</value>
-  </data>
-  <data name="WorldsSaveWorldAs" xml:space="preserve">
-    <value>として世界を保存してください.</value>
-  </data>
-  <data name="WorldsSaveWorldAsDescription" xml:space="preserve">
-    <value>世界の名前を入力してください。</value>
-  </data>
-  <data name="WorldsSelectNewWorld" xml:space="preserve">
-    <value>使用する新しい世界を選択します。</value>
-  </data>
-  <data name="WorldsSwitchingWorlds" xml:space="preserve">
-    <value>世界の切り替え</value>
-  </data>
-  <data name="WorldsUseThisWorld" xml:space="preserve">
-    <value>起動するときに、この世界を使用してください。</value>
-  </data>
-  <data name="WorldsWorlds" xml:space="preserve">
-    <value>世界</value>
+    <comment>Ignore</comment>
   </data>
   <data name="CommonLater" xml:space="preserve">
-    <value>後で</value>
-  </data>
-  <data name="RatingsDescription" xml:space="preserve">
-    <value>気に入った LineRunner はできるだけ多くようです。注意して、いくつかの星を得でしょうか。</value>
-  </data>
-  <data name="RatingsRateUs" xml:space="preserve">
-    <value>私たちを評価するには!</value>
+    <value>あとで</value>
+    <comment>Common text to use when we want to give the user a chance to attempt the operation later.</comment>
   </data>
   <data name="CreditsTitle" xml:space="preserve">
     <value>クレジット</value>
+    <comment>Credits screen title.</comment>
   </data>
   <data name="HudHelp" xml:space="preserve">
     <value>ヘルプ</value>
+    <comment>Hud - help menu option that will take you to help screens</comment>
   </data>
   <data name="HudOptions" xml:space="preserve">
     <value>オプション</value>
+    <comment>Hud - options menu option that will take you to options screen</comment>
   </data>
   <data name="StartPlay" xml:space="preserve">
     <value>プレイ</value>
+    <comment>Start - text for play button.</comment>
   </data>
   <data name="StartRate" xml:space="preserve">
-    <value>レート</value>
+    <value>評価</value>
+    <comment>Start - text for rate button.</comment>
   </data>
   <data name="CommonPage" xml:space="preserve">
     <value>ページ</value>
+    <comment>Common text to use when indicating a page number, e.g., page 4.</comment>
   </data>
   <data name="HudPause" xml:space="preserve">
     <value>一時停止</value>
+    <comment>Hud - text to be displayed under pause button</comment>
   </data>
   <data name="HudSpeed" xml:space="preserve">
     <value>速度</value>
+    <comment>Hud - text to display under the speed increase/decrease buttons</comment>
   </data>
   <data name="HudCannotGoSlowerThan" xml:space="preserve">
-    <value>移動できないよりも遅くなります</value>
+    <value>これより遅くはできません</value>
+    <comment>Hud - status line to display when user is attempting to change speed lower than minimum value allowed</comment>
   </data>
   <data name="HudPaused" xml:space="preserve">
-    <value>一時停止</value>
+    <value>一時停止中</value>
+    <comment>Hud - status line to display when you have tapped the pause button</comment>
   </data>
   <data name="HudJoystick" xml:space="preserve">
     <value>ジョイスティック</value>
+    <comment>Hud - text to be displayed in middle of joystick buttons</comment>
   </data>
   <data name="HudTrackball" xml:space="preserve">
     <value>トラックボール</value>
+    <comment>Hud - text to display underneath trackball button</comment>
   </data>
   <data name="HudTime" xml:space="preserve">
     <value>時間</value>
+    <comment>Hud - text to display above your time for your high score</comment>
   </data>
   <data name="HudHome" xml:space="preserve">
     <value>ホーム</value>
-  </data>
-  <data name="AdminStartLine" xml:space="preserve">
-    <value>行を開始します。</value>
-  </data>
-  <data name="AdminStartLineDescription" xml:space="preserve">
-    <value>(1-17) で開始する行を入力してください。</value>
+    <comment>Hud - home menu option that will take you to start screen</comment>
   </data>
   <data name="HelpLicense" xml:space="preserve">
-    <value>使用許諾契約書</value>
+    <value>使用許諾書</value>
+    <comment>All help pages - tappable subtitle that will take you to game license</comment>
   </data>
   <data name="CommonReset" xml:space="preserve">
-    <value>ビューをリセットするのにはトラック ボールをタップして 2 倍</value>
+    <value>トラックボールを2度タップしてビューをリセット</value>
+    <comment>Common text to use as a status line to display to users to inform them that they can double tap the trackball icon to reset their view after rotating, scrolling, etc.</comment>
   </data>
   <data name="HelpIncreaseDecrease" xml:space="preserve">
-    <value>速度を増減させる</value>
+    <value>速度の増減</value>
+    <comment>Help page 3 - description for how to change how fast hero moves through game</comment>
   </data>
   <data name="HelpOrbit" xml:space="preserve">
-    <value>オービット ビューにトラック ボールからドラッグします。</value>
+    <value>トラックボールからドラッグしてビューを回転</value>
+    <comment>Help page 6 - description on how to orbit your view</comment>
   </data>
   <data name="HelpPauseResume" xml:space="preserve">
-    <value>一時停止または再開ゲーム</value>
+    <value>ゲームの一時停止と再開</value>
+    <comment>Help page 3 - description on how to pause or resume hero moving through game</comment>
   </data>
   <data name="HelpRotate" xml:space="preserve">
-    <value>ビューを回転するのには中央からドラッグします。</value>
+    <value>中央からドラッグしてビューを回転</value>
+    <comment>Help page 4 - description on how to rotate your view</comment>
   </data>
   <data name="HelpScroll" xml:space="preserve">
-    <value>タップするかビューをスクロールするには</value>
-  </data>
-  <data name="HudOrbit" xml:space="preserve">
-    <value>軌道</value>
-  </data>
-  <data name="HudRotate" xml:space="preserve">
-    <value>ビューを回転させる</value>
-  </data>
-  <data name="HudScroll" xml:space="preserve">
-    <value>スクロール ビュー</value>
+    <value>タップか押し続けてビューをスクロール</value>
+    <comment>Help page 5 - description on how to scroll your view</comment>
   </data>
   <data name="HelpHud" xml:space="preserve">
-    <value>hud</value>
+    <value>HUD表示</value>
+    <comment>Help page 3-6 subtitle, hud is short for heads up display - a gaming term</comment>
   </data>
   <data name="HelpLeaderboards" xml:space="preserve">
-    <value>トップ スコアを参照してください。</value>
+    <value>あなたのスコア上位</value>
+    <comment>Help page 8 - description for leaderboards option</comment>
   </data>
   <data name="HelpSound" xml:space="preserve">
-    <value>サウンドをオフまたはオンします。</value>
+    <value>サウンドのオンとオフ</value>
+    <comment>Help page 8 - description for sound option</comment>
   </data>
   <data name="UpgradesTitle" xml:space="preserve">
     <value>アップグレード</value>
+    <comment>Upgrades - title for upgrades pages.</comment>
   </data>
   <data name="UpgradesPractice" xml:space="preserve">
-    <value>プラクティス モード</value>
+    <value>練習モード</value>
+    <comment>Upgrades - practice mode title.</comment>
   </data>
   <data name="UpgradesPracticeDesc1" xml:space="preserve">
-    <value>すべてのページと行にジャンプします。</value>
+    <value>どのページのどの行にでもジャンプ</value>
+    <comment>Upgrades - first practice mode description line.</comment>
   </data>
   <data name="UpgradesPracticeDesc2" xml:space="preserve">
-    <value>キルをオフにします。</value>
+    <value>キルをオフにする</value>
+    <comment>Upgrades - second practice mode description line.</comment>
   </data>
   <data name="HelpUpgrades" xml:space="preserve">
     <value>アップグレード</value>
+    <comment>Help page 9 - upgrades subtitle for page</comment>
   </data>
   <data name="HelpUpgradesPractice" xml:space="preserve">
-    <value>プラクティス モード</value>
+    <value>練習モード</value>
+    <comment>Help page 9 - upgrade practice mode title</comment>
   </data>
   <data name="HelpUpgradesPracticeDesc1" xml:space="preserve">
-    <value>すべてのページと行にジャンプします。</value>
+    <value>どのページのどの行にでもジャンプ</value>
+    <comment>Help page 9 - first description line for practice mode</comment>
   </data>
   <data name="HelpUpgradesPracticeDesc2" xml:space="preserve">
-    <value>キルをオフにします。</value>
+    <value>キルをオフにする</value>
+    <comment>Help page 9 - second description for practice mode</comment>
   </data>
   <data name="UpgradesBuy" xml:space="preserve">
     <value>購入</value>
+    <comment>Upgrades - text for buy button. Allows user to make an in-app purchase for the upgrade.</comment>
   </data>
   <data name="UpgradesPrice" xml:space="preserve">
     <value>価格</value>
+    <comment>Upgrades - text for price. The price of an upgrade will be displayed below this text.</comment>
   </data>
   <data name="UpgradesPurchasedOn" xml:space="preserve">
-    <value>購入</value>
+    <value>購入日</value>
+    <comment>Upgrades - once an upgrade is purchased this text will display with the date of purchase underneath it.</comment>
   </data>
   <data name="UpgradesRestore" xml:space="preserve">
     <value>復元</value>
+    <comment>Upgrades - text for restore button. Restore allows a user to restore a previously purchased in-app product.</comment>
   </data>
   <data name="OptionsPracticeKillsOff" xml:space="preserve">
-    <value>を強制終了します。</value>
+    <value>キルをオフにする</value>
+    <comment>Options - practice mode - text for stating that kills are off. When kills are off, the hero  will not die and cause game restart when he hits an obstacle or line.</comment>
   </data>
   <data name="OptionsPracticeKillsOn" xml:space="preserve">
-    <value>強制終了します。</value>
+    <value>キルをオンにする</value>
+    <comment>Options - practice mode - text for stating that kills are on. When kills are on, the hero  will die and cause game restart when he hits an obstacle or line.</comment>
   </data>
   <data name="OptionsPracticeStartLine" xml:space="preserve">
     <value>開始行</value>
+    <comment>Options - practice mode - subtitle text for choosing line you want to start on.</comment>
   </data>
   <data name="OptionsPracticeStartPage" xml:space="preserve">
     <value>開始ページ</value>
+    <comment>Options - practice mode - subtitle text for choosing page you want to start on.</comment>
   </data>
   <data name="OptionsPracticeSwitchingLine" xml:space="preserve">
-    <value>線の切り替え</value>
+    <value>行を変更する</value>
+    <comment>Options - practice mode - status line to display while you are moving to a new starting line.</comment>
   </data>
   <data name="OptionsPracticeSwitchingPage" xml:space="preserve">
-    <value>ページの切り替え</value>
-  </data>
-  <data name="AdminUpgradesOff" xml:space="preserve">
-    <value>アップグレード</value>
-  </data>
-  <data name="AdminUpgradesOn" xml:space="preserve">
-    <value>アップグレード</value>
+    <value>ページを変更する</value>
+    <comment>Options - practice mode - status line to display while you are moving to a new starting page.</comment>
   </data>
   <data name="OptionsPractice" xml:space="preserve">
-    <value>プラクティス モード</value>
+    <value>練習モード</value>
+    <comment>Options - practice mode - text for title</comment>
   </data>
   <data name="UpgradesPracticeDesc3" xml:space="preserve">
-    <value>プラクティス モードのオプションをタップします。</value>
+    <value>練習モードのタップオプション</value>
+    <comment>Upgrades - status line to display once they have purchased practice mode. This tells them how to access practice mode.</comment>
   </data>
   <data name="UpgradesPurchaseError" xml:space="preserve">
-    <value>購入アップグレードのエラー</value>
+    <value>アップグレードの購入でエラーが発生しました</value>
+    <comment>Upgrades - text to display if an error occurs when attempting to purchase an upgrade.</comment>
   </data>
   <data name="UpgradesPurchaseStatus" xml:space="preserve">
-    <value>アップグレードを購入</value>
+    <value>アップグレードを購入中</value>
+    <comment>Upgrades - text to display in popup while purchasing an upgrade.</comment>
   </data>
   <data name="UpgradesRestoreError" xml:space="preserve">
-    <value>アップグレードの復元エラー</value>
+    <value>アップグレードの復元にエラーが発生しました</value>
+    <comment>Upgrades - text to display if an error occurs when attempting to restore a purchase.</comment>
   </data>
   <data name="UpgradesRestoreStatus" xml:space="preserve">
-    <value>アップグレードを復元します。</value>
+    <value>アップグレードを復元中</value>
+    <comment>Upgrades - text to display in popup will restoring an upgrade.</comment>
   </data>
   <data name="AchievementsColumnDate" xml:space="preserve">
     <value>日付</value>
+    <comment>Date column header on leaderboards screen.</comment>
   </data>
   <data name="AchievementsColumnTime" xml:space="preserve">
     <value>時間</value>
+    <comment>Time column header on leaderboards screen.</comment>
   </data>
   <data name="AchievementsColumnScore" xml:space="preserve">
     <value>スコア</value>
+    <comment>Score column header on leaderboards screen.</comment>
   </data>
   <data name="HudHigh" xml:space="preserve">
-    <value>高</value>
+    <value>最高</value>
+    <comment>Hud - text to display above your high score</comment>
   </data>
   <data name="HelpSupport" xml:space="preserve">
     <value>サポート</value>
+    <comment>All help pages - tappable subtitle that will take you to support page</comment>
   </data>
   <data name="FinishWinner" xml:space="preserve">
-    <value>勝者!</value>
+    <value>勝者！</value>
+    <comment>Finish screen text to display when user has finished all pages of game.</comment>
   </data>
   <data name="MessageBoxMovingToPage" xml:space="preserve">
-    <value>ページに移動</value>
+    <value>次ページへ移動</value>
+    <comment>Title text for popup box when moving to next page</comment>
   </data>
   <data name="MessageBoxMovingToPage2" xml:space="preserve">
-    <value>あなたは素晴らしい!</value>
+    <value>すばらしい！</value>
+    <comment>Subtitle text for popup when moving to page 2</comment>
   </data>
   <data name="MessageBoxMovingToPage3" xml:space="preserve">
-    <value>ブーム!</value>
+    <value>すてき！</value>
+    <comment>Subtitle text for popup when moving to page 3</comment>
   </data>
   <data name="MessageBoxMovingToPage4" xml:space="preserve">
-    <value>お誕生日!</value>
+    <value>やったね！</value>
+    <comment>Subtitle text for popup when moving to page 4</comment>
   </data>
   <data name="MessageBoxMovingToPage5" xml:space="preserve">
-    <value>火災!</value>
+    <value>すごいぞ！</value>
+    <comment>Subtitle text for popup when moving to page 5</comment>
   </data>
   <data name="MessageBoxMovingToPage6" xml:space="preserve">
-    <value>最後のページです。</value>
+    <value>最終ページ！</value>
+    <comment>Subtitle text for popup when moving to page 6</comment>
   </data>
   <data name="CommonBack" xml:space="preserve">
-    <value>背もたれ</value>
+    <value>最初へ戻る</value>
+    <comment>Common text underneath back arrow on screens.</comment>
   </data>
   <data name="CommonNext" xml:space="preserve">
     <value>次へ</value>
+    <comment>Common text underneath the next arrow on screens.</comment>
   </data>
   <data name="CommonPrevious" xml:space="preserve">
-    <value>前</value>
+    <value>前へ</value>
+    <comment>Common text to underneath the previous arrow on screens.</comment>
   </data>
   <data name="HelpZoomInOut" xml:space="preserve">
-    <value>拡大または縮小します。</value>
+    <value>ズームインとズームアウト</value>
+    <comment>Help page 3 - description on how to zoom view in or out</comment>
   </data>
   <data name="HudSpeedDefault" xml:space="preserve">
-    <value>(既定値)</value>
+    <value>（デフォルト）</value>
+    <comment>Hud - status line to display when changing speed and you have set yourself to the default speed</comment>
   </data>
   <data name="Start3D" xml:space="preserve">
     <value>3D</value>
+    <comment>Start - third portion of game title that is overlayed on top of second portion of game title</comment>
   </data>
   <data name="StartLine" xml:space="preserve">
-    <value>折れ線</value>
+    <value>罫線</value>
+    <comment>Start - first portion of game title that is displayed to left of logo.</comment>
   </data>
   <data name="StartRunner" xml:space="preserve">
     <value>ランナー</value>
+    <comment>Start - second portion of game title that is displayed to right of logo.</comment>
   </data>
   <data name="LinesBlue" xml:space="preserve">
     <value>青</value>
+    <comment>Options - line selection - text for blue color</comment>
   </data>
   <data name="LinesDarkGreen" xml:space="preserve">
-    <value>濃い緑</value>
+    <value>深緑</value>
+    <comment>Options - line selection - text for dark green color</comment>
   </data>
   <data name="LinesDarkOrange" xml:space="preserve">
     <value>濃いオレンジ</value>
+    <comment>Options - line selection - text for dark orange color</comment>
   </data>
   <data name="LinesGreen" xml:space="preserve">
     <value>緑</value>
+    <comment>Options - line selection - text for green color</comment>
   </data>
   <data name="LinesLightBlue" xml:space="preserve">
-    <value>明るい青</value>
+    <value>薄青</value>
+    <comment>Options - line selection - text for light blue color</comment>
   </data>
   <data name="LinesLightGreen" xml:space="preserve">
-    <value>明るい緑</value>
+    <value>薄緑</value>
+    <comment>Options - line selection - text for light green color</comment>
   </data>
   <data name="LinesLightOrange" xml:space="preserve">
-    <value>薄いオレンジ</value>
+    <value>淡いオレンジ</value>
+    <comment>Options - line selection - text for light orange color</comment>
   </data>
   <data name="LinesOrange" xml:space="preserve">
     <value>オレンジ</value>
+    <comment>Options - line selection - text for orange color</comment>
   </data>
   <data name="LinesRed" xml:space="preserve">
-    <value>赤い</value>
+    <value>赤</value>
+    <comment>Options - line selection - text for red color</comment>
   </data>
   <data name="PadsWhite" xml:space="preserve">
-    <value>ホワイト</value>
+    <value>白</value>
+    <comment>Options - pad selections - text for white color.</comment>
   </data>
   <data name="PadsYellow" xml:space="preserve">
-    <value>イエロー</value>
+    <value>黄</value>
+    <comment>Options - pad selections - text for yellow color.</comment>
   </data>
   <data name="HudZoom" xml:space="preserve">
     <value>ズーム</value>
+    <comment>Hud - text to dispaly under the zoom in/out buttons</comment>
   </data>
+
 </root>

@@ -118,446 +118,460 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ResourceFlowDirection" xml:space="preserve">
-    <value>LeftToRight</value>
+    <value>由左至右</value>
     <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
   </data>
   <data name="ResourceLanguage" xml:space="preserve">
-    <value>zh-Hant</value>
+    <value>zh-TW</value>
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
   </data>
   <data name="CommonVersion" xml:space="preserve">
     <value>版本</value>
-  </data>
-  <data name="HelpHelpDescription" xml:space="preserve">
-    <value>說明畫面</value>
+    <comment>Common text to use when indicating version of game, e.g., version 1.0</comment>
   </data>
   <data name="HelpHowToPlayDescription1" xml:space="preserve">
-    <value>點選以避免線條和障礙</value>
+    <value>點選以避開行和障礙</value>
+    <comment>Help page 2 - description on how to play game</comment>
   </data>
   <data name="HelpLines" xml:space="preserve">
-    <value>變更的線條</value>
+    <value>變更筆記本上的行</value>
+    <comment>Help page 7 - desciption for changing lines option</comment>
   </data>
   <data name="HelpOptions" xml:space="preserve">
     <value>選項</value>
-  </data>
-  <data name="HelpOptionsDescription" xml:space="preserve">
-    <value>遊戲選項</value>
+    <comment>Help pages 7-8 subtitle, these pages focus on the options section of the game</comment>
   </data>
   <data name="HelpPads" xml:space="preserve">
-    <value>變更您在播放的板</value>
+    <value>變更進行遊戲的筆記本</value>
+    <comment>Help page 7 - description for changing pads option</comment>
   </data>
   <data name="HelpRatingsDescription" xml:space="preserve">
-    <value>我們評等</value>
+    <value>給我們評價</value>
+    <comment>Help page 1 - description for the ratings button</comment>
   </data>
   <data name="HelpStartDescription" xml:space="preserve">
-    <value>玩遊戲</value>
+    <value>開始遊戲</value>
+    <comment>Help page 1 - description for the play game button</comment>
   </data>
   <data name="HelpTitle" xml:space="preserve">
     <value>說明</value>
+    <comment>All help pages - help title</comment>
   </data>
   <data name="OptionsCredits" xml:space="preserve">
-    <value>參與名單</value>
+    <value>製作群</value>
+    <comment>Options - misc - text for credits button</comment>
   </data>
   <data name="OptionsLeaderboards" xml:space="preserve">
-    <value>排行榜</value>
+    <value>龍虎榜</value>
+    <comment>Options - misc - text for leaderboards button</comment>
   </data>
   <data name="OptionsLines" xml:space="preserve">
-    <value>線條</value>
+    <value>行</value>
+    <comment>Options - lines - text for title</comment>
   </data>
   <data name="OptionsPads" xml:space="preserve">
-    <value>墊</value>
+    <value>筆記本</value>
+    <comment>Options - pads - text for title</comment>
   </data>
   <data name="OptionsSoundOff" xml:space="preserve">
-    <value>關閉音效</value>
+    <value>關閉聲音</value>
+    <comment>Options - misc - text for stating that sound is off.</comment>
   </data>
   <data name="OptionsSoundOn" xml:space="preserve">
-    <value>上的聲音</value>
+    <value>開啟聲音</value>
+    <comment>Options - misc - text for stating that sound is on.</comment>
   </data>
   <data name="OptionsTitle" xml:space="preserve">
     <value>選項</value>
+    <comment>Options - title text for all options pages</comment>
   </data>
   <data name="AchievementsLeaderboards" xml:space="preserve">
-    <value>排行榜</value>
+    <value>龍虎榜</value>
+    <comment>Leaderboards screen title.</comment>
   </data>
   <data name="AchievementsTopScoresFor" xml:space="preserve">
-    <value>最高得分</value>
-  </data>
-  <data name="AdminKillsOff" xml:space="preserve">
-    <value>關閉殲敵</value>
-  </data>
-  <data name="AdminKillsOn" xml:space="preserve">
-    <value>在上殲敵</value>
-  </data>
-  <data name="AdminParticlesOff" xml:space="preserve">
-    <value>關閉物件</value>
-  </data>
-  <data name="AdminParticlesOn" xml:space="preserve">
-    <value>上的物件</value>
-  </data>
-  <data name="AdminStartPage" xml:space="preserve">
-    <value>起始頁</value>
-  </data>
-  <data name="AdminStartPageDescription" xml:space="preserve">
-    <value>輸入要在開始頁</value>
+    <value>高分記錄</value>
+    <comment>Leaderboards screen subtitle.</comment>
   </data>
   <data name="CommonCancel" xml:space="preserve">
-    <value>[取消]</value>
+    <value>取消</value>
+    <comment>Common text to use when we want to cancel an operation.</comment>
   </data>
   <data name="CommonDelete" xml:space="preserve">
     <value>刪除</value>
+    <comment>Common text to use when we want to delete something.</comment>
   </data>
   <data name="CommonError" xml:space="preserve">
     <value>錯誤</value>
+    <comment>Common text to use when we want to indicate an error.</comment>
   </data>
   <data name="CommonNo" xml:space="preserve">
     <value>否</value>
+    <comment>Common text to use for a no option.</comment>
   </data>
   <data name="CommonOK" xml:space="preserve">
-    <value>[確定]</value>
+    <value>確定</value>
+    <comment>Common text to use for an ok option.</comment>
   </data>
   <data name="CommonYes" xml:space="preserve">
-    <value>[是]</value>
+    <value>是</value>
+    <comment>Common text to use for a yes option.</comment>
   </data>
   <data name="CreditsCreatedBy" xml:space="preserve">
     <value>開發</value>
+    <comment>Credits screen subtitle.</comment>
   </data>
   <data name="CreditsCreatedBySimsip" xml:space="preserve">
     <value>simsip</value>
+    <comment>Credits screen company name.</comment>
   </data>
   <data name="FinishNewHighScore" xml:space="preserve">
-    <value>新的最高分</value>
+    <value>恭喜你創下最新高分</value>
+    <comment>Finish screen title.</comment>
   </data>
   <data name="HudPageLine" xml:space="preserve">
-    <value>頁/線條</value>
+    <value>頁/行</value>
+    <comment>Hud - status line to be displayed when starting and moving to new page/line, e.g., page/line 1/2 - on first page and moving to second line</comment>
   </data>
   <data name="HudResume" xml:space="preserve">
     <value>繼續</value>
+    <comment>Hud - text to be displayed under the resume button (toggles with pause button)</comment>
   </data>
   <data name="LinesSwitchingLines" xml:space="preserve">
-    <value>切換線條</value>
-  </data>
-  <data name="LoginPassword" xml:space="preserve">
-    <value>密碼</value>
-  </data>
-  <data name="LoginPasswordDescription" xml:space="preserve">
-    <value>輸入的密碼</value>
-  </data>
-  <data name="LoginUserName" xml:space="preserve">
-    <value>使用者名稱</value>
-  </data>
-  <data name="LoginUserNameDescription" xml:space="preserve">
-    <value>輸入唯一的使用者名稱</value>
+    <value>切換行</value>
+    <comment>Options - line selection - status line to display when switching line colors</comment>
   </data>
   <data name="PadsSwitchingPads" xml:space="preserve">
-    <value>切換板</value>
-  </data>
-  <data name="ResourcePacksSwitchingResourcePacks" xml:space="preserve">
-    <value>切換資源套件</value>
+    <value>切換筆記本</value>
+    <comment>Options - pads - status text to display when switching pads.</comment>
   </data>
   <data name="CommonAdmin" xml:space="preserve">
-    <value>系統管理員</value>
-  </data>
-  <data name="WorldsDefault" xml:space="preserve">
-    <value>預設值</value>
-  </data>
-  <data name="WorldsErrorCannotUseName" xml:space="preserve">
-    <value>您無法使用此名稱，您的世界</value>
-  </data>
-  <data name="WorldsErrorWorldActive" xml:space="preserve">
-    <value>您不能刪除正在使用中的世界</value>
-  </data>
-  <data name="WorldsErrorWorldAlreadyExists" xml:space="preserve">
-    <value>具有這個名稱已經存在</value>
-  </data>
-  <data name="WorldsGenerateNew" xml:space="preserve">
-    <value>完成新工作</value>
-  </data>
-  <data name="WorldsSaveWorldAs" xml:space="preserve">
-    <value>另存為世界...</value>
-  </data>
-  <data name="WorldsSaveWorldAsDescription" xml:space="preserve">
-    <value>請輸入界的傳奇人物的名稱</value>
-  </data>
-  <data name="WorldsSelectNewWorld" xml:space="preserve">
-    <value>選取要使用的新世界</value>
-  </data>
-  <data name="WorldsSwitchingWorlds" xml:space="preserve">
-    <value>切換世界</value>
-  </data>
-  <data name="WorldsUseThisWorld" xml:space="preserve">
-    <value>在啟動時，請使用這個世界</value>
-  </data>
-  <data name="WorldsWorlds" xml:space="preserve">
-    <value>世界</value>
+    <value>管理員</value>
+    <comment>Ignore</comment>
   </data>
   <data name="CommonLater" xml:space="preserve">
-    <value>稍後</value>
-  </data>
-  <data name="RatingsDescription" xml:space="preserve">
-    <value>看來您愛上 LineRunner，就像我們所做的。如果要讓我們幾顆星嗎?</value>
-  </data>
-  <data name="RatingsRateUs" xml:space="preserve">
-    <value>評等我們!</value>
+    <value>請稍候</value>
+    <comment>Common text to use when we want to give the user a chance to attempt the operation later.</comment>
   </data>
   <data name="CreditsTitle" xml:space="preserve">
-    <value>參與名單</value>
+    <value>製作群</value>
+    <comment>Credits screen title.</comment>
   </data>
   <data name="HudHelp" xml:space="preserve">
     <value>說明</value>
+    <comment>Hud - help menu option that will take you to help screens</comment>
   </data>
   <data name="HudOptions" xml:space="preserve">
     <value>選項</value>
+    <comment>Hud - options menu option that will take you to options screen</comment>
   </data>
   <data name="StartPlay" xml:space="preserve">
-    <value>播放</value>
+    <value>開始遊戲</value>
+    <comment>Start - text for play button.</comment>
   </data>
   <data name="StartRate" xml:space="preserve">
-    <value>速率</value>
+    <value>給予評價</value>
+    <comment>Start - text for rate button.</comment>
   </data>
   <data name="CommonPage" xml:space="preserve">
-    <value>頁面</value>
+    <value>頁</value>
+    <comment>Common text to use when indicating a page number, e.g., page 4.</comment>
   </data>
   <data name="HudPause" xml:space="preserve">
     <value>暫停</value>
+    <comment>Hud - text to be displayed under pause button</comment>
   </data>
   <data name="HudSpeed" xml:space="preserve">
     <value>速度</value>
+    <comment>Hud - text to display under the speed increase/decrease buttons</comment>
   </data>
   <data name="HudCannotGoSlowerThan" xml:space="preserve">
-    <value>無法進入低於</value>
+    <value>不能低於此速度</value>
+    <comment>Hud - status line to display when user is attempting to change speed lower than minimum value allowed</comment>
   </data>
   <data name="HudPaused" xml:space="preserve">
-    <value>暫停</value>
+    <value>已暫停</value>
+    <comment>Hud - status line to display when you have tapped the pause button</comment>
   </data>
   <data name="HudJoystick" xml:space="preserve">
-    <value>搖桿</value>
+    <value>操控鍵</value>
+    <comment>Hud - text to be displayed in middle of joystick buttons</comment>
   </data>
   <data name="HudTrackball" xml:space="preserve">
     <value>軌跡球</value>
+    <comment>Hud - text to display underneath trackball button</comment>
   </data>
   <data name="HudTime" xml:space="preserve">
     <value>時間</value>
+    <comment>Hud - text to display above your time for your high score</comment>
   </data>
   <data name="HudHome" xml:space="preserve">
-    <value>主目錄</value>
-  </data>
-  <data name="AdminStartLine" xml:space="preserve">
-    <value>開始一行</value>
-  </data>
-  <data name="AdminStartLineDescription" xml:space="preserve">
-    <value>輸入啟動 (1-17) 上的列</value>
+    <value>主畫面</value>
+    <comment>Hud - home menu option that will take you to start screen</comment>
   </data>
   <data name="HelpLicense" xml:space="preserve">
     <value>授權</value>
+    <comment>All help pages - tappable subtitle that will take you to game license</comment>
   </data>
   <data name="CommonReset" xml:space="preserve">
-    <value>雙點一下 [軌跡球，重設檢視</value>
+    <value>在軌跡球上點選兩下以重設畫面</value>
+    <comment>Common text to use as a status line to display to users to inform them that they can double tap the trackball icon to reset their view after rotating, scrolling, etc.</comment>
   </data>
   <data name="HelpIncreaseDecrease" xml:space="preserve">
-    <value>增加或減少速度</value>
+    <value>加快或降低速度</value>
+    <comment>Help page 3 - description for how to change how fast hero moves through game</comment>
   </data>
   <data name="HelpOrbit" xml:space="preserve">
-    <value>自 [orbit] 檢視的軌跡球</value>
+    <value>從軌跡球拖曳，以沿著畫面行走</value>
+    <comment>Help page 6 - description on how to orbit your view</comment>
   </data>
   <data name="HelpPauseResume" xml:space="preserve">
     <value>暫停或繼續遊戲</value>
+    <comment>Help page 3 - description on how to pause or resume hero moving through game</comment>
   </data>
   <data name="HelpRotate" xml:space="preserve">
-    <value>自 [置中旋轉檢視</value>
+    <value>從中間拖曳可旋轉畫面</value>
+    <comment>Help page 4 - description on how to rotate your view</comment>
   </data>
   <data name="HelpScroll" xml:space="preserve">
-    <value>請點選或捲動檢視</value>
-  </data>
-  <data name="HudOrbit" xml:space="preserve">
-    <value>固定的軌道檢視</value>
-  </data>
-  <data name="HudRotate" xml:space="preserve">
-    <value>旋轉檢視</value>
-  </data>
-  <data name="HudScroll" xml:space="preserve">
-    <value>捲動檢視</value>
+    <value>點選或按住可上下捲動畫面</value>
+    <comment>Help page 5 - description on how to scroll your view</comment>
   </data>
   <data name="HelpHud" xml:space="preserve">
-    <value>抬頭顯示器</value>
+    <value>平視檢視</value>
+    <comment>Help page 3-6 subtitle, hud is short for heads up display - a gaming term</comment>
   </data>
   <data name="HelpLeaderboards" xml:space="preserve">
-    <value>請參閱您的最高得分</value>
+    <value>查看你的最高分數</value>
+    <comment>Help page 8 - description for leaderboards option</comment>
   </data>
   <data name="HelpSound" xml:space="preserve">
-    <value>關閉及開啟音效</value>
+    <value>開啟/關閉聲音</value>
+    <comment>Help page 8 - description for sound option</comment>
   </data>
   <data name="UpgradesTitle" xml:space="preserve">
     <value>升級</value>
+    <comment>Upgrades - title for upgrades pages.</comment>
   </data>
   <data name="UpgradesPractice" xml:space="preserve">
     <value>練習模式</value>
+    <comment>Upgrades - practice mode title.</comment>
   </data>
   <data name="UpgradesPracticeDesc1" xml:space="preserve">
-    <value>跳至任何頁面及行</value>
+    <value>跳至任何頁或行</value>
+    <comment>Upgrades - first practice mode description line.</comment>
   </data>
   <data name="UpgradesPracticeDesc2" xml:space="preserve">
-    <value>關閉殲敵</value>
+    <value>關閉失血功能</value>
+    <comment>Upgrades - second practice mode description line.</comment>
   </data>
   <data name="HelpUpgrades" xml:space="preserve">
     <value>升級</value>
+    <comment>Help page 9 - upgrades subtitle for page</comment>
   </data>
   <data name="HelpUpgradesPractice" xml:space="preserve">
     <value>練習模式</value>
+    <comment>Help page 9 - upgrade practice mode title</comment>
   </data>
   <data name="HelpUpgradesPracticeDesc1" xml:space="preserve">
-    <value>跳至任何頁面及行</value>
+    <value>跳至任何頁或行</value>
+    <comment>Help page 9 - first description line for practice mode</comment>
   </data>
   <data name="HelpUpgradesPracticeDesc2" xml:space="preserve">
-    <value>關閉殲敵</value>
+    <value>關閉失血功能</value>
+    <comment>Help page 9 - second description for practice mode</comment>
   </data>
   <data name="UpgradesBuy" xml:space="preserve">
     <value>購買</value>
+    <comment>Upgrades - text for buy button. Allows user to make an in-app purchase for the upgrade.</comment>
   </data>
   <data name="UpgradesPrice" xml:space="preserve">
     <value>價格</value>
+    <comment>Upgrades - text for price. The price of an upgrade will be displayed below this text.</comment>
   </data>
   <data name="UpgradesPurchasedOn" xml:space="preserve">
-    <value>在購買</value>
+    <value>購買時間</value>
+    <comment>Upgrades - once an upgrade is purchased this text will display with the date of purchase underneath it.</comment>
   </data>
   <data name="UpgradesRestore" xml:space="preserve">
     <value>還原</value>
+    <comment>Upgrades - text for restore button. Restore allows a user to restore a previously purchased in-app product.</comment>
   </data>
   <data name="OptionsPracticeKillsOff" xml:space="preserve">
-    <value>關閉殲敵</value>
+    <value>失血功能關閉</value>
+    <comment>Options - practice mode - text for stating that kills are off. When kills are off, the hero  will not die and cause game restart when he hits an obstacle or line.</comment>
   </data>
   <data name="OptionsPracticeKillsOn" xml:space="preserve">
-    <value>在上殲敵</value>
+    <value>失血功能開啟</value>
+    <comment>Options - practice mode - text for stating that kills are on. When kills are on, the hero  will die and cause game restart when he hits an obstacle or line.</comment>
   </data>
   <data name="OptionsPracticeStartLine" xml:space="preserve">
-    <value>起始行</value>
+    <value>開始行</value>
+    <comment>Options - practice mode - subtitle text for choosing line you want to start on.</comment>
   </data>
   <data name="OptionsPracticeStartPage" xml:space="preserve">
-    <value>起始網頁</value>
+    <value>開始頁</value>
+    <comment>Options - practice mode - subtitle text for choosing page you want to start on.</comment>
   </data>
   <data name="OptionsPracticeSwitchingLine" xml:space="preserve">
-    <value>切換線條</value>
+    <value>將行數切換至</value>
+    <comment>Options - practice mode - status line to display while you are moving to a new starting line.</comment>
   </data>
   <data name="OptionsPracticeSwitchingPage" xml:space="preserve">
-    <value>切換至頁面</value>
-  </data>
-  <data name="AdminUpgradesOff" xml:space="preserve">
-    <value>關閉的升級</value>
-  </data>
-  <data name="AdminUpgradesOn" xml:space="preserve">
-    <value>在升級</value>
+    <value>將頁數切換至</value>
+    <comment>Options - practice mode - status line to display while you are moving to a new starting page.</comment>
   </data>
   <data name="OptionsPractice" xml:space="preserve">
     <value>練習模式</value>
+    <comment>Options - practice mode - text for title</comment>
   </data>
   <data name="UpgradesPracticeDesc3" xml:space="preserve">
-    <value>請點一下 [練習模式的選項</value>
+    <value>點選練習模式的選項</value>
+    <comment>Upgrades - status line to display once they have purchased practice mode. This tells them how to access practice mode.</comment>
   </data>
   <data name="UpgradesPurchaseError" xml:space="preserve">
-    <value>錯誤購買升級</value>
+    <value>購買升級時發生錯誤</value>
+    <comment>Upgrades - text to display if an error occurs when attempting to purchase an upgrade.</comment>
   </data>
   <data name="UpgradesPurchaseStatus" xml:space="preserve">
-    <value>購買升級</value>
+    <value>正在購買升級</value>
+    <comment>Upgrades - text to display in popup while purchasing an upgrade.</comment>
   </data>
   <data name="UpgradesRestoreError" xml:space="preserve">
     <value>還原升級時發生錯誤</value>
+    <comment>Upgrades - text to display if an error occurs when attempting to restore a purchase.</comment>
   </data>
   <data name="UpgradesRestoreStatus" xml:space="preserve">
-    <value>還原升級</value>
+    <value>正在還原升級</value>
+    <comment>Upgrades - text to display in popup will restoring an upgrade.</comment>
   </data>
   <data name="AchievementsColumnDate" xml:space="preserve">
     <value>日期</value>
+    <comment>Date column header on leaderboards screen.</comment>
   </data>
   <data name="AchievementsColumnTime" xml:space="preserve">
     <value>時間</value>
+    <comment>Time column header on leaderboards screen.</comment>
   </data>
   <data name="AchievementsColumnScore" xml:space="preserve">
     <value>分數</value>
+    <comment>Score column header on leaderboards screen.</comment>
   </data>
   <data name="HudHigh" xml:space="preserve">
-    <value>高</value>
+    <value>最高分</value>
+    <comment>Hud - text to display above your high score</comment>
   </data>
   <data name="HelpSupport" xml:space="preserve">
     <value>支援</value>
+    <comment>All help pages - tappable subtitle that will take you to support page</comment>
   </data>
   <data name="FinishWinner" xml:space="preserve">
-    <value>勝利者!</value>
+    <value>你贏了！</value>
+    <comment>Finish screen text to display when user has finished all pages of game.</comment>
   </data>
   <data name="MessageBoxMovingToPage" xml:space="preserve">
-    <value>移動至頁面</value>
+    <value>頁面正移至</value>
+    <comment>Title text for popup box when moving to next page</comment>
   </data>
   <data name="MessageBoxMovingToPage2" xml:space="preserve">
-    <value>你還好極了!</value>
+    <value>你太棒了！</value>
+    <comment>Subtitle text for popup when moving to page 2</comment>
   </data>
   <data name="MessageBoxMovingToPage3" xml:space="preserve">
-    <value>繁榮!</value>
+    <value>好厲害！</value>
+    <comment>Subtitle text for popup when moving to page 3</comment>
   </data>
   <data name="MessageBoxMovingToPage4" xml:space="preserve">
-    <value>擁有歡笑!</value>
+    <value>太正點啦！</value>
+    <comment>Subtitle text for popup when moving to page 4</comment>
   </data>
   <data name="MessageBoxMovingToPage5" xml:space="preserve">
-    <value>火!</value>
+    <value>所向披靡！</value>
+    <comment>Subtitle text for popup when moving to page 5</comment>
   </data>
   <data name="MessageBoxMovingToPage6" xml:space="preserve">
-    <value>最後一頁!</value>
+    <value>最後一頁了！</value>
+    <comment>Subtitle text for popup when moving to page 6</comment>
   </data>
   <data name="CommonBack" xml:space="preserve">
-    <value>上一步]</value>
+    <value>返回</value>
+    <comment>Common text underneath back arrow on screens.</comment>
   </data>
   <data name="CommonNext" xml:space="preserve">
     <value>下一步</value>
+    <comment>Common text underneath the next arrow on screens.</comment>
   </data>
   <data name="CommonPrevious" xml:space="preserve">
-    <value>前一個</value>
+    <value>上一步</value>
+    <comment>Common text to underneath the previous arrow on screens.</comment>
   </data>
   <data name="HelpZoomInOut" xml:space="preserve">
     <value>放大或縮小</value>
+    <comment>Help page 3 - description on how to zoom view in or out</comment>
   </data>
   <data name="HudSpeedDefault" xml:space="preserve">
     <value>(預設值)</value>
+    <comment>Hud - status line to display when changing speed and you have set yourself to the default speed</comment>
   </data>
   <data name="Start3D" xml:space="preserve">
     <value>3D</value>
+    <comment>Start - third portion of game title that is overlayed on top of second portion of game title</comment>
   </data>
   <data name="StartLine" xml:space="preserve">
-    <value>線條</value>
+    <value>飛線</value>
+    <comment>Start - first portion of game title that is displayed to left of logo.</comment>
   </data>
   <data name="StartRunner" xml:space="preserve">
-    <value>執行程式</value>
+    <value>跑者</value>
+    <comment>Start - second portion of game title that is displayed to right of logo.</comment>
   </data>
   <data name="LinesBlue" xml:space="preserve">
     <value>藍色</value>
+    <comment>Options - line selection - text for blue color</comment>
   </data>
   <data name="LinesDarkGreen" xml:space="preserve">
     <value>深綠色</value>
+    <comment>Options - line selection - text for dark green color</comment>
   </data>
   <data name="LinesDarkOrange" xml:space="preserve">
-    <value>深橙</value>
+    <value>深橘色</value>
+    <comment>Options - line selection - text for dark orange color</comment>
   </data>
   <data name="LinesGreen" xml:space="preserve">
     <value>綠色</value>
+    <comment>Options - line selection - text for green color</comment>
   </data>
   <data name="LinesLightBlue" xml:space="preserve">
-    <value>淺藍色</value>
+    <value>淡藍色</value>
+    <comment>Options - line selection - text for light blue color</comment>
   </data>
   <data name="LinesLightGreen" xml:space="preserve">
-    <value>淺綠色</value>
+    <value>淡綠色</value>
+    <comment>Options - line selection - text for light green color</comment>
   </data>
   <data name="LinesLightOrange" xml:space="preserve">
-    <value>淺橙色</value>
+    <value>淡橘色</value>
+    <comment>Options - line selection - text for light orange color</comment>
   </data>
   <data name="LinesOrange" xml:space="preserve">
-    <value>橙色</value>
+    <value>橘色</value>
+    <comment>Options - line selection - text for orange color</comment>
   </data>
   <data name="LinesRed" xml:space="preserve">
     <value>紅色</value>
+    <comment>Options - line selection - text for red color</comment>
   </data>
   <data name="PadsWhite" xml:space="preserve">
     <value>白色</value>
+    <comment>Options - pad selections - text for white color.</comment>
   </data>
   <data name="PadsYellow" xml:space="preserve">
     <value>黃色</value>
+    <comment>Options - pad selections - text for yellow color.</comment>
   </data>
   <data name="HudZoom" xml:space="preserve">
     <value>縮放</value>
+    <comment>Hud - text to dispaly under the zoom in/out buttons</comment>
   </data>
+
 </root>

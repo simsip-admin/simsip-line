@@ -118,446 +118,460 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ResourceFlowDirection" xml:space="preserve">
-    <value>LeftToRight</value>
+    <value>बांएसेदांए</value>
     <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
   </data>
   <data name="ResourceLanguage" xml:space="preserve">
-    <value>hi-IN</value>
+    <value>इंग.-(यूएस)</value>
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
   </data>
   <data name="CommonVersion" xml:space="preserve">
     <value>संस्करण</value>
-  </data>
-  <data name="HelpHelpDescription" xml:space="preserve">
-    <value>सहायता स्क्रीन</value>
+    <comment>Common text to use when indicating version of game, e.g., version 1.0</comment>
   </data>
   <data name="HelpHowToPlayDescription1" xml:space="preserve">
-    <value>रेखाओं और obstacles से बचने के लिए टैप करें.</value>
+    <value>लाइनों और बाधाओं को टालने के लिए टैप करें</value>
+    <comment>Help page 2 - description on how to play game</comment>
   </data>
   <data name="HelpLines" xml:space="preserve">
-    <value>पैड के लिए परिवर्तित करें</value>
+    <value>पैड की लाइनें बदलें</value>
+    <comment>Help page 7 - desciption for changing lines option</comment>
   </data>
   <data name="HelpOptions" xml:space="preserve">
     <value>विकल्प</value>
-  </data>
-  <data name="HelpOptionsDescription" xml:space="preserve">
-    <value>खेल के विकल्प</value>
+    <comment>Help pages 7-8 subtitle, these pages focus on the options section of the game</comment>
   </data>
   <data name="HelpPads" xml:space="preserve">
-    <value>आप चलाने पर पैड परिवर्तित करें</value>
+    <value>खेलने का पैड बदलें</value>
+    <comment>Help page 7 - description for changing pads option</comment>
   </data>
   <data name="HelpRatingsDescription" xml:space="preserve">
-    <value>हमें दर</value>
+    <value>हमें रेट करें</value>
+    <comment>Help page 1 - description for the ratings button</comment>
   </data>
   <data name="HelpStartDescription" xml:space="preserve">
-    <value>गेम खेलें</value>
+    <value>गेस खेलें</value>
+    <comment>Help page 1 - description for the play game button</comment>
   </data>
   <data name="HelpTitle" xml:space="preserve">
     <value>मदद</value>
+    <comment>All help pages - help title</comment>
   </data>
   <data name="OptionsCredits" xml:space="preserve">
     <value>क्रेडिट्स</value>
+    <comment>Options - misc - text for credits button</comment>
   </data>
   <data name="OptionsLeaderboards" xml:space="preserve">
-    <value>leaderboards</value>
+    <value>लीडरबोर्ड</value>
+    <comment>Options - misc - text for leaderboards button</comment>
   </data>
   <data name="OptionsLines" xml:space="preserve">
-    <value>पंक्तियाँ</value>
+    <value>लाइनें</value>
+    <comment>Options - lines - text for title</comment>
   </data>
   <data name="OptionsPads" xml:space="preserve">
     <value>पैड्स</value>
+    <comment>Options - pads - text for title</comment>
   </data>
   <data name="OptionsSoundOff" xml:space="preserve">
-    <value>ध्वनि</value>
+    <value>ध्वनि बंद</value>
+    <comment>Options - misc - text for stating that sound is off.</comment>
   </data>
   <data name="OptionsSoundOn" xml:space="preserve">
-    <value>पर ध्वनि</value>
+    <value>ध्वनि चालू</value>
+    <comment>Options - misc - text for stating that sound is on.</comment>
   </data>
   <data name="OptionsTitle" xml:space="preserve">
     <value>विकल्प</value>
+    <comment>Options - title text for all options pages</comment>
   </data>
   <data name="AchievementsLeaderboards" xml:space="preserve">
-    <value>leaderboards</value>
+    <value>लीडरबोर्ड्स</value>
+    <comment>Leaderboards screen title.</comment>
   </data>
   <data name="AchievementsTopScoresFor" xml:space="preserve">
-    <value>शीर्ष स्कोर</value>
-  </data>
-  <data name="AdminKillsOff" xml:space="preserve">
-    <value>kills</value>
-  </data>
-  <data name="AdminKillsOn" xml:space="preserve">
-    <value>kills पर</value>
-  </data>
-  <data name="AdminParticlesOff" xml:space="preserve">
-    <value>बंद पार्टिकल</value>
-  </data>
-  <data name="AdminParticlesOn" xml:space="preserve">
-    <value>पर पार्टिकल</value>
-  </data>
-  <data name="AdminStartPage" xml:space="preserve">
-    <value>पृष्ठ प्रारंभ करें</value>
-  </data>
-  <data name="AdminStartPageDescription" xml:space="preserve">
-    <value>पृष्ठ पर प्रारंभ करने के लिए दर्ज करें</value>
+    <value>उच्च स्कोर्स</value>
+    <comment>Leaderboards screen subtitle.</comment>
   </data>
   <data name="CommonCancel" xml:space="preserve">
     <value>रद्द करें</value>
+    <comment>Common text to use when we want to cancel an operation.</comment>
   </data>
   <data name="CommonDelete" xml:space="preserve">
-    <value>हटाएँ</value>
+    <value>हटाएं</value>
+    <comment>Common text to use when we want to delete something.</comment>
   </data>
   <data name="CommonError" xml:space="preserve">
     <value>त्रुटि</value>
+    <comment>Common text to use when we want to indicate an error.</comment>
   </data>
   <data name="CommonNo" xml:space="preserve">
     <value>नहीं</value>
+    <comment>Common text to use for a no option.</comment>
   </data>
   <data name="CommonOK" xml:space="preserve">
-    <value>ठीक</value>
+    <value>ओके</value>
+    <comment>Common text to use for an ok option.</comment>
   </data>
   <data name="CommonYes" xml:space="preserve">
     <value>हाँ</value>
+    <comment>Common text to use for a yes option.</comment>
   </data>
   <data name="CreditsCreatedBy" xml:space="preserve">
-    <value>विकास</value>
+    <value>निर्माता</value>
+    <comment>Credits screen subtitle.</comment>
   </data>
   <data name="CreditsCreatedBySimsip" xml:space="preserve">
-    <value>simsip</value>
+    <value>सिमसिप</value>
+    <comment>Credits screen company name.</comment>
   </data>
   <data name="FinishNewHighScore" xml:space="preserve">
-    <value>नई उच्च स्कोर</value>
+    <value>नया उच्च स्कोर</value>
+    <comment>Finish screen title.</comment>
   </data>
   <data name="HudPageLine" xml:space="preserve">
-    <value>पृष्ठ/रेखा</value>
+    <value>पृष्ठ/लाइन</value>
+    <comment>Hud - status line to be displayed when starting and moving to new page/line, e.g., page/line 1/2 - on first page and moving to second line</comment>
   </data>
   <data name="HudResume" xml:space="preserve">
-    <value>फिर से शुरू करें</value>
+    <value>फिर शुरु</value>
+    <comment>Hud - text to be displayed under the resume button (toggles with pause button)</comment>
   </data>
   <data name="LinesSwitchingLines" xml:space="preserve">
-    <value>लाइनें बदलने</value>
-  </data>
-  <data name="LoginPassword" xml:space="preserve">
-    <value>पासवर्ड</value>
-  </data>
-  <data name="LoginPasswordDescription" xml:space="preserve">
-    <value>पासवर्ड दर्ज करें</value>
-  </data>
-  <data name="LoginUserName" xml:space="preserve">
-    <value>उपयोगकर्ता नाम</value>
-  </data>
-  <data name="LoginUserNameDescription" xml:space="preserve">
-    <value>एक अद्वितीय उपयोगकर्ता नाम दर्ज करें</value>
+    <value>लाइनें बदल रहा</value>
+    <comment>Options - line selection - status line to display when switching line colors</comment>
   </data>
   <data name="PadsSwitchingPads" xml:space="preserve">
-    <value>पैड्स स्विच करना</value>
-  </data>
-  <data name="ResourcePacksSwitchingResourcePacks" xml:space="preserve">
-    <value>संसाधन पैक स्विच करना</value>
+    <value>पैड्स बदल रहा</value>
+    <comment>Options - pads - status text to display when switching pads.</comment>
   </data>
   <data name="CommonAdmin" xml:space="preserve">
-    <value>व्यवस्थापन</value>
-  </data>
-  <data name="WorldsDefault" xml:space="preserve">
-    <value>डिफ़ॉल्ट</value>
-  </data>
-  <data name="WorldsErrorCannotUseName" xml:space="preserve">
-    <value>आप अपनी दुनिया के लिए इस नाम का उपयोग नहीं कर सकता</value>
-  </data>
-  <data name="WorldsErrorWorldActive" xml:space="preserve">
-    <value>आप एक सक्रिय है जो दुनिया को नहीं हटा सकते</value>
-  </data>
-  <data name="WorldsErrorWorldAlreadyExists" xml:space="preserve">
-    <value>इस नाम के साथ एक दुनिया पहले से मौजूद है</value>
-  </data>
-  <data name="WorldsGenerateNew" xml:space="preserve">
-    <value>नया बनाएँ</value>
-  </data>
-  <data name="WorldsSaveWorldAs" xml:space="preserve">
-    <value>दुनिया के रूप में सहेजें...</value>
-  </data>
-  <data name="WorldsSaveWorldAsDescription" xml:space="preserve">
-    <value>दुनिया का नाम दर्ज करें</value>
-  </data>
-  <data name="WorldsSelectNewWorld" xml:space="preserve">
-    <value>नई दुनिया का उपयोग करने के लिए का चयन करें</value>
-  </data>
-  <data name="WorldsSwitchingWorlds" xml:space="preserve">
-    <value>worlds स्विच करना</value>
-  </data>
-  <data name="WorldsUseThisWorld" xml:space="preserve">
-    <value>इस दुनिया को प्रारंभ करते समय का उपयोग करें</value>
-  </data>
-  <data name="WorldsWorlds" xml:space="preserve">
-    <value>worlds</value>
+    <value>एडमिन</value>
+    <comment>Ignore</comment>
   </data>
   <data name="CommonLater" xml:space="preserve">
     <value>बाद में</value>
-  </data>
-  <data name="RatingsDescription" xml:space="preserve">
-    <value>उसे लगता है कि हम क्या जितना LineRunner प्रेम। हमारे कुछ सितारों को देने के लिए आपकी चिंता?</value>
-  </data>
-  <data name="RatingsRateUs" xml:space="preserve">
-    <value>हमें दर!</value>
+    <comment>Common text to use when we want to give the user a chance to attempt the operation later.</comment>
   </data>
   <data name="CreditsTitle" xml:space="preserve">
     <value>क्रेडिट्स</value>
+    <comment>Credits screen title.</comment>
   </data>
   <data name="HudHelp" xml:space="preserve">
     <value>मदद</value>
+    <comment>Hud - help menu option that will take you to help screens</comment>
   </data>
   <data name="HudOptions" xml:space="preserve">
     <value>विकल्प</value>
+    <comment>Hud - options menu option that will take you to options screen</comment>
   </data>
   <data name="StartPlay" xml:space="preserve">
-    <value>प्ले</value>
+    <value>खेलें</value>
+    <comment>Start - text for play button.</comment>
   </data>
   <data name="StartRate" xml:space="preserve">
-    <value>दर</value>
+    <value>रेट</value>
+    <comment>Start - text for rate button.</comment>
   </data>
   <data name="CommonPage" xml:space="preserve">
-    <value>पेज</value>
+    <value>पृष्ठ</value>
+    <comment>Common text to use when indicating a page number, e.g., page 4.</comment>
   </data>
   <data name="HudPause" xml:space="preserve">
-    <value>विराम दें</value>
+    <value>विराम</value>
+    <comment>Hud - text to be displayed under pause button</comment>
   </data>
   <data name="HudSpeed" xml:space="preserve">
     <value>गति</value>
+    <comment>Hud - text to display under the speed increase/decrease buttons</comment>
   </data>
   <data name="HudCannotGoSlowerThan" xml:space="preserve">
-    <value>जा सकता से धीमी</value>
+    <value>इससे धीमे नहीं जा सकते</value>
+    <comment>Hud - status line to display when user is attempting to change speed lower than minimum value allowed</comment>
   </data>
   <data name="HudPaused" xml:space="preserve">
-    <value>रोका गया</value>
+    <value>विराम दिया</value>
+    <comment>Hud - status line to display when you have tapped the pause button</comment>
   </data>
   <data name="HudJoystick" xml:space="preserve">
     <value>जॉयस्टिक</value>
+    <comment>Hud - text to be displayed in middle of joystick buttons</comment>
   </data>
   <data name="HudTrackball" xml:space="preserve">
     <value>ट्रैकबॉल</value>
+    <comment>Hud - text to display underneath trackball button</comment>
   </data>
   <data name="HudTime" xml:space="preserve">
     <value>समय</value>
+    <comment>Hud - text to display above your time for your high score</comment>
   </data>
   <data name="HudHome" xml:space="preserve">
-    <value>घर का</value>
-  </data>
-  <data name="AdminStartLine" xml:space="preserve">
-    <value>रेखा प्रारंभ करें</value>
-  </data>
-  <data name="AdminStartLineDescription" xml:space="preserve">
-    <value>(1-17 पर) प्रारंभ करने के लिए पंक्ति दर्ज करें</value>
+    <value>मुख्यपृष्ठ</value>
+    <comment>Hud - home menu option that will take you to start screen</comment>
   </data>
   <data name="HelpLicense" xml:space="preserve">
     <value>लाइसेंस</value>
+    <comment>All help pages - tappable subtitle that will take you to game license</comment>
   </data>
   <data name="CommonReset" xml:space="preserve">
-    <value>दोहरा दृश्य को रीसेट करने के लिए, ट्रैकबॉल, टेप करें</value>
+    <value>दृश्य रीसेट करने के लिए ट्रैकबॉल को टैप करें</value>
+    <comment>Common text to use as a status line to display to users to inform them that they can double tap the trackball icon to reset their view after rotating, scrolling, etc.</comment>
   </data>
   <data name="HelpIncreaseDecrease" xml:space="preserve">
-    <value>बढ़ाने या घटाने की गति</value>
+    <value>गति बढाएं या घटाएं</value>
+    <comment>Help page 3 - description for how to change how fast hero moves through game</comment>
   </data>
   <data name="HelpOrbit" xml:space="preserve">
-    <value>ट्रैकबॉल ऑर्बिट दृश्य से खींच</value>
+    <value>चारों ओर नजारे के लिए ट्रैकबॉल को खींचें</value>
+    <comment>Help page 6 - description on how to orbit your view</comment>
   </data>
   <data name="HelpPauseResume" xml:space="preserve">
-    <value>रोकें या गेम फिर से शुरू करें</value>
+    <value>गेम को विराम दें या फिर शुरु करें</value>
+    <comment>Help page 3 - description on how to pause or resume hero moving through game</comment>
   </data>
   <data name="HelpRotate" xml:space="preserve">
-    <value>मध्य से दृश्य घुमाने के लिए खींचें</value>
+    <value>दृश्य घुमाने के लिए बीच से खींचें</value>
+    <comment>Help page 4 - description on how to rotate your view</comment>
   </data>
   <data name="HelpScroll" xml:space="preserve">
-    <value>टेप करें, या दृश्य में स्क्रॉल करने के लिए रखें</value>
-  </data>
-  <data name="HudOrbit" xml:space="preserve">
-    <value>रास्ता दृश्य</value>
-  </data>
-  <data name="HudRotate" xml:space="preserve">
-    <value>दृश्य घुमाएँ</value>
-  </data>
-  <data name="HudScroll" xml:space="preserve">
-    <value>स्क्रॉल दृश्य</value>
+    <value>दृश्य स्क्रॉल करने के लिए टैप करें या दबाकर रखें</value>
+    <comment>Help page 5 - description on how to scroll your view</comment>
   </data>
   <data name="HelpHud" xml:space="preserve">
-    <value>hud</value>
+    <value>एचयूडी</value>
+    <comment>Help page 3-6 subtitle, hud is short for heads up display - a gaming term</comment>
   </data>
   <data name="HelpLeaderboards" xml:space="preserve">
-    <value>अपने शीर्ष स्कोर देखें</value>
+    <value>अपना उच्च स्कोर देखें</value>
+    <comment>Help page 8 - description for leaderboards option</comment>
   </data>
   <data name="HelpSound" xml:space="preserve">
-    <value>पर और बंद ध्वनि चालू करें</value>
+    <value>ध्वनि चालू और बंद करें</value>
+    <comment>Help page 8 - description for sound option</comment>
   </data>
   <data name="UpgradesTitle" xml:space="preserve">
     <value>अपग्रेड्स</value>
+    <comment>Upgrades - title for upgrades pages.</comment>
   </data>
   <data name="UpgradesPractice" xml:space="preserve">
     <value>अभ्यास मोड</value>
+    <comment>Upgrades - practice mode title.</comment>
   </data>
   <data name="UpgradesPracticeDesc1" xml:space="preserve">
-    <value>किसी भी पृष्ठ और पंक्ति पर जाएँ</value>
+    <value>किसी भी पृष्ठ या लाइन पर जाएं</value>
+    <comment>Upgrades - first practice mode description line.</comment>
   </data>
   <data name="UpgradesPracticeDesc2" xml:space="preserve">
-    <value>kills बंद करें</value>
+    <value>किल्स बंद करें</value>
+    <comment>Upgrades - second practice mode description line.</comment>
   </data>
   <data name="HelpUpgrades" xml:space="preserve">
     <value>अपग्रेड्स</value>
+    <comment>Help page 9 - upgrades subtitle for page</comment>
   </data>
   <data name="HelpUpgradesPractice" xml:space="preserve">
     <value>अभ्यास मोड</value>
+    <comment>Help page 9 - upgrade practice mode title</comment>
   </data>
   <data name="HelpUpgradesPracticeDesc1" xml:space="preserve">
-    <value>किसी भी पृष्ठ और पंक्ति पर जाएँ</value>
+    <value>किसी भी पृष्ठ या लाइन पर जाएं</value>
+    <comment>Help page 9 - first description line for practice mode</comment>
   </data>
   <data name="HelpUpgradesPracticeDesc2" xml:space="preserve">
-    <value>kills बंद करें</value>
+    <value>किल्स बंद करें</value>
+    <comment>Help page 9 - second description for practice mode</comment>
   </data>
   <data name="UpgradesBuy" xml:space="preserve">
     <value>खरीदें</value>
+    <comment>Upgrades - text for buy button. Allows user to make an in-app purchase for the upgrade.</comment>
   </data>
   <data name="UpgradesPrice" xml:space="preserve">
-    <value>मूल्य</value>
+    <value>कीमत</value>
+    <comment>Upgrades - text for price. The price of an upgrade will be displayed below this text.</comment>
   </data>
   <data name="UpgradesPurchasedOn" xml:space="preserve">
-    <value>पर खरीदा था.</value>
+    <value>खरीद की तारीख</value>
+    <comment>Upgrades - once an upgrade is purchased this text will display with the date of purchase underneath it.</comment>
   </data>
   <data name="UpgradesRestore" xml:space="preserve">
-    <value>पुनर्स्थापित करें</value>
+    <value>रिस्टोर</value>
+    <comment>Upgrades - text for restore button. Restore allows a user to restore a previously purchased in-app product.</comment>
   </data>
   <data name="OptionsPracticeKillsOff" xml:space="preserve">
-    <value>kills</value>
+    <value>किल्स बंद</value>
+    <comment>Options - practice mode - text for stating that kills are off. When kills are off, the hero  will not die and cause game restart when he hits an obstacle or line.</comment>
   </data>
   <data name="OptionsPracticeKillsOn" xml:space="preserve">
-    <value>kills पर</value>
+    <value>किल्स चालू</value>
+    <comment>Options - practice mode - text for stating that kills are on. When kills are on, the hero  will die and cause game restart when he hits an obstacle or line.</comment>
   </data>
   <data name="OptionsPracticeStartLine" xml:space="preserve">
-    <value>रेखा प्रारंभ हो रहा</value>
+    <value>आरंभ रेखा</value>
+    <comment>Options - practice mode - subtitle text for choosing line you want to start on.</comment>
   </data>
   <data name="OptionsPracticeStartPage" xml:space="preserve">
-    <value>प्रारंभिक पृष्ठ</value>
+    <value>आरंभ पृष्ठ</value>
+    <comment>Options - practice mode - subtitle text for choosing page you want to start on.</comment>
   </data>
   <data name="OptionsPracticeSwitchingLine" xml:space="preserve">
-    <value>स्विच करने के लिए लाइन</value>
+    <value>लाइन बदली जा रही -</value>
+    <comment>Options - practice mode - status line to display while you are moving to a new starting line.</comment>
   </data>
   <data name="OptionsPracticeSwitchingPage" xml:space="preserve">
-    <value>पृष्ठ पर स्विच करना</value>
-  </data>
-  <data name="AdminUpgradesOff" xml:space="preserve">
-    <value>नवीनीकरण बंद</value>
-  </data>
-  <data name="AdminUpgradesOn" xml:space="preserve">
-    <value>पर नवीनीकृत</value>
+    <value>पृष्ठ बदला जा रहा -</value>
+    <comment>Options - practice mode - status line to display while you are moving to a new starting page.</comment>
   </data>
   <data name="OptionsPractice" xml:space="preserve">
     <value>अभ्यास मोड</value>
+    <comment>Options - practice mode - text for title</comment>
   </data>
   <data name="UpgradesPracticeDesc3" xml:space="preserve">
-    <value>अभ्यास मोड के लिए विकल्प टेप करें</value>
+    <value>अभ्यास मोड के लिए विकल्प टैप करें</value>
+    <comment>Upgrades - status line to display once they have purchased practice mode. This tells them how to access practice mode.</comment>
   </data>
   <data name="UpgradesPurchaseError" xml:space="preserve">
-    <value>खरीद नवीनीकरण त्रुटि</value>
+    <value>अपग्रेड खरीदी में त्रुटि</value>
+    <comment>Upgrades - text to display if an error occurs when attempting to purchase an upgrade.</comment>
   </data>
   <data name="UpgradesPurchaseStatus" xml:space="preserve">
-    <value>नवीनीकरण खरीद</value>
+    <value>अपग्रेड खरीद रहा</value>
+    <comment>Upgrades - text to display in popup while purchasing an upgrade.</comment>
   </data>
   <data name="UpgradesRestoreError" xml:space="preserve">
-    <value>अद्यतन पुनर्स्थापित करने में त्रुटि</value>
+    <value>अपग्रेड रिस्टोरिंग में त्रुटि</value>
+    <comment>Upgrades - text to display if an error occurs when attempting to restore a purchase.</comment>
   </data>
   <data name="UpgradesRestoreStatus" xml:space="preserve">
-    <value>अद्यतन पुनर्स्थापित कर रहा है</value>
+    <value>अपग्रेड रिस्टोर कर रहा</value>
+    <comment>Upgrades - text to display in popup will restoring an upgrade.</comment>
   </data>
   <data name="AchievementsColumnDate" xml:space="preserve">
-    <value>दिनांक</value>
+    <value>तारीख</value>
+    <comment>Date column header on leaderboards screen.</comment>
   </data>
   <data name="AchievementsColumnTime" xml:space="preserve">
     <value>समय</value>
+    <comment>Time column header on leaderboards screen.</comment>
   </data>
   <data name="AchievementsColumnScore" xml:space="preserve">
     <value>स्कोर</value>
+    <comment>Score column header on leaderboards screen.</comment>
   </data>
   <data name="HudHigh" xml:space="preserve">
     <value>उच्च</value>
+    <comment>Hud - text to display above your high score</comment>
   </data>
   <data name="HelpSupport" xml:space="preserve">
-    <value>समर्थन</value>
+    <value>मदद</value>
+    <comment>All help pages - tappable subtitle that will take you to support page</comment>
   </data>
   <data name="FinishWinner" xml:space="preserve">
     <value>विजेता!</value>
+    <comment>Finish screen text to display when user has finished all pages of game.</comment>
   </data>
   <data name="MessageBoxMovingToPage" xml:space="preserve">
-    <value>पृष्ठ पर ले जाने</value>
+    <value>पृष्ठ पर जा रहा -</value>
+    <comment>Title text for popup box when moving to next page</comment>
   </data>
   <data name="MessageBoxMovingToPage2" xml:space="preserve">
-    <value>आप विस्मिति कर देने वाले हैं!</value>
+    <value>बहुत अच्छे!</value>
+    <comment>Subtitle text for popup when moving to page 2</comment>
   </data>
   <data name="MessageBoxMovingToPage3" xml:space="preserve">
-    <value>boom!</value>
+    <value>बूम!</value>
+    <comment>Subtitle text for popup when moving to page 3</comment>
   </data>
   <data name="MessageBoxMovingToPage4" xml:space="preserve">
-    <value>लिए मिठास!</value>
+    <value>बढिया!</value>
+    <comment>Subtitle text for popup when moving to page 4</comment>
   </data>
   <data name="MessageBoxMovingToPage5" xml:space="preserve">
-    <value>आग!</value>
+    <value>लाजवाब!</value>
+    <comment>Subtitle text for popup when moving to page 5</comment>
   </data>
   <data name="MessageBoxMovingToPage6" xml:space="preserve">
-    <value>अंतिम पृष्ठ!</value>
+    <value>आखरी पृष्ठ!</value>
+    <comment>Subtitle text for popup when moving to page 6</comment>
   </data>
   <data name="CommonBack" xml:space="preserve">
-    <value>वापस जाएँ</value>
+    <value>पीछे</value>
+    <comment>Common text underneath back arrow on screens.</comment>
   </data>
   <data name="CommonNext" xml:space="preserve">
-    <value>अगला</value>
+    <value>आगे</value>
+    <comment>Common text underneath the next arrow on screens.</comment>
   </data>
   <data name="CommonPrevious" xml:space="preserve">
-    <value>पिछले</value>
+    <value>पिछला</value>
+    <comment>Common text to underneath the previous arrow on screens.</comment>
   </data>
   <data name="HelpZoomInOut" xml:space="preserve">
-    <value>ज़ूम इन या आउट करें</value>
+    <value>ज़ूम इन या आउट</value>
+    <comment>Help page 3 - description on how to zoom view in or out</comment>
   </data>
   <data name="HudSpeedDefault" xml:space="preserve">
-    <value>(डिफ़ॉल्ट)</value>
+    <value>(डिफॉल्ट)</value>
+    <comment>Hud - status line to display when changing speed and you have set yourself to the default speed</comment>
+  </data>
+  <data name="Start3D" xml:space="preserve">
+    <value>3D</value>
+    <comment>Start - third portion of game title that is overlayed on top of second portion of game title</comment>
+  </data>
+  <data name="StartLine" xml:space="preserve">
+    <value>लाइन</value>
+    <comment>Start - first portion of game title that is displayed to left of logo.</comment>
   </data>
   <data name="StartRunner" xml:space="preserve">
     <value>रनर</value>
-  </data>
-  <data name="StartLine" xml:space="preserve">
-    <value>रेखा</value>
-  </data>
-  <data name="Start3D" xml:space="preserve">
-    <value>3डी</value>
-  </data>
-  <data name="PadsYellow" xml:space="preserve">
-    <value>पीला</value>
-  </data>
-  <data name="PadsWhite" xml:space="preserve">
-    <value>सफ़ेद</value>
-  </data>
-  <data name="LinesRed" xml:space="preserve">
-    <value>लाल</value>
-  </data>
-  <data name="LinesOrange" xml:space="preserve">
-    <value>नारंगी</value>
-  </data>
-  <data name="LinesLightOrange" xml:space="preserve">
-    <value>हल्का नारंगी</value>
-  </data>
-  <data name="LinesLightGreen" xml:space="preserve">
-    <value>हल्का हरा</value>
-  </data>
-  <data name="LinesLightBlue" xml:space="preserve">
-    <value>हल्का नीला</value>
-  </data>
-  <data name="LinesGreen" xml:space="preserve">
-    <value>green</value>
-  </data>
-  <data name="LinesDarkOrange" xml:space="preserve">
-    <value>गहरा नारंगी</value>
-  </data>
-  <data name="LinesDarkGreen" xml:space="preserve">
-    <value>गहरा हरा</value>
+    <comment>Start - second portion of game title that is displayed to right of logo.</comment>
   </data>
   <data name="LinesBlue" xml:space="preserve">
     <value>नीला</value>
+    <comment>Options - line selection - text for blue color</comment>
+  </data>
+  <data name="LinesDarkGreen" xml:space="preserve">
+    <value>गहरा हरा</value>
+    <comment>Options - line selection - text for dark green color</comment>
+  </data>
+  <data name="LinesDarkOrange" xml:space="preserve">
+    <value>गहरा नारंगी</value>
+    <comment>Options - line selection - text for dark orange color</comment>
+  </data>
+  <data name="LinesGreen" xml:space="preserve">
+    <value>हरा</value>
+    <comment>Options - line selection - text for green color</comment>
+  </data>
+  <data name="LinesLightBlue" xml:space="preserve">
+    <value>हल्का नीला</value>
+    <comment>Options - line selection - text for light blue color</comment>
+  </data>
+  <data name="LinesLightGreen" xml:space="preserve">
+    <value>हल्का हरा</value>
+    <comment>Options - line selection - text for light green color</comment>
+  </data>
+  <data name="LinesLightOrange" xml:space="preserve">
+    <value>हल्का नारंगी</value>
+    <comment>Options - line selection - text for light orange color</comment>
+  </data>
+  <data name="LinesOrange" xml:space="preserve">
+    <value>नारंगी</value>
+    <comment>Options - line selection - text for orange color</comment>
+  </data>
+  <data name="LinesRed" xml:space="preserve">
+    <value>लाल</value>
+    <comment>Options - line selection - text for red color</comment>
+  </data>
+  <data name="PadsWhite" xml:space="preserve">
+    <value>सफेद</value>
+    <comment>Options - pad selections - text for white color.</comment>
+  </data>
+  <data name="PadsYellow" xml:space="preserve">
+    <value>पीला</value>
+    <comment>Options - pad selections - text for yellow color.</comment>
   </data>
   <data name="HudZoom" xml:space="preserve">
     <value>ज़ूम</value>
+    <comment>Hud - text to dispaly under the zoom in/out buttons</comment>
   </data>
+
 </root>

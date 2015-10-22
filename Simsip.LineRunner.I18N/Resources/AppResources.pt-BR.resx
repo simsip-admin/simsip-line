@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!--
-    Microsoft ResX Schema
-
+  <!-- 
+    Microsoft ResX Schema 
+    
     Version 2.0
-
-    The primary goals of this format is to allow a simple XML format
-    that is mostly human readable. The generation and parsing of the
-    various data types are done through the TypeConverter classes
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
     associated with the data types.
-
+    
     Example:
-
+    
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-
-    There are any number of "resheader" rows that contain simple
+                
+    There are any number of "resheader" rows that contain simple 
     name/value pairs.
-
-    Each data row contains a name, and value. The row also contains a
-    type or mimetype. Type corresponds to a .NET class that support
-    text/value conversion through the TypeConverter architecture.
-    Classes that don't support this are serialized and stored with the
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
     mimetype set.
-
-    The mimetype is used for serialized objects, and tells the
-    ResXResourceReader how to depersist the object. This is currently not
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
     extensible. For a given mimetype the value must be set accordingly:
-
-    Note - application/x-microsoft.net.object.binary.base64 is the format
-    that the ResXResourceWriter will generate, however the reader can
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
     read any of the formats listed below.
-
+    
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with
+    value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-
+    
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with
+    value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array
+    value   : The object must be serialized into a byte array 
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -118,446 +118,460 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ResourceFlowDirection" xml:space="preserve">
-    <value>LeftToRight</value>
+    <value>Esquerda para Direita</value>
     <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
   </data>
   <data name="ResourceLanguage" xml:space="preserve">
-    <value>pt-BR</value>
+    <value>PT-BR</value>
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
-  </data>
-  <data name="HelpStartDescription" xml:space="preserve">
-    <value>jogar jogo</value>
-  </data>
-  <data name="AchievementsTopScoresFor" xml:space="preserve">
-    <value>principais resultados</value>
-  </data>
-  <data name="AdminKillsOn" xml:space="preserve">
-    <value>elimina em</value>
-  </data>
-  <data name="AdminKillsOff" xml:space="preserve">
-    <value>elimina</value>
-  </data>
-  <data name="AdminStartPageDescription" xml:space="preserve">
-    <value>Inserir página Iniciar em</value>
-  </data>
-  <data name="CommonYes" xml:space="preserve">
-    <value>Sim</value>
-  </data>
-  <data name="CommonOK" xml:space="preserve">
-    <value>OK</value>
-  </data>
-  <data name="CommonNo" xml:space="preserve">
-    <value>não</value>
-  </data>
-  <data name="CommonError" xml:space="preserve">
-    <value>erro</value>
-  </data>
-  <data name="CommonDelete" xml:space="preserve">
-    <value>excluir</value>
-  </data>
-  <data name="CommonCancel" xml:space="preserve">
-    <value>cancelar</value>
-  </data>
-  <data name="HudResume" xml:space="preserve">
-    <value>continuar</value>
-  </data>
-  <data name="WorldsWorlds" xml:space="preserve">
-    <value>mundos</value>
-  </data>
-  <data name="RatingsRateUs" xml:space="preserve">
-    <value>taxa conosco!</value>
-  </data>
-  <data name="CreditsTitle" xml:space="preserve">
-    <value>créditos</value>
-  </data>
-  <data name="StartRate" xml:space="preserve">
-    <value>taxa de</value>
-  </data>
-  <data name="StartPlay" xml:space="preserve">
-    <value>executar</value>
-  </data>
-  <data name="HudOptions" xml:space="preserve">
-    <value>Opções</value>
-  </data>
-  <data name="HudHelp" xml:space="preserve">
-    <value>ajuda</value>
-  </data>
-  <data name="CommonPage" xml:space="preserve">
-    <value>página</value>
-  </data>
-  <data name="HudPause" xml:space="preserve">
-    <value>pausar</value>
-  </data>
-  <data name="HudSpeed" xml:space="preserve">
-    <value>velocidade</value>
-  </data>
-  <data name="HudPaused" xml:space="preserve">
-    <value>em pausa</value>
-  </data>
-  <data name="HudTrackball" xml:space="preserve">
-    <value>trackball</value>
-  </data>
-  <data name="HudTime" xml:space="preserve">
-    <value>time</value>
-  </data>
-  <data name="HudHome" xml:space="preserve">
-    <value>início</value>
-  </data>
-  <data name="AdminStartLineDescription" xml:space="preserve">
-    <value>Inserir linha para iniciar em (1-17)</value>
-  </data>
-  <data name="HelpLicense" xml:space="preserve">
-    <value>Licença</value>
-  </data>
-  <data name="HudScroll" xml:space="preserve">
-    <value>exibição da rolagem</value>
-  </data>
-  <data name="HelpHud" xml:space="preserve">
-    <value>HUD</value>
-  </data>
-  <data name="HelpSound" xml:space="preserve">
-    <value>desligar e ligar som</value>
-  </data>
-  <data name="UpgradesTitle" xml:space="preserve">
-    <value>upgrades</value>
-  </data>
-  <data name="UpgradesPracticeDesc2" xml:space="preserve">
-    <value>Desativar elimina</value>
-  </data>
-  <data name="HelpUpgradesPracticeDesc2" xml:space="preserve">
-    <value>Desativar elimina</value>
-  </data>
-  <data name="UpgradesPrice" xml:space="preserve">
-    <value>preço</value>
-  </data>
-  <data name="UpgradesRestore" xml:space="preserve">
-    <value>restaurar</value>
-  </data>
-  <data name="AdminUpgradesOn" xml:space="preserve">
-    <value>atualizações em</value>
-  </data>
-  <data name="OptionsPractice" xml:space="preserve">
-    <value>modo de prática</value>
-  </data>
-  <data name="UpgradesRestoreStatus" xml:space="preserve">
-    <value>Restaurar atualização</value>
-  </data>
-  <data name="HudHigh" xml:space="preserve">
-    <value>alta</value>
-  </data>
-  <data name="HelpSupport" xml:space="preserve">
-    <value>suporte</value>
-  </data>
-  <data name="MessageBoxMovingToPage6" xml:space="preserve">
-    <value>última página!</value>
-  </data>
-  <data name="CommonPrevious" xml:space="preserve">
-    <value>anterior</value>
-  </data>
-  <data name="HelpZoomInOut" xml:space="preserve">
-    <value>ampliar ou reduzir</value>
-  </data>
-  <data name="HudSpeedDefault" xml:space="preserve">
-    <value>(padrão)</value>
-  </data>
-  <data name="CommonNext" xml:space="preserve">
-    <value>próxima</value>
-  </data>
-  <data name="CommonBack" xml:space="preserve">
-    <value>parte de trás</value>
-  </data>
-  <data name="MessageBoxMovingToPage5" xml:space="preserve">
-    <value>incêndio!</value>
-  </data>
-  <data name="MessageBoxMovingToPage4" xml:space="preserve">
-    <value>muito carinho!</value>
-  </data>
-  <data name="MessageBoxMovingToPage3" xml:space="preserve">
-    <value>boom!</value>
-  </data>
-  <data name="MessageBoxMovingToPage2" xml:space="preserve">
-    <value>Você é incrível!</value>
-  </data>
-  <data name="MessageBoxMovingToPage" xml:space="preserve">
-    <value>movendo a página</value>
-  </data>
-  <data name="FinishWinner" xml:space="preserve">
-    <value>vencedor!</value>
-  </data>
-  <data name="AchievementsColumnScore" xml:space="preserve">
-    <value>pontuação</value>
-  </data>
-  <data name="AchievementsColumnDate" xml:space="preserve">
-    <value>Data</value>
-  </data>
-  <data name="AchievementsColumnTime" xml:space="preserve">
-    <value>time</value>
-  </data>
-  <data name="UpgradesRestoreError" xml:space="preserve">
-    <value>Erro ao restaurar atualização</value>
-  </data>
-  <data name="UpgradesPurchaseStatus" xml:space="preserve">
-    <value>atualização de compra</value>
-  </data>
-  <data name="UpgradesPurchaseError" xml:space="preserve">
-    <value>atualização de compras de erro</value>
-  </data>
-  <data name="UpgradesPracticeDesc3" xml:space="preserve">
-    <value>Toque em Opções de modo de prática</value>
-  </data>
-  <data name="AdminUpgradesOff" xml:space="preserve">
-    <value>upgrades de logoff</value>
-  </data>
-  <data name="OptionsPracticeStartPage" xml:space="preserve">
-    <value>página inicial</value>
-  </data>
-  <data name="OptionsPracticeSwitchingPage" xml:space="preserve">
-    <value>a troca de página</value>
-  </data>
-  <data name="OptionsPracticeSwitchingLine" xml:space="preserve">
-    <value>Alternar linha</value>
-  </data>
-  <data name="OptionsPracticeStartLine" xml:space="preserve">
-    <value>linha inicial</value>
-  </data>
-  <data name="OptionsPracticeKillsOn" xml:space="preserve">
-    <value>elimina em</value>
-  </data>
-  <data name="OptionsPracticeKillsOff" xml:space="preserve">
-    <value>elimina</value>
-  </data>
-  <data name="UpgradesPurchasedOn" xml:space="preserve">
-    <value>comprado em</value>
-  </data>
-  <data name="UpgradesBuy" xml:space="preserve">
-    <value>comprar</value>
-  </data>
-  <data name="HelpUpgradesPracticeDesc1" xml:space="preserve">
-    <value>saltar para qualquer página e linha</value>
-  </data>
-  <data name="HelpUpgradesPractice" xml:space="preserve">
-    <value>modo de prática</value>
-  </data>
-  <data name="HelpUpgrades" xml:space="preserve">
-    <value>upgrades</value>
-  </data>
-  <data name="UpgradesPracticeDesc1" xml:space="preserve">
-    <value>saltar para qualquer página e linha</value>
-  </data>
-  <data name="UpgradesPractice" xml:space="preserve">
-    <value>modo de prática</value>
-  </data>
-  <data name="HelpLeaderboards" xml:space="preserve">
-    <value>Consulte sua pontuação superior</value>
-  </data>
-  <data name="HudRotate" xml:space="preserve">
-    <value>Girar exibição</value>
-  </data>
-  <data name="HudOrbit" xml:space="preserve">
-    <value>modo de exibição de órbita</value>
-  </data>
-  <data name="HelpScroll" xml:space="preserve">
-    <value>toque ou mantenha pressionado para rolar a exibição</value>
-  </data>
-  <data name="HelpRotate" xml:space="preserve">
-    <value>Arraste do meio para girar visualização</value>
-  </data>
-  <data name="HelpPauseResume" xml:space="preserve">
-    <value>Pausar ou continuar o jogo</value>
-  </data>
-  <data name="HelpOrbit" xml:space="preserve">
-    <value>Arraste do trackball para girar exibição</value>
-  </data>
-  <data name="HelpIncreaseDecrease" xml:space="preserve">
-    <value>aumentar ou diminuir a velocidade</value>
-  </data>
-  <data name="CommonReset" xml:space="preserve">
-    <value>toque duplo trackball para redefinir o modo de exibição</value>
-  </data>
-  <data name="AdminStartLine" xml:space="preserve">
-    <value>Iniciar linha</value>
-  </data>
-  <data name="HudJoystick" xml:space="preserve">
-    <value>joystick</value>
-  </data>
-  <data name="HudCannotGoSlowerThan" xml:space="preserve">
-    <value>não é possível ir mais lento do que</value>
-  </data>
-  <data name="RatingsDescription" xml:space="preserve">
-    <value>Parece que você adora LineRunner o que fazemos. Cuidado para nos dar algumas estrelas?</value>
-  </data>
-  <data name="CommonLater" xml:space="preserve">
-    <value>mais tarde</value>
-  </data>
-  <data name="WorldsUseThisWorld" xml:space="preserve">
-    <value>Use esse mundo ao iniciar</value>
-  </data>
-  <data name="WorldsSwitchingWorlds" xml:space="preserve">
-    <value>alternando os mundos</value>
-  </data>
-  <data name="WorldsSelectNewWorld" xml:space="preserve">
-    <value>Selecione novo mundo para usar</value>
-  </data>
-  <data name="WorldsSaveWorldAsDescription" xml:space="preserve">
-    <value>Digite o nome do mundo</value>
-  </data>
-  <data name="WorldsSaveWorldAs" xml:space="preserve">
-    <value>Salvar o mundo como...</value>
-  </data>
-  <data name="WorldsGenerateNew" xml:space="preserve">
-    <value>Gerar nova</value>
-  </data>
-  <data name="WorldsErrorWorldAlreadyExists" xml:space="preserve">
-    <value>um mundo com este nome já existe</value>
-  </data>
-  <data name="WorldsErrorWorldActive" xml:space="preserve">
-    <value>Você não pode excluir um mundo está ativo</value>
-  </data>
-  <data name="WorldsErrorCannotUseName" xml:space="preserve">
-    <value>Você não pode usar esse nome para seu mundo</value>
-  </data>
-  <data name="WorldsDefault" xml:space="preserve">
-    <value>padrão</value>
-  </data>
-  <data name="ResourcePacksSwitchingResourcePacks" xml:space="preserve">
-    <value>comutação de pacotes de recursos</value>
-  </data>
-  <data name="CommonAdmin" xml:space="preserve">
-    <value>administrador</value>
-  </data>
-  <data name="PadsSwitchingPads" xml:space="preserve">
-    <value>alternar painéis</value>
-  </data>
-  <data name="LoginUserNameDescription" xml:space="preserve">
-    <value>Digite um nome de usuário exclusivo</value>
-  </data>
-  <data name="LoginUserName" xml:space="preserve">
-    <value>nome de usuário</value>
-  </data>
-  <data name="LoginPasswordDescription" xml:space="preserve">
-    <value>Digite a senha</value>
-  </data>
-  <data name="LoginPassword" xml:space="preserve">
-    <value>senha</value>
-  </data>
-  <data name="LinesSwitchingLines" xml:space="preserve">
-    <value>linhas de comutação</value>
-  </data>
-  <data name="HudPageLine" xml:space="preserve">
-    <value>página/linha</value>
-  </data>
-  <data name="FinishNewHighScore" xml:space="preserve">
-    <value>novos pontos máximos</value>
-  </data>
-  <data name="CreditsCreatedBySimsip" xml:space="preserve">
-    <value>simsip</value>
-  </data>
-  <data name="CreditsCreatedBy" xml:space="preserve">
-    <value>desenvolvimento</value>
-  </data>
-  <data name="AdminStartPage" xml:space="preserve">
-    <value>página inicial</value>
-  </data>
-  <data name="AdminParticlesOn" xml:space="preserve">
-    <value>partículas em</value>
-  </data>
-  <data name="AdminParticlesOff" xml:space="preserve">
-    <value>partículas</value>
-  </data>
-  <data name="AchievementsLeaderboards" xml:space="preserve">
-    <value>tabelas</value>
-  </data>
-  <data name="OptionsTitle" xml:space="preserve">
-    <value>Opções</value>
-  </data>
-  <data name="OptionsSoundOn" xml:space="preserve">
-    <value>som no</value>
-  </data>
-  <data name="OptionsSoundOff" xml:space="preserve">
-    <value>desligar som</value>
-  </data>
-  <data name="OptionsPads" xml:space="preserve">
-    <value>PADs</value>
-  </data>
-  <data name="OptionsLines" xml:space="preserve">
-    <value>Lines</value>
-  </data>
-  <data name="OptionsLeaderboards" xml:space="preserve">
-    <value>tabelas</value>
-  </data>
-  <data name="OptionsCredits" xml:space="preserve">
-    <value>créditos</value>
-  </data>
-  <data name="HelpTitle" xml:space="preserve">
-    <value>ajuda</value>
-  </data>
-  <data name="HelpRatingsDescription" xml:space="preserve">
-    <value>taxa nos</value>
-  </data>
-  <data name="HelpOptionsDescription" xml:space="preserve">
-    <value>Opções de jogo</value>
-  </data>
-  <data name="HelpPads" xml:space="preserve">
-    <value>Alterar área de em que reproduzir</value>
-  </data>
-  <data name="HelpHelpDescription" xml:space="preserve">
-    <value>tela de ajuda</value>
-  </data>
-  <data name="HelpOptions" xml:space="preserve">
-    <value>Opções</value>
-  </data>
-  <data name="HelpLines" xml:space="preserve">
-    <value>Altere a linha para o teclado</value>
-  </data>
-  <data name="HelpHowToPlayDescription1" xml:space="preserve">
-    <value>Toque para evitar linhas e obstáculos</value>
   </data>
   <data name="CommonVersion" xml:space="preserve">
     <value>versão</value>
+    <comment>Common text to use when indicating version of game, e.g., version 1.0</comment>
   </data>
-  <data name="StartRunner" xml:space="preserve">
-    <value>Runner</value>
+  <data name="HelpHowToPlayDescription1" xml:space="preserve">
+    <value>toque para evitar linhas e obstáculos</value>
+    <comment>Help page 2 - description on how to play game</comment>
   </data>
-  <data name="StartLine" xml:space="preserve">
-    <value>Linha</value>
+  <data name="HelpLines" xml:space="preserve">
+    <value>altera a linha do bloco</value>
+    <comment>Help page 7 - desciption for changing lines option</comment>
+  </data>
+  <data name="HelpOptions" xml:space="preserve">
+    <value>opções</value>
+    <comment>Help pages 7-8 subtitle, these pages focus on the options section of the game</comment>
+  </data>
+  <data name="HelpPads" xml:space="preserve">
+    <value>altera o bloco em que você joga</value>
+    <comment>Help page 7 - description for changing pads option</comment>
+  </data>
+  <data name="HelpRatingsDescription" xml:space="preserve">
+    <value>avalie a gente</value>
+    <comment>Help page 1 - description for the ratings button</comment>
+  </data>
+  <data name="HelpStartDescription" xml:space="preserve">
+    <value>jogar</value>
+    <comment>Help page 1 - description for the play game button</comment>
+  </data>
+  <data name="HelpTitle" xml:space="preserve">
+    <value>ajuda</value>
+    <comment>All help pages - help title</comment>
+  </data>
+  <data name="OptionsCredits" xml:space="preserve">
+    <value>créditos</value>
+    <comment>Options - misc - text for credits button</comment>
+  </data>
+  <data name="OptionsLeaderboards" xml:space="preserve">
+    <value>tabelas de classificação</value>
+    <comment>Options - misc - text for leaderboards button</comment>
+  </data>
+  <data name="OptionsLines" xml:space="preserve">
+    <value>linhas</value>
+    <comment>Options - lines - text for title</comment>
+  </data>
+  <data name="OptionsPads" xml:space="preserve">
+    <value>blocos</value>
+    <comment>Options - pads - text for title</comment>
+  </data>
+  <data name="OptionsSoundOff" xml:space="preserve">
+    <value>som desligado</value>
+    <comment>Options - misc - text for stating that sound is off.</comment>
+  </data>
+  <data name="OptionsSoundOn" xml:space="preserve">
+    <value>som ligado</value>
+    <comment>Options - misc - text for stating that sound is on.</comment>
+  </data>
+  <data name="OptionsTitle" xml:space="preserve">
+    <value>opções</value>
+    <comment>Options - title text for all options pages</comment>
+  </data>
+  <data name="AchievementsLeaderboards" xml:space="preserve">
+    <value>tabelas de classificação</value>
+    <comment>Leaderboards screen title.</comment>
+  </data>
+  <data name="AchievementsTopScoresFor" xml:space="preserve">
+    <value>recordes</value>
+    <comment>Leaderboards screen subtitle.</comment>
+  </data>
+  <data name="CommonCancel" xml:space="preserve">
+    <value>cancelar</value>
+    <comment>Common text to use when we want to cancel an operation.</comment>
+  </data>
+  <data name="CommonDelete" xml:space="preserve">
+    <value>excluir</value>
+    <comment>Common text to use when we want to delete something.</comment>
+  </data>
+  <data name="CommonError" xml:space="preserve">
+    <value>erro</value>
+    <comment>Common text to use when we want to indicate an error.</comment>
+  </data>
+  <data name="CommonNo" xml:space="preserve">
+    <value>não</value>
+    <comment>Common text to use for a no option.</comment>
+  </data>
+  <data name="CommonOK" xml:space="preserve">
+    <value>ok</value>
+    <comment>Common text to use for an ok option.</comment>
+  </data>
+  <data name="CommonYes" xml:space="preserve">
+    <value>sim</value>
+    <comment>Common text to use for a yes option.</comment>
+  </data>
+  <data name="CreditsCreatedBy" xml:space="preserve">
+    <value>desenvolvimento</value>
+    <comment>Credits screen subtitle.</comment>
+  </data>
+  <data name="CreditsCreatedBySimsip" xml:space="preserve">
+    <value>simsip</value>
+    <comment>Credits screen company name.</comment>
+  </data>
+  <data name="FinishNewHighScore" xml:space="preserve">
+    <value>novo recorde</value>
+    <comment>Finish screen title.</comment>
+  </data>
+  <data name="HudPageLine" xml:space="preserve">
+    <value>página/linha</value>
+    <comment>Hud - status line to be displayed when starting and moving to new page/line, e.g., page/line 1/2 - on first page and moving to second line</comment>
+  </data>
+  <data name="HudResume" xml:space="preserve">
+    <value>continuar</value>
+    <comment>Hud - text to be displayed under the resume button (toggles with pause button)</comment>
+  </data>
+  <data name="LinesSwitchingLines" xml:space="preserve">
+    <value>trocando linhas</value>
+    <comment>Options - line selection - status line to display when switching line colors</comment>
+  </data>
+  <data name="PadsSwitchingPads" xml:space="preserve">
+    <value>trocando blocos</value>
+    <comment>Options - pads - status text to display when switching pads.</comment>
+  </data>
+  <data name="CommonAdmin" xml:space="preserve">
+    <value>administrador</value>
+    <comment>Ignore</comment>
+  </data>
+  <data name="CommonLater" xml:space="preserve">
+    <value>depois</value>
+    <comment>Common text to use when we want to give the user a chance to attempt the operation later.</comment>
+  </data>
+  <data name="CreditsTitle" xml:space="preserve">
+    <value>créditos</value>
+    <comment>Credits screen title.</comment>
+  </data>
+  <data name="HudHelp" xml:space="preserve">
+    <value>ajuda</value>
+    <comment>Hud - help menu option that will take you to help screens</comment>
+  </data>
+  <data name="HudOptions" xml:space="preserve">
+    <value>opções</value>
+    <comment>Hud - options menu option that will take you to options screen</comment>
+  </data>
+  <data name="StartPlay" xml:space="preserve">
+    <value>jogar</value>
+    <comment>Start - text for play button.</comment>
+  </data>
+  <data name="StartRate" xml:space="preserve">
+    <value>avaliar</value>
+    <comment>Start - text for rate button.</comment>
+  </data>
+  <data name="CommonPage" xml:space="preserve">
+    <value>página</value>
+    <comment>Common text to use when indicating a page number, e.g., page 4.</comment>
+  </data>
+  <data name="HudPause" xml:space="preserve">
+    <value>pausar</value>
+    <comment>Hud - text to be displayed under pause button</comment>
+  </data>
+  <data name="HudSpeed" xml:space="preserve">
+    <value>velocidade</value>
+    <comment>Hud - text to display under the speed increase/decrease buttons</comment>
+  </data>
+  <data name="HudCannotGoSlowerThan" xml:space="preserve">
+    <value>não é possível ir mais devagar que</value>
+    <comment>Hud - status line to display when user is attempting to change speed lower than minimum value allowed</comment>
+  </data>
+  <data name="HudPaused" xml:space="preserve">
+    <value>pausado</value>
+    <comment>Hud - status line to display when you have tapped the pause button</comment>
+  </data>
+  <data name="HudJoystick" xml:space="preserve">
+    <value>joystick</value>
+    <comment>Hud - text to be displayed in middle of joystick buttons</comment>
+  </data>
+  <data name="HudTrackball" xml:space="preserve">
+    <value>trackball</value>
+    <comment>Hud - text to display underneath trackball button</comment>
+  </data>
+  <data name="HudTime" xml:space="preserve">
+    <value>tempo</value>
+    <comment>Hud - text to display above your time for your high score</comment>
+  </data>
+  <data name="HudHome" xml:space="preserve">
+    <value>início</value>
+    <comment>Hud - home menu option that will take you to start screen</comment>
+  </data>
+  <data name="HelpLicense" xml:space="preserve">
+    <value>licença</value>
+    <comment>All help pages - tappable subtitle that will take you to game license</comment>
+  </data>
+  <data name="CommonReset" xml:space="preserve">
+    <value>toque duas vezes no trackball para redefinir a visualização</value>
+    <comment>Common text to use as a status line to display to users to inform them that they can double tap the trackball icon to reset their view after rotating, scrolling, etc.</comment>
+  </data>
+  <data name="HelpIncreaseDecrease" xml:space="preserve">
+    <value>aumenta ou diminui a velocidade</value>
+    <comment>Help page 3 - description for how to change how fast hero moves through game</comment>
+  </data>
+  <data name="HelpOrbit" xml:space="preserve">
+    <value>arraste do trackball para visualização em órbita</value>
+    <comment>Help page 6 - description on how to orbit your view</comment>
+  </data>
+  <data name="HelpPauseResume" xml:space="preserve">
+    <value>pausa ou continua o jogo</value>
+    <comment>Help page 3 - description on how to pause or resume hero moving through game</comment>
+  </data>
+  <data name="HelpRotate" xml:space="preserve">
+    <value>arraste do centro para girar a visualização</value>
+    <comment>Help page 4 - description on how to rotate your view</comment>
+  </data>
+  <data name="HelpScroll" xml:space="preserve">
+    <value>toque ou pressione para rolar a visualização</value>
+    <comment>Help page 5 - description on how to scroll your view</comment>
+  </data>
+  <data name="HelpHud" xml:space="preserve">
+    <value>hud</value>
+    <comment>Help page 3-6 subtitle, hud is short for heads up display - a gaming term</comment>
+  </data>
+  <data name="HelpLeaderboards" xml:space="preserve">
+    <value>exibe seus recordes</value>
+    <comment>Help page 8 - description for leaderboards option</comment>
+  </data>
+  <data name="HelpSound" xml:space="preserve">
+    <value>liga e desliga o som</value>
+    <comment>Help page 8 - description for sound option</comment>
+  </data>
+  <data name="UpgradesTitle" xml:space="preserve">
+    <value>atualizações</value>
+    <comment>Upgrades - title for upgrades pages.</comment>
+  </data>
+  <data name="UpgradesPractice" xml:space="preserve">
+    <value>modo de prática</value>
+    <comment>Upgrades - practice mode title.</comment>
+  </data>
+  <data name="UpgradesPracticeDesc1" xml:space="preserve">
+    <value>pula para qualquer página e linha</value>
+    <comment>Upgrades - first practice mode description line.</comment>
+  </data>
+  <data name="UpgradesPracticeDesc2" xml:space="preserve">
+    <value>desativa as mortes</value>
+    <comment>Upgrades - second practice mode description line.</comment>
+  </data>
+  <data name="HelpUpgrades" xml:space="preserve">
+    <value>atualizações</value>
+    <comment>Help page 9 - upgrades subtitle for page</comment>
+  </data>
+  <data name="HelpUpgradesPractice" xml:space="preserve">
+    <value>modo de prática</value>
+    <comment>Help page 9 - upgrade practice mode title</comment>
+  </data>
+  <data name="HelpUpgradesPracticeDesc1" xml:space="preserve">
+    <value>pula para qualquer página e linha</value>
+    <comment>Help page 9 - first description line for practice mode</comment>
+  </data>
+  <data name="HelpUpgradesPracticeDesc2" xml:space="preserve">
+    <value>desativa as mortes</value>
+    <comment>Help page 9 - second description for practice mode</comment>
+  </data>
+  <data name="UpgradesBuy" xml:space="preserve">
+    <value>comprar</value>
+    <comment>Upgrades - text for buy button. Allows user to make an in-app purchase for the upgrade.</comment>
+  </data>
+  <data name="UpgradesPrice" xml:space="preserve">
+    <value>preço</value>
+    <comment>Upgrades - text for price. The price of an upgrade will be displayed below this text.</comment>
+  </data>
+  <data name="UpgradesPurchasedOn" xml:space="preserve">
+    <value>comprado em</value>
+    <comment>Upgrades - once an upgrade is purchased this text will display with the date of purchase underneath it.</comment>
+  </data>
+  <data name="UpgradesRestore" xml:space="preserve">
+    <value>restaurar</value>
+    <comment>Upgrades - text for restore button. Restore allows a user to restore a previously purchased in-app product.</comment>
+  </data>
+  <data name="OptionsPracticeKillsOff" xml:space="preserve">
+    <value>mortes desativadas</value>
+    <comment>Options - practice mode - text for stating that kills are off. When kills are off, the hero  will not die and cause game restart when he hits an obstacle or line.</comment>
+  </data>
+  <data name="OptionsPracticeKillsOn" xml:space="preserve">
+    <value>mortes ativadas</value>
+    <comment>Options - practice mode - text for stating that kills are on. When kills are on, the hero  will die and cause game restart when he hits an obstacle or line.</comment>
+  </data>
+  <data name="OptionsPracticeStartLine" xml:space="preserve">
+    <value>linha inicial</value>
+    <comment>Options - practice mode - subtitle text for choosing line you want to start on.</comment>
+  </data>
+  <data name="OptionsPracticeStartPage" xml:space="preserve">
+    <value>página inicial</value>
+    <comment>Options - practice mode - subtitle text for choosing page you want to start on.</comment>
+  </data>
+  <data name="OptionsPracticeSwitchingLine" xml:space="preserve">
+    <value>trocando linha para</value>
+    <comment>Options - practice mode - status line to display while you are moving to a new starting line.</comment>
+  </data>
+  <data name="OptionsPracticeSwitchingPage" xml:space="preserve">
+    <value>trocando página para</value>
+    <comment>Options - practice mode - status line to display while you are moving to a new starting page.</comment>
+  </data>
+  <data name="OptionsPractice" xml:space="preserve">
+    <value>modo de prática</value>
+    <comment>Options - practice mode - text for title</comment>
+  </data>
+  <data name="UpgradesPracticeDesc3" xml:space="preserve">
+    <value>toque nas opções do modo de prática</value>
+    <comment>Upgrades - status line to display once they have purchased practice mode. This tells them how to access practice mode.</comment>
+  </data>
+  <data name="UpgradesPurchaseError" xml:space="preserve">
+    <value>erro ao comprar atualização</value>
+    <comment>Upgrades - text to display if an error occurs when attempting to purchase an upgrade.</comment>
+  </data>
+  <data name="UpgradesPurchaseStatus" xml:space="preserve">
+    <value>comprando atualização</value>
+    <comment>Upgrades - text to display in popup while purchasing an upgrade.</comment>
+  </data>
+  <data name="UpgradesRestoreError" xml:space="preserve">
+    <value>erro ao restaurar atualização</value>
+    <comment>Upgrades - text to display if an error occurs when attempting to restore a purchase.</comment>
+  </data>
+  <data name="UpgradesRestoreStatus" xml:space="preserve">
+    <value>restaurando atualização</value>
+    <comment>Upgrades - text to display in popup will restoring an upgrade.</comment>
+  </data>
+  <data name="AchievementsColumnDate" xml:space="preserve">
+    <value>data</value>
+    <comment>Date column header on leaderboards screen.</comment>
+  </data>
+  <data name="AchievementsColumnTime" xml:space="preserve">
+    <value>tempo</value>
+    <comment>Time column header on leaderboards screen.</comment>
+  </data>
+  <data name="AchievementsColumnScore" xml:space="preserve">
+    <value>pontos</value>
+    <comment>Score column header on leaderboards screen.</comment>
+  </data>
+  <data name="HudHigh" xml:space="preserve">
+    <value>maior</value>
+    <comment>Hud - text to display above your high score</comment>
+  </data>
+  <data name="HelpSupport" xml:space="preserve">
+    <value>suporte</value>
+    <comment>All help pages - tappable subtitle that will take you to support page</comment>
+  </data>
+  <data name="FinishWinner" xml:space="preserve">
+    <value>vencedor!</value>
+    <comment>Finish screen text to display when user has finished all pages of game.</comment>
+  </data>
+  <data name="MessageBoxMovingToPage" xml:space="preserve">
+    <value>movendo para página</value>
+    <comment>Title text for popup box when moving to next page</comment>
+  </data>
+  <data name="MessageBoxMovingToPage2" xml:space="preserve">
+    <value>você é incrível!</value>
+    <comment>Subtitle text for popup when moving to page 2</comment>
+  </data>
+  <data name="MessageBoxMovingToPage3" xml:space="preserve">
+    <value>boom!</value>
+    <comment>Subtitle text for popup when moving to page 3</comment>
+  </data>
+  <data name="MessageBoxMovingToPage4" xml:space="preserve">
+    <value>beleza!</value>
+    <comment>Subtitle text for popup when moving to page 4</comment>
+  </data>
+  <data name="MessageBoxMovingToPage5" xml:space="preserve">
+    <value>fogo!</value>
+    <comment>Subtitle text for popup when moving to page 5</comment>
+  </data>
+  <data name="MessageBoxMovingToPage6" xml:space="preserve">
+    <value>última página!</value>
+    <comment>Subtitle text for popup when moving to page 6</comment>
+  </data>
+  <data name="CommonBack" xml:space="preserve">
+    <value>voltar</value>
+    <comment>Common text underneath back arrow on screens.</comment>
+  </data>
+  <data name="CommonNext" xml:space="preserve">
+    <value>próximo</value>
+    <comment>Common text underneath the next arrow on screens.</comment>
+  </data>
+  <data name="CommonPrevious" xml:space="preserve">
+    <value>anterior</value>
+    <comment>Common text to underneath the previous arrow on screens.</comment>
+  </data>
+  <data name="HelpZoomInOut" xml:space="preserve">
+    <value>mais ou menos zoom</value>
+    <comment>Help page 3 - description on how to zoom view in or out</comment>
+  </data>
+  <data name="HudSpeedDefault" xml:space="preserve">
+    <value>(padrão)</value>
+    <comment>Hud - status line to display when changing speed and you have set yourself to the default speed</comment>
   </data>
   <data name="Start3D" xml:space="preserve">
     <value>3D</value>
+    <comment>Start - third portion of game title that is overlayed on top of second portion of game title</comment>
   </data>
-  <data name="PadsYellow" xml:space="preserve">
-    <value>amarelo</value>
+  <data name="StartLine" xml:space="preserve">
+    <value>Line</value>
+    <comment>Start - first portion of game title that is displayed to left of logo.</comment>
   </data>
-  <data name="PadsWhite" xml:space="preserve">
-    <value>branco</value>
-  </data>
-  <data name="LinesRed" xml:space="preserve">
-    <value>vermelho</value>
-  </data>
-  <data name="LinesOrange" xml:space="preserve">
-    <value>laranja</value>
-  </data>
-  <data name="LinesLightOrange" xml:space="preserve">
-    <value>Laranja claro</value>
-  </data>
-  <data name="LinesLightGreen" xml:space="preserve">
-    <value>verde claro</value>
-  </data>
-  <data name="LinesLightBlue" xml:space="preserve">
-    <value>azul claro</value>
-  </data>
-  <data name="LinesGreen" xml:space="preserve">
-    <value>verde</value>
-  </data>
-  <data name="LinesDarkOrange" xml:space="preserve">
-    <value>laranja-escuro</value>
-  </data>
-  <data name="LinesDarkGreen" xml:space="preserve">
-    <value>Verde-escura</value>
+  <data name="StartRunner" xml:space="preserve">
+    <value>runner</value>
+    <comment>Start - second portion of game title that is displayed to right of logo.</comment>
   </data>
   <data name="LinesBlue" xml:space="preserve">
     <value>azul</value>
+    <comment>Options - line selection - text for blue color</comment>
+  </data>
+  <data name="LinesDarkGreen" xml:space="preserve">
+    <value>verde escuro</value>
+    <comment>Options - line selection - text for dark green color</comment>
+  </data>
+  <data name="LinesDarkOrange" xml:space="preserve">
+    <value>laranja escuro</value>
+    <comment>Options - line selection - text for dark orange color</comment>
+  </data>
+  <data name="LinesGreen" xml:space="preserve">
+    <value>verde</value>
+    <comment>Options - line selection - text for green color</comment>
+  </data>
+  <data name="LinesLightBlue" xml:space="preserve">
+    <value>azul claro</value>
+    <comment>Options - line selection - text for light blue color</comment>
+  </data>
+  <data name="LinesLightGreen" xml:space="preserve">
+    <value>verde claro</value>
+    <comment>Options - line selection - text for light green color</comment>
+  </data>
+  <data name="LinesLightOrange" xml:space="preserve">
+    <value>laranja claro</value>
+    <comment>Options - line selection - text for light orange color</comment>
+  </data>
+  <data name="LinesOrange" xml:space="preserve">
+    <value>laranja</value>
+    <comment>Options - line selection - text for orange color</comment>
+  </data>
+  <data name="LinesRed" xml:space="preserve">
+    <value>vermelho</value>
+    <comment>Options - line selection - text for red color</comment>
+  </data>
+  <data name="PadsWhite" xml:space="preserve">
+    <value>branco</value>
+    <comment>Options - pad selections - text for white color.</comment>
+  </data>
+  <data name="PadsYellow" xml:space="preserve">
+    <value>amarelo</value>
+    <comment>Options - pad selections - text for yellow color.</comment>
   </data>
   <data name="HudZoom" xml:space="preserve">
     <value>zoom</value>
+    <comment>Hud - text to dispaly under the zoom in/out buttons</comment>
   </data>
+
 </root>
