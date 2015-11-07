@@ -1237,7 +1237,9 @@
     <Content Include="hi.lproj\Localizable.strings" />
     <Content Include="id.lproj\Localizable.strings" />
     <Content Include="en.lproj\Localizable.strings" />
-    <None Include="Info.plist" />
+    <None Include="Info.plist">
+      <SubType>Designer</SubType>
+    </None>
     <Compile Include="..\Simsip.LineRunner.Core\Actions\ActionEase\ActionEase.cs">
       <Link>Actions\ActionEase\ActionEase.cs</Link>
     </Compile>
@@ -4268,14 +4270,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Components\googleadmob-7.2.2\lib\ios-unified\GoogleAdMobAds.dll</HintPath>
     </Reference>
-    <Reference Include="HockeyApp.iOS">
-      <HintPath>Components\hockeyappios-3.6.2.0\lib\ios-unified\HockeyApp.iOS.dll</HintPath>
-    </Reference>
     <Reference Include="MTiRate">
       <HintPath>Components\irate-1.8.2\lib\ios-unified\MTiRate.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>packages\Newtonsoft.Json.6.0.8\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+      <HintPath>packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OpenTK-1.0" />
     <Reference Include="SQLite">
@@ -4322,17 +4321,13 @@
       <Visible>False</Visible>
       <Version>7.2.2</Version>
     </XamarinComponentReference>
-    <XamarinComponentReference Include="hockeyappios">
-      <Visible>False</Visible>
-      <Version>3.7.1.0</Version>
-    </XamarinComponentReference>
     <XamarinComponentReference Include="irate">
       <Visible>False</Visible>
-      <Version>1.8.2</Version>
+      <Version>1.11.4.1</Version>
     </XamarinComponentReference>
     <XamarinComponentReference Include="json.net">
       <Visible>False</Visible>
-      <Version>6.0.8.1</Version>
+      <Version>7.0.1</Version>
     </XamarinComponentReference>
     <XamarinComponentReference Include="sqlite-net">
       <Visible>False</Visible>
