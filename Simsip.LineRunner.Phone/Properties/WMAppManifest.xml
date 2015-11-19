@@ -17,7 +17,7 @@
     <Language code="zh-Hans" />
     <Language code="zh-Hant" />
   </Languages>
-  <App xmlns="" ProductID="{f13744ce-a3b0-426b-8a4a-cf6f482b80cd}" Title="LineRunner" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="GameName2 author" Description="Sample description" Publisher="GameName2" PublisherID="{0df4bf76-7146-42eb-ba7c-83daa7249a23}">
+  <App xmlns="" ProductID="{f13744ce-a3b0-426b-8a4a-cf6f482b80cd}" Title="LineRunner 3D" RuntimeType="Silverlight" Version="1.1.0" Genre="apps.normal" Author="Simsip" Description="Linerunner 3D" Publisher="Simsip" PublisherID="{0df4bf76-7146-42eb-ba7c-83daa7249a23}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
