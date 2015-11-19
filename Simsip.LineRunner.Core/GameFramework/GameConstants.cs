@@ -107,21 +107,23 @@ namespace Simsip.LineRunner.GameFramework
         public const string USER_DEFAULT_KEY_HERO_LINEAR_VELOCITY_X = "HeroLinearVelocityY";
         public const int USER_DEFAULT_INITIAL_HERO_LINEAR_VELOCITY_X = 10;
 
+        // These have been fine-tuned to give us an interesting 3D perspective to start from
         public const string USER_DEFAULT_KEY_HUD_OFFSET_X = "HudOffsetX";
         public const float USER_DEFAULT_INITIAL_HUD_OFFSET_X = 0f;
         public const string USER_DEFAULT_KEY_HUD_OFFSET_Y = "HudOffsetY";
         public const float USER_DEFAULT_INITIAL_HUD_OFFSET_Y = 0f;
         public const string USER_DEFAULT_KEY_HUD_OFFSET_YAW = "HudOffsetYaw";
-        public const float USER_DEFAULT_INITIAL_HUD_OFFSET_YAW = 0f;
+        public const float USER_DEFAULT_INITIAL_HUD_OFFSET_YAW = -0.1742601f;
         public const string USER_DEFAULT_KEY_HUD_OFFSET_PITCH = "HudOffsetPitch";
-        public const float USER_DEFAULT_INITIAL_HUD_OFFSET_PITCH = 0f;
+        public const float USER_DEFAULT_INITIAL_HUD_OFFSET_PITCH = 0.04563053f;
         public const string USER_DEFAULT_KEY_HUD_ORBIT_YAW = "HudOrbitYaw";
-        public const float USER_DEFAULT_INITIAL_HUD_ORBIT_YAW = 0f;
+        public const float USER_DEFAULT_INITIAL_HUD_ORBIT_YAW = -0.7829438f;
         public const string USER_DEFAULT_KEY_HUD_ORBIT_PITCH = "HudOrbitPitch";
-        public const float USER_DEFAULT_INITIAL_HUD_ORBIT_PITCH = 0f;
+        public const float USER_DEFAULT_INITIAL_HUD_ORBIT_PITCH = -0.1659292f;
         public const string USER_DEFAULT_KEY_HUD_ZOOM = "HudZoom";
-        public const float USER_DEFAULT_INITIAL_HUD_ZOOM = 
-            GameConstants.DEFAULT_PAGE_DEPTH_FROM_CAMERA - GameConstants.DEFAULT_CHARACTER_DEPTH_FROM_PAGE;
+        public const float USER_DEFAULT_INITIAL_HUD_ZOOM = 2.800001f;
+            // Leaving this in here to represent what it originally was:
+            // GameConstants.DEFAULT_PAGE_DEPTH_FROM_CAMERA - GameConstants.DEFAULT_CHARACTER_DEPTH_FROM_PAGE;
 
         // Upgrades
         public const string USER_DEFAULT_KEY_START_PAGE = "StartPage";
